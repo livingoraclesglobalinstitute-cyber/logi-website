@@ -572,6 +572,94 @@
         color: #1e3c4f !important;
     }
 }
+
+/* ========================================== */
+/*   FIX: NESTED DROPDOWN - VERTICAL          */
+/* ========================================== */
+
+/* Make submenu items full width */
+.navigation-menu-bar ul li .submenu li {
+    width: 100% !important;
+    position: relative;
+}
+
+/* Sub-submenu: position below parent, not to the right */
+.navigation-menu-bar ul li .submenu li.has-submenu > .submenu {
+    position: absolute;
+    top: 0;
+    left: 100% !important;
+    margin-top: 0;
+    margin-left: 0;
+    min-width: 250px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 0.4rem 0;
+    z-index: 1200;
+    display: none !important;
+    flex-direction: column !important;
+}
+
+/* Show on hover or click */
+.navigation-menu-bar ul li .submenu li.has-submenu.desktop-dropdown-open > .submenu {
+    display: flex !important;
+}
+
+/* Sub-submenu items - vertical */
+.navigation-menu-bar ul li .submenu li.has-submenu > .submenu li {
+    width: 100% !important;
+    display: block !important;
+}
+
+.navigation-menu-bar ul li .submenu li.has-submenu > .submenu li a {
+    color: #1e3c4f !important;
+    font-size: 0.82rem;
+    padding: 8px 16px !important;
+    width: 100% !important;
+    display: block !important;
+    white-space: nowrap !important;
+    text-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.navigation-menu-bar ul li .submenu li.has-submenu > .submenu li a:hover {
+    background: rgba(139, 83, 83, 0.08) !important;
+    color: #8B5353 !important;
+}
+
+/* ========================================== */
+/*   MOBILE: Sub-submenu vertical            */
+/* ========================================== */
+@media (max-width: 480px) {
+    .navigation-menu-bar ul li .submenu li.has-submenu > .submenu {
+        position: static !important;
+        left: auto !important;
+        border-left: 3px solid #b68b5b !important;
+        margin-left: 10px !important;
+        padding-left: 10px !important;
+        width: calc(100% - 10px) !important;
+        background: #f8f6f2 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        min-width: auto !important;
+    }
+    
+    .navigation-menu-bar ul li .submenu li.has-submenu > .submenu li a {
+        font-size: 0.85rem !important;
+        padding: 0.5rem 0.5rem 0.5rem 1rem !important;
+    }
+}
+
+/* ========================================== */
+/*   PREVENT HORIZONTAL SCROLLING             */
+/* ========================================== */
+.navigation-menu-bar ul li .submenu {
+    overflow: visible !important;
+}
+
+.navigation-menu-bar {
+    overflow: visible !important;
+}
         
         /* ========================================== */
         /*   CENTER EDITABLE HERO CONTENT & LAYOUT    */
