@@ -500,6 +500,79 @@
             }
         }
 
+
+/* ========================================== */
+/*   NESTED DROPDOWN (Sub-Submenu)            */
+/* ========================================== */
+
+/* Sub-submenu positioning */
+.navigation-menu-bar ul li .submenu li.has-submenu {
+    position: relative;
+}
+
+.navigation-menu-bar ul li .submenu li.has-submenu > .submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-top: 0;
+    margin-left: 4px;
+    min-width: 280px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 0.4rem 0;
+    z-index: 1200;
+    display: none !important;
+    flex-direction: column !important;
+}
+
+.navigation-menu-bar ul li .submenu li.has-submenu.desktop-dropdown-open > .submenu {
+    display: flex !important;
+}
+
+/* Sub-submenu items */
+.navigation-menu-bar ul li .submenu li.has-submenu > .submenu li a {
+    color: #1e3c4f !important;
+    font-size: 0.82rem;
+    padding: 8px 16px;
+    width: 100%;
+    border-radius: 0;
+    font-weight: 500;
+    display: block !important;
+    white-space: nowrap !important;
+    text-shadow: none !important;
+}
+
+.navigation-menu-bar ul li .submenu li.has-submenu > .submenu li a:hover {
+    background: rgba(139, 83, 83, 0.08) !important;
+    color: #8B5353 !important;
+}
+
+/* ========================================== */
+/*   MOBILE NESTED DROPDOWN                   */
+/* ========================================== */
+@media (max-width: 480px) {
+    /* Sub-submenu on mobile - indented */
+    .navigation-menu-bar ul li .submenu li.has-submenu > .submenu {
+        position: static !important;
+        left: auto !important;
+        border-left: 3px solid #b68b5b !important;
+        margin-left: 10px !important;
+        padding-left: 10px !important;
+        width: calc(100% - 10px) !important;
+        background: #f8f6f2 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        min-width: auto !important;
+    }
+    
+    .navigation-menu-bar ul li .submenu li.has-submenu > .submenu li a {
+        font-size: 0.85rem !important;
+        padding: 0.5rem 0.5rem 0.5rem 1rem !important;
+        color: #1e3c4f !important;
+    }
+}
+        
         /* ========================================== */
         /*   CENTER EDITABLE HERO CONTENT & LAYOUT    */
         /* ========================================== */
