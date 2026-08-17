@@ -1381,6 +1381,63 @@
                 font-size: 22px;
             }
         }
+
+/* ========================================== */
+/*   FIX: FULLY RESPONSIVE IMAGE             */
+/* ========================================== */
+
+/* Make the image responsive on all screens */
+.banner-image,
+.course-content img,
+.course-content .banner-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+/* Ensure the container doesn't restrict the image */
+.course-content {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Fix for laptop screens */
+@media (min-width: 1024px) {
+    .course-content {
+        padding: 30px 40px;
+    }
+    .banner-image,
+    .course-content img {
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto 20px auto;
+    }
+}
+
+/* Fix for tablet and smaller */
+@media (max-width: 1023px) {
+    .course-content {
+        padding: 20px;
+    }
+    .banner-image,
+    .course-content img {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Fix for mobile */
+@media (max-width: 768px) {
+    .course-content {
+        padding: 15px;
+    }
+}
+        
     </style>
 
     <!-- Course Schema -->
