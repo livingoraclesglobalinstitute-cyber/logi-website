@@ -1,40 +1,57 @@
 // ==========================================
-//   LOAD HEADER, HERO, AND FOOTER
+//   LOGI - COMPONENT LOADER
 // ==========================================
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Load Header
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
-            // Re-initialize mobile menu after header loads
-            initMobileMenu();
-            initDropdowns();
-        })
-        .catch(error => console.error('Error loading header:', error));
+document.addEventListener("DOMContentLoaded", function() {
 
-    // Load Hero (only if hero-placeholder exists - for index page)
-    if (document.getElementById('hero-placeholder')) {
-        fetch('hero.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('hero-placeholder').innerHTML = data;
-                initQuoteRotation();
-            })
-            .catch(error => console.error('Error loading hero:', error));
-    }
+    // Load Header
+    loadComponent("header-placeholder", "header.html");
 
     // Load Footer
-    fetch('footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-            // Re-initialize newsletter subscription after footer loads
-            initNewsletter();
-        })
-        .catch(error => console.error('Error loading footer:', error));
+    loadComponent("footer-placeholder", "footer.html");
+
+    // Load Hero ONLY if it exists on the page (index.html)
+    const hero = document.getElementById("hero-placeholder");
+    if (hero) {
+        loadComponent("hero-placeholder", "hero.html");
+    }
+
 });
+
+function loadComponent(elementId, file) {
+    const container = document.getElementById(elementId);
+
+    if (!container) {
+        console.warn("LOGI: Element #" + elementId + " not found, skipping " + file);
+        return;
+    }
+
+    fetch(file)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to load " + file + " (Status: " + response.status + ")");
+            }
+            return response.text();
+        })
+        .then(html => {
+            container.innerHTML = html;
+            // Re-initialize any scripts or functionality after loading
+            initializeComponents();
+        })
+        .catch(error => {
+            console.error("LOGI Loader Error:", error);
+            container.innerHTML = '<p style="color:#8B5353;padding:20px;text-align:center;">⚠️ Could not load component: ' + file + '</p>';
+        });
+}
+
+// ==========================================
+//   INITIALIZE ALL COMPONENTS AFTER LOAD
+// ==========================================
+function initializeComponents() {
+    initMobileMenu();
+    initDropdowns();
+    initNewsletter();
+    initQuoteRotation();
+}
 
 // ==========================================
 //   MOBILE MENU
@@ -58,7 +75,11 @@ function initMobileMenu() {
         });
     }
 
-    mobileMenuBtn.addEventListener('click', function(e) {
+    // Remove old listeners by cloning
+    const newBtn = mobileMenuBtn.cloneNode(true);
+    mobileMenuBtn.parentNode.replaceChild(newBtn, mobileMenuBtn);
+
+    newBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         if (navMenu.classList.contains('mobile-open')) {
             closeMenu();
@@ -70,7 +91,7 @@ function initMobileMenu() {
     document.addEventListener('click', function(e) {
         if (window.innerWidth <= 768) {
             if (navMenu.classList.contains('mobile-open')) {
-                if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                if (!navMenu.contains(e.target) && !newBtn.contains(e.target)) {
                     closeMenu();
                 }
             }
@@ -129,7 +150,7 @@ function initDropdowns() {
 }
 
 // ==========================================
-//   QUOTE ROTATION (for hero)
+//   QUOTE ROTATION
 // ==========================================
 function initQuoteRotation() {
     const quotes = [
@@ -178,12 +199,12 @@ function initNewsletter() {
         })
         .then(response => {
             msg.style.color = '#fff';
-            msg.innerText = 'Success! You have been subscribed.';
+            msg.innerText = '✅ Success! You have been subscribed.';
             form.reset();
             btn.disabled = false;
         })
         .catch(error => {
-            msg.style.color = '#c62828';
+            msg.style.color = '#ff6b6b';
             msg.innerText = '⚠️ Error submitting. Please try again.';
             btn.disabled = false;
         });
