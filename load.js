@@ -1,100 +1,133 @@
 // ==========================================
-// LOGI - COMPONENT LOADER
+//   LOGI - COMPONENT LOADER
+//   Shared Header / Footer / Hero
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", async function () {
 
     try {
-        // Load shared components
-        await Promise.all([
-            loadComponent("header-placeholder", "header.html"),
-            loadComponent("footer-placeholder", "footer.html"),
-            loadHero()
-        ]);
 
-        // Initialize after header has been inserted
+        // ==========================================
+        // LOAD SHARED COMPONENTS
+        // ==========================================
+
+        const components = [
+            loadComponent("header-placeholder", "header.html"),
+            loadComponent("footer-placeholder", "footer.html")
+        ];
+
+        // ==========================================
+        // LOAD HERO ONLY IF REQUIRED
+        // ==========================================
+
+        if (document.getElementById("hero-placeholder")) {
+            components.push(
+                loadComponent("hero-placeholder", "hero.html")
+            );
+        }
+
+        // Wait for components to finish loading
+        await Promise.all(components);
+
+        // ==========================================
+        // INITIALIZE WEBSITE FEATURES
+        // ==========================================
+
         initDropdowns();
         initMobileMenu();
         initNewsletter();
         initQuoteRotation();
 
+        console.log(
+            "LOGI: Website components initialized successfully."
+        );
+
     } catch (error) {
-        console.error("LOGI: Component loading error:", error);
+
+        console.error(
+            "LOGI: Website initialization error:",
+            error
+        );
+
     }
+
 });
 
 
 // ==========================================
-// LOAD COMPONENT
+//   LOAD COMPONENT
 // ==========================================
 
 async function loadComponent(elementId, file) {
 
-    const container = document.getElementById(elementId);
+    const container =
+        document.getElementById(elementId);
 
     if (!container) {
-        console.warn(
-            "LOGI: #" + elementId + " not found. Skipping " + file
+
+        console.log(
+            "LOGI: #" +
+            elementId +
+            " not found. Skipping " +
+            file
         );
+
         return;
     }
 
     try {
 
+        // No ?v=7, ?v=8, ?v=2, etc.
         const response = await fetch(file, {
             cache: "no-cache"
         });
 
         if (!response.ok) {
+
             throw new Error(
-                "Failed to load " + file +
-                " (HTTP " + response.status + ")"
+                "Failed to load " +
+                file +
+                " (HTTP " +
+                response.status +
+                ")"
             );
+
         }
 
         const html = await response.text();
 
         container.innerHTML = html;
 
-        console.log("LOGI: Loaded " + file);
+        console.log(
+            "LOGI: Loaded " + file
+        );
 
     } catch (error) {
 
-        console.error("LOGI: Error loading " + file, error);
+        console.error(
+            "LOGI Loader Error:",
+            error
+        );
 
-        container.innerHTML = `
-            <p style="
-                color:#8B5353;
-                padding:20px;
-                text-align:center;
-            ">
-                ⚠️ Could not load ${file}
-            </p>
-        `;
+        container.innerHTML =
+            '<div style="' +
+            'color:#8B5353;' +
+            'padding:20px;' +
+            'text-align:center;' +
+            '">' +
+            '⚠️ Could not load ' +
+            file +
+            '</div>';
 
         throw error;
     }
+
 }
 
 
 // ==========================================
-// LOAD HERO ONLY WHEN NEEDED
-// ==========================================
-
-async function loadHero() {
-
-    const hero = document.getElementById("hero-placeholder");
-
-    if (!hero) {
-        return;
-    }
-
-    await loadComponent("hero-placeholder", "hero.html");
-}
-
-
-// ==========================================
-// DESKTOP + MOBILE DROPDOWNS
+//   DESKTOP + MOBILE DROPDOWNS
+//   Supports Nested Dropdowns
 // ==========================================
 
 function initDropdowns() {
@@ -103,111 +136,209 @@ function initDropdowns() {
         document.querySelectorAll(".has-submenu");
 
     if (!dropdownParents.length) {
-        console.warn("LOGI: No .has-submenu elements found.");
+
+        console.warn(
+            "LOGI: No dropdown menus found."
+        );
+
         return;
     }
 
-    dropdownParents.forEach(parent => {
 
-        const link = parent.querySelector(":scope > a");
+    dropdownParents.forEach(function (parent) {
+
+        // Get ONLY the direct link
+        // belonging to this dropdown.
+        const link =
+            parent.querySelector(":scope > a");
 
         if (!link) return;
 
+
         // Prevent duplicate initialization
-        if (link.dataset.dropdownInitialized === "true") {
+        if (
+            link.dataset.logiDropdownReady ===
+            "true"
+        ) {
             return;
         }
 
-        link.dataset.dropdownInitialized = "true";
+        link.dataset.logiDropdownReady =
+            "true";
 
-        link.addEventListener("click", function (e) {
 
-            const isMobile = window.innerWidth <= 768;
+        // ==========================================
+        // DROPDOWN CLICK
+        // ==========================================
 
-            if (isMobile) {
+        link.addEventListener(
+            "click",
+            function (e) {
 
-                e.preventDefault();
-                e.stopPropagation();
-
-                // Close other mobile dropdowns
-                dropdownParents.forEach(other => {
-
-                    if (other !== parent) {
-                        other.classList.remove(
-                            "mobile-dropdown-open"
-                        );
-                    }
-
-                });
-
-                parent.classList.toggle(
-                    "mobile-dropdown-open"
-                );
-
-            } else {
+                const isMobile =
+                    window.innerWidth <= 768;
 
                 e.preventDefault();
                 e.stopPropagation();
 
-                // Close other desktop dropdowns
-                dropdownParents.forEach(other => {
 
-                    if (other !== parent) {
-                        other.classList.remove(
-                            "desktop-dropdown-open"
+                // ==========================================
+                // MOBILE DROPDOWN
+                // ==========================================
+
+                if (isMobile) {
+
+                    // Close sibling dropdowns only
+                    const siblings =
+                        parent.parentElement.querySelectorAll(
+                            ":scope > .has-submenu"
                         );
-                    }
 
-                });
+                    siblings.forEach(
+                        function (sibling) {
 
-                parent.classList.toggle(
-                    "desktop-dropdown-open"
-                );
-            }
-        });
-    });
+                            if (
+                                sibling !== parent
+                            ) {
+
+                                sibling.classList.remove(
+                                    "mobile-dropdown-open"
+                                );
+
+                            }
+
+                        }
+                    );
 
 
-    // Close dropdown when clicking outside
-    if (!window.logiDropdownOutsideHandler) {
+                    parent.classList.toggle(
+                        "mobile-dropdown-open"
+                    );
 
-        document.addEventListener("click", function (e) {
+                }
 
-            dropdownParents.forEach(parent => {
 
-                if (!parent.contains(e.target)) {
+                // ==========================================
+                // DESKTOP DROPDOWN
+                // ==========================================
 
-                    parent.classList.remove(
+                else {
+
+                    // Close sibling dropdowns only
+                    const siblings =
+                        parent.parentElement.querySelectorAll(
+                            ":scope > .has-submenu"
+                        );
+
+                    siblings.forEach(
+                        function (sibling) {
+
+                            if (
+                                sibling !== parent
+                            ) {
+
+                                sibling.classList.remove(
+                                    "desktop-dropdown-open"
+                                );
+
+                            }
+
+                        }
+                    );
+
+
+                    parent.classList.toggle(
                         "desktop-dropdown-open"
                     );
 
-                    parent.classList.remove(
-                        "mobile-dropdown-open"
-                    );
                 }
 
-            });
+            }
+        );
 
-        });
+    });
 
-        window.logiDropdownOutsideHandler = true;
+
+    // ==========================================
+    // CLOSE DROPDOWNS WHEN CLICKING OUTSIDE
+    // ==========================================
+
+    if (
+        !window.logiDropdownOutsideHandler
+    ) {
+
+        document.addEventListener(
+            "click",
+            function (e) {
+
+                if (
+                    !e.target.closest(
+                        ".has-submenu"
+                    )
+                ) {
+
+                    document
+                        .querySelectorAll(
+                            ".desktop-dropdown-open"
+                        )
+                        .forEach(
+                            function (element) {
+
+                                element.classList.remove(
+                                    "desktop-dropdown-open"
+                                );
+
+                            }
+                        );
+
+
+                    document
+                        .querySelectorAll(
+                            ".mobile-dropdown-open"
+                        )
+                        .forEach(
+                            function (element) {
+
+                                element.classList.remove(
+                                    "mobile-dropdown-open"
+                                );
+
+                            }
+                        );
+
+                }
+
+            }
+        );
+
+        window.logiDropdownOutsideHandler =
+            true;
     }
+
 }
 
 
 // ==========================================
-// MOBILE MENU
+//   MOBILE MENU
 // ==========================================
 
 function initMobileMenu() {
 
     const mobileMenuBtn =
-        document.getElementById("mobileMenuBtn");
+        document.getElementById(
+            "mobileMenuBtn"
+        );
 
     const navMenu =
-        document.querySelector(".navigation-menu-bar");
+        document.querySelector(
+            ".navigation-menu-bar"
+        );
 
-    if (!mobileMenuBtn || !navMenu) {
+
+    if (
+        !mobileMenuBtn ||
+        !navMenu
+    ) {
 
         console.warn(
             "LOGI: Mobile menu elements not found."
@@ -216,174 +347,358 @@ function initMobileMenu() {
         return;
     }
 
+
+    // ==========================================
+    // OPEN MOBILE MENU
+    // ==========================================
+
     function openMenu() {
 
-        navMenu.classList.add("mobile-open");
+        navMenu.classList.add(
+            "mobile-open"
+        );
 
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow =
+            "hidden";
+
     }
+
+
+    // ==========================================
+    // CLOSE MOBILE MENU
+    // ==========================================
 
     function closeMenu() {
 
-        navMenu.classList.remove("mobile-open");
+        navMenu.classList.remove(
+            "mobile-open"
+        );
 
-        document.body.style.overflow = "";
+        document.body.style.overflow =
+            "";
 
+
+        // Close all mobile dropdowns
         document
-            .querySelectorAll(".mobile-dropdown-open")
-            .forEach(el => {
-                el.classList.remove(
-                    "mobile-dropdown-open"
-                );
-            });
+            .querySelectorAll(
+                ".mobile-dropdown-open"
+            )
+            .forEach(
+                function (element) {
+
+                    element.classList.remove(
+                        "mobile-dropdown-open"
+                    );
+
+                }
+            );
+
     }
 
 
-    // Avoid duplicate listener
-    if (mobileMenuBtn.dataset.menuInitialized === "true") {
+    // ==========================================
+    // PREVENT DUPLICATE INITIALIZATION
+    // ==========================================
+
+    if (
+        mobileMenuBtn.dataset.logiMenuReady ===
+        "true"
+    ) {
+
         return;
     }
 
-    mobileMenuBtn.dataset.menuInitialized = "true";
+    mobileMenuBtn.dataset.logiMenuReady =
+        "true";
 
 
-    mobileMenuBtn.addEventListener("click", function (e) {
+    // ==========================================
+    // MOBILE BUTTON
+    // ==========================================
 
-        e.preventDefault();
-        e.stopPropagation();
+    mobileMenuBtn.addEventListener(
+        "click",
+        function (e) {
 
-        if (
-            navMenu.classList.contains("mobile-open")
-        ) {
-            closeMenu();
-        } else {
-            openMenu();
+            e.preventDefault();
+            e.stopPropagation();
+
+
+            if (
+                navMenu.classList.contains(
+                    "mobile-open"
+                )
+            ) {
+
+                closeMenu();
+
+            } else {
+
+                openMenu();
+
+            }
+
         }
+    );
 
-    });
 
+    // ==========================================
+    // CLOSE MOBILE MENU OUTSIDE
+    // ==========================================
 
-    document.addEventListener("keydown", function (e) {
+    document.addEventListener(
+        "click",
+        function (e) {
 
-        if (e.key === "Escape") {
-            closeMenu();
+            if (
+                window.innerWidth <= 768
+            ) {
+
+                if (
+                    navMenu.classList.contains(
+                        "mobile-open"
+                    )
+                ) {
+
+                    if (
+                        !navMenu.contains(
+                            e.target
+                        ) &&
+                        !mobileMenuBtn.contains(
+                            e.target
+                        )
+                    ) {
+
+                        closeMenu();
+
+                    }
+
+                }
+
+            }
+
         }
+    );
 
-    });
+
+    // ==========================================
+    // ESCAPE KEY
+    // ==========================================
+
+    document.addEventListener(
+        "keydown",
+        function (e) {
+
+            if (
+                e.key === "Escape"
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
 }
 
 
 // ==========================================
-// QUOTE ROTATION
+//   QUOTE ROTATION
 // ==========================================
 
 function initQuoteRotation() {
 
     const quoteElement =
-        document.getElementById("dynamic-quote");
+        document.getElementById(
+            "dynamic-quote"
+        );
 
-    if (!quoteElement) return;
+    if (!quoteElement) {
+        return;
+    }
+
 
     const quotes = [
+
         "A perfect blend of Leadership, Business, Technology & Theology",
+
         "Empowering the next generation of global transformational leaders",
+
         "Integrating faith-based principles with practical, real-world skills",
+
         "Equipping minds and hearts for impactful service worldwide"
+
     ];
+
 
     let currentIndex = 0;
 
-    quoteElement.textContent = quotes[0];
 
-    setInterval(() => {
+    // First quote
+    quoteElement.textContent =
+        quotes[0];
 
-        quoteElement.classList.add("quote-hidden");
 
-        setTimeout(() => {
+    // Rotate quotes
+    setInterval(
+        function () {
 
-            currentIndex =
-                (currentIndex + 1) % quotes.length;
-
-            quoteElement.textContent =
-                quotes[currentIndex];
-
-            quoteElement.classList.remove(
+            quoteElement.classList.add(
                 "quote-hidden"
             );
 
-        }, 600);
 
-    }, 4000);
+            setTimeout(
+                function () {
+
+                    currentIndex =
+                        (
+                            currentIndex + 1
+                        ) %
+                        quotes.length;
+
+
+                    quoteElement.textContent =
+                        quotes[
+                            currentIndex
+                        ];
+
+
+                    quoteElement.classList.remove(
+                        "quote-hidden"
+                    );
+
+                },
+                600
+            );
+
+        },
+        4000
+    );
+
 }
 
 
 // ==========================================
-// NEWSLETTER
+//   NEWSLETTER SUBSCRIPTION
 // ==========================================
 
 function initNewsletter() {
 
     const form =
-        document.getElementById("logiFooterSubForm");
+        document.getElementById(
+            "logiFooterSubForm"
+        );
 
-    if (!form) return;
-
-    if (form.dataset.newsletterInitialized === "true") {
+    if (!form) {
         return;
     }
 
-    form.dataset.newsletterInitialized = "true";
 
-    form.addEventListener("submit", function (e) {
+    // ==========================================
+    // PREVENT DUPLICATE INITIALIZATION
+    // ==========================================
 
-        e.preventDefault();
+    if (
+        form.dataset.logiNewsletterReady ===
+        "true"
+    ) {
 
-        const msg =
-            document.getElementById("logiFooterSubMsg");
+        return;
+    }
 
-        const btn =
-            form.querySelector(
-                'button[type="submit"]'
+    form.dataset.logiNewsletterReady =
+        "true";
+
+
+    // ==========================================
+    // SUBMIT NEWSLETTER
+    // ==========================================
+
+    form.addEventListener(
+        "submit",
+        function (e) {
+
+            e.preventDefault();
+
+
+            const msg =
+                document.getElementById(
+                    "logiFooterSubMsg"
+                );
+
+
+            const btn =
+                form.querySelector(
+                    'button[type="submit"]'
+                );
+
+
+            if (
+                !msg ||
+                !btn
+            ) {
+
+                return;
+            }
+
+
+            btn.disabled = true;
+
+            msg.style.color =
+                "#fff";
+
+            msg.innerText =
+                "Submitting...";
+
+
+            const data =
+                new FormData(form);
+
+
+            fetch(
+                "https://script.google.com/macros/s/AKfycbzaonAvWoUMo02bfdvyShL52BMtNvVCB-7LIJj63ZXHyh7Ai416yUnBh-P1oC-Bmt9f/exec",
+                {
+                    method: "POST",
+                    body: data
+                }
+            )
+            .then(
+                function () {
+
+                    msg.style.color =
+                        "#fff";
+
+                    msg.innerText =
+                        "✅ Success! You have been subscribed.";
+
+                    form.reset();
+
+                    btn.disabled = false;
+
+                }
+            )
+            .catch(
+                function (error) {
+
+                    console.error(
+                        "LOGI Newsletter Error:",
+                        error
+                    );
+
+                    msg.style.color =
+                        "#ff6b6b";
+
+                    msg.innerText =
+                        "⚠️ Error submitting. Please try again.";
+
+                    btn.disabled = false;
+
+                }
             );
 
-        if (!msg || !btn) return;
+        }
+    );
 
-        btn.disabled = true;
-
-        msg.style.color = "#fff";
-        msg.innerText = "Submitting...";
-
-        const data = new FormData(form);
-
-        fetch(
-            "https://script.google.com/macros/s/AKfycbzaonAvWoUMo02bfdvyShL52BMtNvVCB-7LIJj63ZXHyh7Ai416yUnBh-P1oC-Bmt9f/exec",
-            {
-                method: "POST",
-                body: data
-            }
-        )
-        .then(() => {
-
-            msg.style.color = "#fff";
-
-            msg.innerText =
-                "✅ Success! You have been subscribed.";
-
-            form.reset();
-
-            btn.disabled = false;
-
-        })
-        .catch(() => {
-
-            msg.style.color = "#ff6b6b";
-
-            msg.innerText =
-                "⚠️ Error submitting. Please try again.";
-
-            btn.disabled = false;
-
-        });
-
-    });
 }
