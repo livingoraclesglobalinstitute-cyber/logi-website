@@ -1,31 +1,40 @@
 // ==========================================
-//   LOGI - COMPONENT LOADER
+//   LOGI - COMPONENT LOADER (OPTIMIZED)
 // ==========================================
 document.addEventListener("DOMContentLoaded", function() {
 
-    // Load Header
-    loadComponent("header-placeholder", "header.html");
-
-    // Load Footer
-    loadComponent("footer-placeholder", "footer.html");
-
-    // Load Hero ONLY if it exists on the page (index.html)
+    // Load all components in parallel
+    const headerPromise = loadComponent("header-placeholder", "header.html");
+    const footerPromise = loadComponent("footer-placeholder", "footer.html");
+    
+    // Load hero only if it exists
     const hero = document.getElementById("hero-placeholder");
-    if (hero) {
-        loadComponent("hero-placeholder", "hero.html");
-    }
+    const heroPromise = hero ? loadComponent("hero-placeholder", "hero.html") : Promise.resolve();
+
+    // Wait for all components to load, then initialize once
+    Promise.all([headerPromise, footerPromise, heroPromise])
+        .then(() => {
+            // Initialize all components once after everything is loaded
+            initializeComponents();
+        })
+        .catch(error => {
+            console.error("LOGI: Error loading components:", error);
+        });
 
 });
 
+// ==========================================
+//   LOAD COMPONENT - RETURNS PROMISE
+// ==========================================
 function loadComponent(elementId, file) {
     const container = document.getElementById(elementId);
 
     if (!container) {
         console.warn("LOGI: Element #" + elementId + " not found, skipping " + file);
-        return;
+        return Promise.resolve();
     }
 
-    fetch(file)
+    return fetch(file)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Failed to load " + file + " (Status: " + response.status + ")");
@@ -34,8 +43,6 @@ function loadComponent(elementId, file) {
         })
         .then(html => {
             container.innerHTML = html;
-            // Re-initialize any scripts or functionality after loading
-            initializeComponents();
         })
         .catch(error => {
             console.error("LOGI Loader Error:", error);
@@ -165,11 +172,14 @@ function initQuoteRotation() {
 
     if (!quoteElement) return;
 
+    // Start immediately with first quote
+    quoteElement.textContent = quotes[0];
+
     setInterval(() => {
         quoteElement.classList.add('quote-hidden');
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % quotes.length;
-            quoteElement.innerHTML = quotes[currentIndex];
+            quoteElement.textContent = quotes[currentIndex];
             quoteElement.classList.remove('quote-hidden');
         }, 600);
     }, 4000);
@@ -209,4 +219,14 @@ function initNewsletter() {
             btn.disabled = false;
         });
     });
+}
+
+// ==========================================
+//   FALLBACK: FOR PAGES WITH OLD LOADER
+// ==========================================
+// This ensures backward compatibility with pages that
+// expect the old loading behavior
+if (typeof loadComponentOld === 'undefined') {
+    // Keep the old function name for compatibility
+    window.loadComponentOld = loadComponent;
 }
