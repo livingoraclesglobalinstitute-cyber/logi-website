@@ -1,5 +1,5 @@
 // ==========================================
-//   LOGI - COMPONENT LOADER (OPTIMIZED)
+//   LOGI - COMPONENT LOADER (ULTRA FAST)
 // ==========================================
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -14,8 +14,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // Wait for all components to load, then initialize once
     Promise.all([headerPromise, footerPromise, heroPromise])
         .then(() => {
-            // Initialize all components once after everything is loaded
-            initializeComponents();
+            // Initialize dropdowns IMMEDIATELY after header loads
+            initDropdowns();
+            initMobileMenu();
+            initNewsletter();
+            initQuoteRotation();
         })
         .catch(error => {
             console.error("LOGI: Error loading components:", error);
@@ -43,6 +46,12 @@ function loadComponent(elementId, file) {
         })
         .then(html => {
             container.innerHTML = html;
+            // Force immediate DOM update
+            return new Promise(resolve => {
+                requestAnimationFrame(() => {
+                    resolve();
+                });
+            });
         })
         .catch(error => {
             console.error("LOGI Loader Error:", error);
@@ -51,23 +60,70 @@ function loadComponent(elementId, file) {
 }
 
 // ==========================================
-//   INITIALIZE ALL COMPONENTS AFTER LOAD
+//   DESKTOP DROPDOWNS - FAST INIT
 // ==========================================
-function initializeComponents() {
-    initMobileMenu();
-    initDropdowns();
-    initNewsletter();
-    initQuoteRotation();
+function initDropdowns() {
+    const dropdownParents = document.querySelectorAll('.has-submenu');
+    
+    // If no dropdowns found, try again after a short delay
+    if (dropdownParents.length === 0) {
+        console.warn("LOGI: No dropdowns found, retrying...");
+        setTimeout(initDropdowns, 100);
+        return;
+    }
+
+    dropdownParents.forEach(parent => {
+        const link = parent.querySelector('a');
+        if (!link) return;
+
+        // Remove existing listeners to prevent duplicates
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+
+        newLink.addEventListener('click', function(e) {
+            const isMobile = window.innerWidth <= 768;
+
+            if (!isMobile) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close other dropdowns
+                dropdownParents.forEach(otherParent => {
+                    if (otherParent !== parent) {
+                        otherParent.classList.remove('desktop-dropdown-open');
+                    }
+                });
+
+                parent.classList.toggle('desktop-dropdown-open');
+            } else {
+                e.preventDefault();
+                parent.classList.toggle('mobile-dropdown-open');
+            }
+        });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        dropdownParents.forEach(parent => {
+            if (!parent.contains(e.target)) {
+                parent.classList.remove('desktop-dropdown-open');
+                parent.classList.remove('mobile-dropdown-open');
+            }
+        });
+    });
 }
 
 // ==========================================
-//   MOBILE MENU
+//   MOBILE MENU - FAST INIT
 // ==========================================
 function initMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navMenu = document.querySelector('.navigation-menu-bar');
 
-    if (!mobileMenuBtn || !navMenu) return;
+    if (!mobileMenuBtn || !navMenu) {
+        setTimeout(initMobileMenu, 100);
+        return;
+    }
 
     function openMenu() {
         navMenu.classList.add('mobile-open');
@@ -113,50 +169,6 @@ function initMobileMenu() {
 }
 
 // ==========================================
-//   DESKTOP DROPDOWNS
-// ==========================================
-function initDropdowns() {
-    const dropdownParents = document.querySelectorAll('.has-submenu');
-
-    dropdownParents.forEach(parent => {
-        const link = parent.querySelector('a');
-
-        link.addEventListener('click', function(e) {
-            const isMobile = window.innerWidth <= 768;
-
-            if (!isMobile) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const parentUl = parent.closest('ul');
-                if (parentUl) {
-                    const siblings = parentUl.querySelectorAll('.has-submenu');
-                    siblings.forEach(sibling => {
-                        if (sibling !== parent) {
-                            sibling.classList.remove('desktop-dropdown-open');
-                        }
-                    });
-                }
-
-                parent.classList.toggle('desktop-dropdown-open');
-            } else {
-                e.preventDefault();
-                parent.classList.toggle('mobile-dropdown-open');
-            }
-        });
-    });
-
-    document.addEventListener('click', function(e) {
-        dropdownParents.forEach(parent => {
-            if (!parent.contains(e.target)) {
-                parent.classList.remove('desktop-dropdown-open');
-                parent.classList.remove('mobile-dropdown-open');
-            }
-        });
-    });
-}
-
-// ==========================================
 //   QUOTE ROTATION
 // ==========================================
 function initQuoteRotation() {
@@ -192,16 +204,20 @@ function initNewsletter() {
     const form = document.getElementById('logiFooterSubForm');
     if (!form) return;
 
-    form.addEventListener('submit', function(e) {
+    // Remove existing listeners
+    const newForm = form.cloneNode(true);
+    form.parentNode.replaceChild(newForm, form);
+
+    newForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const msg = document.getElementById('logiFooterSubMsg');
-        const btn = form.querySelector('button[type="submit"]');
+        const btn = newForm.querySelector('button[type="submit"]');
 
         btn.disabled = true;
         msg.style.color = '#fff';
         msg.innerText = 'Submitting...';
 
-        const data = new FormData(form);
+        const data = new FormData(newForm);
 
         fetch('https://script.google.com/macros/s/AKfycbzaonAvWoUMo02bfdvyShL52BMtNvVCB-7LIJj63ZXHyh7Ai416yUnBh-P1oC-Bmt9f/exec', {
             method: 'POST',
@@ -210,7 +226,7 @@ function initNewsletter() {
         .then(response => {
             msg.style.color = '#fff';
             msg.innerText = '✅ Success! You have been subscribed.';
-            form.reset();
+            newForm.reset();
             btn.disabled = false;
         })
         .catch(error => {
@@ -222,11 +238,17 @@ function initNewsletter() {
 }
 
 // ==========================================
-//   FALLBACK: FOR PAGES WITH OLD LOADER
+//   EMERGENCY FALLBACK - Force dropdowns
 // ==========================================
-// This ensures backward compatibility with pages that
-// expect the old loading behavior
-if (typeof loadComponentOld === 'undefined') {
-    // Keep the old function name for compatibility
-    window.loadComponentOld = loadComponent;
-}
+// If dropdowns still don't work after 2 seconds, force them
+setTimeout(function() {
+    const dropdownParents = document.querySelectorAll('.has-submenu');
+    if (dropdownParents.length > 0) {
+        // Check if dropdowns have event listeners
+        const firstLink = dropdownParents[0]?.querySelector('a');
+        if (firstLink) {
+            // If no click handler, re-init
+            initDropdowns();
+        }
+    }
+}, 2000);
