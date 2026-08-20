@@ -1,177 +1,289 @@
 // ==========================================
-//   LOGI - COMPONENT LOADER (ULTRA FAST)
+// LOGI - COMPONENT LOADER
 // ==========================================
-document.addEventListener("DOMContentLoaded", function() {
 
-    // Load all components in parallel
-    const headerPromise = loadComponent("header-placeholder", "header.html");
-    const footerPromise = loadComponent("footer-placeholder", "footer.html");
-    
-    // Load hero only if it exists
-    const hero = document.getElementById("hero-placeholder");
-    const heroPromise = hero ? loadComponent("hero-placeholder", "hero.html") : Promise.resolve();
+document.addEventListener("DOMContentLoaded", async function () {
 
-    // Wait for all components to load, then initialize once
-    Promise.all([headerPromise, footerPromise, heroPromise])
-        .then(() => {
-            // Initialize dropdowns IMMEDIATELY after header loads
-            initDropdowns();
-            initMobileMenu();
-            initNewsletter();
-            initQuoteRotation();
-        })
-        .catch(error => {
-            console.error("LOGI: Error loading components:", error);
-        });
+    try {
+        // Load shared components
+        await Promise.all([
+            loadComponent("header-placeholder", "header.html"),
+            loadComponent("footer-placeholder", "footer.html"),
+            loadHero()
+        ]);
 
+        // Initialize after header has been inserted
+        initDropdowns();
+        initMobileMenu();
+        initNewsletter();
+        initQuoteRotation();
+
+    } catch (error) {
+        console.error("LOGI: Component loading error:", error);
+    }
 });
 
+
 // ==========================================
-//   LOAD COMPONENT - RETURNS PROMISE
+// LOAD COMPONENT
 // ==========================================
-function loadComponent(elementId, file) {
+
+async function loadComponent(elementId, file) {
+
     const container = document.getElementById(elementId);
 
     if (!container) {
-        console.warn("LOGI: Element #" + elementId + " not found, skipping " + file);
-        return Promise.resolve();
+        console.warn(
+            "LOGI: #" + elementId + " not found. Skipping " + file
+        );
+        return;
     }
 
-    return fetch(file)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to load " + file + " (Status: " + response.status + ")");
-            }
-            return response.text();
-        })
-        .then(html => {
-            container.innerHTML = html;
-            // Force immediate DOM update
-            return new Promise(resolve => {
-                requestAnimationFrame(() => {
-                    resolve();
-                });
-            });
-        })
-        .catch(error => {
-            console.error("LOGI Loader Error:", error);
-            container.innerHTML = '<p style="color:#8B5353;padding:20px;text-align:center;">⚠️ Could not load component: ' + file + '</p>';
+    try {
+
+        const response = await fetch(file, {
+            cache: "no-cache"
         });
+
+        if (!response.ok) {
+            throw new Error(
+                "Failed to load " + file +
+                " (HTTP " + response.status + ")"
+            );
+        }
+
+        const html = await response.text();
+
+        container.innerHTML = html;
+
+        console.log("LOGI: Loaded " + file);
+
+    } catch (error) {
+
+        console.error("LOGI: Error loading " + file, error);
+
+        container.innerHTML = `
+            <p style="
+                color:#8B5353;
+                padding:20px;
+                text-align:center;
+            ">
+                ⚠️ Could not load ${file}
+            </p>
+        `;
+
+        throw error;
+    }
 }
 
+
 // ==========================================
-//   DESKTOP DROPDOWNS - FAST INIT
+// LOAD HERO ONLY WHEN NEEDED
 // ==========================================
+
+async function loadHero() {
+
+    const hero = document.getElementById("hero-placeholder");
+
+    if (!hero) {
+        return;
+    }
+
+    await loadComponent("hero-placeholder", "hero.html");
+}
+
+
+// ==========================================
+// DESKTOP + MOBILE DROPDOWNS
+// ==========================================
+
 function initDropdowns() {
-    const dropdownParents = document.querySelectorAll('.has-submenu');
-    
-    // If no dropdowns found, try again after a short delay
-    if (dropdownParents.length === 0) {
-        console.warn("LOGI: No dropdowns found, retrying...");
-        setTimeout(initDropdowns, 100);
+
+    const dropdownParents =
+        document.querySelectorAll(".has-submenu");
+
+    if (!dropdownParents.length) {
+        console.warn("LOGI: No .has-submenu elements found.");
         return;
     }
 
     dropdownParents.forEach(parent => {
-        const link = parent.querySelector('a');
+
+        const link = parent.querySelector(":scope > a");
+
         if (!link) return;
 
-        // Remove existing listeners to prevent duplicates
-        const newLink = link.cloneNode(true);
-        link.parentNode.replaceChild(newLink, link);
+        // Prevent duplicate initialization
+        if (link.dataset.dropdownInitialized === "true") {
+            return;
+        }
 
-        newLink.addEventListener('click', function(e) {
+        link.dataset.dropdownInitialized = "true";
+
+        link.addEventListener("click", function (e) {
+
             const isMobile = window.innerWidth <= 768;
 
-            if (!isMobile) {
+            if (isMobile) {
+
                 e.preventDefault();
                 e.stopPropagation();
 
-                // Close other dropdowns
-                dropdownParents.forEach(otherParent => {
-                    if (otherParent !== parent) {
-                        otherParent.classList.remove('desktop-dropdown-open');
+                // Close other mobile dropdowns
+                dropdownParents.forEach(other => {
+
+                    if (other !== parent) {
+                        other.classList.remove(
+                            "mobile-dropdown-open"
+                        );
                     }
+
                 });
 
-                parent.classList.toggle('desktop-dropdown-open');
+                parent.classList.toggle(
+                    "mobile-dropdown-open"
+                );
+
             } else {
+
                 e.preventDefault();
-                parent.classList.toggle('mobile-dropdown-open');
+                e.stopPropagation();
+
+                // Close other desktop dropdowns
+                dropdownParents.forEach(other => {
+
+                    if (other !== parent) {
+                        other.classList.remove(
+                            "desktop-dropdown-open"
+                        );
+                    }
+
+                });
+
+                parent.classList.toggle(
+                    "desktop-dropdown-open"
+                );
             }
         });
     });
 
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-        dropdownParents.forEach(parent => {
-            if (!parent.contains(e.target)) {
-                parent.classList.remove('desktop-dropdown-open');
-                parent.classList.remove('mobile-dropdown-open');
-            }
+
+    // Close dropdown when clicking outside
+    if (!window.logiDropdownOutsideHandler) {
+
+        document.addEventListener("click", function (e) {
+
+            dropdownParents.forEach(parent => {
+
+                if (!parent.contains(e.target)) {
+
+                    parent.classList.remove(
+                        "desktop-dropdown-open"
+                    );
+
+                    parent.classList.remove(
+                        "mobile-dropdown-open"
+                    );
+                }
+
+            });
+
         });
-    });
+
+        window.logiDropdownOutsideHandler = true;
+    }
 }
 
+
 // ==========================================
-//   MOBILE MENU - FAST INIT
+// MOBILE MENU
 // ==========================================
+
 function initMobileMenu() {
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navMenu = document.querySelector('.navigation-menu-bar');
+
+    const mobileMenuBtn =
+        document.getElementById("mobileMenuBtn");
+
+    const navMenu =
+        document.querySelector(".navigation-menu-bar");
 
     if (!mobileMenuBtn || !navMenu) {
-        setTimeout(initMobileMenu, 100);
+
+        console.warn(
+            "LOGI: Mobile menu elements not found."
+        );
+
         return;
     }
 
     function openMenu() {
-        navMenu.classList.add('mobile-open');
-        document.body.style.overflow = 'hidden';
+
+        navMenu.classList.add("mobile-open");
+
+        document.body.style.overflow = "hidden";
     }
 
     function closeMenu() {
-        navMenu.classList.remove('mobile-open');
-        document.body.style.overflow = '';
-        document.querySelectorAll('.mobile-dropdown-open').forEach(el => {
-            el.classList.remove('mobile-dropdown-open');
-        });
+
+        navMenu.classList.remove("mobile-open");
+
+        document.body.style.overflow = "";
+
+        document
+            .querySelectorAll(".mobile-dropdown-open")
+            .forEach(el => {
+                el.classList.remove(
+                    "mobile-dropdown-open"
+                );
+            });
     }
 
-    // Remove old listeners by cloning
-    const newBtn = mobileMenuBtn.cloneNode(true);
-    mobileMenuBtn.parentNode.replaceChild(newBtn, mobileMenuBtn);
 
-    newBtn.addEventListener('click', function(e) {
+    // Avoid duplicate listener
+    if (mobileMenuBtn.dataset.menuInitialized === "true") {
+        return;
+    }
+
+    mobileMenuBtn.dataset.menuInitialized = "true";
+
+
+    mobileMenuBtn.addEventListener("click", function (e) {
+
+        e.preventDefault();
         e.stopPropagation();
-        if (navMenu.classList.contains('mobile-open')) {
+
+        if (
+            navMenu.classList.contains("mobile-open")
+        ) {
             closeMenu();
         } else {
             openMenu();
         }
+
     });
 
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            if (navMenu.classList.contains('mobile-open')) {
-                if (!navMenu.contains(e.target) && !newBtn.contains(e.target)) {
-                    closeMenu();
-                }
-            }
-        }
-    });
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
+    document.addEventListener("keydown", function (e) {
+
+        if (e.key === "Escape") {
             closeMenu();
         }
+
     });
 }
 
+
 // ==========================================
-//   QUOTE ROTATION
+// QUOTE ROTATION
 // ==========================================
+
 function initQuoteRotation() {
+
+    const quoteElement =
+        document.getElementById("dynamic-quote");
+
+    if (!quoteElement) return;
+
     const quotes = [
         "A perfect blend of Leadership, Business, Technology & Theology",
         "Empowering the next generation of global transformational leaders",
@@ -180,75 +292,98 @@ function initQuoteRotation() {
     ];
 
     let currentIndex = 0;
-    const quoteElement = document.getElementById('dynamic-quote');
 
-    if (!quoteElement) return;
-
-    // Start immediately with first quote
     quoteElement.textContent = quotes[0];
 
     setInterval(() => {
-        quoteElement.classList.add('quote-hidden');
+
+        quoteElement.classList.add("quote-hidden");
+
         setTimeout(() => {
-            currentIndex = (currentIndex + 1) % quotes.length;
-            quoteElement.textContent = quotes[currentIndex];
-            quoteElement.classList.remove('quote-hidden');
+
+            currentIndex =
+                (currentIndex + 1) % quotes.length;
+
+            quoteElement.textContent =
+                quotes[currentIndex];
+
+            quoteElement.classList.remove(
+                "quote-hidden"
+            );
+
         }, 600);
+
     }, 4000);
 }
 
+
 // ==========================================
-//   NEWSLETTER SUBSCRIPTION
+// NEWSLETTER
 // ==========================================
+
 function initNewsletter() {
-    const form = document.getElementById('logiFooterSubForm');
+
+    const form =
+        document.getElementById("logiFooterSubForm");
+
     if (!form) return;
 
-    // Remove existing listeners
-    const newForm = form.cloneNode(true);
-    form.parentNode.replaceChild(newForm, form);
+    if (form.dataset.newsletterInitialized === "true") {
+        return;
+    }
 
-    newForm.addEventListener('submit', function(e) {
+    form.dataset.newsletterInitialized = "true";
+
+    form.addEventListener("submit", function (e) {
+
         e.preventDefault();
-        const msg = document.getElementById('logiFooterSubMsg');
-        const btn = newForm.querySelector('button[type="submit"]');
+
+        const msg =
+            document.getElementById("logiFooterSubMsg");
+
+        const btn =
+            form.querySelector(
+                'button[type="submit"]'
+            );
+
+        if (!msg || !btn) return;
 
         btn.disabled = true;
-        msg.style.color = '#fff';
-        msg.innerText = 'Submitting...';
 
-        const data = new FormData(newForm);
+        msg.style.color = "#fff";
+        msg.innerText = "Submitting...";
 
-        fetch('https://script.google.com/macros/s/AKfycbzaonAvWoUMo02bfdvyShL52BMtNvVCB-7LIJj63ZXHyh7Ai416yUnBh-P1oC-Bmt9f/exec', {
-            method: 'POST',
-            body: data
-        })
-        .then(response => {
-            msg.style.color = '#fff';
-            msg.innerText = '✅ Success! You have been subscribed.';
-            newForm.reset();
+        const data = new FormData(form);
+
+        fetch(
+            "https://script.google.com/macros/s/AKfycbzaonAvWoUMo02bfdvyShL52BMtNvVCB-7LIJj63ZXHyh7Ai416yUnBh-P1oC-Bmt9f/exec",
+            {
+                method: "POST",
+                body: data
+            }
+        )
+        .then(() => {
+
+            msg.style.color = "#fff";
+
+            msg.innerText =
+                "✅ Success! You have been subscribed.";
+
+            form.reset();
+
             btn.disabled = false;
+
         })
-        .catch(error => {
-            msg.style.color = '#ff6b6b';
-            msg.innerText = '⚠️ Error submitting. Please try again.';
+        .catch(() => {
+
+            msg.style.color = "#ff6b6b";
+
+            msg.innerText =
+                "⚠️ Error submitting. Please try again.";
+
             btn.disabled = false;
+
         });
+
     });
 }
-
-// ==========================================
-//   EMERGENCY FALLBACK - Force dropdowns
-// ==========================================
-// If dropdowns still don't work after 2 seconds, force them
-setTimeout(function() {
-    const dropdownParents = document.querySelectorAll('.has-submenu');
-    if (dropdownParents.length > 0) {
-        // Check if dropdowns have event listeners
-        const firstLink = dropdownParents[0]?.querySelector('a');
-        if (firstLink) {
-            // If no click handler, re-init
-            initDropdowns();
-        }
-    }
-}, 2000);
