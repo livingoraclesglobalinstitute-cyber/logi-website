@@ -686,7 +686,7 @@
         }
 
         /* ========================================== */
-        /*   HERO SECTION - WITH FEATURED IMAGES     */
+        /*   HERO SECTION - WITH ALL PROGRAM IMAGES   */
         /* ========================================== */
         .hero {
             position: relative;
@@ -716,7 +716,7 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            animation: slideShow 14s infinite;
+            animation: slideShow 50s infinite;
         }
 
         .slide1 {
@@ -726,25 +726,54 @@
 
         .slide2 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/diploma-ministry-banner.jpg") !important;
-            animation-delay: 7s !important;
+            animation-delay: 5s !important;
         }
 
-        /* Add more slides if needed - just duplicate and change the image URL */
         .slide3 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/nextgen-ministry-banner.jpg") !important;
-            animation-delay: 14s !important;
+            animation-delay: 10s !important;
         }
 
-        /* Update animation duration for more slides */
-        .slide1, .slide2, .slide3 {
-            animation-duration: 21s;
+        .slide4 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/intercultural-studies-banner.jpg") !important;
+            animation-delay: 15s !important;
+        }
+
+        .slide5 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/crisis-trauma-care-banner.jpg") !important;
+            animation-delay: 20s !important;
+        }
+
+        .slide6 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/human-services-banner.jpg") !important;
+            animation-delay: 25s !important;
+        }
+
+        .slide7 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/church-leaders-administration-banner.jpg") !important;
+            animation-delay: 30s !important;
+        }
+
+        .slide8 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/missions-evangelism-banner.jpg") !important;
+            animation-delay: 35s !important;
+        }
+
+        .slide9 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/children-ministry-banner.jpg") !important;
+            animation-delay: 40s !important;
+        }
+
+        .slide10 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/disability-ministry-banner.jpg") !important;
+            animation-delay: 45s !important;
         }
 
         @keyframes slideShow {
             0% { opacity: 0; transform: scale(1.08); }
-            10% { opacity: 1; }
-            30% { opacity: 1; transform: scale(1); }
-            40% { opacity: 0; }
+            8% { opacity: 1; }
+            18% { opacity: 1; transform: scale(1); }
+            26% { opacity: 0; }
             100% { opacity: 0; }
         }
 
@@ -1284,8 +1313,6 @@
             z-index: 1;
         }
 
-        /* Featured Programs Section - REMOVED, images now in hero */
-
         /* ========================================== */
         /*   INFO CARDS - MOBILE 2 COLUMN            */
         /* ========================================== */
@@ -1520,7 +1547,7 @@
         }
 
         /* ========================================== */
-        /*   FOOTER - SEMI-TRANSPARENT WITH GLOW     */
+        /*   FOOTER - UPDATED WITH #8B5353 COLORS    */
         /* ========================================== */
         .institutional-footer {
             background: rgba(26, 26, 46, 0.92);
@@ -1529,7 +1556,7 @@
             color: #d4d0c8;
             padding: 2.5rem 5% 1.2rem;
             margin-top: 0;
-            border-top: 2px solid rgba(126, 222, 187, 0.15);
+            border-top: 2px solid rgba(139, 83, 83, 0.20);
             font-size: 0.85rem;
             width: 100%;
             position: relative;
@@ -1544,7 +1571,7 @@
             transform: translateX(-50%);
             width: 80%;
             height: 100px;
-            background: radial-gradient(ellipse, rgba(126, 222, 187, 0.08) 0%, transparent 70%);
+            background: radial-gradient(ellipse, rgba(139, 83, 83, 0.08) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
         }
@@ -1586,7 +1613,7 @@
         }
 
         .footer-column a:hover {
-            color: #7edebb !important;
+            color: #8B5353 !important;
         }
 
         .footer-column ul {
@@ -1608,7 +1635,7 @@
         }
 
         .footer-column ul li a:hover {
-            color: #7edebb !important;
+            color: #8B5353 !important;
         }
 
         .footer-column .footer-address-line {
@@ -1619,7 +1646,7 @@
         }
 
         .footer-column .footer-address-line i {
-            color: #7edebb;
+            color: #8B5353;
             font-size: 0.75rem;
             margin-top: 4px;
             width: 16px;
@@ -1636,7 +1663,7 @@
         }
 
         .footer-column .footer-address-line span a:hover {
-            color: #7edebb !important;
+            color: #8B5353 !important;
         }
 
         .footer-bottom-bar {
@@ -1672,7 +1699,7 @@
         }
 
         .footer-bottom-links a:hover {
-            color: #7edebb;
+            color: #8B5353;
         }
 
         .footer-subscription-container h3 {
@@ -1715,12 +1742,12 @@
         }
 
         .subscription-form input[type="email"]:focus {
-            border-color: #7edebb;
+            border-color: #8B5353;
         }
 
         .subscription-form button {
-            background: linear-gradient(135deg, #7edebb, #5cb897);
-            color: #1a1a2e;
+            background: #8B5353;
+            color: #ffffff;
             border: none;
             font-weight: 700;
             padding: 5px 12px;
@@ -1733,9 +1760,9 @@
         }
 
         .subscription-form button:hover {
-            background: linear-gradient(135deg, #6fcdb0, #4da886);
+            background: #a66a6a;
             transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(126, 222, 187, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 83, 83, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -1877,7 +1904,6 @@
     </style>
 </head>
 <body>
-
     <!-- ========================================== -->
     <!--   TOP BAR - FIXED - KENTE COLOR ACCENTS   -->
     <!-- ========================================== -->
@@ -1983,13 +2009,20 @@
     </header>
 
     <!-- ========================================== -->
-    <!--   HERO SECTION - WITH FEATURED IMAGES     -->
+    <!--   HERO SECTION - WITH ALL PROGRAM IMAGES   -->
     <!-- ========================================== -->
     <section class="hero">
         <div class="slider">
             <div class="slide slide1"></div>
             <div class="slide slide2"></div>
             <div class="slide slide3"></div>
+            <div class="slide slide4"></div>
+            <div class="slide slide5"></div>
+            <div class="slide slide6"></div>
+            <div class="slide slide7"></div>
+            <div class="slide slide8"></div>
+            <div class="slide slide9"></div>
+            <div class="slide slide10"></div>
         </div>
         <div class="overlay"></div>
 
@@ -2227,7 +2260,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!--   FOOTER - SEMI-TRANSPARENT WITH GLOW     -->
+    <!--   FOOTER - UPDATED WITH #8B5353 COLORS    -->
     <!-- ========================================== -->
     <footer class="institutional-footer">
 
