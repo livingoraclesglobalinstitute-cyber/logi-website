@@ -39,11 +39,54 @@
         }
 
         body {
-            background-color: #ffffff;
+            background-color: #fafaf7;
             color: #1a1a2e;
             line-height: 1.6;
-            padding-top: 0px;
+            padding-top: 80px;
             -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* ========================================== */
+        /*   UNIFIED GREEN GLOW BACKGROUND EFFECT     */
+        /* ========================================== */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 1000px;
+            height: 1000px;
+            bottom: -350px;
+            right: -300px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(126, 222, 187, 0.55) 0%,
+                rgba(126, 222, 187, 0.30) 25%,
+                rgba(126, 222, 187, 0.12) 50%,
+                transparent 75%
+            );
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            top: -250px;
+            left: -200px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(126, 222, 187, 0.25) 0%,
+                rgba(126, 222, 187, 0.10) 30%,
+                transparent 70%
+            );
+            filter: blur(50px);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container-wrapper {
@@ -51,6 +94,8 @@
             margin: 0 auto;
             padding: 0 !important;
             width: 100% !important;
+            position: relative;
+            z-index: 1;
         }
 
         /* ========================================== */
@@ -211,11 +256,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
-        /* Push body content down to account for fixed header */
-        body {
-            padding-top: 80px;
-        }
-
         .logo {
             display: flex;
             align-items: center;
@@ -372,8 +412,10 @@
             flex-direction: column !important;
             align-items: stretch !important;
             gap: 0px !important;
-            min-width: 200px;
+            min-width: 220px;
             width: max-content !important;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
@@ -410,201 +452,238 @@
             transform: rotate(180deg);
         }
 
+        /* ========================================== */
+        /*   FIX: NESTED SUBMENUS - DISPLAY ALL      */
+        /* ========================================== */
+        .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
+            display: none !important;
+            position: absolute;
+            left: 100%;
+            top: 0;
+            margin-top: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            z-index: 1200;
+            min-width: 220px;
+            width: max-content !important;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .navigation-menu-bar ul li .submenu li.has-submenu.desktop-dropdown-open .submenu {
+            display: flex !important;
+        }
+
         @keyframes fadeInDropdown {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* ========================================== */
-/*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-/* ========================================== */
-@media (max-width: 768px) {
-    .menu-btn {
-        display: flex !important;
-    }
+        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex !important;
+            }
 
-    .navigation-menu-bar {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        height: 100vh !important;
-        max-height: 100vh !important;
-        min-height: 100vh !important;
-        overflow-y: auto !important;
-        background: #ffffff !important;
-        display: block !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: stretch !important;
-        transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
-        z-index: 10000 !important;
-        padding: 70px 1.2rem 1.5rem 1.2rem !important;
-        box-shadow: none !important;
-        transform: translateX(100%) !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-    }
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: stretch !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                box-shadow: none !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
 
-    .navigation-menu-bar.mobile-open {
-        transform: translateX(0) !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-    }
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
 
-    .navigation-menu-bar ul {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 0 !important;
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        flex: 1 !important;
-    }
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
 
-    .navigation-menu-bar ul li {
-        border-bottom: 1px solid #f0ede6 !important;
-        list-style: none !important;
-    }
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
 
-    .navigation-menu-bar ul li a {
-        color: #1a1a2e !important;
-        font-weight: 500 !important;
-        padding: 0.7rem 0.5rem !important;
-        justify-content: flex-start !important;
-        border-radius: 0 !important;
-        white-space: normal !important;
-        text-shadow: none !important;
-        border-bottom: none !important;
-        background: transparent !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 10px !important;
-        font-size: 0.95rem !important;
-    }
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                font-weight: 500 !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                text-shadow: none !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
 
-    .navigation-menu-bar ul li a i {
-        font-size: 1.1rem !important;
-        color: #c9a86c !important;
-        width: 24px !important;
-        text-align: center !important;
-    }
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
 
-    .navigation-menu-bar ul li a:hover {
-        background: rgba(139, 83, 83, 0.06) !important;
-        color: #8B5353 !important;
-    }
+            .navigation-menu-bar ul li a:hover {
+                background: rgba(139, 83, 83, 0.06) !important;
+                color: #8B5353 !important;
+            }
 
-    .navigation-menu-bar ul li.has-submenu>a {
-        justify-content: space-between !important;
-    }
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
 
-    .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-        color: #8B5353 !important;
-        font-size: 0.65rem !important;
-        margin-left: auto !important;
-    }
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
 
-    .navigation-menu-bar ul li .submenu {
-        position: static !important;
-        transform: none !important;
-        background: #f8f6f2 !important;
-        border-radius: 0 !important;
-        display: none !important;
-        flex-direction: column !important;
-        gap: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        border-left: 3px solid #c9a86c !important;
-        width: 100% !important;
-        box-shadow: none !important;
-        min-width: auto !important;
-        animation: none !important;
-    }
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                min-width: auto !important;
+                animation: none !important;
+                max-height: none !important;
+                overflow-y: visible !important;
+            }
 
-    .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
-        display: flex !important;
-    }
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
+                display: flex !important;
+            }
 
-    .navigation-menu-bar ul li .submenu li {
-        border-bottom: none !important;
-    }
+            .navigation-menu-bar ul li .submenu li {
+                border-bottom: none !important;
+            }
 
-    .navigation-menu-bar ul li .submenu li a {
-        color: #1a1a2e !important;
-        font-weight: 400 !important;
-        padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
-        border-bottom: none !important;
-        background: transparent !important;
-        justify-content: flex-start !important;
-        gap: 10px !important;
-        font-size: 0.85rem !important;
-    }
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+                font-size: 0.85rem !important;
+            }
 
-    .navigation-menu-bar ul li .submenu li a i {
-        font-size: 0.85rem !important;
-        color: #c9a86c !important;
-        width: 20px !important;
-        text-align: center !important;
-    }
+            .navigation-menu-bar ul li .submenu li a i {
+                font-size: 0.85rem !important;
+                color: #c9a86c !important;
+                width: 20px !important;
+                text-align: center !important;
+            }
 
-    .navigation-menu-bar ul li .submenu li a:hover {
-        background: rgba(139, 83, 83, 0.08) !important;
-        color: #8B5353 !important;
-    }
+            .navigation-menu-bar ul li .submenu li a:hover {
+                background: rgba(139, 83, 83, 0.08) !important;
+                color: #8B5353 !important;
+            }
 
-    /* Nested submenus (3rd level) */
-    .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-        border-left: 3px solid #8B5353 !important;
-        margin-left: 1rem !important;
-    }
+            /* Mobile nested submenus fix */
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
+                position: static !important;
+                left: 0 !important;
+                top: 0 !important;
+                border-left: 3px solid #8B5353 !important;
+                margin-left: 1rem !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                background: #f8f6f2 !important;
+                max-height: none !important;
+                overflow-y: visible !important;
+                display: none !important;
+            }
 
-    .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
-        padding-left: 3rem !important;
-    }
+            .navigation-menu-bar ul li .submenu li.has-submenu.mobile-dropdown-open .submenu {
+                display: flex !important;
+            }
 
-    /* Mobile menu footer with social icons - stays at bottom */
-    .navigation-menu-bar .mobile-menu-footer {
-        margin-top: auto !important;
-        padding-top: 1rem !important;
-        padding-bottom: 0.5rem !important;
-        border-top: 1px solid #f0ede6 !important;
-        display: flex !important;
-        justify-content: center !important;
-        gap: 1.2rem !important;
-        flex-shrink: 0 !important;
-    }
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
+                padding-left: 3rem !important;
+            }
 
-    .navigation-menu-bar .mobile-menu-footer a {
-        color: #8a8680 !important;
-        font-size: 1.1rem !important;
-        transition: color 0.25s ease !important;
-        text-decoration: none !important;
-    }
+            .navigation-menu-bar .mobile-menu-footer {
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                padding-bottom: 0.5rem !important;
+                border-top: 1px solid #f0ede6 !important;
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.2rem !important;
+                flex-shrink: 0 !important;
+            }
 
-    .navigation-menu-bar .mobile-menu-footer a:hover {
-        color: #c9a86c !important;
-    }
-}
+            .navigation-menu-bar .mobile-menu-footer a {
+                color: #8a8680 !important;
+                font-size: 1.1rem !important;
+                transition: color 0.25s ease !important;
+                text-decoration: none !important;
+            }
 
-@media (max-width: 480px) {
-    .navigation-menu-bar {
-        padding: 60px 1rem 1.5rem 1rem !important;
-    }
-    .navigation-menu-bar ul li a {
-        font-size: 0.85rem !important;
-        padding: 0.6rem 0.4rem !important;
-    }
-    .navigation-menu-bar ul li .submenu li a {
-        font-size: 0.78rem !important;
-        padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
-    }
-}
-            
+            .navigation-menu-bar .mobile-menu-footer a:hover {
+                color: #c9a86c !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar {
+                padding: 60px 1rem 1.5rem 1rem !important;
+            }
+            .navigation-menu-bar ul li a {
+                font-size: 0.85rem !important;
+                padding: 0.6rem 0.4rem !important;
+            }
+            .navigation-menu-bar ul li .submenu li a {
+                font-size: 0.78rem !important;
+                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
+            }
+        }
 
         /* ========================================== */
         /*   HERO SECTION - REDUCED HEIGHT            */
@@ -621,6 +700,7 @@
             overflow: hidden;
             background: #1a1a2e;
             margin-top: 0;
+            z-index: 1;
         }
 
         .slider {
@@ -765,12 +845,432 @@
         }
 
         /* ========================================== */
+        /*   LOGI STYLES - CARDS & SECTIONS          */
+        /* ========================================== */
+        .logi-section {
+            position: relative;
+            z-index: 2;
+            padding: 80px 30px 100px;
+            width: 100%;
+        }
+
+        .logi-section:last-child {
+            padding-bottom: 90px;
+        }
+
+        .logi-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .logi-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .logi-section-label {
+            display: inline-block;
+            margin-bottom: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #8b5353;
+        }
+
+        .logi-heading h2 {
+            margin: 0 0 18px;
+            color: #242424;
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -1.2px;
+        }
+
+        .logi-heading p {
+            margin: 0 auto;
+            color: #666;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .logi-grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            width: 100%;
+        }
+
+        .logi-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* -------- DEFAULT CARD (Why Study) -------- */
+        .logi-card {
+            position: relative;
+            padding: 28px 20px 24px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(139, 83, 83, 0.09);
+            border-radius: 24px;
+            box-shadow: 0 10px 35px rgba(35, 35, 35, 0.045);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            min-height: 240px;
+            width: 100%;
+        }
+
+        .logi-card::before {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: -75px;
+            right: -75px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 83, 83, 0.10), transparent 70%);
+            transition: transform 0.4s ease;
+            pointer-events: none;
+        }
+
+        .logi-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(139, 83, 83, 0.18);
+            box-shadow: 0 20px 45px rgba(35, 35, 35, 0.09);
+        }
+
+        .logi-card:hover::before {
+            transform: scale(1.4);
+        }
+
+        .logi-card-icon {
+            position: relative;
+            z-index: 2;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(139, 83, 83, 0.12), rgba(101, 127, 212, 0.12));
+            color: #8b5353;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .logi-card-number {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            color: rgba(139, 83, 83, 0.14);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .logi-card h3 {
+            position: relative;
+            z-index: 2;
+            margin: 0 0 8px;
+            color: #282828;
+            font-size: 18px;
+            line-height: 1.3;
+            font-weight: 750;
+        }
+
+        .logi-card p {
+            position: relative;
+            z-index: 2;
+            margin: 0;
+            color: #686868;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* -------- HOW IT WORKS CARD DESIGN -------- */
+        .logi-card-how {
+            position: relative;
+            padding: 32px 24px 28px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 240, 0.95));
+            border: 2px solid rgba(126, 222, 187, 0.25);
+            border-radius: 28px;
+            box-shadow: 0 12px 40px rgba(126, 222, 187, 0.10);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            min-height: 240px;
+            width: 100%;
+        }
+
+        .logi-card-how::before {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            right: -100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(126, 222, 187, 0.15), transparent 70%);
+            transition: transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .logi-card-how:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(126, 222, 187, 0.50);
+            box-shadow: 0 25px 55px rgba(126, 222, 187, 0.18);
+        }
+
+        .logi-card-how:hover::before {
+            transform: scale(1.5);
+        }
+
+        .logi-card-how .logi-card-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(126, 222, 187, 0.30), rgba(126, 222, 187, 0.12));
+            color: #2d7a5e;
+            font-size: 20px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(126, 222, 187, 0.20);
+        }
+
+        .logi-card-how .logi-step-number {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            color: rgba(126, 222, 187, 0.20);
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .logi-card-how h3 {
+            position: relative;
+            z-index: 2;
+            margin: 0 0 8px;
+            color: #1a4a3a;
+            font-size: 19px;
+            line-height: 1.3;
+            font-weight: 750;
+        }
+
+        .logi-card-how p {
+            position: relative;
+            z-index: 2;
+            margin: 0;
+            color: #557a6a;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .logi-how-btn {
+            position: relative;
+            z-index: 2;
+            margin-top: 18px;
+            padding: 8px 22px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #7edebb, #5cb897);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(126, 222, 187, 0.30);
+        }
+
+        .logi-how-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(126, 222, 187, 0.45);
+            background: linear-gradient(135deg, #6fcdb0, #4da886);
+        }
+
+        .logi-how-btn i {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .logi-how-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 1100px) {
+            .logi-grid-5 {
+                gap: 14px;
+            }
+            .logi-card {
+                padding: 24px 16px 20px;
+                min-height: 220px;
+            }
+            .logi-card h3 {
+                font-size: 16px;
+            }
+            .logi-card p {
+                font-size: 13px;
+            }
+            .logi-card-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 15px;
+                margin-bottom: 14px;
+            }
+            .logi-card-how {
+                padding: 26px 18px 22px;
+                min-height: 220px;
+            }
+            .logi-card-how h3 {
+                font-size: 17px;
+            }
+            .logi-card-how p {
+                font-size: 13.5px;
+            }
+            .logi-card-how .logi-card-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
+            }
+            .logi-card-how .logi-step-number {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 820px) {
+            .logi-grid-5 {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+            .logi-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .logi-card {
+                min-height: 200px;
+                padding: 22px 16px 18px;
+            }
+            .logi-card-how {
+                min-height: 200px;
+                padding: 22px 16px 18px;
+            }
+            .logi-section {
+                padding: 60px 20px 80px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .logi-grid-5 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .logi-grid-4 {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .logi-card {
+                min-height: 180px;
+                padding: 20px 14px 18px;
+            }
+            .logi-card h3 {
+                font-size: 15px;
+            }
+            .logi-card p {
+                font-size: 12.5px;
+            }
+            .logi-card-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+            .logi-card-number {
+                font-size: 10px;
+                top: 14px;
+                right: 14px;
+            }
+            .logi-card-how {
+                padding: 20px 14px 18px;
+                min-height: 180px;
+            }
+            .logi-card-how h3 {
+                font-size: 15px;
+            }
+            .logi-card-how p {
+                font-size: 12.5px;
+            }
+            .logi-card-how .logi-card-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 16px;
+                margin-bottom: 14px;
+            }
+            .logi-card-how .logi-step-number {
+                font-size: 22px;
+                top: 12px;
+                right: 14px;
+            }
+            .logi-how-btn {
+                font-size: 12px;
+                padding: 6px 18px;
+                margin-top: 14px;
+            }
+        }
+
+        @media (max-width: 440px) {
+            .logi-grid-5 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .logi-grid-4 {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .logi-card {
+                min-height: auto;
+                padding: 20px 16px;
+                align-items: flex-start;
+            }
+            .logi-card-how {
+                min-height: auto;
+                padding: 20px 16px;
+                align-items: flex-start;
+            }
+            .logi-heading h2 {
+                font-size: 28px;
+            }
+            .logi-section {
+                padding: 50px 16px 60px;
+            }
+            .logi-container {
+                padding: 0;
+            }
+        }
+
+        /* ========================================== */
         /*   HOMEPAGE ADDITIONS                       */
         /* ========================================== */
         .homepage-additions-wrapper {
             margin-top: 1rem;
             padding: 0 15px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         .featured-programs-section {
@@ -1008,180 +1508,18 @@
         }
 
         /* ========================================== */
-        /*   WHY STUDY WITH US - MOBILE              */
-        /* ========================================== */
-        .why-study-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            width: 100%;
-        }
-
-        .why-study-item {
-            background: #8B5353;
-            color: #fff;
-            text-align: center;
-            padding: 15px 10px;
-            flex: 1;
-            min-width: 120px;
-            transition: .3s;
-            border-radius: 8px;
-        }
-
-        .why-study-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(139, 83, 83, 0.3);
-        }
-
-        .why-study-item .icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .why-study-item h3 {
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-        }
-
-        .why-study-item p {
-            line-height: 1.4;
-            font-size: 11px;
-            margin: 0;
-        }
-
-        @media (max-width: 480px) {
-            .why-study-item {
-                min-width: calc(50% - 4px);
-                padding: 12px 8px;
-            }
-            .why-study-item .icon {
-                font-size: 22px;
-            }
-            .why-study-item h3 {
-                font-size: 0.75rem;
-            }
-            .why-study-item p {
-                font-size: 10px;
-            }
-        }
-
-        /* ========================================== */
-        /*   HOW IT WORKS - MOBILE                   */
-        /* ========================================== */
-        .how-it-works-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            width: 100%;
-        }
-
-        .how-it-works-item {
-            text-align: center;
-        }
-
-        .how-it-works-item .circle {
-            width: 100px;
-            height: 100px;
-            margin: auto;
-            border-radius: 50%;
-            background: #8B5353;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            box-shadow: 0 10px 20px rgba(0,0,0,.15);
-            transition: .3s;
-        }
-
-        .how-it-works-item .circle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(139, 83, 83, 0.3);
-        }
-
-        .how-it-works-item .circle svg {
-            width: 28px;
-            height: 28px;
-            fill: currentColor;
-        }
-
-        .how-it-works-item .circle span {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .how-it-works-item h3 {
-            margin-top: 12px;
-            color: #8B5353;
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .how-it-works-item p {
-            color: #555;
-            font-size: 12px;
-            line-height: 1.4;
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .how-it-works-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            .how-it-works-item .circle {
-                width: 80px;
-                height: 80px;
-            }
-            .how-it-works-item .circle svg {
-                width: 22px;
-                height: 22px;
-            }
-            .how-it-works-item .circle span {
-                font-size: 12px;
-            }
-            .how-it-works-item h3 {
-                font-size: 13px;
-            }
-            .how-it-works-item p {
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .how-it-works-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-            .how-it-works-item .circle {
-                width: 65px;
-                height: 65px;
-            }
-            .how-it-works-item .circle svg {
-                width: 18px;
-                height: 18px;
-            }
-            .how-it-works-item .circle span {
-                font-size: 10px;
-            }
-            .how-it-works-item h3 {
-                font-size: 11px;
-                margin-top: 8px;
-            }
-            .how-it-works-item p {
-                font-size: 10px;
-            }
-        }
-
-        /* ========================================== */
-        /*   CTA SECTION - MOBILE                    */
+        /*   CTA SECTION - PLAIN/TRANSPARENT         */
         /* ========================================== */
         .cta-section {
-            background: #fff;
+            background: transparent !important;
             padding: 40px 20px;
             text-align: center;
             color: #1a1a2e;
             width: 100%;
+            border-radius: 0;
+            margin: 0 auto;
+            max-width: 1200px;
+            backdrop-filter: none !important;
         }
 
         .cta-section h2 {
@@ -1294,16 +1632,33 @@
         }
 
         /* ========================================== */
-        /*   FOOTER - 2 COLUMNS ON MOBILE            */
+        /*   FOOTER - SEMI-TRANSPARENT WITH GLOW     */
         /* ========================================== */
         .institutional-footer {
-            background: #1a1a2e;
+            background: rgba(26, 26, 46, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #d4d0c8;
             padding: 2.5rem 5% 1.2rem;
             margin-top: 0;
-            border-top: none;
+            border-top: 2px solid rgba(126, 222, 187, 0.15);
             font-size: 0.85rem;
             width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .institutional-footer::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 100px;
+            background: radial-gradient(ellipse, rgba(126, 222, 187, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .footer-grid-container {
@@ -1312,6 +1667,8 @@
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-column h2 {
@@ -1341,7 +1698,7 @@
         }
 
         .footer-column a:hover {
-            color: #ffffff !important;
+            color: #7edebb !important;
         }
 
         .footer-column ul {
@@ -1363,7 +1720,7 @@
         }
 
         .footer-column ul li a:hover {
-            color: #ffffff !important;
+            color: #7edebb !important;
         }
 
         .footer-column .footer-address-line {
@@ -1374,7 +1731,7 @@
         }
 
         .footer-column .footer-address-line i {
-            color: #c9a86c;
+            color: #7edebb;
             font-size: 0.75rem;
             margin-top: 4px;
             width: 16px;
@@ -1384,6 +1741,14 @@
             color: #b0aca4;
             font-size: 0.82rem;
             line-height: 1.6;
+        }
+
+        .footer-column .footer-address-line span a {
+            color: #b0aca4 !important;
+        }
+
+        .footer-column .footer-address-line span a:hover {
+            color: #7edebb !important;
         }
 
         .footer-bottom-bar {
@@ -1396,6 +1761,8 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 0.6rem;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-copyright {
@@ -1417,7 +1784,7 @@
         }
 
         .footer-bottom-links a:hover {
-            color: #ffffff;
+            color: #7edebb;
         }
 
         .footer-subscription-container h3 {
@@ -1460,12 +1827,12 @@
         }
 
         .subscription-form input[type="email"]:focus {
-            border-color: #ffffff;
+            border-color: #7edebb;
         }
 
         .subscription-form button {
-            background: #ffffff;
-            color: #8B5353;
+            background: linear-gradient(135deg, #7edebb, #5cb897);
+            color: #1a1a2e;
             border: none;
             font-weight: 700;
             padding: 5px 12px;
@@ -1478,11 +1845,11 @@
         }
 
         .subscription-form button:hover {
-            background: rgba(255, 255, 255, 0.9);
+            background: linear-gradient(135deg, #6fcdb0, #4da886);
             transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(126, 222, 187, 0.3);
         }
 
-        /* Footer - 2 columns on mobile */
         @media (max-width: 768px) {
             .footer-grid-container {
                 grid-template-columns: 1fr 1fr;
@@ -1606,6 +1973,19 @@
                 margin-left: 1rem;
             }
         }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .logi-card,
+            .logi-card-how,
+            .logi-how-btn {
+                transition: none;
+            }
+            .logi-card:hover,
+            .logi-card-how:hover {
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1617,7 +1997,7 @@
         <div class="contact-info">
             <span><i class="fas fa-phone"></i> +233 241 456 581</span>
             <a href="mailto:info@logi.education"><i class="fas fa-envelope"></i> info@logi.education</a>
-        <a href="https://www.facebook.com/share/1HiXwqxnwK/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.facebook.com/share/1HiXwqxnwK/"><i class="fab fa-facebook-f"></i></a>
             <a href="https://tiktok.com/@logi.education"><i class="fab fa-tiktok"></i></a>
             <a href="https://www.instagram.com/logi.education?igsi=dzQwajF4cGU0ejJm"><i class="fab fa-instagram"></i></a>
         </div>
@@ -1777,7 +2157,7 @@
     <div class="homepage-additions-wrapper">
 
         <!-- Info Cards - Now with 2 columns on mobile -->
-        <section class="info-cards" style="padding:30px 0; background:#fff; width:100%;">
+        <section class="info-cards" style="padding:30px 0; background:transparent; width:100%;">
             <div class="info-cards-grid">
                 <!-- Card 1 -->
                 <div class="info-card">
@@ -1820,114 +2200,170 @@
             </div>
         </section>
 
-        <!-- Why Study With Us -->
-        <section style="padding:30px 0; background:#fff; width:100%;">
-            <div style="max-width:1200px; margin:0 auto; padding:0 15px;">
-                <div style="background:#8B5353; color:#fff; text-align:center; padding:12px; font-size:1.5rem; font-weight:bold; text-transform:uppercase; margin-bottom:25px; border-radius:8px;">
-                    WHY STUDY WITH US?
+        <!-- ========================================== -->
+        <!--   SECTION 1: WHY STUDY WITH US? (LOGI CARDS) -->
+        <!-- ========================================== -->
+        <section class="logi-section" aria-labelledby="logi-why-title">
+
+            <div class="logi-container">
+
+                <div class="logi-heading">
+                    <span class="logi-section-label">THE LOGI EXPERIENCE</span>
+                    <h2 id="logi-why-title">WHY STUDY WITH US?</h2>
+                    <p>
+                        An education designed to strengthen your faith, develop your
+                        leadership and equip you for meaningful impact.
+                    </p>
                 </div>
-                <div class="why-study-grid">
-                    <div class="why-study-item">
-                        <div class="icon"><i class="fas fa-thumbs-up"></i></div>
+
+                <div class="logi-grid-5">
+
+                    <article class="logi-card">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <span class="logi-card-number">01</span>
                         <h3>Practical Approach</h3>
                         <p>Learn practical skills that prepare you for ministry and leadership.</p>
-                    </div>
+                    </article>
 
-                    <div class="why-study-item">
-                        <div class="icon"><i class="fas fa-link"></i></div>
+                    <article class="logi-card">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <span class="logi-card-number">02</span>
                         <h3>Perfect Blend</h3>
                         <p>Theology, business, technology and leadership in one curriculum.</p>
-                    </div>
+                    </article>
 
-                    <div class="why-study-item">
-                        <div class="icon"><i class="fas fa-users"></i></div>
+                    <article class="logi-card">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <span class="logi-card-number">03</span>
                         <h3>Dedicated Team</h3>
                         <p>Learn from experienced Christian educators and mentors.</p>
-                    </div>
+                    </article>
 
-                    <div class="why-study-item">
-                        <div class="icon"><i class="fas fa-sack-dollar"></i></div>
+                    <article class="logi-card">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <span class="logi-card-number">04</span>
                         <h3>Scholarships</h3>
                         <p>Affordable education with scholarship opportunities.</p>
-                    </div>
+                    </article>
 
-                    <div class="why-study-item">
-                        <div class="icon"><i class="fas fa-globe"></i></div>
+                    <article class="logi-card">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <span class="logi-card-number">05</span>
                         <h3>Convenience</h3>
                         <p>Study online anytime, anywhere at your own pace.</p>
-                    </div>
+                    </article>
+
                 </div>
+
             </div>
+
         </section>
 
-        <!-- How It Works -->
-        <section style="padding:30px 0; background:#fff; width:100%;">
-            <div style="max-width:1200px; margin:0 auto; padding:0 15px;">
-                <div style="background:#8B5353; color:#fff; text-align:center; padding:12px; font-size:1.5rem; font-weight:bold; text-transform:uppercase; margin-bottom:30px; border-radius:8px;">
-                    HOW IT WORKS
+        <!-- ========================================== -->
+        <!--   SECTION 2: HOW IT WORKS (LOGI CARDS)    -->
+        <!-- ========================================== -->
+        <section class="logi-section" aria-labelledby="logi-how-title">
+
+            <div class="logi-container">
+
+                <div class="logi-heading">
+                    <span class="logi-section-label">YOUR PATHWAY</span>
+                    <h2 id="logi-how-title">HOW IT WORKS</h2>
+                    <p>
+                        A simple, streamlined process to get you started on your journey
+                        toward impactful leadership and ministry.
+                    </p>
                 </div>
-                <div class="how-it-works-grid">
-                    <div class="how-it-works-item">
-                        <div class="circle">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3.01H3c-1.1 0-2 .9-2 2V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5.01c0-1.1-.9-2-2-2zM11 19H3V5h8v14zm10 0h-8V5h8v14zM5 7h5v2H5zm0 3h5v2H5zm0 3h5v2H5zm0 3h5v2H5z"/></svg>
-                            <span>01</span>
+
+                <div class="logi-grid-4">
+
+                    <article class="logi-card-how">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-book-open"></i>
                         </div>
+                        <span class="logi-step-number">01</span>
                         <h3>Choose Your Program</h3>
                         <p>Select a course that matches your calling and goals.</p>
-                    </div>
+                        <a href="/our-programs" class="logi-how-btn">
+                            Explore <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
 
-                    <div class="how-it-works-item">
-                        <div class="circle">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                            <span>02</span>
+                    <article class="logi-card-how">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </div>
+                        <span class="logi-step-number">02</span>
                         <h3>Apply Online</h3>
                         <p>Complete your application from anywhere in the world.</p>
-                    </div>
+                        <a href="/main-registration-form" class="logi-how-btn">
+                            Apply Now <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
 
-                    <div class="how-it-works-item">
-                        <div class="circle">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
-                            <span>03</span>
+                    <article class="logi-card-how">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-play"></i>
                         </div>
+                        <span class="logi-step-number">03</span>
                         <h3>Start Learning</h3>
                         <p>Access flexible online classes and resources.</p>
-                    </div>
+                        <a href="https://learn.logi.education" class="logi-how-btn">
+                            Get Started <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
 
-                    <div class="how-it-works-item">
-                        <div class="circle">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-                            <span>04</span>
+                    <article class="logi-card-how">
+                        <div class="logi-card-icon">
+                            <i class="fa-solid fa-rocket"></i>
                         </div>
+                        <span class="logi-step-number">04</span>
                         <h3>Graduate &amp; Impact</h3>
                         <p>Use your knowledge to serve and transform lives.</p>
-                    </div>
+                        <a href="/about" class="logi-how-btn">
+                            Learn More <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
                 </div>
+
             </div>
+
         </section>
 
-        <!-- CTA Section -->
+        <!-- CTA Section - Plain/Transparent -->
         <section class="cta-section">
             <div style="max-width:1200px; margin:0 auto;">
                 <h2>Your Future Starts With What You Learn Today.</h2>
                 <p>
-                    Whether you're preparing for ministry, leadership, business or technology, LOGI gives you a flexible pathway to develop knowledge, competence and character.
+                    Whether you're preparing for ministry, leadership, business or technology,
+                    LOGI gives you a flexible pathway to develop knowledge, competence and character.
                 </p>
                 <div class="cta-buttons">
                     <a href="https://logi.education/main-registration-form" class="cta-btn-primary">
-                        Apply Online Now
+                        <i class="fas fa-arrow-right"></i> Apply Online Now
                     </a>
                     <a href="https://g.page/r/CVymILKivi5SEAE/review" target="_blank" rel="noopener noreferrer" class="cta-btn-google">
-                        <svg viewBox="0 0 24 24">
+                        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                         </svg>
-                        ⭐ Rate Us on Google
+                        Rate Us on Google
                     </a>
                     <a href="/our-programs" class="cta-btn-secondary">
-                        Choose Your Program
+                        <i class="fas fa-graduation-cap"></i> Choose Your Program
                     </a>
                 </div>
             </div>
@@ -1935,7 +2371,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!--   FOOTER - 2 COLUMNS ON MOBILE             -->
+    <!--   FOOTER - SEMI-TRANSPARENT WITH GLOW     -->
     <!-- ========================================== -->
     <footer class="institutional-footer">
 
@@ -2093,7 +2529,6 @@
                 });
             }
 
-            // Close menu when clicking outside on mobile
             document.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
                     if (navMenu && navMenu.classList.contains('mobile-open')) {
