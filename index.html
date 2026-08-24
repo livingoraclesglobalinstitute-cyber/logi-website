@@ -686,7 +686,7 @@
         }
 
         /* ========================================== */
-        /*   HERO SECTION - REDUCED HEIGHT            */
+        /*   HERO SECTION - WITH FEATURED IMAGES     */
         /* ========================================== */
         .hero {
             position: relative;
@@ -720,20 +720,31 @@
         }
 
         .slide1 {
-            background-image: url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=60") !important;
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/biblical-studies-banner.jpg") !important;
             animation-delay: 0s !important;
         }
 
         .slide2 {
-            background-image: url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=800&q=60") !important;
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/diploma-ministry-banner.jpg") !important;
             animation-delay: 7s !important;
+        }
+
+        /* Add more slides if needed - just duplicate and change the image URL */
+        .slide3 {
+            background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/nextgen-ministry-banner.jpg") !important;
+            animation-delay: 14s !important;
+        }
+
+        /* Update animation duration for more slides */
+        .slide1, .slide2, .slide3 {
+            animation-duration: 21s;
         }
 
         @keyframes slideShow {
             0% { opacity: 0; transform: scale(1.08); }
             10% { opacity: 1; }
-            45% { opacity: 1; transform: scale(1); }
-            55% { opacity: 0; }
+            30% { opacity: 1; transform: scale(1); }
+            40% { opacity: 0; }
             100% { opacity: 0; }
         }
 
@@ -995,7 +1006,7 @@
             line-height: 1.6;
         }
 
-        /* -------- HOW IT WORKS CARD DESIGN - UPDATED TO #8B5353 -------- */
+        /* -------- HOW IT WORKS CARD DESIGN -------- */
         .logi-card-how {
             position: relative;
             padding: 32px 24px 28px;
@@ -1077,7 +1088,6 @@
             line-height: 1.6;
         }
 
-        /* -------- HOW IT WORKS BUTTON - UPDATED TO #8B5353 -------- */
         .logi-how-btn {
             position: relative;
             z-index: 2;
@@ -1274,130 +1284,7 @@
             z-index: 1;
         }
 
-        .featured-programs-section {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 15px 25px 15px;
-            background: transparent !important;
-        }
-
-        .featured-programs-section .section-title {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .featured-programs-section .section-title h2 {
-            font-size: 24px;
-            font-weight: 800;
-            color: #1a1a2e;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-
-        .featured-programs-section .section-title p {
-            font-size: 14px;
-            color: #666;
-            margin: 4px 0 0 0;
-        }
-
-        .banner-slider-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            background: transparent !important;
-            border-radius: 12px;
-            min-height: 300px;
-        }
-
-        .banner-slider {
-            display: flex;
-            transition: transform 0.8s ease-in-out;
-            width: 100%;
-        }
-
-        .banner-slide {
-            min-width: 100%;
-            height: 320px;
-            background-size: contain !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            position: relative;
-            flex-shrink: 0;
-            background-color: transparent !important;
-        }
-
-        .dots-container {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            display: flex;
-            gap: 8px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 0;
-        }
-
-        .dot.active {
-            background: #c9a86c;
-            border-color: #c9a86c;
-            transform: scale(1.2);
-        }
-
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.2);
-            color: #ffffff;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .arrow:hover {
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .arrow-left { left: 12px; }
-        .arrow-right { right: 12px; }
-
-        @media (max-width: 768px) {
-            .banner-slide, .banner-slider-container { height: 240px; min-height: 240px; }
-            .arrow { width: 30px; height: 30px; font-size: 12px; }
-            .featured-programs-section .section-title h2 { font-size: 20px; }
-            .banner-slider-container { min-height: 240px; }
-        }
-
-        @media (max-width: 480px) {
-            .banner-slide, .banner-slider-container { height: 170px; min-height: 170px; }
-            .dots-container { bottom: 6px; gap: 4px; }
-            .dot { width: 7px; height: 7px; }
-            .arrow { display: none; }
-            .featured-programs-section .section-title h2 { font-size: 16px; }
-            .featured-programs-section .section-title p { font-size: 12px; }
-            .banner-slider-container { min-height: 170px; }
-        }
+        /* Featured Programs Section - REMOVED, images now in hero */
 
         /* ========================================== */
         /*   INFO CARDS - MOBILE 2 COLUMN            */
@@ -1990,6 +1877,7 @@
     </style>
 </head>
 <body>
+
     <!-- ========================================== -->
     <!--   TOP BAR - FIXED - KENTE COLOR ACCENTS   -->
     <!-- ========================================== -->
@@ -2095,12 +1983,13 @@
     </header>
 
     <!-- ========================================== -->
-    <!--   HERO SECTION - REDUCED HEIGHT            -->
+    <!--   HERO SECTION - WITH FEATURED IMAGES     -->
     <!-- ========================================== -->
     <section class="hero">
         <div class="slider">
             <div class="slide slide1"></div>
             <div class="slide slide2"></div>
+            <div class="slide slide3"></div>
         </div>
         <div class="overlay"></div>
 
@@ -2119,44 +2008,11 @@
     </section>
 
     <!-- ========================================== -->
-    <!--   FEATURED PROGRAMS SLIDER                 -->
-    <!-- ========================================== -->
-    <div class="featured-programs-section">
-        <div class="section-title">
-            <h2>Featured Programs</h2>
-            <p>Discover flexible, Christ-centered programs designed for your calling and career.</p>
-        </div>
-
-        <div class="banner-slider-container">
-            <div class="banner-slider" id="bannerSlider">
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/biblical-studies-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/diploma-ministry-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/nextgen-ministry-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/intercultural-studies-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/crisis-trauma-care-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/human-services-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/church-leaders-administration-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/missions-evangelism-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/children-ministry-banner.jpg');"></div>
-                <div class="banner-slide" style="background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/disability-ministry-banner.jpg');"></div>
-            </div>
-
-            <button class="arrow arrow-left" onclick="changeSlide(-1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="arrow arrow-right" onclick="changeSlide(1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="dots-container" id="dotsContainer"></div>
-        </div>
-    </div>
-
-    <!-- ========================================== -->
     <!--   HOMEPAGE ADDITIONS                       -->
     <!-- ========================================== -->
     <div class="homepage-additions-wrapper">
 
-        <!-- Info Cards - Now with 2 columns on mobile -->
+        <!-- Info Cards -->
         <section class="info-cards" style="padding:30px 0; background:transparent; width:100%;">
             <div class="info-cards-grid">
                 <!-- Card 1 -->
@@ -2609,147 +2465,6 @@
                 }, 600);
             }, 4000);
         });
-
-        // Banner Slider
-        (function() {
-            var currentSlide = 0;
-            var slides = document.querySelectorAll('.banner-slide');
-            var totalSlides = slides.length;
-            var slider = document.getElementById('bannerSlider');
-            var dotsContainer = document.getElementById('dotsContainer');
-            var autoSlideInterval;
-            var isTransitioning = false;
-
-            if (totalSlides === 0) return;
-
-            var firstClone = slides[0].cloneNode(true);
-            slider.appendChild(firstClone);
-            var totalWithClone = totalSlides + 1;
-
-            for (var i = 0; i < totalSlides; i++) {
-                var dot = document.createElement('button');
-                dot.className = 'dot' + (i === 0 ? ' active' : '');
-                dot.setAttribute('data-index', i);
-                dot.addEventListener('click', function() {
-                    var index = parseInt(this.getAttribute('data-index'));
-                    if (index !== currentSlide) {
-                        goToSlide(index);
-                        resetAutoSlide();
-                    }
-                });
-                dotsContainer.appendChild(dot);
-            }
-
-            var dots = document.querySelectorAll('.dot');
-
-            function goToSlide(index, instant) {
-                if (isTransitioning) return;
-                isTransitioning = true;
-
-                if (index < 0) index = 0;
-                if (index >= totalWithClone) index = totalWithClone - 1;
-
-                currentSlide = index;
-
-                var translateX = -currentSlide * 100;
-                if (instant) {
-                    slider.style.transition = 'none';
-                } else {
-                    slider.style.transition = 'transform 0.8s ease-in-out';
-                }
-                slider.style.transform = 'translateX(' + translateX + '%)';
-
-                var dotIndex = currentSlide % totalSlides;
-                dots.forEach(function(dot, i) {
-                    dot.classList.toggle('active', i === dotIndex);
-                });
-
-                setTimeout(function() {
-                    isTransitioning = false;
-                }, 900);
-            }
-
-            function goToNextSlide() {
-                if (isTransitioning) return;
-
-                var nextIndex = currentSlide + 1;
-
-                if (nextIndex >= totalWithClone) {
-                    goToSlide(totalSlides, false);
-                    setTimeout(function() {
-                        goToSlide(0, true);
-                    }, 900);
-                } else {
-                    goToSlide(nextIndex, false);
-                }
-            }
-
-            window.changeSlide = function(direction) {
-                if (isTransitioning) return;
-
-                var nextIndex = currentSlide + direction;
-
-                if (nextIndex >= totalWithClone) {
-                    goToSlide(totalSlides, false);
-                    setTimeout(function() {
-                        goToSlide(0, true);
-                        resetAutoSlide();
-                    }, 900);
-                } else if (nextIndex < 0) {
-                    goToSlide(0, false);
-                    setTimeout(function() {
-                        goToSlide(totalSlides - 1, true);
-                        resetAutoSlide();
-                    }, 900);
-                } else {
-                    goToSlide(nextIndex, false);
-                    resetAutoSlide();
-                }
-            };
-
-            function resetAutoSlide() {
-                clearInterval(autoSlideInterval);
-                autoSlideInterval = setInterval(goToNextSlide, 5000);
-            }
-
-            resetAutoSlide();
-
-            var container = document.querySelector('.banner-slider-container');
-            container.addEventListener('mouseenter', function() {
-                clearInterval(autoSlideInterval);
-            });
-
-            container.addEventListener('mouseleave', function() {
-                autoSlideInterval = setInterval(goToNextSlide, 5000);
-            });
-
-            var touchStartX = 0;
-            var touchEndX = 0;
-
-            container.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-
-            container.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                var diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        window.changeSlide(1);
-                    } else {
-                        window.changeSlide(-1);
-                    }
-                }
-            }, { passive: true });
-
-            setTimeout(function() {
-                slider.style.transition = 'none';
-                slider.style.transform = 'translateX(0%)';
-                setTimeout(function() {
-                    slider.style.transition = 'transform 0.8s ease-in-out';
-                }, 50);
-            }, 100);
-        })();
 
         // Newsletter Subscription
         document.addEventListener('DOMContentLoaded', function() {
