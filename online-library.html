@@ -1123,27 +1123,27 @@
         /* Library items grid */
         .library-list {
             display: grid;
-            font-size: 0.78em;
-            gap: 12px 20px;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            font-size: 0.82em;
+            gap: 14px 24px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         }
         
         .library-item {
             border-left: 3px solid #D4A574;
-            padding-left: 14px;
+            padding-left: 16px;
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            padding-top: 4px;
-            padding-bottom: 4px;
+            gap: 3px;
+            padding-top: 6px;
+            padding-bottom: 6px;
             transition: transform 0.2s ease, padding-left 0.2s ease;
             background: #fafafa;
             border-radius: 0 8px 8px 0;
-            padding-right: 10px;
+            padding-right: 12px;
         }
 
         .library-item:hover {
-            padding-left: 18px;
+            padding-left: 20px;
             transform: translateX(2px);
             background: #f5f5f5;
         }
@@ -1152,36 +1152,37 @@
             display: flex;
             align-items: baseline;
             flex-wrap: wrap;
-            gap: 2px 4px;
+            gap: 2px 6px;
         }
         
         .library-item .item-number {
             font-weight: 700;
             color: #2C1810;
-            font-size: 0.9em;
+            font-size: 0.95em;
         }
         
         .library-item .item-name {
             font-weight: 700;
             color: #2C1810;
-            font-size: 1.05em;
+            font-size: 1.1em;
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
         
+        /* ===== INCREASED FONT SIZE FOR DESKTOP ===== */
         .library-item .item-desc {
             color: #555;
             font-weight: 400;
-            font-size: 0.95em;
-            line-height: 1.6;
-            margin-top: 2px;
+            font-size: 1.08em; /* Increased from 0.95em for better readability */
+            line-height: 1.8; /* Increased from 1.6 for better readability */
+            margin-top: 3px;
         }
         
         .library-item .item-link {
             color: #8B4513;
             font-weight: 600;
-            font-size: 0.85em;
-            margin-top: 4px;
+            font-size: 0.9em;
+            margin-top: 5px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             display: inline-flex;
@@ -1212,7 +1213,11 @@
                 gap: 25px;
             }
             .library-list {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                font-size: 0.8em;
+            }
+            .library-item .item-desc {
+                font-size: 1.05em;
             }
         }
 
@@ -1239,9 +1244,15 @@
             .library-list {
                 grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
                 gap: 10px 15px;
+                font-size: 0.78em;
             }
             .library-item {
-                font-size: 0.85em;
+                font-size: 0.95em;
+                padding-left: 12px;
+            }
+            .library-item .item-desc {
+                font-size: 1.0em;
+                line-height: 1.7;
             }
             .category-header {
                 padding: 20px 20px 15px 20px;
@@ -1285,6 +1296,7 @@
             .library-list {
                 grid-template-columns: 1fr;
                 gap: 8px;
+                font-size: 0.85em;
             }
             .category-header {
                 padding: 16px 16px 12px 16px;
@@ -1312,12 +1324,16 @@
                 font-size: 14px;
             }
             .library-item {
-                font-size: 0.9em;
+                font-size: 0.95em;
                 padding-left: 10px;
                 padding-right: 6px;
             }
             .library-item .item-desc {
-                font-size: 0.92em;
+                font-size: 0.98em;
+                line-height: 1.6;
+            }
+            .library-item .item-name {
+                font-size: 1.0em;
             }
         }
     </style>
