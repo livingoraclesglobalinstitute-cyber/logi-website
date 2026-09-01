@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="html" lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Director of Engineering - Living Oracles Global Institute</title>
+    
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            background: #ffffff;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== PAGE HEADER - Simple Title ===== */
+        .page-header {
+            padding: 40px 0 10px;
+            text-align: center;
+        }
+        .page-header h1 {
+            color: #8b5353;
+            font-size: 38px;
+            font-weight: 700;
+            font-family: 'Georgia', serif;
+        }
+        .page-header .underline {
+            width: 80px;
+            height: 3px;
+            background: #8b5353;
+            margin: 8px auto 0;
+        }
+
+        /* ===== PROFILE SECTION ===== */
+        .profile-section {
+            padding: 20px 0 50px;
+        }
+
+        .profile-header {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin-bottom: 35px;
+            padding: 0 20px;
+        }
+
+        .profile-avatar {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #f0ebe5;
+        }
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-title-block h1 {
+            font-size: 32px;
+            color: #2C1810;
+            font-family: 'Georgia', serif;
+            margin-bottom: 4px;
+        }
+        .profile-title-block .role {
+            font-size: 20px;
+            color: #8b5353;
+            font-weight: 600;
+        }
+        .profile-title-block .institution {
+            font-size: 16px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .content-block {
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+        .content-block h2 {
+            font-size: 22px;
+            color: #8b5353;
+            font-family: 'Georgia', serif;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #8b5353;
+            display: inline-block;
+        }
+        .content-block p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.9;
+            margin-bottom: 12px;
+        }
+        .content-block ul {
+            list-style: none;
+            padding: 0;
+        }
+        .content-block ul li {
+            padding: 5px 0 5px 20px;
+            position: relative;
+            color: #444;
+            font-size: 15px;
+            border-bottom: 1px solid #f0ebe5;
+        }
+        .content-block ul li:last-child {
+            border-bottom: none;
+        }
+        .content-block ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #8b5353;
+            font-weight: 700;
+        }
+
+        /* ===== QUOTE / VISION BOX ===== */
+        .vision-quote {
+            padding: 0 20px;
+            margin: 10px 0 25px;
+        }
+        .vision-quote blockquote {
+            font-size: 17px;
+            font-style: italic;
+            color: #2C1810;
+            border-left: 4px solid #8b5353;
+            padding: 10px 20px;
+            background: #f9f6f2;
+            border-radius: 0 8px 8px 0;
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+        }
+        .vision-quote blockquote cite {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            font-style: normal;
+            color: #8b5353;
+            font-weight: 600;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* ===== QUALIFICATIONS GRID ===== */
+        .qual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .qual-card {
+            border-left: 4px solid #8b5353;
+            padding: 12px 18px;
+        }
+        .qual-card .qual-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8b5353;
+            font-weight: 600;
+        }
+        .qual-card .qual-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2C1810;
+        }
+        .qual-card .qual-sub {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* ===== TWO-COLUMN LAYOUT ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+        .two-col .col h2 {
+            font-size: 22px;
+            color: #8b5353;
+            font-family: 'Georgia', serif;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #8b5353;
+            display: inline-block;
+        }
+        .two-col .col ul {
+            list-style: none;
+            padding: 0;
+        }
+        .two-col .col ul li {
+            padding: 5px 0 5px 20px;
+            position: relative;
+            color: #444;
+            font-size: 15px;
+            border-bottom: 1px solid #f0ebe5;
+        }
+        .two-col .col ul li:last-child {
+            border-bottom: none;
+        }
+        .two-col .col ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #8b5353;
+            font-weight: 700;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-block {
+            padding: 0 20px;
+            margin-top: 10px;
+        }
+        .contact-block p {
+            font-size: 15px;
+            color: #444;
+            padding: 6px 0;
+        }
+        .contact-block strong {
+            color: #2C1810;
+            font-weight: 600;
+        }
+        .contact-block a {
+            color: #8b5353;
+            text-decoration: none;
+        }
+        .contact-block a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 20px;
+            }
+            .profile-avatar {
+                width: 140px;
+                height: 140px;
+            }
+            .profile-title-block h1 {
+                font-size: 26px;
+            }
+            .profile-title-block .role {
+                font-size: 17px;
+            }
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .qual-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-header h1 {
+                font-size: 28px;
+            }
+            .vision-quote blockquote {
+                font-size: 15px;
+                padding: 12px 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .profile-avatar {
+                width: 110px;
+                height: 110px;
+            }
+            .profile-title-block h1 {
+                font-size: 22px;
+            }
+            .content-block h2 {
+                font-size: 19px;
+            }
+            .two-col .col h2 {
+                font-size: 19px;
+            }
+            .vision-quote blockquote {
+                font-size: 14px;
+                padding: 10px 14px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Our Team</h1>
+            <div class="underline"></div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+
+        <div class="container">
+
+            <!-- ===== PROFILE ===== -->
+            <section class="profile-section">
+
+                <!-- PROFILE HEADER -->
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/mr-tabaka-mochipela.jpeg" alt="Mr. Tabaka Mochipela" />
+                    </div>
+                    <div class="profile-title-block">
+                        <h1>Mr. Tabaka Mochipela</h1>
+                        <div class="role">Director, School of Engineering &amp; Technology</div>
+                        <div class="institution">Living Oracles Global Institute (LOGI)</div>
+                    </div>
+                </div>
+
+                <!-- BIO -->
+                <div class="content-block">
+                    <p>Mr. Tabaka Mochipela serves as the <strong>Director of the School of Engineering &amp; Technology</strong> at Living Oracles Global Institute (LOGI). He is a cybersecurity and digital forensics professional with expertise spanning <strong>network security, computer forensics, information systems management, and cybersecurity operations</strong>.</p>
+                    <p>With an academic and professional background in information systems and cybersecurity, Mr. Mochipela brings a practical, technology-focused perspective to the development of LOGI's programmes. His work is centred on equipping students and professionals with relevant knowledge, technical competencies, and problem-solving skills needed to operate effectively in an increasingly digital world.</p>
+                </div>
+
+                <!-- ===== VISION STATEMENT ===== -->
+                <div class="vision-quote">
+                    <blockquote>
+                        "We believe our institution can become different. We are not building 'Online Institute → Courses → Videos → Quiz → Certificate.' We are building: Learn → Practise → Build → Solve → Portfolio → Certificate."
+                        <cite>— Mr. Tabaka Mochipela</cite>
+                    </blockquote>
+                </div>
+
+                <!-- ACADEMIC & PROFESSIONAL BACKGROUND -->
+                <div class="content-block">
+                    <h2>Academic &amp; Professional Background</h2>
+                    <p>Mr. Mochipela holds a <strong>Master of Science (MSc) in Information Systems Management</strong> and a <strong>Bachelor of Science (BSc Hons) in Network Security &amp; Computer Forensics</strong>. He is also a <strong>Certified Forensic Analyst</strong> with professional expertise in cybersecurity and digital forensics.</p>
+                    <p>His areas of professional interest include cybersecurity strategy, digital investigations, network protection, information systems, and the application of technology to address contemporary organisational and security challenges.</p>
+                </div>
+
+                <!-- LEADERSHIP AT LOGI -->
+                <div class="content-block">
+                    <h2>Leadership at LOGI</h2>
+                    <p>As Director of the School of Engineering &amp; Technology, Mr. Mochipela contributes to the academic and strategic development of LOGI's technology-focused programmes. His responsibilities include:</p>
+                    <ul>
+                        <li>Academic and curriculum development</li>
+                        <li>Technology programme coordination</li>
+                        <li>Faculty collaboration and development</li>
+                        <li>Industry-oriented learning initiatives</li>
+                        <li>Student mentorship and academic guidance</li>
+                        <li>Development of practical and skills-based technology education</li>
+                    </ul>
+                    <p style="margin-top:12px;">Through his leadership, the School of Engineering &amp; Technology seeks to provide students with an educational experience that combines <strong>academic knowledge, practical application, professional development, and ethical responsibility</strong>.</p>
+                </div>
+
+                <!-- AREAS OF EXPERTISE + QUALIFICATIONS - TWO COLUMN -->
+                <div class="two-col">
+                    <div class="col">
+                        <h2>Areas of Expertise</h2>
+                        <ul>
+                            <li>Cybersecurity Strategy &amp; Operations</li>
+                            <li>Digital Forensics</li>
+                            <li>Cybercrime Investigation</li>
+                            <li>Network Security</li>
+                            <li>Computer Forensics</li>
+                            <li>Information Systems Management</li>
+                            <li>Cybersecurity Risk Management</li>
+                            <li>Technology Education &amp; Curriculum Development</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h2>Qualifications &amp; Credentials</h2>
+                        <div class="qual-grid" style="margin-top:0;">
+                            <div class="qual-card">
+                                <div class="qual-label">Master's Degree</div>
+                                <div class="qual-title">MSc – Information Systems Management</div>
+                            </div>
+                            <div class="qual-card">
+                                <div class="qual-label">Bachelor's Degree</div>
+                                <div class="qual-title">BSc (Hons) – Network Security &amp; Computer Forensics</div>
+                            </div>
+                            <div class="qual-card">
+                                <div class="qual-label">Professional Credentials</div>
+                                <div class="qual-title">Certified Forensic Analyst</div>
+                                <div class="qual-sub">Cybersecurity Professional · Digital Forensics Specialist</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROFESSIONAL VISION -->
+                <div class="content-block">
+                    <h2>Professional Vision</h2>
+                    <p>Mr. Mochipela is passionate about developing technology education that goes beyond theoretical knowledge. His vision is to contribute to the development of <strong>competent, ethical, and digitally capable professionals</strong> who can apply their knowledge to real-world challenges across Africa and the global technology environment.</p>
+                    <p>At LOGI, he supports the Institute's commitment to providing accessible, practical, and professionally relevant education while encouraging students to pursue excellence, innovation, integrity, and lifelong learning.</p>
+                    <p style="margin-top:12px;">His strategic vision for the School of Engineering &amp; Technology is built around <strong>Learn → Practise → Build → Solve → Portfolio → Certificate</strong>, ensuring that students graduate with demonstrable skills, not just theoretical knowledge.</p>
+                </div>
+
+                <!-- CONTACT -->
+                <div class="contact-block">
+                    <p><strong>Office:</strong> School of Engineering &amp; Technology</p>
+                    <p><strong>Institution:</strong> Living Oracles Global Institute (LOGI)</p>
+                    <p><strong>Email:</strong> <a href="mailto:tabaka.mochipela@logi.education">tabaka.mochipela@logi.education</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+26776610464">+267 76 610 464</a></p>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
