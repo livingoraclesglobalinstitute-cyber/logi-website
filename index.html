@@ -1303,6 +1303,102 @@
         }
 
         /* ========================================== */
+        /*   PARTNERS SLIDER - FULL COLOR            */
+        /* ========================================== */
+        .partners-section {
+            padding: 40px 20px 40px;
+            background: transparent;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .partners-slider-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .partners-slider-track {
+            display: flex;
+            gap: 40px;
+            animation: scrollPartners 30s linear infinite;
+            width: max-content;
+        }
+
+        .partners-slider-track:hover {
+            animation-play-state: paused;
+        }
+
+        .partner-item {
+            flex: 0 0 auto;
+            width: 180px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .partner-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .partner-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: none;
+            opacity: 1;
+            transition: all 0.4s ease;
+        }
+
+        .partner-item:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes scrollPartners {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .partner-item {
+                width: 140px;
+                height: 70px;
+                padding: 8px;
+            }
+            .partners-slider-track {
+                gap: 25px;
+                animation-duration: 25s;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .partner-item {
+                width: 110px;
+                height: 60px;
+                padding: 6px;
+            }
+            .partners-slider-track {
+                gap: 15px;
+                animation-duration: 20s;
+            }
+            .partners-section {
+                padding: 30px 12px 30px;
+            }
+        }
+
+        /* ========================================== */
         /*   HOMEPAGE ADDITIONS                       */
         /* ========================================== */
         .homepage-additions-wrapper {
@@ -2231,6 +2327,43 @@
 
         </section>
 
+        <!-- ========================================== -->
+        <!--   SECTION 3: PARTNERS SLIDER              -->
+        <!-- ========================================== -->
+        <section class="partners-section" aria-labelledby="partners-title">
+            <div class="logi-container">
+                <div class="logi-heading">
+                    <span class="logi-section-label">OUR PARTNERS</span>
+                    <h2 id="partners-title">OUR PARTNERS</h2>
+                </div>
+
+                <div class="partners-slider-wrapper">
+                    <div class="partners-slider-track" id="partnersTrack">
+                        <!-- Partner Logos - First Set -->
+                        <div class="partner-item">
+                            <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/1.svg" alt="Partner 1" />
+                        </div>
+                        <div class="partner-item">
+                            <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/2.svg" alt="Partner 2" />
+                        </div>
+                        <div class="partner-item">
+                            <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/3.svg" alt="Partner 3" />
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="partner-item">
+                            <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/1.svg" alt="Partner 1" />
+                        </div>
+                        <div class="partner-item">
+                            <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/2.svg" alt="Partner 2" />
+                        </div>
+                        <div class="partner-item">
+                            <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/3.svg" alt="Partner 3" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- CTA Section - Plain/Transparent -->
         <section class="cta-section">
             <div style="max-width:1200px; margin:0 auto;">
@@ -2498,6 +2631,19 @@
                     quoteElement.classList.remove('quote-hidden');
                 }, 600);
             }, 4000);
+        });
+
+        // Partners Slider - Pause on Hover
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliderTrack = document.getElementById('partnersTrack');
+            if (sliderTrack) {
+                sliderTrack.addEventListener('mouseenter', function() {
+                    this.style.animationPlayState = 'paused';
+                });
+                sliderTrack.addEventListener('mouseleave', function() {
+                    this.style.animationPlayState = 'running';
+                });
+            }
         });
 
         // Newsletter Subscription
