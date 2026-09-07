@@ -552,7 +552,7 @@
         }
 
         /* ========================================== */
-        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
+        /*   FOOTER - FULL WIDTH - AT BOTTOM         */
         /* ========================================== */
         .institutional-footer {
             background: #1a1a2e;
@@ -562,6 +562,7 @@
             border-top: none;
             font-size: 0.85rem;
             width: 100%;
+            flex-shrink: 0;
         }
 
         .footer-grid-container {
@@ -836,18 +837,27 @@
         body {
             overflow-x: hidden !important;
             width: 100% !important;
+            min-height: 100vh;
         }
 
         body {
             background: var(--bg-gradient);
+            color: var(--text-dark);
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
+        }
+
+        /* ===== MAIN WRAPPER - Centers verification card ===== */
+        .main-wrapper {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 40px 20px;
-            color: var(--text-dark);
-            padding-top: 120px;
-            -webkit-font-smoothing: antialiased;
+            width: 100%;
         }
 
         /* ===== VERIFICATION CARD ===== */
@@ -1142,9 +1152,14 @@
         /* ========================================== */
         /*          PLACEHOLDERS                      */
         /* ========================================== */
-        #header-placeholder,
+        #header-placeholder {
+            width: 100%;
+            flex-shrink: 0;
+        }
+
         #footer-placeholder {
             width: 100%;
+            flex-shrink: 0;
         }
 
         /* ========================================== */
@@ -1160,7 +1175,7 @@
         }
 
         @media (max-width: 480px) {
-            body { padding-top: 100px; }
+            .main-wrapper { padding: 20px 10px; }
             .title { font-size: 25px; }
             .subtitle { font-size: 13px; }
         }
@@ -1175,83 +1190,85 @@
     <div id="header-placeholder"></div>
 
     <!-- ========================================== -->
-    <!--   VERIFICATION CONTENT                     -->
+    <!--   VERIFICATION CONTENT (CENTERED)          -->
     <!-- ========================================== -->
 
-    <div class="container">
+    <div class="main-wrapper">
+        <div class="container">
 
-        <!-- Badge Only (Header is loaded by load.js) -->
-        <div style="text-align:center; margin-bottom:12px;">
-            <span class="badge"><i class="fas fa-shield-halved"></i> Official Verification Portal</span>
-        </div>
-
-        <h1 class="title">Verify Academic Credentials</h1>
-        <p class="subtitle">Enter a certificate tracking number below to confirm institutional record</p>
-
-        <!-- SEARCH -->
-        <form id="verifyForm" class="search-box">
-            <div class="input-wrapper">
-                <input type="text" id="certNumber" placeholder="e.g. LOGI-00034" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Certificate tracking number" required />
-                <i class="fas fa-search"></i>
-            </div>
-            <button type="submit" id="verifyButton"><i class="fas fa-circle-check"></i> Verify Now</button>
-        </form>
-
-        <div class="loading" id="loadingIndicator">
-            <i class="fas fa-circle-notch"></i> Accessing credential records...
-        </div>
-
-        <div class="stats" id="statsDisplay">
-            <i class="fas fa-database"></i> <span id="certCount">Connecting to database...</span>
-        </div>
-
-        <!-- RESULT -->
-        <div id="result" class="result">
-            <div class="result-header">
-                <span class="status-icon" id="statusIcon"></span>
-                <span class="status-text" id="statusText"></span>
+            <!-- Badge Only -->
+            <div style="text-align:center; margin-bottom:12px;">
+                <span class="badge"><i class="fas fa-shield-halved"></i> Official Verification Portal</span>
             </div>
 
-            <div class="result-details">
-                <div class="detail-card">
-                    <div class="label">Certificate Number</div>
-                    <div class="value" id="certNumberDisplay">—</div>
+            <h1 class="title">Verify Academic Credentials</h1>
+            <p class="subtitle">Enter a certificate tracking number below to confirm institutional record</p>
+
+            <!-- SEARCH -->
+            <form id="verifyForm" class="search-box">
+                <div class="input-wrapper">
+                    <input type="text" id="certNumber" placeholder="e.g. LOGI-00034" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Certificate tracking number" required />
+                    <i class="fas fa-search"></i>
                 </div>
-                <div class="detail-card">
-                    <div class="label">Recipient Name</div>
-                    <div class="value" id="studentNameDisplay">—</div>
+                <button type="submit" id="verifyButton"><i class="fas fa-circle-check"></i> Verify Now</button>
+            </form>
+
+            <div class="loading" id="loadingIndicator">
+                <i class="fas fa-circle-notch"></i> Accessing credential records...
+            </div>
+
+            <div class="stats" id="statsDisplay">
+                <i class="fas fa-database"></i> <span id="certCount">Connecting to database...</span>
+            </div>
+
+            <!-- RESULT -->
+            <div id="result" class="result">
+                <div class="result-header">
+                    <span class="status-icon" id="statusIcon"></span>
+                    <span class="status-text" id="statusText"></span>
                 </div>
-                <div class="detail-card">
-                    <div class="label">Student ID</div>
-                    <div class="value" id="studentIdDisplay">—</div>
-                </div>
-                <div class="detail-card">
-                    <div class="label">Programme Awarded</div>
-                    <div class="value" id="programDisplay">—</div>
-                </div>
-                <div class="detail-card">
-                    <div class="label">Date of Conferral</div>
-                    <div class="value" id="dateDisplay">—</div>
-                </div>
-                <div class="detail-card">
-                    <div class="label">Record Status</div>
-                    <div class="value" id="statusDisplay">—</div>
+
+                <div class="result-details">
+                    <div class="detail-card">
+                        <div class="label">Certificate Number</div>
+                        <div class="value" id="certNumberDisplay">—</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Recipient Name</div>
+                        <div class="value" id="studentNameDisplay">—</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Student ID</div>
+                        <div class="value" id="studentIdDisplay">—</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Programme Awarded</div>
+                        <div class="value" id="programDisplay">—</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Date of Conferral</div>
+                        <div class="value" id="dateDisplay">—</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Record Status</div>
+                        <div class="value" id="statusDisplay">—</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- RECENT -->
-        <div class="recent" id="recentSection">
-            <h3><i class="fas fa-clock-rotate-left"></i> Recently Issued Credentials</h3>
-            <div id="recentList">
-                <p style="color:var(--text-muted);font-size:13px;">Fetching records...</p>
+            <!-- RECENT -->
+            <div class="recent" id="recentSection">
+                <h3><i class="fas fa-clock-rotate-left"></i> Recently Issued Credentials</h3>
+                <div id="recentList">
+                    <p style="color:var(--text-muted);font-size:13px;">Fetching records...</p>
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
+    <!--   FOOTER PLACEHOLDER (FULL WIDTH)          -->
     <!-- ========================================== -->
     <div id="footer-placeholder"></div>
 
@@ -1261,7 +1278,10 @@
     <script src="load.js"></script>
 
     <script>
-        // 🔗 PUBLIC GOOGLE SHEETS CSV
+        // ==========================================
+        //   CERTIFICATE VERIFICATION JAVASCRIPT
+        // ==========================================
+
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTbLlGO7OQccHb80cfVYwSwylnwDHXSgRklZS9yMhhkpyFphjXhe5CbUtFQCLN_MFkYISG3by9svZOY/pub?gid=0&single=true&output=csv';
 
         let certificates = {};
