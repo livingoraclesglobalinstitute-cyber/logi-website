@@ -867,6 +867,7 @@
             color: var(--text-dark);
             padding-top: 120px;
             -webkit-font-smoothing: antialiased;
+            flex-direction: column;
         }
 
         /* ========================================== */
@@ -884,6 +885,7 @@
             padding: 48px;
             border: 1px solid rgba(255, 255, 255, 0.8);
             position: relative;
+            margin-bottom: 40px;
         }
 
         .container::before {
@@ -1230,6 +1232,17 @@
             .recent-item { grid-template-columns: 1fr; gap: 6px; }
             .recent-item .status { justify-self: flex-start; }
         }
+
+        /* ========================================== */
+        /*   HEADER PLACEHOLDER STYLES                */
+        /* ========================================== */
+        #header-placeholder {
+            width: 100%;
+        }
+
+        #footer-placeholder {
+            width: 100%;
+        }
     </style>
 
 </head>
@@ -1331,9 +1344,73 @@
     </div>
 
     <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
+    <!--   FOOTER - FULL WIDTH WITH 4-COLUMN GRID   -->
     <!-- ========================================== -->
-    <div id="footer-placeholder"></div>
+    <footer class="institutional-footer">
+        <div class="footer-grid-container">
+            <!-- Column 1: About / Address -->
+            <div class="footer-column">
+                <h2>Living Oracles Global Institute</h2>
+                <p>Equipping leaders through practical education in theology, business, technology, and leadership. A faith-based global institute committed to excellence and Christ-centered education.</p>
+                <div class="footer-address-line">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Ghana · Botswana · Online</span>
+                </div>
+                <div class="footer-address-line">
+                    <i class="fas fa-envelope"></i>
+                    <span><a href="mailto:info@logi.education">info@logi.education</a></span>
+                </div>
+                <div class="footer-address-line">
+                    <i class="fas fa-phone"></i>
+                    <span><a href="tel:+233XXXXXXXXX">+233 XX XXX XXXX</a></span>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/programs">Programs</a></li>
+                    <li><a href="/faculty">Faculty</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Programs -->
+            <div class="footer-column">
+                <h2>Programs</h2>
+                <ul>
+                    <li><a href="/programs/business">Business &amp; Leadership</a></li>
+                    <li><a href="/programs/ministry">Ministry &amp; Theology</a></li>
+                    <li><a href="/programs/engineering">Engineering &amp; Technology</a></li>
+                    <li><a href="/certificate-programs">Certificate Programs</a></li>
+                    <li><a href="/diploma-programs">Diploma Programs</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div class="footer-column">
+                <div class="footer-subscription-container">
+                    <h3>Stay Connected</h3>
+                    <p>Subscribe to our newsletter for updates on programs, events, and resources.</p>
+                    <form class="subscription-form" action="#" method="post">
+                        <input type="email" placeholder="Your email address" required />
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-copyright">
+                &copy; 2026 Living Oracles Global Institute. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
     <!-- ========================================== -->
     <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
