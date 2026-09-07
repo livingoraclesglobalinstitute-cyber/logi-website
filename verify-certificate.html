@@ -582,6 +582,27 @@
             border-top: none;
             font-size: 0.85rem;
             width: 100%;
+            position: relative;
+        }
+
+        /* Kente Color Accent Stripes for Footer */
+        .institutional-footer .kente-stripes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                #c9a86c 0%, #c9a86c 16.66%,
+                #8B5353 16.66%, #8B5353 33.32%,
+                #1a7a3a 33.32%, #1a7a3a 49.98%,
+                #c9a86c 49.98%, #c9a86c 66.64%,
+                #8B5353 66.64%, #8B5353 83.3%,
+                #1a7a3a 83.3%, #1a7a3a 100%
+            );
+            opacity: 0.6;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .footer-grid-container {
@@ -680,6 +701,10 @@
             font-size: 0.7rem;
             font-weight: 400;
             color: #8a8680;
+        }
+
+        .footer-subscription-container {
+            text-align: left;
         }
 
         .footer-subscription-container h3 {
@@ -867,11 +892,11 @@
             color: var(--text-dark);
             padding-top: 120px;
             -webkit-font-smoothing: antialiased;
+            flex-direction: column;
         }
 
         /* ========================================== */
         /*   CERTIFICATE VERIFICATION PAGE STYLES     */
-        /* (Your existing styles - kept unchanged)    */
         /* ========================================== */
 
         .container {
@@ -1181,16 +1206,6 @@
             border-radius: 20px;
         }
 
-        .footer-text {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 12px;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-light);
-        }
-
-
         /* ===== VERIFICATION IMPROVEMENTS ===== */
         .search-box button:disabled {
             opacity: 0.65;
@@ -1321,11 +1336,6 @@
             <div id="recentList">
                 <p style="color:var(--text-muted);font-size:13px;">Fetching records...</p>
             </div>
-        </div>
-
-        <div class="footer-text">
-            © 2026 Living Oracles Global Institute. All rights reserved.<br>
-            <span style="display:inline-block;margin-top:6px;">Official certificate verification service</span>
         </div>
 
     </div>
