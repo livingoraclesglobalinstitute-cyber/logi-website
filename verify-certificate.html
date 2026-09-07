@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Verify Certificate | LOGI</title>
+
+    <!-- Meta Tags -->
+    <meta content="Verify academic credentials and certificates from Living Oracles Global Institute. Official certificate verification portal using tracking numbers." name="description" />
+    <meta content="https://www.logi.education/verify-certificate" property="og:url" />
+    <meta content="Verify Certificate - Living Oracles Global Institute" property="og:title" />
+    <meta content="Official certificate verification portal for Living Oracles Global Institute. Verify academic credentials using tracking numbers." property="og:description" />
+    <meta content="Living Oracles Global Institute" property="og:site_name" />
+    <meta content="summary_large_image" name="twitter:card" />
+
+    <!-- Institutional Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- Open Graph Tags -->
+    <meta content="Living Oracles Global Institute" property="og:title" />
+    <meta content="website" property="og:type" />
+    <meta content="https://logi.education" property="og:url" />
+    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
+    <meta content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." property="og:description" />
+    <meta content="summary_large_image" name="twitter:card" />
+
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before {
+            left: 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .top-bar::after {
+            right: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover {
+            color: #c9a86c;
+        }
+
+        .top-bar .contact-info i {
+            font-size: 0.65rem;
+            color: #c9a86c;
+        }
+
+        .top-bar .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .social-icons a {
+            color: #8a8680;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .top-bar .social-icons a:hover {
+            color: #c9a86c;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 4px 0;
+            }
+            .top-bar::before,
+            .top-bar::after {
+                width: 25px;
+            }
+            .top-bar .contact-info {
+                padding: 0 35px;
+                gap: 8px;
+            }
+            .top-bar .social-icons {
+                padding: 0 35px;
+            }
+            .top-bar .contact-info a,
+            .top-bar .contact-info span {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before,
+            .top-bar::after {
+                width: 18px;
+            }
+            .top-bar .contact-info {
+                padding: 0 25px;
+                gap: 6px;
+                font-size: 0.55rem;
+            }
+            .top-bar .social-icons {
+                padding: 0 25px;
+                gap: 8px;
+            }
+            .top-bar .social-icons a {
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   HEADER - FIXED FULL WIDTH WHITE         */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                top: 34px;
+                padding: 6px 4%;
+            }
+            .logo img {
+                width: 32px;
+            }
+            .logo .logo-text {
+                font-size: 0.65rem;
+            }
+            .logo .logo-text span {
+                font-size: 0.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header {
+                top: 30px;
+                padding: 4px 3%;
+            }
+            .logo img {
+                width: 28px;
+            }
+            .logo .logo-text {
+                font-size: 0.55rem;
+            }
+            .logo .logo-text span {
+                font-size: 0.35rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   MOBILE HAMBURGER MENU BUTTON             */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover {
+            background: rgba(26, 26, 46, 0.12);
+        }
+
+        .menu-btn i {
+            font-size: 16px;
+        }
+
+        /* ========================================== */
+        /*   DESKTOP NAVIGATION - DARK TEXT          */
+        /* ========================================== */
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li {
+            position: relative;
+        }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
+            display: flex !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li {
+            width: 100%;
+        }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: stretch !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                box-shadow: none !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                font-weight: 500 !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                text-shadow: none !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li a:hover {
+                background: rgba(139, 83, 83, 0.06) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                min-width: auto !important;
+                animation: none !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li {
+                border-bottom: none !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a i {
+                font-size: 0.85rem !important;
+                color: #c9a86c !important;
+                width: 20px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a:hover {
+                background: rgba(139, 83, 83, 0.08) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
+                border-left: 3px solid #8B5353 !important;
+                margin-left: 1rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
+                padding-left: 3rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer {
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                padding-bottom: 0.5rem !important;
+                border-top: 1px solid #f0ede6 !important;
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.2rem !important;
+                flex-shrink: 0 !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a {
+                color: #8a8680 !important;
+                font-size: 1.1rem !important;
+                transition: color 0.25s ease !important;
+                text-decoration: none !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a:hover {
+                color: #c9a86c !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar {
+                padding: 60px 1rem 1.5rem 1rem !important;
+            }
+            .navigation-menu-bar ul li a {
+                font-size: 0.85rem !important;
+                padding: 0.6rem 0.4rem !important;
+            }
+            .navigation-menu-bar ul li .submenu li a {
+                font-size: 0.78rem !important;
+                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
+        /* ========================================== */
+        .institutional-footer {
+            background: #1a1a2e;
+            color: #d4d0c8;
+            padding: 2.5rem 5% 1.2rem;
+            margin-top: 0;
+            border-top: none;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .footer-column p,
+        .footer-column address {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.2rem !important;
+            list-style: none !important;
+        }
+
+        .footer-column ul li a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-column ul li a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column .footer-address-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #8a8680;
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .subscription-form {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            padding: 5px 8px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            flex-grow: 1;
+            outline: none;
+            transition: border-color 0.3s;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .subscription-form input[type="email"]:focus {
+            border-color: #ffffff;
+        }
+
+        .subscription-form button {
+            background: #ffffff;
+            color: #8B5353;
+            border: none;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subscription-form button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.2rem;
+            }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .footer-bottom-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .institutional-footer { 
+                font-size: 0.7rem;
+                padding: 1.5rem 4% 1rem;
+            }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FLOATING CHAT                            */
+        /* ========================================== */
+        .floating-chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .floating-chat-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .floating-chat-link:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: #20ba5a;
+        }
+
+        .floating-chat-link i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+            .floating-chat-link {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+            .floating-chat-link span {
+                display: none;
+            }
+            .floating-chat-link i {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ========================================== */
+        /*          GLOBAL THEME ROOT RESETS          */
+        /* ========================================== */
+        :root {
+            --brand-primary: #8B5353;
+            --brand-dark: #6D3D3D;
+            --brand-accent: #B18A52;
+            --bg-gradient: linear-gradient(135deg, #F8F5F1 0%, #EAE3D9 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #1E1B18;
+            --text-muted: #706863;
+            --border-light: #E8E2D9;
+            --success: #15803D;
+            --success-bg: #F0FDF4;
+            --error: #B91C1C;
+            --error-bg: #FEF2F2;
+            --shadow-lg: 0 20px 40px -15px rgba(109, 61, 61, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        html,
+        body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            color: var(--text-dark);
+            padding-top: 120px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========================================== */
+        /*   CERTIFICATE VERIFICATION PAGE STYLES     */
+        /* (Your existing styles - kept unchanged)    */
+        /* ========================================== */
+
+        .container {
+            max-width: 760px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            padding: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--brand-primary), var(--brand-accent), transparent);
+            border-radius: 4px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .header .logo img {
+            height: 52px;
+            width: auto;
+        }
+
+        .header .logo .logo-text {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+            text-align: left;
+            line-height: 1.1;
+        }
+
+        .header .logo .logo-text span {
+            display: block;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            font-size: 9px;
+            letter-spacing: 3.5px;
+            color: var(--brand-accent);
+            margin-top: 3px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(139, 83, 83, 0.08);
+            border: 1px solid rgba(139, 83, 83, 0.15);
+            border-radius: 20px;
+            color: var(--brand-primary);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .title {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-align: center;
+            margin: 20px 0 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #A09890;
+            font-size: 16px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 20px 16px 48px;
+            border: 1.5px solid var(--border-light);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #FAFAFA;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        .search-box input:focus {
+            border-color: var(--brand-primary);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(139, 83, 83, 0.12);
+        }
+
+        .search-box button {
+            padding: 16px 32px;
+            background: var(--brand-primary);
+            color: #FFF;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .search-box button:hover {
+            background: var(--brand-dark);
+            transform: translateY(-1px);
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--brand-primary);
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .loading i {
+            animation: spin 1s infinite linear;
+            margin-right: 6px;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .stats {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 16px;
+        }
+
+        .stats .loaded {
+            color: var(--success);
+        }
+
+        .stats .error {
+            color: var(--error);
+        }
+
+        .result {
+            display: none;
+            margin-top: 32px;
+            padding: 28px;
+            border-radius: 16px;
+        }
+
+        .result.valid {
+            display: block;
+            background: var(--success-bg);
+            border: 1px solid rgba(21, 128, 61, 0.2);
+        }
+
+        .result.invalid {
+            display: block;
+            background: var(--error-bg);
+            border: 1px solid rgba(185, 28, 28, 0.2);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+        }
+
+        .result .status-icon {
+            font-size: 24px;
+        }
+
+        .result .status-text {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .result.valid .status-text { color: var(--success); }
+        .result.invalid .status-text { color: var(--error); }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px 24px;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .result-details .label {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .result-details .value {
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .result-details .value.empty {
+            color: #bbb;
+            font-weight: 400;
+        }
+
+        .recent {
+            margin-top: 40px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .recent h3 {
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .recent-item {
+            display: grid;
+            grid-template-columns: 140px 1fr auto;
+            align-items: center;
+            padding: 12px 18px;
+            background: #FAFAFA;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .recent-item .cert-no {
+            font-weight: 700;
+            color: var(--brand-primary);
+        }
+
+        .recent-item .name {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .recent-item .status {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 12px;
+            background: rgba(21, 128, 61, 0.08);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+
+        /* ===== VERIFICATION IMPROVEMENTS ===== */
+        .search-box button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .search-box input::placeholder {
+            color: #A09890;
+            text-transform: none;
+        }
+
+        .result {
+            scroll-margin-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 25px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+
+            .search-box button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .container { padding: 28px 20px; }
+            .search-box { flex-direction: column; }
+            .result-details { grid-template-columns: 1fr; }
+            .recent-item { grid-template-columns: 1fr; gap: 6px; }
+            .recent-item .status { justify-self: flex-start; }
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!--   HEADER PLACEHOLDER                       -->
+    <!-- ========================================== -->
+    <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   MAIN CONTENT                             -->
+    <!-- ========================================== -->
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="logo">
+                <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo" />
+                <div class="logo-text">
+                    LIVING ORACLES
+                    <span>GLOBAL INSTITUTE</span>
+                </div>
+            </div>
+            <div>
+                <span class="badge"><i class="fas fa-shield-halved"></i> Official Verification Portal</span>
+            </div>
+        </div>
+
+        <h1 class="title">Verify Academic Credentials</h1>
+        <p class="subtitle">Enter a certificate tracking number below to confirm institutional record</p>
+
+        <!-- SEARCH -->
+        <form id="verifyForm" class="search-box">
+            <div class="input-wrapper">
+                <input type="text" id="certNumber" placeholder="e.g. LOGI-00034" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Certificate tracking number" required />
+                <i class="fas fa-search"></i>
+            </div>
+            <button type="submit" id="verifyButton"><i class="fas fa-circle-check"></i> Verify Now</button>
+        </form>
+
+        <div class="loading" id="loadingIndicator">
+            <i class="fas fa-circle-notch"></i> Accessing credential records...
+        </div>
+
+        <div class="stats" id="statsDisplay">
+            <i class="fas fa-database"></i> <span id="certCount">Connecting to database...</span>
+        </div>
+
+        <!-- RESULT -->
+        <div id="result" class="result">
+            <div class="result-header">
+                <span class="status-icon" id="statusIcon"></span>
+                <span class="status-text" id="statusText"></span>
+            </div>
+
+            <div class="result-details">
+                <div class="detail-card">
+                    <div class="label">Certificate Number</div>
+                    <div class="value" id="certNumberDisplay">—</div>
+                </div>
+                <div class="detail-card">
+                    <div class="label">Recipient Name</div>
+                    <div class="value" id="studentNameDisplay">—</div>
+                </div>
+                <div class="detail-card">
+                    <div class="label">Student ID</div>
+                    <div class="value" id="studentIdDisplay">—</div>
+                </div>
+                <div class="detail-card">
+                    <div class="label">Programme Awarded</div>
+                    <div class="value" id="programDisplay">—</div>
+                </div>
+                <div class="detail-card">
+                    <div class="label">Date of Conferral</div>
+                    <div class="value" id="dateDisplay">—</div>
+                </div>
+                <div class="detail-card">
+                    <div class="label">Record Status</div>
+                    <div class="value" id="statusDisplay">—</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECENT -->
+        <div class="recent" id="recentSection">
+            <h3><i class="fas fa-clock-rotate-left"></i> Recently Issued Credentials</h3>
+            <div id="recentList">
+                <p style="color:var(--text-muted);font-size:13px;">Fetching records...</p>
+            </div>
+        </div>
+
+        <div class="footer-text">
+            © 2026 Living Oracles Global Institute. All rights reserved.<br>
+            <span style="display:inline-block;margin-top:6px;">Official certificate verification service</span>
+        </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!--   FOOTER PLACEHOLDER                       -->
+    <!-- ========================================== -->
+    <div id="footer-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
+    <!-- ========================================== -->
+    <script src="load.js"></script>
+
+    <script>
+        // 🔗 PUBLIC GOOGLE SHEETS CSV
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTbLlGO7OQccHb80cfVYwSwylnwDHXSgRklZS9yMhhkpyFphjXhe5CbUtFQCLN_MFkYISG3by9svZOY/pub?gid=0&single=true&output=csv';
+
+        let certificates = {};
+        let certList = [];
+        let isLoaded = false;
+
+        // ===== NORMALIZE VALUES =====
+        function normalize(value) {
+            return String(value ?? '')
+                .replace(/^\uFEFF/, '')
+                .trim()
+                .replace(/\s+/g, ' ')
+                .toUpperCase();
+        }
+
+        // ===== PARSE CSV CORRECTLY =====
+        // Handles commas, quotation marks and line breaks inside quoted fields.
+        function parseCSV(csv) {
+            const rows = [];
+            let row = [];
+            let field = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < csv.length; i++) {
+                const char = csv[i];
+                const next = csv[i + 1];
+
+                if (char === '"') {
+                    if (inQuotes && next === '"') {
+                        field += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    row.push(field);
+                    field = '';
+                } else if ((char === '\n' || char === '\r') && !inQuotes) {
+                    if (char === '\r' && next === '\n') i++;
+                    row.push(field);
+                    field = '';
+
+                    if (row.some(cell => String(cell).trim() !== '')) {
+                        rows.push(row);
+                    }
+                    row = [];
+                } else {
+                    field += char;
+                }
+            }
+
+            if (field !== '' || row.length) {
+                row.push(field);
+                if (row.some(cell => String(cell).trim() !== '')) {
+                    rows.push(row);
+                }
+            }
+
+            return rows.map(r => r.map(cell => String(cell).trim()));
+        }
+
+        // ===== ESCAPE HTML OUTPUT =====
+        function escapeHTML(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // ===== LOAD CERTIFICATES FROM GOOGLE SHEET =====
+        async function loadCertificates() {
+            const loading = document.getElementById('loadingIndicator');
+            const stats = document.getElementById('certCount');
+            const recentList = document.getElementById('recentList');
+
+            loading.style.display = 'block';
+            stats.textContent = 'Connecting to certificate database...';
+            recentList.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">Fetching records...</p>';
+
+            certificates = {};
+            certList = [];
+            isLoaded = false;
+
+            try {
+                const response = await fetch(SHEET_URL, {
+                    method: 'GET',
+                    cache: 'no-store'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Google Sheets returned HTTP ${response.status}`);
+                }
+
+                const csvText = await response.text();
+
+                if (!csvText.trim()) {
+                    throw new Error('The Google Sheet returned an empty response.');
+                }
+
+                // Google may return an HTML page instead of CSV when the sheet
+                // is not publicly published.
+                const firstText = csvText.trim().slice(0, 120).toLowerCase();
+                if (firstText.includes('<!doctype html') || firstText.includes('<html')) {
+                    throw new Error('The Google Sheet is not publicly available as CSV.');
+                }
+
+                const rows = parseCSV(csvText);
+
+                if (rows.length < 2) {
+                    throw new Error('No certificate records were found.');
+                }
+
+                // Expected sheet structure:
+                // Recipient Name | Student ID | Programme Name | Date of Conferral | Certificate Number
+                const headers = rows[0].map(normalize);
+
+                // Locate columns by header name so the sheet does not have to rely
+                // on fixed column positions.
+                const findHeader = (...names) => {
+                    for (const name of names) {
+                        const index = headers.indexOf(normalize(name));
+                        if (index !== -1) return index;
+                    }
+                    return -1;
+                };
+
+                const nameIndex = findHeader(
+                    'RECIPIENT NAME', 'STUDENT NAME', 'NAME'
+                );
+                const studentIdIndex = findHeader(
+                    'STUDENT ID', 'STUDENT NUMBER', 'ID'
+                );
+                const programIndex = findHeader(
+                    'PROGRAMME NAME', 'PROGRAMME', 'PROGRAM', 'PROGRAM NAME'
+                );
+                const dateIndex = findHeader(
+                    'DATE OF CONFERRAL', 'CONFERRAL DATE', 'DATE'
+                );
+                const certIndex = findHeader(
+                    'CERTIFICATE NUMBER', 'CERTIFICATE NO', 'CERTIFICATE NO.', 'CERT NO', 'CERT NO.'
+                );
+
+                // If headers cannot be identified, fall back to the original
+                // five-column structure.
+                const finalNameIndex = nameIndex >= 0 ? nameIndex : 0;
+                const finalStudentIdIndex = studentIdIndex >= 0 ? studentIdIndex : 1;
+                const finalProgramIndex = programIndex >= 0 ? programIndex : 2;
+                const finalDateIndex = dateIndex >= 0 ? dateIndex : 3;
+                const finalCertIndex = certIndex >= 0 ? certIndex : 4;
+
+                let skippedRows = 0;
+
+                for (let i = 1; i < rows.length; i++) {
+                    const cols = rows[i];
+
+                    if (!cols || cols.length === 0) continue;
+
+                    const certNo = normalize(cols[finalCertIndex]);
+
+                    if (!certNo) {
+                        skippedRows++;
+                        continue;
+                    }
+
+                    certificates[certNo] = {
+                        studentName: String(cols[finalNameIndex] ?? '').trim() || 'N/A',
+                        studentId: String(cols[finalStudentIdIndex] ?? '').trim() || 'N/A',
+                        program: String(cols[finalProgramIndex] ?? '').trim() || 'N/A',
+                        date: String(cols[finalDateIndex] ?? '').trim() || 'N/A'
+                    };
+
+                    // Prevent duplicate certificate numbers from appearing twice
+                    // in the recent list.
+                    if (!certList.includes(certNo)) {
+                        certList.push(certNo);
+                    }
+                }
+
+                if (certList.length === 0) {
+                    throw new Error('The database loaded, but no valid certificate numbers were found.');
+                }
+
+                isLoaded = true;
+                stats.innerHTML =
+                    `<span class="loaded">✅ ${certList.length} verified credential${certList.length === 1 ? '' : 's'} available</span>`;
+
+                loading.style.display = 'none';
+                displayRecent();
+
+            } catch (error) {
+                console.error('Certificate database error:', error);
+
+                stats.innerHTML =
+                    `<span class="error">⚠️ Unable to connect to the certificate database.</span>`;
+
+                loading.style.display = 'none';
+
+                recentList.innerHTML = `
+                    <div style="color:var(--error);font-size:13px;line-height:1.6;">
+                        <strong>Database connection failed.</strong><br>
+                        Please refresh the page and try again.
+                    </div>
+                `;
+            }
+        }
+
+        // ===== DISPLAY RECENT CERTIFICATES =====
+        function displayRecent() {
+            const container = document.getElementById('recentList');
+
+            if (certList.length === 0) {
+                container.innerHTML =
+                    '<p style="color:var(--text-muted);font-size:13px;">No records available.</p>';
+                return;
+            }
+
+            const recent = certList.slice(-5).reverse();
+
+            let html = '';
+
+            recent.forEach(certNo => {
+                const data = certificates[certNo];
+
+                html += `
+                    <div class="recent-item">
+                        <span class="cert-no">${escapeHTML(certNo)}</span>
+                        <span class="name">${escapeHTML(data.studentName)}</span>
+                        <span class="status">
+                            <i class="fas fa-circle-check"></i> Official
+                        </span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ===== CLEAR RESULT =====
+        function clearResult() {
+            const result = document.getElementById('result');
+            result.className = 'result';
+            result.style.display = 'none';
+
+            const fields = [
+                'certNumberDisplay',
+                'studentNameDisplay',
+                'studentIdDisplay',
+                'programDisplay',
+                'dateDisplay',
+                'statusDisplay'
+            ];
+
+            fields.forEach(id => {
+                const element = document.getElementById(id);
+                element.textContent = '—';
+                element.className = 'value';
+                element.style.color = '';
+            });
+        }
+
+        // ===== VERIFY CERTIFICATE =====
+        document.getElementById('verifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const inputElement = document.getElementById('certNumber');
+            const input = normalize(inputElement.value);
+            const result = document.getElementById('result');
+
+            clearResult();
+
+            if (!input) {
+                inputElement.focus();
+                return;
+            }
+
+            if (!isLoaded) {
+                alert('The certificate database is still loading or could not be reached. Please wait a moment and try again.');
+                return;
+            }
+
+            if (certificates[input]) {
+                const data = certificates[input];
+
+                result.className = 'result valid';
+                result.style.display = 'block';
+
+                document.getElementById('statusIcon').innerHTML =
+                    '<i class="fas fa-circle-check" style="color:var(--success)"></i>';
+
+                document.getElementById('statusText').textContent =
+                    'Credential Record Verified';
+
+                const statusDisplay = document.getElementById('statusDisplay');
+                statusDisplay.textContent = 'AUTHENTIC & VALID';
+                statusDisplay.style.color = 'var(--success)';
+
+                document.getElementById('certNumberDisplay').textContent = input;
+                document.getElementById('studentNameDisplay').textContent = data.studentName;
+                document.getElementById('studentIdDisplay').textContent = data.studentId;
+                document.getElementById('programDisplay').textContent = data.program;
+                document.getElementById('dateDisplay').textContent = data.date;
+
+            } else {
+                result.className = 'result invalid';
+                result.style.display = 'block';
+
+                document.getElementById('statusIcon').innerHTML =
+                    '<i class="fas fa-circle-xmark" style="color:var(--error)"></i>';
+
+                document.getElementById('statusText').textContent =
+                    'No Record Found';
+
+                const statusDisplay = document.getElementById('statusDisplay');
+                statusDisplay.textContent = 'UNVERIFIED / INVALID';
+                statusDisplay.style.color = 'var(--error)';
+
+                document.getElementById('certNumberDisplay').textContent = input;
+
+                const emptyFields = [
+                    'studentNameDisplay',
+                    'studentIdDisplay',
+                    'programDisplay',
+                    'dateDisplay'
+                ];
+
+                emptyFields.forEach(id => {
+                    const element = document.getElementById(id);
+                    element.textContent = '—';
+                    element.className = 'value empty';
+                });
+            }
+
+            result.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+
+        // ===== LOAD ON PAGE START =====
+        document.addEventListener('DOMContentLoaded', loadCertificates);
+    </script>
+
+</body>
+</html>
