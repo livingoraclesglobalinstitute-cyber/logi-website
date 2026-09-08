@@ -23,7 +23,7 @@
 
     <style>
         /* ========================================== */
-        /*          GLOBAL THEME ROOT RESETS          */
+        /*          GLOBAL RESETS                     */
         /* ========================================== */
         * {
             box-sizing: border-box;
@@ -39,7 +39,7 @@
         }
 
         body {
-            background-color: #fafaf7;
+            background-color: #ffffff;
             color: #1a1a2e;
             line-height: 1.6;
             padding-top: 80px;
@@ -48,58 +48,7 @@
         }
 
         /* ========================================== */
-        /*   UNIFIED GREEN GLOW BACKGROUND EFFECT     */
-        /* ========================================== */
-        body::before {
-            content: "";
-            position: fixed;
-            width: 1000px;
-            height: 1000px;
-            bottom: -350px;
-            right: -300px;
-            border-radius: 50%;
-            background: radial-gradient(
-                circle,
-                rgba(126, 222, 187, 0.55) 0%,
-                rgba(126, 222, 187, 0.30) 25%,
-                rgba(126, 222, 187, 0.12) 50%,
-                transparent 75%
-            );
-            filter: blur(60px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            top: -250px;
-            left: -200px;
-            border-radius: 50%;
-            background: radial-gradient(
-                circle,
-                rgba(126, 222, 187, 0.25) 0%,
-                rgba(126, 222, 187, 0.10) 30%,
-                transparent 70%
-            );
-            filter: blur(50px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container-wrapper {
-            max-width: 100% !important;
-            margin: 0 auto;
-            padding: 0 !important;
-            width: 100% !important;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ========================================== */
-        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /*   TOP BAR                                 */
         /* ========================================== */
         .top-bar {
             background: #1a1a2e;
@@ -126,13 +75,12 @@
             top: 0;
             bottom: 0;
             width: 50px;
-            background: linear-gradient(180deg, 
-                #c9a86c 0%, #c9a86c 20%,
-                #8B5353 20%, #8B5353 40%,
-                #1a7a3a 40%, #1a7a3a 60%,
-                #c9a86c 60%, #c9a86c 80%,
-                #8B5353 80%, #8B5353 100%
-            );
+            background: linear-gradient(180deg,
+                    #c9a86c 0%, #c9a86c 20%,
+                    #8B5353 20%, #8B5353 40%,
+                    #1a7a3a 40%, #1a7a3a 60%,
+                    #c9a86c 60%, #c9a86c 80%,
+                    #8B5353 80%, #8B5353 100%);
             opacity: 0.5;
         }
 
@@ -140,7 +88,6 @@
             left: 0;
             border-radius: 0 4px 4px 0;
         }
-
         .top-bar::after {
             right: 0;
             border-radius: 4px 0 0 4px;
@@ -176,26 +123,6 @@
             color: #c9a86c;
         }
 
-        .top-bar .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .social-icons a {
-            color: #8a8680;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .top-bar .social-icons a:hover {
-            color: #c9a86c;
-        }
-
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
@@ -209,9 +136,6 @@
             .top-bar .contact-info {
                 padding: 0 35px;
                 gap: 8px;
-            }
-            .top-bar .social-icons {
-                padding: 0 35px;
             }
             .top-bar .contact-info a,
             .top-bar .contact-info span {
@@ -229,17 +153,10 @@
                 gap: 6px;
                 font-size: 0.55rem;
             }
-            .top-bar .social-icons {
-                padding: 0 25px;
-                gap: 8px;
-            }
-            .top-bar .social-icons a {
-                font-size: 0.65rem;
-            }
         }
 
         /* ========================================== */
-        /*   HEADER - FIXED FULL WIDTH WHITE         */
+        /*   HEADER                                  */
         /* ========================================== */
         .main-header {
             background: #ffffff;
@@ -323,7 +240,7 @@
         }
 
         /* ========================================== */
-        /*   MOBILE HAMBURGER MENU BUTTON             */
+        /*   NAVIGATION                              */
         /* ========================================== */
         .menu-btn {
             display: none;
@@ -348,9 +265,6 @@
             font-size: 16px;
         }
 
-        /* ========================================== */
-        /*   DESKTOP NAVIGATION - DARK TEXT          */
-        /* ========================================== */
         .navigation-menu-bar {
             background: transparent !important;
             box-shadow: none !important;
@@ -452,9 +366,6 @@
             transform: rotate(180deg);
         }
 
-        /* ========================================== */
-        /*   FIX: NESTED SUBMENUS - DISPLAY ALL      */
-        /* ========================================== */
         .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
             display: none !important;
             position: absolute;
@@ -477,13 +388,16 @@
         }
 
         @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* ========================================== */
-        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-        /* ========================================== */
         @media (max-width: 768px) {
             .menu-btn {
                 display: flex !important;
@@ -625,7 +539,6 @@
                 color: #8B5353 !important;
             }
 
-            /* Mobile nested submenus fix */
             .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
                 position: static !important;
                 left: 0 !important;
@@ -686,7 +599,7 @@
         }
 
         /* ========================================== */
-        /*   HERO SECTION - WITH ALL PROGRAM IMAGES   */
+        /*   HERO SECTION                            */
         /* ========================================== */
         .hero {
             position: relative;
@@ -723,58 +636,61 @@
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/biblical-studies-banner.jpg") !important;
             animation-delay: 0s !important;
         }
-
         .slide2 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/diploma-ministry-banner.jpg") !important;
             animation-delay: 5s !important;
         }
-
         .slide3 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/nextgen-ministry-banner.jpg") !important;
             animation-delay: 10s !important;
         }
-
         .slide4 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/intercultural-studies-banner.jpg") !important;
             animation-delay: 15s !important;
         }
-
         .slide5 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/crisis-trauma-care-banner.jpg") !important;
             animation-delay: 20s !important;
         }
-
         .slide6 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/human-services-banner.jpg") !important;
             animation-delay: 25s !important;
         }
-
         .slide7 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/church-leaders-administration-banner.jpg") !important;
             animation-delay: 30s !important;
         }
-
         .slide8 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/missions-evangelism-banner.jpg") !important;
             animation-delay: 35s !important;
         }
-
         .slide9 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/children-ministry-banner.jpg") !important;
             animation-delay: 40s !important;
         }
-
         .slide10 {
             background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/disability-ministry-banner.jpg") !important;
             animation-delay: 45s !important;
         }
 
         @keyframes slideShow {
-            0% { opacity: 0; transform: scale(1.08); }
-            8% { opacity: 1; }
-            18% { opacity: 1; transform: scale(1); }
-            26% { opacity: 0; }
-            100% { opacity: 0; }
+            0% {
+                opacity: 0;
+                transform: scale(1.08);
+            }
+            8% {
+                opacity: 1;
+            }
+            18% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            26% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
         }
 
         .overlay {
@@ -885,587 +801,298 @@
         }
 
         /* ========================================== */
-        /*   LOGI STYLES - CARDS & SECTIONS          */
+        /*   FULL-WIDTH SECTIONS WITH BACKGROUND     */
         /* ========================================== */
-        .logi-section {
+        .section-bg {
             position: relative;
-            z-index: 2;
-            padding: 80px 30px 100px;
             width: 100%;
+            padding: 100px 30px 120px;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .logi-section:last-child {
-            padding-bottom: 90px;
+        .section-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.70);
+            z-index: 0;
         }
 
-        .logi-container {
+        .section-bg .container {
+            position: relative;
+            z-index: 1;
             max-width: 1300px;
             margin: 0 auto;
             padding: 0 10px;
         }
 
-        .logi-heading {
+        .section-bg .section-heading {
             text-align: center;
             max-width: 700px;
             margin: 0 auto 50px;
+            color: #ffffff;
         }
 
-        .logi-section-label {
+        .section-bg .section-heading .label {
             display: inline-block;
             margin-bottom: 14px;
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 2px;
-            color: #8b5353;
+            color: #c9a86c;
+            text-transform: uppercase;
         }
 
-        .logi-heading h2 {
+        .section-bg .section-heading h2 {
             margin: 0 0 18px;
-            color: #242424;
             font-size: clamp(32px, 5vw, 48px);
             line-height: 1.1;
             font-weight: 800;
             letter-spacing: -1.2px;
+            color: #ffffff;
         }
 
-        .logi-heading p {
+        .section-bg .section-heading p {
             margin: 0 auto;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 17px;
             line-height: 1.7;
         }
 
-        .logi-grid-5 {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 18px;
-            width: 100%;
-        }
-
-        .logi-grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            width: 100%;
-        }
-
-        /* -------- DEFAULT CARD (Why Study) -------- */
-        .logi-card {
-            position: relative;
-            padding: 28px 20px 24px;
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(139, 83, 83, 0.09);
-            border-radius: 24px;
-            box-shadow: 0 10px 35px rgba(35, 35, 35, 0.045);
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-            min-height: 240px;
-            width: 100%;
-        }
-
-        .logi-card::before {
-            content: "";
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            top: -75px;
-            right: -75px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(139, 83, 83, 0.10), transparent 70%);
-            transition: transform 0.4s ease;
-            pointer-events: none;
-        }
-
-        .logi-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(139, 83, 83, 0.18);
-            box-shadow: 0 20px 45px rgba(35, 35, 35, 0.09);
-        }
-
-        .logi-card:hover::before {
-            transform: scale(1.4);
-        }
-
-        .logi-card-icon {
-            position: relative;
-            z-index: 2;
-            width: 46px;
-            height: 46px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 18px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(139, 83, 83, 0.12), rgba(101, 127, 212, 0.12));
-            color: #8b5353;
-            font-size: 17px;
-            flex-shrink: 0;
-        }
-
-        .logi-card-number {
-            position: absolute;
-            top: 18px;
-            right: 20px;
-            color: rgba(139, 83, 83, 0.14);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-
-        .logi-card h3 {
-            position: relative;
-            z-index: 2;
-            margin: 0 0 8px;
-            color: #282828;
-            font-size: 18px;
-            line-height: 1.3;
-            font-weight: 750;
-        }
-
-        .logi-card p {
-            position: relative;
-            z-index: 2;
-            margin: 0;
-            color: #686868;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* -------- HOW IT WORKS CARD DESIGN -------- */
-        .logi-card-how {
-            position: relative;
-            padding: 32px 24px 28px;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 240, 0.95));
-            border: 2px solid rgba(139, 83, 83, 0.20);
-            border-radius: 28px;
-            box-shadow: 0 12px 40px rgba(139, 83, 83, 0.08);
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-            min-height: 240px;
-            width: 100%;
-        }
-
-        .logi-card-how::before {
-            content: "";
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            bottom: -100px;
-            right: -100px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(139, 83, 83, 0.10), transparent 70%);
-            transition: transform 0.5s ease;
-            pointer-events: none;
-        }
-
-        .logi-card-how:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: rgba(139, 83, 83, 0.50);
-            box-shadow: 0 25px 55px rgba(139, 83, 83, 0.18);
-        }
-
-        .logi-card-how:hover::before {
-            transform: scale(1.5);
-        }
-
-        .logi-card-how .logi-card-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(139, 83, 83, 0.20), rgba(139, 83, 83, 0.08));
-            color: #8B5353;
-            font-size: 20px;
-            margin-bottom: 20px;
-            border: 2px solid rgba(139, 83, 83, 0.20);
-        }
-
-        .logi-card-how .logi-step-number {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            color: rgba(139, 83, 83, 0.20);
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 0.5px;
-            line-height: 1;
-        }
-
-        .logi-card-how h3 {
-            position: relative;
-            z-index: 2;
-            margin: 0 0 8px;
-            color: #1a1a2e;
-            font-size: 19px;
-            line-height: 1.3;
-            font-weight: 750;
-        }
-
-        .logi-card-how p {
-            position: relative;
-            z-index: 2;
-            margin: 0;
-            color: #555;
-            font-size: 14.5px;
-            line-height: 1.6;
-        }
-
-        .logi-how-btn {
-            position: relative;
-            z-index: 2;
-            margin-top: 18px;
-            padding: 8px 22px;
-            border-radius: 50px;
-            background: #8B5353;
-            color: #fff;
-            font-size: 13px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(139, 83, 83, 0.30);
-        }
-
-        .logi-how-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(139, 83, 83, 0.45);
-            background: #a66a6a;
-        }
-
-        .logi-how-btn i {
-            font-size: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .logi-how-btn:hover i {
-            transform: translateX(4px);
-        }
-
-        @media (max-width: 1100px) {
-            .logi-grid-5 {
-                gap: 14px;
-            }
-            .logi-card {
-                padding: 24px 16px 20px;
-                min-height: 220px;
-            }
-            .logi-card h3 {
-                font-size: 16px;
-            }
-            .logi-card p {
-                font-size: 13px;
-            }
-            .logi-card-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 15px;
-                margin-bottom: 14px;
-            }
-            .logi-card-how {
-                padding: 26px 18px 22px;
-                min-height: 220px;
-            }
-            .logi-card-how h3 {
-                font-size: 17px;
-            }
-            .logi-card-how p {
-                font-size: 13.5px;
-            }
-            .logi-card-how .logi-card-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 18px;
-            }
-            .logi-card-how .logi-step-number {
-                font-size: 26px;
-            }
-        }
-
-        @media (max-width: 820px) {
-            .logi-grid-5 {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-            }
-            .logi-grid-4 {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-            .logi-card {
-                min-height: 200px;
-                padding: 22px 16px 18px;
-            }
-            .logi-card-how {
-                min-height: 200px;
-                padding: 22px 16px 18px;
-            }
-            .logi-section {
+        @media (max-width: 768px) {
+            .section-bg {
                 padding: 60px 20px 80px;
+                background-attachment: scroll;
             }
-        }
-
-        @media (max-width: 640px) {
-            .logi-grid-5 {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-            .logi-grid-4 {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-            .logi-card {
-                min-height: 180px;
-                padding: 20px 14px 18px;
-            }
-            .logi-card h3 {
-                font-size: 15px;
-            }
-            .logi-card p {
-                font-size: 12.5px;
-            }
-            .logi-card-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 14px;
-                margin-bottom: 12px;
-            }
-            .logi-card-number {
-                font-size: 10px;
-                top: 14px;
-                right: 14px;
-            }
-            .logi-card-how {
-                padding: 20px 14px 18px;
-                min-height: 180px;
-            }
-            .logi-card-how h3 {
-                font-size: 15px;
-            }
-            .logi-card-how p {
-                font-size: 12.5px;
-            }
-            .logi-card-how .logi-card-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 16px;
-                margin-bottom: 14px;
-            }
-            .logi-card-how .logi-step-number {
-                font-size: 22px;
-                top: 12px;
-                right: 14px;
-            }
-            .logi-how-btn {
-                font-size: 12px;
-                padding: 6px 18px;
-                margin-top: 14px;
-            }
-        }
-
-        @media (max-width: 440px) {
-            .logi-grid-5 {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .logi-grid-4 {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            .logi-card {
-                min-height: auto;
-                padding: 20px 16px;
-                align-items: flex-start;
-            }
-            .logi-card-how {
-                min-height: auto;
-                padding: 20px 16px;
-                align-items: flex-start;
-            }
-            .logi-heading h2 {
+            .section-bg .section-heading h2 {
                 font-size: 28px;
             }
-            .logi-section {
-                padding: 50px 16px 60px;
-            }
-            .logi-container {
-                padding: 0;
-            }
-        }
-
-        /* ========================================== */
-        /*   PARTNERS SLIDER - FULL COLOR            */
-        /* ========================================== */
-        .partners-section {
-            padding: 40px 20px 40px;
-            background: transparent;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .partners-slider-wrapper {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            padding: 10px 0;
-        }
-
-        .partners-slider-track {
-            display: flex;
-            gap: 40px;
-            animation: scrollPartners 30s linear infinite;
-            width: max-content;
-        }
-
-        .partners-slider-track:hover {
-            animation-play-state: paused;
-        }
-
-        .partner-item {
-            flex: 0 0 auto;
-            width: 180px;
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            border: none;
-            padding: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .partner-item:hover {
-            transform: translateY(-3px);
-        }
-
-        .partner-item img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: none;
-            opacity: 1;
-            transition: all 0.4s ease;
-        }
-
-        .partner-item:hover img {
-            transform: scale(1.05);
-        }
-
-        @keyframes scrollPartners {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .partner-item {
-                width: 140px;
-                height: 70px;
-                padding: 8px;
-            }
-            .partners-slider-track {
-                gap: 25px;
-                animation-duration: 25s;
+            .section-bg .section-heading p {
+                font-size: 15px;
             }
         }
 
         @media (max-width: 480px) {
-            .partner-item {
-                width: 110px;
-                height: 60px;
-                padding: 6px;
+            .section-bg {
+                padding: 40px 16px 60px;
             }
-            .partners-slider-track {
-                gap: 15px;
-                animation-duration: 20s;
+            .section-bg .section-heading h2 {
+                font-size: 24px;
             }
-            .partners-section {
-                padding: 30px 12px 30px;
+            .section-bg .section-heading p {
+                font-size: 14px;
             }
         }
 
         /* ========================================== */
-        /*   HOMEPAGE ADDITIONS                       */
+        /*   GLASS CARDS — FULLY TRANSPARENT        */
         /* ========================================== */
-        .homepage-additions-wrapper {
-            margin-top: 1rem;
-            padding: 0 15px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
+        .card-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .card-grid-5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .card-grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .card-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .card-grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 28px 20px 24px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transform: translateY(-4px);
+            border-color: #c9a86c;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .glass-card .icon {
+            font-size: 2.4rem;
+            color: #c9a86c;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .glass-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .glass-card p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+        }
+
+        .glass-card .number {
+            display: block;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .glass-card .btn-glass {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 8px 24px;
+            border-radius: 50px;
+            background: #8B5353;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .glass-card .btn-glass:hover {
+            background: #a66a6a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 83, 83, 0.3);
+        }
+
+        .glass-card .btn-glass i {
+            margin-left: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card .btn-glass:hover i {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 1024px) {
+            .card-grid-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .card-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card-grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .card-grid-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card-grid-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .card-grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-grid-5 {
+                grid-template-columns: 1fr;
+            }
+            .card-grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .card-grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .glass-card {
+                padding: 20px 16px;
+            }
         }
 
         /* ========================================== */
-        /*   INFO CARDS - MOBILE 2 COLUMN            */
+        /*   INFO CARDS — GLASS VERSION             */
         /* ========================================== */
         .info-cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
         }
 
         .info-card {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,.15);
-            transition: .3s;
-            border-radius: 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
         .info-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #c9a86c;
         }
 
         .info-card-header {
             text-align: center;
-            padding: 10px;
-            border-top: 5px solid #8B5353;
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .info-card-header small {
-            color: #777;
+            color: #c9a86c;
             font-size: 11px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .info-card-header h2 {
-            font-size: 20px;
-            color: #1a1a2e;
+            font-size: 22px;
+            color: #ffffff;
             margin: 5px 0;
         }
 
         .info-card img {
             width: 100%;
-            height: 120px;
+            height: 160px;
             object-fit: cover;
         }
 
         .info-card-body {
-            padding: 12px;
+            padding: 16px 20px;
             text-align: left;
-            line-height: 1.5;
-            color: #444;
-            font-size: 12px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
             flex: 1;
         }
 
@@ -1473,96 +1100,119 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            margin: 0 12px 15px;
+            margin: 0 20px 18px;
             background: #8B5353;
             color: #fff;
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 8px 18px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 13px;
             align-self: flex-start;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .info-card .btn-read-more:hover {
             background: #a66a6a;
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
             .info-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+                gap: 14px;
+            }
+            .info-card img {
+                height: 120px;
             }
         }
 
         @media (max-width: 480px) {
             .info-cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            .info-card-header h2 {
-                font-size: 16px;
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
             .info-card img {
-                height: 90px;
+                height: 140px;
+            }
+            .info-card-header h2 {
+                font-size: 18px;
             }
             .info-card-body {
-                font-size: 11px;
-                padding: 8px;
+                font-size: 13px;
+                padding: 12px 16px;
             }
             .info-card .btn-read-more {
-                font-size: 10px;
-                padding: 6px 12px;
-                margin: 0 8px 10px;
+                font-size: 12px;
+                padding: 6px 14px;
+                margin: 0 16px 14px;
             }
         }
 
         /* ========================================== */
-        /*   CTA SECTION - PLAIN/TRANSPARENT         */
+        /*   CTA SECTION — GLASS VERSION            */
         /* ========================================== */
         .cta-section {
-            background: transparent !important;
-            padding: 40px 20px;
-            text-align: center;
-            color: #1a1a2e;
+            position: relative;
             width: 100%;
-            border-radius: 0;
-            margin: 0 auto;
+            padding: 100px 30px 120px;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 1;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.70);
+            z-index: 0;
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 1;
             max-width: 1200px;
-            backdrop-filter: none !important;
+            margin: 0 auto;
         }
 
-        .cta-section h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: #1a1a2e;
+        .cta-section .cta-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #ffffff;
         }
 
-        .cta-section p {
-            max-width: 650px;
-            margin: 0 auto 25px auto;
-            font-size: 14px;
-            line-height: 1.5;
-            opacity: 0.95;
-            color: #555;
+        .cta-section .cta-heading h2 {
+            font-size: clamp(28px, 3vw, 38px);
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .cta-section .cta-heading p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 17px;
+            line-height: 1.7;
         }
 
         .cta-buttons {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
         }
 
         .cta-btn-primary {
             display: inline-block;
-            padding: 12px 30px;
-            border-radius: 30px;
+            padding: 14px 32px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             background: #8B5353;
             color: #fff;
             border: 2px solid #8B5353;
@@ -1573,24 +1223,25 @@
             background: #a66a6a;
             border-color: #a66a6a;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 83, 83, 0.3);
         }
 
         .cta-btn-secondary {
             display: inline-block;
-            padding: 12px 30px;
-            border-radius: 30px;
+            padding: 14px 32px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             background: transparent;
-            color: #8B5353;
-            border: 2px solid #8B5353;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             transition: all .3s ease;
         }
 
         .cta-btn-secondary:hover {
-            background: #8B5353;
-            color: #fff;
+            background: rgba(255, 255, 255, 0.10);
+            border-color: #fff;
             transform: translateY(-2px);
         }
 
@@ -1598,20 +1249,20 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 30px;
-            border-radius: 30px;
+            padding: 14px 32px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             background: transparent;
-            color: #8B5353;
-            border: 2px solid #8B5353;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             transition: all .3s ease;
         }
 
         .cta-btn-google:hover {
-            background: #8B5353;
-            color: #fff;
+            background: rgba(255, 255, 255, 0.10);
+            border-color: #fff;
             transform: translateY(-2px);
         }
 
@@ -1621,18 +1272,34 @@
             fill: currentColor;
         }
 
-        @media (max-width: 480px) {
-            .cta-section h2 {
-                font-size: 20px;
+        @media (max-width: 768px) {
+            .cta-section {
+                padding: 60px 20px 80px;
+                background-attachment: scroll;
             }
-            .cta-section p {
-                font-size: 13px;
+            .cta-section .cta-heading h2 {
+                font-size: 28px;
+            }
+            .cta-section .cta-heading p {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cta-section {
+                padding: 40px 16px 60px;
+            }
+            .cta-section .cta-heading h2 {
+                font-size: 22px;
+            }
+            .cta-section .cta-heading p {
+                font-size: 14px;
             }
             .cta-btn-primary,
             .cta-btn-secondary,
             .cta-btn-google {
                 padding: 10px 20px;
-                font-size: 11px;
+                font-size: 12px;
                 width: 100%;
                 justify-content: center;
             }
@@ -1643,7 +1310,7 @@
         }
 
         /* ========================================== */
-        /*   FOOTER - UPDATED WITH #8B5353 COLORS    */
+        /*   FOOTER                                  */
         /* ========================================== */
         .institutional-footer {
             background: rgba(26, 26, 46, 0.92);
@@ -1657,19 +1324,6 @@
             width: 100%;
             position: relative;
             z-index: 2;
-        }
-
-        .institutional-footer::before {
-            content: "";
-            position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 100px;
-            background: radial-gradient(ellipse, rgba(139, 83, 83, 0.08) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
         }
 
         .footer-grid-container {
@@ -1754,14 +1408,6 @@
             line-height: 1.6;
         }
 
-        .footer-column .footer-address-line span a {
-            color: #b0aca4 !important;
-        }
-
-        .footer-column .footer-address-line span a:hover {
-            color: #8B5353 !important;
-        }
-
         .footer-bottom-bar {
             max-width: 1200px;
             margin: 1.2rem auto 0;
@@ -1780,22 +1426,6 @@
             font-size: 0.7rem;
             font-weight: 400;
             color: #8a8680;
-        }
-
-        .footer-bottom-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-bottom-links a {
-            color: #8a8680;
-            font-size: 0.7rem;
-            text-decoration: none;
-            transition: color 0.25s ease;
-        }
-
-        .footer-bottom-links a:hover {
-            color: #8B5353;
         }
 
         .footer-subscription-container h3 {
@@ -1866,10 +1496,17 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 1.2rem;
             }
-            .institutional-footer { font-size: 0.75rem; }
-            .footer-column h2 { font-size: 0.7rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
+            .institutional-footer {
+                font-size: 0.75rem;
+            }
+            .footer-column h2 {
+                font-size: 0.7rem !important;
+            }
+            .footer-column p,
+            .footer-column address,
+            .footer-column a,
+            .footer-column ul li a,
+            .footer-column .footer-address-line span {
                 font-size: 0.72rem !important;
             }
         }
@@ -1883,17 +1520,18 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .footer-bottom-links {
-                flex-wrap: wrap;
-                gap: 0.6rem;
-            }
-            .institutional-footer { 
+            .institutional-footer {
                 font-size: 0.7rem;
                 padding: 1.5rem 4% 1rem;
             }
-            .footer-column h2 { font-size: 0.6rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
+            .footer-column h2 {
+                font-size: 0.6rem !important;
+            }
+            .footer-column p,
+            .footer-column address,
+            .footer-column a,
+            .footer-column ul li a,
+            .footer-column .footer-address-line span {
                 font-size: 0.65rem !important;
             }
             .footer-column {
@@ -1964,44 +1602,22 @@
             transform: translateY(0);
         }
 
-        /* ========================================== */
-        /*   FIX: NESTED SUBMENU ON DESKTOP          */
-        /* ========================================== */
-        .navigation-menu-bar ul li .submenu li.has-submenu {
-            position: relative;
-        }
-
-        .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-            left: 100%;
-            top: 0;
-            margin-top: 0;
-        }
-
-        @media (max-width: 768px) {
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-                left: 0;
-                top: 0;
-                margin-left: 1rem;
-            }
-        }
-
-        /* Accessibility */
         @media (prefers-reduced-motion: reduce) {
-            .logi-card,
-            .logi-card-how,
-            .logi-how-btn {
+            .glass-card,
+            .info-card {
                 transition: none;
             }
-            .logi-card:hover,
-            .logi-card-how:hover {
+            .glass-card:hover,
+            .info-card:hover {
                 transform: none;
             }
         }
     </style>
 </head>
 <body>
+
     <!-- ========================================== -->
-    <!--   TOP BAR - FIXED - KENTE COLOR ACCENTS   -->
+    <!--   TOP BAR                                 -->
     <!-- ========================================== -->
     <div class="top-bar">
         <div class="contact-info">
@@ -2009,12 +1625,12 @@
             <a href="mailto:info@logi.education"><i class="fas fa-envelope"></i> info@logi.education</a>
             <a href="https://www.facebook.com/share/1HiXwqxnwK/"><i class="fab fa-facebook-f"></i></a>
             <a href="https://tiktok.com/@logi.education"><i class="fab fa-tiktok"></i></a>
-            <a href="https://www.instagram.com/logi.education?igsi=dzQwajF4cGU0ejJm"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/logi.education"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!--   HEADER - FIXED FULL WIDTH WHITE         -->
+    <!--   HEADER                                  -->
     <!-- ========================================== -->
     <header class="main-header">
         <div class="logo">
@@ -2038,7 +1654,7 @@
                         <li><a href="/our-difference"><i class="fas fa-star"></i> Our Difference</a></li>
                         <li><a href="/about"><i class="fas fa-users"></i> About Us</a></li>
                         <li><a href="/founder's-message"><i class="fas fa-user-tie"></i> Founder's Message</a></li>
-                        <li><a href="/organizational-structure"><i class="fas fa-users"></i> Organizational Structure</a></li>          
+                        <li><a href="/organizational-structure"><i class="fas fa-users"></i> Organizational Structure</a></li>
                         <li><a href="/our-partners"><i class="fas fa-handshake"></i> Accreditation &amp; Partnership</a></li>
                         <li><a href="#"><i class="fas fa-comment"></i> Our Student's Testimonial</a></li>
                     </ul>
@@ -2096,7 +1712,7 @@
                         <li><a href="https://learn.logi.education/my/"><i class="fas fa-chart-line"></i> Dashboard</a></li>
                     </ul>
                 </li>
-            </ul>            
+            </ul>
         </nav>
 
         <div class="menu-btn" id="mobileMenuBtn">
@@ -2106,7 +1722,7 @@
     </header>
 
     <!-- ========================================== -->
-    <!--   HERO SECTION - WITH ALL PROGRAM IMAGES   -->
+    <!--   HERO SECTION                            -->
     <!-- ========================================== -->
     <section class="hero">
         <div class="slider">
@@ -2138,14 +1754,17 @@
     </section>
 
     <!-- ========================================== -->
-    <!--   HOMEPAGE ADDITIONS                       -->
+    <!--   INFO CARDS — GLASS VERSION              -->
     <!-- ========================================== -->
-    <div class="homepage-additions-wrapper">
+    <section class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&q=80');">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">Welcome to LOGI</span>
+                <h2>Your Journey Starts Here</h2>
+                <p>Discover who we are, what we offer, and where we're headed.</p>
+            </div>
 
-        <!-- Info Cards -->
-        <section class="info-cards" style="padding:30px 0; background:transparent; width:100%;">
             <div class="info-cards-grid">
-                <!-- Card 1 -->
                 <div class="info-card">
                     <div class="info-card-header">
                         <small>WHO WE ARE</small>
@@ -2158,7 +1777,6 @@
                     <a href="/about" class="btn-read-more">Read More →</a>
                 </div>
 
-                <!-- Card 2 -->
                 <div class="info-card">
                     <div class="info-card-header">
                         <small>EMPOWER YOURSELF</small>
@@ -2171,7 +1789,6 @@
                     <a href="/our-programs" class="btn-read-more">Read More →</a>
                 </div>
 
-                <!-- Card 3 -->
                 <div class="info-card">
                     <div class="info-card-header">
                         <small>GLOBAL IMPACT</small>
@@ -2184,180 +1801,140 @@
                     <a href="/about" class="btn-read-more">Read More →</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ========================================== -->
-        <!--   SECTION 1: WHY STUDY WITH US? (LOGI CARDS) -->
-        <!-- ========================================== -->
-        <section class="logi-section" aria-labelledby="logi-why-title">
-
-            <div class="logi-container">
-
-                <div class="logi-heading">
-                    <span class="logi-section-label">THE LOGI EXPERIENCE</span>
-                    <h2 id="logi-why-title">WHY STUDY WITH US?</h2>
-                    <p>
-                        An education designed to strengthen your faith, develop your
-                        leadership and equip you for meaningful impact.
-                    </p>
-                </div>
-
-                <div class="logi-grid-5">
-
-                    <article class="logi-card">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-lightbulb"></i>
-                        </div>
-                        <span class="logi-card-number">01</span>
-                        <h3>Practical Approach</h3>
-                        <p>Learn practical skills that prepare you for ministry and leadership.</p>
-                    </article>
-
-                    <article class="logi-card">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-layer-group"></i>
-                        </div>
-                        <span class="logi-card-number">02</span>
-                        <h3>Perfect Blend</h3>
-                        <p>Theology, business, technology and leadership in one curriculum.</p>
-                    </article>
-
-                    <article class="logi-card">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <span class="logi-card-number">03</span>
-                        <h3>Dedicated Team</h3>
-                        <p>Learn from experienced Christian educators and mentors.</p>
-                    </article>
-
-                    <article class="logi-card">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <span class="logi-card-number">04</span>
-                        <h3>Scholarships</h3>
-                        <p>Affordable education with scholarship opportunities.</p>
-                    </article>
-
-                    <article class="logi-card">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-globe"></i>
-                        </div>
-                        <span class="logi-card-number">05</span>
-                        <h3>Convenience</h3>
-                        <p>Study online anytime, anywhere at your own pace.</p>
-                    </article>
-
-                </div>
-
+    <!-- ========================================== -->
+    <!--   WHY STUDY WITH US — GLASS CARDS         -->
+    <!-- ========================================== -->
+    <section class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1600&q=80');">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">The LOGI Experience</span>
+                <h2>Why Study With Us?</h2>
+                <p>An education designed to strengthen your faith, develop your leadership and equip you for meaningful impact.</p>
             </div>
 
-        </section>
-
-        <!-- ========================================== -->
-        <!--   SECTION 2: HOW IT WORKS (LOGI CARDS)    -->
-        <!-- ========================================== -->
-        <section class="logi-section" aria-labelledby="logi-how-title">
-
-            <div class="logi-container">
-
-                <div class="logi-heading">
-                    <span class="logi-section-label">YOUR PATHWAY</span>
-                    <h2 id="logi-how-title">HOW IT WORKS</h2>
-                    <p>
-                        A simple, streamlined process to get you started on your journey
-                        toward impactful leadership and ministry.
-                    </p>
+            <div class="card-grid card-grid-5">
+                <div class="glass-card">
+                    <span class="number">01</span>
+                    <div class="icon"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3>Practical Approach</h3>
+                    <p>Learn practical skills that prepare you for ministry and leadership.</p>
                 </div>
 
-                <div class="logi-grid-4">
-
-                    <article class="logi-card-how">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-book-open"></i>
-                        </div>
-                        <span class="logi-step-number">01</span>
-                        <h3>Choose Your Program</h3>
-                        <p>Select a course that matches your calling and goals.</p>
-                        <a href="/our-programs" class="logi-how-btn">
-                            Explore <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </article>
-
-                    <article class="logi-card-how">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                        <span class="logi-step-number">02</span>
-                        <h3>Apply Online</h3>
-                        <p>Complete your application from anywhere in the world.</p>
-                        <a href="/main-registration-form" class="logi-how-btn">
-                            Apply Now <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </article>
-
-                    <article class="logi-card-how">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                        <span class="logi-step-number">03</span>
-                        <h3>Start Learning</h3>
-                        <p>Access flexible online classes and resources.</p>
-                        <a href="https://learn.logi.education" class="logi-how-btn">
-                            Get Started <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </article>
-
-                    <article class="logi-card-how">
-                        <div class="logi-card-icon">
-                            <i class="fa-solid fa-rocket"></i>
-                        </div>
-                        <span class="logi-step-number">04</span>
-                        <h3>Graduate &amp; Impact</h3>
-                        <p>Use your knowledge to serve and transform lives.</p>
-                        <a href="/about" class="logi-how-btn">
-                            Learn More <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </article>
-
+                <div class="glass-card">
+                    <span class="number">02</span>
+                    <div class="icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3>Perfect Blend</h3>
+                    <p>Theology, business, technology and leadership in one curriculum.</p>
                 </div>
 
+                <div class="glass-card">
+                    <span class="number">03</span>
+                    <div class="icon"><i class="fa-solid fa-users"></i></div>
+                    <h3>Dedicated Team</h3>
+                    <p>Learn from experienced Christian educators and mentors.</p>
+                </div>
+
+                <div class="glass-card">
+                    <span class="number">04</span>
+                    <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3>Scholarships</h3>
+                    <p>Affordable education with scholarship opportunities.</p>
+                </div>
+
+                <div class="glass-card">
+                    <span class="number">05</span>
+                    <div class="icon"><i class="fa-solid fa-globe"></i></div>
+                    <h3>Convenience</h3>
+                    <p>Study online anytime, anywhere at your own pace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   HOW IT WORKS — GLASS CARDS              -->
+    <!-- ========================================== -->
+    <section class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1541832676-9b763b0239ab?w=1600&q=80');">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">Your Pathway</span>
+                <h2>How It Works</h2>
+                <p>A simple, streamlined process to get you started on your journey toward impactful leadership and ministry.</p>
             </div>
 
-        </section>
+            <div class="card-grid card-grid-4">
+                <div class="glass-card">
+                    <span class="number">01</span>
+                    <div class="icon"><i class="fa-solid fa-book-open"></i></div>
+                    <h3>Choose Your Program</h3>
+                    <p>Select a course that matches your calling and goals.</p>
+                    <a href="/our-programs" class="btn-glass">Explore <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
 
-        <!-- CTA Section - Plain/Transparent -->
-        <section class="cta-section">
-            <div style="max-width:1200px; margin:0 auto;">
+                <div class="glass-card">
+                    <span class="number">02</span>
+                    <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <h3>Apply Online</h3>
+                    <p>Complete your application from anywhere in the world.</p>
+                    <a href="/main-registration-form" class="btn-glass">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass-card">
+                    <span class="number">03</span>
+                    <div class="icon"><i class="fa-solid fa-play"></i></div>
+                    <h3>Start Learning</h3>
+                    <p>Access flexible online classes and resources.</p>
+                    <a href="https://learn.logi.education" class="btn-glass">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass-card">
+                    <span class="number">04</span>
+                    <div class="icon"><i class="fa-solid fa-rocket"></i></div>
+                    <h3>Graduate &amp; Impact</h3>
+                    <p>Use your knowledge to serve and transform lives.</p>
+                    <a href="/about" class="btn-glass">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   CTA SECTION — GLASS VERSION             -->
+    <!-- ========================================== -->
+    <section class="cta-section" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&q=80');">
+        <div class="container">
+            <div class="cta-heading">
                 <h2>Your Future Starts With What You Learn Today.</h2>
                 <p>
                     Whether you're preparing for ministry, leadership, business or technology,
                     LOGI gives you a flexible pathway to develop knowledge, competence and character.
                 </p>
-                <div class="cta-buttons">
-                    <a href="https://logi.education/main-registration-form" class="cta-btn-primary">
-                        <i class="fas fa-arrow-right"></i> Apply Online Now
-                    </a>
-                    <a href="https://g.page/r/CVymILKivi5SEAE/review" target="_blank" rel="noopener noreferrer" class="cta-btn-google">
-                        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;">
-                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                        </svg>
-                        Rate Us on Google
-                    </a>
-                    <a href="/our-programs" class="cta-btn-secondary">
-                        <i class="fas fa-graduation-cap"></i> Choose Your Program
-                    </a>
-                </div>
             </div>
-        </section>
-    </div>
+            <div class="cta-buttons">
+                <a href="https://logi.education/main-registration-form" class="cta-btn-primary">
+                    <i class="fas fa-arrow-right"></i> Apply Online Now
+                </a>
+                <a href="https://g.page/r/CVymILKivi5SEAE/review" target="_blank" rel="noopener noreferrer" class="cta-btn-google">
+                    <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Rate Us on Google
+                </a>
+                <a href="/our-programs" class="cta-btn-secondary">
+                    <i class="fas fa-graduation-cap"></i> Choose Your Program
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- ========================================== -->
-    <!--   FOOTER - UPDATED WITH #8B5353 COLORS    -->
+    <!--   FOOTER                                  -->
     <!-- ========================================== -->
     <footer class="institutional-footer">
 
@@ -2469,7 +2046,7 @@
     </footer>
 
     <!-- ========================================== -->
-    <!--   FLOATING CHAT                            -->
+    <!--   FLOATING CHAT                           -->
     <!-- ========================================== -->
     <div class="floating-chat-container">
         <a class="floating-chat-link" href="https://wa.me/233241456581" target="_blank" rel="noopener noreferrer">
@@ -2479,7 +2056,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!--   JAVASCRIPT                               -->
+    <!--   JAVASCRIPT                              -->
     <!-- ========================================== -->
     <script>
         // Mobile Menu
@@ -2594,19 +2171,6 @@
                     quoteElement.classList.remove('quote-hidden');
                 }, 600);
             }, 4000);
-        });
-
-        // Partners Slider - Pause on Hover
-        document.addEventListener('DOMContentLoaded', function() {
-            const sliderTrack = document.getElementById('partnersTrack');
-            if (sliderTrack) {
-                sliderTrack.addEventListener('mouseenter', function() {
-                    this.style.animationPlayState = 'paused';
-                });
-                sliderTrack.addEventListener('mouseleave', function() {
-                    this.style.animationPlayState = 'running';
-                });
-            }
         });
 
         // Newsletter Subscription
