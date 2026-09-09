@@ -1395,8 +1395,24 @@
         }
     </script>
 
-    <!-- Requests Blogger API default feed data -->
-    <script src="https://blog.logi.education/feeds/posts/default?alt=json-in-script&amp;callback=showLogiPosts&amp;max-results=6"></script>
+    // Updated fetch for GitHub JSON
+const postsUrl = 'https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/data/posts.json';
 
+fetch(postsUrl)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to fetch posts');
+    }
+    return response.json();
+  })
+  .then(posts => {
+    // Your existing function to display posts
+    displayPosts(posts);
+  })
+  .catch(error => {
+    console.error('Error loading posts:', error);
+    document.getElementById('logi-automatic-posts').innerHTML = 
+      '<p style="text-align:left; font-size:14px; color:#c62828;">⚠️ Error loading posts. Please try again later.</p>';
+  });
 </body>
 </html>
