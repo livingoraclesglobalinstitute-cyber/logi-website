@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html class="html" lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    
+    <title>Workplace Conflict Resolution - LOGI Blog</title>
+
+    <!-- Meta Tags -->
+    <meta content="Learn how to resolve workplace conflict effectively with a practical 4-step framework. Build a culture of peace, trust, and productivity in your organization." name="description" />
+    <meta content="https://www.logi.education/workplace-conflict-resolution" property="og:url" />
+    <meta content="Workplace Conflict Resolution - LOGI Blog" property="og:title" />
+    <meta content="Learn how to resolve workplace conflict effectively with a practical 4-step framework. Build a culture of peace, trust, and productivity in your organization." property="og:description" />
+    <meta content="Living Oracles Global Institute" property="og:site_name" />
+    <meta content="summary_large_image" name="twitter:card" />
+
+    <!-- Institutional Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- FontAwesome Core & Google Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before {
+            left: 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .top-bar::after {
+            right: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover {
+            color: #c9a86c;
+        }
+
+        .top-bar .contact-info i {
+            font-size: 0.65rem;
+            color: #c9a86c;
+        }
+
+        .top-bar .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .social-icons a {
+            color: #8a8680;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .top-bar .social-icons a:hover {
+            color: #c9a86c;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 4px 0;
+            }
+            .top-bar::before,
+            .top-bar::after {
+                width: 25px;
+            }
+            .top-bar .contact-info {
+                padding: 0 35px;
+                gap: 8px;
+            }
+            .top-bar .social-icons {
+                padding: 0 35px;
+            }
+            .top-bar .contact-info a,
+            .top-bar .contact-info span {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before,
+            .top-bar::after {
+                width: 18px;
+            }
+            .top-bar .contact-info {
+                padding: 0 25px;
+                gap: 6px;
+                font-size: 0.55rem;
+            }
+            .top-bar .social-icons {
+                padding: 0 25px;
+                gap: 8px;
+            }
+            .top-bar .social-icons a {
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   HEADER - FIXED FULL WIDTH WHITE         */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                top: 34px;
+                padding: 6px 4%;
+            }
+            .logo img {
+                width: 32px;
+            }
+            .logo .logo-text {
+                font-size: 0.65rem;
+            }
+            .logo .logo-text span {
+                font-size: 0.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header {
+                top: 30px;
+                padding: 4px 3%;
+            }
+            .logo img {
+                width: 28px;
+            }
+            .logo .logo-text {
+                font-size: 0.55rem;
+            }
+            .logo .logo-text span {
+                font-size: 0.35rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   MOBILE HAMBURGER MENU BUTTON             */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover {
+            background: rgba(26, 26, 46, 0.12);
+        }
+
+        .menu-btn i {
+            font-size: 16px;
+        }
+
+        /* ========================================== */
+        /*   DESKTOP NAVIGATION - DARK TEXT          */
+        /* ========================================== */
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li {
+            position: relative;
+        }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
+            display: flex !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li {
+            width: 100%;
+        }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: stretch !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                box-shadow: none !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                font-weight: 500 !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                text-shadow: none !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li a:hover {
+                background: rgba(139, 83, 83, 0.06) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                min-width: auto !important;
+                animation: none !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li {
+                border-bottom: none !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a i {
+                font-size: 0.85rem !important;
+                color: #c9a86c !important;
+                width: 20px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a:hover {
+                background: rgba(139, 83, 83, 0.08) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
+                border-left: 3px solid #8B5353 !important;
+                margin-left: 1rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
+                padding-left: 3rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer {
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                padding-bottom: 0.5rem !important;
+                border-top: 1px solid #f0ede6 !important;
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.2rem !important;
+                flex-shrink: 0 !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a {
+                color: #8a8680 !important;
+                font-size: 1.1rem !important;
+                transition: color 0.25s ease !important;
+                text-decoration: none !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a:hover {
+                color: #c9a86c !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar {
+                padding: 60px 1rem 1.5rem 1rem !important;
+            }
+            .navigation-menu-bar ul li a {
+                font-size: 0.85rem !important;
+                padding: 0.6rem 0.4rem !important;
+            }
+            .navigation-menu-bar ul li .submenu li a {
+                font-size: 0.78rem !important;
+                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
+        /* ========================================== */
+        .institutional-footer {
+            background: #1a1a2e;
+            color: #d4d0c8;
+            padding: 2.5rem 5% 1.2rem;
+            margin-top: 0;
+            border-top: none;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .footer-column p,
+        .footer-column address {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.2rem !important;
+            list-style: none !important;
+        }
+
+        .footer-column ul li a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-column ul li a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column .footer-address-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #8a8680;
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .subscription-form {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            padding: 5px 8px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            flex-grow: 1;
+            outline: none;
+            transition: border-color 0.3s;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .subscription-form input[type="email"]:focus {
+            border-color: #ffffff;
+        }
+
+        .subscription-form button {
+            background: #ffffff;
+            color: #8B5353;
+            border: none;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subscription-form button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.2rem;
+            }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .footer-bottom-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .institutional-footer { 
+                font-size: 0.7rem;
+                padding: 1.5rem 4% 1rem;
+            }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FLOATING CHAT                            */
+        /* ========================================== */
+        .floating-chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .floating-chat-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .floating-chat-link:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: #20ba5a;
+        }
+
+        .floating-chat-link i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+            .floating-chat-link {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+            .floating-chat-link span {
+                display: none;
+            }
+            .floating-chat-link i {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   GLOBAL RESET & PURE WHITE THEME          */
+        /* ========================================== */
+        :root {
+            --primary-dark: #1a1a2e;
+            --accent-burgundy: #8B5353;
+            --accent-gold: #c9a86c;
+            --text-main: #334155;
+            --border-color: #E2E8F0;
+            
+            /* Diagram Accents */
+            --step-orange: #f8a978;
+            --step-blue: #a8d8ea;
+            --step-yellow: #fce38a;
+            --step-green: #eaffd0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.85;
+            color: var(--text-main);
+            background: #ffffff;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            background: #ffffff;
+        }
+
+        /* ========================================== */
+        /*   ARTICLE HEADER & META                    */
+        /* ========================================== */
+        .blog-post-header {
+            padding: 40px 0 20px;
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: #64748B;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .breadcrumb a {
+            color: var(--accent-burgundy);
+            text-decoration: none;
+        }
+
+        .blog-post-header h1 {
+            color: var(--primary-dark);
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        /* Kente Pattern Background Box */
+        .author-meta-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            
+            background-color: #ffd700;
+            background-image: 
+                linear-gradient(90deg, rgba(218, 41, 28, 0.85) 0% 20%, rgba(0, 158, 96, 0.85) 20% 40%, rgba(0, 85, 164, 0.85) 40% 60%, rgba(255, 184, 28, 0.85) 60% 80%, rgba(20, 20, 20, 0.85) 80% 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.15) 10px, rgba(0,0,0,0.15) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 20px);
+            background-size: 100px 100%, 40px 40px, 40px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .author-meta-bar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(1px);
+            z-index: 1;
+        }
+
+        .author-avatar-img,
+        .author-details {
+            position: relative;
+            z-index: 2;
+        }
+
+        .author-avatar-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: contain;
+            padding: 4px;
+            background: #ffffff;
+            border: 2px solid var(--primary-dark);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.875rem;
+        }
+
+        .author-name {
+            font-weight: 800;
+            color: #000000;
+        }
+
+        .meta-info {
+            color: #1e293b;
+            font-weight: 600;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Hero Image Container (Replaces Header Diagram) */
+        .featured-image-container {
+            width: 100%;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .featured-image-container img {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ========================================== */
+        /*   CONTENT DIAGRAMS & VISUAL CARDS          */
+        /* ========================================== */
+        
+        /* BIBLICAL FOUNDATION DIAGRAM */
+        .biblical-diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 28px 0 40px;
+        }
+
+        .biblical-card {
+            border: 1px solid var(--primary-dark);
+            border-radius: 12px;
+            padding: 24px 20px;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .verse-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-burgundy);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .biblical-card .card-icon {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .biblical-card h4 {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .biblical-card p {
+            font-size: 0.925rem;
+            color: #475569;
+            margin-bottom: 0 !important;
+            line-height: 1.6;
+        }
+
+        /* COMMUNICATION FLOW DIAGRAM */
+        .flow-diagram-wrapper {
+            border: 2px solid var(--primary-dark);
+            border-radius: 12px;
+            padding: 28px;
+            margin: 40px 0;
+            background: #ffffff;
+        }
+
+        .diagram-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-burgundy);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .flow-comparison {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .flow-path {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .path-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .recommended .path-header { color: #2e7d32; }
+        .avoid .path-header { color: #c62828; }
+
+        .flow-step {
+            width: 100%;
+            text-align: center;
+            padding: 10px 14px;
+            border: 1px solid var(--primary-dark);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            background: #ffffff;
+        }
+
+        .flow-step.outcome {
+            font-weight: 700;
+        }
+
+        .recommended .flow-step.outcome { background: var(--step-green); }
+        .avoid .flow-step.outcome { background: #ffebee; }
+
+        .path-arrow {
+            font-size: 0.85rem;
+            color: #64748B;
+        }
+
+        .diagram-caption {
+            font-size: 0.875rem;
+            color: #64748B;
+            text-align: center;
+            margin-bottom: 0 !important;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 16px;
+        }
+
+        /* 4-STEP PROCESS DIAGRAM */
+        .step-process-diagram {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 32px 0 40px;
+        }
+
+        .process-card {
+            border: 2px solid var(--primary-dark);
+            border-radius: 12px;
+            padding: 24px;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            background: var(--primary-dark);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        .card-header-icon {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-top: 6px;
+            margin-bottom: 10px;
+        }
+
+        .process-card h4 {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .process-card p {
+            font-size: 0.925rem;
+            color: #475569;
+            margin-bottom: 0 !important;
+            line-height: 1.6;
+        }
+
+        .step-orange { border-top: 6px solid var(--step-orange); }
+        .step-blue { border-top: 6px solid var(--step-blue); }
+        .step-yellow { border-top: 6px solid var(--step-yellow); }
+        .step-green { border-top: 6px solid var(--step-green); }
+
+        /* VALUE IMPACT DIAGRAM GRID */
+        .impact-diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 28px 0 36px;
+        }
+
+        .impact-card {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-dark);
+            padding: 18px 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .impact-card h4 {
+            font-size: 1rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impact-card p {
+            font-size: 0.875rem;
+            color: #475569;
+            margin-bottom: 0 !important;
+        }
+
+        /* ========================================== */
+        /*   ARTICLE CONTENT STYLES                   */
+        /* ========================================== */
+        .post-content p {
+            font-size: 1.0625rem;
+            color: #334155;
+            margin-bottom: 24px;
+        }
+
+        .post-content .lead-paragraph::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            float: left;
+            line-height: 0.8;
+            padding-right: 12px;
+            color: var(--accent-burgundy);
+            font-weight: 700;
+        }
+
+        .post-content h2 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            font-family: 'Playfair Display', serif;
+            margin: 48px 0 20px;
+        }
+
+        .post-content blockquote {
+            position: relative;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--primary-dark);
+            padding: 20px 0 20px 24px;
+            border-left: 4px solid var(--accent-burgundy);
+            background: #ffffff;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.6;
+            margin: 36px 0;
+        }
+
+        .post-content blockquote cite {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.875rem;
+            font-style: normal;
+            color: var(--accent-burgundy);
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .styled-list {
+            list-style: none;
+            margin: 0 0 28px 0;
+            padding: 0;
+        }
+
+        .styled-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+
+        .styled-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--accent-burgundy);
+            font-size: 0.85rem;
+        }
+
+        .post-content .key-principle {
+            background: #ffffff;
+            border-top: 2px solid var(--primary-dark);
+            border-bottom: 2px solid var(--primary-dark);
+            padding: 28px 0;
+            margin: 40px 0;
+        }
+
+        .post-content .key-principle h3 {
+            color: var(--primary-dark);
+            font-size: 1.25rem;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 12px;
+        }
+
+        .post-content .key-principle p {
+            color: #334155;
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .action-btn {
+            background: var(--accent-burgundy);
+            color: #ffffff !important;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #734242;
+        }
+
+        /* ========================================== */
+        /*   PLACEHOLDERS                             */
+        /* ========================================== */
+        #header-placeholder,
+        #footer-placeholder {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .biblical-diagram-grid,
+            .flow-comparison,
+            .step-process-diagram,
+            .impact-diagram-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!--   HEADER PLACEHOLDER                       -->
+    <!-- ========================================== -->
+    <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   MAIN CONTENT                             -->
+    <!-- ========================================== -->
+    <main>
+        <div class="container">
+
+            <!-- ARTICLE HEADER -->
+            <header class="blog-post-header">
+                <div class="breadcrumb">
+                    <a href="/blog.html">← Blog</a> / Workplace Conflict Resolution
+                </div>
+                <h1>Workplace Conflict Resolution</h1>
+                
+                <div class="author-meta-bar">
+                    <img src="https://i.imgur.com/kkE49KM.png" alt="Living Oracles Global Institute Logo" class="author-avatar-img" />
+                    <div class="author-details">
+                        <span class="author-name">Living Oracles Global Institute</span>
+                        <div class="meta-info">
+                            <span><i class="far fa-calendar"></i> September 9, 2026</span>
+                            <span>•</span>
+                            <span><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- FEATURED HERO IMAGE -->
+            <div class="featured-image-container">
+                <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/assets/images/news/workplace-conflict-resolution.jpg" alt="Workplace Conflict Resolution" />
+            </div>
+
+            <!-- ARTICLE BODY -->
+            <article class="post-content">
+
+                <p class="lead-paragraph"><strong>Workplace conflict is inevitable</strong> — but it doesn't have to be destructive. When handled well, conflict can become a catalyst for growth, innovation, and stronger relationships. The key is knowing how to resolve it effectively and biblically.</p>
+
+                <p>Whether you are a team leader, manager, or team member, understanding how to navigate disagreements with grace, wisdom, and practical skill is essential for creating a healthy work environment. Here is a powerful framework for resolving workplace conflict — rooted in both biblical wisdom and practical leadership principles.</p>
+
+                <blockquote>
+                    "If it is possible, as far as it depends on you, live at peace with everyone."
+                    <cite>— Romans 12:18 (NIV)</cite>
+                </blockquote>
+
+                <!-- CONTENT DIAGRAM 1: BIBLICAL FOUNDATION -->
+                <h2>A Biblical Foundation for Conflict Resolution</h2>
+                <p>Conflict is not a sign of failure — it is a sign of human interaction. The Bible gives us clear principles for handling disagreements with grace and truth:</p>
+
+                <div class="biblical-diagram-grid">
+                    <div class="biblical-card">
+                        <div class="verse-badge">Ephesians 4:15</div>
+                        <div class="card-icon"><i class="fa-solid fa-heart-circle-check"></i></div>
+                        <h4>Speak Truth in Love</h4>
+                        <p>Honesty without love is harsh; love without honesty is empty.</p>
+                    </div>
+
+                    <div class="biblical-card">
+                        <div class="verse-badge">James 1:19</div>
+                        <div class="card-icon"><i class="fa-solid fa-ear-listen"></i></div>
+                        <h4>Quick to Listen</h4>
+                        <p>Listening is the essential first step toward genuine understanding.</p>
+                    </div>
+
+                    <div class="biblical-card">
+                        <div class="verse-badge">Matthew 18:15</div>
+                        <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
+                        <h4>Go Privately First</h4>
+                        <p>Address issues directly and privately before escalating further.</p>
+                    </div>
+
+                    <div class="biblical-card">
+                        <div class="verse-badge">Colossians 3:13</div>
+                        <div class="card-icon"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                        <h4>Forgive Gracefully</h4>
+                        <p>Holding onto grudges poisons the soul and the workplace environment.</p>
+                    </div>
+                </div>
+
+                <!-- CONTENT DIAGRAM 2: COMMUNICATION FLOW -->
+                <div class="flow-diagram-wrapper">
+                    <div class="diagram-tag">Diagram 1.1 — Communication Pathways</div>
+                    <div class="flow-comparison">
+                        <div class="flow-path recommended">
+                            <div class="path-header"><i class="fa-solid fa-circle-check"></i> Recommended Path</div>
+                            <div class="flow-step">Direct Private Dialogue</div>
+                            <i class="fa-solid fa-arrow-down path-arrow"></i>
+                            <div class="flow-step">Mutual Understanding</div>
+                            <i class="fa-solid fa-arrow-down path-arrow"></i>
+                            <div class="flow-step outcome">Healthy Resolution</div>
+                        </div>
+
+                        <div class="flow-path avoid">
+                            <div class="path-header"><i class="fa-solid fa-circle-xmark"></i> Public Escalation</div>
+                            <div class="flow-step">Public Disagreement</div>
+                            <i class="fa-solid fa-arrow-down path-arrow"></i>
+                            <div class="flow-step">Defensiveness & Gossip</div>
+                            <i class="fa-solid fa-arrow-down path-arrow"></i>
+                            <div class="flow-step outcome">Organizational Friction</div>
+                        </div>
+                    </div>
+                    <p class="diagram-caption">Addressing disagreements directly between individuals prevents small misunderstandings from turning into widespread friction.</p>
+                </div>
+
+                <!-- CONTENT DIAGRAM 3: 4-STEP PROCESS -->
+                <h2>The 4-Step Workplace Conflict Resolution Framework</h2>
+                <p>This practical framework will help you navigate any workplace conflict with confidence and clarity:</p>
+
+                <div class="step-process-diagram">
+                    <div class="process-card step-orange">
+                        <div class="step-number">01</div>
+                        <div class="card-header-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h4>Identify the Problem</h4>
+                        <p>Clearly define the issue. What is the real problem beneath the symptoms? Separate facts from feelings, and avoid assumptions.</p>
+                    </div>
+
+                    <div class="process-card step-blue">
+                        <div class="step-number">02</div>
+                        <div class="card-header-icon"><i class="fa-solid fa-comments"></i></div>
+                        <h4>Listen to All Sides</h4>
+                        <p>Create a safe space for each person to share their perspective without interruption. Practice active listening — seek to understand before being understood.</p>
+                    </div>
+
+                    <div class="process-card step-yellow">
+                        <div class="step-number">03</div>
+                        <div class="card-header-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h4>Brainstorm Solutions</h4>
+                        <p>Shift from problem-focused to solution-focused thinking. Invite all parties to suggest possible resolutions for win-win outcomes.</p>
+                    </div>
+
+                    <div class="process-card step-green">
+                        <div class="step-number">04</div>
+                        <div class="card-header-icon"><i class="fa-solid fa-handshake"></i></div>
+                        <h4>Agree on a Solution</h4>
+                        <p>Choose a solution that everyone can commit to. Be specific about what will happen, who will take action, and by when.</p>
+                    </div>
+                </div>
+
+                <!-- CONTENT DIAGRAM 4: ORGANIZATIONAL IMPACT GRID -->
+                <h2>Why Conflict Resolution Matters</h2>
+                <p>Unresolved conflict can destroy teams, reduce productivity, damage relationships, and create a toxic culture. But when handled well, conflict can transform your organization:</p>
+
+                <div class="impact-diagram-grid">
+                    <div class="impact-card">
+                        <h4><i class="fa-solid fa-shield-halved"></i> Building Trust</h4>
+                        <p>When people see that disagreements can be resolved fairly, team confidence and trust grow.</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4><i class="fa-solid fa-comments"></i> Improving Communication</h4>
+                        <p>Navigating disagreements forces team members to articulate needs and actively listen.</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4><i class="fa-solid fa-lightbulb"></i> Driving Innovation</h4>
+                        <p>Diverse perspectives spark creative solutions when channeled through healthy discussion.</p>
+                    </div>
+                    <div class="impact-card">
+                        <h4><i class="fa-solid fa-people-group"></i> Deepening Bonds</h4>
+                        <p>Overcoming obstacles together creates stronger team unity than avoiding issues entirely.</p>
+                    </div>
+                </div>
+
+                <div class="key-principle">
+                    <h3>✨ Key Leadership Principle</h3>
+                    <p>"Peace is not the absence of conflict — it is the ability to handle conflict with wisdom, grace, and courage. As leaders, we are called to be peacemakers, not peacekeepers. Peacemakers address issues honestly and lovingly; peacekeepers simply avoid them. Be a peacemaker."</p>
+                </div>
+
+                <h2>Practical Tips for Christian Leaders</h2>
+                <ul class="styled-list">
+                    <li><strong>Pray before you confront:</strong> Ask God for wisdom, humility, and the right words.</li>
+                    <li><strong>Check your own heart:</strong> Are you more concerned with being right or being helpful?</li>
+                    <li><strong>Focus on behavior, not character:</strong> Address what someone <em>did</em>, not who you think they <em>are</em>.</li>
+                    <li><strong>Use "I" statements:</strong> "I feel frustrated when..." is more constructive than "You always..."</li>
+                    <li><strong>Be willing to apologize:</strong> Even if you are "right," you can still apologize for how you delivered your message.</li>
+                    <li><strong>Involve a mediator:</strong> Sometimes a neutral third party can help when emotions are high.</li>
+                    <li><strong>Forgive — and mean it:</strong> Forgiveness is not forgetting; it is releasing the right to seek revenge.</li>
+                </ul>
+
+                <h2>A Prayer for Workplace Peace</h2>
+                <blockquote>
+                    "Lord, grant us wisdom to navigate conflict with grace. Help us to see each other as You see us — created in Your image, worthy of dignity and respect. Give us the courage to speak truth in love, the patience to listen, and the humility to seek reconciliation. May our workplaces be marked by peace, not because we avoid conflict, but because we handle it well. In Jesus' name, Amen."
+                </blockquote>
+
+                <p><strong>Remember:</strong> Conflict is not your enemy — it is an opportunity for growth. When you handle it with wisdom, grace, and a commitment to peace, you build a stronger team, a healthier workplace, and a lasting legacy of leadership.</p>
+
+                <div style="margin: 40px 0 20px;">
+                    <a href="/programs.html" class="action-btn">Explore Leadership Programs <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+            </article>
+
+            <div class="back-to-blog" style="padding-top: 24px; border-top: 1px solid var(--border-color); margin-bottom: 40px;">
+                <a href="/blog.html" style="color: var(--accent-burgundy); text-decoration: none; font-weight: 600;"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ========================================== -->
+    <!--   FOOTER PLACEHOLDER                       -->
+    <!-- ========================================== -->
+    <div id="footer-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
+    <!-- ========================================== -->
+    <script src="/load.js"></script>
+
+</body>
+</html>
