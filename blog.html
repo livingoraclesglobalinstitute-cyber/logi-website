@@ -899,7 +899,6 @@
 
         /* ========================================== */
         /*   BLOG PAGE STYLES                         */
-        /* (Your existing styles - kept unchanged)    */
         /* ========================================== */
         .logi-posts-container {
             width: 100% !important;
@@ -1254,133 +1253,65 @@
     <script src="load.js"></script>
 
     <!-- ========================================== -->
-    <!--   BLOG POSTS - FETCH FROM FEED             -->
+    <!--   BLOG POSTS - FETCH FROM GITHUB JSON      -->
     <!-- ========================================== -->
     <script>
         // ==========================================
-        //   BLOG POSTS - FETCH FROM FEED
+        //   DISPLAY BLOG POSTS FROM GITHUB JSON
         // ==========================================
-        function showLogiPosts(json) {
+        function displayBlogPosts(posts) {
             var container = document.getElementById('logi-automatic-posts');
-            var html = '';
-            var posts = json.feed.entry || [];
-
-            if (posts.length === 0) {
+            
+            if (!posts || posts.length === 0) {
                 container.innerHTML = '<p style="text-align:center; font-size:16px; color:#888; padding:40px 0;">No posts found at this time. Check back soon!</p>';
                 return;
             }
 
+            var html = '';
+
             for (var i = 0; i < posts.length; i++) {
-                var entry = posts[i];
-                var title = entry.title && entry.title.$t ? entry.title.$t : 'Untitled Post';
+                var post = posts[i];
+                var title = post.title || 'Untitled Post';
+                var postUrl = post.url || '#';
+                var excerpt = post.excerpt || '';
+                var postDate = post.date || '';
+                var image = post.image || '';
 
-                var postUrl = '';
-                if (entry.link) {
-                    for (var k = 0; k < entry.link.length; k++) {
-                        if (entry.link[k].rel == 'alternate') {
-                            postUrl = entry.link[k].href;
-                            break;
-                        }
-                    }
-                }
-
-                var contentText = '';
-                if (entry.content && entry.content.$t) {
-                    contentText = entry.content.$t;
-                } else if (entry.summary && entry.summary.$t) {
-                    contentText = entry.summary.$t;
-                }
-
-                var thumbUrl = '';
-                var extractedSvg = '';
-
-                if (entry.media$thumbnail && entry.media$thumbnail.url) {
-                    thumbUrl = entry.media$thumbnail.url.replace('/s72-c/', '/s400/');
-                } else {
-                    var imgMatch = contentText.match(/<img[^>]+src="([^">]+)"/i);
-                    if (imgMatch && imgMatch[1]) {
-                        thumbUrl = imgMatch[1];
-                    }
-                }
-
-                if (!thumbUrl) {
-                    var svgMatch = contentText.match(/<svg[\s\S]*?<\/svg>/i);
-                    if (svgMatch && svgMatch[0]) {
-                        extractedSvg = svgMatch[0].replace(/width="[^"]*"/gi, '').replace(/height="[^"]*"/gi, '');
-                    }
-                }
-
-                var summary = '';
-                if (contentText) {
-                    var cleanDoc = document.createElement('div');
-                    cleanDoc.innerHTML = contentText;
-
-                    var unwanted = cleanDoc.querySelectorAll('script, style, table, .print-preview, .post-header, .metadata, .date, img, svg');
-                    for (var u = 0; u < unwanted.length; u++) {
-                        unwanted[u].remove();
-                    }
-
-                    var paragraphs = cleanDoc.querySelectorAll('p');
-                    var realText = '';
-
-                    for (var p = 0; p < paragraphs.length; p++) {
-                        var pText = paragraphs[p].textContent.trim();
-                        if (
-                            pText.length > 20 &&
-                            pText.indexOf("function") === -1 &&
-                            pText.indexOf("=>") === -1 &&
-                            pText.indexOf("addEventListener") === -1 &&
-                            pText.indexOf("Estimated reading time") === -1 &&
-                            pText.indexOf("Published:") === -1 &&
-                            pText.indexOf("Updated:") === -1 &&
-                            pText.indexOf("Quote copied") === -1
-                        ) {
-                            realText = pText;
-                            break;
-                        }
-                    }
-
-                    if (!realText) {
-                        realText = cleanDoc.textContent || cleanDoc.innerText || "";
-                    }
-
-                    summary = realText.replace(/\s+/g, ' ').trim();
-                }
-
-                if (summary.length > 280) {
-                    summary = summary.substring(0, 280) + '...';
-                }
-
-                var postDate = '';
-                if (entry.published && entry.published.$t) {
-                    var rawDate = new Date(entry.published.$t);
-                    if (!isNaN(rawDate)) {
-                        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                        postDate = months[rawDate.getMonth()] + ' ' + rawDate.getFullYear();
-                    }
+                // Clean up excerpt if needed
+                if (excerpt.length > 280) {
+                    excerpt = excerpt.substring(0, 280) + '...';
                 }
 
                 html += '<div class="logi-post-card">';
 
-                if (thumbUrl !== '') {
+                // Image or SVG placeholder
+                if (image) {
                     html += '  <div class="logi-post-thumb-wrapper">';
-                    html += '    <a href="' + postUrl + '"><img src="' + thumbUrl + '" alt="' + title + '" class="logi-post-thumb" loading="lazy"/></a>';
+                    html += '    <a href="' + postUrl + '"><img src="' + image + '" alt="' + title + '" class="logi-post-thumb" loading="lazy"/></a>';
                     html += '  </div>';
-                } else if (extractedSvg !== '') {
+                } else {
+                    // Fallback SVG placeholder
                     html += '  <div class="logi-post-thumb-wrapper logi-post-svg-wrapper">';
-                    html += '    <a href="' + postUrl + '">' + extractedSvg + '</a>';
+                    html += '    <a href="' + postUrl + '">';
+                    html += '      <svg viewBox="0 0 24 24" width="60" height="60" fill="#8B5353" stroke="#8B5353">';
+                    html += '        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>';
+                    html += '      </svg>';
+                    html += '    </a>';
                     html += '  </div>';
                 }
 
                 html += '  <div class="logi-post-content-block">';
+                
                 if (postDate) {
                     html += '    <div class="logi-post-meta-strip">';
                     html += '      <span class="logi-post-date">📅 ' + postDate + '</span>';
                     html += '    </div>';
                 }
+                
                 html += '    <h3 class="logi-post-title"><a href="' + postUrl + '">' + title + '</a></h3>';
-                if (summary) {
-                    html += '    <p class="logi-post-summary">' + summary + '</p>';
+                
+                if (excerpt) {
+                    html += '    <p class="logi-post-summary">' + excerpt + '</p>';
                 }
 
                 html += '    <a href="' + postUrl + '" class="logi-post-btn">';
@@ -1393,26 +1324,28 @@
 
             container.innerHTML = html;
         }
+
+        // ==========================================
+        //   FETCH POSTS FROM GITHUB JSON
+        // ==========================================
+        const postsUrl = 'https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/data/posts.json';
+
+        fetch(postsUrl)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch posts');
+                }
+                return response.json();
+            })
+            .then(function(posts) {
+                displayBlogPosts(posts);
+            })
+            .catch(function(error) {
+                console.error('Error loading posts:', error);
+                document.getElementById('logi-automatic-posts').innerHTML = 
+                    '<p style="text-align:center; font-size:14px; color:#c62828; padding:40px 0;">⚠️ Error loading posts. Please try again later.</p>';
+            });
     </script>
 
-    // Updated fetch for GitHub JSON
-const postsUrl = 'https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/data/posts.json';
-
-fetch(postsUrl)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to fetch posts');
-    }
-    return response.json();
-  })
-  .then(posts => {
-    // Your existing function to display posts
-    displayPosts(posts);
-  })
-  .catch(error => {
-    console.error('Error loading posts:', error);
-    document.getElementById('logi-automatic-posts').innerHTML = 
-      '<p style="text-align:left; font-size:14px; color:#c62828;">⚠️ Error loading posts. Please try again later.</p>';
-  });
 </body>
 </html>
