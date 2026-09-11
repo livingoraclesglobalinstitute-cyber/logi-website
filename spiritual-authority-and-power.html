@@ -1543,23 +1543,96 @@
 
     <!-- INTERACTIVE BIBLE VERSE SCRIPT -->
     <script>
-        // Sample Scripture Lookup Database (NKJV)
+        // Complete Scripture Lookup Database (NKJV) - All references from the article
         const bibleDatabase = {
-            "Hosea 4:6": "My people are destroyed for lack of knowledge. Because you have rejected knowledge, I also will reject you from being priest for Me...",
+            // Old Testament References
+            "Hosea 4:6": "My people are destroyed for lack of knowledge. Because you have rejected knowledge, I also will reject you from being priest for Me; Because you have forgotten the law of your God, I also will forget your children.",
             "Isaiah 5:13": "Therefore my people have gone into captivity, because they have no knowledge; their honorable men are famished, and their multitude dried up with thirst.",
+            "Exodus 7:1": "So the LORD said to Moses: 'See, I have made you as God to Pharaoh, and Aaron your brother shall be your prophet.'",
+            "Exodus 4:17": "And you shall take this rod in your hand, with which you shall do the signs.",
+            "Exodus 14:15-16": "And the LORD said to Moses, 'Why do you cry to Me? Tell the children of Israel to go forward. But lift up your rod, and stretch out your hand over the sea and divide it. And the children of Israel shall go on dry ground through the midst of the sea.'",
+            "1 Kings 18:36": "And it came to pass, at the time of the offering of the evening sacrifice, that Elijah the prophet came near and said, 'LORD God of Abraham, Isaac, and Israel, let it be known this day that You are God in Israel and I am Your servant, and that I have done all these things at Your word.'",
+            "1 Kings 18:38-39": "Then the fire of the LORD fell and consumed the burnt sacrifice, and the wood and the stones and the dust, and it licked up the water that was in the trench. Now when all the people saw it, they fell on their faces; and they said, 'The LORD, He is God! The LORD, He is God!'",
+            "Psalm 110:1": "The LORD said to my Lord, 'Sit at My right hand, Till I make Your enemies Your footstool.'",
+            "Psalm 91:4": "He shall cover you with His feathers, And under His wings you shall take refuge; His truth shall be your shield and buckler.",
+            "Psalm 66:18": "If I regard iniquity in my heart, The Lord will not hear.",
+            "Proverbs 18:21": "Death and life are in the power of the tongue, And those who love it will eat its fruit.",
+            "Proverbs 4:23": "Keep your heart with all diligence, For out of it spring the issues of life.",
+            "Isaiah 52:7": "How beautiful upon the mountains Are the feet of him who brings good news, Who proclaims peace, Who brings glad tidings of good things, Who proclaims salvation, Who says to Zion, 'Your God reigns!'",
+            "Isaiah 59:16-19": "He saw that there was no man, And wondered that there was no intercessor; Therefore His own arm brought salvation for Him; And His own righteousness, it sustained Him. For He put on righteousness as a breastplate, And a helmet of salvation on His head; He put on the garments of vengeance for clothing, And was clad with zeal as a cloak. According to their deeds, accordingly He will repay, Fury to His adversaries, Recompense to His enemies; The coastlands He will fully repay. So shall they fear The name of the LORD from the west, And His glory from the rising of the sun; When the enemy comes in like a flood, The Spirit of the LORD will lift up a standard against him.",
+            "Daniel 10:12-13": "Then he said to me, 'Do not fear, Daniel, for from the first day that you set your heart to understand, and to humble yourself before your God, your words were heard; and I have come because of your words. But the prince of the kingdom of Persia withstood me twenty-one days; and behold, Michael, one of the chief princes, came to help me, for I had been left alone there with the kings of Persia.'",
+            "Joshua 1:8": "This Book of the Law shall not depart from your mouth, but you shall meditate in it day and night, that you may observe to do according to all that is written in it. For then you will make your way prosperous, and then you will have good success.",
+
+            // New Testament References
             "Luke 10:19": "Behold, I give you the authority to trample on serpents and scorpions, and over all the power of the enemy, and nothing shall by any means hurt you.",
-            "Matthew 28:18-19": "And Jesus came and spoke to them, saying, 'All authority has been given to Me in heaven and on earth. Go therefore and make disciples of all the nations...'",
-            "Ephesians 1:20-21": "Which He worked in Christ when He raised Him from the dead and seated Him at His right hand in the heavenly places, far above all principality and power and might and dominion...",
+            "Matthew 28:18-19": "And Jesus came and spoke to them, saying, 'All authority has been given to Me in heaven and on earth. Go therefore and make disciples of all the nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.'",
+            "Matthew 8:8-10": "The centurion answered and said, 'Lord, I am not worthy that You should come under my roof. But only speak a word, and my servant will be healed. For I also am a man under authority, having soldiers under me. And I say to this one, \"Go,\" and he goes; and to another, \"Come,\" and he comes; and to my servant, \"Do this,\" and he does it.' When Jesus heard it, He marveled, and said to those who followed, 'Assuredly, I say to you, I have not found such great faith, not even in Israel!'",
+            "Matthew 8:9": "For I also am a man under authority, having soldiers under me. And I say to this one, 'Go,' and he goes; and to another, 'Come,' and he comes; and to my servant, 'Do this,' and he does it.",
+            "Matthew 8:10": "When Jesus heard it, He marveled, and said to those who followed, 'Assuredly, I say to you, I have not found such great faith, not even in Israel!'",
+            "Matthew 4:4-10": "But He answered and said, 'It is written, \"Man shall not live by bread alone, but by every word that proceeds from the mouth of God.\"' Then the devil took Him up into the holy city, set Him on the pinnacle of the temple, and said to Him, 'If You are the Son of God, throw Yourself down. For it is written: \"He shall give His angels charge over you,\" and, \"In their hands they shall bear you up, Lest you dash your foot against a stone.\"' Jesus said to him, 'It is written again, \"You shall not tempt the LORD your God.\"' Again, the devil took Him up on an exceedingly high mountain, and showed Him all the kingdoms of the world and their glory. And he said to Him, 'All these things I will give You if You will fall down and worship me.' Then Jesus said to him, 'Away with you, Satan! For it is written, \"You shall worship the LORD your God, and Him only you shall serve.\"'",
+            "Matthew 16:19": "And I will give you the keys of the kingdom of heaven, and whatever you bind on earth will be bound in heaven, and whatever you loose on earth will be loosed in heaven.",
+            "Matthew 18:18": "Assuredly, I say to you, whatever you bind on earth will be bound in heaven, and whatever you loose on earth will be loosed in heaven.",
+            "Matthew 17:19-20": "Then the disciples came to Jesus privately and said, 'Why could we not cast it out?' So Jesus said to them, 'Because of your unbelief; for assuredly, I say to you, if you have faith as a mustard seed, you will say to this mountain, \"Move from here to there,\" and it will move; and nothing will be impossible for you.'",
+            "Matthew 20:25-28": "But Jesus called them to Himself and said, 'You know that the rulers of the Gentiles lord it over them, and those who are great exercise authority over them. Yet it shall not be so among you; but whoever desires to become great among you, let him be your servant. And whoever desires to be first among you, let him be your slave— just as the Son of Man did not come to be served, but to serve, and to give His life a ransom for many.'",
+            "Mark 16:17-18": "And these signs will follow those who believe: In My name they will cast out demons; they will speak with new tongues; they will take up serpents; and if they drink anything deadly, it will by no means hurt them; they will lay hands on the sick, and they will recover.",
+            "Mark 16:17": "And these signs will follow those who believe: In My name they will cast out demons; they will speak with new tongues.",
+            "Mark 11:23": "For assuredly, I say to you, whoever says to this mountain, 'Be removed and be cast into the sea,' and does not doubt in his heart, but believes that those things he says will be done, he will have whatever he says.",
+            "Mark 11:25-26": "And whenever you stand praying, if you have anything against anyone, forgive him, that your Father in heaven may also forgive you your trespasses. But if you do not forgive, neither will your Father in heaven forgive your trespasses.",
+            "John 1:12": "But as many as received Him, to them He gave the right to become children of God, to those who believe in His name.",
+            "John 8:32": "And you shall know the truth, and the truth shall make you free.",
+            "John 17:17": "Sanctify them by Your truth. Your word is truth.",
+            "Acts 3:6": "Then Peter said, 'Silver and gold I do not have, but what I do have I give you: In the name of Jesus Christ of Nazareth, rise up and walk.'",
+            "Acts 4:10": "Let it be known to you all, and to all the people of Israel, that by the name of Jesus Christ of Nazareth, whom you crucified, whom God raised from the dead, by Him this man stands here before you whole.",
+            "Acts 19:13-16": "Then some of the itinerant Jewish exorcists took it upon themselves to call the name of the Lord Jesus over those who had evil spirits, saying, 'We exorcise you by the Jesus whom Paul preaches.' Also there were seven sons of Sceva, a Jewish chief priest, who did so. And the evil spirit answered and said, 'Jesus I know, and Paul I know; but who are you?' Then the man in whom the evil spirit was leaped on them, overpowered them, and prevailed against them, so that they fled out of that house naked and wounded.",
+            "Romans 13:1-2": "Let every soul be subject to the governing authorities. For there is no authority except from God, and the authorities that exist are appointed by God. Therefore whoever resists the authority resists the ordinance of God, and those who resist will bring judgment on themselves.",
+            "Romans 5:17": "For if by the one man's offense death reigned through the one, much more those who receive abundance of grace and of the gift of righteousness will reign in life through the One, Jesus Christ.",
+            "Romans 8:1": "There is therefore now no condemnation to those who are in Christ Jesus, who do not walk according to the flesh, but according to the Spirit.",
+            "Romans 8:17": "And if children, then heirs—heirs of God and joint heirs with Christ, if indeed we suffer with Him, that we may also be glorified together.",
+            "Romans 10:15": "And how shall they preach unless they are sent? As it is written: 'How beautiful are the feet of those who preach the gospel of peace, Who bring glad tidings of good things!'",
+            "Romans 12:2": "And do not be conformed to this world, but be transformed by the renewing of your mind, that you may prove what is that good and acceptable and perfect will of God.",
+            "1 Corinthians 15:57": "But thanks be to God, who gives us the victory through our Lord Jesus Christ.",
+            "2 Corinthians 5:17": "Therefore, if anyone is in Christ, he is a new creation; old things have passed away; behold, all things have become new.",
+            "2 Corinthians 5:21": "For He made Him who knew no sin to be sin for us, that we might become the righteousness of God in Him.",
+            "2 Corinthians 4:13": "And since we have the same spirit of faith, according to what is written, 'I believed and therefore I spoke,' we also believe and therefore speak.",
+            "2 Corinthians 10:3-5": "For though we walk in the flesh, we do not war according to the flesh. For the weapons of our warfare are not carnal but mighty in God for pulling down strongholds, casting down arguments and every high thing that exalts itself against the knowledge of God, bringing every thought into captivity to the obedience of Christ.",
+            "2 Corinthians 10:8": "For even if I should boast somewhat more about our authority, which the Lord gave us for edification and not for your destruction, I shall not be ashamed.",
+            "Galatians 3:2-5": "This only I want to learn from you: Did you receive the Spirit by the works of the law, or by the hearing of faith? Are you so foolish? Having begun in the Spirit, are you now being made perfect by the flesh? Have you suffered so many things in vain—if indeed it was in vain? Therefore He who supplies the Spirit to you and works miracles among you, does He do it by the works of the law, or by the hearing of faith?",
+            "Galatians 3:28": "There is neither Jew nor Greek, there is neither slave nor free, there is neither male nor female; for you are all one in Christ Jesus.",
+            "Ephesians 1:3": "Blessed be the God and Father of our Lord Jesus Christ, who has blessed us with every spiritual blessing in the heavenly places in Christ.",
+            "Ephesians 1:20-21": "Which He worked in Christ when He raised Him from the dead and seated Him at His right hand in the heavenly places, far above all principality and power and might and dominion, and every name that is named, not only in this age but also in that which is to come.",
             "Ephesians 2:6": "And raised us up together, and made us sit together in the heavenly places in Christ Jesus.",
+            "Ephesians 4:26-27": "'Be angry, and do not sin': do not let the sun go down on your wrath, nor give place to the devil.",
+            "Ephesians 6:10-18": "Finally, my brethren, be strong in the Lord and in the power of His might. Put on the whole armor of God, that you may be able to stand against the wiles of the devil. For we do not wrestle against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this age, against spiritual hosts of wickedness in the heavenly places. Therefore take up the whole armor of God, that you may be able to withstand in the evil day, and having done all, to stand. Stand therefore, having girded your waist with truth, having put on the breastplate of righteousness, and having shod your feet with the preparation of the gospel of peace; above all, taking the shield of faith with which you will be able to quench all the fiery darts of the wicked one. And take the helmet of salvation, and the sword of the Spirit, which is the word of God; praying always with all prayer and supplication in the Spirit, being watchful to this end with all perseverance and supplication for all the saints.",
+            "Ephesians 6:12": "For we do not wrestle against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this age, against spiritual hosts of wickedness in the heavenly places.",
+            "Ephesians 6:14": "Stand therefore, having girded your waist with truth, having put on the breastplate of righteousness.",
+            "Ephesians 6:15": "And having shod your feet with the preparation of the gospel of peace.",
+            "Ephesians 6:16": "Above all, taking the shield of faith with which you will be able to quench all the fiery darts of the wicked one.",
+            "Ephesians 6:17": "And take the helmet of salvation, and the sword of the Spirit, which is the word of God.",
+            "Ephesians 6:18": "Praying always with all prayer and supplication in the Spirit, being watchful to this end with all perseverance and supplication for all the saints.",
+            "Philippians 2:8-11": "And being found in appearance as a man, He humbled Himself and became obedient to the point of death, even the death of the cross. Therefore God also has highly exalted Him and given Him the name which is above every name, that at the name of Jesus every knee should bow, of those in heaven, and of those on earth, and of those under the earth, and that every tongue should confess that Jesus Christ is Lord, to the glory of God the Father.",
+            "Philippians 2:9-10": "Therefore God also has highly exalted Him and given Him the name which is above every name, that at the name of Jesus every knee should bow, of those in heaven, and of those on earth, and of those under the earth.",
             "Colossians 2:15": "Having disarmed principalities and powers, He made a public spectacle of them, triumphing over them in it.",
-            "Ephesians 6:10-18": "Finally, my brethren, be strong in the Lord and in the power of His might. Put on the whole armor of God, that you may be able to stand against the wiles of the devil...",
-            "James 4:7": "Therefore submit to God. Resist the devil and he will flee from you.",
-            "Proverbs 18:21": "Death and life are in the power of the tongue, and those who love it will eat its fruit.",
+            "1 Thessalonians 5:8": "But let us who are of the day be sober, putting on the breastplate of faith and love, and as a helmet the hope of salvation.",
+            "1 Timothy 2:1-2": "Therefore I exhort first of all that supplications, prayers, intercessions, and giving of thanks be made for all men, for kings and all who are in authority, that we may lead a quiet and peaceable life in all godliness and reverence.",
             "2 Timothy 1:7": "For God has not given us a spirit of fear, but of power and of love and of a sound mind.",
+            "Hebrews 1:3": "Who being the brightness of His glory and the express image of His person, and upholding all things by the word of His power, when He had by Himself purged our sins, sat down at the right hand of the Majesty on high.",
+            "Hebrews 2:14-15": "Inasmuch then as the children have partaken of flesh and blood, He Himself likewise shared in the same, that through death He might destroy him who had the power of death, that is, the devil, and release those who through fear of death were all their lifetime subject to bondage.",
+            "Hebrews 4:12": "For the word of God is living and powerful, and sharper than any two-edged sword, piercing even to the division of soul and spirit, and of joints and marrow, and is a discerner of the thoughts and intents of the heart.",
+            "Hebrews 5:12-14": "For though by this time you ought to be teachers, you need someone to teach you again the first principles of the oracles of God; and you have come to need milk and not solid food. For everyone who partakes only of milk is unskilled in the word of righteousness, for he is a babe. But solid food belongs to those who are of full age, that is, those who by reason of use have their senses exercised to discern both good and evil.",
+            "Hebrews 10:19-22": "Therefore, brethren, having boldness to enter the Holiest by the blood of Jesus, by a new and living way which He consecrated for us, through the veil, that is, His flesh, and having a High Priest over the house of God, let us draw near with a true heart in full assurance of faith, having our hearts sprinkled from an evil conscience and our bodies washed with pure water.",
+            "James 4:7": "Therefore submit to God. Resist the devil and he will flee from you.",
+            "James 5:17-18": "Elijah was a man with a nature like ours, and he prayed earnestly that it would not rain; and it did not rain on the land for three years and six months. And he prayed again, and the heaven gave rain, and the earth produced its fruit.",
+            "1 Peter 2:9": "But you are a chosen generation, a royal priesthood, a holy nation, His own special people, that you may proclaim the praises of Him who called you out of darkness into His marvelous light.",
+            "1 Peter 3:22": "Who has gone into heaven and is at the right hand of God, angels and authorities and powers having been made subject to Him.",
+            "1 Peter 5:5": "Likewise you younger people, submit yourselves to your elders. Yes, all of you be submissive to one another, and be clothed with humility, for 'God resists the proud, But gives grace to the humble.'",
+            "1 Peter 5:6-9": "Therefore humble yourselves under the mighty hand of God, that He may exalt you in due time, casting all your care upon Him, for He cares for you. Be sober, be vigilant; because your adversary the devil walks about like a roaring lion, seeking whom he may devour. Resist him, steadfast in the faith, knowing that the same sufferings are experienced by your brotherhood in the world.",
+            "2 Peter 1:2-3": "Grace and peace be multiplied to you in the knowledge of God and of Jesus our Lord, as His divine power has given to us all things that pertain to life and godliness, through the knowledge of Him who called us by glory and virtue.",
+            "2 Peter 3:18": "But grow in the grace and knowledge of our Lord and Savior Jesus Christ. To Him be the glory both now and forever. Amen.",
             "1 John 1:9": "If we confess our sins, He is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",
-            "Romans 13:1-2": "Let every soul be subject to the governing authorities. For there is no authority except from God, and the authorities that exist are appointed by God.",
-            "Matthew 8:8-10": "The centurion answered and said, 'Lord, I am not worthy that You should come under my roof. But only speak a word, and my servant will be healed...'",
-            "John 1:12": "But as many as received Him, to them He gave the right to become children of God, to those who believe in His name."
+            "1 John 3:8": "He who sins is of the devil, for the devil has sinned from the beginning. For this purpose the Son of God was manifested, that He might destroy the works of the devil.",
+            "1 John 5:4": "For whatever is born of God overcomes the world. And this is the victory that has overcome the world—our faith.",
+            "Revelation 1:6": "And has made us kings and priests to His God and Father, to Him be glory and dominion forever and ever. Amen.",
+            "Revelation 12:10-11": "Then I heard a loud voice saying in heaven, 'Now salvation, and strength, and the kingdom of our God, and the power of His Christ have come, for the accuser of our brethren, who accused them before our God day and night, has been cast down. And they overcame him by the blood of the Lamb and by the word of their testimony, and they did not love their lives to the death.'"
         };
 
         const modal = document.getElementById('bibleModal');
@@ -1568,14 +1641,18 @@
 
         // Attach click listeners to citations and tags
         document.querySelectorAll('.citation, .ref-tag').forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
                 const verseRef = this.getAttribute('data-verse') || this.innerText.replace(/[()]/g, '').trim();
                 modalRef.innerText = verseRef;
                 
+                // Look up the verse in the database
                 if (bibleDatabase[verseRef]) {
                     modalText.innerText = `"${bibleDatabase[verseRef]}"`;
                 } else {
-                    modalText.innerText = `"${verseRef} (NKJV) — 'For the word of God is living and powerful, and sharper than any two-edged sword, piercing even to the division of soul and spirit, and of joints and marrow...'"`;
+                    // Fallback if verse not found
+                    modalText.innerText = `"Scripture reference: ${verseRef} (NKJV). Please consult your Bible for the full text of this passage."`;
                 }
                 modal.classList.add('active');
             });
@@ -1590,6 +1667,13 @@
                 closeBibleModal();
             }
         }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeBibleModal();
+            }
+        });
     </script>
 
 </body>
