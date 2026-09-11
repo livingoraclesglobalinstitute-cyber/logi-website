@@ -242,6 +242,581 @@
         }
 
         /* ========================================== */
+        /*   MOBILE HAMBURGER MENU BUTTON             */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover {
+            background: rgba(26, 26, 46, 0.12);
+        }
+
+        .menu-btn i {
+            font-size: 16px;
+        }
+
+        /* ========================================== */
+        /*   DESKTOP NAVIGATION - DARK TEXT          */
+        /* ========================================== */
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li {
+            position: relative;
+        }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
+            display: flex !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li {
+            width: 100%;
+        }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: stretch !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                box-shadow: none !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                font-weight: 500 !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                text-shadow: none !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li a:hover {
+                background: rgba(139, 83, 83, 0.06) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                min-width: auto !important;
+                animation: none !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li {
+                border-bottom: none !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a i {
+                font-size: 0.85rem !important;
+                color: #c9a86c !important;
+                width: 20px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a:hover {
+                background: rgba(139, 83, 83, 0.08) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
+                border-left: 3px solid #8B5353 !important;
+                margin-left: 1rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
+                padding-left: 3rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer {
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                padding-bottom: 0.5rem !important;
+                border-top: 1px solid #f0ede6 !important;
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.2rem !important;
+                flex-shrink: 0 !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a {
+                color: #8a8680 !important;
+                font-size: 1.1rem !important;
+                transition: color 0.25s ease !important;
+                text-decoration: none !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a:hover {
+                color: #c9a86c !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar {
+                padding: 60px 1rem 1.5rem 1rem !important;
+            }
+            .navigation-menu-bar ul li a {
+                font-size: 0.85rem !important;
+                padding: 0.6rem 0.4rem !important;
+            }
+            .navigation-menu-bar ul li .submenu li a {
+                font-size: 0.78rem !important;
+                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
+        /* ========================================== */
+        .institutional-footer {
+            background: #1a1a2e;
+            color: #d4d0c8;
+            padding: 2.5rem 5% 1.2rem;
+            margin-top: 0;
+            border-top: none;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .footer-column p,
+        .footer-column address {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.2rem !important;
+            list-style: none !important;
+        }
+
+        .footer-column ul li a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-column ul li a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column .footer-address-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #8a8680;
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .subscription-form {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            padding: 5px 8px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            flex-grow: 1;
+            outline: none;
+            transition: border-color 0.3s;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .subscription-form input[type="email"]:focus {
+            border-color: #ffffff;
+        }
+
+        .subscription-form button {
+            background: #ffffff;
+            color: #8B5353;
+            border: none;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subscription-form button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.2rem;
+            }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .footer-bottom-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .institutional-footer { 
+                font-size: 0.7rem;
+                padding: 1.5rem 4% 1rem;
+            }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FLOATING CHAT                            */
+        /* ========================================== */
+        .floating-chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .floating-chat-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .floating-chat-link:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: #20ba5a;
+        }
+
+        .floating-chat-link i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+            .floating-chat-link {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+            .floating-chat-link span {
+                display: none;
+            }
+            .floating-chat-link i {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ========================================== */
         /*   GLOBAL RESET & PURE WHITE RESEARCH THEME */
         /* ========================================== */
         :root {
@@ -677,6 +1252,12 @@
             text-align: right;
         }
 
+        /* PLACEHOLDERS */
+        #header-placeholder,
+        #footer-placeholder {
+            width: 100%;
+        }
+
         @media (max-width: 768px) {
             .toc-list {
                 grid-template-columns: 1fr;
@@ -690,8 +1271,14 @@
 </head>
 <body>
 
+    <!-- ========================================== -->
+    <!--   HEADER PLACEHOLDER                       -->
+    <!-- ========================================== -->
     <div id="header-placeholder"></div>
 
+    <!-- ========================================== -->
+    <!--   MAIN CONTENT                             -->
+    <!-- ========================================== -->
     <main>
         <div class="container">
 
@@ -722,7 +1309,7 @@
                 </div>
 
                 <div class="article-featured-image-container">
-                    <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/assets/images/news/unlocking-your-divine-purpose.png?raw=true" alt="Unlocking Divine Purpose Banner" class="article-featured-image" />
+                    <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/assets/images/news/walking-spiritual-authority.png?raw=true" alt="Unlocking Divine Purpose Banner" class="article-featured-image" />
                 </div>
             </header>
 
@@ -879,12 +1466,19 @@
         </div>
     </div>
 
+    <!-- ========================================== -->
+    <!--   FOOTER PLACEHOLDER                       -->
+    <!-- ========================================== -->
     <div id="footer-placeholder"></div>
 
+    <!-- ========================================== -->
+    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
+    <!-- ========================================== -->
     <script src="/load.js"></script>
 
     <!-- INTERACTIVE BIBLE VERSE SCRIPT -->
     <script>
+        // Complete Scripture Lookup Database (NKJV) - All references from the article
         const bibleDatabase = {
             "Ephesians 1:4": "Just as He chose us in Him before the foundation of the world, that we should be holy and without blame before Him in love.",
             "Jeremiah 1:5": "Before I formed you in the womb I knew you; Before you were born I sanctified you; I ordained you a prophet to the nations.",
@@ -895,27 +1489,32 @@
             "2 Timothy 1:9": "Who has saved us and called us with a holy calling, not according to our works, but according to His own purpose and grace which was given to us in Christ Jesus before time began.",
             "Acts 13:2": "As they ministered to the Lord and fasted, the Holy Spirit said, 'Now separate to Me Barnabas and Saul for the work to which I have called them.'",
             "Ephesians 2:10": "For we are His workmanship, created in Christ Jesus for good works, which God prepared beforehand that we should walk in them.",
-            "1 Corinthians 12:7-11": "But the manifestation of the Spirit is given to each one for the profit of all...",
+            "1 Corinthians 12:7-11": "But the manifestation of the Spirit is given to each one for the profit of all: for to one is given the word of wisdom through the Spirit, to another the word of knowledge through the same Spirit, to another faith by the same Spirit, to another gifts of healings by the same Spirit, to another the working of miracles, to another prophecy, to another discerning of spirits, to another different kinds of tongues, to another the interpretation of tongues. But one and the same Spirit works all these things, distributing to each one individually as He wills.",
             "Philippians 4:19": "And my God shall supply all your need according to His riches in glory by Christ Jesus.",
-            "Genesis 37:5-10": "Now Joseph had a dream, and he told it to his brothers; and they hated him even more...",
+            "Genesis 37:5-10": "Now Joseph had a dream, and he told it to his brothers; and they hated him even more. So he said to them, 'Please hear this dream which I have dreamed: There we were, binding sheaves in the field. Then behold, my sheaf arose and also stood upright; and indeed your sheaves stood all around and bowed down to my sheaf.' And his brothers said to him, 'Shall you indeed reign over us? Or shall you indeed have dominion over us?' So they hated him even more for his dreams and for his words. Then he dreamed still another dream and told it to his brothers, and said, 'Look, I have dreamed another dream. And this time, the sun, the moon, and the eleven stars bowed down to me.' So he told it to his father and his brothers; and his father rebuked him and said to him, 'What is this dream that you have dreamed? Shall your mother and I and your brothers indeed come to bow down to the earth before you?'",
             "Genesis 50:20": "But as for you, you meant evil against me; but God meant it for good, in order to bring it about as it is this day, to save many people alive.",
-            "1 Samuel 16:12-13": "Then the LORD said, 'Arise, anoint him; for this is the one!' Then Samuel took the horn of oil and anointed him in the midst of his brothers...",
-            "1 Samuel 17:34-37": "But David said to Saul, 'Your servant used to keep his father's sheep, and when a lion or a bear came and took a lamb out of the flock...'",
-            "Acts 9:3-6": "As he journeyed he came near Damascus, and suddenly a light shone around him from heaven...",
-            "Galatians 1:15-16": "But when it pleased God, who separated me from my mother's womb and called me through His grace, to reveal His Son in me...",
-            "Nehemiah 1:3-4": "And they said to me, 'The survivors who are left from the captivity in the province are there in great distress and reproach...'",
-            "Romans 12:6-8": "Having then gifts differing according to the grace that is given to us, let us use them...",
+            "1 Samuel 16:12-13": "So he sent and brought him in. Now he was ruddy, with bright eyes, and good-looking. And the LORD said, 'Arise, anoint him; for this is the one!' Then Samuel took the horn of oil and anointed him in the midst of his brothers; and the Spirit of the LORD came upon David from that day forward. So Samuel arose and went to Ramah.",
+            "1 Samuel 17:34-37": "But David said to Saul, 'Your servant used to keep his father's sheep, and when a lion or a bear came and took a lamb out of the flock, I went out after it and struck it, and delivered the lamb from its mouth; and when it arose against me, I caught it by its beard, and struck and killed it. Your servant has killed both lion and bear; and this uncircumcised Philistine will be like one of them, seeing he has defied the armies of the living God.' Moreover David said, 'The LORD, who delivered me from the paw of the lion and from the paw of the bear, He will deliver me from the hand of this Philistine.' And Saul said to David, 'Go, and the LORD be with you!'",
+            "Acts 9:3-6": "As he journeyed he came near Damascus, and suddenly a light shone around him from heaven. Then he fell to the ground, and heard a voice saying to him, 'Saul, Saul, why are you persecuting Me?' And he said, 'Who are You, Lord?' Then the Lord said, 'I am Jesus, whom you are persecuting. It is hard for you to kick against the goads.' So he, trembling and astonished, said, 'Lord, what do You want me to do?' Then the Lord said to him, 'Arise and go into the city, and you will be told what you must do.'",
+            "Galatians 1:15-16": "But when it pleased God, who separated me from my mother's womb and called me through His grace, to reveal His Son in me, that I might preach Him among the Gentiles, I did not immediately confer with flesh and blood.",
+            "Nehemiah 1:3-4": "And they said to me, 'The survivors who are left from the captivity in the province are there in great distress and reproach. The wall of Jerusalem is also broken down, and its gates are burned with fire.' So it was, when I heard these words, that I sat down and wept, and mourned for many days; I was fasting and praying before the God of heaven.",
+            "Romans 12:6-8": "Having then gifts differing according to the grace that is given to us, let us use them: if prophecy, let us prophesy in proportion to our faith; or ministry, let us use it in our ministering; he who teaches, in teaching; he who exhorts, in exhortation; he who gives, with liberality; he who leads, with diligence; he who shows mercy, with cheerfulness.",
             "Proverbs 11:14": "Where there is no counsel, the people fall; But in the multitude of counselors there is safety.",
-            "2 Corinthians 13:1": "By the mouth of two or three witnesses every word shall be established.",
-            "Revelation 3:8": "I know your works. See, I have set before you an open door, and no one can shut it...",
-            "Galatians 1:17-18": "Nor did I go up to Jerusalem to those who were apostles before me; but I went to Arabia, and returned again to Damascus...",
-            "Luke 16:10-12": "He who is faithful in what is least is faithful also in much; and he who is unjust in what is least is unjust also in much.",
+            "2 Corinthians 13:1": "This will be the third time I am coming to you. 'By the mouth of two or three witnesses every word shall be established.'",
+            "Revelation 3:8": "I know your works. See, I have set before you an open door, and no one can shut it; for you have a little strength, have kept My word, and have not denied My name.",
+            "Galatians 1:17-18": "Nor did I go up to Jerusalem to those who were apostles before me; but I went to Arabia, and returned again to Damascus. Then after three years I went up to Jerusalem to see Peter, and remained with him fifteen days.",
+            "Luke 16:10-12": "He who is faithful in what is least is faithful also in much; and he who is unjust in what is least is unjust also in much. Therefore if you have not been faithful in the unrighteous mammon, who will commit to your trust the true riches? And if you have not been faithful in what is another man's, who will give you what is your own?",
             "1 Peter 5:6": "Therefore humble yourselves under the mighty hand of God, that He may exalt you in due time.",
             "Proverbs 29:25": "The fear of man brings a snare, But whoever trusts in the LORD shall be safe.",
             "1 Corinthians 15:33": "Do not be deceived: 'Evil company corrupts good habits.'",
-            "2 Corinthians 10:12": "For we dare not class ourselves or compare ourselves with those who commend themselves...",
+            "2 Corinthians 10:12": "For we dare not class ourselves or compare ourselves with those who commend themselves. But they, measuring themselves by themselves, and comparing themselves among themselves, are not wise.",
             "1 Samuel 15:26": "But Samuel said to Saul, 'I will not return with you, for you have rejected the word of the LORD, and the LORD has rejected you from being king over Israel.'",
-            "Colossians 3:23-24": "And whatever you do, do it heartily, as to the Lord and not to men, knowing that from the Lord you will receive the reward of the inheritance..."
+            "Colossians 3:23-24": "And whatever you do, do it heartily, as to the Lord and not to men, knowing that from the Lord you will receive the reward of the inheritance; for you serve the Lord Christ.",
+            "Psalm 139:13-18": "For You formed my inward parts; You covered me in my mother's womb. I will praise You, for I am fearfully and wonderfully made; Marvelous are Your works, And that my soul knows very well. My frame was not hidden from You, When I was made in secret, And skillfully wrought in the lowest parts of the earth. Your eyes saw my substance, being yet unformed. And in Your book they all were written, The days fashioned for me, When as yet there were none of them. How precious also are Your thoughts to me, O God! How great is the sum of them! If I should count them, they would be more in number than the sand; When I awake, I am still with You.",
+            "Matthew 16:24-26": "Then Jesus said to His disciples, 'If anyone desires to come after Me, let him deny himself, and take up his cross, and follow Me. For whoever desires to save his life will lose it, but whoever loses his life for My sake will find it. For what profit is it to a man if he gains the whole world, and loses his own soul? Or what will a man give in exchange for his soul?'",
+            "Nehemiah 1:1-11": "The words of Nehemiah the son of Hachaliah... And they said to me, 'The survivors who are left from the captivity in the province are there in great distress and reproach. The wall of Jerusalem is also broken down, and its gates are burned with fire.' So it was, when I heard these words, that I sat down and wept, and mourned for many days; I was fasting and praying before the God of heaven.",
+            "Habakkuk 2:1-3": "I will stand my watch And set myself on the rampart, And watch to see what He will say to me, And what I will answer when I am corrected. Then the LORD answered me and said: 'Write the vision And make it plain on tablets, That he may run who reads it. For the vision is yet for an appointed time; But at the end it will speak, and it will not lie. Though it tarries, wait for it; Because it will surely come, It will not tarry.'",
+            "Isaiah 6:1-8": "In the year that King Uzziah died, I saw the Lord sitting on a throne, high and lifted up, and the train of His robe filled the temple... Also I heard the voice of the Lord, saying: 'Whom shall I send, And who will go for Us?' Then I said, 'Here am I! Send me.'"
         };
 
         const modal = document.getElementById('bibleModal');
