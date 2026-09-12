@@ -1,57 +1,21 @@
 <!-- ========================================== -->
-<!--   FOOTER — GLASS EFFECT (CSS + HTML)      -->
+<!--   FOOTER — SOLID VERSION (No Glass)       -->
 <!-- ========================================== -->
 
 <style>
     /* ========================================== */
-    /*   FOOTER — GLASS VERSION                  */
+    /*   FOOTER — SOLID                          */
     /* ========================================== */
     .institutional-footer {
         position: relative;
         width: 100%;
-        background: rgba(26, 26, 46, 0.15);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: #d4d0c8;
+        background: #0d1b2a;
+        color: #f4f6f8;
         padding: 2.5rem 5% 1.2rem;
         margin-top: 0;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
         font-size: 0.85rem;
         z-index: 2;
-        overflow: hidden;
-    }
-
-    /* Footer background image with low opacity */
-    .institutional-footer::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        
-        background-size: cover;
-        background-position: center;
-        opacity: 0.10;
-        z-index: -1;
-    }
-
-    /* Glass overlay */
-    .institutional-footer::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(26, 26, 46, 0.30);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        z-index: 0;
-    }
-
-    .institutional-footer .footer-grid-container {
-        position: relative;
-        z-index: 1;
-    }
-
-    .institutional-footer .footer-bottom-bar {
-        position: relative;
-        z-index: 1;
     }
 
     .footer-grid-container {
@@ -60,8 +24,6 @@
         display: grid;
         grid-template-columns: 2fr 1fr 1fr 1fr;
         gap: 1.5rem;
-        position: relative;
-        z-index: 1;
     }
 
     .footer-column h2 {
@@ -75,7 +37,7 @@
 
     .footer-column p,
     .footer-column address {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(244, 246, 248, 0.8);
         font-size: 0.82rem;
         line-height: 1.7;
         font-style: normal;
@@ -83,7 +45,7 @@
     }
 
     .footer-column a {
-        color: rgba(255, 255, 255, 0.8) !important;
+        color: rgba(244, 246, 248, 0.8) !important;
         text-decoration: none !important;
         font-size: 0.82rem !important;
         transition: color 0.25s ease !important;
@@ -106,7 +68,7 @@
     }
 
     .footer-column ul li a {
-        color: rgba(255, 255, 255, 0.8) !important;
+        color: rgba(244, 246, 248, 0.8) !important;
         text-decoration: none !important;
         font-size: 0.82rem !important;
         transition: color 0.25s ease !important;
@@ -131,7 +93,7 @@
     }
 
     .footer-column .footer-address-line span {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(244, 246, 248, 0.8);
         font-size: 0.82rem;
         line-height: 1.6;
     }
@@ -146,14 +108,12 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 0.6rem;
-        position: relative;
-        z-index: 1;
     }
 
     .footer-copyright {
         font-size: 0.7rem;
         font-weight: 400;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(244, 246, 248, 0.6);
     }
 
     .footer-subscription-container h3 {
@@ -166,7 +126,7 @@
     }
 
     .footer-subscription-container p {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(244, 246, 248, 0.8);
         font-size: 0.75rem;
         margin-bottom: 0.2rem;
     }
