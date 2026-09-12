@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Contact Us — Living Oracles Global Institute</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Get in touch with Living Oracles Global Institute. We're here to answer your questions about admissions, programs, partnerships, and more." />
+    <meta property="og:title" content="Contact Us — Living Oracles Global Institute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/contact" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Get in touch with Living Oracles Global Institute." />
+    <meta property="og:site_name" content="Living Oracles Global Institute" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Institutional Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- FontAwesome Core -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before {
+            left: 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .top-bar::after {
+            right: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover {
+            color: #c9a86c;
+        }
+
+        .top-bar .contact-info i {
+            font-size: 0.65rem;
+            color: #c9a86c;
+        }
+
+        .top-bar .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .social-icons a {
+            color: #8a8680;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .top-bar .social-icons a:hover {
+            color: #c9a86c;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 4px 0;
+            }
+            .top-bar::before,
+            .top-bar::after {
+                width: 25px;
+            }
+            .top-bar .contact-info {
+                padding: 0 35px;
+                gap: 8px;
+            }
+            .top-bar .social-icons {
+                padding: 0 35px;
+            }
+            .top-bar .contact-info a,
+            .top-bar .contact-info span {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before,
+            .top-bar::after {
+                width: 18px;
+            }
+            .top-bar .contact-info {
+                padding: 0 25px;
+                gap: 6px;
+                font-size: 0.55rem;
+            }
+            .top-bar .social-icons {
+                padding: 0 25px;
+                gap: 8px;
+            }
+            .top-bar .social-icons a {
+                font-size: 0.65rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   HEADER - FIXED FULL WIDTH WHITE         */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header {
+                top: 34px;
+                padding: 6px 4%;
+            }
+            .logo img {
+                width: 32px;
+            }
+            .logo .logo-text {
+                font-size: 0.65rem;
+            }
+            .logo .logo-text span {
+                font-size: 0.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header {
+                top: 30px;
+                padding: 4px 3%;
+            }
+            .logo img {
+                width: 28px;
+            }
+            .logo .logo-text {
+                font-size: 0.55rem;
+            }
+            .logo .logo-text span {
+                font-size: 0.35rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   MOBILE HAMBURGER MENU BUTTON             */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover {
+            background: rgba(26, 26, 46, 0.12);
+        }
+
+        .menu-btn i {
+            font-size: 16px;
+        }
+
+        /* ========================================== */
+        /*   DESKTOP NAVIGATION - DARK TEXT          */
+        /* ========================================== */
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li {
+            position: relative;
+        }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
+            display: flex !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li {
+            width: 100%;
+        }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                min-height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: stretch !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                box-shadow: none !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                font-weight: 500 !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                text-shadow: none !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li a:hover {
+                background: rgba(139, 83, 83, 0.06) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+                min-width: auto !important;
+                animation: none !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
+                display: flex !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li {
+                border-bottom: none !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                border-bottom: none !important;
+                background: transparent !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+                font-size: 0.85rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a i {
+                font-size: 0.85rem !important;
+                color: #c9a86c !important;
+                width: 20px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li a:hover {
+                background: rgba(139, 83, 83, 0.08) !important;
+                color: #8B5353 !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
+                border-left: 3px solid #8B5353 !important;
+                margin-left: 1rem !important;
+            }
+
+            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
+                padding-left: 3rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer {
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                padding-bottom: 0.5rem !important;
+                border-top: 1px solid #f0ede6 !important;
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.2rem !important;
+                flex-shrink: 0 !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a {
+                color: #8a8680 !important;
+                font-size: 1.1rem !important;
+                transition: color 0.25s ease !important;
+                text-decoration: none !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a:hover {
+                color: #c9a86c !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar {
+                padding: 60px 1rem 1.5rem 1rem !important;
+            }
+            .navigation-menu-bar ul li a {
+                font-size: 0.85rem !important;
+                padding: 0.6rem 0.4rem !important;
+            }
+            .navigation-menu-bar ul li .submenu li a {
+                font-size: 0.78rem !important;
+                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FOOTER - FULL WIDTH                     */
+        /* ========================================== */
+        .institutional-footer {
+            background: #1a1a2e;
+            color: #d4d0c8;
+            padding: 2.5rem 5% 1.2rem;
+            margin-top: 0;
+            border-top: none;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .footer-column p,
+        .footer-column address {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.2rem !important;
+            list-style: none !important;
+        }
+
+        .footer-column ul li a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-column ul li a:hover {
+            color: #ffffff !important;
+        }
+
+        .footer-column .footer-address-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #8a8680;
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .subscription-form {
+            display: flex;
+            gap: 4px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            padding: 5px 8px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            flex-grow: 1;
+            outline: none;
+            transition: border-color 0.3s;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .subscription-form input[type="email"]:focus {
+            border-color: #ffffff;
+        }
+
+        .subscription-form button {
+            background: #ffffff;
+            color: #8B5353;
+            border: none;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subscription-form button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.2rem;
+            }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .footer-bottom-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .institutional-footer { 
+                font-size: 0.7rem;
+                padding: 1.5rem 4% 1rem;
+            }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                            */
+        /* ========================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html,
+        body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1a1a2e;
+            line-height: 1.6;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* ========================================== */
+        /*   CONTACT HERO                            */
+        /* ========================================== */
+        .contact-hero {
+            position: relative;
+            width: 100%;
+            height: 45vh;
+            min-height: 350px;
+            max-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #1a1a2e;
+            z-index: 1;
+        }
+
+        .contact-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .contact-hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(26, 26, 46, 0.55) 100%);
+        }
+
+        .contact-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .contact-hero-content .hero-label {
+            display: inline-block;
+            margin-bottom: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #c9a86c;
+            text-transform: uppercase;
+        }
+
+        .contact-hero-content h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .contact-hero-content h1 .highlight {
+            color: #c9a86c;
+        }
+
+        .contact-hero-content p {
+            font-size: clamp(16px, 1.6vw, 20px);
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero {
+                height: 38vh;
+                min-height: 280px;
+                max-height: 400px;
+            }
+            .contact-hero-content h1 {
+                font-size: clamp(24px, 4vw, 32px);
+            }
+            .contact-hero-content p {
+                font-size: clamp(14px, 1.6vw, 16px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-hero {
+                height: 32vh;
+                min-height: 220px;
+                max-height: 320px;
+            }
+            .contact-hero-content h1 {
+                font-size: clamp(20px, 4vw, 26px);
+            }
+            .contact-hero-content p {
+                font-size: 13px;
+            }
+        }
+
+        /* ========================================== */
+        /*   FULL-WIDTH SECTIONS WITH BACKGROUND     */
+        /* ========================================== */
+        .section-bg {
+            position: relative;
+            width: 100%;
+            padding: 100px 30px 120px;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .section-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.70);
+            z-index: 0;
+        }
+
+        .section-bg .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .section-bg .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: #ffffff;
+        }
+
+        .section-bg .section-heading .label {
+            display: inline-block;
+            margin-bottom: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #c9a86c;
+            text-transform: uppercase;
+        }
+
+        .section-bg .section-heading h2 {
+            margin: 0 0 18px;
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -1.2px;
+            color: #ffffff;
+        }
+
+        .section-bg .section-heading p {
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .section-bg {
+                padding: 60px 20px 80px;
+                background-attachment: scroll !important;
+            }
+            .section-bg .section-heading h2 {
+                font-size: 28px;
+            }
+            .section-bg .section-heading p {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-bg {
+                padding: 40px 16px 60px;
+            }
+            .section-bg .section-heading h2 {
+                font-size: 24px;
+            }
+            .section-bg .section-heading p {
+                font-size: 14px;
+            }
+        }
+
+        /* ========================================== */
+        /*   CONTACT GRID                            */
+        /* ========================================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Contact Form */
+        .contact-form-box {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form-box h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .contact-form-box h3 i {
+            color: #c9a86c;
+            margin-right: 10px;
+        }
+
+        .contact-form-box .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .contact-form-box .form-group {
+            margin-bottom: 16px;
+        }
+
+        .contact-form-box label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-form-box input,
+        .contact-form-box select,
+        .contact-form-box textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.10);
+            color: #ffffff;
+            font-family: inherit;
+        }
+
+        .contact-form-box input::placeholder,
+        .contact-form-box textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .contact-form-box select option {
+            background: #1a1a2e;
+            color: #ffffff;
+        }
+
+        .contact-form-box input:focus,
+        .contact-form-box select:focus,
+        .contact-form-box textarea:focus {
+            outline: none;
+            border-color: #c9a86c;
+            box-shadow: 0 0 0 4px rgba(201, 168, 108, 0.10);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-form-box textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .contact-form-box .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: #8B5353;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .contact-form-box .btn-submit:hover {
+            background: #a66a6a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 83, 83, 0.35);
+        }
+
+        /* Contact Info Cards */
+        .contact-info-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 28px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .contact-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+            border-color: #c9a86c;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-info-card .info-icon {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: rgba(201, 168, 108, 0.15);
+            color: #c9a86c;
+            font-size: 1.3rem;
+        }
+
+        .contact-info-card .info-content h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .contact-info-card .info-content p,
+        .contact-info-card .info-content a {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+            text-decoration: none;
+            display: block;
+            transition: color 0.25s ease;
+        }
+
+        .contact-info-card .info-content a:hover {
+            color: #c9a86c;
+        }
+
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contact-form-box {
+                padding: 28px 20px;
+            }
+            .contact-form-box .form-row {
+                grid-template-columns: 1fr;
+            }
+            .contact-info-card {
+                padding: 22px 18px;
+            }
+        }
+
+        /* ========================================== */
+        /*   DEPARTMENT CARDS — GLASS VERSION        */
+        /* ========================================== */
+        .card-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .card-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 32px 24px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transform: translateY(-4px);
+            border-color: #c9a86c;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .glass-card .icon {
+            font-size: 2.2rem;
+            color: #c9a86c;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .glass-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .glass-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+        }
+
+        .glass-card a {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #c9a86c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card a:hover {
+            color: #ffffff;
+        }
+
+        .glass-card a i {
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card a:hover i {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 900px) {
+            .card-grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card-grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .glass-card {
+                padding: 24px 18px;
+            }
+        }
+
+        /* ========================================== */
+        /*   FAQ SECTION                             */
+        /* ========================================== */
+        .faq-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #c9a86c;
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #ffffff;
+            gap: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: #c9a86c;
+        }
+
+        .faq-question i {
+            color: #c9a86c;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 24px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 24px 24px 24px;
+        }
+
+        .faq-answer p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .faq-question {
+                padding: 16px 18px;
+                font-size: 0.9rem;
+            }
+            .faq-answer {
+                padding: 0 18px;
+            }
+            .faq-item.active .faq-answer {
+                padding: 0 18px 18px 18px;
+            }
+        }
+
+        /* ========================================== */
+        /*   FLOATING CHAT                           */
+        /* ========================================== */
+        .floating-chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .floating-chat-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #25d366;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .floating-chat-link:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            background: #20ba5a;
+        }
+
+        .floating-chat-link i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+            .floating-chat-link {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+            .floating-chat-link span {
+                display: none;
+            }
+            .floating-chat-link i {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   PLACEHOLDERS                             */
+        /* ========================================== */
+        #header-placeholder,
+        #footer-placeholder {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!--   HEADER PLACEHOLDER                       -->
+    <!-- ========================================== -->
+    <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   CONTACT HERO                            -->
+    <!-- ========================================== -->
+    <section class="contact-hero">
+        <div class="contact-hero-bg">
+            <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600&q=80" alt="Contact us" />
+        </div>
+
+        <div class="contact-hero-content">
+            <span class="hero-label">Get In Touch</span>
+            <h1>We'd Love to <span class="highlight">Hear</span> From You</h1>
+            <p>Have questions about admissions, programs, partnerships, or anything else? Our team is ready to help.</p>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   CONTACT FORM + INFO                     -->
+    <!-- ========================================== -->
+    <section class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&q=80');">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">Contact Us</span>
+                <h2>Send Us a Message</h2>
+                <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-box">
+                    <h3><i class="fas fa-paper-plane"></i> Send a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Your first name" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Your last name" required />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+233 XX XXX XXXX" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject...</option>
+                                <option value="admissions">Admissions & Enrollment</option>
+                                <option value="programs">Programs & Courses</option>
+                                <option value="financial-aid">Financial Aid & Scholarships</option>
+                                <option value="partnership">Partnership Opportunities</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="prayer">Prayer Request</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Tell us how we can help you..." rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info Cards -->
+                <div class="contact-info-stack">
+                    <div class="contact-info-card">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-content">
+                            <h4>Visit Us</h4>
+                            <p>19 Tumeric Street<br />Kumasi, Ghana</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="info-content">
+                            <h4>Call Us</h4>
+                            <a href="tel:+233241456581">+233 (0) 241 456 581</a>
+                            <a href="tel:+233241456581">+233 (0) 241 456 581</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-content">
+                            <h4>Email Us</h4>
+                            <a href="mailto:info@logi.education">info@logi.education</a>
+                            <a href="mailto:admissions@logi.education">admissions@logi.education</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="info-icon"><i class="fas fa-clock"></i></div>
+                        <div class="info-content">
+                            <h4>Office Hours</h4>
+                            <p>Monday – Friday: 8:00 AM – 5:00 PM<br />Saturday: 9:00 AM – 1:00 PM<br />Sunday: Closed</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card">
+                        <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="info-content">
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/233241456581" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   DEPARTMENT CONTACTS — GLASS CARDS       -->
+    <!-- ========================================== -->
+    <section class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1600&q=80');">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">Departments</span>
+                <h2>Reach the Right Team</h2>
+                <p>Connect directly with the department that can best assist you.</p>
+            </div>
+
+            <div class="card-grid card-grid-3">
+                <div class="glass-card">
+                    <div class="icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>Admissions</h3>
+                    <p>Questions about enrollment, requirements, and application process.</p>
+                    <a href="mailto:admissions@logi.education">admissions@logi.education <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="icon"><i class="fas fa-book-open"></i></div>
+                    <h3>Academic Affairs</h3>
+                    <p>Course information, curriculum, and academic support.</p>
+                    <a href="mailto:academic@logi.education">academic@logi.education <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Registrar</h3>
+                    <p>Records, registration, transcripts, and certification.</p>
+                    <a href="mailto:registrar@logi.education">registrar@logi.education <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3>Finance</h3>
+                    <p>Fees, payments, and financial assistance.</p>
+                    <a href="mailto:finance@logi.education">finance@logi.education <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="icon"><i class="fas fa-laptop"></i></div>
+                    <h3>Technical Support</h3>
+                    <p>Help with the learning platform, login issues, and tech problems.</p>
+                    <a href="mailto:support@logi.education">support@logi.education <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass-card">
+                    <div class="icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Partnerships</h3>
+                    <p>Collaboration opportunities and organizational partnerships.</p>
+                    <a href="mailto:partnerships@logi.education">partnerships@logi.education <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   FAQ SECTION                             -->
+    <!-- ========================================== -->
+    <section class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600&q=80');">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">FAQ</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to the most common questions we receive.</p>
+            </div>
+
+            <div class="faq-wrapper">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I apply for admission to LOGI?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can apply directly through our online application form at <a href="/main-registration-form" style="color: #c9a86c;">logi.education/main-registration-form</a>. The process is fully online, and you'll need to provide your personal details, educational background, and select your program of interest.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What programs does LOGI offer?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer certificates and diplomas through three schools: the School of Business & Leadership, the School of Ministry & Theology, and the School of Engineering & Technology. Visit our <a href="/our-programs" style="color: #c9a86c;">Our Programs</a> page for the full list.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are scholarships available?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! LOGI is committed to making Christian education affordable. We offer various scholarship opportunities and financial aid options. Please contact us at <a href="mailto:finance@logi.education" style="color: #c9a86c;">finance@logi.education</a> for more details.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does it take to complete a program?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Program duration varies. Most certificate programs can be completed in 6–12 months, while advanced diplomas typically take 12–24 months. Since our programs are self-paced online, you can progress at a speed that works for you.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I study from outside Ghana?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! LOGI is a fully online institution serving students worldwide. As long as you have internet access, you can study from anywhere in the world.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How can I partner with LOGI?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We welcome partnerships with churches, ministries, organizations, and individuals who share our vision. Please reach out to us at <a href="mailto:partnerships@logi.education" style="color: #c9a86c;">partnerships@logi.education</a> to explore collaboration opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   FOOTER PLACEHOLDER                       -->
+    <!-- ========================================== -->
+    <div id="footer-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
+    <!-- ========================================== -->
+    <script src="/load.js"></script>
+
+    <!-- ========================================== -->
+    <!--   FLOATING CHAT                           -->
+    <!-- ========================================== -->
+    <div class="floating-chat-container">
+        <a class="floating-chat-link" href="https://wa.me/233241456581" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat with us on WhatsApp</span>
+        </a>
+    </div>
+
+    <!-- ========================================== -->
+    <!--   JAVASCRIPT                              -->
+    <!-- ========================================== -->
+    <script>
+        // FAQ Accordion
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', function() {
+                    const isActive = item.classList.contains('active');
+
+                    // Close all
+                    faqItems.forEach(i => i.classList.remove('active'));
+
+                    // Toggle current
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Contact Form — Send via Email (mailto)
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value.trim();
+
+                // Build email body
+                const emailSubject = encodeURIComponent('LOGI Contact: ' + subject);
+                const emailBody = encodeURIComponent(
+                    'Name: ' + firstName + ' ' + lastName + '\n' +
+                    'Email: ' + email + '\n' +
+                    'Phone: ' + (phone || 'Not provided') + '\n' +
+                    'Subject: ' + subject + '\n\n' +
+                    'Message:\n' + message
+                );
+
+                // Open mail client
+                window.location.href = 'mailto:info@logi.education?subject=' + emailSubject + '&body=' + emailBody;
+
+                // Show confirmation
+                alert('Your email client will open to send your message to info@logi.education. Please click "Send" in your email app to complete the delivery.');
+
+                form.reset();
+            });
+        });
+    </script>
+
+</body>
+</html>
