@@ -83,6 +83,26 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- ===== CHRISTIAN THEOLOGY ARTICLES ===== -->
+  <url>
+    <loc>https://www.logi.education/Christianity/ResurrectionoftheDead</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.logi.education/Christianity/UnlockingYourDivinePurpose</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.logi.education/Christianity/WalkinginSpiritualAuthority</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- ===== RESOURCES ===== -->
   <url>
     <loc>https://www.logi.education/faq-helpdesk</loc>
@@ -136,4 +156,4 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-</urlset>,
+</urlset>
