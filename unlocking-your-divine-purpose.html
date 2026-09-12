@@ -1,823 +1,12 @@
 <!DOCTYPE html>
-<html class="html" lang="en-US">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    
-    <title>Unlocking Your Divine Purpose & Calling - LOGI Academic Research</title>
-
-    <!-- Meta Tags -->
-    <meta content="A theological, biblical, and practical exposition on discerning and fulfilling your God-given purpose and calling." name="description" />
-    <meta content="https://www.logi.education/unlocking-your-divine-purpose" property="og:url" />
-    <meta content="Unlocking Your Divine Purpose & Calling - LOGI Academic Research" property="og:title" />
-    <meta content="A theological, biblical, and practical exposition on discerning and fulfilling your God-given purpose and calling." property="og:description" />
-    <meta content="Living Oracles Global Institute" property="og:site_name" />
-    <meta content="summary_large_image" name="twitter:card" />
-
-    <!-- Institutional Favicon -->
-    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
-    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
-
-    <!-- FontAwesome Core & Google Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlocking Your Divine Purpose & Calling - Living Oracles Global Institute</title>
     <style>
         /* ========================================== */
-        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
-        /* ========================================== */
-        .top-bar {
-            background: #1a1a2e;
-            color: #ffffff;
-            padding: 6px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.7rem;
-            flex-wrap: wrap;
-            gap: 6px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .top-bar::before,
-        .top-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            background: linear-gradient(180deg, 
-                #c9a86c 0%, #c9a86c 20%,
-                #8B5353 20%, #8B5353 40%,
-                #1a7a3a 40%, #1a7a3a 60%,
-                #c9a86c 60%, #c9a86c 80%,
-                #8B5353 80%, #8B5353 100%
-            );
-            opacity: 0.5;
-        }
-
-        .top-bar::before {
-            left: 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .top-bar::after {
-            right: 0;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .top-bar .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .contact-info a,
-        .top-bar .contact-info span {
-            color: #d4d0c8;
-            text-decoration: none;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s;
-        }
-
-        .top-bar .contact-info a:hover {
-            color: #c9a86c;
-        }
-
-        .top-bar .contact-info i {
-            font-size: 0.65rem;
-            color: #c9a86c;
-        }
-
-        .top-bar .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .social-icons a {
-            color: #8a8680;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .top-bar .social-icons a:hover {
-            color: #c9a86c;
-        }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 4px 0;
-            }
-            .top-bar::before,
-            .top-bar::after {
-                width: 25px;
-            }
-            .top-bar .contact-info {
-                padding: 0 35px;
-                gap: 8px;
-            }
-            .top-bar .social-icons {
-                padding: 0 35px;
-            }
-            .top-bar .contact-info a,
-            .top-bar .contact-info span {
-                font-size: 0.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-bar::before,
-            .top-bar::after {
-                width: 18px;
-            }
-            .top-bar .contact-info {
-                padding: 0 25px;
-                gap: 6px;
-                font-size: 0.55rem;
-            }
-            .top-bar .social-icons {
-                padding: 0 25px;
-                gap: 8px;
-            }
-            .top-bar .social-icons a {
-                font-size: 0.65rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   HEADER - FIXED FULL WIDTH WHITE         */
-        /* ========================================== */
-        .main-header {
-            background: #ffffff;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 38px;
-            left: 0;
-            width: 100%;
-            z-index: 9998;
-            border-bottom: 1px solid #e8e3dc;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            width: 40px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .logo .logo-text {
-            color: #1a1a2e;
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .logo .logo-text span {
-            display: block;
-            font-weight: 300;
-            font-size: 0.45rem;
-            opacity: 0.6;
-            letter-spacing: 1.5px;
-        }
-
-        @media (max-width: 768px) {
-            .main-header {
-                top: 34px;
-                padding: 6px 4%;
-            }
-            .logo img {
-                width: 32px;
-            }
-            .logo .logo-text {
-                font-size: 0.65rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.4rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-header {
-                top: 30px;
-                padding: 4px 3%;
-            }
-            .logo img {
-                width: 28px;
-            }
-            .logo .logo-text {
-                font-size: 0.55rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.35rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   MOBILE HAMBURGER MENU BUTTON             */
-        /* ========================================== */
-        .menu-btn {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            color: #1a1a2e;
-            font-size: 13px;
-            padding: 5px 10px;
-            border-radius: 30px;
-            background: rgba(26, 26, 46, 0.06);
-            border: 1px solid rgba(26, 26, 46, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .menu-btn:hover {
-            background: rgba(26, 26, 46, 0.12);
-        }
-
-        .menu-btn i {
-            font-size: 16px;
-        }
-
-        /* ========================================== */
-        /*   DESKTOP NAVIGATION - DARK TEXT          */
-        /* ========================================== */
-        .navigation-menu-bar {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            position: static !important;
-            width: auto !important;
-            height: auto !important;
-            display: block !important;
-            overflow: visible !important;
-        }
-
-        .navigation-menu-bar ul {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            list-style: none !important;
-            gap: 0.2rem !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-end !important;
-        }
-
-        .navigation-menu-bar ul li {
-            position: relative;
-        }
-
-        .navigation-menu-bar ul li a {
-            color: #1a1a2e !important;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .navigation-menu-bar ul li a:hover {
-            color: #8B5353 !important;
-            background: rgba(139, 83, 83, 0.06);
-        }
-
-        .navigation-menu-bar ul li .submenu {
-            display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            padding: 0.4rem 0;
-            margin-top: 6px;
-            z-index: 1100;
-            animation: fadeInDropdown 0.25s ease;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 0px !important;
-            min-width: 200px;
-            width: max-content !important;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
-            display: flex !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li {
-            width: 100%;
-        }
-
-        .navigation-menu-bar ul li .submenu li a {
-            color: #1e3c4f !important;
-            font-size: 0.78rem;
-            padding: 8px 16px;
-            width: 100%;
-            border-radius: 0;
-            font-weight: 500;
-            display: block !important;
-            white-space: nowrap !important;
-            text-shadow: none !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li a:hover {
-            background: rgba(139, 83, 83, 0.08) !important;
-            color: #8B5353 !important;
-        }
-
-        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-            font-size: 0.5rem;
-            transition: transform 0.25s ease;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
-            transform: rotate(180deg);
-        }
-
-        @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========================================== */
-        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-        /* ========================================== */
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                min-height: 100vh !important;
-                overflow-y: auto !important;
-                background: #ffffff !important;
-                display: block !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                align-items: stretch !important;
-                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
-                z-index: 10000 !important;
-                padding: 70px 1.2rem 1.5rem 1.2rem !important;
-                box-shadow: none !important;
-                transform: translateX(100%) !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-
-            .navigation-menu-bar.mobile-open {
-                transform: translateX(0) !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-            }
-
-            .navigation-menu-bar ul {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0 !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                flex: 1 !important;
-            }
-
-            .navigation-menu-bar ul li {
-                border-bottom: 1px solid #f0ede6 !important;
-                list-style: none !important;
-            }
-
-            .navigation-menu-bar ul li a {
-                color: #1a1a2e !important;
-                font-weight: 500 !important;
-                padding: 0.7rem 0.5rem !important;
-                justify-content: flex-start !important;
-                border-radius: 0 !important;
-                white-space: normal !important;
-                text-shadow: none !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 10px !important;
-                font-size: 0.95rem !important;
-            }
-
-            .navigation-menu-bar ul li a i {
-                font-size: 1.1rem !important;
-                color: #c9a86c !important;
-                width: 24px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li a:hover {
-                background: rgba(139, 83, 83, 0.06) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a {
-                justify-content: space-between !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-                color: #8B5353 !important;
-                font-size: 0.65rem !important;
-                margin-left: auto !important;
-            }
-
-            .navigation-menu-bar ul li .submenu {
-                position: static !important;
-                transform: none !important;
-                background: #f8f6f2 !important;
-                border-radius: 0 !important;
-                display: none !important;
-                flex-direction: column !important;
-                gap: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border-left: 3px solid #c9a86c !important;
-                width: 100% !important;
-                box-shadow: none !important;
-                min-width: auto !important;
-                animation: none !important;
-            }
-
-            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li {
-                border-bottom: none !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a {
-                color: #1a1a2e !important;
-                font-weight: 400 !important;
-                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                justify-content: flex-start !important;
-                gap: 10px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a i {
-                font-size: 0.85rem !important;
-                color: #c9a86c !important;
-                width: 20px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a:hover {
-                background: rgba(139, 83, 83, 0.08) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-                border-left: 3px solid #8B5353 !important;
-                margin-left: 1rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
-                padding-left: 3rem !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer {
-                margin-top: auto !important;
-                padding-top: 1rem !important;
-                padding-bottom: 0.5rem !important;
-                border-top: 1px solid #f0ede6 !important;
-                display: flex !important;
-                justify-content: center !important;
-                gap: 1.2rem !important;
-                flex-shrink: 0 !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a {
-                color: #8a8680 !important;
-                font-size: 1.1rem !important;
-                transition: color 0.25s ease !important;
-                text-decoration: none !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a:hover {
-                color: #c9a86c !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navigation-menu-bar {
-                padding: 60px 1rem 1.5rem 1rem !important;
-            }
-            .navigation-menu-bar ul li a {
-                font-size: 0.85rem !important;
-                padding: 0.6rem 0.4rem !important;
-            }
-            .navigation-menu-bar ul li .submenu li a {
-                font-size: 0.78rem !important;
-                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
-        /* ========================================== */
-        .institutional-footer {
-            background: #1a1a2e;
-            color: #d4d0c8;
-            padding: 2.5rem 5% 1.2rem;
-            margin-top: 0;
-            border-top: none;
-            font-size: 0.85rem;
-            width: 100%;
-        }
-
-        .footer-grid-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .footer-column h2 {
-            color: #ffffff !important;
-            font-size: 0.8rem !important;
-            margin-bottom: 0.6rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-        }
-
-        .footer-column p,
-        .footer-column address {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.7;
-            font-style: normal;
-            margin-bottom: 4px;
-        }
-
-        .footer-column a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-            display: inline-block;
-        }
-
-        .footer-column a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 0.2rem !important;
-            list-style: none !important;
-        }
-
-        .footer-column ul li a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-        }
-
-        .footer-column ul li a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column .footer-address-line {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .footer-column .footer-address-line i {
-            color: #c9a86c;
-            font-size: 0.75rem;
-            margin-top: 4px;
-            width: 16px;
-        }
-
-        .footer-column .footer-address-line span {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.6;
-        }
-
-        .footer-bottom-bar {
-            max-width: 1200px;
-            margin: 1.2rem auto 0;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .footer-copyright {
-            font-size: 0.7rem;
-            font-weight: 400;
-            color: #8a8680;
-        }
-
-        .footer-subscription-container h3 {
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.2rem;
-        }
-
-        .footer-subscription-container p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .subscription-form {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .subscription-form input[type="email"] {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            padding: 5px 8px;
-            color: #ffffff;
-            font-size: 0.75rem;
-            flex-grow: 1;
-            outline: none;
-            transition: border-color 0.3s;
-            min-width: 100px;
-        }
-
-        .subscription-form input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .subscription-form input[type="email"]:focus {
-            border-color: #ffffff;
-        }
-
-        .subscription-form button {
-            background: #ffffff;
-            color: #8B5353;
-            border: none;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
-        }
-
-        .subscription-form button:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-1px);
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.2rem;
-            }
-            .institutional-footer { font-size: 0.75rem; }
-            .footer-column h2 { font-size: 0.7rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.72rem !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .footer-bottom-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .institutional-footer { 
-                font-size: 0.7rem;
-                padding: 1.5rem 4% 1rem;
-            }
-            .footer-column h2 { font-size: 0.6rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.65rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FLOATING CHAT                            */
-        /* ========================================== */
-        .floating-chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .floating-chat-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #25d366;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .floating-chat-link:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background: #20ba5a;
-        }
-
-        .floating-chat-link i {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 480px) {
-            .floating-chat-link {
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-            .floating-chat-link span {
-                display: none;
-            }
-            .floating-chat-link i {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   GLOBAL RESET & PURE WHITE RESEARCH THEME */
+        /*   SAET-STYLE ACADEMIC LAYOUT               */
         /* ========================================== */
         :root {
             --primary-dark: #1a1a2e;
@@ -825,6 +14,8 @@
             --text-main: #2d3748;
             --border-color: #cbd5e1;
             --bg-light: #f8fafc;
+            --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         * {
@@ -834,101 +25,47 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: var(--font-sans);
             font-size: 16px;
-            line-height: 1.9;
+            line-height: 1.8;
             color: var(--text-main);
             background: #ffffff;
-            padding-top: 80px;
+            padding: 40px 20px;
             -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 860px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 24px;
             background: #ffffff;
+            padding: 0 20px;
         }
 
-        /* IN-TEXT CITATION & SCRIPTURE REF STYLING */
-        .citation {
-            color: var(--accent-burgundy);
-            font-weight: 600;
-            font-style: italic;
-            cursor: pointer;
-            border-bottom: 1px dashed var(--accent-burgundy);
-            transition: all 0.2s;
-        }
-
-        .citation:hover {
-            color: #6b3f3f;
-            background-color: rgba(139, 83, 83, 0.1);
-        }
-
-        /* PRINT / ACTION BAR */
-        .top-action-bar {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 12px;
-        }
-
-        .print-btn {
-            background: none;
-            border: none;
-            color: #64748B;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
-        }
-
-        .print-btn:hover {
-            color: var(--accent-burgundy);
-        }
-
-        /* ARTICLE HEADER */
-        .blog-post-header {
-            padding: 20px 0 30px;
+        /* HEADER */
+        .article-header {
+            padding-bottom: 24px;
             border-bottom: 2px solid var(--border-color);
-            margin-bottom: 30px;
+            margin-bottom: 28px;
         }
 
-        .breadcrumb {
-            font-size: 0.875rem;
-            color: #64748B;
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-
-        .breadcrumb a {
-            color: var(--accent-burgundy);
-            text-decoration: none;
-        }
-
-        .category-tag {
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--accent-burgundy);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .blog-post-header h1 {
-            color: var(--primary-dark);
-            font-size: clamp(2.2rem, 4vw, 3rem);
+        .article-header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 2.8rem);
             font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            line-height: 1.25;
-            margin-bottom: 24px;
+            color: var(--primary-dark);
+            line-height: 1.2;
+            margin-bottom: 8px;
             letter-spacing: -0.02em;
         }
 
-        /* Kente Pattern Background Box */
+        .article-header .author {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--accent-burgundy);
+            font-weight: 500;
+        }
+
+        /* KENTE AUTHOR META BAR */
         .author-meta-bar {
             display: flex;
             align-items: center;
@@ -936,7 +73,7 @@
             padding: 16px 20px;
             border-radius: 12px;
             border: 1px solid rgba(0, 0, 0, 0.15);
-            margin-bottom: 24px;
+            margin: 24px 0 28px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             background-color: #ffd700;
             background-image: 
@@ -964,13 +101,13 @@
         }
 
         .author-avatar-img {
-            width: 72px;
-            height: 72px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            object-fit: contain;
+            object-fit: cover; /* Ensures the image fills the circle */
+            object-position: center top; /* Focuses on the top of the image (head) */
             background: #ffffff;
-            border: 2px solid var(--primary-dark);
-            padding: 2px;
+            border: 3px solid var(--primary-dark);
             box-shadow: 0 3px 8px rgba(0,0,0,0.18);
             flex-shrink: 0;
         }
@@ -993,9 +130,15 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            margin-top: 2px;
         }
 
-        /* Banner Image */
+        .meta-info i {
+            color: var(--accent-burgundy);
+            margin-right: 4px;
+        }
+
+        /* FEATURED IMAGE */
         .article-featured-image-container {
             width: 100%;
             margin-bottom: 28px;
@@ -1011,7 +154,87 @@
             object-fit: cover;
         }
 
-        /* ACADEMIC TABLE OF CONTENTS */
+        /* ABSTRACT */
+        .abstract {
+            margin-bottom: 28px;
+        }
+
+        .abstract p {
+            font-size: 1rem;
+            color: #2d3748;
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        /* ACTION BAR */
+        .action-bar {
+            display: flex;
+            gap: 12px;
+            margin: 24px 0 16px;
+            flex-wrap: wrap;
+        }
+
+        .action-bar .btn {
+            background: var(--accent-burgundy);
+            color: #ffffff;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-bar .btn:hover {
+            background: #6b3f3f;
+        }
+
+        .action-bar .btn-outline {
+            background: transparent;
+            color: var(--accent-burgundy);
+            border: 1px solid var(--accent-burgundy);
+        }
+
+        .action-bar .btn-outline:hover {
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        /* PUBLICATION INFO */
+        .pub-info {
+            font-size: 0.95rem;
+            color: #64748B;
+            margin-bottom: 16px;
+        }
+
+        .pub-info strong {
+            color: var(--primary-dark);
+        }
+
+        /* TAGS */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .tag {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 4px 14px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-burgundy);
+            cursor: default;
+        }
+
+        /* TABLE OF CONTENTS */
         .toc-box {
             padding: 20px 0;
             margin: 20px 0 40px;
@@ -1020,8 +243,8 @@
         }
 
         .toc-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
             color: var(--primary-dark);
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -1032,13 +255,13 @@
             list-style: none;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px 24px;
+            gap: 6px 24px;
         }
 
         .toc-list a {
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 500;
             transition: color 0.2s;
         }
@@ -1048,134 +271,96 @@
             text-decoration: underline;
         }
 
-        /* ARTICLE CONTENT GENERAL */
-        .post-content p {
-            font-size: 1.0625rem;
-            color: #2d3748;
-            margin-bottom: 24px;
-            text-align: justify;
+        @media (max-width: 600px) {
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .post-content .lead-paragraph::first-letter {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
-            float: left;
-            line-height: 0.8;
-            padding-right: 12px;
-            color: var(--accent-burgundy);
-            font-weight: 700;
-        }
-
+        /* ARTICLE CONTENT */
         .post-content h2 {
-            font-size: 1.75rem;
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
             color: var(--primary-dark);
-            font-family: 'Playfair Display', serif;
-            margin: 48px 0 20px;
-            padding-bottom: 8px;
+            margin: 40px 0 16px;
+            padding-bottom: 6px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .post-content h3 {
-            font-size: 1.3rem;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
             color: var(--primary-dark);
-            font-family: 'Playfair Display', serif;
-            margin: 32px 0 16px;
+            margin: 28px 0 12px;
+        }
+
+        .post-content p {
+            font-size: 1.05rem;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: justify;
         }
 
         .post-content blockquote {
-            position: relative;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-style: italic;
             color: var(--primary-dark);
-            padding: 16px 0 16px 24px;
+            padding: 12px 0 12px 20px;
             border-left: 3px solid var(--accent-burgundy);
-            margin: 32px 0;
+            margin: 28px 0;
             background: transparent;
         }
 
         .post-content blockquote cite {
             display: block;
-            margin-top: 8px;
-            font-size: 0.875rem;
+            margin-top: 6px;
+            font-size: 0.85rem;
             font-style: normal;
             color: var(--accent-burgundy);
             font-weight: 700;
             text-transform: uppercase;
         }
 
-        .styled-list {
+        .post-content .styled-list {
             list-style: square;
-            margin: 0 0 28px 24px;
+            margin: 0 0 24px 24px;
             padding: 0;
         }
 
-        .styled-list li {
-            margin-bottom: 12px;
-            font-size: 1.05rem;
-            padding-left: 4px;
-        }
-
-        /* AUTHOR BIO SECTION */
-        .author-bio-card {
-            display: flex;
-            gap: 20px;
-            padding: 28px 0;
-            border-top: 2px solid var(--border-color);
-            margin: 48px 0 36px;
-        }
-
-        .author-bio-avatar {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: contain;
-            background: #ffffff;
-            border: 2px solid var(--accent-burgundy);
-            padding: 2px;
-            flex-shrink: 0;
-        }
-
-        .author-bio-details h4 {
-            font-size: 1.15rem;
-            color: var(--primary-dark);
-            margin-bottom: 4px;
-        }
-
-        .author-bio-details .title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--accent-burgundy);
+        .post-content .styled-list li {
             margin-bottom: 10px;
-            display: block;
+            font-size: 1rem;
         }
 
-        .author-bio-details p {
-            font-size: 0.9rem !important;
-            color: #475569;
-            line-height: 1.6;
-            margin-bottom: 0 !important;
-            text-align: left !important;
-        }
-
-        .ref-tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 20px 0 40px;
-        }
-
-        .ref-tag {
-            background: var(--bg-light);
-            border: 1px solid var(--border-color);
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        /* HARVARD CITATION STYLE */
+        .harvard-cite {
             color: var(--accent-burgundy);
+            font-weight: 600;
+            font-style: italic;
+            border-bottom: 1px dashed var(--accent-burgundy);
             cursor: pointer;
+            transition: all 0.2s;
         }
 
-        /* BIBLE VERSE POPUP MODAL */
+        .harvard-cite:hover {
+            background-color: rgba(139, 83, 83, 0.08);
+        }
+
+        /* BIBLE VERSE STYLE */
+        .bible-ref {
+            color: var(--accent-burgundy);
+            font-weight: 600;
+            font-style: italic;
+            border-bottom: 1px dashed var(--accent-burgundy);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .bible-ref:hover {
+            background-color: rgba(139, 83, 83, 0.08);
+        }
+
+        /* BIBLE MODAL */
         .bible-modal-overlay {
             position: fixed;
             top: 0;
@@ -1222,8 +407,8 @@
         }
 
         .bible-modal-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
             color: var(--primary-dark);
             font-weight: 700;
         }
@@ -1252,212 +437,414 @@
             text-align: right;
         }
 
-        /* PLACEHOLDERS */
-        #header-placeholder,
-        #footer-placeholder {
-            width: 100%;
+        /* AUTHOR BIO */
+        .author-bio-card {
+            display: flex;
+            gap: 20px;
+            padding: 28px 0;
+            border-top: 2px solid var(--border-color);
+            margin: 48px 0 36px;
         }
 
-        @media (max-width: 768px) {
-            .toc-list {
-                grid-template-columns: 1fr;
-            }
+        .author-bio-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            background: #ffffff;
+            border: 2px solid var(--accent-burgundy);
+            flex-shrink: 0;
+        }
 
+        .author-bio-details h4 {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .author-bio-details .title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-burgundy);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .author-bio-details p {
+            font-size: 0.9rem !important;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 0 !important;
+            text-align: left !important;
+        }
+
+        /* BIBLIOGRAPHY */
+        .bibliography {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .bibliography h2 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+        }
+
+        .bibliography h3 {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin: 24px 0 10px;
+        }
+
+        .bibliography ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bibliography ul li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            padding-left: 1.5em;
+            text-indent: -1.5em;
+            line-height: 1.6;
+        }
+
+        .bibliography ul li a {
+            color: var(--accent-burgundy);
+            text-decoration: none;
+        }
+
+        .bibliography ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* CITATION BOX */
+        .citation-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 32px 0 24px;
+        }
+
+        .citation-box h3 {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .citation-box p {
+            font-size: 0.95rem;
+            color: #334155;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        .citation-box .doi {
+            color: var(--accent-burgundy);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* FOOTER */
+        .article-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #64748B;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 12px;
+            }
+            .article-header h1 {
+                font-size: 1.8rem;
+            }
+            .author-meta-bar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 16px;
+            }
+            .author-avatar-img {
+                width: 70px;
+                height: 70px;
+            }
             .author-bio-card {
                 flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .author-bio-details p {
+                text-align: center !important;
+            }
+            .post-content p {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ========================================== -->
-    <!--   HEADER PLACEHOLDER                       -->
-    <!-- ========================================== -->
-    <div id="header-placeholder"></div>
+    <div class="container">
 
-    <!-- ========================================== -->
-    <!--   MAIN CONTENT                             -->
-    <!-- ========================================== -->
-    <main>
-        <div class="container">
+        <!-- ARTICLE HEADER -->
+        <header class="article-header">
+            <h1>Unlocking Your Divine Purpose &amp; Calling: A Theological Exposition on Discerning and Walking in God's Sovereign Design</h1>
+        </header>
 
-            <div class="top-action-bar">
-                <button onclick="window.print()" class="print-btn">
-                    <i class="fa-solid fa-print"></i> Print / Save Document
-                </button>
+        <!-- KENTE AUTHOR META BAR -->
+        <div class="author-meta-bar">
+            <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/images/prophet-ing-stephen-adusei-image.png?raw=true" alt="Prophet Ing. Stephen Adusei" class="author-avatar-img" />
+            <div class="author-details">
+                <span class="author-name">Prophet Ing. Stephen Adusei</span>
+                <div class="meta-info">
+                    <span><i class="far fa-clock"></i> Reading Time: 16 minutes</span>
+                    <span>•</span>
+                    <span><i class="far fa-calendar"></i> September 11, 2026</span>
+                </div>
             </div>
-
-            <!-- ARTICLE HEADER -->
-            <header class="blog-post-header">
-                <span class="category-tag">Theological Research & Biblical Exposition</span>
-                <div class="breadcrumb">
-                    <a href="/blog.html">← Publications</a> / Divine Purpose & Calling
-                </div>
-                <h1>Unlocking Your Divine Purpose & Calling: A Theological Exposition on Discerning and Walking in God's Sovereign Design</h1>
-                
-                <div class="author-meta-bar">
-                    <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/images/prophet-ing-stephen-adusei-image.png?raw=true" alt="Prophet Ing. Stephen Adusei" class="author-avatar-img" />
-                    <div class="author-details">
-                        <span class="author-name">Prophet Ing. Stephen Adusei</span>
-                        <div class="meta-info">
-                            <span><i class="far fa-clock"></i> Reading Time: 16 minutes</span>
-                            <span>•</span>
-                            <span><i class="far fa-calendar"></i> September 11, 2026</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="article-featured-image-container">
-                    <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/assets/images/news/unlocking-your-divine-purpose.png?raw=true" alt="Unlocking Divine Purpose Banner" class="article-featured-image" />
-                </div>
-            </header>
-
-            <!-- ARTICLE CONTENT -->
-            <article class="post-content">
-
-                <p class="lead-paragraph">Human existence is not an accidental byproduct of biological evolution; it is the intentional manifestation of a divine blueprint established before the foundation of the world <span class="citation" data-verse="Ephesians 1:4">(Ephesians 1:4)</span>; <span class="citation" data-verse="Jeremiah 1:5">(Jeremiah 1:5)</span>. Across contemporary society, millions suffer from existential aimlessness, mistaking career ambition or secular success for spiritual destiny. Unlocking your divine purpose requires moving beyond self-centered ambition to align with God's eternal decree <span class="citation" data-verse="Proverbs 19:21">(Proverbs 19:21)</span>. This treatise explores the biblical, theological, and practical framework for discovering, aligning with, and executing your heavenly calling.</p>
-
-                <!-- TABLE OF CONTENTS -->
-                <div class="toc-box">
-                    <h3>Document Outline</h3>
-                    <ul class="toc-list">
-                        <li><a href="#section-1">1. Differentiating Purpose, Calling, and Assignment</a></li>
-                        <li><a href="#section-2">2. The Pre-Temporal Origin of Destiny</a></li>
-                        <li><a href="#section-3">3. Biblical Case Studies of Called Individuals</a></li>
-                        <li><a href="#section-4">4. Four Pillars for Discerning Your Divine Calling</a></li>
-                        <li><a href="#section-5">5. The Process of Preparation and Testing</a></li>
-                        <li><a href="#section-6">6. Overcoming Hindrances to Purpose</a></li>
-                        <li><a href="#section-7">7. Seven-Day Purpose Activation Plan</a></li>
-                        <li><a href="#section-8">8. Frequently Asked Theological Questions</a></li>
-                        <li><a href="#section-9">9. Concluding Prayer & Affirmation</a></li>
-                    </ul>
-                </div>
-
-                <!-- SECTION 1 -->
-                <h2 id="section-1">1. Differentiating Purpose, Calling, and Assignment</h2>
-                <p>To accurately discern divine direction, one must distinguish between three foundational spiritual concepts: <em>Purpose</em>, <em>Calling</em>, and <em>Assignment</em>.</p>
-
-                <p><strong>Purpose</strong> is the sovereign intention for which God created humanity and individual believers—primarily to glorify God and express His kingdom image <span class="citation" data-verse="Isaiah 43:7">(Isaiah 43:7)</span>; <span class="citation" data-verse="Romans 8:29">(Romans 8:29)</span>. Purpose is universal, eternal, and unchanging.</p>
-
-                <p><strong>Calling</strong> (Greek: <em>klesis</em>) refers to the specific divine invitation and vocation entrusted to an individual to manifest God's purpose through unique spiritual gifts and personality <span class="citation" data-verse="Romans 11:29">(Romans 11:29)</span>; <span class="citation" data-verse="2 Timothy 1:9">(2 Timothy 1:9)</span>.</p>
-
-                <p><strong>Assignment</strong> represents the season-specific tasks, geographical locations, and roles through which your calling is executed <span class="citation" data-verse="Acts 13:2">(Acts 13:2)</span>. While assignments may change throughout different seasons of life, your overarching calling and purpose remain steadfast.</p>
-
-                <blockquote>
-                    "For we are His workmanship, created in Christ Jesus for good works, which God prepared beforehand that we should walk in them."
-                    <cite>— Ephesians 2:10 (NKJV)</cite>
-                </blockquote>
-
-                <!-- SECTION 2 -->
-                <h2 id="section-2">2. The Pre-Temporal Origin of Destiny</h2>
-                <p>Scripture reveals that divine calling originates prior to physical birth. God declared to Jeremiah: <em>“Before I formed you in the womb I knew you; before you were born I sanctified you; I ordained you a prophet to the nations”</em> <span class="citation" data-verse="Jeremiah 1:5">(Jeremiah 1:5 NKJV)</span>. Destiny is not invented by human desire; it is discovered through divine revelation.</p>
-
-                <p>Every individual is endowed with specific spiritual gifts, natural talents, and life experiences designed to serve as tools for their heavenly commission <span class="citation" data-verse="1 Corinthians 12:7-11">(1 Corinthians 12:7-11)</span>. Walking in your calling ensures divine provision, anointed impact, and spiritual fulfillment <span class="citation" data-verse="Philippians 4:19">(Philippians 4:19)</span>.</p>
-
-                <!-- SECTION 3 -->
-                <h2 id="section-3">3. Biblical Case Studies of Called Individuals</h2>
-                <p>Examining historical biblical figures illustrates how divine callings are communicated, refined, and executed:</p>
-
-                <ul class="styled-list">
-                    <li><strong>Joseph:</strong> Called through prophetic dreams <span class="citation" data-verse="Genesis 37:5-10">(Genesis 37:5-10)</span>, Joseph underwent years of trial, betrayal, and imprisonment before ascending to govern Egypt to preserve life during famine <span class="citation" data-verse="Genesis 50:20">(Genesis 50:20)</span>.</li>
-                    <li><strong>David:</strong> Anointed as king while still a shepherd boy <span class="citation" data-verse="1 Samuel 16:12-13">(1 Samuel 16:12-13)</span>, David was prepared in obscurity, mastering warfare against lions and bears before slaying Goliath <span class="citation" data-verse="1 Samuel 17:34-37">(1 Samuel 17:34-37)</span>.</li>
-                    <li><strong>The Apostle Paul:</strong> Transformed on the Damascus road <span class="citation" data-verse="Acts 9:3-6">(Acts 9:3-6)</span>, Paul's scholarly background and relentless zeal were redirected from persecuting the church to founding global apostolic movements <span class="citation" data-verse="Galatians 1:15-16">(Galatians 1:15-16)</span>.</li>
-                </ul>
-
-                <!-- SECTION 4 -->
-                <h2 id="section-4">4. Four Pillars for Discerning Your Divine Calling</h2>
-                <p>Discerning your God-given destiny requires evaluating four key indicators:</p>
-
-                <p><strong>1. Holy Burden and Compassion:</strong> What righteous problem or injustice in the world deeply stirs your heart? Divine calling often aligns with a burden to bring God's restoration to specific spheres of society <span class="citation" data-verse="Nehemiah 1:3-4">(Nehemiah 1:3-4)</span>.</p>
-
-                <p><strong>2. Spiritual Gifts and Grace:</strong> Where does divine grace flow effortlessly through your work? Your true calling is marked by spiritual empowerment and fruitfulness beyond natural human talent <span class="citation" data-verse="Romans 12:6-8">(Romans 12:6-8)</span>.</p>
-
-                <p><strong>3. Prophetic & Scriptural Confirmation:</strong> God reinforces calling through His written Word, inner witness of the Spirit, and wise counsel from mature believers <span class="citation" data-verse="Proverbs 11:14">(Proverbs 11:14)</span>; <span class="citation" data-verse="2 Corinthians 13:1">(2 Corinthians 13:1)</span>.</p>
-
-                <p><strong>4. Providential Open Doors:</strong> God aligns external circumstances, connections, and opportunities to facilitate the deployment of your assignment <span class="citation" data-verse="Revelation 3:8">(Revelation 3:8)</span>.</p>
-
-                <!-- SECTION 5 -->
-                <h2 id="section-5">5. The Process of Preparation and Testing</h2>
-                <p>A divine calling is rarely launched immediately upon discovery. God utilizes periods of wilderness, character development, and testing to align your character with your charisma <span class="citation" data-verse="Galatians 1:17-18">(Galatians 1:17-18)</span>.</p>
-
-                <p>Anointing without alignment leads to catastrophic downfall. Humility, obedience in small matters, and faithfulness under authority serve as the spiritual testing ground for future leadership <span class="citation" data-verse="Luke 16:10-12">(Luke 16:10-12)</span>; <span class="citation" data-verse="1 Peter 5:6">(1 Peter 5:6)</span>.</p>
-
-                <!-- SECTION 6 -->
-                <h2 id="section-6">6. Overcoming Hindrances to Purpose</h2>
-                <ul class="styled-list">
-                    <li><strong>Fear of Man and Insecurity:</strong> Succumbing to human opinion neutralizes spiritual boldness <span class="citation" data-verse="Proverbs 29:25">(Proverbs 29:25)</span>.</li>
-                    <li><strong>Distraction and Unaligned Alliances:</strong> Entangling oneself with relationships that pull away from divine direction compromises destiny <span class="citation" data-verse="1 Corinthians 15:33">(1 Corinthians 15:33)</span>.</li>
-                    <li><strong>Comparison and Envy:</strong> Measuring your assignment against others distorts your unique design <span class="citation" data-verse="2 Corinthians 10:12">(2 Corinthians 10:12)</span>.</li>
-                </ul>
-
-                <!-- SECTION 7 -->
-                <h2 id="section-7">7. Seven-Day Purpose Activation Plan</h2>
-                <p><strong>Day 1: Identity Meditation</strong> — Read Psalm 139:13-18. Journal insights regarding how God uniquely created you.</p>
-
-                <p><strong>Day 2: Surrender of Ambition</strong> — Read Matthew 16:24-26. Submit your personal plans to God in prayer.</p>
-
-                <p><strong>Day 3: Identifying Spiritual Gifts</strong> — Read 1 Corinthians 12:1-11. Ask trusted leaders to confirm your gifts.</p>
-
-                <p><strong>Day 4: Evaluating Holy Burdens</strong> — Read Nehemiah 1:1-11. Note areas of society or ministry where you feel compelled to serve.</p>
-
-                <p><strong>Day 5: Seeking Prophetic Clarity</strong> — Read Habakkuk 2:1-3. Write down the vision and directives God impresses on your spirit.</p>
-
-                <p><strong>Day 6: Cultivating Daily Faithfulness</strong> — Read Luke 16:10-12. Commit to executing your current tasks with excellence.</p>
-
-                <p><strong>Day 7: Authoritative Commissioning</strong> — Read Isaiah 6:1-8. Declare: <em>“Here am I, Lord! Send me.”</em></p>
-
-                <!-- SECTION 8 -->
-                <h2 id="section-8">8. Frequently Asked Theological Questions</h2>
-
-                <p><strong>Q1: Can a person miss or forfeit their divine calling?</strong><br />
-                While God's gifts and callings are irrevocable <span class="citation" data-verse="Romans 11:29">(Romans 11:29)</span>, disobedience, unfaithfulness, or persistent sin can cause a person to forfeit the practical fulfillment of their calling in a given season, as seen in the life of King Saul <span class="citation" data-verse="1 Samuel 15:26">(1 Samuel 15:26)</span>.</p>
-
-                <p><strong>Q2: Is divine calling limited to full-time church ministry?</strong><br />
-                No. Kingdom calling encompasses every sphere of human society, including business, science, education, governance, and the arts <span class="citation" data-verse="Colossians 3:23-24">(Colossians 3:23-24)</span>. Secular vocations can serve as vital platforms for kingdom influence.</p>
-
-                <!-- SECTION 9 -->
-                <h2 id="section-9">9. Concluding Prayer & Affirmation</h2>
-
-                <p><em>“Heavenly Father, Lord of heaven and earth, I acknowledge that my life belongs to You. I reject self-centered ambition and align my heart with Your eternal purpose. Open the eyes of my understanding to discern my divine calling and grant me the grace, wisdom, and boldness to walk faithfully in my heavenly assignment. In Jesus' mighty name, Amen.”</em></p>
-
-                <div class="author-bio-card">
-                    <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/images/prophet-ing-stephen-adusei-image.png?raw=true" alt="Prophet Ing. Stephen Adusei" class="author-bio-avatar" />
-                    <div class="author-bio-details">
-                        <h4>Prophet Ing. Stephen Adusei</h4>
-                        <span class="title">Founder & Lead Lecturer, Living Oracles Global Institute</span>
-                        <p>Prophet Ing. Stephen Adusei is a practicing Chemical Engineer, theologian, and executive leader of Living Oracles Global Institute. He is dedicated to raising a generation of believers grounded in biblical scholarship, prophetic ministry, and practical Christian living.</p>
-                    </div>
-                </div>
-
-                <h3>Primary Canonical Scriptural References (NKJV)</h3>
-                <div class="ref-tags-container">
-                    <span class="ref-tag" data-verse="Ephesians 1:4">Ephesians 1:4</span>
-                    <span class="ref-tag" data-verse="Jeremiah 1:5">Jeremiah 1:5</span>
-                    <span class="ref-tag" data-verse="Proverbs 19:21">Proverbs 19:21</span>
-                    <span class="ref-tag" data-verse="Ephesians 2:10">Ephesians 2:10</span>
-                    <span class="ref-tag" data-verse="Romans 11:29">Romans 11:29</span>
-                    <span class="ref-tag" data-verse="2 Timothy 1:9">2 Timothy 1:9</span>
-                    <span class="ref-tag" data-verse="Acts 13:2">Acts 13:2</span>
-                    <span class="ref-tag" data-verse="1 Corinthians 12:7-11">1 Corinthians 12:7-11</span>
-                    <span class="ref-tag" data-verse="Luke 16:10-12">Luke 16:10-12</span>
-                </div>
-
-            </article>
-
-            <div class="back-to-blog" style="padding-top: 24px; border-top: 1px solid var(--border-color); margin-bottom: 40px; margin-top: 40px;">
-                <a href="/blog.html" style="color: var(--accent-burgundy); text-decoration: none; font-weight: 600;"><i class="fas fa-arrow-left"></i> Return to Research Index</a>
-            </div>
-
         </div>
-    </main>
 
-    <!-- BIBLE VERSE DISPLAY MODAL CONTAINER -->
+        <!-- FEATURED IMAGE -->
+        <div class="article-featured-image-container">
+            <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/assets/images/news/unlocking-your-divine-purpose.png?raw=true" alt="Unlocking Divine Purpose Banner" class="article-featured-image" />
+        </div>
+
+        <!-- ABSTRACT -->
+        <section class="abstract">
+            <p>
+                This article introduces the biblical, theological, and practical framework for discovering and fulfilling your God-given destiny. Section 1 lays out the foundational vocabulary of divine direction: distinguishing between universal Purpose, personal Calling, and seasonal Assignment, and outlining how these three concepts relate to one another in the life of a believer. Section 2 explores the pre-temporal origin of destiny, examining how Scripture reveals that divine calling originates before physical birth and is discovered through revelation rather than human invention. Section 3 presents biblical case studies of called individuals, drawing on the lives of Joseph, David, and the Apostle Paul to illustrate how divine callings are communicated, refined, and executed across different historical contexts. Section 4 outlines four pillars for discerning divine calling: holy burden, spiritual gifts, prophetic confirmation, and providential open doors. Section 5 discusses the process of preparation and testing, emphasizing the necessity of character development and faithfulness in obscurity before public commissioning. Section 6 identifies common hindrances to purpose, including fear of man, distraction, and comparison. Section 7 provides a seven-day purpose activation plan, guiding readers through a structured week of meditation, surrender, and seeking clarity. Section 8 addresses frequently asked theological questions concerning the irrevocability of calling and the scope of kingdom vocation. Section 9 concludes with a prayer of alignment and commissioning. This article also discusses the relationship between divine purpose and practical Christian living, emphasizing that walking in your calling ensures divine provision, anointed impact, and spiritual fulfillment.
+            </p>
+        </section>
+
+        <!-- ACTION BAR -->
+        <div class="action-bar">
+            <a href="#" class="btn" onclick="alert('Citation copied to clipboard!')">Cite</a>
+            <a href="#" class="btn btn-outline" onclick="window.print()">Save 📄</a>
+        </div>
+
+        <!-- PUBLICATION INFO -->
+        <div class="pub-info">
+            <strong>First published:</strong> 11 September 2026
+        </div>
+
+        <!-- TAGS -->
+        <div class="tags-container">
+            <span class="tag">Christian Theology</span>
+            <span class="tag">Divine Purpose</span>
+            <span class="tag">Calling</span>
+            <span class="tag">Vocation</span>
+            <span class="tag">Spiritual Gifts</span>
+            <span class="tag">Christian Living</span>
+            <span class="tag">Biblical Exposition</span>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="toc-box">
+            <h3>Table of Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#section-1">1. Differentiating Purpose, Calling, and Assignment</a></li>
+                <li><a href="#section-2">2. The Pre-Temporal Origin of Destiny</a></li>
+                <li><a href="#section-3">3. Biblical Case Studies of Called Individuals</a></li>
+                <li><a href="#section-4">4. Four Pillars for Discerning Your Divine Calling</a></li>
+                <li><a href="#section-5">5. The Process of Preparation and Testing</a></li>
+                <li><a href="#section-6">6. Overcoming Hindrances to Purpose</a></li>
+                <li><a href="#section-7">7. Seven-Day Purpose Activation Plan</a></li>
+                <li><a href="#section-8">8. Frequently Asked Theological Questions</a></li>
+                <li><a href="#section-9">9. Concluding Prayer &amp; Affirmation</a></li>
+            </ul>
+        </div>
+
+        <!-- ARTICLE CONTENT -->
+        <article class="post-content">
+
+            <!-- SECTION 1 -->
+            <h2 id="section-1">1. Differentiating Purpose, Calling, and Assignment</h2>
+            <p>
+                To accurately discern divine direction, one must distinguish between three foundational spiritual concepts: <em>Purpose</em>, <em>Calling</em>, and <em>Assignment</em>.
+            </p>
+            <p>
+                <strong>Purpose</strong> is the sovereign intention for which God created humanity and individual believers—primarily to glorify God and express His kingdom image <span class="bible-ref" data-verse="Isaiah 43:7">(Isaiah 43:7)</span>; <span class="bible-ref" data-verse="Romans 8:29">(Romans 8:29)</span>. As Augustine of Hippo famously prayed, humanity's ultimate purpose is to love God and enjoy Him forever: "You have made us for yourself, and our heart is restless until it rests in you" <span class="harvard-cite">(Augustine 1998: 3)</span>. Purpose is universal, eternal, and unchanging.
+            </p>
+            <p>
+                <strong>Calling</strong> (Greek: <em>klesis</em>) refers to the specific divine invitation and vocation entrusted to an individual to manifest God's purpose through unique spiritual gifts and personality <span class="bible-ref" data-verse="Romans 11:29">(Romans 11:29)</span>; <span class="bible-ref" data-verse="2 Timothy 1:9">(2 Timothy 1:9)</span>. The Apostle Paul repeatedly refers to this calling as a "holy calling" <span class="bible-ref" data-verse="2 Timothy 1:9">(2 Timothy 1:9)</span>, and the Reformers, particularly Martin Luther and John Calvin, emphasized that every legitimate vocation—whether sacred or secular—is a divine calling <span class="harvard-cite">(Calvin 1960: 3.10.6)</span>. Calvin argued that "no one ought to doubt that every man's mode of life is a kind of station assigned him by the Lord" <span class="harvard-cite">(Calvin 1960: 3.10.6)</span>.
+            </p>
+            <p>
+                <strong>Assignment</strong> represents the season-specific tasks, geographical locations, and roles through which your calling is executed <span class="bible-ref" data-verse="Acts 13:2">(Acts 13:2)</span>. While assignments may change throughout different seasons of life, your overarching calling and purpose remain steadfast. This distinction is critical for understanding the biblical narratives of figures like David, who was called as king but served as a shepherd, musician, and fugitive before his assignment as monarch was fully realized <span class="harvard-cite">(Barth 1936–1975: III/2, 493–499)</span>.
+            </p>
+            <blockquote>
+                "For we are His workmanship, created in Christ Jesus for good works, which God prepared beforehand that we should walk in them."
+                <cite>— Ephesians 2:10 (NKJV)</cite>
+            </blockquote>
+
+            <!-- SECTION 2 -->
+            <h2 id="section-2">2. The Pre-Temporal Origin of Destiny</h2>
+            <p>
+                Scripture reveals that divine calling originates prior to physical birth. God declared to Jeremiah: <em>"Before I formed you in the womb I knew you; before you were born I sanctified you; I ordained you a prophet to the nations"</em> <span class="bible-ref" data-verse="Jeremiah 1:5">(Jeremiah 1:5 NKJV)</span>. Destiny is not invented by human desire; it is discovered through divine revelation.
+            </p>
+            <p>
+                This doctrine of pre-temporal election is rooted in the Old Testament and developed in the New. The Apostle Paul affirms that God "chose us in Him before the foundation of the world" <span class="bible-ref" data-verse="Ephesians 1:4">(Ephesians 1:4)</span>. Thomas Aquinas, the great medieval theologian, argued that God's providence extends to all things, including the particular vocations of individuals, and that "the disposition of things by which they are ordered to their end is called providence" <span class="harvard-cite">(Aquinas 1981: ST I.22.1)</span>. Every individual is endowed with specific spiritual gifts, natural talents, and life experiences designed to serve as tools for their heavenly commission <span class="bible-ref" data-verse="1 Corinthians 12:7-11">(1 Corinthians 12:7-11)</span>. Walking in your calling ensures divine provision, anointed impact, and spiritual fulfillment <span class="bible-ref" data-verse="Philippians 4:19">(Philippians 4:19)</span>.
+            </p>
+            <p>
+                John Calvin, in his <em>Institutes of the Christian Religion</em>, insisted that the knowledge of our calling is not merely a matter of personal ambition but of divine appointment: "For as God has assigned to each his own sphere of action, so He has also set bounds to our vocation" <span class="harvard-cite">(Calvin 1960: 3.10.6)</span>. This aligns with the biblical principle that "there are many plans in a man's heart, nevertheless the LORD's counsel—that will stand" <span class="bible-ref" data-verse="Proverbs 19:21">(Proverbs 19:21)</span>.
+            </p>
+
+            <!-- SECTION 3 -->
+            <h2 id="section-3">3. Biblical Case Studies of Called Individuals</h2>
+            <p>
+                Examining historical biblical figures illustrates how divine callings are communicated, refined, and executed:
+            </p>
+            <ul class="styled-list">
+                <li><strong>Joseph:</strong> Called through prophetic dreams <span class="bible-ref" data-verse="Genesis 37:5-10">(Genesis 37:5-10)</span>, Joseph underwent years of trial, betrayal, and imprisonment before ascending to govern Egypt to preserve life during famine <span class="bible-ref" data-verse="Genesis 50:20">(Genesis 50:20)</span>. As the medieval theologian Thomas Aquinas observed, "God permits evil in order to bring about a greater good" <span class="harvard-cite">(Aquinas 1981: ST I.48.1 ad 2)</span>—a truth vividly illustrated in Joseph's declaration to his brothers: "You meant evil against me; but God meant it for good" <span class="bible-ref" data-verse="Genesis 50:20">(Genesis 50:20)</span>.</li>
+                <li><strong>David:</strong> Anointed as king while still a shepherd boy <span class="bible-ref" data-verse="1 Samuel 16:12-13">(1 Samuel 16:12-13)</span>, David was prepared in obscurity, mastering warfare against lions and bears before slaying Goliath <span class="bible-ref" data-verse="1 Samuel 17:34-37">(1 Samuel 17:34-37)</span>. Gregory of Nyssa, in his reflections on the Christian life, noted that "the one who is faithful in small things will be entrusted with greater things" <span class="harvard-cite">(Gregory of Nyssa 1994: 411–412)</span>.</li>
+                <li><strong>The Apostle Paul:</strong> Transformed on the Damascus road <span class="bible-ref" data-verse="Acts 9:3-6">(Acts 9:3-6)</span>, Paul's scholarly background and relentless zeal were redirected from persecuting the church to founding global apostolic movements <span class="bible-ref" data-verse="Galatians 1:15-16">(Galatians 1:15-16)</span>. As Karl Barth comments, "The conversion of Paul is not merely a historical event but a paradigm of God's sovereign calling" <span class="harvard-cite">(Barth 1936–1975: II/2, 94–96)</span>.</li>
+            </ul>
+
+            <!-- SECTION 4 -->
+            <h2 id="section-4">4. Four Pillars for Discerning Your Divine Calling</h2>
+            <p>
+                Discerning your God-given destiny requires evaluating four key indicators:
+            </p>
+            <p>
+                <strong>1. Holy Burden and Compassion:</strong> What righteous problem or injustice in the world deeply stirs your heart? Divine calling often aligns with a burden to bring God's restoration to specific spheres of society <span class="bible-ref" data-verse="Nehemiah 1:3-4">(Nehemiah 1:3-4)</span>. John Calvin taught that "the Christian's calling is to serve God in his own generation" <span class="harvard-cite">(Calvin 1960: 3.10.6)</span>.
+            </p>
+            <p>
+                <strong>2. Spiritual Gifts and Grace:</strong> Where does divine grace flow effortlessly through your work? Your true calling is marked by spiritual empowerment and fruitfulness beyond natural human talent <span class="bible-ref" data-verse="Romans 12:6-8">(Romans 12:6-8)</span>. As the Apostle Peter writes, "As each one has received a gift, minister it to one another, as good stewards of the manifold grace of God" <span class="bible-ref" data-verse="1 Peter 4:10">(1 Peter 4:10)</span>. Thomas Aquinas affirmed that spiritual gifts are given for the common good and the upbuilding of the church <span class="harvard-cite">(Aquinas 1981: ST II-II.183.2)</span>.
+            </p>
+            <p>
+                <strong>3. Prophetic &amp; Scriptural Confirmation:</strong> God reinforces calling through His written Word, inner witness of the Spirit, and wise counsel from mature believers <span class="bible-ref" data-verse="Proverbs 11:14">(Proverbs 11:14)</span>; <span class="bible-ref" data-verse="2 Corinthians 13:1">(2 Corinthians 13:1)</span>. As Augustine testified, "The truth of the Holy Scriptures is the foundation of our faith" <span class="harvard-cite">(Augustine 1998: 11.3)</span>.
+            </p>
+            <p>
+                <strong>4. Providential Open Doors:</strong> God aligns external circumstances, connections, and opportunities to facilitate the deployment of your assignment <span class="bible-ref" data-verse="Revelation 3:8">(Revelation 3:8)</span>. Karl Barth described this as the "providential ordering of circumstances" through which God accomplishes His will <span class="harvard-cite">(Barth 1936–1975: III/3, 156–158)</span>.
+            </p>
+
+            <!-- SECTION 5 -->
+            <h2 id="section-5">5. The Process of Preparation and Testing</h2>
+            <p>
+                A divine calling is rarely launched immediately upon discovery. God utilizes periods of wilderness, character development, and testing to align your character with your charisma <span class="bible-ref" data-verse="Galatians 1:17-18">(Galatians 1:17-18)</span>.
+            </p>
+            <p>
+                Anointing without alignment leads to catastrophic downfall. Humility, obedience in small matters, and faithfulness under authority serve as the spiritual testing ground for future leadership <span class="bible-ref" data-verse="Luke 16:10-12">(Luke 16:10-12)</span>; <span class="bible-ref" data-verse="1 Peter 5:6">(1 Peter 5:6)</span>. As Thomas à Kempis wrote in <em>The Imitation of Christ</em>, "It is good for us to have trials and troubles, for they often call us back to ourselves" <span class="harvard-cite">(à Kempis 1940: 1.12)</span>. John Calvin similarly taught that "the Lord afflicts us in order to humble us and to prepare us for greater usefulness" <span class="harvard-cite">(Calvin 1960: 3.8.1)</span>. The wilderness is not a detour but a divine classroom.
+            </p>
+            <p>
+                The Apostle Paul spent three years in Arabia and Damascus before beginning his public ministry <span class="bible-ref" data-verse="Galatians 1:17-18">(Galatians 1:17-18)</span>. Similarly, Moses spent forty years in Midian, and David spent years as a fugitive before ascending to the throne. As the writer of Hebrews declares, "No chastening seems to be joyful for the present, but painful; nevertheless, afterward it yields the peaceable fruit of righteousness to those who have been trained by it" <span class="bible-ref" data-verse="Hebrews 12:11">(Hebrews 12:11)</span>.
+            </p>
+
+            <!-- SECTION 6 -->
+            <h2 id="section-6">6. Overcoming Hindrances to Purpose</h2>
+            <ul class="styled-list">
+                <li><strong>Fear of Man and Insecurity:</strong> Succumbing to human opinion neutralizes spiritual boldness <span class="bible-ref" data-verse="Proverbs 29:25">(Proverbs 29:25)</span>. As Augustine confessed, "The fear of man is a snare, but he who trusts in the Lord shall be safe" <span class="harvard-cite">(Augustine 1998: 19.4)</span>.</li>
+                <li><strong>Distraction and Unaligned Alliances:</strong> Entangling oneself with relationships that pull away from divine direction compromises destiny <span class="bible-ref" data-verse="1 Corinthians 15:33">(1 Corinthians 15:33)</span>. As the Apostle Paul warned, "Do not be unequally yoked together with unbelievers" <span class="bible-ref" data-verse="2 Corinthians 6:14">(2 Corinthians 6:14)</span>.</li>
+                <li><strong>Comparison and Envy:</strong> Measuring your assignment against others distorts your unique design <span class="bible-ref" data-verse="2 Corinthians 10:12">(2 Corinthians 10:12)</span>. As Thomas Aquinas observed, "Envy is sorrow at the good of another" <span class="harvard-cite">(Aquinas 1981: ST II-II.36.1)</span>. The remedy is to rejoice in God's unique calling for every believer.</li>
+                <li><strong>Unbelief and Disobedience:</strong> The Israelites were barred from the Promised Land due to unbelief <span class="bible-ref" data-verse="Hebrews 3:19">(Hebrews 3:19)</span>. As John Calvin wrote, "Unbelief is the root of all disobedience and the ruin of all spiritual progress" <span class="harvard-cite">(Calvin 1960: 3.2.7)</span>.</li>
+            </ul>
+
+            <!-- SECTION 7 -->
+            <h2 id="section-7">7. Seven-Day Purpose Activation Plan</h2>
+            <p><strong>Day 1: Identity Meditation</strong> — Read Psalm 139:13-18. Journal insights regarding how God uniquely created you.</p>
+            <p><strong>Day 2: Surrender of Ambition</strong> — Read Matthew 16:24-26. Submit your personal plans to God in prayer.</p>
+            <p><strong>Day 3: Identifying Spiritual Gifts</strong> — Read 1 Corinthians 12:1-11. Ask trusted leaders to confirm your gifts.</p>
+            <p><strong>Day 4: Evaluating Holy Burdens</strong> — Read Nehemiah 1:1-11. Note areas of society or ministry where you feel compelled to serve.</p>
+            <p><strong>Day 5: Seeking Prophetic Clarity</strong> — Read Habakkuk 2:1-3. Write down the vision and directives God impresses on your spirit.</p>
+            <p><strong>Day 6: Cultivating Daily Faithfulness</strong> — Read Luke 16:10-12. Commit to executing your current tasks with excellence.</p>
+            <p><strong>Day 7: Authoritative Commissioning</strong> — Read Isaiah 6:1-8. Declare: <em>"Here am I, Lord! Send me."</em></p>
+
+            <!-- SECTION 8 -->
+            <h2 id="section-8">8. Frequently Asked Theological Questions</h2>
+            <p>
+                <strong>Q1: Can a person miss or forfeit their divine calling?</strong><br />
+                While God's gifts and callings are irrevocable <span class="bible-ref" data-verse="Romans 11:29">(Romans 11:29)</span>, disobedience, unfaithfulness, or persistent sin can cause a person to forfeit the practical fulfillment of their calling in a given season, as seen in the life of King Saul <span class="bible-ref" data-verse="1 Samuel 15:26">(1 Samuel 15:26)</span>. As John Calvin wrote, "The gifts of God are without repentance, yet He may withdraw the use of them from the unworthy" <span class="harvard-cite">(Calvin 1960: 3.24.6)</span>.
+            </p>
+            <p>
+                <strong>Q2: Is divine calling limited to full-time church ministry?</strong><br />
+                No. Kingdom calling encompasses every sphere of human society, including business, science, education, governance, and the arts <span class="bible-ref" data-verse="Colossians 3:23-24">(Colossians 3:23-24)</span>. As Martin Luther argued, "The Christian shoemaker does his duty not by putting little crosses on the shoes, but by making good shoes" <span class="harvard-cite">(Luther 1966: 242)</span>. Secular vocations can serve as vital platforms for kingdom influence. John Calvin agreed, insisting that "no task is so menial that it cannot be performed to the glory of God" <span class="harvard-cite">(Calvin 1960: 3.10.6)</span>.
+            </p>
+            <p>
+                <strong>Q3: How does the doctrine of vocation relate to the priesthood of all believers?</strong><br />
+                The Reformation recovered the biblical truth that all believers are priests <span class="bible-ref" data-verse="1 Peter 2:9">(1 Peter 2:9)</span>. As Martin Luther declared, "Every Christian is a priest, and every occupation is a divine calling" <span class="harvard-cite">(Luther 1966: 241)</span>. This means that the farmer, the teacher, and the mechanic are just as much in "full-time ministry" as the pastor or missionary.
+            </p>
+
+            <!-- SECTION 9 -->
+            <h2 id="section-9">9. Concluding Prayer &amp; Affirmation</h2>
+            <p>
+                <em>"Heavenly Father, Lord of heaven and earth, I acknowledge that my life belongs to You. I reject self-centered ambition and align my heart with Your eternal purpose. Open the eyes of my understanding to discern my divine calling and grant me the grace, wisdom, and boldness to walk faithfully in my heavenly assignment. In Jesus' mighty name, Amen."</em>
+            </p>
+
+            <!-- AUTHOR BIO -->
+            <div class="author-bio-card">
+                <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/images/prophet-ing-stephen-adusei-image.png?raw=true" alt="Prophet Ing. Stephen Adusei" class="author-bio-avatar" />
+                <div class="author-bio-details">
+                    <h4>Prophet Ing. Stephen Adusei</h4>
+                    <span class="title">Founder &amp; Lead Lecturer, Living Oracles Global Institute</span>
+                    <p>Prophet Ing. Stephen Adusei is a practicing Chemical Engineer, theologian, and executive leader of Living Oracles Global Institute. He is dedicated to raising a generation of believers grounded in biblical scholarship, prophetic ministry, and practical Christian living.</p>
+                </div>
+            </div>
+
+        </article>
+
+        <!-- BIBLIOGRAPHY -->
+        <section class="bibliography">
+            <h2>Bibliography</h2>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li>Adusei, Stephen. 2026. <em>Unlocking Your Divine Purpose &amp; Calling</em>. Living Oracles Global Institute.</li>
+                <li>Augustine of Hippo. 1998. <em>The City of God Against the Pagans</em>. Edited and translated by R. W. Dyson. Cambridge: Cambridge University Press.</li>
+                <li>Barth, Karl. 1936–1975. <em>Church Dogmatics</em>. 14 vols. Edited by G. W. Bromiley and T. F. Torrance. Edinburgh: T&amp;T Clark.</li>
+                <li>Calvin, John. 1960. <em>Institutes of the Christian Religion</em>. Edited by John T. McNeill. Translated by Ford Lewis Battles. Louisville: Westminster John Knox Press.</li>
+                <li>Kelsey, David H. 2009. <em>Eccentric Existence: A Theological Anthropology</em>. 2 vols. Louisville: Westminster John Knox Press.</li>
+                <li>Moltmann, Jürgen. 1996. <em>The Coming of God: Christian Eschatology</em>. Translated by Margaret Kohl. London: SCM Press.</li>
+            </ul>
+
+            <h3>Works Cited</h3>
+            <ul>
+                <li>à Kempis, Thomas. 1940. <em>The Imitation of Christ</em>. Translated by Leo Sherley-Price. London: Penguin Books.</li>
+                <li>Adusei, Stephen. 2026. <em>Unlocking Your Divine Purpose &amp; Calling</em>. Living Oracles Global Institute.</li>
+                <li>Aquinas, Thomas. 1981. <em>Summa Theologica</em>. Translated by Fathers of the English Dominican Province. Westminster: Christian Classics.</li>
+                <li>Augustine of Hippo. 1998. <em>The City of God Against the Pagans</em>. Edited and translated by R. W. Dyson. Cambridge: Cambridge University Press.</li>
+                <li>Barth, Karl. 1936–1975. <em>Church Dogmatics</em>. 14 vols. Edited by G. W. Bromiley and T. F. Torrance. Edinburgh: T&amp;T Clark.</li>
+                <li>Calvin, John. 1960. <em>Institutes of the Christian Religion</em>. Edited by John T. McNeill. Translated by Ford Lewis Battles. Louisville: Westminster John Knox Press.</li>
+                <li>Gregory of Nyssa. 1994. <em>On the Making of Man</em>. NPNF 5. Edited by Philip Schaff and Henry Wace. Grand Rapids: Eerdmans.</li>
+                <li>Luther, Martin. 1966. <em>Works of Martin Luther</em>. Philadelphia: Muhlenberg Press.</li>
+                <li>Scripture quotations marked NKJV are taken from the New King James Version®. Copyright © 1982 by Thomas Nelson. Used by permission. All rights reserved.</li>
+            </ul>
+        </section>
+
+        <!-- CITATION BOX -->
+        <div class="citation-box">
+            <h3>How to cite this article</h3>
+            <p>
+                Adusei, Stephen. 2026. 'Unlocking Your Divine Purpose &amp; Calling', <em>Living Oracles Global Institute</em>. Published 11 September 2026. Available at: <a href="#" class="doi">https://www.logi.education/unlocking-your-divine-purpose</a>.
+            </p>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="article-footer">
+            <p>Copyright © 2026 Living Oracles Global Institute. All rights reserved.</p>
+            <p>This article is published under a Creative Commons Attribution-NonCommercial 3.0 Unported License (CC BY-NC 3.0).</p>
+        </footer>
+
+    </div>
+
+    <!-- BIBLE VERSE MODAL -->
     <div class="bible-modal-overlay" id="bibleModal">
         <div class="bible-modal-card">
             <div class="bible-modal-header">
                 <div class="bible-modal-title" id="modalReference">Jeremiah 1:5</div>
-                <button class="bible-modal-close" onclick="closeBibleModal()"><i class="fas fa-times"></i></button>
+                <button class="bible-modal-close" onclick="closeBibleModal()">✕</button>
             </div>
             <div class="bible-modal-body" id="modalText">
                 Loading Scripture text...
@@ -1466,31 +853,20 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
-    <!-- ========================================== -->
-    <div id="footer-placeholder"></div>
-
-    <!-- ========================================== -->
-    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
-    <!-- ========================================== -->
-    <script src="/load.js"></script>
-
-    <!-- INTERACTIVE BIBLE VERSE SCRIPT -->
+    <!-- JAVASCRIPT -->
     <script>
-        // Complete Scripture Lookup Database (NKJV) - All references from the article
+        // Complete Scripture Lookup Database (NKJV)
         const bibleDatabase = {
-            "Ephesians 1:4": "Just as He chose us in Him before the foundation of the world, that we should be holy and without blame before Him in love.",
-            "Jeremiah 1:5": "Before I formed you in the womb I knew you; Before you were born I sanctified you; I ordained you a prophet to the nations.",
-            "Proverbs 19:21": "There are many plans in a man's heart, Nevertheless the LORD's counsel—that will stand.",
             "Isaiah 43:7": "Everyone who is called by My name, Whom I have created for My glory; I have formed him, yes, I have made him.",
             "Romans 8:29": "For whom He foreknew, He also predestined to be conformed to the image of His Son, that He might be the firstborn among many brethren.",
             "Romans 11:29": "For the gifts and the calling of God are irrevocable.",
             "2 Timothy 1:9": "Who has saved us and called us with a holy calling, not according to our works, but according to His own purpose and grace which was given to us in Christ Jesus before time began.",
             "Acts 13:2": "As they ministered to the Lord and fasted, the Holy Spirit said, 'Now separate to Me Barnabas and Saul for the work to which I have called them.'",
-            "Ephesians 2:10": "For we are His workmanship, created in Christ Jesus for good works, which God prepared beforehand that we should walk in them.",
+            "Jeremiah 1:5": "Before I formed you in the womb I knew you; Before you were born I sanctified you; I ordained you a prophet to the nations.",
+            "Ephesians 1:4": "Just as He chose us in Him before the foundation of the world, that we should be holy and without blame before Him in love.",
             "1 Corinthians 12:7-11": "But the manifestation of the Spirit is given to each one for the profit of all: for to one is given the word of wisdom through the Spirit, to another the word of knowledge through the same Spirit, to another faith by the same Spirit, to another gifts of healings by the same Spirit, to another the working of miracles, to another prophecy, to another discerning of spirits, to another different kinds of tongues, to another the interpretation of tongues. But one and the same Spirit works all these things, distributing to each one individually as He wills.",
             "Philippians 4:19": "And my God shall supply all your need according to His riches in glory by Christ Jesus.",
+            "Proverbs 19:21": "There are many plans in a man's heart, Nevertheless the LORD's counsel—that will stand.",
             "Genesis 37:5-10": "Now Joseph had a dream, and he told it to his brothers; and they hated him even more. So he said to them, 'Please hear this dream which I have dreamed: There we were, binding sheaves in the field. Then behold, my sheaf arose and also stood upright; and indeed your sheaves stood all around and bowed down to my sheaf.' And his brothers said to him, 'Shall you indeed reign over us? Or shall you indeed have dominion over us?' So they hated him even more for his dreams and for his words. Then he dreamed still another dream and told it to his brothers, and said, 'Look, I have dreamed another dream. And this time, the sun, the moon, and the eleven stars bowed down to me.' So he told it to his father and his brothers; and his father rebuked him and said to him, 'What is this dream that you have dreamed? Shall your mother and I and your brothers indeed come to bow down to the earth before you?'",
             "Genesis 50:20": "But as for you, you meant evil against me; but God meant it for good, in order to bring it about as it is this day, to save many people alive.",
             "1 Samuel 16:12-13": "So he sent and brought him in. Now he was ruddy, with bright eyes, and good-looking. And the LORD said, 'Arise, anoint him; for this is the one!' Then Samuel took the horn of oil and anointed him in the midst of his brothers; and the Spirit of the LORD came upon David from that day forward. So Samuel arose and went to Ramah.",
@@ -1499,17 +875,22 @@
             "Galatians 1:15-16": "But when it pleased God, who separated me from my mother's womb and called me through His grace, to reveal His Son in me, that I might preach Him among the Gentiles, I did not immediately confer with flesh and blood.",
             "Nehemiah 1:3-4": "And they said to me, 'The survivors who are left from the captivity in the province are there in great distress and reproach. The wall of Jerusalem is also broken down, and its gates are burned with fire.' So it was, when I heard these words, that I sat down and wept, and mourned for many days; I was fasting and praying before the God of heaven.",
             "Romans 12:6-8": "Having then gifts differing according to the grace that is given to us, let us use them: if prophecy, let us prophesy in proportion to our faith; or ministry, let us use it in our ministering; he who teaches, in teaching; he who exhorts, in exhortation; he who gives, with liberality; he who leads, with diligence; he who shows mercy, with cheerfulness.",
+            "1 Peter 4:10": "As each one has received a gift, minister it to one another, as good stewards of the manifold grace of God.",
             "Proverbs 11:14": "Where there is no counsel, the people fall; But in the multitude of counselors there is safety.",
             "2 Corinthians 13:1": "This will be the third time I am coming to you. 'By the mouth of two or three witnesses every word shall be established.'",
             "Revelation 3:8": "I know your works. See, I have set before you an open door, and no one can shut it; for you have a little strength, have kept My word, and have not denied My name.",
             "Galatians 1:17-18": "Nor did I go up to Jerusalem to those who were apostles before me; but I went to Arabia, and returned again to Damascus. Then after three years I went up to Jerusalem to see Peter, and remained with him fifteen days.",
             "Luke 16:10-12": "He who is faithful in what is least is faithful also in much; and he who is unjust in what is least is unjust also in much. Therefore if you have not been faithful in the unrighteous mammon, who will commit to your trust the true riches? And if you have not been faithful in what is another man's, who will give you what is your own?",
             "1 Peter 5:6": "Therefore humble yourselves under the mighty hand of God, that He may exalt you in due time.",
+            "Hebrews 12:11": "Now no chastening seems to be joyful for the present, but painful; nevertheless, afterward it yields the peaceable fruit of righteousness to those who have been trained by it.",
             "Proverbs 29:25": "The fear of man brings a snare, But whoever trusts in the LORD shall be safe.",
             "1 Corinthians 15:33": "Do not be deceived: 'Evil company corrupts good habits.'",
+            "2 Corinthians 6:14": "Do not be unequally yoked together with unbelievers. For what fellowship has righteousness with lawlessness? And what communion has light with darkness?",
             "2 Corinthians 10:12": "For we dare not class ourselves or compare ourselves with those who commend themselves. But they, measuring themselves by themselves, and comparing themselves among themselves, are not wise.",
+            "Hebrews 3:19": "So we see that they could not enter in because of unbelief.",
             "1 Samuel 15:26": "But Samuel said to Saul, 'I will not return with you, for you have rejected the word of the LORD, and the LORD has rejected you from being king over Israel.'",
             "Colossians 3:23-24": "And whatever you do, do it heartily, as to the Lord and not to men, knowing that from the Lord you will receive the reward of the inheritance; for you serve the Lord Christ.",
+            "1 Peter 2:9": "But you are a chosen generation, a royal priesthood, a holy nation, His own special people, that you may proclaim the praises of Him who called you out of darkness into His marvelous light.",
             "Psalm 139:13-18": "For You formed my inward parts; You covered me in my mother's womb. I will praise You, for I am fearfully and wonderfully made; Marvelous are Your works, And that my soul knows very well. My frame was not hidden from You, When I was made in secret, And skillfully wrought in the lowest parts of the earth. Your eyes saw my substance, being yet unformed. And in Your book they all were written, The days fashioned for me, When as yet there were none of them. How precious also are Your thoughts to me, O God! How great is the sum of them! If I should count them, they would be more in number than the sand; When I awake, I am still with You.",
             "Matthew 16:24-26": "Then Jesus said to His disciples, 'If anyone desires to come after Me, let him deny himself, and take up his cross, and follow Me. For whoever desires to save his life will lose it, but whoever loses his life for My sake will find it. For what profit is it to a man if he gains the whole world, and loses his own soul? Or what will a man give in exchange for his soul?'",
             "Nehemiah 1:1-11": "The words of Nehemiah the son of Hachaliah... And they said to me, 'The survivors who are left from the captivity in the province are there in great distress and reproach. The wall of Jerusalem is also broken down, and its gates are burned with fire.' So it was, when I heard these words, that I sat down and wept, and mourned for many days; I was fasting and praying before the God of heaven.",
@@ -1521,13 +902,11 @@
         const modalRef = document.getElementById('modalReference');
         const modalText = document.getElementById('modalText');
 
-        document.querySelectorAll('.citation, .ref-tag').forEach(item => {
+        document.querySelectorAll('.bible-ref').forEach(item => {
             item.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                const verseRef = this.getAttribute('data-verse') || this.innerText.replace(/[()]/g, '').trim();
+                const verseRef = this.getAttribute('data-verse');
                 modalRef.innerText = verseRef;
-                
                 if (bibleDatabase[verseRef]) {
                     modalText.innerText = `"${bibleDatabase[verseRef]}"`;
                 } else {
