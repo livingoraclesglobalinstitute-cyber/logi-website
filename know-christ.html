@@ -368,7 +368,7 @@
         }
 
         /* ========================================== */
-        /*   FOOTER                                  */
+        /*   FOOTER — SCOPED TO NOT BE AFFECTED      */
         /* ========================================== */
         .institutional-footer {
             position: relative;
@@ -390,6 +390,8 @@
             gap: 1.5rem;
         }
 
+        /* Footer headings always white — protected with !important */
+        .institutional-footer .footer-column h2,
         .footer-column h2 {
             color: #ffffff !important;
             font-size: 0.8rem !important;
@@ -397,9 +399,21 @@
             font-weight: 700 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.08em !important;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            text-align: left !important;
         }
 
-        .footer-column p, .footer-column address {
+        /* Footer bold text always white/light — protected */
+        .institutional-footer strong,
+        .footer-column strong {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        .institutional-footer .footer-column p,
+        .footer-column p,
+        .footer-column address {
             color: rgba(244, 246, 248, 0.8);
             font-size: 0.82rem;
             line-height: 1.7;
@@ -468,12 +482,15 @@
         }
 
         .footer-subscription-container h3 {
-            color: #ffffff;
+            color: #ffffff !important;
             font-size: 0.8rem;
             text-transform: uppercase;
             font-weight: 800;
             letter-spacing: 0.05em;
             margin-bottom: 0.2rem;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
         }
 
         .footer-subscription-container p {
@@ -633,7 +650,7 @@
         }
 
         /* ========================================== */
-        /*   MAIN CONTENT                            */
+        /*   MAIN CONTENT WRAPPER                    */
         /* ========================================== */
         .section-bg {
             position: relative;
@@ -655,9 +672,10 @@
         }
 
         /* ========================================== */
-        /*   TYPOGRAPHY — HEADINGS #8b5353           */
+        /*   TYPOGRAPHY — SCOPED TO .section-bg      */
+        /*   So footer & cookie banner are not hit   */
         /* ========================================== */
-        h2 {
+        .section-bg h2 {
             font-size: 24px;
             font-weight: 800;
             color: #8b5353;
@@ -667,7 +685,7 @@
             text-align: left;
         }
 
-        h3 {
+        .section-bg h3 {
             font-size: 18px;
             font-weight: 700;
             color: #8b5353;
@@ -675,7 +693,7 @@
             text-align: left;
         }
 
-        p {
+        .section-bg p {
             font-size: 16px;
             color: #4a5568;
             margin-bottom: 16px;
@@ -683,8 +701,15 @@
             text-align: left;
         }
 
-        strong { color: #8b5353; font-weight: 700; }     /* ← Changed to burgundy */
-        em { color: #8b5353; font-style: italic; }
+        .section-bg strong {
+            color: #8b5353;
+            font-weight: 700;
+        }
+
+        .section-bg em {
+            color: #8b5353;
+            font-style: italic;
+        }
 
         /* ========================================== */
         /*   SCRIPTURE                               */
@@ -919,7 +944,7 @@
         }
 
         /* ========================================== */
-        /*   DECISION SECTION — SVG + TITLE ON SAME LINE */
+        /*   DECISION SECTION                        */
         /* ========================================== */
         .decision-section {
             padding: 40px 0 0;
@@ -936,7 +961,6 @@
             margin-bottom: 14px;
         }
 
-        .decision-header svg,
         .decision-header .decision-icon {
             width: 50px;
             height: 50px;
@@ -947,13 +971,13 @@
             align-items: center;
             justify-content: center;
             color: #ffffff;
-            padding: 12px;
         }
 
-        .decision-header svg {
-            fill: #ffffff;
+        .decision-header .decision-icon i {
+            font-size: 20px;
         }
 
+        /* Only this specific h2 inside the header — no border, no padding */
         .decision-header h2 {
             border: none;
             margin: 0;
@@ -962,6 +986,7 @@
             color: #8b5353;
             line-height: 1.1;
             text-align: left;
+            font-weight: 800;
         }
 
         .decision-section > p {
@@ -1128,22 +1153,23 @@
         /*   RESPONSIVE                              */
         /* ========================================== */
         @media (max-width: 600px) {
-            h2 { font-size: 20px; }
+            .section-bg h2 { font-size: 20px; }
             .form-row { grid-template-columns: 1fr; }
             .checkbox-group { grid-template-columns: 1fr; }
             .decision-header h2 { font-size: 22px; }
-            .decision-header svg,
             .decision-header .decision-icon {
                 width: 42px;
                 height: 42px;
-                padding: 10px;
+            }
+            .decision-header .decision-icon i {
+                font-size: 17px;
             }
             .steps li { padding-left: 48px; }
             .steps li::before { width: 36px; height: 36px; font-size: 14px; }
         }
 
         @media (max-width: 420px) {
-            h2 { font-size: 18px; }
+            .section-bg h2 { font-size: 18px; }
             .video-container { padding: 32px 16px; }
             .video-icon { font-size: 44px; }
             .video-container h3 { font-size: 16px; }
@@ -1243,12 +1269,11 @@
             </div>
 
             <!-- ========================================== -->
-            <!--   DECISION SECTION — SVG + TITLE ON SAME LINE -->
+            <!--   DECISION SECTION — SVG + TITLE SAME LINE -->
             <!-- ========================================== -->
             <div class="decision-section">
 
                 <div class="decision-header">
-                    <!-- SVG ICON (heart) inline with title -->
                     <div class="decision-icon">
                         <i class="fas fa-heart"></i>
                     </div>
