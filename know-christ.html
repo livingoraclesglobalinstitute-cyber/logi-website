@@ -390,7 +390,6 @@
             gap: 1.5rem;
         }
 
-        /* Footer headings always white — protected with !important */
         .institutional-footer .footer-column h2,
         .footer-column h2 {
             color: #ffffff !important;
@@ -404,7 +403,6 @@
             text-align: left !important;
         }
 
-        /* Footer bold text always white/light — protected */
         .institutional-footer strong,
         .footer-column strong {
             color: #ffffff !important;
@@ -673,7 +671,6 @@
 
         /* ========================================== */
         /*   TYPOGRAPHY — SCOPED TO .section-bg      */
-        /*   So footer & cookie banner are not hit   */
         /* ========================================== */
         .section-bg h2 {
             font-size: 24px;
@@ -742,37 +739,21 @@
         .welcome-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   VIDEO PLACEHOLDER                       */
+        /*   VIDEO SECTION — YOUTUBE EMBED           */
         /* ========================================== */
         .video-container {
             margin: 30px 0;
-            padding: 40px 20px;
+            padding: 30px 24px;
             text-align: center;
             color: #1a1a2e;
-            border: 2px dashed #c9a86c;
+            border: 1px solid #e8e3dc;
             border-radius: 12px;
-            background: transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            background: #fafafa;
         }
-
-        .video-container:hover {
-            background: #faf8f5;
-            border-color: #8b5353;
-        }
-
-        .video-icon {
-            font-size: 55px;
-            color: #8b5353;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .video-container:hover .video-icon { transform: scale(1.1); }
 
         .video-container h3 {
             color: #8b5353;
-            margin: 0 0 10px;
+            margin: 0 0 8px;
             font-size: 19px;
             text-align: center;
         }
@@ -780,8 +761,29 @@
         .video-container p {
             color: #718096;
             font-size: 14px;
-            margin: 0;
+            margin: 0 0 4px;
             text-align: center;
+        }
+
+        .video-embed-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin-top: 20px;
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-embed-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
         }
 
         /* ========================================== */
@@ -977,7 +979,6 @@
             font-size: 20px;
         }
 
-        /* Only this specific h2 inside the header — no border, no padding */
         .decision-header h2 {
             border: none;
             margin: 0;
@@ -1170,8 +1171,7 @@
 
         @media (max-width: 420px) {
             .section-bg h2 { font-size: 18px; }
-            .video-container { padding: 32px 16px; }
-            .video-icon { font-size: 44px; }
+            .video-container { padding: 24px 16px; }
             .video-container h3 { font-size: 16px; }
         }
     </style>
@@ -1207,10 +1207,22 @@
                 <strong>John 3:16</strong> says, <em>"For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."</em>
             </div>
 
+            <!-- ========================================== -->
+            <!--   YOUTUBE VIDEO EMBED                     -->
+            <!-- ========================================== -->
             <div class="video-container">
-                <div class="video-icon"><i class="fas fa-play-circle"></i></div>
                 <h3>Learn More About Knowing Christ</h3>
                 <p>Watch this short message about the gift of salvation</p>
+                <div class="video-embed-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/DRu0v8hXOSY" 
+                        title="Learn More About Knowing Christ"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
 
             <h2>How can I accept Jesus Christ as my Savior?</h2>
@@ -1296,7 +1308,7 @@
 
                     <div class="form-group">
                         <label>Email Address <span class="required">*</span></label>
-                        <input type="email" name="email" placeholder="info.logi.education" required />
+                        <input type="email" name="email" placeholder="you@example.com" required />
                     </div>
 
                     <div class="form-group">
@@ -1321,7 +1333,7 @@
                     <div class="consent">
                         <input type="checkbox" id="consent" required />
                         <label for="consent">
-                            I have read and agree to LOGI's <a href="/terms-conditions">Terms of Use</a> and <a href="privacy-policy">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute.
+                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute.
                         </label>
                     </div>
 
