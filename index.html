@@ -1595,6 +1595,139 @@
                 transform: none;
             }
         }
+
+        /* ========================================== */
+        /*   COOKIE CONSENT BANNER                    */
+        /* ========================================== */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.97);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 20px;
+            z-index: 99999;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            display: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .cookie-banner.show {
+            display: block;
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .cookie-text h3 {
+            color: #ffffff;
+            font-size: 16px;
+            margin: 0 0 8px 0;
+            font-weight: 700;
+        }
+
+        .cookie-text p {
+            color: #d4d0c8;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0 0 6px 0;
+        }
+
+        .cookie-text a {
+            color: #c9a86c;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .cookie-text a:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .cookie-btn-accept {
+            background: #8B5353;
+            color: #ffffff;
+        }
+
+        .cookie-btn-accept:hover {
+            background: #6d3d3d;
+            transform: translateY(-1px);
+        }
+
+        .cookie-btn-deny {
+            background: transparent;
+            color: #d4d0c8;
+            border: 1px solid #555;
+        }
+
+        .cookie-btn-deny:hover {
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
+        }
+
+        .cookie-btn-customize {
+            background: transparent;
+            color: #c9a86c;
+            border: 1px solid #c9a86c;
+        }
+
+        .cookie-btn-customize:hover {
+            background: rgba(201, 168, 108, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+            
+            .cookie-buttons {
+                flex-direction: column;
+            }
+            
+            .cookie-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2037,6 +2170,24 @@
     </div>
 
     <!-- ========================================== -->
+    <!--   COOKIE CONSENT BANNER                   -->
+    <!-- ========================================== -->
+    <div id="cookieConsent" class="cookie-banner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3>🍪 We Respect Your Privacy</h3>
+                <p>By clicking "Accept All", you consent to our use of cookies to enable essential site functionality, serve personalized content, and analyze traffic to improve your experience. You can customize your settings or click "Deny All" to decline anything not strictly necessary.</p>
+                <a href="/privacy-policy" target="_blank">View Privacy Policy →</a>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-btn-customize" onclick="customizeCookies()">Customize</button>
+                <button class="cookie-btn cookie-btn-deny" onclick="denyCookies()">Deny All</button>
+                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Accept All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
     <!--   JAVASCRIPT                              -->
     <!-- ========================================== -->
     <script>
@@ -2187,6 +2338,43 @@
                 });
             });
         });
+
+        // ==========================================
+        //   COOKIE CONSENT FUNCTIONS
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(function() {
+                    document.getElementById('cookieConsent').classList.add('show');
+                }, 1000);
+            }
+        });
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            localStorage.setItem('cookieConsentDate', new Date().toISOString());
+            document.getElementById('cookieConsent').classList.remove('show');
+            enableAnalytics();
+        }
+
+        function denyCookies() {
+            localStorage.setItem('cookieConsent', 'denied');
+            localStorage.setItem('cookieConsentDate', new Date().toISOString());
+            document.getElementById('cookieConsent').classList.remove('show');
+            disableNonEssential();
+        }
+
+        function customizeCookies() {
+            window.location.href = '/cookie-settings';
+        }
+
+        function enableAnalytics() {
+            console.log('✅ Analytics enabled');
+        }
+
+        function disableNonEssential() {
+            console.log('🔒 Non-essential cookies disabled');
+        }
     </script>
 
 </body>
