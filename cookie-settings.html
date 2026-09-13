@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Settings | Living Oracles Global Institute</title>
+    
+    <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #fafaf7;
+            color: #1a1a2e;
+            line-height: 1.6;
+            padding: 40px 20px 60px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            padding: 50px 45px;
+            border-top: 6px solid #8B5353;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a2e;
+            letter-spacing: 2px;
+            text-align: left;
+            line-height: 1.1;
+        }
+        
+        .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #888;
+            margin-top: 2px;
+        }
+        
+        .title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin: 15px 0 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .info-box {
+            background: #f8f6f2;
+            border-left: 4px solid #8B5353;
+            padding: 18px 22px;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .info-box i {
+            color: #8B5353;
+            margin-right: 8px;
+        }
+        
+        .cookie-section {
+            margin-bottom: 25px;
+            border: 1px solid #e8e3dc;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .cookie-section:hover {
+            border-color: #8B5353;
+            box-shadow: 0 4px 15px rgba(139, 83, 83, 0.08);
+        }
+        
+        .cookie-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 25px;
+            background: #fafaf7;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .cookie-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .cookie-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(139, 83, 83, 0.12), rgba(201, 168, 108, 0.12));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8B5353;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .cookie-text h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+        
+        .cookie-text p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .cookie-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 8px;
+        }
+        
+        .badge-required {
+            background: rgba(139, 83, 83, 0.1);
+            color: #8B5353;
+        }
+        
+        .badge-optional {
+            background: rgba(21, 128, 61, 0.1);
+            color: #15803D;
+        }
+        
+        /* Toggle Switch */
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+        
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        
+        .toggle input:checked + .toggle-slider {
+            background: #8B5353;
+        }
+        
+        .toggle input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        .toggle input:disabled + .toggle-slider {
+            background: #8B5353;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .cookie-details {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: #ffffff;
+            border-top: 1px solid transparent;
+        }
+        
+        .cookie-details.open {
+            max-height: 500px;
+            padding: 20px 25px;
+            border-top-color: #e8e3dc;
+        }
+        
+        .cookie-details h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cookie-details table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        
+        .cookie-details table th {
+            text-align: left;
+            padding: 8px 10px;
+            background: #f8f6f2;
+            color: #555;
+            font-weight: 600;
+            border-bottom: 1px solid #e8e3dc;
+        }
+        
+        .cookie-details table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f0ede6;
+            color: #666;
+        }
+        
+        .cookie-details table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .expand-btn {
+            background: none;
+            border: none;
+            color: #8B5353;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0 25px;
+        }
+        
+        .expand-btn i {
+            transition: transform 0.3s ease;
+            font-size: 10px;
+        }
+        
+        .expand-btn.active i {
+            transform: rotate(180deg);
+        }
+        
+        /* Buttons */
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 35px;
+            flex-wrap: wrap;
+            padding-top: 25px;
+            border-top: 1px solid #e8e3dc;
+        }
+        
+        .btn {
+            padding: 13px 28px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #8B5353;
+            color: #ffffff;
+        }
+        
+        .btn-primary:hover {
+            background: #6d3d3d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 83, 83, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #555;
+            border-color: #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #f8f6f2;
+            color: #1a1a2e;
+        }
+        
+        .btn-accept-all {
+            background: #15803D;
+            color: #ffffff;
+        }
+        
+        .btn-accept-all:hover {
+            background: #0d6628;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(21, 128, 61, 0.3);
+        }
+        
+        .saved-message {
+            display: none;
+            text-align: center;
+            padding: 12px;
+            background: rgba(21, 128, 61, 0.1);
+            color: #15803D;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        
+        .saved-message.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 22px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .cookie-header {
+                padding: 16px 18px;
+            }
+            
+            .actions {
+                flex-direction: column-reverse;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">
+            <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo" />
+            <div class="logo-text">
+                LIVING ORACLES
+                <span>GLOBAL INSTITUTE</span>
+            </div>
+        </div>
+        <h1 class="title">🍪 Cookie Settings</h1>
+        <p class="subtitle">Manage your cookie preferences for the best experience on our website</p>
+    </div>
+    
+    <!-- INFO BOX -->
+    <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <strong>About cookies:</strong> Cookies are small text files stored on your device when you visit our website. They help us provide a better experience, understand how you use our site, and personalize content. You can control which cookies you accept below.
+    </div>
+    
+    <!-- COOKIE SECTIONS -->
+    
+    <!-- ESSENTIAL COOKIES -->
+    <div class="cookie-section">
+        <div class="cookie-header">
+            <div class="cookie-info">
+                <div class="cookie-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="cookie-text">
+                    <h3>Strictly Necessary Cookies <span class="cookie-badge badge-required">Required</span></h3>
+                    <p>Required for the website to function properly. Enable core features like security, authentication, and site navigation.</p>
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" checked disabled />
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <button class="expand-btn" onclick="toggleDetails(this)">
+            <i class="fas fa-chevron-down"></i> View details
+        </button>
+        <div class="cookie-details">
+            <h4>Cookies we use</h4>
+            <table>
+                <tr>
+                    <th>Cookie Name</th>
+                    <th>Purpose</th>
+                    <th>Duration</th>
+                </tr>
+                <tr>
+                    <td>session_id</td>
+                    <td>Maintains your session</td>
+                    <td>Session</td>
+                </tr>
+                <tr>
+                    <td>csrf_token</td>
+                    <td>Security protection</td>
+                    <td>Session</td>
+                </tr>
+                <tr>
+                    <td>cookie_consent</td>
+                    <td>Remembers your cookie choices</td>
+                    <td>1 year</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <!-- ANALYTICS COOKIES -->
+    <div class="cookie-section">
+        <div class="cookie-header">
+            <div class="cookie-info">
+                <div class="cookie-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="cookie-text">
+                    <h3>Analytics Cookies <span class="cookie-badge badge-optional">Optional</span></h3>
+                    <p>Help us understand how visitors use our website. This data is anonymous and helps us improve our services.</p>
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="analyticsCookies" checked />
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <button class="expand-btn" onclick="toggleDetails(this)">
+            <i class="fas fa-chevron-down"></i> View details
+        </button>
+        <div class="cookie-details">
+            <h4>Cookies we use</h4>
+            <table>
+                <tr>
+                    <th>Cookie Name</th>
+                    <th>Purpose</th>
+                    <th>Duration</th>
+                </tr>
+                <tr>
+                    <td>_ga</td>
+                    <td>Google Analytics - distinguishes users</td>
+                    <td>2 years</td>
+                </tr>
+                <tr>
+                    <td>_gid</td>
+                    <td>Google Analytics - tracks sessions</td>
+                    <td>24 hours</td>
+                </tr>
+                <tr>
+                    <td>_gat</td>
+                    <td>Google Analytics - throttles requests</td>
+                    <td>1 minute</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <!-- MARKETING COOKIES -->
+    <div class="cookie-section">
+        <div class="cookie-header">
+            <div class="cookie-info">
+                <div class="cookie-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="cookie-text">
+                    <h3>Marketing Cookies <span class="cookie-badge badge-optional">Optional</span></h3>
+                    <p>Used to deliver relevant advertisements and track campaign performance. Helps us reach prospective students.</p>
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="marketingCookies" />
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <button class="expand-btn" onclick="toggleDetails(this)">
+            <i class="fas fa-chevron-down"></i> View details
+        </button>
+        <div class="cookie-details">
+            <h4>Cookies we use</h4>
+            <table>
+                <tr>
+                    <th>Cookie Name</th>
+                    <th>Purpose</th>
+                    <th>Duration</th>
+                </tr>
+                <tr>
+                    <td>_fbp</td>
+                    <td>Facebook Pixel - tracks conversions</td>
+                    <td>3 months</td>
+                </tr>
+                <tr>
+                    <td>_gcl_au</td>
+                    <td>Google Ads - conversion tracking</td>
+                    <td>3 months</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <!-- PREFERENCE COOKIES -->
+    <div class="cookie-section">
+        <div class="cookie-header">
+            <div class="cookie-info">
+                <div class="cookie-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <div class="cookie-text">
+                    <h3>Preference Cookies <span class="cookie-badge badge-optional">Optional</span></h3>
+                    <p>Remember your settings and preferences such as language, region, and personalization choices.</p>
+                </div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="preferenceCookies" checked />
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <button class="expand-btn" onclick="toggleDetails(this)">
+            <i class="fas fa-chevron-down"></i> View details
+        </button>
+        <div class="cookie-details">
+            <h4>Cookies we use</h4>
+            <table>
+                <tr>
+                    <th>Cookie Name</th>
+                    <th>Purpose</th>
+                    <th>Duration</th>
+                </tr>
+                <tr>
+                    <td>lang_pref</td>
+                    <td>Language preference</td>
+                    <td>1 year</td>
+                </tr>
+                <tr>
+                    <td>theme_pref</td>
+                    <td>Display preferences</td>
+                    <td>1 year</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <!-- SAVED MESSAGE -->
+    <div class="saved-message" id="savedMessage">
+        ✅ Your cookie preferences have been saved successfully.
+    </div>
+    
+    <!-- ACTION BUTTONS -->
+    <div class="actions">
+        <button class="btn btn-secondary" onclick="denyAll()">
+            <i class="fas fa-times"></i> Deny All
+        </button>
+        <button class="btn btn-primary" onclick="savePreferences()">
+            <i class="fas fa-save"></i> Save My Preferences
+        </button>
+        <button class="btn btn-accept-all" onclick="acceptAll()">
+            <i class="fas fa-check"></i> Accept All
+        </button>
+    </div>
+    
+</div>
+
+<script>
+    // ===== TOGGLE DETAILS =====
+    function toggleDetails(btn) {
+        const details = btn.nextElementSibling;
+        details.classList.toggle('open');
+        btn.classList.toggle('active');
+        
+        if (details.classList.contains('open')) {
+            btn.innerHTML = '<i class="fas fa-chevron-up"></i> Hide details';
+        } else {
+            btn.innerHTML = '<i class="fas fa-chevron-down"></i> View details';
+        }
+    }
+    
+    // ===== SAVE PREFERENCES =====
+    function savePreferences() {
+        const preferences = {
+            essential: true,
+            analytics: document.getElementById('analyticsCookies').checked,
+            marketing: document.getElementById('marketingCookies').checked,
+            preferences: document.getElementById('preferenceCookies').checked,
+            date: new Date().toISOString()
+        };
+        
+        localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+        localStorage.setItem('cookieConsent', 'customized');
+        localStorage.setItem('cookieConsentDate', new Date().toISOString());
+        
+        showSavedMessage();
+        applyPreferences(preferences);
+    }
+    
+    // ===== ACCEPT ALL =====
+    function acceptAll() {
+        document.getElementById('analyticsCookies').checked = true;
+        document.getElementById('marketingCookies').checked = true;
+        document.getElementById('preferenceCookies').checked = true;
+        
+        const preferences = {
+            essential: true,
+            analytics: true,
+            marketing: true,
+            preferences: true,
+            date: new Date().toISOString()
+        };
+        
+        localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+        localStorage.setItem('cookieConsent', 'accepted');
+        localStorage.setItem('cookieConsentDate', new Date().toISOString());
+        
+        showSavedMessage();
+        applyPreferences(preferences);
+    }
+    
+    // ===== DENY ALL =====
+    function denyAll() {
+        document.getElementById('analyticsCookies').checked = false;
+        document.getElementById('marketingCookies').checked = false;
+        document.getElementById('preferenceCookies').checked = false;
+        
+        const preferences = {
+            essential: true,
+            analytics: false,
+            marketing: false,
+            preferences: false,
+            date: new Date().toISOString()
+        };
+        
+        localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+        localStorage.setItem('cookieConsent', 'denied');
+        localStorage.setItem('cookieConsentDate', new Date().toISOString());
+        
+        showSavedMessage();
+        applyPreferences(preferences);
+    }
+    
+    // ===== SHOW SAVED MESSAGE =====
+    function showSavedMessage() {
+        const msg = document.getElementById('savedMessage');
+        msg.classList.add('show');
+        setTimeout(() => {
+            msg.classList.remove('show');
+        }, 3000);
+    }
+    
+    // ===== APPLY PREFERENCES =====
+    function applyPreferences(prefs) {
+        console.log('Cookie preferences applied:', prefs);
+        
+        if (!prefs.analytics) {
+            window['ga-disable-GA_MEASUREMENT_ID'] = true;
+        }
+        
+        if (!prefs.marketing) {
+            // Disable fbq
+        }
+    }
+    
+    // ===== LOAD SAVED PREFERENCES =====
+    document.addEventListener('DOMContentLoaded', function() {
+        const saved = localStorage.getItem('cookiePreferences');
+        if (saved) {
+            try {
+                const prefs = JSON.parse(saved);
+                document.getElementById('analyticsCookies').checked = prefs.analytics || false;
+                document.getElementById('marketingCookies').checked = prefs.marketing || false;
+                document.getElementById('preferenceCookies').checked = prefs.preferences !== false;
+            } catch (e) {
+                console.warn('Could not load saved preferences');
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
