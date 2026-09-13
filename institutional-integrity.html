@@ -844,11 +844,85 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        @media (max-width: 768px) {
+            body { padding-top: 70px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding-top: 60px; }
+        }
+
         .container-wrapper {
             max-width: 100% !important;
             margin: 0 auto;
             padding: 0 !important;
             width: 100% !important;
+        }
+
+        /* ========================================== */
+        /*   HERO SECTION — INSTITUTIONAL INTEGRITY  */
+        /* ========================================== */
+        .integrity-hero-section {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .integrity-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .integrity-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .integrity-hero-content .integrity-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .integrity-hero-content .integrity-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .integrity-hero-section { height: 280px; }
+            .integrity-hero-content h1 { font-size: 28px; }
+            .integrity-hero-content .integrity-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .integrity-hero-section { height: 240px; }
+            .integrity-hero-content h1 { font-size: 20px; }
+            .integrity-hero-content .integrity-hero-subtitle { font-size: 10px; }
         }
 
         /* ========================================== */
@@ -1151,6 +1225,17 @@
     <!--   HEADER PLACEHOLDER                       -->
     <!-- ========================================== -->
     <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   HERO SECTION — INSTITUTIONAL INTEGRITY  -->
+    <!-- ========================================== -->
+    <section class="integrity-hero-section">
+        <div class="integrity-hero-content">
+            <h1>Institutional Integrity</h1>
+            <p class="integrity-hero-subtitle">Living Oracles Global Institute</p>
+            <div class="integrity-hero-line"></div>
+        </div>
+    </section>
 
     <!-- ========================================== -->
     <!--    PAGE CONTENT - INSTITUTIONAL INTEGRITY  -->
