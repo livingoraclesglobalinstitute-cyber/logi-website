@@ -567,7 +567,7 @@
         @media (max-width: 480px) { body { padding-top: 60px; } }
 
         /* ========================================== */
-        /*   HERO — NO OVERLAY, JUST IMAGE           */
+        /*   HERO                                    */
         /* ========================================== */
         .hero-section {
             position: relative;
@@ -583,8 +583,6 @@
             margin: 0;
             padding: 0;
         }
-
-        /* ❌ REMOVED: ::before overlay gradient */
 
         .hero-content {
             position: relative;
@@ -635,7 +633,7 @@
         }
 
         /* ========================================== */
-        /*   MAIN CONTENT — PLAIN WHITE, NO BOXES    */
+        /*   MAIN CONTENT                            */
         /* ========================================== */
         .section-bg {
             position: relative;
@@ -645,13 +643,9 @@
             z-index: 1;
         }
 
-        /* ❌ REMOVED: ::before dark overlay */
-        /* ❌ REMOVED: background-image / attachment */
-
         .container {
             max-width: 850px;
             margin: 0 auto;
-            /* ❌ REMOVED: glass card background, blur, border, shadow, padding */
             background: transparent;
             padding: 0;
         }
@@ -661,22 +655,24 @@
         }
 
         /* ========================================== */
-        /*   TYPOGRAPHY                              */
+        /*   TYPOGRAPHY — HEADINGS #8b5353           */
         /* ========================================== */
         h2 {
             font-size: 24px;
             font-weight: 800;
-            color: #1a1a2e;
+            color: #8b5353;
             margin: 40px 0 18px;
             padding-bottom: 10px;
             border-bottom: 2px solid #e8e3dc;
+            text-align: left;
         }
 
         h3 {
             font-size: 18px;
             font-weight: 700;
-            color: #8B5353;
+            color: #8b5353;
             margin: 25px 0 12px;
+            text-align: left;
         }
 
         p {
@@ -684,16 +680,17 @@
             color: #4a5568;
             margin-bottom: 16px;
             line-height: 1.8;
+            text-align: left;
         }
 
-        strong { color: #1a1a2e; font-weight: 700; }
-        em { color: #8B5353; font-style: italic; }
+        strong { color: #8b5353; font-weight: 700; }     /* ← Changed to burgundy */
+        em { color: #8b5353; font-style: italic; }
 
         /* ========================================== */
-        /*   SCRIPTURE — SIMPLE LEFT BORDER          */
+        /*   SCRIPTURE                               */
         /* ========================================== */
         .scripture {
-            border-left: 4px solid #8B5353;
+            border-left: 4px solid #8b5353;
             padding: 4px 0 4px 20px;
             margin: 22px 0;
             font-style: italic;
@@ -701,12 +698,13 @@
             font-size: 16px;
             line-height: 1.8;
             background: transparent;
+            text-align: left;
         }
 
-        .scripture strong { color: #8B5353; }
+        .scripture strong { color: #8b5353; }
 
         /* ========================================== */
-        /*   WELCOME — NO BOX                        */
+        /*   WELCOME                                 */
         /* ========================================== */
         .welcome-box {
             padding: 0;
@@ -719,7 +717,7 @@
         .welcome-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   VIDEO PLACEHOLDER — DASHED BORDER       */
+        /*   VIDEO PLACEHOLDER                       */
         /* ========================================== */
         .video-container {
             margin: 30px 0;
@@ -735,12 +733,12 @@
 
         .video-container:hover {
             background: #faf8f5;
-            border-color: #8B5353;
+            border-color: #8b5353;
         }
 
         .video-icon {
             font-size: 55px;
-            color: #8B5353;
+            color: #8b5353;
             margin-bottom: 15px;
             transition: transform 0.3s ease;
         }
@@ -748,15 +746,17 @@
         .video-container:hover .video-icon { transform: scale(1.1); }
 
         .video-container h3 {
-            color: #1a1a2e;
+            color: #8b5353;
             margin: 0 0 10px;
             font-size: 19px;
+            text-align: center;
         }
 
         .video-container p {
             color: #718096;
             font-size: 14px;
             margin: 0;
+            text-align: center;
         }
 
         /* ========================================== */
@@ -782,7 +782,7 @@
             top: 0;
             width: 40px;
             height: 40px;
-            background: #8B5353;
+            background: #8b5353;
             color: #ffffff;
             border-radius: 50%;
             display: flex;
@@ -795,7 +795,7 @@
         .steps li strong {
             display: block;
             font-size: 17px;
-            color: #1a1a2e;
+            color: #8b5353;
             margin-bottom: 10px;
         }
 
@@ -806,17 +806,18 @@
         }
 
         /* ========================================== */
-        /*   PRAYER — SIMPLE LEFT BORDER            */
+        /*   PRAYER                                  */
         /* ========================================== */
         .prayer-box {
             padding: 24px 0 24px 24px;
             margin: 35px 0;
-            border-left: 4px solid #8B5353;
+            border-left: 4px solid #8b5353;
             background: transparent;
+            text-align: left;
         }
 
         .prayer-box h3 {
-            color: #1a1a2e;
+            color: #8b5353;
             margin: 0 0 18px;
             font-size: 19px;
         }
@@ -832,13 +833,14 @@
         .prayer-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   CELEBRATION — SIMPLE GREEN BORDER       */
+        /*   CELEBRATION                             */
         /* ========================================== */
         .celebration {
             padding: 20px 24px;
             margin: 30px 0;
             border-left: 4px solid #15803d;
             background: transparent;
+            text-align: left;
         }
 
         .celebration p {
@@ -850,7 +852,7 @@
         }
 
         /* ========================================== */
-        /*   NEXT STEPS — SIMPLE LEFT BORDER         */
+        /*   NEXT STEPS                              */
         /* ========================================== */
         .next-steps {
             display: grid;
@@ -864,15 +866,16 @@
             border-left: 3px solid #c9a86c;
             background: transparent;
             transition: all 0.3s ease;
+            text-align: left;
         }
 
         .step-card:hover {
-            border-left-color: #8B5353;
+            border-left-color: #8b5353;
             padding-left: 24px;
         }
 
         .step-card h4 {
-            color: #1a1a2e;
+            color: #8b5353;
             font-size: 17px;
             margin-bottom: 10px;
             display: flex;
@@ -881,7 +884,7 @@
         }
 
         .step-card h4 i {
-            color: #8B5353;
+            color: #8b5353;
             font-size: 18px;
         }
 
@@ -897,7 +900,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #8B5353;
+            background: #8b5353;
             color: #ffffff;
             padding: 10px 22px;
             border-radius: 50px;
@@ -906,7 +909,7 @@
             font-weight: 700;
             margin-top: 14px;
             transition: all 0.3s ease;
-            border: 2px solid #8B5353;
+            border: 2px solid #8b5353;
         }
 
         .subscribe-btn:hover {
@@ -916,48 +919,61 @@
         }
 
         /* ========================================== */
-        /*   DECISION SECTION — NO BOX               */
+        /*   DECISION SECTION — SVG + TITLE ON SAME LINE */
         /* ========================================== */
         .decision-section {
             padding: 40px 0 0;
             margin-top: 45px;
-            text-align: center;
+            text-align: left;
             border-top: 2px solid #e8e3dc;
             background: transparent;
         }
 
-        .decision-icon {
-            width: 65px;
-            height: 65px;
-            background: #8B5353;
+        .decision-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .decision-header svg,
+        .decision-header .decision-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            background: #8b5353;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 18px;
             color: #ffffff;
-            font-size: 26px;
+            padding: 12px;
         }
 
-        .decision-section h2 {
+        .decision-header svg {
+            fill: #ffffff;
+        }
+
+        .decision-header h2 {
             border: none;
-            margin: 0 0 12px;
+            margin: 0;
             padding: 0;
-            text-align: center;
             font-size: 26px;
-            color: #1a1a2e;
+            color: #8b5353;
+            line-height: 1.1;
+            text-align: left;
         }
 
         .decision-section > p {
-            text-align: center;
-            max-width: 580px;
-            margin: 0 auto 28px;
+            text-align: left;
+            max-width: 100%;
+            margin: 0 0 28px;
             font-size: 16px;
             color: #4a5568;
         }
 
         /* ========================================== */
-        /*   FORM — SIMPLE, NO BOX                   */
+        /*   FORM                                    */
         /* ========================================== */
         .form-container {
             background: transparent;
@@ -1001,7 +1017,7 @@
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: #8B5353;
+            border-color: #8b5353;
             background: #ffffff;
             box-shadow: 0 0 0 3px rgba(139, 83, 83, 0.1);
         }
@@ -1034,7 +1050,7 @@
         .checkbox-group input[type="checkbox"] {
             width: 16px;
             height: 16px;
-            accent-color: #8B5353;
+            accent-color: #8b5353;
             cursor: pointer;
             flex-shrink: 0;
         }
@@ -1052,14 +1068,14 @@
         .consent input[type="checkbox"] {
             width: 16px;
             height: 16px;
-            accent-color: #8B5353;
+            accent-color: #8b5353;
             cursor: pointer;
             margin-top: 3px;
             flex-shrink: 0;
         }
 
         .consent a {
-            color: #8B5353;
+            color: #8b5353;
             text-decoration: underline;
         }
 
@@ -1067,9 +1083,9 @@
 
         .submit-btn {
             width: 100%;
-            background: #8B5353;
+            background: #8b5353;
             color: #ffffff;
-            border: 2px solid #8B5353;
+            border: 2px solid #8b5353;
             padding: 15px;
             border-radius: 50px;
             font-size: 15px;
@@ -1115,7 +1131,13 @@
             h2 { font-size: 20px; }
             .form-row { grid-template-columns: 1fr; }
             .checkbox-group { grid-template-columns: 1fr; }
-            .decision-section h2 { font-size: 22px; }
+            .decision-header h2 { font-size: 22px; }
+            .decision-header svg,
+            .decision-header .decision-icon {
+                width: 42px;
+                height: 42px;
+                padding: 10px;
+            }
             .steps li { padding-left: 48px; }
             .steps li::before { width: 36px; height: 36px; font-size: 14px; }
         }
@@ -1220,11 +1242,19 @@
                 </div>
             </div>
 
+            <!-- ========================================== -->
+            <!--   DECISION SECTION — SVG + TITLE ON SAME LINE -->
+            <!-- ========================================== -->
             <div class="decision-section">
-                <div class="decision-icon">
-                    <i class="fas fa-heart"></i>
+
+                <div class="decision-header">
+                    <!-- SVG ICON (heart) inline with title -->
+                    <div class="decision-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h2>I've Decided!</h2>
                 </div>
-                <h2>I've Decided!</h2>
+
                 <p>If you just made a decision to follow Jesus, we'd love to know, too. To help you take the next step in your faith journey, we will send you some helpful Bible study resources. Simply complete the form below, and we'll send them to you!</p>
 
                 <form id="decisionForm" class="form-container">
@@ -1266,7 +1296,7 @@
                     <div class="consent">
                         <input type="checkbox" id="consent" required />
                         <label for="consent">
-                            I have read and agree to LOGI's <a href="/terms-conditions">Terms of Use</a> and <a href="/privacy-policy">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute.
+                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute.
                         </label>
                     </div>
 
