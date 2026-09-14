@@ -852,12 +852,89 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — PRIVACY POLICY            */
+        /*   (Same style as other pages)              */
+        /* ========================================== */
+        .policy-hero-section {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+        }
+
+        /* Dark overlay for text readability */
+        .policy-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.6);
+            z-index: 1;
+        }
+
+        .policy-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .policy-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .policy-hero-content .policy-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .policy-hero-content .policy-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .policy-hero-section { height: 240px; }
+            .policy-hero-content h1 { font-size: 30px; }
+            .policy-hero-content .policy-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .policy-hero-section { height: 200px; }
+            .policy-hero-content h1 { font-size: 24px; }
+            .policy-hero-content .policy-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   PRIVACY POLICY PAGE STYLES               */
         /* ========================================== */
         .logi-policy-section {
-            padding: 0 20px 30px !important;
-            margin-top: 30px !important;
-            padding-top: 10px !important;
+            padding: 40px 20px 30px !important;
+            margin-top: 0 !important;
             background-color: transparent !important;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
             color: #444444 !important;
@@ -1124,7 +1201,7 @@
 
         @media (max-width: 768px) {
             .logi-policy-section {
-                padding: 0 10px 20px !important;
+                padding: 30px 10px 20px !important;
             }
             .logi-policy-heading {
                 font-size: 26px !important;
@@ -1149,6 +1226,16 @@
     <!--   HEADER PLACEHOLDER                       -->
     <!-- ========================================== -->
     <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   HERO SECTION — PRIVACY POLICY            -->
+    <!-- ========================================== -->
+    <section class="policy-hero-section">
+        <div class="policy-hero-content">
+            <h1>Privacy Policy</h1>
+            <div class="policy-hero-line"></div>
+        </div>
+    </section>
 
     <!-- ========================================== -->
     <!--       PAGE CONTENT - PRIVACY POLICY        -->
