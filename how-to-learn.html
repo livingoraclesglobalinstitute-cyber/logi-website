@@ -853,10 +853,88 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — HOW TO LEARN              */
+        /*   (Students learning scene)                */
+        /* ========================================== */
+        .learn-hero-section {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+        }
+
+        /* Dark overlay for text readability */
+        .learn-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.55);
+            z-index: 1;
+        }
+
+        .learn-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .learn-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .learn-hero-content .learn-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .learn-hero-content .learn-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .learn-hero-section { height: 260px; }
+            .learn-hero-content h1 { font-size: 30px; }
+            .learn-hero-content .learn-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .learn-hero-section { height: 220px; }
+            .learn-hero-content h1 { font-size: 24px; }
+            .learn-hero-content .learn-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   HOW TO LEARN PAGE STYLES                 */
         /* ========================================== */
         .logi-learn-section {
-            padding: 0 20px 40px !important;
+            padding: 40px 20px 40px !important;
             background-color: transparent !important;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
             color: #444444 !important;
@@ -1130,7 +1208,7 @@
                 gap: 15px !important;
             }
             .logi-learn-section {
-                padding: 0 10px 30px !important;
+                padding: 30px 10px 30px !important;
             }
         }
     </style>
@@ -1143,6 +1221,17 @@
     <div id="header-placeholder"></div>
 
     <!-- ========================================== -->
+    <!--   HERO SECTION — HOW TO LEARN              -->
+    <!--   (Students learning scene)                -->
+    <!-- ========================================== -->
+    <section class="learn-hero-section">
+        <div class="learn-hero-content">
+            <h1>How to Learn</h1>
+            <div class="learn-hero-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
     <!--       PAGE CONTENT - HOW TO LEARN          -->
     <!-- ========================================== -->
     <main class="container-wrapper">
@@ -1153,8 +1242,7 @@
 
                 <!-- Header Block -->
                 <div class="logi-learn-header">
-                    <div class="logi-learn-badge">Pedagogical Frameworks</div>
-                    <h2 class="logi-learn-main-title">How to Learn: Advanced Curricular Domains</h2>
+                    <h2 class="logi-learn-main-title">Pedagogical Frameworks &amp; Learning Models</h2>
                     <p class="logi-learn-lead">
                         Living Oracles Global Institute (LOGI) utilizes structured behavioral dimensions and modern cognitive frameworks to craft curriculum tracks. Explore the progressive stages of information processing, actionable target verbs, and structural mastery assessments below.
                     </p>
