@@ -853,10 +853,88 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — FINANCIAL AID             */
+        /*   (Same style as other pages)              */
+        /* ========================================== */
+        .aid-hero-section {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+        }
+
+        /* Dark overlay for text readability */
+        .aid-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.6);
+            z-index: 1;
+        }
+
+        .aid-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .aid-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .aid-hero-content .aid-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .aid-hero-content .aid-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .aid-hero-section { height: 240px; }
+            .aid-hero-content h1 { font-size: 30px; }
+            .aid-hero-content .aid-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .aid-hero-section { height: 200px; }
+            .aid-hero-content h1 { font-size: 24px; }
+            .aid-hero-content .aid-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   FINANCIAL AID FORM STYLES                */
         /* ========================================== */
         .form-container {
-            padding: 20px 20px 40px;
+            padding: 40px 20px 40px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -989,7 +1067,7 @@
                 gap: 0;
             }
             .form-container {
-                padding: 15px 10px 30px;
+                padding: 30px 10px 30px;
             }
             .form-header h1 {
                 font-size: 20px;
@@ -998,7 +1076,7 @@
 
         @media (max-width: 480px) {
             .form-container {
-                padding: 10px 8px 20px;
+                padding: 20px 8px 20px;
             }
             .form-header img {
                 max-width: 80px;
@@ -1021,6 +1099,17 @@
     <!--   HEADER PLACEHOLDER                       -->
     <!-- ========================================== -->
     <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   HERO SECTION — FINANCIAL AID             -->
+    <!-- ========================================== -->
+    <section class="aid-hero-section">
+        <div class="aid-hero-content">
+            <h1>Financial Aid</h1>
+            <div class="aid-hero-subtitle">Making Education Accessible to All</div>
+            <div class="aid-hero-line"></div>
+        </div>
+    </section>
 
     <!-- ========================================== -->
     <!--       PAGE CONTENT - FINANCIAL AID         -->
