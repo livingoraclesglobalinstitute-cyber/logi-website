@@ -852,12 +852,89 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — TERMS & CONDITIONS        */
+        /*   (Same style as other pages)              */
+        /* ========================================== */
+        .tc-hero-section {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+        }
+
+        /* Dark overlay for text readability */
+        .tc-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.6);
+            z-index: 1;
+        }
+
+        .tc-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .tc-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .tc-hero-content .tc-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .tc-hero-content .tc-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .tc-hero-section { height: 240px; }
+            .tc-hero-content h1 { font-size: 30px; }
+            .tc-hero-content .tc-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .tc-hero-section { height: 200px; }
+            .tc-hero-content h1 { font-size: 24px; }
+            .tc-hero-content .tc-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   TERMS & CONDITIONS PAGE STYLES           */
         /* ========================================== */
         .logi-tc-section {
-            padding: 0 20px 30px !important;
-            margin-top: 30px !important;
-            padding-top: 10px !important;
+            padding: 40px 20px 30px !important;
+            margin-top: 0 !important;
             background-color: transparent !important;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
             color: #444444 !important;
@@ -1098,7 +1175,7 @@
 
         @media (max-width: 768px) {
             .logi-tc-section {
-                padding: 0 10px 20px !important;
+                padding: 30px 10px 20px !important;
             }
             .logi-tc-main-title {
                 font-size: 26px !important;
@@ -1128,6 +1205,16 @@
     <div id="header-placeholder"></div>
 
     <!-- ========================================== -->
+    <!--   HERO SECTION — TERMS & CONDITIONS        -->
+    <!-- ========================================== -->
+    <section class="tc-hero-section">
+        <div class="tc-hero-content">
+            <h1>Terms &amp; Conditions</h1>
+            <div class="tc-hero-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
     <!--       PAGE CONTENT - TERMS & CONDITIONS    -->
     <!-- ========================================== -->
     <main class="container-wrapper">
@@ -1138,9 +1225,8 @@
 
                 <!-- Header Block -->
                 <div class="logi-tc-header">
-                    <div class="logi-tc-badge">Legal Framework</div>
-                    <h1 class="logi-tc-main-title">Terms &amp; Conditions of Use</h1>
-                    <p class="logi-tc-lead">
+                    <div class="logi-tc-badge">Legal Framework &amp; Institutional Covenants</div>
+                      <p class="logi-tc-lead">
                         Please carefully review these Terms and Conditions as they outline your legal rights, responsibilities, and institutional covenants when accessing our digital platforms and services.
                     </p>
                 </div>
