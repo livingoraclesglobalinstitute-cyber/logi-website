@@ -856,8 +856,84 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — ORGANIZATIONAL STRUCTURE  */
+        /*   (Same style as About Us hero)            */
+        /*   Image: Corporate hierarchy / team        */
+        /* ========================================== */
+        .org-hero-section {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dark overlay for text readability */
+        .org-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.55);
+            z-index: 1;
+        }
+
+        .org-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .org-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .org-hero-content .org-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .org-hero-content .org-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .org-hero-section { height: 260px; }
+            .org-hero-content h1 { font-size: 30px; }
+            .org-hero-content .org-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .org-hero-section { height: 220px; }
+            .org-hero-content h1 { font-size: 24px; }
+            .org-hero-content .org-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   ORGANIZATIONAL CHART STYLES              */
-        /* (Your existing styles - kept unchanged)    */
         /* ========================================== */
 
         /* ===== PAGE HEADER ===== */
@@ -923,7 +999,6 @@
             margin: 0 auto;
         }
 
-        /* Horizontal branch connecting the CENTER of the first and last child */
         .org-row-horizontal::before {
             content: '';
             position: absolute;
@@ -936,7 +1011,6 @@
             z-index: 0;
         }
 
-        /* Each child gets its OWN vertical drop from the horizontal branch */
         .org-item {
             display: flex;
             flex-direction: column;
@@ -960,7 +1034,6 @@
             z-index: 2;
         }
 
-        /* Level-specific branch lengths */
         .org-row-horizontal.level-2::before {
             left: 12.5%;
             right: 12.5%;
@@ -980,7 +1053,6 @@
             flex-shrink: 0;
         }
 
-        /* Central stem from the parent level down to the branch */
         .org-connector-founders::before {
             content: '';
             position: absolute;
@@ -993,12 +1065,11 @@
             opacity: 0.65;
         }
 
-        /* The HTML connector divs are no longer needed */
         .org-connector-founders .connector-line {
             display: none;
         }
 
-        /* ===== CARD — NO BACKGROUND BOX ===== */
+        /* ===== CARD ===== */
         .org-card {
             text-align: center;
             padding: 8px 4px;
@@ -1031,7 +1102,6 @@
             color: #8b5353;
             background: #f0ebe5;
         }
-        /* Blank avatar - no icon, just empty circle */
         .org-card .avatar.blank {
             display: block;
             background: #f0ebe5;
@@ -1105,7 +1175,7 @@
             font-size: 14px;
         }
 
-        /* ===== ACADEMIC AFFAIRS CARD (slightly larger) ===== */
+        /* ===== ACADEMIC AFFAIRS CARD ===== */
         .org-card.academic .avatar {
             width: 90px;
             height: 90px;
@@ -1166,7 +1236,6 @@
                 font-size: 26px;
             }
 
-            /* On phones, change the chart to a vertical tree */
             .org-row-horizontal {
                 display: flex;
                 flex-direction: column;
@@ -1176,12 +1245,10 @@
                 max-width: 100%;
             }
 
-            /* Hide the desktop horizontal branch */
             .org-row-horizontal::before {
                 display: none;
             }
 
-            /* Each stacked child remains connected vertically */
             .org-item {
                 width: 100%;
                 max-width: 280px;
@@ -1281,6 +1348,18 @@
     <div id="header-placeholder"></div>
 
     <!-- ========================================== -->
+    <!--   HERO SECTION — ORGANIZATIONAL STRUCTURE  -->
+    <!--   (Same style as About Us hero)            -->
+    <!-- ========================================== -->
+    <section class="org-hero-section">
+        <div class="org-hero-content">
+            <h1>Organizational Structure</h1>
+            <div class="org-hero-subtitle">Meet Our Leadership Team</div>
+            <div class="org-hero-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
     <!--   MAIN CONTENT                             -->
     <!-- ========================================== -->
 
@@ -1317,7 +1396,7 @@
                 <!-- ===== LEVEL 2: Registrar | Academic Affairs | Admissions ===== -->
                 <div class="org-row-horizontal level-2">
 
-                    <!-- Registrar - Blank avatar, no read more -->
+                    <!-- Registrar -->
                     <div class="org-item">
                         <div class="org-card registrar">
                             <div class="avatar">
@@ -1326,10 +1405,10 @@
                             <div class="name">Mr Stephen Elian</div>
                             <div class="position">Registrar</div>
                             <div class="email"><a href="mailto:registrar@logi.education">registrar@logi.education</a></div>
-                              </div>
+                        </div>
                     </div>
 
-                    <!-- Academic Affairs - Has read more -->
+                    <!-- Academic Affairs -->
                     <div class="org-item">
                         <div class="org-card academic">
                             <div class="avatar">
@@ -1338,10 +1417,10 @@
                             <div class="name">Mrs. Boatemaa Akua Agyeman</div>
                             <div class="position">Academic Affairs</div>
                             <div class="email"><a href="mailto:academic@logi.education">academic@logi.education</a></div>
-                             </div>
+                        </div>
                     </div>
 
-                    <!-- Admissions - Blank avatar, no read more -->
+                    <!-- Admissions -->
                     <div class="org-item">
                         <div class="org-card admissions">
                             <div class="avatar">
@@ -1350,11 +1429,10 @@
                             <div class="name">Ms. Evangeline A Mckynlee</div>
                             <div class="position">Admissions</div>
                             <div class="email"><a href="mailto:admissions@logi.education">admissions@logi.education</a></div>
-                            </div>
+                        </div>
                     </div>
 
                 </div>
-
 
             </div>
         </div>
