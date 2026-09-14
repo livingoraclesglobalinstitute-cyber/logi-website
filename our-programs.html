@@ -852,6 +852,82 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — OUR PROGRAMS              */
+        /*   (Same style as About Us hero)            */
+        /* ========================================== */
+        .programs-hero-section {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dark overlay for text readability */
+        .programs-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.55);
+            z-index: 1;
+        }
+
+        .programs-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .programs-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .programs-hero-content .programs-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .programs-hero-content .programs-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .programs-hero-section { height: 260px; }
+            .programs-hero-content h1 { font-size: 30px; }
+            .programs-hero-content .programs-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .programs-hero-section { height: 220px; }
+            .programs-hero-content h1 { font-size: 24px; }
+            .programs-hero-content .programs-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   PROGRAMS SECTION - MODERN CARDS WITH IMAGES */
         /* ========================================== */
         .programs-section {
@@ -1097,13 +1173,23 @@
     <div id="header-placeholder"></div>
 
     <!-- ========================================== -->
+    <!--   HERO SECTION — OUR PROGRAMS              -->
+    <!--   (Same style as About Us hero)            -->
+    <!-- ========================================== -->
+    <section class="programs-hero-section">
+        <div class="programs-hero-content">
+            <h1>Our Programs</h1>
+            <div class="programs-hero-subtitle">Christ-Centered Education for Global Impact</div>
+            <div class="programs-hero-line"></div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
     <!--       PROGRAMS SECTION                     -->
     <!-- ========================================== -->
     <section class="programs-section">
 
         <div class="section-header">
-            <span class="badge">Explore</span>
-            <h2>Our Programs</h2>
             <p>Practical, Christ-centered education designed for real-world impact. Choose from certificate and diploma programs across multiple disciplines.</p>
         </div>
 
