@@ -856,8 +856,85 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — PROGRAM FEES              */
+        /*   Image: Money / payment / finance theme   */
+        /* ========================================== */
+        .fees-hero-section {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background-image: url('https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+        }
+
+        /* Dark overlay for text readability */
+        .fees-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.6);
+            z-index: 1;
+        }
+
+        .fees-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .fees-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .fees-hero-content .fees-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .fees-hero-content .fees-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .fees-hero-section { height: 250px; }
+            .fees-hero-content h1 { font-size: 30px; }
+            .fees-hero-content .fees-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .fees-hero-section { height: 210px; }
+            .fees-hero-content h1 { font-size: 24px; }
+            .fees-hero-content .fees-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   PROGRAM FEES PAGE STYLES                 */
-        /* (Your existing styles - kept unchanged)    */
         /* ========================================== */
 
         /* ===== PAGE HEADER - Simple Title ===== */
@@ -1131,6 +1208,18 @@
     <!--   HEADER PLACEHOLDER                       -->
     <!-- ========================================== -->
     <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   HERO SECTION — PROGRAM FEES              -->
+    <!--   (Money / payment themed image)           -->
+    <!-- ========================================== -->
+    <section class="fees-hero-section">
+        <div class="fees-hero-content">
+            <h1>Program Fees</h1>
+            <div class="fees-hero-subtitle">Affordable, Christ-Centered Education</div>
+            <div class="fees-hero-line"></div>
+        </div>
+    </section>
 
     <!-- ========================================== -->
     <!--   MAIN CONTENT                             -->
