@@ -852,12 +852,89 @@
         }
 
         /* ========================================== */
+        /*   HERO SECTION — DISCLAIMER                */
+        /*   (Same style as other pages)              */
+        /* ========================================== */
+        .disclaimer-hero-section {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e;
+        }
+
+        /* Dark overlay for text readability */
+        .disclaimer-hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 46, 0.6);
+            z-index: 1;
+        }
+
+        .disclaimer-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .disclaimer-hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .disclaimer-hero-content .disclaimer-hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .disclaimer-hero-content .disclaimer-hero-line {
+            width: 100px;
+            height: 3px;
+            background: #ffffff;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .disclaimer-hero-section { height: 240px; }
+            .disclaimer-hero-content h1 { font-size: 30px; }
+            .disclaimer-hero-content .disclaimer-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .disclaimer-hero-section { height: 200px; }
+            .disclaimer-hero-content h1 { font-size: 24px; }
+            .disclaimer-hero-content .disclaimer-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
         /*   DISCLAIMER PAGE STYLES                   */
         /* ========================================== */
         .logi-disclaimer-section-clean {
-            padding: 0 20px 30px !important;
-            margin-top: 30px !important;
-            padding-top: 10px !important;
+            padding: 40px 20px 30px !important;
+            margin-top: 0 !important;
             background: transparent !important;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
             box-sizing: border-box !important;
@@ -927,7 +1004,7 @@
 
         @media (max-width: 768px) {
             .logi-disclaimer-section-clean {
-                padding: 0 10px 20px !important;
+                padding: 30px 10px 20px !important;
             }
             .logi-disclaimer-title-clean {
                 font-size: 21px !important;
@@ -945,6 +1022,16 @@
     <!--   HEADER PLACEHOLDER                       -->
     <!-- ========================================== -->
     <div id="header-placeholder"></div>
+
+    <!-- ========================================== -->
+    <!--   HERO SECTION — DISCLAIMER                -->
+    <!-- ========================================== -->
+    <section class="disclaimer-hero-section">
+        <div class="disclaimer-hero-content">
+            <h1>Disclaimer</h1>
+            <div class="disclaimer-hero-line"></div>
+        </div>
+    </section>
 
     <!-- ========================================== -->
     <!--       PAGE CONTENT - DISCLAIMER            -->
