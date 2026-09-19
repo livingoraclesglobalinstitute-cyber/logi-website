@@ -1,0 +1,3332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Living Oracles Global Institute | Daily Devotionals</title>
+<meta name="description" content="Daily devotionals, Bible study, and spiritual growth resources from Living Oracles Global Institute.">
+<meta name="theme-color" content="#8B5353">
+<link rel="icon" href="https://i.imgur.com/kkE49KM.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --brand: #8B5353;
+    --brand-dark: #6D3D3D;
+    --brand-darker: #4a2828;
+    --accent: #c9a86c;
+    --accent-warm: #d4a574;
+    --accent-light: #f4d58d;
+    --red: #e03e2d;
+    --bg: #ffffff;
+    --bg-dark: #000000;
+    --card: #ffffff;
+    --text: #0a0a0a;
+    --text-secondary: #4a4540;
+    --text-muted: #78716c;
+    --text-soft: #a8a29e;
+    --border: #e7e2dc;
+    --border-soft: #f0ebe5;
+    --transition: cubic-bezier(0.4, 0, 0.2, 1);
+    --container-max: 1400px;
+    --container-pad: 5%;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    line-height: 1.6;
+    font-size: 16px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a { color: var(--brand); text-decoration: none; transition: color 0.2s var(--transition); }
+img { max-width: 100%; display: block; }
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
+}
+
+/* ========================================== */
+/*   TOP BAR                                  */
+/* ========================================== */
+.top-bar {
+    background: #0a0a0a;
+    color: #d4c5b8;
+    font-size: 0.78rem;
+    padding: 0.6rem 5%;
+    text-align: center;
+    letter-spacing: 0.3px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1001;
+}
+.top-bar a { color: var(--accent); font-weight: 600; }
+.top-bar a:hover { color: #fff; }
+.top-bar i { margin-right: 0.35rem; }
+
+/* ========================================== */
+/*   SITE HEADER                              */
+/* ========================================== */
+.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e7e2dc;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: box-shadow 0.3s var(--transition);
+}
+.site-header-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 1rem var(--container-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+.site-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-decoration: none;
+}
+.site-brand img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid var(--brand);
+    padding: 2px;
+    background: #fff;
+}
+.site-brand-text h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0a0a0a;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+.site-brand-text span {
+    font-size: 0.6rem;
+    color: #78716c;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    margin-top: 3px;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+}
+.site-nav a {
+    padding: 0.55rem 0.95rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: #4a4540;
+    border-radius: 8px;
+    transition: all 0.2s var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    position: relative;
+}
+.site-nav a i { font-size: 0.85rem; opacity: 0.6; }
+.site-nav a:hover { background: #f5f5f5; color: var(--brand); }
+.site-nav a:hover i { opacity: 1; }
+.site-nav a.active { color: var(--brand); font-weight: 700; }
+.site-nav a.active i { opacity: 1; }
+
+.header-actions { display: flex; align-items: center; gap: 0.4rem; }
+.header-actions button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #4a4540;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-actions button:hover {
+    background: #f5f5f5;
+    border-color: #e7e2dc;
+    color: var(--brand);
+}
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--brand);
+    cursor: pointer;
+    padding: 0.4rem;
+}
+
+@media (max-width: 960px) {
+    :root { --container-pad: 5%; }
+    .site-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.75rem;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        gap: 0.15rem;
+    }
+    .site-nav.open { display: flex; }
+    .site-nav a { padding: 0.8rem 1rem; }
+    .mobile-menu-btn { display: flex; }
+}
+
+/* ========================================== */
+/*   MAIN CONTAINER                           */
+/* ========================================== */
+.site-main {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* ========================================== */
+/*   HERO — FULL WIDTH CINEMATIC              */
+/* ========================================== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    min-height: 600px;
+    max-height: 900px;
+    background-image: url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/prophet-ing-stephen-adusei-image.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 5% 80px;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.92) 0%,
+        rgba(0,0,0,0.70) 30%,
+        rgba(0,0,0,0.25) 65%,
+        rgba(0,0,0,0.05) 100%
+    );
+    z-index: 1;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 3;
+    max-width: var(--container-max);
+    width: 100%;
+    margin: 0 auto;
+    color: #ffffff;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #c9a86c;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.hero-section h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.75rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    max-width: 900px;
+}
+
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1.75rem;
+    font-weight: 500;
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.hero-meta i { opacity: 0.75; }
+
+.hero-section p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.9);
+    max-width: 640px;
+    margin-bottom: 2rem;
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: #ffffff;
+    color: #0a0a0a;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s var(--transition);
+    letter-spacing: 0.01em;
+    font-family: inherit;
+}
+.hero-cta:hover {
+    transform: translateX(4px);
+    background: var(--accent);
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: 80vh;
+        min-height: 500px;
+        padding: 0 5% 60px;
+    }
+    .hero-section h1 { font-size: clamp(2rem, 8vw, 3rem); }
+    .hero-section p { font-size: 1rem; }
+}
+
+/* ========================================== */
+/*   SECTION WRAPPER                          */
+/* ========================================== */
+.section {
+    padding: 100px 5%;
+    width: 100%;
+}
+.section-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+.section.dark {
+    background: #0a0a0a;
+    color: #ffffff;
+}
+.section.dark h2,
+.section.dark h3,
+.section.dark h4 { color: #ffffff; }
+.section.dark p { color: rgba(255,255,255,0.75); }
+
+/* ========================================== */
+/*   SECTION HEADERS — EDITORIAL              */
+/* ========================================== */
+.section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+.section-head-left { max-width: 700px; }
+
+.section-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+}
+.section.dark .section-eyebrow { color: var(--accent); }
+
+.section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #0a0a0a;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+}
+.section.dark .section-title { color: #ffffff; }
+
+.section-subtitle {
+    font-size: 1rem;
+    color: #78716c;
+    max-width: 600px;
+    line-height: 1.7;
+}
+.section.dark .section-subtitle { color: rgba(255,255,255,0.65); }
+
+/* ========================================== */
+/*   RED DOT ARROW ACCENT                     */
+/* ========================================== */
+.red-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background-color: var(--red);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+a:hover .red-dot,
+.link:hover .red-dot {
+    transform: translateX(4px);
+}
+
+.link {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+.link:hover { color: var(--brand); }
+
+.section.dark .link { color: #ffffff; }
+.section.dark .link:hover { color: var(--accent); }
+
+/* ========================================== */
+/*   FEATURE BLOCK                            */
+/* ========================================== */
+.feature-block {
+    position: relative;
+    padding: 120px 5%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+}
+.feature-block::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.95) 0%,
+        rgba(0,0,0,0.75) 40%,
+        rgba(0,0,0,0.25) 100%
+    );
+    z-index: 1;
+}
+.feature-block-inner {
+    position: relative;
+    z-index: 2;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 700px;
+}
+.feature-block h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+}
+.feature-block p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.75rem;
+    max-width: 580px;
+}
+
+@media (max-width: 768px) {
+    .feature-block { padding: 80px 5%; min-height: 400px; }
+}
+
+/* ========================================== */
+/*   HORIZONTAL CAROUSEL                      */
+/* ========================================== */
+.carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 8px 5% 24px;
+    margin: 0 -5%;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.carousel::-webkit-scrollbar { display: none; }
+
+.carousel-item {
+    flex: 0 0 420px;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.3s var(--transition);
+}
+.carousel-item:hover { transform: translateY(-6px); }
+
+.carousel-item-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    background-size: cover;
+    background-position: center;
+}
+.carousel-item-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.35) 100%);
+}
+
+.carousel-item h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
+    display: flex;
+    align-items: center;
+}
+.carousel-item:hover h3 { color: var(--brand); }
+
+@media (max-width: 768px) {
+    .carousel-item { flex: 0 0 300px; }
+    .carousel-item h3 { font-size: 1.1rem; }
+}
+
+/* ========================================== */
+/*   FEATURED VIDEO / PODCAST BLOCK           */
+/* ========================================== */
+.video-block {
+    padding: 100px 5%;
+    background: #0a0a0a;
+    color: #ffffff;
+}
+.video-block-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+.video-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+}
+.video-block h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    max-width: 800px;
+}
+.video-block .video-desc {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: 600px;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+}
+.video-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(139,83,83,0.3), rgba(0,0,0,0.5));
+    transition: background 0.3s;
+}
+.video-wrapper:hover::after {
+    background: linear-gradient(135deg, rgba(139,83,83,0.5), rgba(0,0,0,0.6));
+}
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+    transition: all 0.3s var(--transition);
+    z-index: 2;
+}
+.video-wrapper:hover .play-button {
+    background: var(--red);
+    border-color: var(--red);
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* ========================================== */
+/*   SOAP METHOD                              */
+/* ========================================== */
+.soap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+.soap-card {
+    padding: 2.5rem 1.75rem;
+    border: 1px solid #e7e2dc;
+    border-radius: 6px;
+    transition: all 0.3s var(--transition);
+    background: #ffffff;
+}
+.soap-card:hover {
+    border-color: var(--brand);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+.soap-letter {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--brand);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+.soap-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #78716c;
+    margin-bottom: 1rem;
+}
+.soap-card h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0a0a0a;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.015em;
+}
+.soap-card p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #78716c;
+}
+
+@media (max-width: 900px) {
+    .soap-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+    .soap-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .soap-card { padding: 1.75rem 1.25rem; }
+}
+
+/* ========================================== */
+/*   TEXT BLOCKS                              */
+/* ========================================== */
+.text-block {
+    padding: 100px 5%;
+    background: #ffffff;
+}
+.text-block-inner {
+    max-width: 820px;
+    margin: 0 auto;
+}
+.text-block h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #0a0a0a;
+    line-height: 1.08;
+    margin-bottom: 1.75rem;
+}
+.text-block h2 .accent {
+    color: var(--brand);
+}
+.text-block p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #4a4540;
+    margin-bottom: 1.5rem;
+}
+.text-block p:last-child { margin-bottom: 0; }
+
+/* ========================================== */
+/*   FAQ EDITORIAL                            */
+/* ========================================== */
+.faq-section {
+    padding: 100px 5%;
+    background: #0a0a0a;
+    color: #ffffff;
+}
+.faq-inner { max-width: 900px; margin: 0 auto; }
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 3rem;
+}
+.faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    cursor: pointer;
+}
+.faq-question {
+    padding: 1.75rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    transition: color 0.2s;
+    gap: 2rem;
+}
+.faq-item:hover .faq-question { color: var(--accent); }
+.faq-question i {
+    color: var(--accent);
+    font-size: 0.9rem;
+    transition: transform 0.3s var(--transition);
+    flex-shrink: 0;
+}
+.faq-item.open .faq-question i { transform: rotate(180deg); }
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--transition), padding 0.4s var(--transition);
+}
+.faq-item.open .faq-answer {
+    max-height: 500px;
+    padding-bottom: 1.75rem;
+}
+.faq-answer p {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.7);
+    max-width: 700px;
+}
+
+/* ========================================== */
+/*   RESOURCE CARDS                           */
+/* ========================================== */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.75rem;
+    margin-top: 3rem;
+}
+.resource-card {
+    cursor: pointer;
+    transition: transform 0.3s var(--transition);
+}
+.resource-card:hover { transform: translateY(-6px); }
+.resource-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 4px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 1rem;
+    position: relative;
+}
+.resource-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.5) 100%);
+}
+.resource-icon {
+    position: absolute;
+    bottom: 0.85rem;
+    left: 1rem;
+    font-size: 1.75rem;
+    z-index: 2;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+.resource-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: #0a0a0a;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+}
+.resource-card:hover h3 { color: var(--brand); }
+.resource-card p {
+    font-size: 0.85rem;
+    color: #78716c;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) { .resources-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .resources-grid { grid-template-columns: 1fr; } }
+
+/* ========================================== */
+/*   PLANS                                    */
+/* ========================================== */
+.plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid #e7e2dc;
+}
+.plan-row {
+    padding: 1.75rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e7e2dc;
+    cursor: pointer;
+    transition: all 0.25s var(--transition);
+    gap: 1.5rem;
+}
+.plan-row:hover {
+    padding-left: 1rem;
+    background: #fafafa;
+}
+.plan-row-info h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: #0a0a0a;
+    margin-bottom: 0.25rem;
+}
+.plan-row-info p {
+    font-size: 0.85rem;
+    color: #78716c;
+}
+.plan-row-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.8rem;
+    color: #78716c;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+.plan-days {
+    background: var(--brand);
+    color: #fff;
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ========================================== */
+/*   PLAN DETAIL PAGE STYLES                  */
+/* ========================================== */
+.plan-progress-box {
+    background: #fafafa;
+    border: 1px solid #e7e2dc;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+}
+.plan-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.plan-progress-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--brand);
+    margin-bottom: 0.35rem;
+}
+.plan-progress-count {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0a0a0a;
+    letter-spacing: -0.02em;
+}
+.plan-progress-pct {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--brand);
+    letter-spacing: -0.04em;
+    line-height: 1;
+}
+.plan-progress-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+    flex-wrap: wrap;
+}
+
+.plan-readings-list {
+    margin-top: 3rem;
+}
+.plan-day-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid #e7e2dc;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fff;
+}
+.plan-day-row:hover {
+    border-color: var(--brand);
+    transform: translateX(4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+.plan-day-row.complete {
+    background: #f0f9f4;
+    border-color: #a7d9b5;
+}
+.plan-day-row.complete .plan-day-num {
+    background: #059669;
+    color: #fff;
+}
+.plan-day-row.today {
+    border-color: var(--brand);
+    border-width: 2px;
+    background: #fdf9f5;
+}
+.plan-day-row.today .plan-day-num {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 0 0 4px rgba(139,83,83,0.15);
+}
+.plan-day-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #0a0a0a;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+.plan-day-info {
+    flex: 1;
+    min-width: 0;
+}
+.plan-day-info h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.015em;
+}
+.plan-day-info p {
+    font-size: 0.85rem;
+    color: #78716c;
+    font-weight: 500;
+}
+.plan-day-row.complete .plan-day-info h4 {
+    color: #4a4540;
+}
+
+/* ========================================== */
+/*   READING VIEW                             */
+/* ========================================== */
+.reading-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 4rem;
+    align-items: flex-start;
+    padding: 60px 5%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+@media (max-width: 1000px) {
+    .reading-layout { grid-template-columns: 1fr; gap: 2rem; padding: 40px 5%; }
+    .reading-sidebar { display: none; }
+}
+.reading-main { min-width: 0; }
+
+.reading-hero {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    min-height: 420px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+.reading-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+}
+.reading-hero-content { position: relative; z-index: 2; color: #fff; width: 100%; }
+.reading-hero-verse {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.65rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+    max-width: 90%;
+}
+.reading-hero-ref {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.breadcrumb {
+    font-size: 0.78rem;
+    color: #78716c;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-weight: 500;
+}
+.breadcrumb a { color: var(--brand); font-weight: 600; cursor: pointer; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+.day-nav {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+.day-nav-btn {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e7e2dc;
+    padding: 0.9rem 1.1rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #0a0a0a;
+    cursor: pointer;
+    transition: all 0.2s var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: inherit;
+}
+.day-nav-btn:hover {
+    background: #f5f5f5;
+    border-color: var(--brand);
+    color: var(--brand);
+}
+.day-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.reading-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.pill {
+    display: inline-block;
+    background: #f5ebe8;
+    color: var(--brand);
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+.reading-date {
+    font-size: 0.8rem;
+    color: #78716c;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.reading-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    color: #0a0a0a;
+    line-height: 1.05;
+    margin-bottom: 0.85rem;
+}
+.reading-scripture-ref {
+    font-size: 0.9rem;
+    color: var(--brand);
+    font-weight: 800;
+    margin-bottom: 2rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.audio-inline {
+    background: #fafafa;
+    border: 1px solid #e7e2dc;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.audio-play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+.audio-play-btn:hover { background: var(--brand-dark); }
+.audio-info { flex: 1; min-width: 0; }
+.audio-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin-bottom: 0.4rem;
+}
+.audio-bar {
+    height: 3px;
+    background: #e7e2dc;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.audio-bar-fill {
+    height: 100%;
+    width: 30%;
+    background: linear-gradient(90deg, var(--brand), var(--accent));
+    border-radius: 2px;
+}
+
+.read-scripture-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--brand);
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    padding: 0.75rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--brand);
+    margin-bottom: 2.5rem;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+.read-scripture-btn:hover { gap: 0.75rem; }
+
+.reading-body {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #2d2d2d;
+    margin-bottom: 2.5rem;
+}
+.reading-body p { margin-bottom: 1.5rem; }
+.reading-body p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.85;
+    margin: 0.15rem 0.65rem 0 0;
+    color: var(--brand);
+}
+
+.callout-box {
+    background: #fafafa;
+    border-left: 4px solid var(--brand);
+    border-radius: 6px;
+    padding: 1.75rem 2rem;
+    margin: 2.25rem 0;
+}
+.callout-box h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--brand);
+    margin-bottom: 0.85rem;
+}
+.callout-box p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #4a4540;
+    margin: 0;
+}
+
+.pull-quote-lg {
+    background: #0a0a0a;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 3rem 2.5rem;
+    margin: 3rem 0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.55;
+    position: relative;
+}
+.pull-quote-lg span {
+    display: block;
+    margin-top: 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    font-style: normal;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.action-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e7e2dc;
+}
+.action-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 0.9rem 1.15rem;
+    background: #ffffff;
+    border: 1px solid #e7e2dc;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s var(--transition);
+    font-family: inherit;
+}
+.action-btn:hover {
+    background: #f5f5f5;
+    border-color: var(--brand);
+    color: var(--brand);
+}
+.action-btn.primary {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+}
+.action-btn.primary:hover {
+    background: var(--brand-dark);
+    border-color: var(--brand-dark);
+    color: #fff;
+}
+
+.reading-sidebar { position: sticky; top: 100px; }
+.sidebar-card {
+    background: #fafafa;
+    border: 1px solid #e7e2dc;
+    border-radius: 6px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+.sidebar-card h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0a0a0a;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid #e7e2dc;
+}
+.sidebar-link {
+    display: block;
+    padding: 0.7rem 0;
+    font-size: 0.87rem;
+    color: #4a4540;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    line-height: 1.4;
+}
+.sidebar-link:hover { color: var(--brand); padding-left: 4px; }
+
+/* ========================================== */
+/*   BIBLE VIEW                               */
+/* ========================================== */
+.bible-view {
+    background: #fafafa;
+    border: 1px solid #e7e2dc;
+    border-radius: 6px;
+    padding: 2rem;
+}
+.bible-tabs {
+    display: flex;
+    gap: 0.4rem;
+    background: #ffffff;
+    padding: 0.4rem;
+    border-radius: 6px;
+    border: 1px solid #e7e2dc;
+    margin-bottom: 1.75rem;
+    max-width: 500px;
+}
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.65rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #78716c;
+    transition: all 0.2s var(--transition);
+    border: none;
+    background: transparent;
+    font-family: inherit;
+}
+.tab.active { background: var(--brand); color: #fff; }
+
+.search-bar {
+    background: #ffffff;
+    border: 1px solid #e7e2dc;
+    border-radius: 6px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    max-width: 500px;
+}
+.search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #0a0a0a;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.6rem;
+}
+.book-item {
+    background: #ffffff;
+    padding: 0.85rem 0.75rem;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #e7e2dc;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0a0a0a;
+    transition: all 0.2s var(--transition);
+}
+.book-item:hover {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+}
+
+.chapters-list { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.chapter-item {
+    background: #ffffff;
+    padding: 0.65rem 1.15rem;
+    border-radius: 30px;
+    cursor: pointer;
+    border: 1px solid #e7e2dc;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0a0a0a;
+    transition: all 0.2s var(--transition);
+}
+.chapter-item:hover {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+}
+
+.verse-item {
+    background: #ffffff;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    border-radius: 6px;
+    border-left: 3px solid var(--brand);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #2d2d2d;
+}
+.verse-number {
+    font-weight: 900;
+    color: var(--brand);
+    margin-right: 0.5rem;
+    font-size: 0.85rem;
+}
+.verse-tool-btn {
+    background: #f5ebe8;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brand);
+    margin-top: 0.6rem;
+    font-family: inherit;
+}
+.verse-tool-btn:hover { background: var(--brand); color: #fff; }
+
+/* ========================================== */
+/*   MODAL                                    */
+/* ========================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 1rem;
+    backdrop-filter: blur(6px);
+}
+.modal-overlay.show { display: flex; animation: fadeIn 0.25s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-box {
+    background: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 720px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+.modal-close:hover { background: rgba(0,0,0,0.8); }
+.resource-hero-modal {
+    position: relative;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+}
+.resource-hero-modal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(74,40,40,0.9), rgba(0,0,0,0.7));
+}
+.resource-hero-modal > * { position: relative; z-index: 2; }
+.resource-hero-icon-lg { font-size: 4rem; margin-bottom: 0.75rem; }
+.resource-hero-title-lg {
+    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.65rem;
+}
+.resource-hero-cat {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 0.35rem 1.1rem;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.modal-body-content { padding: 2.5rem; }
+.key-verse-block {
+    background: #fafafa;
+    border-left: 4px solid var(--brand);
+    border-radius: 6px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.key-verse-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #0a0a0a;
+    line-height: 1.55;
+    margin-bottom: 0.75rem;
+}
+.key-verse-ref {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--brand);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.section-block { margin-bottom: 2rem; }
+.section-block-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--brand);
+    margin-bottom: 0.85rem;
+}
+.section-block-content {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #4a4540;
+}
+
+/* ========================================== */
+/*   FOOTER                                   */
+/* ========================================== */
+.site-footer {
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: 5rem 5% 2rem;
+    margin-top: 0;
+}
+.footer-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3.5rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+@media (max-width: 900px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+@media (max-width: 500px) { .footer-inner { grid-template-columns: 1fr; } }
+.footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+.footer-brand img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    padding: 3px;
+    background: #fff;
+}
+.footer-brand h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+.footer-brand p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+    max-width: 340px;
+}
+.footer-col h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.75rem; }
+.footer-col ul li a {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.88rem;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.footer-col ul li a:hover { color: var(--accent); padding-left: 4px; }
+.footer-bottom {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+}
+.footer-bottom .socials { display: flex; gap: 0.75rem; }
+.footer-bottom .socials a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.6);
+    transition: all 0.2s;
+}
+.footer-bottom .socials a:hover {
+    background: var(--brand);
+    color: #fff;
+}
+
+/* ========================================== */
+/*   DARK TOGGLE                              */
+/* ========================================== */
+.dark-toggle-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    color: #fff;
+    border: none;
+    font-size: 1.15rem;
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+.dark-toggle-btn:hover {
+    background: var(--brand);
+    transform: scale(1.06);
+}
+
+/* ========================================== */
+/*   LOADING                                  */
+/* ========================================== */
+.loading-wrap {
+    text-align: center;
+    padding: 6rem 1rem;
+    color: #78716c;
+    grid-column: 1 / -1;
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e7e2dc;
+    border-top-color: var(--brand);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 1.2rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+    <i class="fas fa-bullhorn"></i> New: <a href="#" onclick="gotoPage('devotions');return false;">This week's devotional series</a> — Walking in Faith
+</div>
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <a class="site-brand" href="#" onclick="gotoPage('home');return false;">
+            <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo">
+            <div class="site-brand-text">
+                <h1>Living Oracles Global Institute</h1>
+                <span>Daily Devotionals</span>
+            </div>
+        </a>
+        <nav class="site-nav" id="siteNav">
+            <a href="#" class="nav-link active" data-page="home" onclick="gotoPage('home');return false;"><i class="fas fa-home"></i> Home</a>
+            <a href="#" class="nav-link" data-page="devotions" onclick="gotoPage('devotions');return false;"><i class="fas fa-book-bible"></i> Devotionals</a>
+            <a href="#" class="nav-link" data-page="evening" onclick="gotoPage('evening');return false;"><i class="fas fa-moon"></i> Evening</a>
+            <a href="#" class="nav-link" data-page="bible" onclick="gotoPage('bible');return false;"><i class="fas fa-book"></i> Bible</a>
+            <a href="#" class="nav-link" data-page="resources" onclick="gotoPage('resources');return false;"><i class="fas fa-bookmark"></i> Library</a>
+            <a href="#" class="nav-link" data-page="plans" onclick="gotoPage('plans');return false;"><i class="fas fa-calendar-check"></i> Plans</a>
+            <a href="#" class="nav-link" data-page="more" onclick="gotoPage('more');return false;"><i class="fas fa-ellipsis-h"></i> More</a>
+        </nav>
+        <div class="header-actions">
+            <button onclick="showBookmarks()" title="Bookmarks"><i class="fas fa-bookmark"></i></button>
+            <button onclick="showAccountModal()" title="Account"><i class="fas fa-user"></i></button>
+            <button class="mobile-menu-btn" onclick="document.getElementById('siteNav').classList.toggle('open')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="site-main" id="appContainer">
+    <div class="loading-wrap">
+        <div class="spinner"></div>
+        Loading daily bread...
+    </div>
+</main>
+
+<div class="modal-overlay" id="resourceDetailModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeResourceDetail()"><i class="fas fa-times"></i></button>
+        <div id="resourceDetailContent"></div>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo">
+            <h3>Living Oracles Global Institute</h3>
+            <p>Raising Christ-centered leaders for global impact through practical, faith-based education and daily spiritual resources.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Devotionals</h4>
+            <ul>
+                <li><a onclick="gotoPage('devotions')">Daily Devotionals</a></li>
+                <li><a onclick="gotoPage('evening')">Evening Meditations</a></li>
+                <li><a onclick="gotoPage('plans')">Reading Plans</a></li>
+                <li><a onclick="window.open('https://www.spreaker.com/podcast/the-living-oracles-of-god-s-podcast--6810225','_blank')">Podcast</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Study Tools</h4>
+            <ul>
+                <li><a onclick="gotoPage('bible')">Bible Reader</a></li>
+                <li><a onclick="gotoPage('resources')">Living Library</a></li>
+                <li><a onclick="showBookmarks()">My Bookmarks</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Connect</h4>
+            <ul>
+                <li><a href="mailto:info@logi.education">Contact Us</a></li>
+                <li><a href="https://wa.me/233241456581" target="_blank">WhatsApp</a></li>
+                <li><a onclick="showDonationModal()">Support the Ministry</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div>© 2026 Living Oracles Global Institute. All Rights Reserved.</div>
+        <div class="socials">
+            <a href="https://www.facebook.com/share/1MQd9vmGGz/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@logi.edu" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/233241456581" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:info@logi.education"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+</footer>
+
+<button class="dark-toggle-btn" onclick="toggleDarkMode()" id="darkToggleBtn"><i class="fas fa-moon"></i></button>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDJJiqgxW3JTHgITh92lZPdLFDoCSYRpfs",
+    authDomain: "living-oracles-app.firebaseapp.com",
+    projectId: "living-oracles-app",
+    storageBucket: "living-oracles-app.firebasestorage.app",
+    messagingSenderId: "714755618324",
+    appId: "1:714755618324:web:e6cb7f730ab7c9e9fb1901"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const API_URL = "https://script.google.com/macros/s/AKfycbxtE4gGMyhnFxiFs5CwFO1AXXroT2ES1FWL1-uKiNAMtmmcoHqrAMPfHFgcXQQ88CGs/exec";
+const CACHE_KEYS = { DEVOTIONALS: 'logi_devotionals_v6', EVENING_MEDITATIONS: 'logi_evening_v6', LIVING_LIBRARY: 'logi_library_v6' };
+
+function saveToCache(key, data) { try { localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() })); } catch(e) {} }
+function loadFromCache(key) {
+    try {
+        const c = localStorage.getItem(key);
+        if (!c) return null;
+        const p = JSON.parse(c);
+        if ((Date.now() - p.timestamp) / 60000 > 1440) return null;
+        return p.data;
+    } catch(e) { return null; }
+}
+
+const DB_NAME = 'LOGIDB_v6';
+const DB_VERSION = 1;
+class OfflineStorage {
+    constructor() { this.db = null; this.init(); }
+    async init() {
+        return new Promise((res, rej) => {
+            const r = indexedDB.open(DB_NAME, DB_VERSION);
+            r.onerror = () => rej(r.error);
+            r.onsuccess = () => { this.db = r.result; res(this.db); };
+            r.onupgradeneeded = (e) => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains('devotionals')) db.createObjectStore('devotionals', { keyPath: 'date' });
+                if (!db.objectStoreNames.contains('evening')) db.createObjectStore('evening', { keyPath: 'date' });
+                if (!db.objectStoreNames.contains('library')) db.createObjectStore('library', { keyPath: 'id' });
+                if (!db.objectStoreNames.contains('bible')) db.createObjectStore('bible', { keyPath: 'id' });
+            };
+        });
+    }
+    async saveAll(store, items) { if (!this.db) await this.init(); const t = this.db.transaction([store], 'readwrite'); const s = t.objectStore(store); for (const x of items) s.put(x); return t.complete; }
+    async getAll(store) { if (!this.db) await this.init(); const t = this.db.transaction([store], 'readonly'); return t.objectStore(store).getAll(); }
+    async getOne(store, key) { if (!this.db) await this.init(); const t = this.db.transaction([store], 'readonly'); return t.objectStore(store).get(key); }
+}
+const offlineStorage = new OfflineStorage();
+
+const bibleBooks = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
+const chapterCounts = {"Genesis":50,"Exodus":40,"Leviticus":27,"Numbers":36,"Deuteronomy":34,"Joshua":24,"Judges":21,"Ruth":4,"1 Samuel":31,"2 Samuel":24,"1 Kings":22,"2 Kings":25,"1 Chronicles":29,"2 Chronicles":36,"Ezra":10,"Nehemiah":13,"Esther":10,"Job":42,"Psalms":150,"Proverbs":31,"Ecclesiastes":12,"Song of Solomon":8,"Isaiah":66,"Jeremiah":52,"Lamentations":5,"Ezekiel":48,"Daniel":12,"Hosea":14,"Joel":3,"Amos":9,"Obadiah":1,"Jonah":4,"Micah":7,"Nahum":3,"Habakkuk":3,"Zephaniah":3,"Haggai":2,"Zechariah":14,"Malachi":4,"Matthew":28,"Mark":16,"Luke":24,"John":21,"Acts":28,"Romans":16,"1 Corinthians":16,"2 Corinthians":13,"Galatians":6,"Ephesians":6,"Philippians":4,"Colossians":4,"1 Thessalonians":5,"2 Thessalonians":3,"1 Timothy":6,"2 Timothy":4,"Titus":3,"Philemon":1,"Hebrews":13,"James":5,"1 Peter":5,"2 Peter":3,"1 John":5,"2 John":1,"3 John":1,"Jude":1,"Revelation":22};
+
+async function getChapterVerses(book, chapter) {
+    const key = `${book}|${chapter}`;
+    const cached = await offlineStorage.getOne('bible', key);
+    if (cached) return cached.verses;
+    try {
+        const r = await fetch(`https://bible-api.com/${book.toLowerCase().replace(/ /g,'+')}+${chapter}?translation=kjv`);
+        const d = await r.json();
+        if (d.verses) {
+            const verses = d.verses.map(v => ({ verse: v.verse, text: v.text }));
+            await offlineStorage.saveAll('bible', [{ id: key, verses }]);
+            return verses;
+        }
+    } catch(e) {}
+    return [];
+}
+async function searchBibleAPI(q) {
+    try {
+        const r = await fetch(`https://bible-api.com/?search=${encodeURIComponent(q)}&translation=kjv&limit=50`);
+        const d = await r.json();
+        return d.verses || [];
+    } catch(e) { return []; }
+}
+
+const MINISTRY_PHOTOS = {
+    bibleDesk: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=1200&h=900&fit=crop&q=80',
+    bibleStudy: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=900&fit=crop&q=80',
+    scripture: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=900&fit=crop&q=80',
+    books: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200&h=900&fit=crop&q=80',
+    praying: 'https://images.unsplash.com/photo-1445633629932-0029acc44e88?w=1200&h=900&fit=crop&q=80',
+    prayingBible: 'https://images.unsplash.com/photo-1519802772250-a52a9af0eacb?w=1200&h=900&fit=crop&q=80',
+    candle: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&h=900&fit=crop&q=80',
+    worship: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1200&h=900&fit=crop&q=80',
+    church: 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1200&h=900&fit=crop&q=80',
+    worshipBand: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1200&h=900&fit=crop&q=80',
+    cross: 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=1200&h=900&fit=crop&q=80',
+    crossHill: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1200&h=900&fit=crop&q=80',
+    dove: 'https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?w=1200&h=900&fit=crop&q=80',
+    fire: 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=1200&h=900&fit=crop&q=80',
+    sunrise: 'https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1200&h=900&fit=crop&q=80',
+    night: 'https://images.unsplash.com/photo-1532978379173-523e16f371f9?w=1200&h=900&fit=crop&q=80',
+    evening: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1200&h=900&fit=crop&q=80',
+    shepherd: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=900&fit=crop&q=80',
+    path: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&h=900&fit=crop&q=80',
+    water: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1200&h=900&fit=crop&q=80',
+    garden: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=900&fit=crop&q=80',
+    communion: 'https://images.unsplash.com/photo-1508162957344-75d1a0e9b2f0?w=1200&h=900&fit=crop&q=80',
+    baptism: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=1200&h=900&fit=crop&q=80',
+    family: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1200&h=900&fit=crop&q=80',
+    marriage: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&h=900&fit=crop&q=80',
+    mission: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=900&fit=crop&q=80',
+    outreach: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1200&h=900&fit=crop&q=80',
+    giving: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1200&h=900&fit=crop&q=80',
+    leadership: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=900&fit=crop&q=80',
+    discipleship: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1200&h=900&fit=crop&q=80',
+    podcast: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1200&h=900&fit=crop&q=80',
+    default: 'https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=1200&h=900&fit=crop&q=80'
+};
+
+function pickMinistryPhoto(text) {
+    const t = (text || '').toLowerCase();
+    if (t.includes('holy spirit') || t.includes('pentecost') || t.includes('anoint') || t.includes('dove') || t.includes('spirit')) return MINISTRY_PHOTOS.dove;
+    if (t.includes('fire') || t.includes('flame')) return MINISTRY_PHOTOS.fire;
+    if (t.includes('cross') || t.includes('calvary') || t.includes('salvation') || t.includes('savior') || t.includes('redeem') || t.includes('gospel')) return MINISTRY_PHOTOS.cross;
+    if (t.includes('communion') || t.includes('lord\'s supper') || t.includes('sacrament')) return MINISTRY_PHOTOS.communion;
+    if (t.includes('baptism') || t.includes('baptize')) return MINISTRY_PHOTOS.baptism;
+    if (t.includes('intercession') || t.includes('intercede')) return MINISTRY_PHOTOS.prayingBible;
+    if (t.includes('prayer') || t.includes('pray') || t.includes('petition')) return MINISTRY_PHOTOS.praying;
+    if (t.includes('candle') || t.includes('vigil')) return MINISTRY_PHOTOS.candle;
+    if (t.includes('worship') || t.includes('praise') || t.includes('adore')) return MINISTRY_PHOTOS.worship;
+    if (t.includes('sing') || t.includes('song') || t.includes('hymn')) return MINISTRY_PHOTOS.worshipBand;
+    if (t.includes('church') || t.includes('congregation') || t.includes('assembly')) return MINISTRY_PHOTOS.church;
+    if (t.includes('shepherd') || t.includes('psalm 23') || t.includes('flock') || t.includes('sheep')) return MINISTRY_PHOTOS.shepherd;
+    if (t.includes('marriage') || t.includes('husband') || t.includes('wife') || t.includes('wedding') || t.includes('covenant')) return MINISTRY_PHOTOS.marriage;
+    if (t.includes('family') || t.includes('parent') || t.includes('children') || t.includes('household')) return MINISTRY_PHOTOS.family;
+    if (t.includes('mission') || t.includes('nations') || t.includes('globe') || t.includes('world')) return MINISTRY_PHOTOS.mission;
+    if (t.includes('outreach') || t.includes('evangel') || t.includes('witness')) return MINISTRY_PHOTOS.outreach;
+    if (t.includes('give') || t.includes('generous') || t.includes('offering') || t.includes('tithe') || t.includes('steward')) return MINISTRY_PHOTOS.giving;
+    if (t.includes('leader') || t.includes('leadership')) return MINISTRY_PHOTOS.leadership;
+    if (t.includes('disciple') || t.includes('mentor') || t.includes('train')) return MINISTRY_PHOTOS.discipleship;
+    if (t.includes('evening') || t.includes('night') || t.includes('sleep') || t.includes('rest')) return MINISTRY_PHOTOS.night;
+    if (t.includes('morning') || t.includes('sunrise') || t.includes('dawn')) return MINISTRY_PHOTOS.sunrise;
+    if (t.includes('peace') || t.includes('still') || t.includes('calm')) return MINISTRY_PHOTOS.water;
+    if (t.includes('garden') || t.includes('grow') || t.includes('fruit') || t.includes('vine')) return MINISTRY_PHOTOS.garden;
+    if (t.includes('refuge') || t.includes('shelter') || t.includes('strength') || t.includes('rock')) return MINISTRY_PHOTOS.path;
+    if (t.includes('bible') || t.includes('scripture') || t.includes('word') || t.includes('devotion')) return MINISTRY_PHOTOS.bibleDesk;
+    if (t.includes('study') || t.includes('meditate') || t.includes('learn')) return MINISTRY_PHOTOS.bibleStudy;
+    if (t.includes('book') || t.includes('library')) return MINISTRY_PHOTOS.books;
+    return MINISTRY_PHOTOS.bibleDesk;
+}
+
+let devotionals = [];
+let eveningMeditations = [];
+let plans = [
+    { id: 1, name: "7-Day Prayer Plan", days: 7, icon: "🙏", description: "Learn to pray with power and intimacy", progress: 0 },
+    { id: 2, name: "30-Day Bible Journey", days: 30, icon: "📖", description: "Read key Bible passages systematically", progress: 0 },
+    { id: 3, name: "90-Day New Testament", days: 90, icon: "📕", description: "Complete the New Testament in 3 months", progress: 0 },
+    { id: 4, name: "365-Day Bible in a Year", days: 365, icon: "📚", description: "Read the entire Bible over one year", progress: 0 }
+];
+let bookmarks = JSON.parse(localStorage.getItem('logi_bookmarks') || "[]");
+let currentUser = null;
+let currentPage = 'home';
+let currentBibleView = 'books';
+let selectedBook = '';
+let selectedChapter = 1;
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+let settings = JSON.parse(localStorage.getItem('logi_settings') || '{"theme":"light","fontSize":"medium"}');
+let livingLibraryResources = [];
+let currentCategory = "all";
+let currentResource = null;
+let categories = [{ id: "all", name: "All Categories", icon: "📚" }];
+
+function normalizeDate(s) { if (!s) return ""; const d = new Date(s); if (isNaN(d.getTime())) return s; return d.toISOString().split('T')[0]; }
+function getLocalDate() { const n = new Date(); return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`; }
+function getDaySuffix(day) { if (day > 3 && day < 21) return 'th'; switch (day % 10) { case 1: return 'st'; case 2: return 'nd'; case 3: return 'rd'; default: return 'th'; } }
+function formatDate(s) { const d = new Date(s); if (isNaN(d.getTime())) return s; const m = ['January','February','March','April','May','June','July','August','September','October','November','December']; return `${m[d.getMonth()]} ${d.getDate()}${getDaySuffix(d.getDate())}, ${d.getFullYear()}`; }
+function formatDateShort(s) { const d = new Date(s); if (isNaN(d.getTime())) return s; const m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return `${m[d.getMonth()]} ${d.getDate()}`; }
+function getIconForCategory(c) { const map = {"marriage":"💑","hard-times":"🌊","holy-spirit":"🔥","spiritual-growth":"🔥","dreams":"💭","storytelling":"📖","doctrine":"📜","prayer":"🙏","warfare":"🛡️","purpose":"🎯","mindset":"🧠","family":"👨‍👩‍👧","career":"💼","leadership":"👑","evangelism":"🤝","bible-study":"📚","worship":"🎵","healing":"❤️","endtimes":"⏳","digital":"📱"}; return map[c] || "📘"; }
+function escapeHtml(s) { if (!s) return ""; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function readingTime(text) { const w = (text || '').split(/\s+/).length; const m = Math.max(1, Math.round(w / 200)); return `${m} min read`; }
+
+function gotoPage(page) {
+    currentPage = page;
+    document.getElementById('siteNav').classList.remove('open');
+    document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+    renderCurrentPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function loadDevotionals() {
+    const cached = loadFromCache(CACHE_KEYS.DEVOTIONALS);
+    if (cached && cached.length) { devotionals = cached; renderCurrentPage(); }
+    try {
+        const r = await fetch(`${API_URL}?action=devotionals`);
+        const data = await r.json();
+        if (data && !data.error && data.length > 0) {
+            const fresh = data.map(d => ({ ...d, date: normalizeDate(d.date), formattedDate: formatDate(d.date) }));
+            devotionals = fresh;
+            saveToCache(CACHE_KEYS.DEVOTIONALS, fresh);
+            await offlineStorage.saveAll('devotionals', fresh.slice(0, 30));
+            renderCurrentPage();
+        }
+    } catch(e) {
+        if (devotionals.length === 0) {
+            const c = await offlineStorage.getAll('devotionals');
+            if (c.length > 0) devotionals = c;
+        }
+    }
+}
+async function loadEveningMeditations() {
+    const cached = loadFromCache(CACHE_KEYS.EVENING_MEDITATIONS);
+    if (cached && cached.length) { eveningMeditations = cached; renderCurrentPage(); }
+    try {
+        const r = await fetch(`${API_URL}?action=evening`);
+        const data = await r.json();
+        if (data && !data.error && data.length > 0) {
+            const fresh = data.map(e => ({
+                ...e, date: normalizeDate(e.date),
+                title: e.title || "Evening Meditation",
+                verse: e.verse || "Psalm 4:8",
+                versetext: e.versetext || e.content,
+                content: e.content || "In peace I will lie down and sleep...",
+                prayer: e.prayer || "Lord, grant me peaceful rest tonight.",
+                displayDate: formatDate(e.date)
+            }));
+            eveningMeditations = fresh;
+            saveToCache(CACHE_KEYS.EVENING_MEDITATIONS, fresh);
+            await offlineStorage.saveAll('evening', fresh);
+            renderCurrentPage();
+        }
+    } catch(e) {
+        if (eveningMeditations.length === 0) {
+            const c = await offlineStorage.getAll('evening');
+            if (c.length > 0) eveningMeditations = c;
+        }
+    }
+}
+async function loadLivingLibrary() {
+    const cached = loadFromCache(CACHE_KEYS.LIVING_LIBRARY);
+    if (cached && cached.length) { livingLibraryResources = cached; buildCategories(); renderCurrentPage(); }
+    try {
+        const r = await fetch(`${API_URL}?action=livinglibrary`);
+        const data = await r.json();
+        if (data && !data.error && data.length > 0) {
+            livingLibraryResources = data.map(r => ({
+                id: r.id, category: r.category, title: r.title,
+                icon: getIconForCategory(r.category),
+                description: (r.teaching || "").substring(0, 100),
+                content: r.teaching || "",
+                scripture_focus: r.scripture_focus,
+                verse_text: r.verse_text || r.versetext || "",
+                teaching: r.teaching, insight: r.insight,
+                application: r.application, prayer: r.prayer,
+                tags: r.tags
+            }));
+            saveToCache(CACHE_KEYS.LIVING_LIBRARY, livingLibraryResources);
+            await offlineStorage.saveAll('library', livingLibraryResources);
+            buildCategories();
+            renderCurrentPage();
+        }
+    } catch(e) { console.error("Library error:", e); }
+}
+function buildCategories() {
+    const catMap = new Map();
+    catMap.set("all", { id: "all", name: "All Categories", icon: "📚" });
+    for (const r of livingLibraryResources) {
+        if (!catMap.has(r.category)) {
+            catMap.set(r.category, { id: r.category, name: r.category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '), icon: getIconForCategory(r.category) });
+        }
+    }
+    categories = Array.from(catMap.values());
+}
+
+/* ===================================================== */
+/*  RENDER HOME                                          */
+/* ===================================================== */
+function renderHome() {
+    const today = getLocalDate();
+    const todayDev = devotionals.find(d => d.date === today) || devotionals[0];
+    const todayMed = eveningMeditations.find(e => e.date === today);
+
+    const sortedByDateDesc = [...devotionals].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const recentDevs = sortedByDateDesc.filter(d => d.date !== today).slice(0, 2);
+
+    let html = '';
+
+    // ============ 1. HERO ============
+    if (todayDev) {
+        const excerpt = (todayDev.content || todayDev.message || "").substring(0, 260);
+        html += `
+            <section class="hero-section">
+                <div class="hero-inner">
+                    <span class="hero-eyebrow">Today's Devotional</span>
+                    <h1>${escapeHtml(todayDev.title || "Today's Devotional")}</h1>
+                    <div class="hero-meta">
+                        <span><i class="fas fa-book-bible"></i> ${escapeHtml(todayDev.keyVerseRef || todayDev.scripture || "")}</span>
+                        <span><i class="fas fa-calendar"></i> ${todayDev.formattedDate || formatDate(todayDev.date)}</span>
+                        <span><i class="fas fa-clock"></i> ${readingTime(todayDev.content || todayDev.message)}</span>
+                    </div>
+                    <p>${escapeHtml(excerpt)}...</p>
+                    <button class="hero-cta" onclick="showDevotional('${todayDev.date}')">
+                        Read Today's Devotional <span class="red-dot">→</span>
+                    </button>
+                </div>
+            </section>
+        `;
+    } else {
+        html += `
+            <section class="hero-section">
+                <div class="hero-inner">
+                    <span class="hero-eyebrow">Welcome</span>
+                    <h1>Daily Devotionals<br>from Living Oracles</h1>
+                    <p>Scripture, reflection, and spiritual growth resources for your walk with Christ.</p>
+                </div>
+            </section>
+        `;
+    }
+
+    // ============ 2. RECENT DEVOTIONS CAROUSEL ============
+    if (recentDevs.length > 0) {
+        html += `
+            <section class="section" style="padding-bottom:50px;">
+                <div class="section-inner">
+                    <div class="section-head">
+                        <div class="section-head-left">
+                            <span class="section-eyebrow">Latest</span>
+                            <h2 class="section-title">Recent Devotions</h2>
+                            <p class="section-subtitle">Catch up on the past two days of Scripture and reflection.</p>
+                        </div>
+                        <a class="link" onclick="gotoPage('devotions')">All Devotions <span class="red-dot">→</span></a>
+                    </div>
+                </div>
+                <div class="carousel">
+        `;
+        recentDevs.forEach(d => {
+            const excerpt = (d.content || d.message || "").substring(0, 120);
+            html += `
+                <article class="carousel-item" onclick="showDevotional('${d.date}')">
+                    <div class="carousel-item-image" style="background-image:url('${pickMinistryPhoto(d.title + ' ' + (d.keyVerseRef || ''))}');"></div>
+                    <h3>${escapeHtml(d.title)} <span class="red-dot">→</span></h3>
+                    <p style="font-size:0.85rem;color:#78716c;margin-top:0.5rem;line-height:1.5;">${escapeHtml(excerpt)}...</p>
+                    <div style="font-size:0.72rem;color:#a8a29e;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:0.75rem;">${d.formattedDate || formatDate(d.date)}</div>
+                </article>
+            `;
+        });
+        html += `
+                </div>
+            </section>
+        `;
+    }
+
+    // ============ 3. FEATURE BLOCK — WHY DAILY DEVOTION ============
+    html += `
+        <section class="feature-block" style="background-image:url('${MINISTRY_PHOTOS.bibleDesk}');">
+            <div class="feature-block-inner">
+                <h2>Why read a daily devotional?</h2>
+                <p>A daily devotional is a brief, inspiring reflection designed to strengthen your faith and draw you closer to God. It typically consists of a Bible passage, an insightful teaching, and a moment for personal prayer and contemplation.</p>
+                <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);">Incorporating a daily devotional into your routine offers a wealth of benefits. It promotes spiritual growth, keeps you grounded, and cultivates an attitude of gratitude.</p>
+                <a class="link" onclick="gotoPage('devotions')" style="color:#fff;">Learn More <span class="red-dot">→</span></a>
+            </div>
+        </section>
+    `;
+
+    // ============ 4. S.O.A.P. METHOD ============
+    html += `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Study Approach</span>
+                        <h2 class="section-title">The S.O.A.P. Method</h2>
+                        <p class="section-subtitle">A simple, structured way to engage with God's Word every day.</p>
+                    </div>
+                </div>
+                <div class="soap-grid">
+                    <div class="soap-card">
+                        <div class="soap-letter">S</div>
+                        <div class="soap-label">Scripture</div>
+                        <h4>Read the Word</h4>
+                        <p>Read the Bible verses in your daily Reading Plan. Look for ONE verse that stands out and write it in your journal.</p>
+                    </div>
+                    <div class="soap-card">
+                        <div class="soap-letter">O</div>
+                        <div class="soap-label">Observation</div>
+                        <h4>Note what happens</h4>
+                        <p>In your own words, record the context of the passage. Note what's happening, who's affected, and what's taking place.</p>
+                    </div>
+                    <div class="soap-card">
+                        <div class="soap-letter">A</div>
+                        <div class="soap-label">Application</div>
+                        <h4>Apply to your life</h4>
+                        <p>Personalize what you've read by asking how it applies to your life right now. Write out how God is showing you what to do.</p>
+                    </div>
+                    <div class="soap-card">
+                        <div class="soap-letter">P</div>
+                        <div class="soap-label">Prayer</div>
+                        <h4>Respond to God</h4>
+                        <p>Take a moment to consider what God has shown you. Write out a short prayer in your journal concerning what you've learned.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+
+    // ============ 5. FEATURED PODCAST ============
+    html += `
+        <section class="video-block">
+            <div class="video-block-inner">
+                <span class="video-eyebrow">Featured Podcast</span>
+                <h2>The Living Oracles Podcast</h2>
+                <p class="video-desc">Listen to Spirit-filled teaching and devotionals on the go. New episodes released regularly.</p>
+                <div class="video-wrapper" style="background-image:url('${MINISTRY_PHOTOS.podcast}');" onclick="window.open('https://www.spreaker.com/podcast/the-living-oracles-of-god-s-podcast--6810225','_blank')">
+                    <div class="play-button"><i class="fas fa-play"></i></div>
+                </div>
+            </div>
+        </section>
+    `;
+
+    // ============ 6. TEXT BLOCK ============
+    html += `
+        <section class="text-block">
+            <div class="text-block-inner">
+                <h2>What Is a <span class="accent">Daily Devotional?</span></h2>
+                <p>A daily devotional is a brief, inspiring reflection designed to strengthen your faith and draw you closer to God. It typically consists of a Bible passage, an insightful teaching, and a moment for personal prayer and contemplation. By engaging with a daily devotional, you are reminded of what is truly important in life and encouraged to maintain a strong connection with God.</p>
+                <p>Incorporating a daily devotional into your routine offers a wealth of benefits. For example, it promotes spiritual growth by enriching your understanding of the Bible and applying its teachings to your daily life. Moreover, engaging with a daily devotional can help you stay grounded, maintain perspective, and cultivate an attitude of gratitude.</p>
+            </div>
+        </section>
+    `;
+
+    // ============ 7. FEATURE BLOCK — DAILY DEVOTIONALS BY LIVING ORACLES ============
+    html += `
+        <section class="feature-block" style="background-image:url('${MINISTRY_PHOTOS.prayingBible}');">
+            <div class="feature-block-inner">
+                <h2>Daily Devotionals by Living Oracles</h2>
+                <p>We warmly invite you to set aside a few minutes each day for quiet contemplation and prayer. This practice serves as an unwavering reminder of God's love, grace, and presence in your life.</p>
+                <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);">Through these daily devotionals, you are offered the opportunity to equip your faith, receive guidance from the Holy Spirit, and find peace in the midst of life's challenges. Embrace this transformative practice today.</p>
+                <a class="link" onclick="subscribeEmail()" style="color:#fff;">Subscribe Now <span class="red-dot">→</span></a>
+            </div>
+        </section>
+    `;
+
+    // ============ 8. READING PLANS ============
+    html += `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Discipleship</span>
+                        <h2 class="section-title">Reading Plans</h2>
+                        <p class="section-subtitle">Structured reading plans to grow your faith.</p>
+                    </div>
+                    <a class="link" onclick="gotoPage('plans')">View All <span class="red-dot">→</span></a>
+                </div>
+                <div class="plans-list">
+                    ${plans.map(p => `
+                        <div class="plan-row" onclick="startPlan(${p.id})">
+                            <div class="plan-row-info">
+                                <h3>${p.icon} ${p.name}</h3>
+                                <p>${p.description}</p>
+                            </div>
+                            <div class="plan-row-meta">
+                                <span class="plan-days">${p.days} Days</span>
+                                <i class="fas fa-arrow-right" style="color:var(--brand);"></i>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </section>
+    `;
+
+    // ============ 9. FAQ ============
+    html += `
+        <section class="faq-section">
+            <div class="faq-inner">
+                <div class="section-head" style="margin-bottom:0;">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Questions</span>
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                    </div>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaqEditorial(this)">
+                            Which version of the Bible should I use?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We recommend using a clear, readable translation like the NIV, ESV, or NLT for daily reading. The King James Version is also excellent for memorization and study. The most important thing is that you read consistently.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaqEditorial(this)">
+                            What if I started late?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>It's never too late to start! Simply begin with today's devotional and move forward. Don't feel pressure to catch up — the goal is a consistent daily habit, not completing every entry.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaqEditorial(this)">
+                            Do I need a special journal?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No, any notebook works. What matters is that you have a consistent place to write down your S.O.A.P. reflections. Some use a notebook, others use a digital journal app.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaqEditorial(this)">
+                            How long should my daily devotion take?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A typical devotion takes 10-15 minutes: 3-5 minutes reading Scripture, 3-5 minutes reflecting, and 3-5 minutes in prayer. However, the length matters less than the consistency.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+
+    // ============ 10. LIBRARY PREVIEW ============
+    if (livingLibraryResources.length > 0) {
+        const preview = livingLibraryResources.slice(0, 4);
+        html += `
+            <section class="section">
+                <div class="section-inner">
+                    <div class="section-head">
+                        <div class="section-head-left">
+                            <span class="section-eyebrow">Study</span>
+                            <h2 class="section-title">From the Living Library</h2>
+                            <p class="section-subtitle">Spiritual resources to grow your faith.</p>
+                        </div>
+                        <a class="link" onclick="gotoPage('resources')">View All <span class="red-dot">→</span></a>
+                    </div>
+                    <div class="resources-grid">
+        `;
+        preview.forEach(r => {
+            html += `
+                <article class="resource-card" onclick="openResourceDetail(${r.id})">
+                    <div class="resource-image" style="background-image:url('${pickMinistryPhoto(r.category + ' ' + r.title)}');">
+                        <div class="resource-icon">${r.icon}</div>
+                    </div>
+                    <h3>${escapeHtml(r.title)}</h3>
+                    <p>${escapeHtml((r.description || "").substring(0, 80))}...</p>
+                </article>
+            `;
+        });
+        html += `
+                    </div>
+                </div>
+            </section>
+        `;
+    }
+
+    document.getElementById('appContainer').innerHTML = html;
+}
+
+function toggleFaqEditorial(el) {
+    const item = el.parentElement;
+    item.classList.toggle('open');
+}
+
+/* ===================================================== */
+/*  OTHER PAGES                                          */
+/* ===================================================== */
+function renderDevotionsList() {
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const filtered = devotionals.filter(d => { const dt = new Date(d.date); return dt.getMonth() === currentMonth && dt.getFullYear() === currentYear; });
+
+    let html = `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Archive</span>
+                        <h2 class="section-title">Daily Devotionals</h2>
+                        <p class="section-subtitle">${monthNames[currentMonth]} ${currentYear}</p>
+                    </div>
+                </div>
+    `;
+
+    if (filtered.length === 0) {
+        html += `<div class="loading-wrap">No devotionals available for ${monthNames[currentMonth]} ${currentYear}.</div>`;
+    } else {
+        html += `<div class="resources-grid">`;
+        filtered.forEach(dev => {
+            const excerpt = (dev.content || dev.message || "").substring(0, 120);
+            html += `
+                <article class="resource-card" onclick="showDevotional('${dev.date}')">
+                    <div class="resource-image" style="background-image:url('${pickMinistryPhoto(dev.title + ' ' + (dev.keyVerseRef || ''))}');">
+                        <div class="resource-icon">📖</div>
+                    </div>
+                    <h3>${escapeHtml(dev.title)}</h3>
+                    <p>${escapeHtml(excerpt)}...</p>
+                    <div style="font-size:0.7rem;color:#a8a29e;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:0.75rem;">${dev.formattedDate || formatDate(dev.date)}</div>
+                </article>
+            `;
+        });
+        html += `</div>`;
+    }
+
+    html += `
+                <div style="display:flex;gap:0.75rem;justify-content:center;margin:3rem 0 1rem;">
+                    <button class="day-nav-btn" style="max-width:220px;" onclick="changeDevotionalMonth(-1)"><i class="fas fa-arrow-left"></i> Previous Month</button>
+                    <button class="day-nav-btn" style="max-width:220px;" onclick="changeDevotionalMonth(1)">Next Month <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </section>
+    `;
+    document.getElementById('appContainer').innerHTML = html;
+}
+function changeDevotionalMonth(delta) {
+    let m = currentMonth + delta, y = currentYear;
+    if (m < 0) { m = 11; y--; }
+    if (m > 11) { m = 0; y++; }
+    currentMonth = m; currentYear = y;
+    renderDevotionsList();
+}
+
+function showDevotional(dateStr) {
+    const dev = devotionals.find(d => d.date === dateStr);
+    if (!dev) return;
+    const sorted = [...devotionals].sort((a,b) => new Date(a.date) - new Date(b.date));
+    const idx = sorted.findIndex(d => d.date === dateStr);
+    const prev = idx > 0 ? sorted[idx - 1] : null;
+    const next = idx < sorted.length - 1 ? sorted[idx + 1] : null;
+    const formattedDate = dev.formattedDate || formatDate(dev.date);
+    const bodyText = dev.content || dev.message || "";
+    const paragraphs = bodyText.split(/\n\n+/).filter(p => p.trim());
+    const related = devotionals.filter(d => d.date !== dateStr).slice(0, 4);
+    const heroImg = pickMinistryPhoto(dev.title + ' ' + (dev.keyVerseRef || ''));
+
+    let html = `
+        <div class="reading-layout">
+            <div class="reading-main">
+                <div class="breadcrumb">
+                    <a onclick="gotoPage('home')">Home</a> <span>›</span>
+                    <a onclick="gotoPage('devotions')">Daily Devotionals</a> <span>›</span>
+                    <span>${escapeHtml(dev.title)}</span>
+                </div>
+
+                <div class="reading-hero" style="background-image: url('${heroImg}');">
+                    <div class="reading-hero-content">
+                        <div class="reading-hero-verse">"${escapeHtml(dev.keyVerse || 'Your word is a lamp to my feet')}"</div>
+                        <div class="reading-hero-ref">${escapeHtml(dev.keyVerseRef || dev.scripture || '')}</div>
+                    </div>
+                </div>
+
+                <div class="day-nav">
+                    <button class="day-nav-btn" ${prev ? `onclick="showDevotional('${prev.date}')"` : 'disabled'}>
+                        <i class="fas fa-arrow-left"></i> ${prev ? formatDateShort(prev.date) : '—'}
+                    </button>
+                    <button class="day-nav-btn" ${next ? `onclick="showDevotional('${next.date}')"` : 'disabled'}>
+                        ${next ? formatDateShort(next.date) : '—'} <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="reading-meta">
+                    <span class="pill">Daily Devotional</span>
+                    <span class="reading-date"><i class="fas fa-calendar"></i> ${formattedDate} · ${readingTime(bodyText)}</span>
+                </div>
+
+                <h1 class="reading-title">${escapeHtml(dev.title)}</h1>
+                <div class="reading-scripture-ref">${escapeHtml(dev.keyVerseRef || dev.scripture || '')}</div>
+
+                <div class="audio-inline">
+                    <button class="audio-play-btn" onclick="playDevotionalAudio(${JSON.stringify(dev).replace(/"/g, '&quot;')})"><i class="fas fa-play"></i></button>
+                    <div class="audio-info">
+                        <div class="audio-title">Listen to this devotional</div>
+                        <div class="audio-bar"><div class="audio-bar-fill"></div></div>
+                    </div>
+                </div>
+
+                <button class="read-scripture-btn" onclick="openBiblePassage('${escapeHtml(dev.keyVerseRef || dev.scripture || '')}')">
+                    <i class="fas fa-book-bible"></i> Read ${escapeHtml(dev.keyVerseRef || dev.scripture || 'Scripture')} <span class="red-dot">→</span>
+                </button>
+
+                <div class="reading-body">
+                    ${paragraphs.length > 1 ? paragraphs.slice(1).map(p => `<p>${escapeHtml(p)}</p>`).join('') : `<p>${escapeHtml(bodyText)}</p>`}
+                </div>
+    `;
+
+    if (dev.reflection) {
+        html += `<div class="callout-box"><h4>Go Deeper</h4><p>${escapeHtml(dev.reflection)}</p></div>`;
+    }
+    if (dev.prayer) {
+        html += `<div class="callout-box"><h4>Pray with Us</h4><p>${escapeHtml(dev.prayer)}</p></div>`;
+    }
+    if (dev.keyVerse) {
+        html += `<div class="pull-quote-lg">"${escapeHtml(dev.keyVerse)}"<span>${escapeHtml(dev.keyVerseRef || '')}</span></div>`;
+    }
+
+    html += `
+                <div class="action-row">
+                    <button class="action-btn primary" onclick="shareContent('${escapeHtml(dev.title)}', '${(dev.content||'').replace(/'/g,"\\'")}')"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="action-btn" onclick="addBookmark('📖 ${escapeHtml(dev.title)} - ${formattedDate}')"><i class="fas fa-bookmark"></i> Save</button>
+                    <button class="action-btn" onclick="showDonationModal()"><i class="fas fa-heart"></i> Give</button>
+                </div>
+            </div>
+
+            <aside class="reading-sidebar">
+                <div class="sidebar-card">
+                    <h4>More Devotionals</h4>
+                    ${related.map(r => `<a class="sidebar-link" onclick="showDevotional('${r.date}')">📖 ${escapeHtml(r.title)}</a>`).join('')}
+                </div>
+                <div class="sidebar-card">
+                    <h4>Quick Links</h4>
+                    <a class="sidebar-link" onclick="gotoPage('bible')">📚 Open Bible Reader</a>
+                    <a class="sidebar-link" onclick="gotoPage('resources')">📘 Browse Living Library</a>
+                    <a class="sidebar-link" onclick="gotoPage('plans')">📅 Reading Plans</a>
+                    <a class="sidebar-link" onclick="gotoPage('evening')">🌙 Evening Meditations</a>
+                </div>
+            </aside>
+        </div>
+    `;
+
+    document.getElementById('appContainer').innerHTML = html;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openBiblePassage(ref) {
+    if (!ref) return;
+    const match = ref.match(/^([1-3]?\s?[A-Za-z]+)\s+(\d+)/);
+    if (match) {
+        const book = match[1].trim();
+        const ch = parseInt(match[2]);
+        const foundBook = bibleBooks.find(b => b.toLowerCase() === book.toLowerCase());
+        if (foundBook) { selectedBook = foundBook; selectedChapter = ch; currentBibleView = 'verses'; gotoPage('bible'); return; }
+    }
+    gotoPage('bible');
+}
+
+function showEveningMeditationsList() {
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const sorted = [...eveningMeditations].sort((a,b) => new Date(a.date) - new Date(b.date));
+    const filtered = sorted.filter(e => { const d = new Date(e.date); return d.getMonth() === currentMonth && d.getFullYear() === currentYear; });
+
+    let html = `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Rest</span>
+                        <h2 class="section-title">Evening Meditations</h2>
+                        <p class="section-subtitle">${monthNames[currentMonth]} ${currentYear} — Quiet your heart before sleep.</p>
+                    </div>
+                </div>
+    `;
+
+    if (filtered.length === 0) {
+        html += `<div class="loading-wrap">No evening meditations available for ${monthNames[currentMonth]} ${currentYear}.</div>`;
+    } else {
+        html += `<div class="resources-grid">`;
+        filtered.forEach(med => {
+            const excerpt = (med.content || "").substring(0, 120);
+            html += `
+                <article class="resource-card" onclick="showEveningMeditationDetail('${med.date}')">
+                    <div class="resource-image" style="background-image:url('${MINISTRY_PHOTOS.night}');">
+                        <div class="resource-icon">🌙</div>
+                    </div>
+                    <h3>${escapeHtml(med.title)}</h3>
+                    <p>${escapeHtml(excerpt)}...</p>
+                    <div style="font-size:0.7rem;color:#a8a29e;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:0.75rem;">${med.displayDate || formatDate(med.date)}</div>
+                </article>
+            `;
+        });
+        html += `</div>`;
+    }
+
+    html += `
+                <div style="display:flex;gap:0.75rem;justify-content:center;margin:3rem 0 1rem;">
+                    <button class="day-nav-btn" style="max-width:220px;" onclick="changeEveningMonth(-1)"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button class="day-nav-btn" style="max-width:220px;" onclick="changeEveningMonth(1)">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </section>
+    `;
+    document.getElementById('appContainer').innerHTML = html;
+}
+function changeEveningMonth(delta) {
+    let m = currentMonth + delta, y = currentYear;
+    if (m < 0) { m = 11; y--; }
+    if (m > 11) { m = 0; y++; }
+    currentMonth = m; currentYear = y;
+    showEveningMeditationsList();
+}
+
+function showEveningMeditationDetail(dateStr) {
+    const med = eveningMeditations.find(e => e.date === dateStr);
+    if (!med) { alert("Meditation not found"); return; }
+    const formattedDate = med.displayDate || formatDate(med.date);
+    const paragraphs = (med.content || "").split(/\n\n+/).filter(p => p.trim());
+
+    let html = `
+        <div class="reading-layout">
+            <div class="reading-main">
+                <div class="breadcrumb">
+                    <a onclick="gotoPage('home')">Home</a> <span>›</span>
+                    <a onclick="showEveningMeditationsList()">Evening Meditations</a> <span>›</span>
+                    <span>${escapeHtml(med.title)}</span>
+                </div>
+
+                <div class="reading-hero" style="background-image: url('${MINISTRY_PHOTOS.night}');">
+                    <div class="reading-hero-content">
+                        <div class="reading-hero-verse">"${escapeHtml((med.versetext || med.content || '').substring(0, 150))}..."</div>
+                        <div class="reading-hero-ref">${escapeHtml(med.verse || 'Psalm 4:8')}</div>
+                    </div>
+                </div>
+
+                <div class="reading-meta">
+                    <span class="pill">Evening Meditation</span>
+                    <span class="reading-date"><i class="fas fa-calendar"></i> ${formattedDate}</span>
+                </div>
+
+                <h1 class="reading-title">${escapeHtml(med.title)}</h1>
+                <div class="reading-scripture-ref">${escapeHtml(med.verse || 'Psalm 4:8')}</div>
+
+                <div class="reading-body">
+                    ${paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('')}
+                </div>
+    `;
+    if (med.prayer) {
+        html += `<div class="callout-box"><h4>Pray with Us</h4><p>${escapeHtml(med.prayer)}</p></div>`;
+    }
+    html += `
+                <div class="action-row">
+                    <button class="action-btn primary" onclick="shareContent('${escapeHtml(med.title)}', '${(med.content||'').replace(/'/g,"\\'")}')"><i class="fas fa-share-alt"></i> Share</button>
+                    <button class="action-btn" onclick="addBookmark('🌙 ${escapeHtml(med.title)} - ${formattedDate}')"><i class="fas fa-bookmark"></i> Save</button>
+                </div>
+            </div>
+            <aside class="reading-sidebar">
+                <div class="sidebar-card">
+                    <h4>About Evening Meditations</h4>
+                    <p style="font-size:0.88rem;color:#78716c;line-height:1.7;">End your day in God's presence. These short reflections help you quiet your heart, reflect on Scripture, and rest in peace.</p>
+                </div>
+            </aside>
+        </div>
+    `;
+    document.getElementById('appContainer').innerHTML = html;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showPlansPage() {
+    let html = `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Discipleship</span>
+                        <h2 class="section-title">Reading Plans</h2>
+                        <p class="section-subtitle">Choose a structured plan to grow in your faith journey.</p>
+                    </div>
+                </div>
+                <div class="plans-list">
+    `;
+    plans.forEach(p => {
+        html += `
+            <div class="plan-row" onclick="startPlan(${p.id})">
+                <div class="plan-row-info">
+                    <h3>${p.icon} ${p.name}</h3>
+                    <p>${p.description}</p>
+                </div>
+                <div class="plan-row-meta">
+                    <span class="plan-days">${p.days} Days</span>
+                    <i class="fas fa-arrow-right" style="color:var(--brand);"></i>
+                </div>
+            </div>
+        `;
+    });
+    html += `
+                </div>
+            </div>
+        </section>
+    `;
+
+    document.getElementById('appContainer').innerHTML = html;
+}
+
+/* ===================================================== */
+/*  READING PLANS — FIXED                                */
+/* ===================================================== */
+function startPlan(id) {
+    const p = plans.find(x => x.id === id);
+    if (!p) return;
+
+    // If plan has never been started, mark day 1
+    if (!p.progress) {
+        p.progress = 1;
+        savePlanProgress();
+    }
+    // Open the plan detail page
+    showPlanDetail(id);
+}
+
+function showPlanDetail(id) {
+    const plan = plans.find(x => x.id === id);
+    if (!plan) return;
+
+    // Define reading content for each plan
+    const PLAN_READINGS = {
+        1: { // 7-Day Prayer Plan
+            readings: [
+                { day: 1, ref: "Matthew 6:5-15", title: "The Model Prayer" },
+                { day: 2, ref: "Luke 18:1-8", title: "Pray and Don't Give Up" },
+                { day: 3, ref: "James 5:13-18", title: "The Prayer of Faith" },
+                { day: 4, ref: "Philippians 4:6-7", title: "Prayer That Brings Peace" },
+                { day: 5, ref: "1 Thessalonians 5:16-18", title: "Pray Without Ceasing" },
+                { day: 6, ref: "Ephesians 6:18-20", title: "Praying in the Spirit" },
+                { day: 7, ref: "John 17:1-26", title: "Jesus Prays for Us" }
+            ]
+        },
+        2: { // 30-Day Bible Journey
+            readings: [
+                { day: 1, ref: "Genesis 1:1-31", title: "In the Beginning" },
+                { day: 2, ref: "Genesis 12:1-9", title: "The Call of Abraham" },
+                { day: 3, ref: "Exodus 3:1-15", title: "The Burning Bush" },
+                { day: 4, ref: "Exodus 20:1-17", title: "The Ten Commandments" },
+                { day: 5, ref: "Deuteronomy 6:1-9", title: "Love the Lord Your God" },
+                { day: 6, ref: "Joshua 1:1-9", title: "Be Strong and Courageous" },
+                { day: 7, ref: "Psalm 23:1-6", title: "The Lord Is My Shepherd" },
+                { day: 8, ref: "Psalm 51:1-19", title: "A Prayer of Repentance" },
+                { day: 9, ref: "Proverbs 3:1-12", title: "Trust in the Lord" },
+                { day: 10, ref: "Isaiah 6:1-8", title: "Isaiah's Vision" },
+                { day: 11, ref: "Isaiah 53:1-12", title: "The Suffering Servant" },
+                { day: 12, ref: "Jeremiah 29:11-13", title: "Plans for Your Future" },
+                { day: 13, ref: "Ezekiel 36:22-28", title: "A New Heart" },
+                { day: 14, ref: "Daniel 3:1-30", title: "The Fiery Furnace" },
+                { day: 15, ref: "Jonah 1:1-17", title: "The Reluctant Prophet" },
+                { day: 16, ref: "Micah 6:1-8", title: "What the Lord Requires" },
+                { day: 17, ref: "Matthew 5:1-16", title: "The Beatitudes" },
+                { day: 18, ref: "Matthew 11:25-30", title: "Come to Me and Rest" },
+                { day: 19, ref: "Mark 10:35-45", title: "The Servant Leader" },
+                { day: 20, ref: "Luke 15:11-32", title: "The Prodigal Son" },
+                { day: 21, ref: "John 1:1-18", title: "The Word Became Flesh" },
+                { day: 22, ref: "John 3:1-21", title: "Born Again" },
+                { day: 23, ref: "John 14:1-14", title: "The Way, Truth, Life" },
+                { day: 24, ref: "Acts 2:1-21", title: "The Day of Pentecost" },
+                { day: 25, ref: "Romans 8:28-39", title: "Nothing Can Separate Us" },
+                { day: 26, ref: "1 Corinthians 13:1-13", title: "The Way of Love" },
+                { day: 27, ref: "Galatians 5:16-26", title: "The Fruit of the Spirit" },
+                { day: 28, ref: "Ephesians 2:1-10", title: "Saved by Grace" },
+                { day: 29, ref: "Philippians 4:4-13", title: "Rejoice in the Lord" },
+                { day: 30, ref: "Revelation 21:1-8", title: "A New Heaven and Earth" }
+            ]
+        },
+        3: { // 90-Day New Testament
+            readings: [
+                { day: 1, ref: "Matthew 1-2", title: "The Birth of Jesus" },
+                { day: 2, ref: "Matthew 3-4", title: "Baptism and Temptation" },
+                { day: 3, ref: "Matthew 5-7", title: "The Sermon on the Mount" },
+                { day: 4, ref: "Matthew 8-9", title: "Miracles of Jesus" },
+                { day: 5, ref: "Matthew 10-12", title: "The Twelve Apostles" }
+            ]
+        },
+        4: { // 365-Day Bible in a Year
+            readings: [
+                { day: 1, ref: "Genesis 1-2", title: "Creation" },
+                { day: 2, ref: "Genesis 3-4", title: "The Fall" },
+                { day: 3, ref: "Genesis 5-7", title: "Noah and the Flood" },
+                { day: 4, ref: "Genesis 8-10", title: "A New Beginning" },
+                { day: 5, ref: "Genesis 11-13", title: "The Tower of Babel" }
+            ]
+        }
+    };
+
+    const planData = PLAN_READINGS[id] || { readings: [] };
+    const readings = planData.readings;
+    const totalDays = plan.days;
+    const currentProgress = plan.progress || 0;
+
+    // Build the readings list
+    let readingsHtml = '';
+    if (readings.length === 0) {
+        readingsHtml = `<p style="color:#78716c;padding:2rem 0;">Daily readings for this plan are being prepared. Check back soon.</p>`;
+    } else {
+        readings.forEach(r => {
+            const isComplete = r.day <= currentProgress;
+            const isToday = r.day === currentProgress + 1;
+            readingsHtml += `
+                <div class="plan-day-row ${isComplete ? 'complete' : ''} ${isToday ? 'today' : ''}" onclick="openPlanReading('${plan.id}', ${r.day}, '${escapeHtml(r.ref)}')">
+                    <div class="plan-day-num">
+                        ${isComplete ? '<i class="fas fa-check"></i>' : r.day}
+                    </div>
+                    <div class="plan-day-info">
+                        <h4>Day ${r.day}: ${escapeHtml(r.title)}</h4>
+                        <p>${escapeHtml(r.ref)}</p>
+                    </div>
+                    <i class="fas fa-arrow-right" style="color:var(--brand);"></i>
+                </div>
+            `;
+        });
+    }
+
+    const pct = totalDays > 0 ? Math.round((currentProgress / totalDays) * 100) : 0;
+
+    let html = `
+        <section class="section">
+            <div class="section-inner">
+                <a class="link" onclick="gotoPage('plans')" style="margin-bottom:2rem;cursor:pointer;display:inline-flex;">
+                    <i class="fas fa-arrow-left" style="margin-right:0.5rem;"></i> All Plans
+                </a>
+
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Reading Plan</span>
+                        <h2 class="section-title">${plan.icon} ${escapeHtml(plan.name)}</h2>
+                        <p class="section-subtitle">${escapeHtml(plan.description)}</p>
+                    </div>
+                </div>
+
+                <div class="plan-progress-box">
+                    <div class="plan-progress-header">
+                        <div>
+                            <div class="plan-progress-label">Your Progress</div>
+                            <div class="plan-progress-count">${currentProgress} of ${totalDays} days</div>
+                        </div>
+                        <div class="plan-progress-pct">${pct}%</div>
+                    </div>
+                    <div class="progress-bar-bg" style="height:8px;">
+                        <div class="progress-bar-fill" style="width:${pct}%"></div>
+                    </div>
+                    <div class="plan-progress-actions">
+                        <button class="action-btn primary" onclick="markTodayComplete(${plan.id})">
+                            <i class="fas fa-check-circle"></i> Mark Day ${currentProgress + 1} Complete
+                        </button>
+                        <button class="action-btn" onclick="resetPlanProgress(${plan.id})">
+                            <i class="fas fa-redo"></i> Start Over
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plan-readings-list">
+                    <h3 style="margin-bottom:1.5rem;font-size:1.25rem;font-weight:800;">Daily Readings</h3>
+                    ${readingsHtml}
+                </div>
+            </div>
+        </section>
+    `;
+
+    document.getElementById('appContainer').innerHTML = html;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openPlanReading(planId, day, ref) {
+    // Navigate to Bible reader with the reference
+    openBiblePassage(ref);
+}
+
+function markTodayComplete(planId) {
+    const plan = plans.find(x => x.id === planId);
+    if (!plan) return;
+    if (plan.progress >= plan.days) {
+        alert('You have already completed this plan! 🎉');
+        return;
+    }
+    plan.progress += 1;
+    savePlanProgress();
+    showPlanDetail(planId);
+}
+
+function resetPlanProgress(planId) {
+    if (!confirm('Reset this plan? Your progress will be cleared.')) return;
+    const plan = plans.find(x => x.id === planId);
+    if (!plan) return;
+    plan.progress = 0;
+    savePlanProgress();
+    showPlanDetail(planId);
+}
+
+function savePlanProgress() { const prog = {}; plans.forEach(p => prog[p.id] = p.progress); localStorage.setItem('logi_planProgress', JSON.stringify(prog)); }
+function loadPlanProgress() { const s = localStorage.getItem('logi_planProgress'); if (s) { const p = JSON.parse(s); plans.forEach(plan => { if (p[plan.id]) plan.progress = p[plan.id]; }); } }
+
+function renderLivingLibrary() {
+    if (!livingLibraryResources.length) {
+        document.getElementById('appContainer').innerHTML = `<div class="loading-wrap"><div class="spinner"></div>Loading Living Library...</div>`;
+        return;
+    }
+    const filtered = livingLibraryResources.filter(r => currentCategory === "all" || r.category === currentCategory);
+
+    let html = `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Study</span>
+                        <h2 class="section-title">Living Library</h2>
+                        <p class="section-subtitle">Spiritual resources to grow your faith.</p>
+                    </div>
+                </div>
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem;">
+                    ${categories.map(cat => `
+                        <button style="cursor:pointer;border:1px solid ${currentCategory === cat.id ? 'var(--brand)' : '#e7e2dc'};padding:0.55rem 1.1rem;font-size:0.78rem;font-weight:700;background:${currentCategory === cat.id ? 'var(--brand)' : '#fff'};color:${currentCategory === cat.id ? '#fff' : '#4a4540'};border-radius:30px;font-family:inherit;transition:all 0.2s;" onclick="currentCategory='${cat.id}';renderLivingLibrary();">
+                            ${cat.icon} ${cat.name}
+                        </button>
+                    `).join('')}
+                </div>
+                <div class="resources-grid">
+    `;
+
+    if (filtered.length === 0) {
+        html += `<div class="loading-wrap">No resources in this category yet.</div>`;
+    } else {
+        filtered.forEach(r => {
+            html += `
+                <article class="resource-card" onclick="openResourceDetail(${r.id})">
+                    <div class="resource-image" style="background-image:url('${pickMinistryPhoto(r.category + ' ' + r.title)}');">
+                        <div class="resource-icon">${r.icon}</div>
+                    </div>
+                    <h3>${escapeHtml(r.title)}</h3>
+                    <p>${escapeHtml((r.description || "").substring(0, 80))}...</p>
+                </article>
+            `;
+        });
+    }
+    html += `</div></div></section>`;
+    document.getElementById('appContainer').innerHTML = html;
+}
+
+function openResourceDetail(id) {
+    const r = livingLibraryResources.find(x => x.id == id);
+    if (!r) return;
+    currentResource = r;
+    const bg = pickMinistryPhoto(r.category + ' ' + r.title);
+    const catObj = categories.find(c => c.id === r.category);
+    const catName = catObj ? catObj.name : r.category;
+
+    document.getElementById('resourceDetailContent').innerHTML = `
+        <div class="resource-hero-modal" style="background-image: url('${bg}');">
+            <div class="resource-hero-icon-lg">${r.icon}</div>
+            <div class="resource-hero-title-lg">${escapeHtml(r.title)}</div>
+            <div class="resource-hero-cat">${escapeHtml(catName)}</div>
+        </div>
+        <div class="modal-body-content">
+            <div class="key-verse-block">
+                <div class="key-verse-text">"${escapeHtml(r.verse_text || r.scripture_focus || 'For the word of God is alive and active')}"</div>
+                <div class="key-verse-ref">${escapeHtml(r.scripture_focus || 'Hebrews 4:12')}</div>
+            </div>
+            ${r.teaching ? `<div class="section-block"><div class="section-block-title"><i class="fas fa-book-bible"></i> Teaching</div><div class="section-block-content">${escapeHtml(r.teaching)}</div></div>` : ''}
+            ${r.insight ? `<div class="section-block"><div class="section-block-title"><i class="fas fa-lightbulb"></i> Insight</div><div class="section-block-content">${escapeHtml(r.insight)}</div></div>` : ''}
+            ${r.application ? `<div class="section-block"><div class="section-block-title"><i class="fas fa-fire"></i> Application</div><div class="section-block-content">${escapeHtml(r.application)}</div></div>` : ''}
+            ${r.prayer ? `<div class="section-block"><div class="section-block-title"><i class="fas fa-pray"></i> Prayer</div><div class="section-block-content"><em>${escapeHtml(r.prayer)}</em></div></div>` : ''}
+        </div>
+    `;
+    document.getElementById('resourceDetailModal').classList.add('show');
+}
+function closeResourceDetail() { document.getElementById('resourceDetailModal').classList.remove('show'); if (window.speechSynthesis.speaking) window.speechSynthesis.cancel(); }
+
+async function renderBible() {
+    if (currentBibleView === 'books') {
+        let html = `
+            <section class="section">
+                <div class="section-inner">
+                    <div class="section-head">
+                        <div class="section-head-left">
+                            <span class="section-eyebrow">Scripture</span>
+                            <h2 class="section-title">Bible Reader</h2>
+                            <p class="section-subtitle">Read Scripture in the King James Version.</p>
+                        </div>
+                    </div>
+                    <div class="bible-view">
+                        <div class="bible-tabs">
+                            <button class="tab active" onclick="setBibleView('books')">Books</button>
+                            <button class="tab" onclick="setBibleView('chapters')">Chapters</button>
+                            <button class="tab" onclick="setBibleView('verses')">Verses</button>
+                        </div>
+                        <div class="search-bar"><i class="fas fa-search" style="color:#a8a29e;"></i><input placeholder="Search Bible..." onkeyup="searchBible(this.value)"></div>
+                        <div class="books-grid">
+                            ${bibleBooks.map(b => `<div class="book-item" onclick="selectBook('${b}')">${b}</div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+        document.getElementById('appContainer').innerHTML = html;
+    } else if (currentBibleView === 'chapters' && selectedBook) {
+        const max = chapterCounts[selectedBook] || 50;
+        let html = `
+            <section class="section">
+                <div class="section-inner">
+                    <div class="section-head">
+                        <div class="section-head-left">
+                            <a class="link" onclick="setBibleView('books')" style="margin-bottom:1rem;cursor:pointer;"><i class="fas fa-arrow-left"></i> All Books</a>
+                            <h2 class="section-title">${selectedBook}</h2>
+                        </div>
+                    </div>
+                    <div class="bible-view">
+                        <div class="chapters-list">
+                            ${Array.from({length:max},(_,i)=>`<div class="chapter-item" onclick="selectChapter(${i+1})">${i+1}</div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+        document.getElementById('appContainer').innerHTML = html;
+    } else if (currentBibleView === 'verses' && selectedBook && selectedChapter) {
+        document.getElementById('appContainer').innerHTML = `
+            <section class="section">
+                <div class="section-inner">
+                    <div class="section-head">
+                        <div class="section-head-left">
+                            <a class="link" onclick="setBibleView('chapters')" style="margin-bottom:1rem;cursor:pointer;"><i class="fas fa-arrow-left"></i> ${selectedBook}</a>
+                            <h2 class="section-title">${selectedBook} ${selectedChapter}</h2>
+                        </div>
+                    </div>
+                    <div class="bible-view">
+                        <div id="versesContainer"><div class="loading-wrap"><div class="spinner"></div>Loading verses...</div></div>
+                    </div>
+                </div>
+            </section>
+        `;
+        const verses = await getChapterVerses(selectedBook, selectedChapter);
+        let vHtml = '';
+        for (const v of verses) {
+            vHtml += `<div class="verse-item"><span class="verse-number">${v.verse}.</span> ${escapeHtml(v.text)}<br><button class="verse-tool-btn" onclick="copyVerseToClipboard('${selectedBook}',${selectedChapter},${v.verse},'${v.text.replace(/'/g,"\\'")}')"><i class="fas fa-copy"></i> Copy</button></div>`;
+        }
+        document.getElementById('versesContainer').innerHTML = vHtml || '<p>No verses found.</p>';
+    }
+}
+async function copyVerseToClipboard(book, chapter, verse, text) {
+    try { await navigator.clipboard.writeText(`${book} ${chapter}:${verse}\n"${text}"`); alert('✅ Copied!'); }
+    catch(e) { alert('❌ Failed'); }
+}
+async function searchBible(q) {
+    if (!q || q.length < 2) { renderBible(); return; }
+    const res = await searchBibleAPI(q);
+    let html = '';
+    res.forEach(v => { html += `<div class="verse-item"><span class="verse-number">${v.verse}.</span> <b>${v.book_name} ${v.chapter}:${v.verse}</b><br>${escapeHtml(v.text)}</div>`; });
+    const container = document.querySelector('.bible-view');
+    if (container) {
+        container.innerHTML = `
+            <div class="search-bar"><i class="fas fa-search" style="color:#a8a29e;"></i><input value="${q}" onkeyup="searchBible(this.value)" placeholder="Search Bible..."></div>
+            ${html || '<p>No results found.</p>'}
+            <button class="day-nav-btn" style="margin-top:1.5rem;max-width:220px;" onclick="renderBible()"><i class="fas fa-arrow-left"></i> Back to Books</button>
+        `;
+    }
+}
+function selectBook(b) { selectedBook = b; currentBibleView = 'chapters'; renderBible(); }
+function selectChapter(c) { selectedChapter = c; currentBibleView = 'verses'; renderBible(); }
+function setBibleView(v) { currentBibleView = v; if (v === 'books') selectedBook = ''; renderBible(); }
+
+function renderMore() {
+    document.getElementById('appContainer').innerHTML = `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Menu</span>
+                        <h2 class="section-title">More</h2>
+                        <p class="section-subtitle">Settings, account, and additional resources.</p>
+                    </div>
+                </div>
+                <div class="resources-grid">
+                    <div class="resource-card" onclick="showAccountModal()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">👤</div>
+                        </div>
+                        <h3>Account ${currentUser ? '✓' : ''}</h3>
+                        <p>${currentUser ? currentUser.email : 'Sign in to sync bookmarks'}</p>
+                    </div>
+                    <div class="resource-card" onclick="showSettings()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">⚙️</div>
+                        </div>
+                        <h3>Settings</h3>
+                        <p>Theme, font size, notifications</p>
+                    </div>
+                    <div class="resource-card" onclick="showBookmarks()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">🔖</div>
+                        </div>
+                        <h3>Bookmarks</h3>
+                        <p>${bookmarks.length} saved item${bookmarks.length===1?'':'s'}</p>
+                    </div>
+                    <div class="resource-card" onclick="showPlansPage()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">📅</div>
+                        </div>
+                        <h3>Reading Plans</h3>
+                        <p>Structured Bible reading</p>
+                    </div>
+                    <div class="resource-card" onclick="showEveningMeditationsList()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">🌙</div>
+                        </div>
+                        <h3>Evening Meditations</h3>
+                        <p>End your day in peace</p>
+                    </div>
+                    <div class="resource-card" onclick="subscribeEmail()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">✉️</div>
+                        </div>
+                        <h3>Subscribe</h3>
+                        <p>Daily devotional by email</p>
+                    </div>
+                    <div class="resource-card" onclick="showContact()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">📧</div>
+                        </div>
+                        <h3>Contact Us</h3>
+                        <p>Get in touch with our team</p>
+                    </div>
+                    <div class="resource-card" onclick="showDonationModal()">
+                        <div class="resource-image" style="background:linear-gradient(135deg,#8B5353,#c9a86c);">
+                            <div class="resource-icon">💝</div>
+                        </div>
+                        <h3>Give</h3>
+                        <p>Support the ministry</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+function showSettings() {
+    document.getElementById('appContainer').innerHTML = `
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div class="section-head-left">
+                        <span class="section-eyebrow">Preferences</span>
+                        <h2 class="section-title">Settings</h2>
+                    </div>
+                </div>
+                <div style="max-width:640px;">
+                    <div style="padding:1.5rem 0;border-bottom:1px solid #e7e2dc;display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-weight:600;">🌙 Dark Mode</span>
+                        <button class="pill" style="cursor:pointer;border:none;padding:0.5rem 1.1rem;font-family:inherit;" onclick="toggleDarkMode()">${settings.theme === 'dark' ? 'Disable' : 'Enable'}</button>
+                    </div>
+                    <div style="padding:1.5rem 0;border-bottom:1px solid #e7e2dc;display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-weight:600;">📝 Font Size</span>
+                        <select style="padding:0.5rem 1rem;border-radius:4px;border:1px solid var(--brand);background:#fff;color:var(--brand);font-weight:700;font-family:inherit;" onchange="changeFontSize(this.value)">
+                            <option ${settings.fontSize==='small'?'selected':''}>Small</option>
+                            <option ${settings.fontSize==='medium'?'selected':''}>Medium</option>
+                            <option ${settings.fontSize==='large'?'selected':''}>Large</option>
+                        </select>
+                    </div>
+                    <div style="padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-weight:600;">🗑️ Clear All Data</span>
+                        <button class="pill" style="cursor:pointer;border:none;padding:0.5rem 1.1rem;font-family:inherit;" onclick="clearAllData()">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+function showBookmarks() {
+    if (!bookmarks.length) {
+        document.getElementById('appContainer').innerHTML = `<section class="section"><div class="section-inner"><div class="section-head"><div><h2 class="section-title">Bookmarks</h2></div></div><div class="loading-wrap">No bookmarks yet.</div></div></section>`;
+        return;
+    }
+    let html = `<section class="section"><div class="section-inner"><div class="section-head"><div class="section-head-left"><span class="section-eyebrow">Saved</span><h2 class="section-title">Bookmarks</h2></div></div><div class="resources-grid">`;
+    bookmarks.forEach((item, i) => {
+        html += `<div class="resource-card" onclick="removeBookmark(${i})" style="padding:1.5rem;background:#fafafa;border-radius:6px;"><h3>${escapeHtml(item)}</h3><p style="color:#a8a29e;">Tap to remove</p></div>`;
+    });
+    html += `</div></div></section>`;
+    document.getElementById('appContainer').innerHTML = html;
+}
+function removeBookmark(i) { if (confirm('Remove?')) { bookmarks.splice(i,1); localStorage.setItem('logi_bookmarks', JSON.stringify(bookmarks)); showBookmarks(); } }
+function showContact() { alert('Email: info@logi.education\nPhone: +233241456581'); }
+function showDonationModal() { alert('Support: +233241456581'); }
+function subscribeEmail() { window.location.href = 'mailto:info@logi.education?subject=Subscribe%20to%20Daily%20Devotionals'; }
+
+function showAuthModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show';
+    modal.id = 'authModal';
+    modal.innerHTML = `
+        <div class="modal-box" style="max-width:440px;padding:2.5rem;">
+            <span style="float:right;cursor:pointer;font-size:1.5rem;color:#78716c;" onclick="closeAuthModal()"><i class="fas fa-times"></i></span>
+            <h3 style="color:var(--brand);margin-bottom:1.5rem;font-size:1.75rem;font-weight:800;">Welcome</h3>
+            <p style="color:#78716c;font-size:0.9rem;margin-bottom:1.5rem;">Sign in to save bookmarks across devices</p>
+            <input type="email" id="authEmail" placeholder="Email address" style="width:100%;padding:0.9rem;margin-bottom:0.65rem;border:1px solid #e7e2dc;border-radius:6px;font-family:inherit;font-size:0.95rem;" />
+            <input type="password" id="authPassword" placeholder="Password (min 6 chars)" style="width:100%;padding:0.9rem;margin-bottom:0.75rem;border:1px solid #e7e2dc;border-radius:6px;font-family:inherit;font-size:0.95rem;" />
+            <button id="signInBtn" style="width:100%;padding:0.9rem;background:var(--brand);color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:0.6rem;">Sign In</button>
+            <button id="signUpBtn" style="width:100%;padding:0.9rem;background:#0a0a0a;color:#fff;border:none;border-radius:6px;font-weight:700;cursor:pointer;font-family:inherit;">Create Account</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('signInBtn').onclick = signInWithEmail;
+    document.getElementById('signUpBtn').onclick = signUpWithEmail;
+}
+function closeAuthModal() { const m = document.getElementById('authModal'); if (m) m.remove(); }
+async function signUpWithEmail() {
+    const email = document.getElementById('authEmail').value;
+    const password = document.getElementById('authPassword').value;
+    if (!email || !password || password.length < 6) { alert('Valid email and password (6+ chars) required'); return; }
+    try { const uc = await createUserWithEmailAndPassword(auth, email, password); currentUser = uc.user; closeAuthModal(); alert('✅ Account created!'); }
+    catch(e) { alert('Sign up error: ' + e.message); }
+}
+async function signInWithEmail() {
+    const email = document.getElementById('authEmail').value;
+    const password = document.getElementById('authPassword').value;
+    if (!email || !password) { alert('Please enter email and password'); return; }
+    try { const uc = await signInWithEmailAndPassword(auth, email, password); currentUser = uc.user; closeAuthModal(); alert('✅ Signed in!'); }
+    catch(e) { alert('Sign in error: ' + e.message); }
+}
+function showAccountModal() {
+    if (currentUser) { if (confirm(`Signed in as: ${currentUser.email}\n\nSign out?`)) { signOut(auth).then(() => { alert('Signed out'); currentUser = null; }); } }
+    else showAuthModal();
+}
+
+let selectedVoice = null;
+async function getMaleVoice() { return new Promise((res) => { const v = window.speechSynthesis.getVoices(); res(v.find(vv => vv.name.toLowerCase().includes('male')) || v.find(vv => vv.lang.startsWith('en')) || v[0]); }); }
+window.speechSynthesis.onvoiceschanged = async () => { selectedVoice = await getMaleVoice(); };
+getMaleVoice().then(v => { selectedVoice = v; });
+
+function playDevotionalAudio(dev) {
+    if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+    const text = `${dev.title}. ${dev.keyVerse || ''}. ${dev.content || dev.message || ''}. ${dev.prayer || ''}`;
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.85;
+    if (selectedVoice) u.voice = selectedVoice;
+    window.speechSynthesis.speak(u);
+}
+function playAudioMessage(text) {
+    if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.85;
+    if (selectedVoice) u.voice = selectedVoice;
+    window.speechSynthesis.speak(u);
+}
+function shareContent(title, content) {
+    const fullText = `🕊️ ${title}\n\n${content}\n\n— Living Oracles Global Institute`;
+    if (navigator.share) navigator.share({ title, text: fullText }).catch(()=>{});
+    else navigator.clipboard.writeText(fullText).then(() => alert("✅ Copied!"));
+}
+function addBookmark(item) {
+    if (bookmarks.includes(item)) { alert('Already saved!'); return false; }
+    bookmarks.unshift(item); localStorage.setItem('logi_bookmarks', JSON.stringify(bookmarks));
+    alert('✓ Saved!');
+    return true;
+}
+function changeFontSize(s) { settings.fontSize = s; localStorage.setItem('logi_settings', JSON.stringify(settings)); applySettings(); if (currentPage === 'more') showSettings(); }
+function toggleDarkMode() {
+    settings.theme = settings.theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('logi_settings', JSON.stringify(settings));
+    applySettings();
+    if (currentPage === 'more') showSettings();
+}
+function clearAllData() {
+    if (confirm('Clear all data? This will remove all bookmarks and settings.')) {
+        localStorage.clear(); indexedDB.deleteDatabase(DB_NAME);
+        bookmarks = []; settings = { theme: 'light', fontSize: 'medium' };
+        alert('Data cleared.'); location.reload();
+    }
+}
+function applySettings() {
+    const btn = document.getElementById('darkToggleBtn');
+    if (settings.theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if (btn) btn.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        document.body.classList.remove('dark-mode');
+        if (btn) btn.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+}
+
+function renderCurrentPage() {
+    if (currentPage === 'home') renderHome();
+    else if (currentPage === 'devotions') renderDevotionsList();
+    else if (currentPage === 'evening') showEveningMeditationsList();
+    else if (currentPage === 'bible') renderBible();
+    else if (currentPage === 'resources') renderLivingLibrary();
+    else if (currentPage === 'plans') showPlansPage();
+    else if (currentPage === 'more') renderMore();
+    document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.page === currentPage));
+}
+
+onAuthStateChanged(auth, (user) => { currentUser = user; });
+
+async function init() {
+    loadPlanProgress();
+    const s = localStorage.getItem('logi_settings');
+    if (s) settings = JSON.parse(s);
+    applySettings();
+    await Promise.all([loadDevotionals(), loadEveningMeditations(), loadLivingLibrary()]);
+    renderCurrentPage();
+}
+
+Object.assign(window, {
+    gotoPage, showDevotional, showEveningMeditationsList, showEveningMeditationDetail,
+    changeEveningMonth, changeDevotionalMonth, selectBook, selectChapter, setBibleView,
+    searchBible, copyVerseToClipboard, showBookmarks, removeBookmark, showPlansPage, startPlan,
+    showPlanDetail, openPlanReading, markTodayComplete, resetPlanProgress,
+    showSettings, showAccountModal, showContact, showDonationModal, showAuthModal,
+    closeAuthModal, toggleDarkMode, changeFontSize, clearAllData, openResourceDetail,
+    closeResourceDetail, playDevotionalAudio, playAudioMessage, shareContent, addBookmark,
+    subscribeEmail, openBiblePassage, renderCurrentPage, renderBible, renderLivingLibrary,
+    renderMore, toggleFaqEditorial
+});
+
+init();
+</script>
+</body>
+</html>
