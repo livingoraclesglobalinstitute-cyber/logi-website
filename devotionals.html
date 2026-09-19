@@ -215,21 +215,21 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ========================================== */
-/*   HERO — FULL WIDTH CINEMATIC              */
+/*   HERO — REDUCED HEIGHT                    */
 /* ========================================== */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 90vh;
-    min-height: 600px;
-    max-height: 900px;
+    height: 70vh;
+    min-height: 460px;
+    max-height: 680px;
     background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=900&fit=crop&q=80');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     display: flex;
     align-items: flex-end;
-    padding: 0 5% 80px;
+    padding: 0 5% 60px;
     overflow: hidden;
 }
 
@@ -270,7 +270,7 @@ h1, h2, h3, h4, h5 {
 
 .hero-section h1 {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(2.75rem, 6vw, 5.5rem);
+    font-size: clamp(2.25rem, 5vw, 4.25rem);
     font-weight: 900;
     line-height: 1.02;
     letter-spacing: -0.035em;
@@ -286,18 +286,18 @@ h1, h2, h3, h4, h5 {
     gap: 1.5rem;
     font-size: 0.85rem;
     color: rgba(255,255,255,0.85);
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     font-weight: 500;
 }
 .hero-meta span { display: inline-flex; align-items: center; gap: 0.45rem; }
 .hero-meta i { opacity: 0.75; }
 
 .hero-section p {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     line-height: 1.7;
     color: rgba(255,255,255,0.9);
     max-width: 640px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
 }
 
 .hero-cta {
@@ -306,7 +306,7 @@ h1, h2, h3, h4, h5 {
     gap: 0.65rem;
     background: #ffffff;
     color: #0a0a0a;
-    padding: 1rem 2rem;
+    padding: 0.9rem 1.75rem;
     border-radius: 4px;
     font-size: 0.9rem;
     font-weight: 700;
@@ -324,12 +324,12 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 768px) {
     .hero-section {
-        height: 80vh;
-        min-height: 500px;
-        padding: 0 5% 60px;
+        height: 60vh;
+        min-height: 400px;
+        padding: 0 5% 50px;
     }
-    .hero-section h1 { font-size: clamp(2rem, 8vw, 3rem); }
-    .hero-section p { font-size: 1rem; }
+    .hero-section h1 { font-size: clamp(1.75rem, 7vw, 2.75rem); }
+    .hero-section p { font-size: 0.95rem; }
 }
 
 /* ========================================== */
@@ -482,9 +482,10 @@ a:hover .red-dot,
     font-size: 1.05rem;
     line-height: 1.75;
     color: rgba(255,255,255,0.9);
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     max-width: 580px;
 }
+.feature-block p:last-of-type { margin-bottom: 1.75rem; }
 
 @media (max-width: 768px) {
     .feature-block { padding: 80px 5%; min-height: 400px; }
@@ -1920,6 +1921,8 @@ const MINISTRY_PHOTOS = {
     bibleStudy: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=900&fit=crop&q=80',
     scripture: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=900&fit=crop&q=80',
     books: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200&h=900&fit=crop&q=80',
+    // NEW: Open study Bible for "Daily Devotionals by Living Oracles" section
+    openStudyBible: 'https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?w=1600&h=900&fit=crop&q=80',
     praying: 'https://images.unsplash.com/photo-1445633629932-0029acc44e88?w=1200&h=900&fit=crop&q=80',
     prayingBible: 'https://images.unsplash.com/photo-1519802772250-a52a9af0eacb?w=1200&h=900&fit=crop&q=80',
     candle: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&h=900&fit=crop&q=80',
@@ -1980,6 +1983,231 @@ function pickMinistryPhoto(text) {
     if (t.includes('study') || t.includes('meditate') || t.includes('learn')) return MINISTRY_PHOTOS.bibleStudy;
     if (t.includes('book') || t.includes('library')) return MINISTRY_PHOTOS.books;
     return MINISTRY_PHOTOS.bibleDesk;
+}
+
+/* ===================================================== */
+/*  PLAN READINGS — All 90 and 365 days included         */
+/* ===================================================== */
+function getPlanReadings(planId) {
+    if (planId === 1) {
+        return [
+            { day: 1, ref: "Matthew 6:5-15", title: "The Model Prayer" },
+            { day: 2, ref: "Luke 18:1-8", title: "Pray and Don't Give Up" },
+            { day: 3, ref: "James 5:13-18", title: "The Prayer of Faith" },
+            { day: 4, ref: "Philippians 4:6-7", title: "Prayer That Brings Peace" },
+            { day: 5, ref: "1 Thessalonians 5:16-18", title: "Pray Without Ceasing" },
+            { day: 6, ref: "Ephesians 6:18-20", title: "Praying in the Spirit" },
+            { day: 7, ref: "John 17:1-26", title: "Jesus Prays for Us" }
+        ];
+    }
+
+    if (planId === 2) {
+        return [
+            { day: 1, ref: "Genesis 1:1-31", title: "In the Beginning" },
+            { day: 2, ref: "Genesis 12:1-9", title: "The Call of Abraham" },
+            { day: 3, ref: "Exodus 3:1-15", title: "The Burning Bush" },
+            { day: 4, ref: "Exodus 20:1-17", title: "The Ten Commandments" },
+            { day: 5, ref: "Deuteronomy 6:1-9", title: "Love the Lord Your God" },
+            { day: 6, ref: "Joshua 1:1-9", title: "Be Strong and Courageous" },
+            { day: 7, ref: "Psalm 23:1-6", title: "The Lord Is My Shepherd" },
+            { day: 8, ref: "Psalm 51:1-19", title: "A Prayer of Repentance" },
+            { day: 9, ref: "Proverbs 3:1-12", title: "Trust in the Lord" },
+            { day: 10, ref: "Isaiah 6:1-8", title: "Isaiah's Vision" },
+            { day: 11, ref: "Isaiah 53:1-12", title: "The Suffering Servant" },
+            { day: 12, ref: "Jeremiah 29:11-13", title: "Plans for Your Future" },
+            { day: 13, ref: "Ezekiel 36:22-28", title: "A New Heart" },
+            { day: 14, ref: "Daniel 3:1-30", title: "The Fiery Furnace" },
+            { day: 15, ref: "Jonah 1:1-17", title: "The Reluctant Prophet" },
+            { day: 16, ref: "Micah 6:1-8", title: "What the Lord Requires" },
+            { day: 17, ref: "Matthew 5:1-16", title: "The Beatitudes" },
+            { day: 18, ref: "Matthew 11:25-30", title: "Come to Me and Rest" },
+            { day: 19, ref: "Mark 10:35-45", title: "The Servant Leader" },
+            { day: 20, ref: "Luke 15:11-32", title: "The Prodigal Son" },
+            { day: 21, ref: "John 1:1-18", title: "The Word Became Flesh" },
+            { day: 22, ref: "John 3:1-21", title: "Born Again" },
+            { day: 23, ref: "John 14:1-14", title: "The Way, Truth, Life" },
+            { day: 24, ref: "Acts 2:1-21", title: "The Day of Pentecost" },
+            { day: 25, ref: "Romans 8:28-39", title: "Nothing Can Separate Us" },
+            { day: 26, ref: "1 Corinthians 13:1-13", title: "The Way of Love" },
+            { day: 27, ref: "Galatians 5:16-26", title: "The Fruit of the Spirit" },
+            { day: 28, ref: "Ephesians 2:1-10", title: "Saved by Grace" },
+            { day: 29, ref: "Philippians 4:4-13", title: "Rejoice in the Lord" },
+            { day: 30, ref: "Revelation 21:1-8", title: "A New Heaven and Earth" }
+        ];
+    }
+
+    if (planId === 3) {
+        // 90-Day New Testament — all 90 days across 27 NT books
+        const ntBooks = [
+            { name: "Matthew", chapters: 28 },
+            { name: "Mark", chapters: 16 },
+            { name: "Luke", chapters: 24 },
+            { name: "John", chapters: 21 },
+            { name: "Acts", chapters: 28 },
+            { name: "Romans", chapters: 16 },
+            { name: "1 Corinthians", chapters: 16 },
+            { name: "2 Corinthians", chapters: 13 },
+            { name: "Galatians", chapters: 6 },
+            { name: "Ephesians", chapters: 6 },
+            { name: "Philippians", chapters: 4 },
+            { name: "Colossians", chapters: 4 },
+            { name: "1 Thessalonians", chapters: 5 },
+            { name: "2 Thessalonians", chapters: 3 },
+            { name: "1 Timothy", chapters: 6 },
+            { name: "2 Timothy", chapters: 4 },
+            { name: "Titus", chapters: 3 },
+            { name: "Philemon", chapters: 1 },
+            { name: "Hebrews", chapters: 13 },
+            { name: "James", chapters: 5 },
+            { name: "1 Peter", chapters: 5 },
+            { name: "2 Peter", chapters: 3 },
+            { name: "1 John", chapters: 5 },
+            { name: "2 John", chapters: 1 },
+            { name: "3 John", chapters: 1 },
+            { name: "Jude", chapters: 1 },
+            { name: "Revelation", chapters: 22 }
+        ];
+        const totalChapters = ntBooks.reduce((s, b) => s + b.chapters, 0); // 260
+        const perDay = Math.ceil(totalChapters / 90); // ~3 chapters/day
+        const readings = [];
+        let chapterIdx = 0;
+        let dayCounter = 1;
+        // Flatten to a list of {book, chapter}
+        const flatChapters = [];
+        ntBooks.forEach(b => {
+            for (let c = 1; c <= b.chapters; c++) flatChapters.push({ book: b.name, chapter: c });
+        });
+        // Group by perDay
+        while (chapterIdx < flatChapters.length && dayCounter <= 90) {
+            const group = flatChapters.slice(chapterIdx, chapterIdx + perDay);
+            chapterIdx += perDay;
+            if (group.length === 0) break;
+            const startBook = group[0].book;
+            const endBook = group[group.length - 1].book;
+            let ref, title;
+            if (startBook === endBook) {
+                if (group.length === 1) {
+                    ref = `${startBook} ${group[0].chapter}`;
+                    title = `${startBook} ${group[0].chapter}`;
+                } else {
+                    ref = `${startBook} ${group[0].chapter}-${group[group.length-1].chapter}`;
+                    title = `${startBook} — Chapters ${group[0].chapter}-${group[group.length-1].chapter}`;
+                }
+            } else {
+                ref = `${startBook} ${group[0].chapter} – ${endBook} ${group[group.length-1].chapter}`;
+                title = `${startBook} to ${endBook}`;
+            }
+            readings.push({ day: dayCounter, ref, title });
+            dayCounter++;
+        }
+        return readings;
+    }
+
+    if (planId === 4) {
+        // 365-Day Bible in a Year — all 66 books
+        const allBooks = [
+            { name: "Genesis", chapters: 50 },
+            { name: "Exodus", chapters: 40 },
+            { name: "Leviticus", chapters: 27 },
+            { name: "Numbers", chapters: 36 },
+            { name: "Deuteronomy", chapters: 34 },
+            { name: "Joshua", chapters: 24 },
+            { name: "Judges", chapters: 21 },
+            { name: "Ruth", chapters: 4 },
+            { name: "1 Samuel", chapters: 31 },
+            { name: "2 Samuel", chapters: 24 },
+            { name: "1 Kings", chapters: 22 },
+            { name: "2 Kings", chapters: 25 },
+            { name: "1 Chronicles", chapters: 29 },
+            { name: "2 Chronicles", chapters: 36 },
+            { name: "Ezra", chapters: 10 },
+            { name: "Nehemiah", chapters: 13 },
+            { name: "Esther", chapters: 10 },
+            { name: "Job", chapters: 42 },
+            { name: "Psalms", chapters: 150 },
+            { name: "Proverbs", chapters: 31 },
+            { name: "Ecclesiastes", chapters: 12 },
+            { name: "Song of Solomon", chapters: 8 },
+            { name: "Isaiah", chapters: 66 },
+            { name: "Jeremiah", chapters: 52 },
+            { name: "Lamentations", chapters: 5 },
+            { name: "Ezekiel", chapters: 48 },
+            { name: "Daniel", chapters: 12 },
+            { name: "Hosea", chapters: 14 },
+            { name: "Joel", chapters: 3 },
+            { name: "Amos", chapters: 9 },
+            { name: "Obadiah", chapters: 1 },
+            { name: "Jonah", chapters: 4 },
+            { name: "Micah", chapters: 7 },
+            { name: "Nahum", chapters: 3 },
+            { name: "Habakkuk", chapters: 3 },
+            { name: "Zephaniah", chapters: 3 },
+            { name: "Haggai", chapters: 2 },
+            { name: "Zechariah", chapters: 14 },
+            { name: "Malachi", chapters: 4 },
+            { name: "Matthew", chapters: 28 },
+            { name: "Mark", chapters: 16 },
+            { name: "Luke", chapters: 24 },
+            { name: "John", chapters: 21 },
+            { name: "Acts", chapters: 28 },
+            { name: "Romans", chapters: 16 },
+            { name: "1 Corinthians", chapters: 16 },
+            { name: "2 Corinthians", chapters: 13 },
+            { name: "Galatians", chapters: 6 },
+            { name: "Ephesians", chapters: 6 },
+            { name: "Philippians", chapters: 4 },
+            { name: "Colossians", chapters: 4 },
+            { name: "1 Thessalonians", chapters: 5 },
+            { name: "2 Thessalonians", chapters: 3 },
+            { name: "1 Timothy", chapters: 6 },
+            { name: "2 Timothy", chapters: 4 },
+            { name: "Titus", chapters: 3 },
+            { name: "Philemon", chapters: 1 },
+            { name: "Hebrews", chapters: 13 },
+            { name: "James", chapters: 5 },
+            { name: "1 Peter", chapters: 5 },
+            { name: "2 Peter", chapters: 3 },
+            { name: "1 John", chapters: 5 },
+            { name: "2 John", chapters: 1 },
+            { name: "3 John", chapters: 1 },
+            { name: "Jude", chapters: 1 },
+            { name: "Revelation", chapters: 22 }
+        ];
+        const totalChapters = allBooks.reduce((s, b) => s + b.chapters, 0); // 1189
+        const perDay = Math.ceil(totalChapters / 365); // ~4 chapters/day
+        // Flatten
+        const flatChapters = [];
+        allBooks.forEach(b => {
+            for (let c = 1; c <= b.chapters; c++) flatChapters.push({ book: b.name, chapter: c });
+        });
+        const readings = [];
+        let idx = 0, dayCounter = 1;
+        while (idx < flatChapters.length && dayCounter <= 365) {
+            const group = flatChapters.slice(idx, idx + perDay);
+            idx += perDay;
+            if (group.length === 0) break;
+            const startBook = group[0].book;
+            const endBook = group[group.length - 1].book;
+            let ref, title;
+            if (startBook === endBook) {
+                if (group.length === 1) {
+                    ref = `${startBook} ${group[0].chapter}`;
+                    title = `${startBook} ${group[0].chapter}`;
+                } else {
+                    ref = `${startBook} ${group[0].chapter}-${group[group.length-1].chapter}`;
+                    title = `${startBook} — Chapters ${group[0].chapter}-${group[group.length-1].chapter}`;
+                }
+            } else {
+                ref = `${startBook} ${group[0].chapter} – ${endBook} ${group[group.length-1].chapter}`;
+                title = `${startBook} to ${endBook}`;
+            }
+            readings.push({ day: dayCounter, ref, title });
+            dayCounter++;
+        }
+        return readings;
+    }
+
+    return [];
 }
 
 let devotionals = [];
@@ -2106,7 +2334,7 @@ function buildCategories() {
 }
 
 /* ===================================================== */
-/*  RENDER HOME                                          */
+/*  RENDER HOME — with 3 DISTINCT sections               */
 /* ===================================================== */
 function renderHome() {
     const today = getLocalDate();
@@ -2183,14 +2411,14 @@ function renderHome() {
         `;
     }
 
-    // ============ 3. FEATURE BLOCK — WHY DAILY DEVOTION ============
+    // ============ 3. FEATURE BLOCK #1 — WHY READ (BENEFITS) ============
     html += `
         <section class="feature-block" style="background-image:url('${MINISTRY_PHOTOS.bibleDesk}');">
             <div class="feature-block-inner">
                 <h2>Why read a daily devotional?</h2>
-                <p>A daily devotional is a brief, inspiring reflection designed to strengthen your faith and draw you closer to God. It typically consists of a Bible passage, an insightful teaching, and a moment for personal prayer and contemplation.</p>
-                <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);">Incorporating a daily devotional into your routine offers a wealth of benefits. It promotes spiritual growth, keeps you grounded, and cultivates an attitude of gratitude.</p>
-                <a class="link" onclick="gotoPage('devotions')" style="color:#fff;">Learn More <span class="red-dot">→</span></a>
+                <p>Reading a daily devotional builds spiritual discipline, deepens your understanding of Scripture, and keeps your mind focused on Christ throughout the day.</p>
+                <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);">Studies of spiritual formation consistently show that consistent daily engagement with God's Word produces measurable growth in faith, patience, gratitude, and inner peace. A devotional gives you structure, a starting point, and a daily invitation to meet with God.</p>
+                <a class="link" onclick="gotoPage('devotions')" style="color:#fff;">Start Your First Devotion <span class="red-dot">→</span></a>
             </div>
         </section>
     `;
@@ -2250,25 +2478,25 @@ function renderHome() {
         </section>
     `;
 
-    // ============ 6. TEXT BLOCK ============
+    // ============ 6. TEXT BLOCK — WHAT IS (DEFINITION) ============
     html += `
         <section class="text-block">
             <div class="text-block-inner">
                 <h2>What Is a <span class="accent">Daily Devotional?</span></h2>
-                <p>A daily devotional is a brief, inspiring reflection designed to strengthen your faith and draw you closer to God. It typically consists of a Bible passage, an insightful teaching, and a moment for personal prayer and contemplation. By engaging with a daily devotional, you are reminded of what is truly important in life and encouraged to maintain a strong connection with God.</p>
-                <p>Incorporating a daily devotional into your routine offers a wealth of benefits. For example, it promotes spiritual growth by enriching your understanding of the Bible and applying its teachings to your daily life. Moreover, engaging with a daily devotional can help you stay grounded, maintain perspective, and cultivate an attitude of gratitude.</p>
+                <p>A daily devotional is a short, structured reading — usually one to two pages — that includes a Scripture passage, a brief teaching or reflection, and a closing prayer. It is designed to be read in a single sitting, typically in the morning or evening, and to take no more than 10–15 minutes.</p>
+                <p>The word "devotional" comes from "devotion," meaning a dedicated time set apart for God. Unlike a full Bible study, a devotional is not meant to be exhaustive. Its purpose is to anchor your day in Scripture, prompt personal reflection, and give you a specific truth or action to carry with you. Many Christians use a devotional alongside their regular Bible reading as a complementary practice.</p>
             </div>
         </section>
     `;
 
-    // ============ 7. FEATURE BLOCK — DAILY DEVOTIONALS BY LIVING ORACLES ============
+    // ============ 7. FEATURE BLOCK #2 — BY LIVING ORACLES (OUR MINISTRY) + NEW IMAGE ============
     html += `
-        <section class="feature-block" style="background-image:url('${MINISTRY_PHOTOS.prayingBible}');">
+        <section class="feature-block" style="background-image:url('${MINISTRY_PHOTOS.openStudyBible}');">
             <div class="feature-block-inner">
                 <h2>Daily Devotionals by Living Oracles</h2>
-                <p>We warmly invite you to set aside a few minutes each day for quiet contemplation and prayer. This practice serves as an unwavering reminder of God's love, grace, and presence in your life.</p>
-                <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);">Through these daily devotionals, you are offered the opportunity to equip your faith, receive guidance from the Holy Spirit, and find peace in the midst of life's challenges. Embrace this transformative practice today.</p>
-                <a class="link" onclick="subscribeEmail()" style="color:#fff;">Subscribe Now <span class="red-dot">→</span></a>
+                <p>Every devotional on this platform is prepared by the faculty and ministry team of Living Oracles Global Institute — written to be theologically sound, pastorally warm, and practically useful.</p>
+                <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);">Our devotionals are shaped by the S.O.A.P. method, tied to structured Reading Plans, and connected to the Bible reader so you can move from reflection to the Word in a single tap. Subscribe to receive each day's devotion by email, or return here daily.</p>
+                <a class="link" onclick="subscribeEmail()" style="color:#fff;">Subscribe to Daily Devotionals <span class="red-dot">→</span></a>
             </div>
         </section>
     `;
@@ -2714,18 +2942,16 @@ function showPlansPage() {
 }
 
 /* ===================================================== */
-/*  READING PLANS — FIXED                                */
+/*  READING PLANS — Full days for all plans              */
 /* ===================================================== */
 function startPlan(id) {
     const p = plans.find(x => x.id === id);
     if (!p) return;
 
-    // If plan has never been started, mark day 1
     if (!p.progress) {
         p.progress = 1;
         savePlanProgress();
     }
-    // Open the plan detail page
     showPlanDetail(id);
 }
 
@@ -2733,79 +2959,10 @@ function showPlanDetail(id) {
     const plan = plans.find(x => x.id === id);
     if (!plan) return;
 
-    // Define reading content for each plan
-    const PLAN_READINGS = {
-        1: { // 7-Day Prayer Plan
-            readings: [
-                { day: 1, ref: "Matthew 6:5-15", title: "The Model Prayer" },
-                { day: 2, ref: "Luke 18:1-8", title: "Pray and Don't Give Up" },
-                { day: 3, ref: "James 5:13-18", title: "The Prayer of Faith" },
-                { day: 4, ref: "Philippians 4:6-7", title: "Prayer That Brings Peace" },
-                { day: 5, ref: "1 Thessalonians 5:16-18", title: "Pray Without Ceasing" },
-                { day: 6, ref: "Ephesians 6:18-20", title: "Praying in the Spirit" },
-                { day: 7, ref: "John 17:1-26", title: "Jesus Prays for Us" }
-            ]
-        },
-        2: { // 30-Day Bible Journey
-            readings: [
-                { day: 1, ref: "Genesis 1:1-31", title: "In the Beginning" },
-                { day: 2, ref: "Genesis 12:1-9", title: "The Call of Abraham" },
-                { day: 3, ref: "Exodus 3:1-15", title: "The Burning Bush" },
-                { day: 4, ref: "Exodus 20:1-17", title: "The Ten Commandments" },
-                { day: 5, ref: "Deuteronomy 6:1-9", title: "Love the Lord Your God" },
-                { day: 6, ref: "Joshua 1:1-9", title: "Be Strong and Courageous" },
-                { day: 7, ref: "Psalm 23:1-6", title: "The Lord Is My Shepherd" },
-                { day: 8, ref: "Psalm 51:1-19", title: "A Prayer of Repentance" },
-                { day: 9, ref: "Proverbs 3:1-12", title: "Trust in the Lord" },
-                { day: 10, ref: "Isaiah 6:1-8", title: "Isaiah's Vision" },
-                { day: 11, ref: "Isaiah 53:1-12", title: "The Suffering Servant" },
-                { day: 12, ref: "Jeremiah 29:11-13", title: "Plans for Your Future" },
-                { day: 13, ref: "Ezekiel 36:22-28", title: "A New Heart" },
-                { day: 14, ref: "Daniel 3:1-30", title: "The Fiery Furnace" },
-                { day: 15, ref: "Jonah 1:1-17", title: "The Reluctant Prophet" },
-                { day: 16, ref: "Micah 6:1-8", title: "What the Lord Requires" },
-                { day: 17, ref: "Matthew 5:1-16", title: "The Beatitudes" },
-                { day: 18, ref: "Matthew 11:25-30", title: "Come to Me and Rest" },
-                { day: 19, ref: "Mark 10:35-45", title: "The Servant Leader" },
-                { day: 20, ref: "Luke 15:11-32", title: "The Prodigal Son" },
-                { day: 21, ref: "John 1:1-18", title: "The Word Became Flesh" },
-                { day: 22, ref: "John 3:1-21", title: "Born Again" },
-                { day: 23, ref: "John 14:1-14", title: "The Way, Truth, Life" },
-                { day: 24, ref: "Acts 2:1-21", title: "The Day of Pentecost" },
-                { day: 25, ref: "Romans 8:28-39", title: "Nothing Can Separate Us" },
-                { day: 26, ref: "1 Corinthians 13:1-13", title: "The Way of Love" },
-                { day: 27, ref: "Galatians 5:16-26", title: "The Fruit of the Spirit" },
-                { day: 28, ref: "Ephesians 2:1-10", title: "Saved by Grace" },
-                { day: 29, ref: "Philippians 4:4-13", title: "Rejoice in the Lord" },
-                { day: 30, ref: "Revelation 21:1-8", title: "A New Heaven and Earth" }
-            ]
-        },
-        3: { // 90-Day New Testament
-            readings: [
-                { day: 1, ref: "Matthew 1-2", title: "The Birth of Jesus" },
-                { day: 2, ref: "Matthew 3-4", title: "Baptism and Temptation" },
-                { day: 3, ref: "Matthew 5-7", title: "The Sermon on the Mount" },
-                { day: 4, ref: "Matthew 8-9", title: "Miracles of Jesus" },
-                { day: 5, ref: "Matthew 10-12", title: "The Twelve Apostles" }
-            ]
-        },
-        4: { // 365-Day Bible in a Year
-            readings: [
-                { day: 1, ref: "Genesis 1-2", title: "Creation" },
-                { day: 2, ref: "Genesis 3-4", title: "The Fall" },
-                { day: 3, ref: "Genesis 5-7", title: "Noah and the Flood" },
-                { day: 4, ref: "Genesis 8-10", title: "A New Beginning" },
-                { day: 5, ref: "Genesis 11-13", title: "The Tower of Babel" }
-            ]
-        }
-    };
-
-    const planData = PLAN_READINGS[id] || { readings: [] };
-    const readings = planData.readings;
+    const readings = getPlanReadings(id);
     const totalDays = plan.days;
     const currentProgress = plan.progress || 0;
 
-    // Build the readings list
     let readingsHtml = '';
     if (readings.length === 0) {
         readingsHtml = `<p style="color:#78716c;padding:2rem 0;">Daily readings for this plan are being prepared. Check back soon.</p>`;
@@ -2841,7 +2998,7 @@ function showPlanDetail(id) {
                     <div class="section-head-left">
                         <span class="section-eyebrow">Reading Plan</span>
                         <h2 class="section-title">${plan.icon} ${escapeHtml(plan.name)}</h2>
-                        <p class="section-subtitle">${escapeHtml(plan.description)}</p>
+                        <p class="section-subtitle">${escapeHtml(plan.description)} · ${readings.length} readings available</p>
                     </div>
                 </div>
 
@@ -2879,7 +3036,6 @@ function showPlanDetail(id) {
 }
 
 function openPlanReading(planId, day, ref) {
-    // Navigate to Bible reader with the reference
     openBiblePassage(ref);
 }
 
