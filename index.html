@@ -422,6 +422,63 @@
         }
 
         /* ========================================== */
+/*   HEADER LOGO                              */
+/* ========================================== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 40px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.logo .logo-text {
+  color: #1a1a2e;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.logo .logo-text span {
+  display: block;
+  font-weight: 300;
+  font-size: 0.45rem;
+  opacity: 0.6;
+  letter-spacing: 1.5px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .logo img {
+    width: 32px;
+  }
+  .logo .logo-text {
+    font-size: 0.65rem;
+  }
+  .logo .logo-text span {
+    font-size: 0.4rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .logo img {
+    width: 28px;
+  }
+  .logo .logo-text {
+    font-size: 0.55rem;
+  }
+  .logo .logo-text span {
+    font-size: 0.35rem;
+  }
+}
+
+        /* ========================================== */
         /*   HERO                                    */
         /* ========================================== */
         .hero-section {
