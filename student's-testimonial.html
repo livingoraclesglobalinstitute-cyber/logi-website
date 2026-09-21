@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Reviews - Living Oracles Global Institute</title>
+
+  <!-- Meta -->
+  <meta name="description" content="Hear from Living Oracles Global Institute graduates across Business, Engineering, and Ministry programs.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="apple-touch-icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <style>
+    /* ========================================== */
+    /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+    /* ========================================== */
+    .top-bar {
+      background: #1a1a2e;
+      color: #ffffff;
+      padding: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      flex-wrap: wrap;
+      gap: 6px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .top-bar::before,
+    .top-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 50px;
+      background: linear-gradient(180deg,
+        #c9a86c 0%, #c9a86c 20%,
+        #8B5353 20%, #8B5353 40%,
+        #1a7a3a 40%, #1a7a3a 60%,
+        #c9a86c 60%, #c9a86c 80%,
+        #8B5353 80%, #8B5353 100%
+      );
+      opacity: 0.5;
+    }
+    .top-bar::before { left: 0; border-radius: 0 4px 4px 0; }
+    .top-bar::after  { right: 0; border-radius: 4px 0 0 4px; }
+
+    .top-bar .contact-info {
+      display: flex; align-items: center; gap: 18px;
+      flex-wrap: wrap; padding: 0 60px;
+      position: relative; z-index: 1;
+    }
+    .top-bar .contact-info a,
+    .top-bar .contact-info span {
+      color: #d4d0c8; text-decoration: none; font-size: 0.7rem;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color 0.3s;
+    }
+    .top-bar .contact-info a:hover { color: #c9a86c; }
+    .top-bar .contact-info i { font-size: 0.65rem; color: #c9a86c; }
+
+    .top-bar .social-icons {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 60px; position: relative; z-index: 1;
+    }
+    .top-bar .social-icons a {
+      color: #8a8680; text-decoration: none; font-size: 0.8rem;
+      transition: color 0.3s;
+    }
+    .top-bar .social-icons a:hover { color: #c9a86c; }
+
+    @media (max-width: 768px) {
+      .top-bar { flex-direction: column; align-items: flex-start; padding: 4px 0; }
+      .top-bar::before, .top-bar::after { width: 25px; }
+      .top-bar .contact-info { padding: 0 35px; gap: 8px; }
+      .top-bar .social-icons { padding: 0 35px; }
+      .top-bar .contact-info a,
+      .top-bar .contact-info span { font-size: 0.6rem; }
+    }
+    @media (max-width: 480px) {
+      .top-bar::before, .top-bar::after { width: 18px; }
+      .top-bar .contact-info { padding: 0 25px; gap: 6px; font-size: 0.55rem; }
+      .top-bar .social-icons { padding: 0 25px; gap: 8px; }
+      .top-bar .social-icons a { font-size: 0.65rem; }
+    }
+
+    /* ========================================== */
+    /*   HEADER - FIXED FULL WIDTH WHITE         */
+    /* ========================================== */
+    .main-header {
+      background: #ffffff;
+      padding: 8px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      position: fixed; top: 38px; left: 0; width: 100%;
+      z-index: 9998;
+      border-bottom: 1px solid #e8e3dc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { width: 40px; height: auto; object-fit: contain; display: block; }
+    .logo .logo-text {
+      color: #1a1a2e; font-size: 0.8rem; font-weight: 700; line-height: 1.2;
+    }
+    .logo .logo-text span {
+      display: block; font-weight: 300; font-size: 0.45rem;
+      opacity: 0.6; letter-spacing: 1.5px;
+    }
+    @media (max-width: 768px) {
+      .main-header { top: 34px; padding: 6px 4%; }
+      .logo img { width: 32px; }
+      .logo .logo-text { font-size: 0.65rem; }
+      .logo .logo-text span { font-size: 0.4rem; }
+    }
+    @media (max-width: 480px) {
+      .main-header { top: 30px; padding: 4px 3%; }
+      .logo img { width: 28px; }
+      .logo .logo-text { font-size: 0.55rem; }
+      .logo .logo-text span { font-size: 0.35rem; }
+    }
+
+    /* ========================================== */
+    /*   MOBILE HAMBURGER MENU BUTTON             */
+    /* ========================================== */
+    .menu-btn {
+      display: none; align-items: center; gap: 6px;
+      color: #1a1a2e; font-size: 13px; padding: 5px 10px;
+      border-radius: 30px; background: rgba(26,26,46,0.06);
+      border: 1px solid rgba(26,26,46,0.1);
+      cursor: pointer; transition: all 0.3s ease; z-index: 1001;
+    }
+    .menu-btn:hover { background: rgba(26,26,46,0.12); }
+    .menu-btn i { font-size: 16px; }
+
+    /* ========================================== */
+    /*   DESKTOP NAVIGATION - DARK TEXT          */
+    /* ========================================== */
+    .navigation-menu-bar {
+      background: transparent !important; box-shadow: none !important;
+      padding: 0 !important; position: static !important;
+      width: auto !important; height: auto !important;
+      display: block !important; overflow: visible !important;
+    }
+    .navigation-menu-bar ul {
+      display: flex !important; flex-direction: row !important;
+      align-items: center !important; list-style: none !important;
+      gap: 0.2rem !important; margin: 0 !important; padding: 0 !important;
+      flex-wrap: wrap !important; justify-content: flex-end !important;
+    }
+    .navigation-menu-bar ul li { position: relative; }
+    .navigation-menu-bar ul li a {
+      color: #1a1a2e !important; text-decoration: none; font-weight: 500;
+      font-size: 0.75rem; transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 4px; white-space: nowrap;
+    }
+    .navigation-menu-bar ul li a:hover {
+      color: #8B5353 !important; background: rgba(139,83,83,0.06);
+    }
+    .navigation-menu-bar ul li .submenu {
+      display: none !important; position: absolute; top: 100%; left: 0;
+      background: #fff; border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      padding: 0.4rem 0; margin-top: 6px; z-index: 1100;
+      animation: fadeInDropdown 0.25s ease;
+      flex-direction: column !important; align-items: stretch !important;
+      gap: 0px !important; min-width: 200px; width: max-content !important;
+    }
+    .navigation-menu-bar ul li.desktop-dropdown-open .submenu { display: flex !important; }
+    .navigation-menu-bar ul li .submenu li { width: 100%; }
+    .navigation-menu-bar ul li .submenu li a {
+      color: #1e3c4f !important; font-size: 0.78rem;
+      padding: 8px 16px; width: 100%; border-radius: 0;
+      font-weight: 500; display: block !important;
+      white-space: nowrap !important; text-shadow: none !important;
+    }
+    .navigation-menu-bar ul li .submenu li a:hover {
+      background: rgba(139,83,83,0.08) !important; color: #8B5353 !important;
+    }
+    .navigation-menu-bar ul li.has-submenu > a .menu-chevron-icon {
+      font-size: 0.5rem; transition: transform 0.25s ease;
+    }
+    .navigation-menu-bar ul li.desktop-dropdown-open > a .menu-chevron-icon {
+      transform: rotate(180deg);
+    }
+    @keyframes fadeInDropdown {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================================== */
+    /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
+    /* ========================================== */
+    @media (max-width: 768px) {
+      .menu-btn { display: flex !important; }
+      .navigation-menu-bar {
+        position: fixed !important;
+        top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+        width: 100% !important; max-width: 100% !important;
+        height: 100vh !important; max-height: 100vh !important; min-height: 100vh !important;
+        overflow-y: auto !important; background: #fff !important;
+        display: block !important; flex-direction: column !important;
+        justify-content: flex-start !important; align-items: stretch !important;
+        transition: transform 0.35s cubic-bezier(0.25,1,0.5,1) !important;
+        z-index: 10000 !important;
+        padding: 70px 1.2rem 1.5rem 1.2rem !important;
+        box-shadow: none !important;
+        transform: translateX(100%) !important;
+        opacity: 0 !important; pointer-events: none !important;
+      }
+      .navigation-menu-bar.mobile-open {
+        transform: translateX(0) !important;
+        opacity: 1 !important; pointer-events: auto !important;
+      }
+      .navigation-menu-bar ul {
+        display: flex !important; flex-direction: column !important;
+        align-items: stretch !important; gap: 0 !important;
+        width: 100% !important; padding: 0 !important;
+        margin: 0 !important; flex: 1 !important;
+      }
+      .navigation-menu-bar ul li {
+        border-bottom: 1px solid #f0ede6 !important;
+        list-style: none !important;
+      }
+      .navigation-menu-bar ul li a {
+        color: #1a1a2e !important; font-weight: 500 !important;
+        padding: 0.7rem 0.5rem !important;
+        justify-content: flex-start !important; border-radius: 0 !important;
+        white-space: normal !important; text-shadow: none !important;
+        border-bottom: none !important; background: transparent !important;
+        display: flex !important; align-items: center !important;
+        gap: 10px !important; font-size: 0.95rem !important;
+      }
+      .navigation-menu-bar ul li a i {
+        font-size: 1.1rem !important; color: #c9a86c !important;
+        width: 24px !important; text-align: center !important;
+      }
+      .navigation-menu-bar ul li a:hover {
+        background: rgba(139,83,83,0.06) !important; color: #8B5353 !important;
+      }
+      .navigation-menu-bar ul li.has-submenu > a {
+        justify-content: space-between !important;
+      }
+      .navigation-menu-bar ul li.has-submenu > a .menu-chevron-icon {
+        color: #8B5353 !important; font-size: 0.65rem !important;
+        margin-left: auto !important;
+      }
+      .navigation-menu-bar ul li .submenu {
+        position: static !important; transform: none !important;
+        background: #f8f6f2 !important; border-radius: 0 !important;
+        display: none !important; flex-direction: column !important;
+        gap: 0 !important; padding: 0 !important; margin: 0 !important;
+        border-left: 3px solid #c9a86c !important;
+        width: 100% !important; box-shadow: none !important;
+        min-width: auto !important; animation: none !important;
+      }
+      .navigation-menu-bar ul li.mobile-dropdown-open .submenu { display: flex !important; }
+      .navigation-menu-bar ul li .submenu li { border-bottom: none !important; }
+      .navigation-menu-bar ul li .submenu li a {
+        color: #1a1a2e !important; font-weight: 400 !important;
+        padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+        border-bottom: none !important; background: transparent !important;
+        justify-content: flex-start !important; gap: 10px !important;
+        font-size: 0.85rem !important;
+      }
+      .navigation-menu-bar ul li .submenu li a i {
+        font-size: 0.85rem !important; color: #c9a86c !important;
+        width: 20px !important; text-align: center !important;
+      }
+      .navigation-menu-bar ul li .submenu li a:hover {
+        background: rgba(139,83,83,0.08) !important; color: #8B5353 !important;
+      }
+      .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
+        border-left: 3px solid #8B5353 !important; margin-left: 1rem !important;
+      }
+      .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
+        padding-left: 3rem !important;
+      }
+      .navigation-menu-bar .mobile-menu-footer {
+        margin-top: auto !important; padding-top: 1rem !important;
+        padding-bottom: 0.5rem !important;
+        border-top: 1px solid #f0ede6 !important;
+        display: flex !important; justify-content: center !important;
+        gap: 1.2rem !important; flex-shrink: 0 !important;
+      }
+      .navigation-menu-bar .mobile-menu-footer a {
+        color: #8a8680 !important; font-size: 1.1rem !important;
+        transition: color 0.25s ease !important; text-decoration: none !important;
+      }
+      .navigation-menu-bar .mobile-menu-footer a:hover { color: #c9a86c !important; }
+    }
+    @media (max-width: 480px) {
+      .navigation-menu-bar { padding: 60px 1rem 1.5rem 1rem !important; }
+      .navigation-menu-bar ul li a { font-size: 0.85rem !important; padding: 0.6rem 0.4rem !important; }
+      .navigation-menu-bar ul li .submenu li a {
+        font-size: 0.78rem !important;
+        padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
+      }
+    }
+
+    /* ========================================== */
+    /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
+    /* ========================================== */
+    .institutional-footer {
+      background: #1a1a2e; color: #d4d0c8;
+      padding: 2.5rem 5% 1.2rem; margin-top: 0;
+      border-top: none; font-size: 0.85rem; width: 100%;
+    }
+    .footer-grid-container {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1.5rem;
+    }
+    .footer-column h2 {
+      color: #ffffff !important; font-size: 0.8rem !important;
+      margin-bottom: 0.6rem !important; font-weight: 700 !important;
+      text-transform: uppercase !important; letter-spacing: 0.08em !important;
+    }
+    .footer-column p, .footer-column address {
+      color: #b0aca4; font-size: 0.82rem; line-height: 1.7;
+      font-style: normal; margin-bottom: 4px;
+    }
+    .footer-column a {
+      color: #b0aca4 !important; text-decoration: none !important;
+      font-size: 0.82rem !important; transition: color 0.25s ease !important;
+      display: inline-block;
+    }
+    .footer-column a:hover { color: #ffffff !important; }
+    .footer-column ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+    .footer-column ul li { margin-bottom: 0.2rem !important; list-style: none !important; }
+    .footer-column ul li a {
+      color: #b0aca4 !important; text-decoration: none !important;
+      font-size: 0.82rem !important; transition: color 0.25s ease !important;
+    }
+    .footer-column ul li a:hover { color: #ffffff !important; }
+    .footer-column .footer-address-line {
+      display: flex; align-items: flex-start; gap: 10px; margin-bottom: 4px;
+    }
+    .footer-column .footer-address-line i {
+      color: #c9a86c; font-size: 0.75rem; margin-top: 4px; width: 16px;
+    }
+    .footer-column .footer-address-line span {
+      color: #b0aca4; font-size: 0.82rem; line-height: 1.6;
+    }
+    .footer-bottom-bar {
+      max-width: 1200px; margin: 1.2rem auto 0; padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.6rem;
+    }
+    .footer-copyright { font-size: 0.7rem; font-weight: 400; color: #8a8680; }
+    .footer-subscription-container h3 {
+      color: #fff; font-size: 0.8rem; text-transform: uppercase;
+      font-weight: 800; letter-spacing: 0.05em; margin-bottom: 0.2rem;
+    }
+    .footer-subscription-container p {
+      color: rgba(255,255,255,0.8); font-size: 0.75rem; margin-bottom: 0.2rem;
+    }
+    .subscription-form { display: flex; gap: 4px; width: 100%; flex-wrap: wrap; }
+    .subscription-form input[type="email"] {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px; padding: 5px 8px; color: #fff;
+      font-size: 0.75rem; flex-grow: 1; outline: none;
+      transition: border-color 0.3s; min-width: 100px;
+    }
+    .subscription-form input[type="email"]::placeholder { color: rgba(255,255,255,0.7); }
+    .subscription-form input[type="email"]:focus { border-color: #fff; }
+    .subscription-form button {
+      background: #fff; color: #8B5353; border: none;
+      font-weight: 700; padding: 5px 12px; border-radius: 4px;
+      cursor: pointer; transition: all 0.3s ease;
+      text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.05em;
+    }
+    .subscription-form button:hover {
+      background: rgba(255,255,255,0.9); transform: translateY(-1px);
+    }
+    @media (max-width: 900px) {
+      .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+      .institutional-footer { font-size: 0.75rem; }
+      .footer-column h2 { font-size: 0.7rem !important; }
+      .footer-column p, .footer-column address, .footer-column a,
+      .footer-column ul li a, .footer-column .footer-address-line span {
+        font-size: 0.72rem !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+      .institutional-footer { font-size: 0.7rem; padding: 1.5rem 4% 1rem; }
+      .footer-column h2 { font-size: 0.6rem !important; }
+      .footer-column p, .footer-column address, .footer-column a,
+      .footer-column ul li a, .footer-column .footer-address-line span {
+        font-size: 0.65rem !important;
+      }
+    }
+
+    /* ========================================== */
+    /*   FLOATING CHAT                            */
+    /* ========================================== */
+    .floating-chat-container {
+      position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+    }
+    .floating-chat-link {
+      display: flex; align-items: center; gap: 8px;
+      background: #25d366; color: #fff; text-decoration: none;
+      padding: 10px 16px; border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      font-weight: 700; font-size: 0.85rem; transition: all 0.3s ease;
+    }
+    .floating-chat-link:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      background: #20ba5a;
+    }
+    .floating-chat-link i { font-size: 1.1rem; }
+    @media (max-width: 480px) {
+      .floating-chat-link { padding: 8px 12px; font-size: 0.7rem; }
+      .floating-chat-link span { display: none; }
+      .floating-chat-link i { font-size: 1.3rem; }
+    }
+
+    /* ========================================== */
+    /*          GLOBAL THEME ROOT RESETS          */
+    /* ========================================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      overflow-x: hidden !important;
+      width: 100% !important;
+    }
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff; color: #1f2937; line-height: 1.5;
+      padding-top: 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+    @media (max-width: 768px) { body { padding-top: 70px; } }
+    @media (max-width: 480px) { body { padding-top: 60px; } }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+    /* ========================================== */
+    /*   PAGE VARIABLES                           */
+    /* ========================================== */
+    :root {
+      --brand-pink: #f43f5e;
+      --brand-pink-hover: #e11d48;
+      --brand-yellow: #fbbf24;
+      --brand-blue: #3b82f6;
+      --text-dark: #1f2937;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --container-max: 1200px;
+      --font: 'Inter', sans-serif;
+      --transition: all 0.3s ease;
+    }
+
+    /* HERO */
+    .reviews-hero {
+      background: linear-gradient(135deg, #fdfbf7 0%, #fff7ed 100%);
+      padding: 3rem 0 5rem; position: relative; overflow: hidden;
+    }
+    .reviews-hero .container {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 3rem; position: relative; z-index: 2;
+    }
+    .hero-image-wrapper {
+      position: relative; flex: 1; display: flex;
+      justify-content: center; align-items: center; order: 1;
+    }
+    .hero-text { flex: 1; max-width: 550px; order: 2; }
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+      line-height: 1.1; margin-bottom: 1.5rem; color: #111827;
+    }
+    .hero-text h1 .highlight { color: var(--brand-pink); display: block; }
+    .hero-text p {
+      font-size: 1.1rem; color: var(--text-muted);
+      margin-bottom: 2rem; line-height: 1.6;
+    }
+    .btn-pink {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--brand-pink); color: #fff;
+      padding: 0.8rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; border: none;
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn-pink:hover {
+      background: var(--brand-pink-hover); transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(244,63,94,0.3);
+    }
+    .hero-image-wrapper img {
+      position: relative; z-index: 3; width: 350px; height: 350px;
+      object-fit: cover; border-radius: 50%; border: 8px solid #fff;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    .shape-yellow {
+      position: absolute; width: 280px; height: 280px;
+      background: var(--brand-yellow); border-radius: 50%;
+      top: -5%; left: 5%; z-index: 1; opacity: 0.9;
+    }
+    .shape-pink {
+      position: absolute; width: 220px; height: 220px;
+      background: var(--brand-pink); border-radius: 50%;
+      bottom: -10%; right: 5%; z-index: 1; opacity: 0.8;
+    }
+    .shape-blue {
+      position: absolute; width: 160px; height: 160px;
+      background: var(--brand-blue); border-radius: 50%;
+      bottom: 0%; left: -5%; z-index: 2; opacity: 0.8;
+    }
+    @media (max-width: 1024px) {
+      .reviews-hero .container { gap: 2rem; }
+      .hero-image-wrapper img { width: 300px; height: 300px; }
+      .shape-yellow { width: 240px; height: 240px; }
+      .shape-pink { width: 180px; height: 180px; }
+      .shape-blue { width: 130px; height: 130px; }
+      .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3rem); }
+      .hero-text p { font-size: 1rem; }
+    }
+    @media (max-width: 768px) {
+      .reviews-hero .container { flex-direction: column; text-align: center; gap: 2.5rem; }
+      .hero-image-wrapper { order: 1; min-height: 320px; width: 100%; }
+      .hero-text { order: 2; max-width: 100%; }
+      .hero-text h1 .highlight { display: inline; }
+      .hero-image-wrapper img { width: 280px; height: 280px; }
+      .shape-yellow { width: 200px; height: 200px; top: 0; left: 10%; }
+      .shape-pink { width: 150px; height: 150px; bottom: 5%; right: 10%; }
+      .shape-blue { width: 100px; height: 100px; bottom: 5%; left: 5%; }
+    }
+
+    /* INITIALS AVATAR */
+    .avatar-initials {
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff; letter-spacing: 0.5px;
+      user-select: none; flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      border: 3px solid #fff;
+    }
+
+    /* REVIEW CARDS */
+    .reviews-cards-section { background: #f8f9fa; padding: 5rem 0; }
+    .section-head {
+      text-align: center; margin-bottom: 3rem;
+      max-width: 700px; margin-left: auto; margin-right: auto;
+    }
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800;
+      color: #111827; margin-bottom: 0.75rem; letter-spacing: -0.02em;
+    }
+    .section-head p { font-size: 1rem; color: var(--text-muted); line-height: 1.6; }
+    .cards-wrapper {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; position: relative;
+    }
+    .review-card {
+      background: #fff; border-radius: 16px; padding: 2rem 1.5rem;
+      text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: var(--transition); border: 1px solid transparent;
+      display: flex; flex-direction: column;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      border-color: #fce7f3;
+    }
+    .card-avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      margin: 0 auto 1rem; font-size: 1.6rem;
+    }
+    .card-school-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--brand-pink); background: #ffe4e6;
+      padding: 0.25rem 0.7rem; border-radius: 4px;
+      margin-bottom: 0.75rem; align-self: center;
+    }
+    .card-school-tag.engineering { color: #7e22ce; background: #f3e8ff; }
+    .card-school-tag.ministry { color: #1d4ed8; background: #dbeafe; }
+    .card-name {
+      font-size: 1.05rem; font-weight: 700; color: #111827;
+      margin-bottom: 0.75rem; line-height: 1.3;
+    }
+    .card-program {
+      font-size: 0.75rem; font-weight: 600; color: var(--brand-pink);
+      background: #fff1f2; padding: 0.4rem 0.8rem; border-radius: 6px;
+      margin-bottom: 1rem; line-height: 1.4; display: block;
+    }
+    .card-testimonial {
+      font-size: 0.85rem; color: var(--text-muted);
+      line-height: 1.6; margin-bottom: 1rem; text-align: left;
+    }
+    .card-testimonial .more-text { display: none; }
+    .review-card.expanded .card-testimonial .more-text { display: inline; }
+    .card-read-more {
+      font-size: 0.8rem; color: var(--brand-pink); font-weight: 600;
+      cursor: pointer; background: none; border: none; padding: 0;
+      margin-bottom: 1rem; font-family: inherit; align-self: flex-start;
+    }
+    .card-read-more:hover { text-decoration: underline; }
+    .card-location {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem; font-size: 0.85rem; color: var(--text-dark);
+      font-weight: 500; padding-top: 1rem;
+      border-top: 1px solid var(--border); margin-top: auto;
+    }
+    .card-location img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
+    .review-card.hidden-card { display: none; }
+    .nav-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 45px; height: 45px; border-radius: 50%;
+      background: #fff; border: 2px solid var(--brand-pink);
+      color: var(--brand-pink); display: flex; align-items: center;
+      justify-content: center; cursor: pointer;
+      transition: var(--transition); z-index: 10; font-size: 1.2rem;
+    }
+    .nav-arrow:hover { background: var(--brand-pink); color: #fff; }
+    .nav-arrow-left { left: -60px; }
+    .nav-arrow-right { right: -60px; }
+    .view-all-btn-wrapper { text-align: center; margin-top: 3rem; }
+    @media (max-width: 1100px) {
+      .nav-arrow-left { left: 10px; }
+      .nav-arrow-right { right: 10px; }
+      .cards-wrapper { gap: 1.5rem; }
+    }
+    @media (max-width: 900px) {
+      .cards-wrapper { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .review-card { padding: 1.5rem 1rem; }
+      .card-avatar { width: 75px; height: 75px; font-size: 1.3rem; }
+      .card-name { font-size: 0.95rem; }
+      .card-program { font-size: 0.7rem; padding: 0.35rem 0.6rem; }
+      .card-testimonial { font-size: 0.8rem; }
+    }
+    @media (max-width: 600px) {
+      .cards-wrapper { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; gap: 1.5rem; }
+      .nav-arrow { display: none; }
+      .review-card { padding: 2rem 1.5rem; }
+      .card-avatar { width: 90px; height: 90px; font-size: 1.6rem; }
+      .card-name { font-size: 1.05rem; }
+      .card-program { font-size: 0.75rem; }
+      .card-testimonial { font-size: 0.85rem; }
+    }
+
+    /* FEATURED TESTIMONIAL */
+    .featured-testimonial { padding: 5rem 0; background: #fff; }
+    .featured-testimonial .container {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 4rem; position: relative;
+    }
+    .featured-left {
+      flex: 1; max-width: 400px; position: relative;
+      text-align: center; order: 1;
+    }
+    .featured-avatar-wrapper {
+      position: relative; width: 280px; height: 280px;
+      margin: 0 auto 1.5rem;
+    }
+    .featured-avatar-wrapper .avatar-initials {
+      width: 100%; height: 100%; border-radius: 20px;
+      font-size: 5rem; border: 4px solid #fff;
+      position: relative; z-index: 2; transition: var(--transition);
+    }
+    .featured-shape-yellow {
+      position: absolute; width: 120px; height: 120px;
+      background: var(--brand-yellow); border-radius: 50%;
+      top: -25px; left: -25px; z-index: 1; opacity: 0.9;
+    }
+    .featured-shape-pink {
+      position: absolute; width: 180px; height: 180px;
+      background: var(--brand-pink); border-radius: 50%;
+      bottom: -35px; right: -35px; z-index: 0; opacity: 0.5;
+    }
+    .featured-name {
+      font-size: 1.35rem; font-weight: 700; color: #111827;
+      margin-bottom: 0.35rem; line-height: 1.3; transition: var(--transition);
+    }
+    .featured-role {
+      font-size: 0.95rem; color: var(--text-muted);
+      margin-bottom: 1.5rem; line-height: 1.5; transition: var(--transition);
+    }
+    .featured-description-left {
+      font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;
+      text-align: left; margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border); transition: var(--transition);
+    }
+    .featured-description-left .full-desc { display: none; }
+    .featured-description-left.expanded .full-desc { display: inline; }
+    .featured-description-left.expanded .short-desc { display: none; }
+    .featured-description-left .read-more-btn {
+      color: var(--brand-pink); font-weight: 600; cursor: pointer;
+      background: none; border: none; padding: 0;
+      font-family: inherit; font-size: 0.95rem;
+      display: block; margin-top: 0.5rem;
+    }
+    .featured-description-left .read-more-btn:hover { text-decoration: underline; }
+    .featured-right { flex: 1; max-width: 600px; position: relative; order: 2; }
+    .quote-mark {
+      font-size: 5rem; color: var(--brand-pink); font-weight: 900;
+      line-height: 1; margin-bottom: 0.5rem;
+      font-family: Georgia, serif; opacity: 0.9;
+    }
+    .featured-quote {
+      font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-weight: 600;
+      color: var(--brand-pink); line-height: 1.4;
+      margin-bottom: 1.5rem; transition: var(--transition);
+    }
+    .featured-link {
+      color: var(--brand-pink); font-weight: 600; font-size: 0.95rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      cursor: pointer; background: none; border: none;
+      font-family: inherit; padding: 0;
+    }
+    .featured-link:hover { text-decoration: underline; }
+    .featured-nav-arrows { display: flex; gap: 1rem; margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    .featured-nav-arrow {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #fff; border: 2px solid var(--brand-pink);
+      color: var(--brand-pink); display: flex; align-items: center;
+      justify-content: center; cursor: pointer;
+      transition: var(--transition); font-size: 1rem;
+    }
+    .featured-nav-arrow:hover { background: var(--brand-pink); color: #fff; }
+    .featured-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border); padding-top: 1.5rem;
+      margin-top: 1rem; font-size: 0.9rem; color: var(--text-dark);
+      font-weight: 600; flex-wrap: wrap; gap: 1rem; transition: var(--transition);
+    }
+    .featured-meta .meta-program {
+      color: var(--brand-pink); text-decoration: underline;
+      flex: 1; min-width: 180px;
+    }
+    .featured-meta .meta-batch { color: var(--text-dark); white-space: nowrap; }
+    .featured-meta .meta-location {
+      display: flex; align-items: center; gap: 0.5rem; white-space: nowrap;
+    }
+    .featured-meta .meta-location img {
+      width: 24px; height: 16px; object-fit: cover; border-radius: 2px;
+    }
+    .fade-out { opacity: 0 !important; transform: translateY(10px) !important; }
+    .featured-progress {
+      width: 100%; height: 3px; background: var(--border);
+      border-radius: 3px; margin-top: 1rem; overflow: hidden; position: relative;
+    }
+    .featured-progress-bar {
+      height: 100%; background: var(--brand-pink);
+      width: 0%; border-radius: 3px;
+    }
+    .featured-progress-bar.animating { animation: progressFill 5s linear forwards; }
+    @keyframes progressFill { from { width: 0%; } to { width: 100%; } }
+    @media (max-width: 1024px) {
+      .featured-testimonial .container { gap: 2.5rem; }
+      .featured-avatar-wrapper { width: 240px; height: 240px; }
+      .featured-avatar-wrapper .avatar-initials { font-size: 4rem; }
+      .featured-name { font-size: 1.2rem; }
+      .featured-quote { font-size: clamp(1.1rem, 2vw, 1.5rem); }
+      .featured-description-left { font-size: 0.9rem; }
+    }
+    @media (max-width: 768px) {
+      .featured-testimonial .container {
+        flex-direction: column; align-items: center;
+        text-align: center; gap: 2.5rem;
+      }
+      .featured-left { flex: 1; max-width: 100%; order: 1; }
+      .featured-right { flex: 1; max-width: 100%; order: 2; }
+      .featured-avatar-wrapper { width: 220px; height: 220px; }
+      .featured-description-left { text-align: center; }
+      .featured-description-left .read-more-btn { margin: 0.5rem auto 0; }
+      .featured-nav-arrows { justify-content: center; }
+      .featured-meta { flex-direction: column; align-items: center; gap: 0.75rem; }
+      .featured-meta .meta-program { text-align: center; }
+    }
+
+    /* CHATBOT */
+    .chatbot-icon {
+      position: fixed; bottom: 30px; right: 30px;
+      width: 60px; height: 60px; background: #7e22ce;
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; color: #fff; font-size: 1.8rem;
+      box-shadow: 0 4px 15px rgba(126,34,206,0.4);
+      cursor: pointer; z-index: 9999; transition: var(--transition);
+    }
+    .chatbot-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(126,34,206,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!--   HEADER PLACEHOLDER (load.js injects)     -->
+  <!-- ========================================== -->
+  <div id="header-placeholder"></div>
+
+  <!-- HERO (image stays) -->
+  <section class="reviews-hero">
+    <div class="container">
+      <div class="hero-image-wrapper">
+        <div class="shape-yellow"></div>
+        <div class="shape-pink"></div>
+        <div class="shape-blue"></div>
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Student Ambassador">
+      </div>
+      <div class="hero-text">
+        <h1>Student <span class="highlight">Reviews</span></h1>
+        <p>Our Students are our biggest Ambassadors. Hear what our beloved students have to say about upskilling with us.</p>
+        <button class="btn-pink" id="heroReadMoreBtn">Read more</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW CARDS -->
+  <section class="reviews-cards-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Hear From Our Graduates</h2>
+        <p>Real students. Real programs. Real impact — from every school at Living Oracles Global Institute.</p>
+      </div>
+
+      <div class="cards-wrapper" id="cardsWrapper">
+        <button class="nav-arrow nav-arrow-left" id="scrollLeftBtn"><i class="fas fa-chevron-left"></i></button>
+
+        <!-- 1 -->
+        <div class="review-card">
+          <div class="avatar-initials card-avatar" style="background:#f43f5e;">NR</div>
+          <span class="card-school-tag">Business & Leadership</span>
+          <h3 class="card-name">Nichaphat Raksaphakdee</h3>
+          <span class="card-program">Certificate in Organizational Leadership</span>
+          <p class="card-testimonial">
+            The course content was practical, relevant, and applicable to real workplace situations. <span class="more-text">Particularly in leadership, ethical decision-making, communication, and organizational management. I highly recommend this program to anyone looking to grow in leadership.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/th.png" alt="Thailand Flag"> Thailand
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="review-card">
+          <div class="avatar-initials card-avatar" style="background:#7e22ce;">AA</div>
+          <span class="card-school-tag engineering">Engineering & Technology</span>
+          <h3 class="card-name">Albert Ayebida Amoadu</h3>
+          <span class="card-program">Advanced Diploma in Project, Quality & Process Management</span>
+          <p class="card-testimonial">
+            I was able to balance my professional and personal commitments, allowing me to earn while I learned. <span class="more-text">The project management and quality assurance modules were directly applicable to my daily work. The flexibility of online learning made all the difference.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/gh.png" alt="Ghana Flag"> Ghana
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="review-card">
+          <div class="avatar-initials card-avatar" style="background:#1d4ed8;">GO</div>
+          <span class="card-school-tag ministry">Ministry & Theology</span>
+          <h3 class="card-name">Grace Oyelaran</h3>
+          <span class="card-program">Certificate in Children & Family Ministry</span>
+          <p class="card-testimonial">
+            This program equipped me with practical tools to build a thriving, biblically-based children's ministry. <span class="more-text">I now understand child development, family dynamics, and curriculum design in a way that has transformed how we minister to our children and families. Our ministry has seen remarkable growth in children's engagement.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria Flag"> Nigeria
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#0891b2;">DM</div>
+          <span class="card-school-tag ministry">Ministry & Theology</span>
+          <h3 class="card-name">Daniel Mensah</h3>
+          <span class="card-program">Certificate in Church Leadership & Administration</span>
+          <p class="card-testimonial">
+            When I took on the role of Church Administrator, I felt under-equipped. <span class="more-text">This program taught me church governance, financial stewardship, and strategic planning. I now serve our growing congregation with wisdom, structure, and confidence.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/gh.png" alt="Ghana Flag"> Ghana
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#db2777;">EA</div>
+          <span class="card-school-tag">Business & Leadership</span>
+          <h3 class="card-name">Esther Adeyemi</h3>
+          <span class="card-program">Certificate in Business Administration</span>
+          <p class="card-testimonial">
+            I started my business with passion but lacked formal business training. <span class="more-text">This program filled that gap. I learned foundational business principles, financial literacy, ethical leadership, and organizational management. My business has since doubled its revenue, and I now employ three full-time staff.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria Flag"> Nigeria
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#059669;">KM</div>
+          <span class="card-school-tag ministry">Ministry & Theology</span>
+          <h3 class="card-name">Kwame Mensah</h3>
+          <span class="card-program">Certificate in Missions & Evangelism</span>
+          <p class="card-testimonial">
+            This program prepared me for cross-cultural ministry in ways I never expected. <span class="more-text">Missiology, community engagement, and church planting strategies have been invaluable in my work across West Africa. This program is a must for anyone called to the mission field.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/gh.png" alt="Ghana Flag"> Ghana
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#ea580c;">DO</div>
+          <span class="card-school-tag engineering">Engineering & Technology</span>
+          <h3 class="card-name">David Okafor</h3>
+          <span class="card-program">Certificate in Business Analysis & Process Improvement</span>
+          <p class="card-testimonial">
+            The business analysis and process improvement courses were top-notch and industry-relevant. <span class="more-text">I transitioned into a senior analyst role within six months of completing the program. The hands-on process mapping and lean principles gave me real-world skills employers value.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria Flag"> Nigeria
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#0d9488;">KA</div>
+          <span class="card-school-tag">Business & Leadership</span>
+          <h3 class="card-name">Kofi Asante</h3>
+          <span class="card-program">Certificate in Leadership & Management</span>
+          <p class="card-testimonial">
+            The leadership and management course sharpened my ability to lead teams with clarity and purpose. <span class="more-text">Conflict resolution, vision casting, and change management modules were especially relevant to my role. I now lead my team with far more confidence.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/gh.png" alt="Ghana Flag"> Ghana
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#9333ea;">BO</div>
+          <span class="card-school-tag ministry">Ministry & Theology</span>
+          <h3 class="card-name">Blessing Okonkwo</h3>
+          <span class="card-program">Certificate in Ministry to Women</span>
+          <p class="card-testimonial">
+            This program gave me biblical wisdom to mentor and disciple women effectively. <span class="more-text">Addressing contemporary issues women face with grace and truth has become my passion. Our women's ministry has grown tremendously since I completed this course.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria Flag"> Nigeria
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#dc2626;">YB</div>
+          <span class="card-school-tag engineering">Engineering & Technology</span>
+          <h3 class="card-name">Yaw Boateng</h3>
+          <span class="card-program">Advanced Diploma in Project, Quality & Process Management</span>
+          <p class="card-testimonial">
+            The advanced diploma gave me a strategic edge in managing large-scale projects. <span class="more-text">Risk management and quality assurance modules transformed how I approach every project. I was promoted shortly after finishing the program.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/gh.png" alt="Ghana Flag"> Ghana
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#4f46e5;">SA</div>
+          <span class="card-school-tag ministry">Ministry & Theology</span>
+          <h3 class="card-name">Samuel Adjei</h3>
+          <span class="card-program">Certificate in NextGen Ministry</span>
+          <p class="card-testimonial">
+            This program taught me how to engage the next generation with relevant, faith-filled ministry. <span class="more-text">Youth culture, discipleship strategies, and program development modules were practical and eye-opening. Our youth attendance has doubled since I applied what I learned.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/gh.png" alt="Ghana Flag"> Ghana
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="review-card hidden-card">
+          <div class="avatar-initials card-avatar" style="background:#be185d;">CN</div>
+          <span class="card-school-tag">Business & Leadership</span>
+          <h3 class="card-name">Chioma Nwosu</h3>
+          <span class="card-program">Certificate in Organizational Leadership</span>
+          <p class="card-testimonial">
+            The organizational leadership course deepened my understanding of servant leadership. <span class="more-text">Strategic planning and ethical decision-making modules have reshaped how I lead my team. I feel far more equipped to handle complex workplace challenges.</span>
+          </p>
+          <button class="card-read-more">Read more →</button>
+          <div class="card-location">
+            <img src="https://flagcdn.com/w20/ng.png" alt="Nigeria Flag"> Nigeria
+          </div>
+        </div>
+
+        <button class="nav-arrow nav-arrow-right" id="scrollRightBtn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+
+      <div class="view-all-btn-wrapper">
+        <button class="btn-pink" id="viewAllBtn">View all</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED TESTIMONIAL -->
+  <section class="featured-testimonial">
+    <div class="container">
+      <div class="featured-left">
+        <div class="featured-avatar-wrapper">
+          <div class="featured-shape-yellow"></div>
+          <div class="featured-shape-pink"></div>
+          <div class="avatar-initials" id="featuredAvatar" style="background:#f43f5e;">NR</div>
+        </div>
+        <h3 class="featured-name" id="featuredName">Nichaphat Raksaphakdee</h3>
+        <p class="featured-role" id="featuredRole">HR Director</p>
+        <div class="featured-description-left" id="featuredDesc">
+          <span class="short-desc" id="featuredShortDesc">Choosing to pursue my Certificate in Organizational Leadership from Living Oracles Global Institute has been one of the best decisions in my professional development journey. From my first inquiry, the entire process was clear, well-organized, and supportive. The...</span>
+          <span class="full-desc" id="featuredFullDesc">Choosing to pursue my Certificate in Organizational Leadership from Living Oracles Global Institute has been one of the best decisions in my professional development journey. From my first inquiry, the entire process was clear, well-organized, and supportive. The curriculum was challenging but rewarding, and the instructors were always available to help. I would highly recommend this program to anyone looking to grow in leadership.</span>
+          <button class="read-more-btn" id="featuredReadMoreBtn">Read more →</button>
+        </div>
+      </div>
+
+      <div class="featured-right">
+        <div class="quote-mark">“</div>
+        <h2 class="featured-quote" id="featuredQuote">"The course content was practical, relevant, and applicable to real workplace situations, particularly in leadership, ethical decision-making, communication, and organizational management."</h2>
+        <button class="featured-link" id="featuredLink">Read more →</button>
+        <div class="featured-nav-arrows">
+          <button class="featured-nav-arrow" id="featuredPrevBtn"><i class="fas fa-chevron-left"></i></button>
+          <button class="featured-nav-arrow" id="featuredNextBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="featured-meta">
+          <span class="meta-program" id="featuredProgram">School of Business & Leadership — Certificate in Organizational Leadership</span>
+          <span class="meta-batch" id="featuredBatch">| Batch 2025 |</span>
+          <span class="meta-location" id="featuredLocation">
+            <img src="https://flagcdn.com/w20/th.png" alt="Thailand Flag" id="featuredFlag"> <span id="featuredCountry">Thailand</span>
+          </span>
+        </div>
+        <div class="featured-progress">
+          <div class="featured-progress-bar" id="featuredProgressBar"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="chatbot-icon">
+    <i class="fas fa-robot"></i>
+  </div>
+
+  <!-- ========================================== -->
+  <!--   FOOTER PLACEHOLDER (load.js injects)     -->
+  <!-- ========================================== -->
+  <div id="footer-placeholder"></div>
+
+  <script src="load.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      const viewAllBtn = document.getElementById('viewAllBtn');
+      const hiddenCards = document.querySelectorAll('.hidden-card');
+      if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', function() {
+          const isExpanded = this.dataset.expanded === 'true';
+          if (!isExpanded) {
+            hiddenCards.forEach(card => { card.style.display = 'flex'; });
+            this.textContent = 'Show Less';
+            this.dataset.expanded = 'true';
+          } else {
+            hiddenCards.forEach(card => { card.style.display = 'none'; });
+            this.textContent = 'View all';
+            this.dataset.expanded = 'false';
+          }
+        });
+      }
+
+      document.querySelectorAll('.card-read-more').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const card = this.closest('.review-card');
+          const isExpanded = card.classList.toggle('expanded');
+          this.textContent = isExpanded ? 'Read less ←' : 'Read more →';
+        });
+      });
+
+      const featuredDesc = document.getElementById('featuredDesc');
+      const featuredReadMoreBtn = document.getElementById('featuredReadMoreBtn');
+      if (featuredDesc && featuredReadMoreBtn) {
+        featuredReadMoreBtn.addEventListener('click', function() {
+          const isExpanded = featuredDesc.classList.toggle('expanded');
+          this.textContent = isExpanded ? 'Read less ←' : 'Read more →';
+        });
+      }
+
+      const heroReadMoreBtn = document.getElementById('heroReadMoreBtn');
+      if (heroReadMoreBtn) {
+        heroReadMoreBtn.addEventListener('click', function() {
+          document.querySelector('.reviews-cards-section').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      const cardsWrapper = document.getElementById('cardsWrapper');
+      const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+      const scrollRightBtn = document.getElementById('scrollRightBtn');
+      if (cardsWrapper && scrollLeftBtn && scrollRightBtn) {
+        scrollLeftBtn.addEventListener('click', () => cardsWrapper.scrollBy({ left: -350, behavior: 'smooth' }));
+        scrollRightBtn.addEventListener('click', () => cardsWrapper.scrollBy({ left: 350, behavior: 'smooth' }));
+      }
+
+      const testimonials = [
+        {
+          name: "Nichaphat Raksaphakdee",
+          role: "HR Director",
+          avatarBg: "#f43f5e",
+          initials: "NR",
+          quote: '"The course content was practical, relevant, and applicable to real workplace situations, particularly in leadership, ethical decision-making, communication, and organizational management."',
+          shortDesc: "Choosing to pursue my Certificate in Organizational Leadership from Living Oracles Global Institute has been one of the best decisions in my professional development journey. From my first inquiry, the entire process was clear, well-organized, and supportive. The...",
+          fullDesc: "Choosing to pursue my Certificate in Organizational Leadership from Living Oracles Global Institute has been one of the best decisions in my professional development journey. From my first inquiry, the entire process was clear, well-organized, and supportive. The curriculum was challenging but rewarding, and the instructors were always available to help. I would highly recommend this program to anyone looking to grow in leadership.",
+          program: "School of Business & Leadership — Certificate in Organizational Leadership",
+          batch: "| Batch 2025 |",
+          flag: "https://flagcdn.com/w20/th.png",
+          country: "Thailand"
+        },
+        {
+          name: "Albert Ayebida Amoadu",
+          role: "Planning Engineer",
+          avatarBg: "#7e22ce",
+          initials: "AA",
+          quote: '"I was able to balance my professional and personal commitments, allowing me to earn while I learned."',
+          shortDesc: "My name is Albert Ayebida Amoadu. I am a Planning Engineer with experience in construction, infrastructure, mining, and engineering projects. I specialize in project planning, scheduling, monitoring, and control...",
+          fullDesc: "My name is Albert Ayebida Amoadu. I am a Planning Engineer with experience in construction, infrastructure, mining, and engineering projects. I specialize in project planning, scheduling, monitoring, and control. The Advanced Professional Diploma in Project, Quality & Process Management at Living Oracles Global Institute helped me sharpen my skills and apply them immediately in my workplace. The flexibility of online learning was exactly what I needed.",
+          program: "School of Engineering & Technology — Advanced Diploma in Project, Quality & Process Management",
+          batch: "| Batch 2026 |",
+          flag: "https://flagcdn.com/w20/gh.png",
+          country: "Ghana"
+        },
+        {
+          name: "Grace Oyelaran",
+          role: "Children's Ministry Director",
+          avatarBg: "#1d4ed8",
+          initials: "GO",
+          quote: '"The Certificate in Children & Family Ministry equipped me with practical tools to build a thriving, biblically-based children\'s ministry."',
+          shortDesc: "I have been leading children's ministry for over five years, but this program gave me a fresh perspective and deeper understanding of child development, family dynamics, and curriculum design...",
+          fullDesc: "I have been leading children's ministry for over five years, but this program gave me a fresh perspective and deeper understanding of child development, family dynamics, and curriculum design. The Certificate in Children & Family Ministry from Living Oracles Global Institute equipped me with practical tools to build a thriving, biblically-based children's ministry. Our ministry has seen remarkable growth in our children's engagement since I applied what I learned.",
+          program: "School of Ministry & Theology — Certificate in Children & Family Ministry",
+          batch: "| Batch 2026 |",
+          flag: "https://flagcdn.com/w20/ng.png",
+          country: "Nigeria"
+        },
+        {
+          name: "Daniel Mensah",
+          role: "Church Administrator",
+          avatarBg: "#0891b2",
+          initials: "DM",
+          quote: '"The Certificate in Church Leadership & Administration gave me the confidence to serve our growing congregation with wisdom and structure."',
+          shortDesc: "When I took on the role of Church Administrator, I felt under-equipped. This program taught me church governance, financial stewardship, and strategic planning...",
+          fullDesc: "When I took on the role of Church Administrator, I felt under-equipped. This program taught me church governance, financial stewardship, and strategic planning. The Certificate in Church Leadership & Administration from Living Oracles Global Institute gave me the confidence to serve our growing congregation with wisdom and structure. Our church has become more organized and our members are more engaged than ever.",
+          program: "School of Ministry & Theology — Certificate in Church Leadership & Administration",
+          batch: "| Batch 2026 |",
+          flag: "https://flagcdn.com/w20/gh.png",
+          country: "Ghana"
+        },
+        {
+          name: "Esther Adeyemi",
+          role: "Entrepreneur",
+          avatarBg: "#db2777",
+          initials: "EA",
+          quote: '"The Certificate in Business Administration gave me the business acumen I needed to grow my small business into a thriving enterprise."',
+          shortDesc: "I started my business with passion but lacked formal business training. The Certificate in Business Administration from Living Oracles Global Institute filled that gap...",
+          fullDesc: "I started my business with passion but lacked formal business training. The Certificate in Business Administration from Living Oracles Global Institute filled that gap. I learned foundational business principles, financial literacy, ethical leadership, and organizational management skills. My business has since doubled its revenue, and I now employ three full-time staff members.",
+          program: "School of Business & Leadership — Certificate in Business Administration",
+          batch: "| Batch 2026 |",
+          flag: "https://flagcdn.com/w20/ng.png",
+          country: "Nigeria"
+        }
+      ];
+
+      let currentIndex = 0;
+      let autoPlayTimer = null;
+      const AUTO_PLAY_INTERVAL = 5000;
+
+      const featuredAvatar = document.getElementById('featuredAvatar');
+      const featuredName = document.getElementById('featuredName');
+      const featuredRole = document.getElementById('featuredRole');
+      const featuredQuote = document.getElementById('featuredQuote');
+      const featuredShortDesc = document.getElementById('featuredShortDesc');
+      const featuredFullDesc = document.getElementById('featuredFullDesc');
+      const featuredProgram = document.getElementById('featuredProgram');
+      const featuredBatch = document.getElementById('featuredBatch');
+      const featuredFlag = document.getElementById('featuredFlag');
+      const featuredCountry = document.getElementById('featuredCountry');
+      const featuredPrevBtn = document.getElementById('featuredPrevBtn');
+      const featuredNextBtn = document.getElementById('featuredNextBtn');
+      const featuredDescContainer = document.getElementById('featuredDesc');
+      const featuredReadMoreBtn2 = document.getElementById('featuredReadMoreBtn');
+      const featuredProgressBar = document.getElementById('featuredProgressBar');
+
+      function updateTestimonial(index) {
+        const t = testimonials[index];
+        const elements = [featuredAvatar, featuredName, featuredRole, featuredQuote, featuredShortDesc, featuredFullDesc, featuredProgram, featuredBatch, featuredFlag, featuredCountry];
+        elements.forEach(el => el && el.classList.add('fade-out'));
+        setTimeout(() => {
+          if (featuredAvatar) {
+            featuredAvatar.style.background = t.avatarBg;
+            featuredAvatar.textContent = t.initials;
+          }
+          if (featuredName) featuredName.innerHTML = t.name;
+          if (featuredRole) featuredRole.innerHTML = t.role;
+          if (featuredQuote) featuredQuote.innerHTML = t.quote;
+          if (featuredShortDesc) featuredShortDesc.textContent = t.shortDesc;
+          if (featuredFullDesc) featuredFullDesc.textContent = t.fullDesc;
+          if (featuredProgram) featuredProgram.textContent = t.program;
+          if (featuredBatch) featuredBatch.textContent = t.batch;
+          if (featuredFlag) featuredFlag.src = t.flag;
+          if (featuredCountry) featuredCountry.textContent = t.country;
+          if (featuredDescContainer) featuredDescContainer.classList.remove('expanded');
+          if (featuredReadMoreBtn2) featuredReadMoreBtn2.textContent = 'Read more →';
+          elements.forEach(el => el && el.classList.remove('fade-out'));
+        }, 250);
+      }
+
+      function resetProgressBar() {
+        if (featuredProgressBar) {
+          featuredProgressBar.classList.remove('animating');
+          void featuredProgressBar.offsetWidth;
+          featuredProgressBar.classList.add('animating');
+        }
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        resetProgressBar();
+        autoPlayTimer = setInterval(() => {
+          currentIndex = (currentIndex + 1) % testimonials.length;
+          updateTestimonial(currentIndex);
+          resetProgressBar();
+        }, AUTO_PLAY_INTERVAL);
+      }
+
+      function stopAutoPlay() {
+        if (autoPlayTimer) { clearInterval(autoPlayTimer); autoPlayTimer = null; }
+        if (featuredProgressBar) { featuredProgressBar.classList.remove('animating'); }
+      }
+
+      if (featuredPrevBtn && featuredNextBtn) {
+        featuredPrevBtn.addEventListener('click', function() {
+          currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+          updateTestimonial(currentIndex);
+          startAutoPlay();
+        });
+        featuredNextBtn.addEventListener('click', function() {
+          currentIndex = (currentIndex + 1) % testimonials.length;
+          updateTestimonial(currentIndex);
+          startAutoPlay();
+        });
+      }
+
+      const featuredSection = document.querySelector('.featured-testimonial');
+      if (featuredSection) {
+        featuredSection.addEventListener('mouseenter', stopAutoPlay);
+        featuredSection.addEventListener('mouseleave', startAutoPlay);
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) { stopAutoPlay(); } else { startAutoPlay(); }
+      });
+
+      startAutoPlay();
+
+    });
+  </script>
+
+</body>
+</html>
