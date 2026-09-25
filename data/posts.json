@@ -1,5 +1,12 @@
 [
   {
+    "title": "The Painful Birth: Losing Everything at 30 and Finding Who You Really Are",
+    "date": "September 24, 2026",
+    "image": "https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/assets/images/news/painful-birth.jpg",
+    "excerpt": "At 30, he lost everything. His job. His respect. His friends. His identity. He thought he was dying. He was being born. A raw, honest memoir of collapse and recovery — a story for anyone who has hit rock bottom and wondered if they would ever rise again.",
+    "url": "/the-painful-birth.html"
+  },
+  {
     "title": "Unlocking Your Divine Purpose & Calling: A Theological Exposition on Discerning and Walking in God's Sovereign Design",
     "date": "September 11, 2026",
     "image": "/assets/images/news/unlocking-your-divine-purpose.png",
@@ -7,17 +14,24 @@
     "url": "/unlocking-your-divine-purpose.html"
   },
   {
-    "title": "Walking in Spiritual Authority: A Theological and Practical Exposition of the Believer's Position in Christ",
-    "date": "July 27, 2026",
-    "image": "https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/assets/images/news/walking-spiritual-authority.png",
-    "excerpt": "Every believer in Jesus Christ has been legally granted spiritual authority within the realm of creation. This treatise provides an in-depth biblical, theological, and practical analysis of what it means to comprehend, embrace, and exercise spiritual authority in Christ.",
-    "url": "/spiritual-authority-and-power.html"
-  },
-  {
     "title": "Workplace Conflict Resolution",
     "date": "September 9, 2026",
     "image": "/assets/images/news/workplace-conflict-resolution.jpg",
     "excerpt": "Learn how to resolve workplace conflict effectively with a practical 4-step framework rooted in biblical wisdom and leadership principles.",
     "url": "/workplace-conflict-resolution.html"
+  },
+  {
+    "title": "When Everything We Build Must Eventually Be Left Behind: Finding Meaning in a Temporary Life",
+    "date": "August 21, 2026",
+    "image": "https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/assets/images/news/when-we-leave.jpg",
+    "excerpt": "A Christian reflection on the temporary nature of life and the eternal significance of what we deposit into others. Drawing from the loss of both parents, this work explores grief, the wisdom of Ecclesiastes, the hope of resurrection, and the call to faithful stewardship.",
+    "url": "/when-everything-we-build.html"
+  },
+  {
+    "title": "Walking in Spiritual Authority: A Theological and Practical Exposition of the Believer's Position in Christ",
+    "date": "July 27, 2026",
+    "image": "https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/assets/images/news/walking-spiritual-authority.png",
+    "excerpt": "Every believer in Jesus Christ has been legally granted spiritual authority within the realm of creation. This treatise provides an in-depth biblical, theological, and practical analysis of what it means to comprehend, embrace, and exercise spiritual authority in Christ.",
+    "url": "/spiritual-authority-and-power.html"
   }
 ]
