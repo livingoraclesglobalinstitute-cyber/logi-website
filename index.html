@@ -371,135 +371,397 @@
             box-shadow: 0 0 8px rgba(244,63,94,0.5);
         }
 
-        /* ============ HERO ============ */
-        .hero-section {
+        /* ==========================================
+           NEW HERO — LOGI ROTATING CARD
+           ========================================== */
+        .hero-uat {
             position: relative;
             width: 100%;
-            height: 50vh;
-            min-height: 400px;
-            max-height: 560px;
+            min-height: 640px;
+            padding: 4rem 5%;
             overflow: hidden;
-            background: #0a0a0a;
+            background: linear-gradient(110deg, #fce7f3 0%, #fef3c7 55%, #fde68a 100%);
+            display: flex;
+            align-items: center;
         }
-        .hero-slider { position: absolute; inset: 0; z-index: 1; }
-        .hero-slide {
+
+        .hero-uat::before {
+            content: '';
             position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            animation: heroSlideShow 60s infinite;
-        }
-        .hero-slide:nth-child(1) { animation-delay: 0s; }
-        .hero-slide:nth-child(2) { animation-delay: 6s; }
-        .hero-slide:nth-child(3) { animation-delay: 12s; }
-        .hero-slide:nth-child(4) { animation-delay: 18s; }
-        .hero-slide:nth-child(5) { animation-delay: 24s; }
-        .hero-slide:nth-child(6) { animation-delay: 30s; }
-        .hero-slide:nth-child(7) { animation-delay: 36s; }
-        .hero-slide:nth-child(8) { animation-delay: 42s; }
-        .hero-slide:nth-child(9) { animation-delay: 48s; }
-        .hero-slide:nth-child(10) { animation-delay: 54s; }
-
-        .hero-slide.s1 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/biblical-studies-banner.jpg"); }
-        .hero-slide.s2 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/diploma-ministry-banner.jpg"); }
-        .hero-slide.s3 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/nextgen-ministry-banner.jpg"); }
-        .hero-slide.s4 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/intercultural-studies-banner.jpg"); }
-        .hero-slide.s5 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/crisis-trauma-care-banner.jpg"); }
-        .hero-slide.s6 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/human-services-banner.jpg"); }
-        .hero-slide.s7 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/church-leaders-administration-banner.jpg"); }
-        .hero-slide.s8 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/missions-evangelism-banner.jpg"); }
-        .hero-slide.s9 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/children-ministry-banner.jpg"); }
-        .hero-slide.s10 { background-image: url("https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/disability-ministry-banner.jpg"); }
-
-        @keyframes heroSlideShow {
-            0% { opacity: 0; transform: scale(1.08); }
-            5% { opacity: 1; }
-            8% { opacity: 1; transform: scale(1); }
-            12% { opacity: 0; }
-            100% { opacity: 0; }
+            top: -100px;
+            right: 15%;
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, rgba(251,191,36,.55), rgba(251,191,36,0) 65%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top,
-                rgba(0,0,0,0.92) 0%,
-                rgba(0,0,0,0.65) 30%,
-                rgba(0,0,0,0.35) 60%,
-                rgba(0,0,0,0.15) 100%);
-            z-index: 2;
-        }
-        .hero-inner {
+        .hero-uat-inner {
             position: relative;
-            z-index: 3;
+            z-index: 2;
             max-width: var(--container-max);
             width: 100%;
             margin: 0 auto;
-            height: 100%;
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-left { max-width: 620px; }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: var(--brand-pink);
+            color: #fff;
+            font-size: .95rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: .75rem 1.75rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 24px rgba(244,63,94,.30);
+        }
+
+        .hero-h1 {
+            font-size: clamp(2.4rem, 4.8vw, 4rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -.04em;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            min-height: 2.15em;
+        }
+
+        .typing-target {
+            color: var(--brand-pink);
+            display: inline;
+            white-space: nowrap;
+        }
+
+        .hero-cursor {
+            display: inline-block;
+            width: 4px;
+            height: .85em;
+            background: var(--brand-pink);
+            margin-left: 4px;
+            vertical-align: -.05em;
+            animation: cursorBlink 1s steps(1) infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-subtext {
+            font-size: clamp(1rem, 1.25vw, 1.15rem);
+            line-height: 1.75;
+            color: #4a4540;
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: .85rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn-primary,
+        .hero-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            padding: 1rem 1.85rem;
+            border-radius: 50px;
+            font-size: .92rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .35s cubic-bezier(.25,1,.5,1);
+        }
+
+        .hero-btn-primary {
+            background: var(--brand-pink);
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(244,63,94,.32);
+        }
+
+        .hero-btn-primary:hover {
+            background: var(--brand-pink-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(244,63,94,.45);
+        }
+
+        .hero-btn-secondary {
+            background: #fff;
+            color: #1a1a1a;
+            border: 2px solid #e5e7eb;
+        }
+
+        .hero-btn-secondary:hover {
+            border-color: var(--brand-pink);
+            color: var(--brand-pink);
+            transform: translateY(-3px);
+        }
+
+        /* ---------- RIGHT ---------- */
+        .hero-right {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 520px;
+        }
+
+        .hero-deck {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            aspect-ratio: 4/5;
+            perspective: 1400px;
+        }
+
+        .deck-paper {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.10);
+            transition: background .7s ease, transform .7s cubic-bezier(.25,1,.5,1), opacity .5s ease;
+            will-change: transform, background;
+        }
+
+        .deck-paper.p-yellow { transform: rotate(8deg) translate(28px, -24px); }
+        .deck-paper.p-pink   { transform: rotate(-3deg) translate(-16px, -12px); }
+        .deck-paper.p-green  { transform: rotate(5deg) translate(20px, -6px); opacity: .85; }
+
+        .deck-main-wrap {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            transform-style: preserve-3d;
+            will-change: transform, opacity;
+        }
+
+        .deck-main {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 16px;
+            box-shadow: 0 30px 70px rgba(0,0,0,.28);
+            padding: 2.25rem 2.25rem;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 5% 3rem;
+            justify-content: space-between;
+            overflow: hidden;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             color: #ffffff;
+            transition: background .7s ease;
         }
-        .hero-eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.65rem;
-            color: #ffffff;
-            font-size: clamp(0.85rem, 1.4vw, 1.15rem);
-            font-weight: 900;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 12px rgba(0,0,0,0.7);
-        }
-        .hero-eyebrow::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 12px var(--accent);
-            animation: pulseDot 2s ease-in-out infinite;
-        }
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-        .hero-content p {
-            font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-            line-height: 1.6;
-            color: rgba(255,255,255,0.95);
-            max-width: 620px;
-            margin-bottom: 1.75rem;
-            font-weight: 500;
-        }
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.65rem;
-            background: #ffffff;
-            color: #0a0a0a;
-            padding: 0.85rem 1.75rem;
-            border-radius: 4px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            transition: all 0.3s var(--transition);
-            align-self: flex-start;
-            font-family: inherit;
-        }
-        .hero-cta:hover { background: var(--accent); color: #ffffff; transform: translateX(4px); }
 
-        @media (max-width: 768px) {
-            .hero-section { height: 45vh; min-height: 340px; max-height: 460px; }
-            .hero-inner { padding: 0 5% 2rem; }
-            .hero-eyebrow { font-size: 0.75rem; letter-spacing: 3px; }
+        .deck-main::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.10), rgba(0,0,0,0.22));
+            pointer-events: none;
+            z-index: 0;
         }
-        @media (max-width: 480px) {
-            .hero-section { height: 42vh; min-height: 300px; max-height: 400px; }
-            .hero-eyebrow { font-size: 0.68rem; letter-spacing: 2.5px; }
+
+        .deck-main-wrap.card-out {
+            animation: cardFlipOut .7s cubic-bezier(.55, 0, 1, .45) forwards;
+            pointer-events: none;
+        }
+
+        .deck-main-wrap.card-in {
+            animation: cardFlipIn .7s cubic-bezier(0, .55, .45, 1) forwards;
+        }
+
+        @keyframes cardFlipOut {
+            0% {
+                transform: rotateY(0deg) rotateZ(0deg) translateY(0) scale(1);
+                opacity: 1;
+            }
+            55% { opacity: .35; }
+            100% {
+                transform: rotateY(-105deg) rotateZ(-8deg) translateY(-40px) scale(.86);
+                opacity: 0;
+            }
+        }
+
+        @keyframes cardFlipIn {
+            0% {
+                transform: rotateY(105deg) rotateZ(8deg) translateY(-40px) scale(.86);
+                opacity: 0;
+            }
+            45% { opacity: .35; }
+            100% {
+                transform: rotateY(0deg) rotateZ(0deg) translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .deck-watermark {
+            position: absolute;
+            top: 40px;
+            right: -40px;
+            width: 220px;
+            height: 220px;
+            opacity: .16;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .deck-watermark svg { width: 100%; height: 100%; }
+
+        .deck-watermark svg path {
+            stroke: #ffffff;
+            transition: stroke .7s ease;
+        }
+
+        .deck-content { position: relative; z-index: 2; }
+
+        .deck-eyebrow {
+            font-size: 1.05rem;
+            font-weight: 500;
+            font-style: italic;
+            color: rgba(255,255,255,0.92);
+            margin-bottom: 0.9rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(255,255,255,0.28);
+        }
+
+        .deck-title {
+            font-size: clamp(1.85rem, 2.6vw, 2.4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -.035em;
+            color: #ffffff;
+            margin-bottom: 0.9rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 2px solid rgba(255,255,255,0.28);
+            min-height: 0;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        }
+
+        .deck-title .highlight {
+            color: #ffffff;
+            position: relative;
+        }
+
+        .deck-description {
+            font-size: .95rem;
+            line-height: 1.55;
+            color: rgba(255,255,255,0.92);
+            min-height: 0;
+            margin-bottom: 0.9rem;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.15);
+        }
+
+        .deck-logo {
+            display: flex;
+            align-items: center;
+            gap: .9rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .deck-logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid rgba(255,255,255,0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        }
+
+        .deck-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .deck-logo-text strong {
+            display: block;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .deck-logo-text span {
+            font-size: .72rem;
+            color: rgba(255,255,255,0.78);
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+
+        .deck-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 6px;
+            transition: gap .3s ease;
+            position: relative;
+            z-index: 2;
+            align-self: flex-start;
+        }
+
+        .deck-cta:hover { gap: .75rem; }
+
+        @media (min-width: 641px) and (max-width: 1100px) {
+            .hero-uat { min-height: 580px; padding: 3rem 4%; }
+            .hero-uat-inner { gap: 2rem; }
+            .hero-h1 { font-size: clamp(2rem, 3.4vw, 2.75rem); }
+            .hero-subtext { font-size: .98rem; }
+            .hero-pill { font-size: .85rem; padding: .65rem 1.5rem; letter-spacing: 2px; }
+            .hero-right { min-height: 440px; }
+            .hero-deck { max-width: 380px; }
+            .deck-main { padding: 2rem 1.75rem; }
+            .deck-title { font-size: 1.6rem; }
+            .deck-eyebrow { font-size: 1rem; margin-bottom: 0.75rem; padding-bottom: 0.65rem; }
+            .deck-title { margin-bottom: 0.75rem; padding-bottom: 0.75rem; }
+            .deck-description { margin-bottom: 0.75rem; }
+            .hero-btn-primary, .hero-btn-secondary { padding: .9rem 1.5rem; font-size: .88rem; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-uat { padding: 2.5rem 5%; min-height: auto; }
+            .hero-uat-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .hero-left { max-width: 100%; margin: 0 auto; text-align: center; }
+            .hero-subtext { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-h1 { font-size: 1.85rem; min-height: 3em; }
+            .hero-pill { font-size: .72rem; padding: .6rem 1.35rem; letter-spacing: 1.5px; }
+            .hero-right { min-height: auto; }
+            .hero-deck { max-width: 320px; }
+            .deck-main { padding: 1.75rem 1.5rem; }
+            .deck-title { font-size: 1.5rem; }
+            .deck-description { font-size: .9rem; }
+            .hero-buttons { flex-direction: column; align-items: stretch; }
+            .hero-btn-primary, .hero-btn-secondary { justify-content: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .deck-main-wrap.card-out,
+            .deck-main-wrap.card-in { animation: none; }
+            .deck-main-wrap.card-out { opacity: 0; }
         }
 
         /* ============ RED DOT ACCENT ============ */
@@ -786,7 +1048,6 @@
             line-height: 1.6;
         }
 
-        /* TABS — matching Explore Our Courses */
         .schools-tab-bar {
             display: flex;
             justify-content: center;
@@ -823,7 +1084,6 @@
             border-color: var(--brand-pink);
         }
 
-        /* PANELS */
         .school-panel {
             display: none;
             animation: panelFadeIn 0.4s ease;
@@ -834,7 +1094,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* CARDS GRID */
         .programs-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -2990,12 +3249,6 @@
             transform: translateY(5px) !important;
             transition: opacity 0.6s ease, transform 0.6s ease !important;
         }
-        #dynamic-quote {
-            display: inline-block;
-            transition: opacity 0.6s ease, transform 0.6s ease !important;
-            opacity: 1;
-            transform: translateY(0);
-        }
 
         /* ============ COOKIE BANNER ============ */
         .cookie-banner {
@@ -3206,29 +3459,98 @@
         </header>
     </div>
 
-    <!-- HERO -->
-    <section class="hero-section">
-        <div class="hero-slider">
-            <div class="hero-slide s1"></div>
-            <div class="hero-slide s2"></div>
-            <div class="hero-slide s3"></div>
-            <div class="hero-slide s4"></div>
-            <div class="hero-slide s5"></div>
-            <div class="hero-slide s6"></div>
-            <div class="hero-slide s7"></div>
-            <div class="hero-slide s8"></div>
-            <div class="hero-slide s9"></div>
-            <div class="hero-slide s10"></div>
-        </div>
-        <div class="hero-overlay"></div>
+    <!-- NEW HERO — LOGI ROTATING CARD -->
+    <section class="hero-uat" id="logiHero">
+        <div class="hero-uat-inner">
 
-        <div class="hero-inner">
-            <span class="hero-eyebrow">Faith · Excellence · Impact</span>
-            <div class="hero-content">
-                <p id="dynamic-quote">A perfect blend of Leadership, Business, Technology &amp; Theology</p>
-                <a href="https://logi.education/main-registration-form" class="hero-cta">
-                    Apply Now — Scholarship Available <span class="red-dot">→</span>
-                </a>
+            <!-- LEFT — fixed -->
+            <div class="hero-left">
+
+                <span class="hero-pill">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Faith · Excellence · Impact</span>
+                </span>
+
+                <h1 class="hero-h1">
+                    Christ-Centered Education<br>
+                    Made <span class="typing-target" id="typingTarget"></span><span class="hero-cursor"></span>
+                </h1>
+
+                <p class="hero-subtext">
+                    A perfect blend of Leadership, Business, Technology &amp; Theology — equipping you for real-world impact through flexible, faith-based online education.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="/apply" class="hero-btn-primary">
+                        Apply Now <i class="fas fa-arrow-right"></i>
+                    </a>
+
+                    <a href="/our-programs" class="hero-btn-secondary">
+                        <i class="fas fa-compass"></i>
+                        Explore Our Schools
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- RIGHT — rotating card -->
+            <div class="hero-right">
+
+                <div class="hero-deck">
+
+                    <div class="deck-paper p-yellow" id="paperYellow"></div>
+                    <div class="deck-paper p-pink"   id="paperPink"></div>
+                    <div class="deck-paper p-green"  id="paperGreen"></div>
+
+                    <div class="deck-main-wrap" id="deckMainWrap">
+                        <div class="deck-main" id="deckMain">
+
+                            <div class="deck-watermark">
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M100 10 L180 40 L180 100 Q180 160 100 190 Q20 160 20 100 L20 40 Z"
+                                          fill="none" stroke="#ffffff" stroke-width="6"/>
+                                    <path d="M100 30 L100 170 M50 90 L150 90"
+                                          stroke="#ffffff" stroke-width="6"/>
+                                </svg>
+                            </div>
+
+                            <div class="deck-content">
+
+                                <div class="deck-eyebrow" id="deckEyebrow">
+                                    School of Ministry &amp; Theology
+                                </div>
+
+                                <div class="deck-title" id="deckTitle">
+                                    Study <span class="highlight">Ministry &amp;</span><br>
+                                    Theology
+                                </div>
+
+                                <div class="deck-description" id="deckDescription">
+                                    Prepare for Christian service, ministry leadership and effective biblical work through practical, Christ-centered education.
+                                </div>
+
+                                <div class="deck-logo">
+                                    <div class="deck-logo-icon">
+                                        <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI">
+                                    </div>
+
+                                    <div class="deck-logo-text">
+                                        <strong>Living Oracles</strong>
+                                        <span>Global Institute</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <a href="/our-programs" class="deck-cta" id="deckCta">
+                                Explore Programmes <i class="fas fa-arrow-right"></i>
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </section>
@@ -4340,27 +4662,6 @@
             });
         });
 
-        // DYNAMIC QUOTE ROTATION
-        document.addEventListener('DOMContentLoaded', function() {
-            const quotes = [
-                "A perfect blend of Leadership, Business, Technology & Theology",
-                "Empowering the next generation of global transformational leaders",
-                "Integrating faith-based principles with practical, real-world skills",
-                "Equipping minds and hearts for impactful service worldwide"
-            ];
-            let i = 0;
-            const el = document.getElementById('dynamic-quote');
-            if (!el) return;
-            setInterval(() => {
-                el.classList.add('quote-hidden');
-                setTimeout(() => {
-                    i = (i + 1) % quotes.length;
-                    el.innerHTML = quotes[i];
-                    el.classList.remove('quote-hidden');
-                }, 600);
-            }, 4000);
-        });
-
         // SCHOOLS TABS
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.school-tab').forEach(tab => {
@@ -4581,6 +4882,214 @@
         function customizeCookies() {
             window.location.href = '/cookie-settings';
         }
+
+        // ==========================================
+        // NEW HERO — LOGI ROTATING CARD + TYPEWRITER
+        // ==========================================
+        (function(){
+            const schools = [
+                {
+                    typing: "Purposeful",
+                    eyebrow: "School of Ministry & Theology",
+                    title: "Study <span class='highlight'>Ministry &amp;</span><br>Theology",
+                    cardDescription:
+                        "Build biblical knowledge, ministry skills and Christian leadership capacity for meaningful service and impact.",
+                    cta: "Explore Ministry Programmes",
+                    href: "/our-programs",
+                    face: "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
+                    papers: ["#fbbf24", "#d97706", "#b45309"]
+                },
+                {
+                    typing: "Practical",
+                    eyebrow: "School of Business & Leadership",
+                    title: "Study <span class='highlight'>Business &amp;</span><br>Leadership",
+                    cardDescription:
+                        "Gain practical knowledge for managing people, organisations, projects and business opportunities with integrity.",
+                    cta: "Explore Business Programmes",
+                    href: "/our-programs",
+                    face: "linear-gradient(135deg, #f43f5e 0%, #be185d 100%)",
+                    papers: ["#fb7185", "#e11d48", "#9d174d"]
+                },
+                {
+                    typing: "Innovative",
+                    eyebrow: "School of Engineering & Technology",
+                    title: "Study <span class='highlight'>Engineering &amp;</span><br>Technology",
+                    cardDescription:
+                        "Develop practical digital and technology skills through learning that connects knowledge with real-world problems.",
+                    cta: "Explore Technology Programmes",
+                    href: "/our-programs",
+                    face: "linear-gradient(135deg, #10b981 0%, #047857 100%)",
+                    papers: ["#34d399", "#059669", "#065f46"]
+                }
+            ];
+
+            const INTERVAL = 4000;
+            const FLIP_OUT = 700;
+            const FLIP_IN  = 700;
+
+            const TYPE_SPEED   = 90;
+            const DELETE_SPEED = 55;
+            const HOLD_FULL    = 900;
+            const HOLD_EMPTY   = 250;
+
+            const typingTarget    = document.getElementById("typingTarget");
+            const deckMain        = document.getElementById("deckMain");
+            const deckEyebrow     = document.getElementById("deckEyebrow");
+            const deckTitle       = document.getElementById("deckTitle");
+            const deckDescription = document.getElementById("deckDescription");
+            const deckCta         = document.getElementById("deckCta");
+            const paperYellow     = document.getElementById("paperYellow");
+            const paperPink       = document.getElementById("paperPink");
+            const paperGreen      = document.getElementById("paperGreen");
+            const hero            = document.getElementById("logiHero");
+            const deckMainWrap    = document.getElementById("deckMainWrap");
+
+            if (!typingTarget || !hero || !deckMainWrap) return;
+
+            let schoolIndex = 0;
+            let timer       = null;
+            let paused      = false;
+            let flipping    = false;
+
+            const typewriter = {
+                target: typingTarget,
+                text: "",
+                index: 0,
+                nextWord: "",
+                phase: "idle",
+                timeoutId: null,
+
+                setWord(word){
+                    this.nextWord = word;
+                    if (this.phase === "typing" || this.phase === "holding") {
+                        this.phase = "deleting";
+                        clearTimeout(this.timeoutId);
+                        this._deleteStep();
+                    }
+                },
+
+                _typeStep(){
+                    if (this.phase !== "typing") return;
+                    const word = this.nextWord || "";
+                    if (this.index < word.length) {
+                        this.text = word.slice(0, this.index + 1);
+                        this.target.textContent = this.text;
+                        this.index++;
+                        this.timeoutId = setTimeout(() => this._typeStep(), TYPE_SPEED);
+                    } else {
+                        this.phase = "holding";
+                        this.timeoutId = setTimeout(() => {
+                            this.phase = "deleting";
+                            this._deleteStep();
+                        }, HOLD_FULL);
+                    }
+                },
+
+                _deleteStep(){
+                    if (this.phase !== "deleting") return;
+                    if (this.text.length > 0) {
+                        this.text = this.text.slice(0, -1);
+                        this.target.textContent = this.text;
+                        this.timeoutId = setTimeout(() => this._deleteStep(), DELETE_SPEED);
+                    } else {
+                        this.index = 0;
+                        this.phase = "waiting";
+                        this.timeoutId = setTimeout(() => {
+                            this.phase = "typing";
+                            this._typeStep();
+                        }, HOLD_EMPTY);
+                    }
+                },
+
+                start(word){
+                    this.nextWord = word;
+                    this.text = "";
+                    this.index = 0;
+                    this.phase = "typing";
+                    this.target.textContent = "";
+                    this._typeStep();
+                }
+            };
+
+            function paintCard(school){
+                deckMain.style.background    = school.face;
+                deckEyebrow.textContent      = school.eyebrow;
+                deckTitle.innerHTML          = school.title;
+                deckDescription.textContent  = school.cardDescription;
+                deckCta.innerHTML            = school.cta + ' <i class="fas fa-arrow-right"></i>';
+                deckCta.href                 = school.href;
+            }
+
+            function paintPapers(school){
+                paperYellow.style.background = `linear-gradient(135deg, ${school.papers[0]}, ${school.papers[1]})`;
+                paperPink.style.background   = `linear-gradient(135deg, ${school.papers[1]}, ${school.papers[2]})`;
+                paperGreen.style.background  = `linear-gradient(135deg, ${school.papers[2]}, ${school.papers[1]})`;
+            }
+
+            function renderSchool(index, withFlip){
+                const school = schools[index];
+                typewriter.setWord(school.typing);
+
+                if (!withFlip) {
+                    paintCard(school);
+                    paintPapers(school);
+                    return;
+                }
+
+                if (flipping) return;
+                flipping = true;
+
+                paintPapers(school);
+
+                deckMainWrap.classList.remove("card-in");
+                deckMainWrap.classList.add("card-out");
+
+                setTimeout(() => {
+                    paintCard(school);
+                }, FLIP_OUT * 0.45);
+
+                setTimeout(() => {
+                    deckMainWrap.classList.remove("card-out");
+                    void deckMainWrap.offsetWidth;
+                    deckMainWrap.classList.add("card-in");
+                }, FLIP_OUT);
+
+                setTimeout(() => {
+                    deckMainWrap.classList.remove("card-in");
+                    flipping = false;
+                }, FLIP_OUT + FLIP_IN);
+            }
+
+            function nextSchool(){
+                schoolIndex = (schoolIndex + 1) % schools.length;
+                renderSchool(schoolIndex, true);
+            }
+
+            function startRotation(){
+                clearInterval(timer);
+                timer = setInterval(() => { if (!paused) nextSchool(); }, INTERVAL);
+            }
+
+            hero.addEventListener("mouseenter", () => { paused = true; });
+            hero.addEventListener("mouseleave", () => { paused = false; });
+
+            hero.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowRight") {
+                    nextSchool();
+                    startRotation();
+                }
+                if (event.key === "ArrowLeft") {
+                    schoolIndex = (schoolIndex - 1 + schools.length) % schools.length;
+                    renderSchool(schoolIndex, true);
+                    startRotation();
+                }
+            });
+
+            paintCard(schools[0]);
+            paintPapers(schools[0]);
+            typewriter.start(schools[0].typing);
+            startRotation();
+        })();
     </script>
 
 </body>
