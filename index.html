@@ -6,13 +6,13 @@
     <title>Living Oracles Global Institute</title>
 
     <meta name="description" content="Living Oracles Global Institute offers affordable Christian online education in leadership, business, technology, and theology." />
-    <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
-    <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
+    <link rel="icon" href="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" />
 
     <meta property="og:title" content="Living Oracles Global Institute" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://logi.education" />
-    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" />
     <meta property="og:description" content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." />
     <meta name="twitter:card" content="summary_large_image" />
 
@@ -40,6 +40,13 @@
             --brand-yellow: #fbbf24;
             --brand-blue: #3b82f6;
             --brand-purple: #7e22ce;
+
+            --biz-accent: #f43f5e;
+            --biz-accent-soft: rgba(244, 63, 94, 0.08);
+            --min-accent: #d97706;
+            --min-accent-soft: rgba(217, 119, 6, 0.08);
+            --eng-accent: #059669;
+            --eng-accent-soft: rgba(5, 150, 105, 0.08);
         }
 
         html, body { overflow-x: hidden !important; width: 100% !important; }
@@ -372,7 +379,7 @@
         }
 
         /* ==========================================
-           NEW HERO — LOGI ROTATING CARD
+           HERO — LOGI ROTATING CARD
            ========================================== */
         .hero-uat {
             position: relative;
@@ -384,7 +391,6 @@
             display: flex;
             align-items: center;
         }
-
         .hero-uat::before {
             content: '';
             position: absolute;
@@ -397,7 +403,6 @@
             pointer-events: none;
             z-index: 1;
         }
-
         .hero-uat-inner {
             position: relative;
             z-index: 2;
@@ -409,9 +414,7 @@
             gap: 3rem;
             align-items: center;
         }
-
         .hero-left { max-width: 620px; }
-
         .hero-pill {
             display: inline-flex;
             align-items: center;
@@ -427,7 +430,6 @@
             margin-bottom: 2rem;
             box-shadow: 0 10px 24px rgba(244,63,94,.30);
         }
-
         .hero-h1 {
             font-size: clamp(2.4rem, 4.8vw, 4rem);
             font-weight: 800;
@@ -437,13 +439,11 @@
             margin-bottom: 1.5rem;
             min-height: 2.15em;
         }
-
         .typing-target {
             color: var(--brand-pink);
             display: inline;
             white-space: nowrap;
         }
-
         .hero-cursor {
             display: inline-block;
             width: 4px;
@@ -453,12 +453,10 @@
             vertical-align: -.05em;
             animation: cursorBlink 1s steps(1) infinite;
         }
-
         @keyframes cursorBlink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
-
         .hero-subtext {
             font-size: clamp(1rem, 1.25vw, 1.15rem);
             line-height: 1.75;
@@ -466,14 +464,12 @@
             margin-bottom: 2.5rem;
             max-width: 540px;
         }
-
         .hero-buttons {
             display: flex;
             align-items: center;
             gap: .85rem;
             flex-wrap: wrap;
         }
-
         .hero-btn-primary,
         .hero-btn-secondary {
             display: inline-flex;
@@ -486,25 +482,21 @@
             text-decoration: none;
             transition: all .35s cubic-bezier(.25,1,.5,1);
         }
-
         .hero-btn-primary {
             background: var(--brand-pink);
             color: #fff;
             box-shadow: 0 12px 28px rgba(244,63,94,.32);
         }
-
         .hero-btn-primary:hover {
             background: var(--brand-pink-hover);
             transform: translateY(-3px);
             box-shadow: 0 18px 40px rgba(244,63,94,.45);
         }
-
         .hero-btn-secondary {
             background: #fff;
             color: #1a1a1a;
             border: 2px solid #e5e7eb;
         }
-
         .hero-btn-secondary:hover {
             border-color: var(--brand-pink);
             color: var(--brand-pink);
@@ -519,7 +511,6 @@
             align-items: center;
             min-height: 520px;
         }
-
         .hero-deck {
             position: relative;
             width: 100%;
@@ -527,7 +518,6 @@
             aspect-ratio: 4/5;
             perspective: 1400px;
         }
-
         .deck-paper {
             position: absolute;
             inset: 0;
@@ -536,7 +526,6 @@
             transition: background .7s ease, transform .7s cubic-bezier(.25,1,.5,1), opacity .5s ease;
             will-change: transform, background;
         }
-
         .deck-paper.p-yellow { transform: rotate(8deg) translate(28px, -24px); }
         .deck-paper.p-pink   { transform: rotate(-3deg) translate(-16px, -12px); }
         .deck-paper.p-green  { transform: rotate(5deg) translate(20px, -6px); opacity: .85; }
@@ -548,7 +537,6 @@
             transform-style: preserve-3d;
             will-change: transform, opacity;
         }
-
         .deck-main {
             position: absolute;
             inset: 0;
@@ -565,7 +553,6 @@
             color: #ffffff;
             transition: background .7s ease;
         }
-
         .deck-main::before {
             content: '';
             position: absolute;
@@ -574,16 +561,13 @@
             pointer-events: none;
             z-index: 0;
         }
-
         .deck-main-wrap.card-out {
             animation: cardFlipOut .7s cubic-bezier(.55, 0, 1, .45) forwards;
             pointer-events: none;
         }
-
         .deck-main-wrap.card-in {
             animation: cardFlipIn .7s cubic-bezier(0, .55, .45, 1) forwards;
         }
-
         @keyframes cardFlipOut {
             0% {
                 transform: rotateY(0deg) rotateZ(0deg) translateY(0) scale(1);
@@ -595,7 +579,6 @@
                 opacity: 0;
             }
         }
-
         @keyframes cardFlipIn {
             0% {
                 transform: rotateY(105deg) rotateZ(8deg) translateY(-40px) scale(.86);
@@ -607,7 +590,6 @@
                 opacity: 1;
             }
         }
-
         .deck-watermark {
             position: absolute;
             top: 40px;
@@ -618,16 +600,12 @@
             pointer-events: none;
             z-index: 1;
         }
-
         .deck-watermark svg { width: 100%; height: 100%; }
-
         .deck-watermark svg path {
             stroke: #ffffff;
             transition: stroke .7s ease;
         }
-
         .deck-content { position: relative; z-index: 2; }
-
         .deck-eyebrow {
             font-size: 1.05rem;
             font-weight: 500;
@@ -637,7 +615,6 @@
             padding-bottom: 0.75rem;
             border-bottom: 2px solid rgba(255,255,255,0.28);
         }
-
         .deck-title {
             font-size: clamp(1.85rem, 2.6vw, 2.4rem);
             font-weight: 900;
@@ -650,12 +627,10 @@
             min-height: 0;
             text-shadow: 0 2px 12px rgba(0,0,0,0.18);
         }
-
         .deck-title .highlight {
             color: #ffffff;
             position: relative;
         }
-
         .deck-description {
             font-size: .95rem;
             line-height: 1.55;
@@ -665,13 +640,13 @@
             text-shadow: 0 1px 6px rgba(0,0,0,0.15);
         }
 
+        /* ---------- LOGO BLOCK (restored) ---------- */
         .deck-logo {
             display: flex;
             align-items: center;
             gap: .9rem;
             margin-bottom: 0.6rem;
         }
-
         .deck-logo-icon {
             width: 48px;
             height: 48px;
@@ -685,13 +660,11 @@
             overflow: hidden;
             box-shadow: 0 4px 14px rgba(0,0,0,0.15);
         }
-
         .deck-logo-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
-
         .deck-logo-text strong {
             display: block;
             font-size: 1rem;
@@ -699,7 +672,6 @@
             color: #ffffff;
             line-height: 1.2;
         }
-
         .deck-logo-text span {
             font-size: .72rem;
             color: rgba(255,255,255,0.78);
@@ -722,7 +694,6 @@
             z-index: 2;
             align-self: flex-start;
         }
-
         .deck-cta:hover { gap: .75rem; }
 
         @media (min-width: 641px) and (max-width: 1100px) {
@@ -740,7 +711,6 @@
             .deck-description { margin-bottom: 0.75rem; }
             .hero-btn-primary, .hero-btn-secondary { padding: .9rem 1.5rem; font-size: .88rem; }
         }
-
         @media (max-width: 640px) {
             .hero-uat { padding: 2.5rem 5%; min-height: auto; }
             .hero-uat-inner { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -757,7 +727,6 @@
             .hero-buttons { flex-direction: column; align-items: stretch; }
             .hero-btn-primary, .hero-btn-secondary { justify-content: center; }
         }
-
         @media (prefers-reduced-motion: reduce) {
             .deck-main-wrap.card-out,
             .deck-main-wrap.card-in { animation: none; }
@@ -846,7 +815,6 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
-
         .accred-ticker-label {
             flex-shrink: 0;
             background: linear-gradient(135deg, #1a0e00 0%, #3d1f00 100%);
@@ -871,7 +839,6 @@
             clip-path: polygon(0 0, 0 100%, 100% 50%);
             z-index: 3;
         }
-
         .accred-ticker-label i {
             color: #fbbf24;
             font-size: 1.35rem;
@@ -888,7 +855,6 @@
                 transform: rotate(15deg) scale(1.1);
             }
         }
-
         .accred-ticker-label span {
             font-family: 'Playfair Display', serif;
             font-style: italic;
@@ -902,7 +868,6 @@
             text-shadow: 0 0 20px rgba(251,191,36,0.3);
             white-space: nowrap;
         }
-
         .accred-ticker-track {
             display: flex;
             align-items: center;
@@ -914,7 +879,6 @@
         .accred-ticker:hover .accred-ticker-track {
             animation-play-state: paused;
         }
-
         .accred-ticker-track > span {
             font-size: 1.2rem;
             font-weight: 700;
@@ -927,7 +891,6 @@
             transition: transform 0.3s ease;
             font-family: 'Inter', sans-serif;
         }
-
         .accred-ticker-track > span:not(:last-child)::after {
             content: '';
             position: absolute;
@@ -940,7 +903,6 @@
             border-radius: 50%;
             opacity: 0.5;
         }
-
         .accred-ticker-track > span i {
             color: #1a0e00;
             font-size: 1.1rem;
@@ -959,25 +921,21 @@
             color: #fbbf24;
             transform: rotate(-8deg) scale(1.1);
         }
-
         .accred-ticker-track > span strong {
             color: #1a0e00;
             font-weight: 800;
             text-shadow: 0 1px 0 rgba(255,255,255,0.35);
         }
-
         .accred-ticker-track > span:nth-child(even) strong {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
-
         @keyframes accredScroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-
         @media (max-width: 1024px) {
             .accred-ticker { height: 60px; }
             .accred-ticker-label { padding: 0 1.4rem; gap: 0.7rem; }
@@ -1010,7 +968,7 @@
         }
 
         /* ==========================================
-           EXPLORE OUR SCHOOLS
+           EXPLORE OUR SCHOOLS (merged from programs.html)
            ========================================== */
         .schools-section {
             background: #ffffff;
@@ -1018,10 +976,9 @@
             width: 100%;
         }
         .schools-inner {
-            max-width: var(--container-max);
+            max-width: 900px;
             margin: 0 auto;
         }
-
         .schools-head {
             text-align: center;
             max-width: 780px;
@@ -1047,182 +1004,202 @@
             color: var(--text-muted);
             line-height: 1.6;
         }
-
         .schools-tab-bar {
             display: flex;
             justify-content: center;
             gap: 0.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             flex-wrap: wrap;
         }
         .school-tab {
-            padding: 0.55rem 1.25rem;
-            border-radius: 50px;
-            background: #fff;
-            border: 1px solid var(--border);
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
             display: inline-flex;
             align-items: center;
-            gap: 0.45rem;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            background: transparent;
+            border: none;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            font-family: inherit;
+            position: relative;
         }
         .school-tab i {
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
         }
-        .school-tab:hover {
-            border-color: var(--brand-pink);
-            color: var(--brand-pink);
+        .school-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 70%;
+            height: 3px;
+            border-radius: 3px;
+            background: var(--accent, var(--brand-pink));
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center;
         }
-        .school-tab.active {
-            background: var(--brand-pink);
-            color: #fff;
-            border-color: var(--brand-pink);
-        }
+        .school-tab:hover { color: var(--accent, var(--brand-pink)); }
+        .school-tab:hover i { transform: rotate(-6deg) scale(1.1); }
+        .school-tab.active { color: var(--accent, var(--brand-pink)); }
+        .school-tab.active::after { transform: translateX(-50%) scaleX(1); }
+        .school-tab.active i { transform: rotate(-6deg) scale(1.1); }
+        .school-tab[data-panel="panel-business"]    { --accent: var(--biz-accent); }
+        .school-tab[data-panel="panel-ministry"]    { --accent: var(--min-accent); }
+        .school-tab[data-panel="panel-engineering"] { --accent: var(--eng-accent); }
 
         .school-panel {
             display: none;
-            animation: panelFadeIn 0.4s ease;
+            animation: panelDrop 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .school-panel.active { display: block; }
-        @keyframes panelFadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes panelDrop {
+            from { opacity: 0; transform: translateY(-8px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .school-panel[data-school="business"]    { --accent: var(--biz-accent); --accent-soft: var(--biz-accent-soft); }
+        .school-panel[data-school="ministry"]    { --accent: var(--min-accent); --accent-soft: var(--min-accent-soft); }
+        .school-panel[data-school="engineering"] { --accent: var(--eng-accent); --accent-soft: var(--eng-accent-soft); }
 
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
-            margin-bottom: 1.5rem;
+        .school-panel-head {
+            text-align: center;
+            margin-bottom: 2rem;
         }
-        .program-card.hidden-program { display: none; }
-        .programs-grid.expanded .program-card.hidden-program {
+        .school-panel-head h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.005em;
+        }
+        .school-panel-head p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .programs-accordion {
             display: flex;
+            flex-direction: column;
+        }
+        .program-item.hidden-program { display: none; }
+        .programs-accordion.expanded .program-item.hidden-program {
+            display: block;
             animation: fadeSlideIn 0.4s ease;
         }
         @keyframes fadeSlideIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .program-card {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-        .program-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-            border-color: var(--brand-pink);
-        }
-
-        .program-card-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
+        .program-item {
             border-bottom: 1px solid var(--border);
+            transition: border-color 0.3s ease;
         }
-        .program-brand {
+        .program-item:last-child { border-bottom: none; }
+        .program-item.active { border-bottom-color: transparent; }
+        .program-header {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: #1f2937;
+            gap: 1.25rem;
+            padding: 1.25rem 0.25rem;
+            cursor: pointer;
+            user-select: none;
+            transition: padding 0.3s ease;
         }
-        .program-brand .brand-logo {
-            width: 20px; height: 20px;
-            background: linear-gradient(135deg, var(--brand-pink), var(--brand-purple));
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 0.55rem;
-            font-weight: 900;
-        }
-        .program-badge-top {
+        .program-header-badge {
+            flex-shrink: 0;
             font-size: 0.6rem;
-            font-weight: 700;
-            color: #fff;
-            background: var(--brand-pink);
-            padding: 0.2rem 0.55rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.7rem;
             border-radius: 50px;
+            background: var(--accent-soft);
+            color: var(--accent);
             white-space: nowrap;
+            transition: background 0.3s ease, color 0.3s ease;
         }
-        .program-badge-top.diploma {
-            background: var(--brand-purple);
+        .program-item.active .program-header-badge {
+            background: var(--accent);
+            color: #ffffff;
         }
-
-        .program-img {
-            width: 100%;
-            height: 140px;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .program-card:hover .program-img {
-            transform: scale(1.05);
-        }
-
-        .program-body {
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        .program-title {
-            font-size: 0.9rem;
+        .program-header-text { flex: 1; min-width: 0; }
+        .program-header-text h3 {
+            font-size: 1rem;
             font-weight: 700;
             color: #111827;
-            line-height: 1.35;
-            margin-bottom: 0.5rem;
-            min-height: 2.4rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            line-height: 1.4;
+            margin: 0;
+            letter-spacing: -0.01em;
             transition: color 0.25s ease;
         }
-        .program-card:hover .program-title { color: var(--brand-pink); }
-
-        .program-desc {
-            font-size: 0.78rem;
-            color: #6b7280;
-            line-height: 1.55;
-            flex: 1;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .program-cta {
-            margin-top: auto;
-            color: var(--brand-pink);
-            font-weight: 700;
-            font-size: 0.8rem;
+        .program-item:hover .program-header-text h3 { color: var(--accent); }
+        .program-item.active .program-header-text h3 { color: var(--accent); }
+        .program-chevron {
+            flex-shrink: 0;
+            color: var(--accent);
+            font-size: 0.85rem;
+            transition: transform 0.35s ease;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border);
+        }
+        .program-item.active .program-chevron { transform: rotate(180deg); }
+        .program-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                        padding 0.3s ease,
+                        opacity 0.3s ease;
+            padding: 0 0.25rem;
+            opacity: 0;
+        }
+        .program-item.active .program-body {
+            max-height: 300px;
+            padding: 0 0.25rem 1.5rem 0.25rem;
+            opacity: 1;
+        }
+        .program-body-inner {
+            padding-left: 4.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .program-desc {
+            font-size: 0.9rem;
+            color: #4a4540;
+            line-height: 1.7;
+            margin: 0;
+        }
+        .program-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            align-self: flex-start;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            border-bottom: 2px solid transparent;
             transition: all 0.3s ease;
         }
-        .program-card:hover .program-cta { gap: 0.5rem; }
+        .program-cta:hover {
+            gap: 0.75rem;
+            border-bottom-color: var(--accent);
+        }
+        .program-cta i {
+            font-size: 0.78rem;
+            transition: transform 0.3s ease;
+        }
+        .program-cta:hover i { transform: translateX(3px); }
 
         .see-more-wrap {
             display: flex;
@@ -1233,73 +1210,80 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: #fff;
-            color: var(--brand-pink);
-            border: 2px solid var(--brand-pink);
-            padding: 0.75rem 1.75rem;
-            border-radius: 50px;
+            background: transparent;
+            color: var(--accent);
+            border: none;
+            padding: 0.5rem 0;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             transition: all 0.3s ease;
             font-family: inherit;
             cursor: pointer;
+            border-bottom: 2px solid transparent;
         }
         .see-more-btn:hover {
-            background: var(--brand-pink);
-            color: #fff;
-            gap: 0.65rem;
+            gap: 0.75rem;
+            border-bottom-color: var(--accent);
         }
         .see-more-btn i {
             transition: transform 0.35s ease;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .see-more-btn.active i { transform: rotate(180deg); }
 
         .schools-bottom-cta {
             display: flex;
             justify-content: center;
-            margin-top: 3rem;
+            margin-top: 3.5rem;
         }
         .schools-btn-primary {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: #fff;
+            background: transparent;
             color: var(--brand-pink);
-            border: 2px solid var(--brand-pink);
-            padding: 0.75rem 1.75rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
+            border: none;
+            padding: 0.5rem 0;
+            font-weight: 800;
+            font-size: 0.92rem;
             text-decoration: none;
             transition: all 0.3s ease;
             font-family: inherit;
-            cursor: pointer;
+            border-bottom: 2px solid var(--brand-pink);
         }
         .schools-btn-primary:hover {
-            background: var(--brand-pink);
-            color: #fff;
-            gap: 0.65rem;
+            gap: 0.75rem;
+            opacity: 0.85;
         }
 
-        @media (max-width: 1024px) {
-            .programs-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-        }
-        @media (max-width: 900px) {
-            .programs-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        }
-        @media (max-width: 500px) {
+        @media (max-width: 640px) {
             .schools-section { padding: 3.5rem 5%; }
             .schools-head { margin-bottom: 2rem; }
-            .programs-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .schools-tab-bar { gap: 0.4rem; }
-            .school-tab { padding: 0.5rem 0.9rem; font-size: 0.72rem; gap: 0.35rem; }
-            .school-tab i { font-size: 0.75rem; }
-            .see-more-btn { width: 100%; justify-content: center; }
-            .schools-btn-primary { width: 100%; justify-content: center; }
+            .schools-tab-bar { margin-bottom: 2rem; gap: 0.4rem; }
+            .school-tab {
+                flex: 1 1 calc(50% - 0.4rem);
+                justify-content: center;
+                padding: 0.6rem 0.8rem;
+                font-size: 0.78rem;
+            }
+            .school-tab i { font-size: 0.8rem; }
+            .school-panel-head { margin-bottom: 1.5rem; }
+            .school-panel-head h3 { font-size: 0.95rem; }
+            .school-panel-head p { font-size: 0.8rem; }
+            .program-header { padding: 1rem 0; gap: 0.85rem; }
+            .program-header-text h3 { font-size: 0.92rem; }
+            .program-header-badge { font-size: 0.55rem; padding: 0.25rem 0.55rem; }
+            .program-chevron { width: 20px; height: 20px; font-size: 0.75rem; }
+            .program-body-inner { padding-left: 0; }
+            .program-desc { font-size: 0.85rem; }
         }
-        @media (max-width: 400px) {
-            .school-tab { font-size: 0.65rem; padding: 0.45rem 0.7rem; }
+        @media (max-width: 480px) {
+            .school-tab {
+                flex: 1 1 100%;
+                font-size: 0.75rem;
+            }
+            .program-header { padding: 0.85rem 0; gap: 0.7rem; }
+            .program-header-text h3 { font-size: 0.87rem; }
         }
 
         /* ============ INFO CARDS ============ */
@@ -1427,7 +1411,6 @@
             line-height: 1.75;
             margin-bottom: 3rem;
         }
-
         .why-logi-mockup { position: relative; padding-bottom: 40px; }
         .why-logi-mockup::before {
             content: '';
@@ -1633,9 +1616,9 @@
             .how-globe { width: 320px; height: 320px; left: -120px; opacity: 0.35; }
         }
 
-        /* ========================================== */
-        /*   DAILY DEVOTIONALS CTA                    */
-        /* ========================================== */
+        /* ==========================================
+           DAILY DEVOTIONALS CTA
+           ========================================== */
         .devotionals-cta-section {
             background: linear-gradient(135deg, #fef2f2 0%, #fce7f3 50%, #fdf2f8 100%);
             padding: 3rem 5%;
@@ -1661,14 +1644,12 @@
             border-radius: 50%;
             pointer-events: none;
         }
-
         .devotionals-cta-inner {
             max-width: var(--container-max);
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
-
         .devotionals-cta-heading {
             text-align: center;
             font-size: clamp(1.4rem, 2.6vw, 1.9rem);
@@ -1685,7 +1666,6 @@
             border-radius: 6px;
             display: inline-block;
         }
-
         .devotionals-cta-banner {
             display: grid;
             grid-template-columns: 0.85fr 1.4fr;
@@ -1699,7 +1679,6 @@
             max-width: 1000px;
             margin: 0 auto;
         }
-
         .devotionals-cta-image {
             position: relative;
             overflow: hidden;
@@ -1746,7 +1725,6 @@
             font-size: 0.62rem;
             color: var(--brand-pink);
         }
-
         .devotionals-cta-content {
             padding: 1.75rem 2.25rem;
             display: flex;
@@ -1754,7 +1732,6 @@
             justify-content: center;
             background: #ffffff;
         }
-
         .devotionals-cta-eyebrow {
             display: inline-flex;
             align-items: center;
@@ -1773,7 +1750,6 @@
             white-space: nowrap;
         }
         .devotionals-cta-eyebrow i { font-size: 0.68rem; }
-
         .devotionals-cta-content h3 {
             font-size: clamp(1.15rem, 1.8vw, 1.45rem);
             font-weight: 800;
@@ -1782,10 +1758,7 @@
             letter-spacing: -0.025em;
             margin-bottom: 0.65rem;
         }
-        .devotionals-cta-content h3 .accent {
-            color: var(--brand-pink);
-        }
-
+        .devotionals-cta-content h3 .accent { color: var(--brand-pink); }
         .devotionals-cta-content > p {
             font-size: 0.88rem;
             color: #6b7280;
@@ -1793,7 +1766,6 @@
             margin-bottom: 1.1rem;
             max-width: 480px;
         }
-
         .devotionals-cta-features {
             display: flex;
             flex-wrap: wrap;
@@ -1812,7 +1784,6 @@
             color: #10b981;
             font-size: 0.78rem;
         }
-
         .devotionals-cta-btn {
             display: inline-flex;
             align-items: center;
@@ -1840,9 +1811,7 @@
             font-size: 0.88rem;
             transition: transform 0.3s ease;
         }
-        .devotionals-cta-btn:hover i:last-child {
-            transform: translateX(4px);
-        }
+        .devotionals-cta-btn:hover i:last-child { transform: translateX(4px); }
 
         @media (min-width: 1200px) {
             .devotionals-cta-banner { grid-template-columns: 0.8fr 1.45fr; }
@@ -1850,10 +1819,7 @@
         }
         @media (max-width: 1023px) and (min-width: 640px) {
             .devotionals-cta-section { padding: 2.5rem 4%; }
-            .devotionals-cta-banner {
-                grid-template-columns: 0.9fr 1.1fr;
-                max-width: 100%;
-            }
+            .devotionals-cta-banner { grid-template-columns: 0.9fr 1.1fr; max-width: 100%; }
             .devotionals-cta-image { min-height: 200px; }
             .devotionals-cta-content { padding: 1.5rem 1.75rem; }
             .devotionals-cta-content h3 { font-size: 1.15rem; }
@@ -1865,10 +1831,7 @@
         }
         @media (max-width: 639px) {
             .devotionals-cta-section { padding: 2.5rem 5%; }
-            .devotionals-cta-banner {
-                grid-template-columns: 1fr;
-                max-width: 100%;
-            }
+            .devotionals-cta-banner { grid-template-columns: 1fr; max-width: 100%; }
             .devotionals-cta-image { min-height: 170px; }
             .devotionals-cta-content { padding: 1.5rem 1.5rem; }
             .devotionals-cta-content h3 { font-size: 1.15rem; }
@@ -1968,7 +1931,6 @@
             transform: translateY(-6px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.35);
         }
-
         .student-card-initials {
             width: 80px;
             height: 80px;
@@ -1987,7 +1949,6 @@
         .student-card-initials.pink { background: linear-gradient(135deg, #f43f5e, #e11d48); }
         .student-card-initials.purple { background: linear-gradient(135deg, #7e22ce, #6d28d9); }
         .student-card-initials.blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-
         .student-card-name { font-size: 0.95rem; font-weight: 800; color: #111827; margin-bottom: 0.3rem; }
         .student-card-role { font-size: 0.78rem; color: #6b7280; margin-bottom: 1.35rem; }
         .student-card-quote {
@@ -2042,9 +2003,9 @@
             .students-cards { grid-template-columns: 1fr; gap: 1.5rem; }
         }
 
-        /* ========================================== */
-        /*   FINANCIAL AID SECTION                    */
-        /* ========================================== */
+        /* ==========================================
+           FINANCIAL AID SECTION
+           ========================================== */
         .finaid-section {
             background: #fff;
             padding: 5rem 5%;
@@ -2077,7 +2038,6 @@
             margin: 0 auto 3rem;
             line-height: 1.65;
         }
-
         .finaid-banner-wrap {
             display: flex;
             align-items: center;
@@ -2102,7 +2062,6 @@
             z-index: 3;
         }
         .finaid-arrow:hover { background: var(--brand-pink); color: #fff; border-color: var(--brand-pink); }
-
         .finaid-banner {
             flex: 1;
             background: linear-gradient(135deg, #fce7f3 0%, #fdf2f8 50%, #fce7f3 100%);
@@ -2133,7 +2092,6 @@
             opacity: 0;
             transform: translateY(8px);
         }
-
         .finaid-portrait {
             position: relative;
             z-index: 1;
@@ -2205,7 +2163,6 @@
             background: #fff;
             transform: rotate(45deg);
         }
-
         .finaid-scholarship {
             background: #fff;
             border-radius: 22px;
@@ -2257,7 +2214,6 @@
             font-size: 0.72rem;
             flex-shrink: 0;
         }
-
         .finaid-story {
             display: flex;
             flex-direction: column;
@@ -2303,7 +2259,6 @@
             transform: translateX(3px);
             gap: 0.65rem;
         }
-
         .finaid-progress {
             width: 100%;
             max-width: 1050px;
@@ -2326,7 +2281,6 @@
             from { width: 0%; }
             to { width: 100%; }
         }
-
         @media (max-width: 1024px) {
             .finaid-banner { padding: 2rem 1.75rem; gap: 1.25rem; grid-template-columns: 0.9fr 1.1fr 1.2fr; }
             .finaid-portrait-frame { width: 140px; height: 140px; }
@@ -2353,9 +2307,9 @@
             .finaid-story-text { font-size: 0.82rem; }
         }
 
-        /* ========================================== */
-        /*   GETTING STARTED SECTION                  */
-        /* ========================================== */
+        /* ==========================================
+           GETTING STARTED SECTION
+           ========================================== */
         .started-section {
             background: linear-gradient(135deg, #fef2f2 0%, #fce7f3 50%, #fdf2f8 100%);
             color: #0a0a0a;
@@ -2382,14 +2336,12 @@
             border-radius: 50%;
             pointer-events: none;
         }
-
         .started-inner {
             max-width: var(--container-max);
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
-
         .started-head {
             text-align: center;
             max-width: 720px;
@@ -2415,14 +2367,12 @@
             color: #6b7280;
             line-height: 1.65;
         }
-
         .started-grid {
             display: grid;
             grid-template-columns: 1fr 1.05fr;
             gap: 4rem;
             align-items: center;
         }
-
         .started-image {
             border-radius: 14px;
             overflow: hidden;
@@ -2438,7 +2388,6 @@
             object-position: center;
             display: block;
         }
-
         .started-image-badge {
             position: absolute;
             bottom: 1.5rem;
@@ -2477,19 +2426,16 @@
             color: #6b7280;
             font-weight: 600;
         }
-
         .started-features {
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
         }
-
         .started-feature {
             display: flex;
             gap: 1.25rem;
             align-items: flex-start;
         }
-
         .started-feature-icon {
             flex-shrink: 0;
             width: 52px;
@@ -2512,7 +2458,6 @@
             transform: rotate(-6deg) scale(1.05);
             box-shadow: 0 6px 20px rgba(244,63,94,0.35);
         }
-
         .started-feature-num {
             position: absolute;
             top: -6px;
@@ -2529,7 +2474,6 @@
             justify-content: center;
             border: 2px solid #fff;
         }
-
         .started-feature h4 {
             font-size: 1.05rem;
             font-weight: 800;
@@ -2541,7 +2485,6 @@
             gap: 0.5rem;
             flex-wrap: wrap;
         }
-
         .started-feature h4 .time-tag {
             background: rgba(217,119,6,0.12);
             color: #b45309;
@@ -2553,13 +2496,11 @@
             border-radius: 50px;
             border: 1px solid rgba(217,119,6,0.25);
         }
-
         .started-feature p {
             font-size: 0.87rem;
             color: #6b7280;
             line-height: 1.7;
         }
-
         .started-cta-wrap {
             display: flex;
             gap: 0.85rem;
@@ -2599,7 +2540,6 @@
             color: #fff;
             transform: translateY(-3px);
         }
-
         @media (max-width: 1024px) {
             .started-grid { gap: 2rem; }
             .started-image img { height: 400px; }
@@ -2683,7 +2623,6 @@
         }
         .collab-feature h4 { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.6rem; line-height: 1.3; }
         .collab-feature p { font-size: 0.87rem; color: rgba(255,255,255,0.7); line-height: 1.7; }
-
         @media (max-width: 1024px) {
             .collab-grid { gap: 2rem; }
             .collab-image img { height: 340px; }
@@ -2698,35 +2637,6 @@
             .collab-image img { height: 280px; }
             .collab-globe { width: 320px; height: 320px; left: -120px; opacity: 0.35; }
         }
-
-        /* ============ SHORT COURSES ============ */
-        .short-courses-section { background: #f8f9fa; padding: 4rem 5%; width: 100%; }
-        .short-courses-inner { max-width: var(--container-max); margin: 0 auto; }
-        .short-head-row {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .short-head-row h2 {
-            font-size: clamp(1.4rem, 2.8vw, 2rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: #111827;
-        }
-        .short-head-row h2 .highlight {
-            background: var(--brand-pink);
-            color: #fff;
-            padding: 0.1rem 0.6rem;
-            border-radius: 6px;
-            display: inline-block;
-        }
-        .view-all-link { color: var(--brand-pink); font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
-        .view-all-link:hover { text-decoration: underline; }
 
         /* ============ FROM OUR INSIGHTS ============ */
         .insights-section {
@@ -2785,14 +2695,12 @@
             color: rgba(255,255,255,0.72);
             line-height: 1.65;
         }
-
         .insights-grid {
             display: grid;
             grid-template-columns: 1fr 1.05fr;
             gap: 4rem;
             align-items: center;
         }
-
         .insight-featured {
             display: block;
             background: #fff;
@@ -2868,7 +2776,6 @@
             color: var(--brand-pink);
             font-weight: 700;
         }
-
         .insights-features {
             display: flex;
             flex-direction: column;
@@ -2933,7 +2840,6 @@
             transition: gap 0.3s ease;
         }
         .insights-view-all-dark:hover { gap: 0.75rem; }
-
         @media (max-width: 1024px) {
             .insights-grid { gap: 2rem; }
             .insight-featured-image { height: 220px; }
@@ -3059,7 +2965,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.25);
         }
         .cta-new-btn-google svg { flex-shrink: 0; }
-
         .cta-new-trust {
             display: flex;
             justify-content: center;
@@ -3077,7 +2982,6 @@
             color: rgba(255,255,255,0.9);
         }
         .cta-trust-item i { color: #fbbf24; font-size: 0.9rem; }
-
         @media (max-width: 768px) {
             .cta-new { padding: 4rem 5%; }
             .cta-new-buttons { flex-direction: column; align-items: stretch; }
@@ -3206,7 +3110,6 @@
             font-family: inherit;
         }
         .subscription-form button:hover { background: var(--brand-dark); }
-
         @media (max-width: 900px) {
             .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
         }
@@ -3236,18 +3139,10 @@
             background: #20ba5a;
         }
         .floating-chat-link i { font-size: 1.1rem; }
-
         @media (max-width: 480px) {
             .floating-chat-link { padding: 10px 14px; font-size: 0.7rem; }
             .floating-chat-link span { display: none; }
             .floating-chat-link i { font-size: 1.3rem; }
-        }
-
-        /* ============ QUOTE ANIMATION ============ */
-        .quote-hidden {
-            opacity: 0 !important;
-            transform: translateY(5px) !important;
-            transition: opacity 0.6s ease, transform 0.6s ease !important;
         }
 
         /* ============ COOKIE BANNER ============ */
@@ -3309,7 +3204,6 @@
             border: 1px solid var(--accent);
         }
         .cookie-btn-customize:hover { background: rgba(201,168,108,0.1); }
-
         @media (max-width: 768px) {
             .cookie-content { flex-direction: column; align-items: stretch; gap: 15px; }
             .cookie-buttons { flex-direction: column; }
@@ -3363,7 +3257,7 @@
         <header class="site-header">
             <div class="site-header-inner">
                 <a class="site-brand" href="/">
-                    <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo">
+                    <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo">
                     <div class="site-brand-text">
                         <h1>Living Oracle</h1>
                         <span>Global Institute</span>
@@ -3459,13 +3353,12 @@
         </header>
     </div>
 
-    <!-- NEW HERO — LOGI ROTATING CARD -->
+    <!-- HERO — LOGI ROTATING CARD (merged from hero.html) -->
     <section class="hero-uat" id="logiHero">
         <div class="hero-uat-inner">
 
-            <!-- LEFT — fixed -->
+            <!-- LEFT -->
             <div class="hero-left">
-
                 <span class="hero-pill">
                     <i class="fas fa-graduation-cap"></i>
                     <span>Faith · Excellence · Impact</span>
@@ -3484,20 +3377,16 @@
                     <a href="/apply" class="hero-btn-primary">
                         Apply Now <i class="fas fa-arrow-right"></i>
                     </a>
-
                     <a href="/our-programs" class="hero-btn-secondary">
                         <i class="fas fa-compass"></i>
                         Explore Our Schools
                     </a>
                 </div>
-
             </div>
 
-            <!-- RIGHT — rotating card -->
+            <!-- RIGHT -->
             <div class="hero-right">
-
                 <div class="hero-deck">
-
                     <div class="deck-paper p-yellow" id="paperYellow"></div>
                     <div class="deck-paper p-pink"   id="paperPink"></div>
                     <div class="deck-paper p-green"  id="paperGreen"></div>
@@ -3515,7 +3404,6 @@
                             </div>
 
                             <div class="deck-content">
-
                                 <div class="deck-eyebrow" id="deckEyebrow">
                                     School of Ministry &amp; Theology
                                 </div>
@@ -3529,17 +3417,16 @@
                                     Prepare for Christian service, ministry leadership and effective biblical work through practical, Christ-centered education.
                                 </div>
 
+                                <!-- LOGO + TEXT RESTORED -->
                                 <div class="deck-logo">
                                     <div class="deck-logo-icon">
-                                        <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI">
+                                        <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI">
                                     </div>
-
                                     <div class="deck-logo-text">
                                         <strong>Living Oracles</strong>
                                         <span>Global Institute</span>
                                     </div>
                                 </div>
-
                             </div>
 
                             <a href="/our-programs" class="deck-cta" id="deckCta">
@@ -3548,9 +3435,7 @@
 
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </section>
@@ -3574,16 +3459,16 @@
         </div>
     </div>
 
-    <!-- EXPLORE OUR SCHOOLS -->
+    <!-- EXPLORE OUR SCHOOLS (merged from programs.html) -->
     <section class="schools-section" id="schools">
         <div class="schools-inner">
 
             <div class="schools-head">
                 <h2>Explore Our <span class="highlight">Schools</span></h2>
-                <p>Suite of online, self-paced and flexible programs across Business, Leadership, Ministry, Theology, Engineering and Technology — designed for working professionals.</p>
+                <p>Click a school to see its programs. Then click any program to see its details.</p>
             </div>
 
-            <!-- TABS — one line, no numbers -->
+            <!-- TABS -->
             <div class="schools-tab-bar" role="tablist">
                 <button class="school-tab active" data-panel="panel-business" role="tab" aria-selected="true">
                     <i class="fas fa-briefcase"></i>
@@ -3599,264 +3484,387 @@
                 </button>
             </div>
 
-            <!-- PANEL: BUSINESS & LEADERSHIP -->
-            <div class="school-panel active" id="panel-business">
-                <div class="programs-grid" id="grid-business">
-                    <a href="https://learn.logi.education/course/index.php?categoryid=5" class="program-card">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/business-administration-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Business Administration</h3>
-                            <p class="program-desc">Foundational business principles, financial literacy, ethical leadership, and organizational management skills.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=20" class="program-card">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/leadership-management-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Leadership &amp; Management</h3>
-                            <p class="program-desc">Strategic leadership, team building, conflict resolution, vision casting, and change management skills.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=29" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/organizational-leadership-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Organizational Leadership</h3>
-                            <p class="program-desc">Organizational behavior, strategic planning, innovation, ethical decision-making, and servant leadership.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=23" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top diploma">Advanced Diploma</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/diploma-business-administration-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Advanced Professional Diploma in Business Administration</h3>
-                            <p class="program-desc">Advanced business strategy, financial management, entrepreneurship, and capstone project.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
+            <!-- BUSINESS -->
+            <div class="school-panel active" id="panel-business" data-school="business">
+                <div class="school-panel-head">
+                    <h3>School of Business &amp; Leadership</h3>
+                    <p>Business administration, leadership, and organizational management programs.</p>
                 </div>
 
-                <div class="see-more-wrap">
-                    <button class="see-more-btn" onclick="togglePrograms(this, 'grid-business')">
-                        See More Programs <i class="fas fa-chevron-down"></i>
-                    </button>
-                </div>
-            </div>
+                <div class="school-panel-body">
+                    <div class="programs-accordion" id="grid-business">
 
-            <!-- PANEL: MINISTRY & THEOLOGY -->
-            <div class="school-panel" id="panel-ministry">
-                <div class="programs-grid" id="grid-ministry">
-                    <a href="https://learn.logi.education/course/index.php?categoryid=35" class="program-card">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
+                        <div class="program-item">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Business Administration</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Foundational business principles, financial literacy, ethical leadership, and organizational management skills.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=5" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/christian-ministry-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Christian Ministry</h3>
-                            <p class="program-desc">Foundations of faith, preaching, teaching, pastoral care, biblical interpretation, and ministry leadership.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
 
-                    <a href="https://learn.logi.education/course/index.php?categoryid=38" class="program-card">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
+                        <div class="program-item">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Leadership &amp; Management</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Strategic leadership, team building, conflict resolution, vision casting, and change management skills.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=20" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/church-leaders-administration-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Church Leadership &amp; Administration</h3>
-                            <p class="program-desc">Church governance, financial stewardship, congregational care, discipleship, and strategic planning.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
 
-                    <a href="https://learn.logi.education/course/index.php?categoryid=41" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Organizational Leadership</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Organizational behavior, strategic planning, innovation, ethical decision-making, and servant leadership.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=29" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/missions-evangelism-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Missions &amp; Evangelism</h3>
-                            <p class="program-desc">Missiology, cross-cultural ministry, evangelism strategies, community engagement, and church planting.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
 
-                    <a href="https://learn.logi.education/course/index.php?categoryid=44" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top diploma">Advanced Diploma</span>
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge" style="background: rgba(126,34,206,0.08); color: #7e22ce;">Advanced Diploma</span>
+                                <div class="program-header-text">
+                                    <h3>Advanced Professional Diploma in Business Administration</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Advanced business strategy, financial management, entrepreneurship, and capstone project.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=23" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/diploma-ministry-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Advanced Professional Diploma in Ministry</h3>
-                            <p class="program-desc">Advanced pastoral leadership, spiritual formation, discipleship strategies, and capstone project.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
 
-                    <a href="https://learn.logi.education/course/index.php?categoryid=51" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/biblical-studies-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Biblical Studies</h3>
-                            <p class="program-desc">Old and New Testament survey, biblical interpretation, core doctrines, and practical Scripture application.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
+                    </div>
 
-                    <a href="https://learn.logi.education/course/index.php?categoryid=54" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/children-ministry-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Children &amp; Family Ministry</h3>
-                            <p class="program-desc">Child development, family dynamics, curriculum design, and creating engaging, biblically-based ministry environments.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=57" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/crisis-trauma-care-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Crisis &amp; Trauma Care</h3>
-                            <p class="program-desc">Pastoral care, crisis intervention, grief counseling, trauma response, and compassionate support.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=60" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/disability-ministry-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Disability Ministry</h3>
-                            <p class="program-desc">Disability awareness, accessibility, inclusion strategies, and Christ-centered ministry environments.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=63" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/human-services-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Human Services</h3>
-                            <p class="program-desc">Community care, social support, helping relationships, mercy ministry, and ethical principles for serving others.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=66" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/intercultural-studies-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Intercultural Studies</h3>
-                            <p class="program-desc">Cultural anthropology, cross-cultural communication, contextualization, and preparation for effective missions.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=69" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/ministry-to-women-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Ministry to Women</h3>
-                            <p class="program-desc">Women's discipleship, mentoring, Bible teaching, and addressing contemporary issues with biblical wisdom.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-
-                    <a href="https://learn.logi.education/course/index.php?categoryid=72" class="program-card hidden-program">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/nextgen-ministry-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in NextGen Ministry</h3>
-                            <p class="program-desc">Youth culture, discipleship strategies, program development, and engaging young people in faith formation.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="see-more-wrap">
-                    <button class="see-more-btn" onclick="togglePrograms(this, 'grid-ministry')">
-                        See More Programs <i class="fas fa-chevron-down"></i>
-                    </button>
+                    <div class="see-more-wrap">
+                        <button class="see-more-btn" onclick="togglePrograms(this, 'grid-business')">
+                            See More Programs <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- PANEL: ENGINEERING & TECHNOLOGY -->
-            <div class="school-panel" id="panel-engineering">
-                <div class="programs-grid" id="grid-engineering">
-                    <a href="https://learn.logi.education/course/index.php?categoryid=47" class="program-card">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top">Certificate</span>
-                        </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/business-analysis-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Certificate in Business Analysis &amp; Process Improvement</h3>
-                            <p class="program-desc">Business process mapping, quality improvement, data-driven decision making, lean principles, and optimization.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
+            <!-- MINISTRY -->
+            <div class="school-panel" id="panel-ministry" data-school="ministry">
+                <div class="school-panel-head">
+                    <h3>School of Ministry &amp; Theology</h3>
+                    <p>Christian ministry, biblical studies, and pastoral leadership programs.</p>
+                </div>
 
-                    <a href="https://learn.logi.education/course/index.php?categoryid=50" class="program-card">
-                        <div class="program-card-top">
-                            <div class="program-brand"><span class="brand-logo">LO</span> LOGI</div>
-                            <span class="program-badge-top diploma">Advanced Diploma</span>
+                <div class="school-panel-body">
+                    <div class="programs-accordion" id="grid-ministry">
+
+                        <div class="program-item">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Christian Ministry</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Foundations of faith, preaching, teaching, pastoral care, biblical interpretation, and ministry leadership.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=35" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="program-img" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/project-management-banner.jpg');"></div>
-                        <div class="program-body">
-                            <h3 class="program-title">Advanced Professional Diploma in Project, Quality &amp; Process Management</h3>
-                            <p class="program-desc">Advanced project management, quality assurance, risk management, strategic planning, and capstone project.</p>
-                            <span class="program-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+
+                        <div class="program-item">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Church Leadership &amp; Administration</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Church governance, financial stewardship, congregational care, discipleship, and strategic planning.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=38" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </a>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Missions &amp; Evangelism</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Missiology, cross-cultural ministry, evangelism strategies, community engagement, and church planting.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=41" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge" style="background: rgba(126,34,206,0.08); color: #7e22ce;">Advanced Diploma</span>
+                                <div class="program-header-text">
+                                    <h3>Advanced Professional Diploma in Ministry</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Advanced pastoral leadership, spiritual formation, discipleship strategies, and capstone project.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=44" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Biblical Studies</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Old and New Testament survey, biblical interpretation, core doctrines, and practical Scripture application.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=51" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Children &amp; Family Ministry</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Child development, family dynamics, curriculum design, and creating engaging, biblically-based ministry environments.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=54" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Crisis &amp; Trauma Care</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Pastoral care, crisis intervention, grief counseling, trauma response, and compassionate support.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=57" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Disability Ministry</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Disability awareness, accessibility, inclusion strategies, and Christ-centered ministry environments.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=60" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Human Services</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Community care, social support, helping relationships, mercy ministry, and ethical principles for serving others.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=63" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Intercultural Studies</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Cultural anthropology, cross-cultural communication, contextualization, and preparation for effective missions.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=66" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Ministry to Women</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Women's discipleship, mentoring, Bible teaching, and addressing contemporary issues with biblical wisdom.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=69" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in NextGen Ministry</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Youth culture, discipleship strategies, program development, and engaging young people in faith formation.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=72" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="see-more-wrap">
+                        <button class="see-more-btn" onclick="togglePrograms(this, 'grid-ministry')">
+                            See More Programs <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENGINEERING -->
+            <div class="school-panel" id="panel-engineering" data-school="engineering">
+                <div class="school-panel-head">
+                    <h3>School of Engineering &amp; Technology</h3>
+                    <p>Business analysis, project management, and technology-focused programs.</p>
+                </div>
+
+                <div class="school-panel-body">
+                    <div class="programs-accordion" id="grid-engineering">
+
+                        <div class="program-item">
+                            <div class="program-header">
+                                <span class="program-header-badge">Certificate</span>
+                                <div class="program-header-text">
+                                    <h3>Certificate in Business Analysis &amp; Process Improvement</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Business process mapping, quality improvement, data-driven decision making, lean principles, and optimization.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=47" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-item hidden-program">
+                            <div class="program-header">
+                                <span class="program-header-badge" style="background: rgba(126,34,206,0.08); color: #7e22ce;">Advanced Diploma</span>
+                                <div class="program-header-text">
+                                    <h3>Advanced Professional Diploma in Project, Quality &amp; Process Management</h3>
+                                </div>
+                                <div class="program-chevron"><i class="fas fa-chevron-down"></i></div>
+                            </div>
+                            <div class="program-body">
+                                <div class="program-body-inner">
+                                    <p class="program-desc">Advanced project management, quality assurance, risk management, strategic planning, and capstone project.</p>
+                                    <a href="https://learn.logi.education/course/index.php?categoryid=50" class="program-cta">
+                                        Learn More <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="see-more-wrap">
+                        <button class="see-more-btn" onclick="togglePrograms(this, 'grid-engineering')">
+                            See More Programs <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -4662,27 +4670,44 @@
             });
         });
 
-        // SCHOOLS TABS
+        // SCHOOLS TABS (from programs.html)
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.school-tab').forEach(tab => {
+            const tabs = document.querySelectorAll('.school-tab');
+            const panels = document.querySelectorAll('.school-panel');
+
+            tabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     const targetPanelId = this.dataset.panel;
-                    document.querySelectorAll('.school-tab').forEach(t => {
+
+                    tabs.forEach(t => {
                         t.classList.remove('active');
                         t.setAttribute('aria-selected', 'false');
                     });
-                    document.querySelectorAll('.school-panel').forEach(p => {
-                        p.classList.remove('active');
-                    });
+                    panels.forEach(p => p.classList.remove('active'));
+
                     this.classList.add('active');
                     this.setAttribute('aria-selected', 'true');
+
                     const panel = document.getElementById(targetPanelId);
                     if (panel) panel.classList.add('active');
                 });
             });
+
+            // PROGRAM ACCORDIONS
+            document.querySelectorAll('.school-panel').forEach(panel => {
+                const programItems = panel.querySelectorAll('.program-item');
+                programItems.forEach(item => {
+                    const header = item.querySelector('.program-header');
+                    header.addEventListener('click', function() {
+                        const isActive = item.classList.contains('active');
+                        programItems.forEach(i => i.classList.remove('active'));
+                        if (!isActive) item.classList.add('active');
+                    });
+                });
+            });
         });
 
-        // SEE MORE TOGGLE
+        // SEE MORE TOGGLE (programs.html)
         function togglePrograms(btn, gridId) {
             const grid = document.getElementById(gridId);
             if (!grid) return;
@@ -4694,11 +4719,6 @@
             } else {
                 textNode.textContent = 'See More Programs ';
                 btn.classList.remove('active');
-                const panel = btn.closest('.school-panel');
-                if (panel) {
-                    const y = panel.getBoundingClientRect().top + window.pageYOffset - 120;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                }
             }
         }
 
@@ -4883,9 +4903,7 @@
             window.location.href = '/cookie-settings';
         }
 
-        // ==========================================
-        // NEW HERO — LOGI ROTATING CARD + TYPEWRITER
-        // ==========================================
+        // HERO — LOGI ROTATING CARD + TYPEWRITER (merged from hero.html)
         (function(){
             const schools = [
                 {
@@ -4930,7 +4948,6 @@
             const TYPE_SPEED   = 90;
             const DELETE_SPEED = 55;
             const HOLD_FULL    = 900;
-            const HOLD_EMPTY   = 250;
 
             const typingTarget    = document.getElementById("typingTarget");
             const deckMain        = document.getElementById("deckMain");
@@ -4961,16 +4978,21 @@
 
                 setWord(word){
                     this.nextWord = word;
+
                     if (this.phase === "typing" || this.phase === "holding") {
                         this.phase = "deleting";
                         clearTimeout(this.timeoutId);
                         this._deleteStep();
+                    } else if (this.phase === "waiting" || this.phase === "idle") {
+                        this.phase = "typing";
+                        this._typeStep();
                     }
                 },
 
                 _typeStep(){
                     if (this.phase !== "typing") return;
                     const word = this.nextWord || "";
+
                     if (this.index < word.length) {
                         this.text = word.slice(0, this.index + 1);
                         this.target.textContent = this.text;
@@ -4987,6 +5009,7 @@
 
                 _deleteStep(){
                     if (this.phase !== "deleting") return;
+
                     if (this.text.length > 0) {
                         this.text = this.text.slice(0, -1);
                         this.target.textContent = this.text;
@@ -4994,10 +5017,6 @@
                     } else {
                         this.index = 0;
                         this.phase = "waiting";
-                        this.timeoutId = setTimeout(() => {
-                            this.phase = "typing";
-                            this._typeStep();
-                        }, HOLD_EMPTY);
                     }
                 },
 
