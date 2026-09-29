@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Spiritual Growth | Living Oracles Global Institute Ministry</title>
+
+    <meta name="description" content="What does spiritual growth look like? Discover how to grow deeper in Christ through spiritual disciplines, godly character, and bearing lasting fruit." />
+    <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
+    <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
+
+    <meta property="og:title" content="Spiritual Growth | LOGI Ministry" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/ministry/spiritual-growth" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Discover how to grow deeper in Christ through spiritual disciplines, godly character, and bearing lasting fruit." />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR                                 */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        .top-bar::before, .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+        .top-bar::before { left: 0; border-radius: 0 4px 4px 0; }
+        .top-bar::after { right: 0; border-radius: 4px 0 0 4px; }
+        .top-bar .contact-info {
+            display: flex; align-items: center; gap: 18px;
+            flex-wrap: wrap; padding: 0 60px;
+            position: relative; z-index: 1;
+        }
+        .top-bar .contact-info a, .top-bar .contact-info span {
+            color: #d4d0c8; text-decoration: none; font-size: 0.7rem;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: color 0.3s;
+        }
+        .top-bar .contact-info a:hover { color: #c9a86c; }
+        .top-bar .contact-info i { font-size: 0.65rem; color: #c9a86c; }
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; align-items: flex-start; padding: 4px 0; }
+            .top-bar::before, .top-bar::after { width: 25px; }
+            .top-bar .contact-info { padding: 0 35px; gap: 8px; }
+            .top-bar .contact-info a, .top-bar .contact-info span { font-size: 0.6rem; }
+        }
+        @media (max-width: 480px) {
+            .top-bar::before, .top-bar::after { width: 18px; }
+            .top-bar .contact-info { padding: 0 25px; gap: 6px; font-size: 0.55rem; }
+        }
+
+        /* ========================================== */
+        /*   HEADER                                  */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff; padding: 8px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 38px; left: 0; width: 100%;
+            z-index: 9998; border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 40px; height: auto; object-fit: contain; display: block; }
+        .logo .logo-text {
+            color: #1a1a2e; font-size: 0.8rem; font-weight: 700; line-height: 1.2;
+        }
+        .logo .logo-text span {
+            display: block; font-weight: 300; font-size: 0.45rem;
+            opacity: 0.6; letter-spacing: 1.5px;
+        }
+        @media (max-width: 768px) {
+            .main-header { top: 34px; padding: 6px 4%; }
+            .logo img { width: 32px; }
+            .logo .logo-text { font-size: 0.65rem; }
+            .logo .logo-text span { font-size: 0.4rem; }
+        }
+        @media (max-width: 480px) {
+            .main-header { top: 30px; padding: 4px 3%; }
+            .logo img { width: 28px; }
+            .logo .logo-text { font-size: 0.55rem; }
+            .logo .logo-text span { font-size: 0.35rem; }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU                             */
+        /* ========================================== */
+        .menu-btn {
+            display: none; align-items: center; gap: 6px;
+            color: #1a1a2e; font-size: 13px; padding: 5px 10px;
+            border-radius: 30px; background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer; transition: all 0.3s ease; z-index: 1001;
+        }
+        .menu-btn:hover { background: rgba(26, 26, 46, 0.12); }
+        .menu-btn i { font-size: 16px; }
+        .navigation-menu-bar {
+            background: transparent !important; box-shadow: none !important;
+            padding: 0 !important; position: static !important;
+            width: auto !important; height: auto !important;
+            display: block !important; overflow: visible !important;
+        }
+        .navigation-menu-bar ul {
+            display: flex !important; flex-direction: row !important;
+            align-items: center !important; list-style: none !important;
+            gap: 0.2rem !important; margin: 0 !important;
+            padding: 0 !important; flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+        .navigation-menu-bar ul li { position: relative; }
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important; text-decoration: none;
+            font-weight: 500; font-size: 0.75rem;
+            transition: all 0.3s ease; display: flex;
+            align-items: center; gap: 4px; padding: 4px 10px;
+            border-radius: 4px; white-space: nowrap;
+        }
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important; background: rgba(139, 83, 83, 0.06);
+        }
+        .navigation-menu-bar ul li .submenu {
+            display: none !important; position: absolute;
+            top: 100%; left: 0; background: #ffffff;
+            border-radius: 8px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0; margin-top: 6px; z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important; min-width: 200px;
+            width: max-content !important;
+        }
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu { display: flex !important; }
+        .navigation-menu-bar ul li .submenu li { width: 100%; }
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important; font-size: 0.78rem;
+            padding: 8px 16px; width: 100%; border-radius: 0;
+            font-weight: 500; display: block !important;
+            white-space: nowrap !important; text-shadow: none !important;
+        }
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem; transition: transform 0.25s ease;
+        }
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .menu-btn { display: flex !important; }
+            .navigation-menu-bar {
+                position: fixed !important; top: 0 !important;
+                left: 0 !important; right: 0 !important;
+                bottom: 0 !important; width: 100% !important;
+                max-width: 100% !important; height: 100vh !important;
+                overflow-y: auto !important; background: #ffffff !important;
+                display: block !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important; pointer-events: none !important;
+            }
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important; pointer-events: auto !important;
+            }
+            .navigation-menu-bar ul {
+                display: flex !important; flex-direction: column !important;
+                align-items: stretch !important; gap: 0 !important;
+                width: 100% !important; padding: 0 !important;
+                margin: 0 !important; flex: 1 !important;
+            }
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important; padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important; white-space: normal !important;
+                display: flex !important; align-items: center !important;
+                gap: 10px !important; font-size: 0.95rem !important;
+            }
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important; color: #c9a86c !important;
+                width: 24px !important; text-align: center !important;
+            }
+            .navigation-menu-bar ul li.has-submenu>a { justify-content: space-between !important; }
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important; font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+            .navigation-menu-bar ul li .submenu {
+                position: static !important; transform: none !important;
+                background: #f8f6f2 !important; border-radius: 0 !important;
+                display: none !important; flex-direction: column !important;
+                padding: 0 !important; margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important; box-shadow: none !important;
+            }
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu { display: flex !important; }
+            .navigation-menu-bar ul li .submenu li { border-bottom: none !important; }
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important; font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                font-size: 0.85rem !important;
+            }
+        }
+        @media (max-width: 480px) {
+            .navigation-menu-bar { padding: 60px 1rem 1.5rem 1rem !important; }
+            .navigation-menu-bar ul li a { font-size: 0.85rem !important; }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .institutional-footer {
+            position: relative; width: 100%; background: #0d1b2a;
+            color: #f4f6f8; padding: 2.5rem 5% 1.2rem;
+            margin-top: 0; border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem; z-index: 2;
+        }
+        .footer-grid-container {
+            max-width: 1200px; margin: 0 auto; display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1.5rem;
+        }
+        .institutional-footer .footer-column h2, .footer-column h2 {
+            color: #ffffff !important; font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important; font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            border-bottom: none !important; padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+        .institutional-footer strong, .footer-column strong {
+            color: #ffffff !important; font-weight: 700 !important;
+        }
+        .institutional-footer .footer-column p, .footer-column p, .footer-column address {
+            color: rgba(244, 246, 248, 0.8); font-size: 0.82rem;
+            line-height: 1.7; font-style: normal; margin-bottom: 4px;
+        }
+        .footer-column a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important; font-size: 0.82rem !important;
+            transition: color 0.25s ease !important; display: inline-block;
+        }
+        .footer-column a:hover { color: #c9a86c !important; }
+        .footer-column ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .footer-column ul li { margin-bottom: 0.2rem !important; list-style: none !important; }
+        .footer-column ul li a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important; font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+        .footer-column ul li a:hover { color: #c9a86c !important; }
+        .footer-column .footer-address-line {
+            display: flex; align-items: flex-start;
+            gap: 10px; margin-bottom: 4px;
+        }
+        .footer-column .footer-address-line i {
+            color: #c9a86c; font-size: 0.75rem;
+            margin-top: 4px; width: 16px;
+        }
+        .footer-column .footer-address-line span {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.82rem; line-height: 1.6;
+        }
+        .footer-bottom-bar {
+            max-width: 1200px; margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 0.6rem;
+        }
+        .footer-copyright {
+            font-size: 0.7rem; font-weight: 400;
+            color: rgba(244, 246, 248, 0.6);
+        }
+        .footer-subscription-container h3 {
+            color: #ffffff !important; font-size: 0.8rem;
+            text-transform: uppercase; font-weight: 800;
+            letter-spacing: 0.05em; margin-bottom: 0.2rem;
+            border-bottom: none !important; padding-bottom: 0 !important;
+            margin-top: 0 !important;
+        }
+        .footer-subscription-container p {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.75rem; margin-bottom: 0.2rem;
+        }
+        .subscription-form { display: flex; gap: 4px; width: 100%; flex-wrap: wrap; }
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px; padding: 5px 8px;
+            color: #ffffff; font-size: 0.75rem;
+            flex-grow: 1; outline: none; min-width: 100px;
+        }
+        .subscription-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .subscription-form input[type="email"]:focus { border-color: #c9a86c; }
+        .subscription-form button {
+            background: #8B5353; color: #ffffff; border: none;
+            font-weight: 700; padding: 5px 12px; border-radius: 4px;
+            cursor: pointer; text-transform: uppercase;
+            font-size: 0.65rem; letter-spacing: 0.05em;
+        }
+        .subscription-form button:hover { background: #a66a6a; }
+        @media (max-width: 768px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+        @media (max-width: 480px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+            .institutional-footer { font-size: 0.7rem; padding: 1.5rem 4% 1rem; }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        #header-placeholder, #footer-placeholder { width: 100%; }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                           */
+        /* ========================================== */
+        * {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html, body { overflow-x: hidden !important; width: 100% !important; }
+        body {
+            background: #ffffff; color: #2d3748;
+            line-height: 1.7; padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+        @media (max-width: 768px) { body { padding-top: 70px; } }
+        @media (max-width: 480px) { body { padding-top: 60px; } }
+
+        /* ========================================== */
+        /*   HERO                                    */
+        /* ========================================== */
+        .hero-section {
+            position: relative; width: 100%; height: 340px;
+            background-image: url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; margin: 0; padding: 0;
+        }
+        .hero-section::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(13, 27, 42, 0.62) 0%, rgba(30, 90, 130, 0.48) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+            text-align: center; color: #ffffff; padding: 0 20px;
+        }
+        .hero-content h1 {
+            font-size: 46px; font-weight: 800; letter-spacing: 1px;
+            margin: 0; text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+        .hero-content .hero-subtitle {
+            font-size: 15px; font-weight: 400; color: #ffffff;
+            margin-top: 14px; letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+        .hero-content .hero-line {
+            width: 100px; height: 3px; background: #c9a86c;
+            margin: 20px auto 0; border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        @media (max-width: 768px) {
+            .hero-section { height: 260px; }
+            .hero-content h1 { font-size: 30px; }
+            .hero-content .hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+        @media (max-width: 480px) {
+            .hero-section { height: 220px; }
+            .hero-content h1 { font-size: 24px; }
+            .hero-content .hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
+        /*   MAIN CONTENT WRAPPER                    */
+        /* ========================================== */
+        .section-bg {
+            position: relative; width: 100%;
+            padding: 60px 20px 80px;
+            background: #ffffff; z-index: 1;
+        }
+        .container {
+            max-width: 850px; margin: 0 auto;
+            background: transparent; padding: 0;
+        }
+        @media (max-width: 768px) {
+            .section-bg { padding: 40px 16px 60px; }
+        }
+
+        /* ========================================== */
+        /*   TYPOGRAPHY                              */
+        /* ========================================== */
+        .section-bg h2 {
+            font-size: 24px; font-weight: 800; color: #8b5353;
+            margin: 40px 0 18px; padding-bottom: 10px;
+            border-bottom: 2px solid #e8e3dc; text-align: left;
+        }
+        .section-bg h3 {
+            font-size: 18px; font-weight: 700; color: #8b5353;
+            margin: 25px 0 12px; text-align: left;
+        }
+        .section-bg p {
+            font-size: 16px; color: #4a5568;
+            margin-bottom: 16px; line-height: 1.8; text-align: left;
+        }
+        .section-bg strong { color: #8b5353; font-weight: 700; }
+        .section-bg em { color: #8b5353; font-style: italic; }
+
+        /* ========================================== */
+        /*   TESTAMENT LABELS                        */
+        /* ========================================== */
+        .testament-label {
+            display: inline-block; font-size: 11px;
+            font-weight: 800; letter-spacing: 2px;
+            text-transform: uppercase; color: #8b5353;
+            margin-bottom: 8px; padding: 4px 12px;
+            border: 1.5px solid #8b5353; border-radius: 4px;
+        }
+        .testament-label.ot {
+            color: #6d3d3d; border-color: #6d3d3d;
+        }
+
+        /* ========================================== */
+        /*   SCRIPTURE — NO BORDER                   */
+        /* ========================================== */
+        .scripture {
+            padding: 0; margin: 22px 0;
+            font-style: italic; color: #4a5568;
+            font-size: 16px; line-height: 1.8;
+            background: transparent; text-align: left;
+        }
+        .scripture strong { color: #8b5353; }
+
+        /* ========================================== */
+        /*   WELCOME BOX                             */
+        /* ========================================== */
+        .welcome-box {
+            padding: 0; margin-bottom: 30px;
+            background: transparent; border: none;
+        }
+        .welcome-box p { margin-bottom: 14px; }
+        .welcome-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   KEY VERSES — NO BORDER                  */
+        /* ========================================== */
+        .key-verse {
+            padding: 0; margin: 25px 0;
+        }
+        .key-verse p {
+            font-style: italic; color: #4a5568;
+            font-size: 16px; line-height: 1.8;
+            margin: 0 0 8px;
+        }
+        .key-verse p:last-child { margin-bottom: 0; }
+        .key-verse .verse-ref {
+            color: #8b5353; font-weight: 800;
+            font-style: normal; font-size: 13px;
+            letter-spacing: 1px; text-transform: uppercase;
+            display: block; margin-bottom: 6px;
+        }
+
+        /* ========================================== */
+        /*   PILLARS GRID — KEEPS BORDERS            */
+        /* ========================================== */
+        .pillars-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 24px; margin: 30px 0;
+        }
+        .pillar-card {
+            padding: 4px 0 4px 20px;
+            border-left: 3px solid #8b5353;
+            background: transparent;
+        }
+        .pillar-card-icon {
+            width: 40px; height: 40px;
+            border-radius: 50%; background: transparent;
+            color: #8b5353; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 1.1rem; margin-bottom: 12px;
+            border: 1.5px solid #8b5353;
+        }
+        .pillar-card h4 {
+            color: #8b5353; font-size: 1.05rem;
+            margin-bottom: 8px; font-weight: 800;
+        }
+        .pillar-card p {
+            font-size: 0.9rem; color: #4a5568;
+            line-height: 1.7; margin: 0 0 10px;
+        }
+        .pillar-card a {
+            font-size: 0.85rem; color: #8b5353;
+            font-weight: 700; text-decoration: underline;
+        }
+        @media (max-width: 640px) {
+            .pillars-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        /* ========================================== */
+        /*   STEPS — DECIMAL, NO CIRCLES             */
+        /* ========================================== */
+        .steps {
+            list-style: decimal; padding-left: 22px;
+            margin: 20px 0;
+        }
+        .steps li { margin-bottom: 22px; padding-left: 6px; }
+        .steps li strong {
+            display: block; font-size: 17px;
+            color: #8b5353; margin-bottom: 10px;
+        }
+        .steps li p {
+            font-size: 15.5px; color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        /* ========================================== */
+        /*   PRAYER BOX — NO BORDER                  */
+        /* ========================================== */
+        .prayer-box {
+            padding: 0; margin: 35px 0;
+            background: transparent; text-align: left;
+        }
+        .prayer-box h3 {
+            color: #8b5353; margin: 0 0 18px; font-size: 19px;
+        }
+        .prayer-box p {
+            color: #4a5568; font-style: italic;
+            line-height: 1.9; margin-bottom: 12px;
+            font-size: 16px;
+        }
+        .prayer-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   NEXT STEPS — NO BORDER                  */
+        /* ========================================== */
+        .next-steps {
+            display: grid; grid-template-columns: 1fr;
+            gap: 20px; margin: 25px 0;
+        }
+        .step-card {
+            padding: 0; background: transparent;
+            text-align: left;
+        }
+        .step-card h4 {
+            color: #8b5353; font-size: 17px;
+            margin-bottom: 10px; display: flex;
+            align-items: center; gap: 12px;
+        }
+        .step-card h4 i { color: #8b5353; font-size: 18px; }
+        .step-card p { font-size: 15.5px; margin: 0; }
+        .step-card a {
+            color: #8b5353; font-weight: 700;
+            text-decoration: underline;
+        }
+
+        /* ========================================== */
+        /*   DECISION SECTION — MINIMAL              */
+        /* ========================================== */
+        .decision-section {
+            padding: 40px 0 0; margin-top: 45px;
+            text-align: left; border-top: 2px solid #e8e3dc;
+            background: transparent;
+        }
+        .decision-header {
+            display: flex; align-items: center;
+            gap: 14px; margin-bottom: 14px;
+        }
+        .decision-header .decision-icon {
+            width: 50px; height: 50px;
+            flex-shrink: 0; background: #8b5353;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            color: #ffffff;
+        }
+        .decision-header .decision-icon i { font-size: 20px; }
+        .decision-header h2 {
+            border: none; margin: 0; padding: 0;
+            font-size: 26px; color: #8b5353;
+            line-height: 1.1; text-align: left; font-weight: 800;
+        }
+        .decision-section > p {
+            text-align: left; max-width: 100%;
+            margin: 0 0 28px; font-size: 16px;
+            color: #4a5568;
+        }
+
+        /* ========================================== */
+        /*   FORM                                    */
+        /* ========================================== */
+        .form-container {
+            background: transparent; border: none;
+            border-radius: 0; padding: 0; text-align: left;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block; font-size: 13px;
+            font-weight: 700; color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+        .form-group label .required { color: #c53030; }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 13px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px; font-size: 14px;
+            outline: none; transition: all 0.3s ease;
+            background: #ffffff; color: #1a1a2e;
+            font-family: inherit;
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: #a0aec0; }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #8b5353; background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(139, 83, 83, 0.1);
+        }
+        .form-row {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .checkbox-group {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 10px; margin-top: 10px;
+        }
+        .checkbox-group label {
+            display: flex; align-items: center;
+            gap: 8px; font-size: 13px;
+            font-weight: 400; color: #4a5568;
+            cursor: pointer; padding: 6px 0; margin-bottom: 0;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 16px; height: 16px;
+            accent-color: #8b5353; cursor: pointer;
+            flex-shrink: 0;
+        }
+        .consent {
+            display: flex; align-items: flex-start;
+            gap: 12px; margin: 22px 0;
+            font-size: 13px; color: #4a5568;
+            line-height: 1.6;
+        }
+        .consent input[type="checkbox"] {
+            width: 16px; height: 16px;
+            accent-color: #8b5353; cursor: pointer;
+            margin-top: 3px; flex-shrink: 0;
+        }
+        .consent a {
+            color: #8b5353; text-decoration: underline;
+        }
+        .consent a:hover { color: #5f2d2d; }
+        .submit-btn {
+            width: 100%; background: #8b5353;
+            color: #ffffff; border: 2px solid #8b5353;
+            padding: 15px; border-radius: 50px;
+            font-size: 15px; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease;
+            margin-top: 10px; display: inline-flex;
+            align-items: center; justify-content: center;
+            gap: 10px;
+        }
+        .submit-btn:hover {
+            background: #a66a6a;
+            border-color: #a66a6a;
+            transform: translateY(-2px);
+        }
+        .submit-btn:disabled {
+            opacity: 0.7; cursor: not-allowed; transform: none;
+        }
+        .success-message {
+            display: none; padding: 0;
+            background: transparent; margin-top: 24px;
+            text-align: left;
+        }
+        .success-message p {
+            color: #15803d; margin: 0;
+            font-weight: 600; font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ========================================== */
+        /*   RESPONSIVE                              */
+        /* ========================================== */
+        @media (max-width: 600px) {
+            .section-bg h2 { font-size: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .decision-header h2 { font-size: 22px; }
+            .decision-header .decision-icon {
+                width: 42px; height: 42px;
+            }
+            .decision-header .decision-icon i { font-size: 17px; }
+        }
+        @media (max-width: 420px) {
+            .section-bg h2 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Spiritual Growth</h1>
+            <p class="hero-subtitle">Becoming More Like Christ</p>
+            <div class="hero-line"></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="section-bg">
+        <div class="container">
+
+            <div class="welcome-box">
+                <p><strong>Spiritual growth is the lifelong journey of becoming more like Jesus.</strong></p>
+                <p>Salvation is instantaneous — the moment you believe, you are saved forever. But spiritual growth is a process. It happens day by day, step by step, as you walk with Christ and let His Spirit shape your character. Like a tree that grows slowly and steadily, your spiritual life deepens over time as you abide in Him.</p>
+                <p>This page explores what spiritual growth is, what it looks like, and how to pursue it — drawing from both the Old and New Testaments.</p>
+            </div>
+
+            <h2>What Is Spiritual Growth?</h2>
+            <p>Spiritual growth is the process by which the Holy Spirit transforms a believer into the image of Christ. It is not something you achieve by willpower — it is something God produces in you as you yield to Him. Your part is to abide in Christ, feed on His Word, pray, obey, and stay connected to His people. His part is to make you grow.</p>
+
+            <div class="scripture">
+                <strong>2 Peter 3:18 (KJV)</strong> says, <em>"But grow in grace, and in the knowledge of our Lord and Saviour Jesus Christ. To him be glory both now and for ever. Amen."</em>
+            </div>
+
+            <p>Notice that we are commanded to <em>grow</em>. Spiritual growth is not optional for a believer. God expects us to keep moving forward — not to remain spiritual infants forever. Growth is the natural evidence that we are truly alive in Christ.</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">1 Peter 2:2 (KJV)</span>
+                <p>"As newborn babes, desire the sincere milk of the word, that ye may grow thereby."</p>
+            </div>
+
+            <p>Like a newborn baby craves milk, a healthy believer craves spiritual nourishment. If you have no hunger for God's Word, for prayer, for deeper knowledge of Christ — something is off. Hunger is one of the surest signs of spiritual life.</p>
+
+            <h2>God's Design in the Old Testament</h2>
+            <p>The Old Testament lays the foundation for spiritual growth through the language of the <em>righteous man</em> — a person who walks with God, delights in His law, and bears fruit in season. The Psalms and Proverbs especially paint a vivid picture of what a growing life looks like.</p>
+
+            <p><span class="testament-label ot">Old Testament</span></p>
+
+            <div class="scripture">
+                <strong>Psalm 1:1–3 (KJV)</strong> says, <em>"Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful. But his delight is in the law of the LORD; and in his law doth he meditate day and night. And he shall be like a tree planted by the rivers of water, that bringeth forth his fruit in his season; his leaf also shall not wither; and whatsoever he doeth shall prosper."</em>
+            </div>
+
+            <p>This is one of the most beautiful pictures of spiritual growth in all of Scripture. The righteous person is described as a tree planted by rivers of water — deeply rooted, constantly nourished, bearing fruit in its proper season, never withering. The tree does not strain to grow; it grows <em>because</em> it is planted near the source of life.</p>
+
+            <p>Two things stand out about the growing believer:</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Rooted in God's Word.</strong>
+                    <p>The tree is "planted by the rivers of water." The believer who grows is the one who meditates on Scripture day and night — not as a duty, but as a delight. His delight is in God's law. Growth flows from a love for God's Word.</p>
+                </li>
+                <li>
+                    <strong>Fruitful in season.</strong>
+                    <p>The tree bears its fruit <em>in season</em> — not always, not instantly, but at the right time. Spiritual growth is seasonal. Some seasons are quiet and hidden; others are abundant and visible. Both are part of God's design.</p>
+                </li>
+            </ol>
+
+            <div class="scripture">
+                <strong>Psalm 92:12–14 (KJV)</strong> says, <em>"The righteous shall flourish like the palm tree: he shall grow like a cedar in Lebanon. Those that be planted in the house of the LORD shall flourish in the courts of our God. They shall still bring forth fruit in old age; they shall be fat and flourishing."</em>
+            </div>
+
+            <p>Notice the promise: the righteous will <strong>still bring forth fruit in old age.</strong> Spiritual growth is not limited by age. It is a lifelong process that can continue right up to the end of your days. The elderly believer who remains faithful can bear the most mature and abundant fruit of all.</p>
+
+            <div class="scripture">
+                <strong>Proverbs 4:18 (KJV)</strong> says, <em>"But the path of the just is as the shining light, that shineth more and more unto the perfect day."</em>
+            </div>
+
+            <p>The path of the righteous is a path of increasing brightness — it shines "more and more." Spiritual growth is progressive. You are not who you will be tomorrow. God is faithful to keep refining, illuminating, and deepening your walk with Him.</p>
+
+            <div class="scripture">
+                <strong>Jeremiah 17:7–8 (KJV)</strong> says, <em>"Blessed is the man that trusteth in the LORD, and whose hope the LORD is. For he shall be as a tree planted by the waters, and that spreadeth out her roots by the river, and shall not see when heat cometh, but her leaf shall be green; and shall not be careful in the year of drought, neither shall cease from yielding fruit."</em>
+            </div>
+
+            <p>This is the great promise for the growing believer: even in drought, you will not cease from yielding fruit. When circumstances are hard, when the world presses in, when life feels dry — the one who trusts in the Lord remains evergreen. That is the strength of a deep root system.</p>
+
+            <h2>God's Design in the New Testament</h2>
+            <p>The New Testament builds on this Old Testament foundation and reveals the mechanics of spiritual growth — how it happens, who produces it, and what it looks like in a believer's life. The key word is <strong>abide.</strong></p>
+
+            <p><span class="testament-label">New Testament</span></p>
+
+            <h3>The Vine and the Branches</h3>
+            <p>On the night before His crucifixion, Jesus gave His disciples the most important teaching about spiritual growth in all of Scripture. He described Himself as a vine and His followers as branches:</p>
+
+            <div class="scripture">
+                <strong>John 15:4–5 (KJV)</strong> says, <em>"Abide in me, and I in you. As the branch cannot bear fruit of itself, except it abide in the vine; no more can ye, except ye abide in me. I am the vine, ye are the branches: He that abideth in me, and I in him, the same bringeth forth much fruit: for without me ye can do nothing."</em>
+            </div>
+
+            <p>This is the secret of spiritual growth. Fruit does not come from the branch straining harder — it comes from the branch staying connected to the vine. The life of the vine flows into the branch, and the branch naturally produces fruit. In the same way, your spiritual growth does not come from willpower, self-discipline, or religious effort — it comes from <strong>abiding in Christ.</strong></p>
+
+            <p>Abiding means staying close. It means living in conscious dependence on Him. It means His words abide in you, and you remain in His love. When you abide, fruit happens naturally.</p>
+
+            <h3>The Fruit of the Spirit</h3>
+            <p>What does spiritual growth actually look like in a person's life? Paul gives us the answer — the fruit of the Spirit:</p>
+
+            <div class="scripture">
+                <strong>Galatians 5:22–23 (KJV)</strong> says, <em>"But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, Meekness, temperance: against such there is no law."</em>
+            </div>
+
+            <p>Notice: it is called the <em>fruit</em> of the Spirit, not the <em>works</em> of the believer. You cannot manufacture love, joy, or peace by trying harder. They grow in you as the Spirit produces them. Your role is to yield — to abide in Christ — and His role is to bear the fruit.</p>
+
+            <p>These nine qualities are the visible evidence of spiritual maturity:</p>
+
+            <div class="pillars-grid">
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-heart"></i></div>
+                    <h4>Love, Joy, Peace</h4>
+                    <p>Love for God and others. Joy regardless of circumstances. Peace that passes understanding. These reflect the heart of Christ.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h4>Longsuffering, Gentleness, Goodness</h4>
+                    <p>Patience with difficult people. Tenderness in all dealings. Doing good even when no one is watching. These reflect Christ's character.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Faith, Meekness, Temperance</h4>
+                    <p>Faithfulness that can be trusted. Humility that thinks of others first. Self-control over desires and impulses. These reflect Christ's integrity.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-seedling"></i></div>
+                    <h4>Growing More and More</h4>
+                    <p>Fruit is not instantaneous — it grows over time. Spiritual maturity is a process, not an event. Every season brings new depth.</p>
+                </div>
+
+            </div>
+
+            <h3>Transformed by the Renewing of the Mind</h3>
+            <p>Spiritual growth begins in the mind. What you think shapes what you do. Paul tells us that transformation comes through the renewing of our minds:</p>
+
+            <div class="scripture">
+                <strong>Romans 12:2 (KJV)</strong> says, <em>"And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."</em>
+            </div>
+
+            <p>The Greek word translated "transformed" is <em>metamorphoo</em> — the same word from which we get "metamorphosis." It describes a complete change from the inside out, like a caterpillar becoming a butterfly. That is what God does in you as you renew your mind through His Word: He transforms you from the inside out.</p>
+
+            <div class="scripture">
+                <strong>2 Corinthians 3:18 (KJV)</strong> says, <em>"But we all, with open face beholding as in a glass the glory of the Lord, are changed into the same image from glory to glory, even as by the Spirit of the Lord."</em>
+            </div>
+
+            <p>This is spiritual growth in one verse: <em>changed into the same image from glory to glory.</em> You are being transformed — progressively, gradually, from one degree of glory to the next. It happens as you behold Christ and yield to the Spirit. He is making you more like Jesus, one day at a time.</p>
+
+            <h3>The Race and the Fight</h3>
+            <p>The New Testament also describes spiritual growth as a race to be run and a fight to be fought. It requires effort, discipline, and endurance — but always in dependence on God's grace.</p>
+
+            <div class="scripture">
+                <strong>Hebrews 12:1–2 (KJV)</strong> says, <em>"Wherefore seeing we also are compassed about with so great a cloud of witnesses, let us lay aside every weight, and the sin which doth so easily beset us, and let us run with patience the race that is set before us, Looking unto Jesus the author and finisher of our faith; who for the joy that was set before him endured the cross, despising the shame, and is set down at the right hand of the throne of God."</em>
+            </div>
+
+            <div class="scripture">
+                <strong>Philippians 3:13–14 (KJV)</strong> says, <em>"Brethren, I count not myself to have apprehended: but this one thing I do, forgetting those things which are behind, and reaching forth unto those things which are before, I press toward the mark for the prize of the high calling of God in Christ Jesus."</em>
+            </div>
+
+            <p>Paul says <em>"I press toward the mark."</em> Spiritual growth requires intentional effort. You do not drift into maturity; you press into it. But your effort is not self-reliant — it is empowered by grace. You "lay aside every weight" and "look unto Jesus." He is both the author and finisher of your faith.</p>
+
+            <h2>The Means of Spiritual Growth</h2>
+            <p>How do you actually grow? Not by trying harder, but by <em>putting yourself in the place where growth happens.</em> God has given us certain means through which He works. Scripture describes these throughout both Testaments.</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Feeding on God's Word.</strong>
+                    <p>The Bible is your spiritual food. <em>"As newborn babes, desire the sincere milk of the word, that ye may grow thereby"</em> (1 Peter 2:2 KJV). Read it daily, meditate on it, memorize it, obey it. You cannot grow without it.</p>
+                </li>
+                <li>
+                    <strong>Praying continually.</strong>
+                    <p>Prayer is your lifeline. It deepens your intimacy with Christ and aligns your heart with His. <em>"Pray without ceasing"</em> (1 Thessalonians 5:17 KJV). Every spiritual giant in Scripture was a person of prayer.</p>
+                </li>
+                <li>
+                    <strong>Fellowshipping with believers.</strong>
+                    <p>You cannot grow alone. God designed us to grow together. <em>"Not forsaking the assembling of ourselves together… but exhorting one another"</em> (Hebrews 10:25 KJV). A healthy church is your growth environment.</p>
+                </li>
+                <li>
+                    <strong>Obeying what God shows you.</strong>
+                    <p>Obedience is the soil where spiritual growth takes root. <em>"But be ye doers of the word, and not hearers only, deceiving your own selves"</em> (James 1:22 KJV). Every act of obedience deepens your relationship with God.</p>
+                </li>
+                <li>
+                    <strong>Serving others.</strong>
+                    <p>Serving others in Jesus' name strengthens your faith and mirrors the heart of Christ. <em>"But whosoever will be great among you, let him be your minister"</em> (Matthew 20:26 KJV). Growth always shows itself in service.</p>
+                </li>
+                <li>
+                    <strong>Enduring trials with faith.</strong>
+                    <p>Trials are not punishment — they are training. <em>"But the God of all grace… after that ye have suffered a while, make you perfect, stablish, strengthen, settle you"</em> (1 Peter 5:10 KJV). Every difficulty is an opportunity to grow deeper in trust.</p>
+                </li>
+            </ol>
+
+            <h2>Signs of Spiritual Growth</h2>
+            <p>How can you tell if you are growing? Spiritual growth is often slow, quiet, and unnoticed day by day. But over time, certain signs emerge:</p>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-heart"></i> You Love More</h4>
+                    <p>You find it easier to love people — including difficult people. You forgive faster. You judge less. Love is the first fruit of the Spirit and the clearest sign of maturity.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-sun"></i> You Have Joy in Trials</h4>
+                    <p>You no longer crumble under every difficulty. You have learned to trust God in hard seasons. Joy is not the absence of pain — it is the presence of God in the middle of pain.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-book-bible"></i> You Hunger for God's Word</h4>
+                    <p>You want to read the Bible — not out of guilt, but out of desire. You find yourself thinking about Scripture during the day. God's Word has become sweet to you.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-praying-hands"></i> You Pray Naturally</h4>
+                    <p>Prayer has become conversation rather than ritual. You talk with God throughout the day. You sense His presence in ordinary moments.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-shield-alt"></i> You Sin Less</h4>
+                    <p>Not that you never sin — but the pattern changes. The things that once ruled you lose their grip. The Holy Spirit's conviction is quicker and your response is faster.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-users"></i> You Care About Others</h4>
+                    <p>You find yourself wanting to serve, encourage, and help other believers. Your world has grown larger than yourself. You carry a burden for other people.</p>
+                </div>
+            </div>
+
+            <h2>God Will Complete the Work</h2>
+            <p>If you are discouraged by your slow progress — take heart. God is not finished with you. He has promised to complete the work He started in you. Your spiritual growth is not ultimately dependent on your strength — it depends on His faithfulness.</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Philippians 1:6 (KJV)</span>
+                <p>"Being confident of this very thing, that he which hath begun a good work in you will perform it until the day of Jesus Christ."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">1 Thessalonians 5:23–24 (KJV)</span>
+                <p>"And the very God of peace sanctify you wholly; and I pray God your whole spirit and soul and body be preserved blameless unto the coming of our Lord Jesus Christ. Faithful is he that calleth you, who also will do it."</p>
+            </div>
+
+            <p>God will do it. He is faithful. He does not abandon the work of His hands. Your part is to keep abiding, keep feeding, keep praying, keep obeying — and His part is to keep growing you. Trust Him for the process, and rest in His promise to finish what He started.</p>
+
+            <h2>A Prayer for Spiritual Growth</h2>
+            <p>Pray this prayer over your spiritual growth:</p>
+
+            <div class="prayer-box">
+                <h3>Pray This Prayer:</h3>
+                <p>"Father, thank You for the work You have already begun in me. I want to grow — not just to know more, but to become more like Jesus. Teach me to abide in Christ, moment by moment, day by day.</p>
+                <p>Give me a deep hunger for Your Word. Make prayer a natural part of my life. Surround me with a church family that will encourage and challenge me. Help me obey what You show me, even when it is hard.</p>
+                <p>Produce Your fruit in me — love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, and temperance. Let my life be a garden where Your Spirit can grow whatever He wills.</p>
+                <p>When I stumble, lift me up. When I am discouraged, remind me of Your faithfulness. When I am tempted to give up, help me press on.</p>
+                <p>I trust You to complete the work You started in me. I will keep growing, by Your grace, until the day I see Jesus face to face. Amen."</p>
+            </div>
+
+            <h2>What Should I Do Next?</h2>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-hands-helping"></i> Go Deeper in Discipleship</h4>
+                    <p>Spiritual growth is the heart of discipleship. Visit our <a href="/ministry/discipleship">Discipleship page</a> to see the full picture of following Jesus.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-book-bible"></i> Study God's Word</h4>
+                    <p>The more you feed on Scripture, the more you grow. Visit our <a href="/ministry/bible-studies">Bible Studies page</a> to dig deeper into God's Word.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-praying-hands"></i> Learn to Pray</h4>
+                    <p>Prayer deepens your walk with Christ. Visit our <a href="/ministry/prayer">Prayer page</a> to learn how to pray and to submit a prayer request.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-sun"></i> Live the Christian Life</h4>
+                    <p>Spiritual growth shows itself in everyday life. Visit our <a href="/ministry/christian-living">Christian Living page</a> to learn how to live it out.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-church"></i> Join a Church Family</h4>
+                    <p>You grow faster and further with others than alone. Find a Christ-centered, Bible-teaching church in your area.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-envelope"></i> Contact Us</h4>
+                    <p>Have questions about spiritual growth? We would love to help. <a href="/ministry/contact">Contact us</a> and someone from our team will reach out.</p>
+                </div>
+            </div>
+
+            <!-- DECISION FORM -->
+            <div class="decision-section">
+
+                <div class="decision-header">
+                    <div class="decision-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2>I Want to Grow Deeper!</h2>
+                </div>
+
+                <p>If you want to grow deeper in your walk with Christ — to become more like Him and bear lasting fruit — we would love to walk with you. Complete the form below, and we will send you resources to support your spiritual growth.</p>
+
+                <form id="decisionForm" class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name <span class="required">*</span></label>
+                            <input type="text" name="firstName" placeholder="Your first name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name <span class="required">*</span></label>
+                            <input type="text" name="lastName" placeholder="Your last name" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="you@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Country <span class="required">*</span></label>
+                        <input type="text" name="country" placeholder="Your country" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>How did you find this page?</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="found" value="LOGI Website" /> LOGI Website</label>
+                            <label><input type="checkbox" name="found" value="A friend" /> A friend</label>
+                            <label><input type="checkbox" name="found" value="Social Media" /> Social Media</label>
+                            <label><input type="checkbox" name="found" value="Google" /> Google</label>
+                            <label><input type="checkbox" name="found" value="YouTube" /> YouTube</label>
+                            <label><input type="checkbox" name="found" value="WhatsApp" /> WhatsApp</label>
+                            <label><input type="checkbox" name="found" value="Church" /> Church</label>
+                            <label><input type="checkbox" name="found" value="Other" /> Other</label>
+                        </div>
+                    </div>
+
+                    <div class="consent">
+                        <input type="checkbox" id="consent" required />
+                        <label for="consent">
+                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute Ministry.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    <p>🎉 Praise God! Thank you for committing to grow deeper in Christ. We will send you helpful resources to support your spiritual growth. May the Lord make you flourish like a tree planted by rivers of water!</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/load.js"></script>
+
+    <script>
+        document.getElementById('decisionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            setTimeout(function() {
+                form.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
