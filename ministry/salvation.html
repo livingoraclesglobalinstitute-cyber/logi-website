@@ -13,7 +13,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://logi.education/ministry/salvation" />
     <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
-    <meta property="og:description" content="Discover God's plan of salvation through Jesus Christ — the free gift of eternal life received by grace through faith." />
+    <meta property="og:description" content="Discover God's plan of salvation through Jesus Christ." />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
@@ -603,7 +603,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(13, 27, 42, 0.60) 0%, rgba(139, 83, 83, 0.40) 100%);
+            background: linear-gradient(180deg, rgba(13, 27, 42, 0.62) 0%, rgba(30, 90, 130, 0.48) 100%);
             z-index: 1;
         }
 
@@ -717,11 +717,10 @@
         }
 
         /* ========================================== */
-        /*   SCRIPTURE                               */
+        /*   SCRIPTURE — NO BORDER                   */
         /* ========================================== */
         .scripture {
-            border-left: 4px solid #8b5353;
-            padding: 4px 0 4px 20px;
+            padding: 0;
             margin: 22px 0;
             font-style: italic;
             color: #4a5568;
@@ -747,14 +746,11 @@
         .welcome-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   KEY VERSES — HIGHLIGHT BOX              */
+        /*   KEY VERSES — NO BORDER                  */
         /* ========================================== */
         .key-verse {
-            background: linear-gradient(135deg, rgba(201, 168, 108, 0.08), rgba(139, 83, 83, 0.05));
-            border-left: 4px solid #c9a86c;
-            padding: 20px 24px;
+            padding: 0;
             margin: 25px 0;
-            border-radius: 0 8px 8px 0;
         }
 
         .key-verse p {
@@ -779,84 +775,65 @@
         }
 
         /* ========================================== */
-        /*   VIDEO CONTAINER                         */
+        /*   ASSURANCE GRID — KEEPS LEFT BORDER      */
         /* ========================================== */
-        .video-container {
+        .assurance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
             margin: 30px 0;
-            padding: 30px 24px;
-            text-align: center;
-            color: #1a1a2e;
-            border: 1px solid #e8e3dc;
-            border-radius: 12px;
-            background: #fafafa;
         }
 
-        .video-container h3 {
-            color: #8b5353;
-            margin: 0 0 8px;
-            font-size: 19px;
-            text-align: center;
+        .assurance-card {
+            padding: 4px 0 4px 20px;
+            border-left: 3px solid #8b5353;
+            background: transparent;
         }
 
-        .video-container p {
-            color: #718096;
-            font-size: 14px;
-            margin: 0 0 4px;
-            text-align: center;
-        }
-
-        .video-embed-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            margin-top: 20px;
-            aspect-ratio: 16 / 9;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .video-embed-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-
-        /* ========================================== */
-        /*   STEPS                                   */
-        /* ========================================== */
-        .steps {
-            list-style: none;
-            padding: 0;
-            counter-reset: step;
-        }
-
-        .steps li {
-            counter-increment: step;
-            margin-bottom: 28px;
-            padding-left: 55px;
-            position: relative;
-        }
-
-        .steps li::before {
-            content: counter(step);
-            position: absolute;
-            left: 0;
-            top: 0;
+        .assurance-card-icon {
             width: 40px;
             height: 40px;
-            background: #8b5353;
-            color: #ffffff;
             border-radius: 50%;
+            background: transparent;
+            color: #8b5353;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            border: 1.5px solid #8b5353;
+        }
+
+        .assurance-card h4 {
+            color: #8b5353;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
             font-weight: 800;
-            font-size: 16px;
+        }
+
+        .assurance-card p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        @media (max-width: 640px) {
+            .assurance-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        /* ========================================== */
+        /*   STEPS — DECIMAL, NO CIRCLES             */
+        /* ========================================== */
+        .steps {
+            list-style: decimal;
+            padding-left: 22px;
+            margin: 20px 0;
+        }
+
+        .steps li {
+            margin-bottom: 22px;
+            padding-left: 6px;
         }
 
         .steps li strong {
@@ -873,12 +850,11 @@
         }
 
         /* ========================================== */
-        /*   PRAYER BOX                              */
+        /*   PRAYER BOX — NO BORDER                  */
         /* ========================================== */
         .prayer-box {
-            padding: 24px 0 24px 24px;
+            padding: 0;
             margin: 35px 0;
-            border-left: 4px solid #8b5353;
             background: transparent;
             text-align: left;
         }
@@ -900,13 +876,11 @@
         .prayer-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   CELEBRATION                             */
+        /*   CELEBRATION — NO BORDER                 */
         /* ========================================== */
         .celebration {
-            padding: 20px 24px;
+            padding: 0;
             margin: 30px 0;
-            border-left: 4px solid #15803d;
-            background: transparent;
             text-align: left;
         }
 
@@ -919,35 +893,7 @@
         }
 
         /* ========================================== */
-        /*   ASSURANCE BOX                           */
-        /* ========================================== */
-        .assurance-box {
-            background: linear-gradient(135deg, #f0f9f4, #e6f4ed);
-            border-radius: 14px;
-            padding: 28px 26px;
-            margin: 30px 0;
-            border-left: 5px solid #15803d;
-            text-align: left;
-        }
-
-        .assurance-box h3 {
-            color: #15803d;
-            margin: 0 0 14px;
-            font-size: 19px;
-            text-align: left;
-        }
-
-        .assurance-box p {
-            color: #2d3748;
-            font-size: 15.5px;
-            line-height: 1.75;
-            margin-bottom: 10px;
-        }
-
-        .assurance-box p:last-child { margin-bottom: 0; }
-
-        /* ========================================== */
-        /*   NEXT STEPS                              */
+        /*   NEXT STEPS — NO BORDER                  */
         /* ========================================== */
         .next-steps {
             display: grid;
@@ -957,16 +903,9 @@
         }
 
         .step-card {
-            padding: 4px 0 4px 20px;
-            border-left: 3px solid #c9a86c;
+            padding: 0;
             background: transparent;
-            transition: all 0.3s ease;
             text-align: left;
-        }
-
-        .step-card:hover {
-            border-left-color: #8b5353;
-            padding-left: 24px;
         }
 
         .step-card h4 {
@@ -995,32 +934,7 @@
         }
 
         /* ========================================== */
-        /*   SUBSCRIBE BUTTON                        */
-        /* ========================================== */
-        .subscribe-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #8b5353;
-            color: #ffffff;
-            padding: 10px 22px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            margin-top: 14px;
-            transition: all 0.3s ease;
-            border: 2px solid #8b5353;
-        }
-
-        .subscribe-btn:hover {
-            background: #a66a6a;
-            border-color: #a66a6a;
-            transform: translateY(-2px);
-        }
-
-        /* ========================================== */
-        /*   DECISION SECTION                        */
+        /*   DECISION SECTION — MINIMAL              */
         /* ========================================== */
         .decision-section {
             padding: 40px 0 0;
@@ -1209,8 +1123,7 @@
 
         .success-message {
             display: none;
-            padding: 24px 28px;
-            border-left: 4px solid #15803d;
+            padding: 0;
             background: transparent;
             margin-top: 24px;
             text-align: left;
@@ -1239,14 +1152,10 @@
             .decision-header .decision-icon i {
                 font-size: 17px;
             }
-            .steps li { padding-left: 48px; }
-            .steps li::before { width: 36px; height: 36px; font-size: 14px; }
         }
 
         @media (max-width: 420px) {
             .section-bg h2 { font-size: 18px; }
-            .video-container { padding: 24px 16px; }
-            .video-container h3 { font-size: 16px; }
         }
     </style>
 </head>
@@ -1284,22 +1193,6 @@
 
             <p>This truth is what makes Christianity unique among all religions. Every other system says <em>"do this and you will be saved."</em> The gospel says <strong>"it is done — believe and be saved."</strong></p>
 
-            <!-- YOUTUBE VIDEO -->
-            <div class="video-container">
-                <h3>Watch: What Does It Mean to Be Saved?</h3>
-                <p>A short message on God's free gift of salvation</p>
-                <div class="video-embed-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/DRu0v8hXOSY" 
-                        title="What Does It Mean to Be Saved?"
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
             <h2>Why Do We Need to Be Saved?</h2>
             <p>To understand why we need salvation, we must first understand our problem. The Bible tells us that every human being has sinned against God. Sin is not just doing bad things — it is the deeper rebellion of our hearts against God's rightful rule over our lives.</p>
             <p>Because God is perfectly holy and perfectly just, sin cannot go unpunished. The penalty for sin is death — not just physical death, but eternal separation from God. This is the reality every one of us faces apart from Christ.</p>
@@ -1331,6 +1224,41 @@
 
             <p>Because Jesus paid the full price, there is nothing left for us to pay. Salvation is not a joint effort. It is entirely the work of God, received by faith alone.</p>
 
+            <h2>What Salvation Gives You</h2>
+            <p>When you are saved, four great realities become true of you — forever:</p>
+
+            <div class="assurance-grid">
+
+                <div class="assurance-card">
+                    <div class="assurance-card-icon"><i class="fas fa-heart"></i></div>
+                    <h4>Full Forgiveness</h4>
+                    <p>Every sin — past, present, and future — is completely forgiven through the blood of Jesus. Nothing you have done is beyond His grace.</p>
+                </div>
+
+                <div class="assurance-card">
+                    <div class="assurance-card-icon"><i class="fas fa-users"></i></div>
+                    <h4>Adoption into God's Family</h4>
+                    <p>You become a child of God — not just a follower, but a son or daughter. You now have a Father in heaven who loves you completely.</p>
+                </div>
+
+                <div class="assurance-card">
+                    <div class="assurance-card-icon"><i class="fas fa-dove"></i></div>
+                    <h4>The Gift of the Holy Spirit</h4>
+                    <p>The Holy Spirit comes to live inside you — teaching, guiding, convicting, comforting, and empowering you to live for God.</p>
+                </div>
+
+                <div class="assurance-card">
+                    <div class="assurance-card-icon"><i class="fas fa-crown"></i></div>
+                    <h4>Eternal Life</h4>
+                    <p>You receive a life that will never end — a relationship with God that begins now and lasts forever, beyond even death itself.</p>
+                </div>
+
+            </div>
+
+            <div class="scripture">
+                <strong>Ephesians 2:8–9</strong> says, <em>"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast."</em>
+            </div>
+
             <h2>How Can I Be Saved?</h2>
             <p>The Bible gives a clear answer. Salvation comes through faith in Jesus Christ. This is not a complicated process — it is a simple, wholehearted response to what God has already done. Here are the steps the Bible lays out:</p>
 
@@ -1353,10 +1281,6 @@
                 </li>
             </ol>
 
-            <div class="scripture">
-                <strong>Ephesians 2:8–9</strong> says, <em>"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast."</em>
-            </div>
-
             <p>You do not need to clean yourself up first. You do not need to be good enough. You do not need to wait for the right moment. You only need to come to Jesus as you are, and He will receive you.</p>
 
             <h2>A Prayer to Receive Christ</h2>
@@ -1378,11 +1302,19 @@
             <h2>Can I Be Sure I Am Saved?</h2>
             <p>Yes. One of the greatest gifts of salvation is assurance. God does not want you to spend your life wondering whether you are truly saved. He wants you to know. The Bible gives us solid ground for confidence.</p>
 
-            <div class="assurance-box">
-                <h3>Assurance from God's Word</h3>
-                <p><strong>1 John 5:11–13:</strong> <em>"And this is the testimony: God has given us eternal life, and this life is in his Son. Whoever has the Son has life; whoever does not have the Son of God does not have life. I write these things to you who believe in the name of the Son of God so that you may know that you have eternal life."</em></p>
-                <p><strong>John 10:28:</strong> <em>"I give them eternal life, and they shall never perish; no one will snatch them out of my hand."</em></p>
-                <p><strong>Romans 8:38–39:</strong> <em>"For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord."</em></p>
+            <div class="key-verse">
+                <span class="verse-ref">1 John 5:11–13</span>
+                <p>"And this is the testimony: God has given us eternal life, and this life is in his Son. Whoever has the Son has life; whoever does not have the Son of God does not have life. I write these things to you who believe in the name of the Son of God so that you may know that you have eternal life."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">John 10:28</span>
+                <p>"I give them eternal life, and they shall never perish; no one will snatch them out of my hand."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Romans 8:38–39</span>
+                <p>"For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord."</p>
             </div>
 
             <p>If you have believed in Jesus, you are saved — not because you feel saved on any given day, but because God has promised it. Your salvation rests on His faithfulness, not on your performance.</p>
