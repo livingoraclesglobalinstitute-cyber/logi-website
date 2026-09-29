@@ -13,7 +13,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://logi.education/baptism" />
     <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
-    <meta property="og:description" content="Discover what the Bible teaches about baptism — its meaning, its mode, who should be baptized, and why every believer should obey Christ in baptism." />
+    <meta property="og:description" content="Discover what the Bible teaches about baptism — its meaning, its mode, and why every believer should obey Christ in baptism." />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
@@ -588,7 +588,7 @@
             position: relative;
             width: 100%;
             height: 340px;
-            background-image: url('https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=1600&q=80');
+            background-image: url('https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -717,11 +717,10 @@
         }
 
         /* ========================================== */
-        /*   SCRIPTURE                               */
+        /*   SCRIPTURE — NO BORDER                   */
         /* ========================================== */
         .scripture {
-            border-left: 4px solid #8b5353;
-            padding: 4px 0 4px 20px;
+            padding: 0;
             margin: 22px 0;
             font-style: italic;
             color: #4a5568;
@@ -747,14 +746,11 @@
         .welcome-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   KEY VERSES — HIGHLIGHT BOX              */
+        /*   KEY VERSES — NO BORDER                  */
         /* ========================================== */
         .key-verse {
-            background: linear-gradient(135deg, rgba(201, 168, 108, 0.08), rgba(139, 83, 83, 0.05));
-            border-left: 4px solid #c9a86c;
-            padding: 20px 24px;
+            padding: 0;
             margin: 25px 0;
-            border-radius: 0 8px 8px 0;
         }
 
         .key-verse p {
@@ -779,43 +775,33 @@
         }
 
         /* ========================================== */
-        /*   MEANING OF BAPTISM — 4 CARDS            */
+        /*   MEANING GRID — KEEPS LEFT BORDER        */
         /* ========================================== */
         .meaning-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 24px;
             margin: 30px 0;
         }
 
         .meaning-card {
-            padding: 24px 22px;
-            border: 1px solid #e8e3dc;
-            border-radius: 12px;
-            background: #fafafa;
-            transition: all 0.3s ease;
-            text-align: left;
-            border-top: 4px solid #8b5353;
-        }
-
-        .meaning-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(139, 83, 83, 0.12);
-            border-color: #c9a86c;
-            border-top-color: #c9a86c;
+            padding: 4px 0 4px 20px;
+            border-left: 3px solid #8b5353;
+            background: transparent;
         }
 
         .meaning-card-icon {
-            width: 46px;
-            height: 46px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: rgba(139, 83, 83, 0.1);
+            background: transparent;
             color: #8b5353;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
+            border: 1.5px solid #8b5353;
         }
 
         .meaning-card h4 {
@@ -828,45 +814,26 @@
         .meaning-card p {
             font-size: 0.9rem;
             color: #4a5568;
-            line-height: 1.65;
+            line-height: 1.7;
             margin: 0;
         }
 
         @media (max-width: 640px) {
-            .meaning-grid { grid-template-columns: 1fr; gap: 14px; }
+            .meaning-grid { grid-template-columns: 1fr; gap: 20px; }
         }
 
         /* ========================================== */
-        /*   STEPS                                   */
+        /*   STEPS — NO CIRCLES, DECIMAL             */
         /* ========================================== */
         .steps {
-            list-style: none;
-            padding: 0;
-            counter-reset: step;
+            list-style: decimal;
+            padding-left: 22px;
+            margin: 20px 0;
         }
 
         .steps li {
-            counter-increment: step;
-            margin-bottom: 28px;
-            padding-left: 55px;
-            position: relative;
-        }
-
-        .steps li::before {
-            content: counter(step);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 40px;
-            height: 40px;
-            background: #8b5353;
-            color: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 16px;
+            margin-bottom: 22px;
+            padding-left: 6px;
         }
 
         .steps li strong {
@@ -883,30 +850,19 @@
         }
 
         /* ========================================== */
-        /*   COMPARISON TABLE                        */
+        /*   COMPARE GRID — NO BORDER                */
         /* ========================================== */
         .compare-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 30px;
             margin: 30px 0;
         }
 
         .compare-card {
-            padding: 24px 22px;
-            border-radius: 12px;
-            text-align: left;
-            border: 1px solid #e8e3dc;
-        }
-
-        .compare-card.old {
-            background: #fdf2f2;
-            border-top: 4px solid #c53030;
-        }
-
-        .compare-card.new {
-            background: #f0f9f4;
-            border-top: 4px solid #15803d;
+            padding: 0;
+            background: transparent;
+            border: none;
         }
 
         .compare-card h4 {
@@ -952,64 +908,15 @@
         }
 
         @media (max-width: 640px) {
-            .compare-grid { grid-template-columns: 1fr; gap: 14px; }
+            .compare-grid { grid-template-columns: 1fr; gap: 24px; }
         }
 
         /* ========================================== */
-        /*   PRAYER BOX                              */
-        /* ========================================== */
-        .prayer-box {
-            padding: 24px 0 24px 24px;
-            margin: 35px 0;
-            border-left: 4px solid #8b5353;
-            background: transparent;
-            text-align: left;
-        }
-
-        .prayer-box h3 {
-            color: #8b5353;
-            margin: 0 0 18px;
-            font-size: 19px;
-        }
-
-        .prayer-box p {
-            color: #4a5568;
-            font-style: italic;
-            line-height: 1.9;
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-
-        .prayer-box p:last-child { margin-bottom: 0; }
-
-        /* ========================================== */
-        /*   CELEBRATION                             */
-        /* ========================================== */
-        .celebration {
-            padding: 20px 24px;
-            margin: 30px 0;
-            border-left: 4px solid #15803d;
-            background: transparent;
-            text-align: left;
-        }
-
-        .celebration p {
-            color: #15803d;
-            font-weight: 600;
-            margin: 0;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        /* ========================================== */
-        /*   NOTE BOX                                */
+        /*   NOTE BOX — NO BORDER                    */
         /* ========================================== */
         .note-box {
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
-            border-left: 4px solid #2563eb;
-            padding: 22px 26px;
+            padding: 0;
             margin: 30px 0;
-            border-radius: 0 10px 10px 0;
             text-align: left;
         }
 
@@ -1033,7 +940,7 @@
         .note-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   NEXT STEPS                              */
+        /*   NEXT STEPS — NO BORDER                  */
         /* ========================================== */
         .next-steps {
             display: grid;
@@ -1043,16 +950,9 @@
         }
 
         .step-card {
-            padding: 4px 0 4px 20px;
-            border-left: 3px solid #c9a86c;
+            padding: 0;
             background: transparent;
-            transition: all 0.3s ease;
             text-align: left;
-        }
-
-        .step-card:hover {
-            border-left-color: #8b5353;
-            padding-left: 24px;
         }
 
         .step-card h4 {
@@ -1081,32 +981,7 @@
         }
 
         /* ========================================== */
-        /*   SUBSCRIBE BUTTON                        */
-        /* ========================================== */
-        .subscribe-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #8b5353;
-            color: #ffffff;
-            padding: 10px 22px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            margin-top: 14px;
-            transition: all 0.3s ease;
-            border: 2px solid #8b5353;
-        }
-
-        .subscribe-btn:hover {
-            background: #a66a6a;
-            border-color: #a66a6a;
-            transform: translateY(-2px);
-        }
-
-        /* ========================================== */
-        /*   DECISION SECTION                        */
+        /*   DECISION SECTION — MINIMAL              */
         /* ========================================== */
         .decision-section {
             padding: 40px 0 0;
@@ -1295,8 +1170,7 @@
 
         .success-message {
             display: none;
-            padding: 24px 28px;
-            border-left: 4px solid #15803d;
+            padding: 0;
             background: transparent;
             margin-top: 24px;
             text-align: left;
@@ -1325,8 +1199,6 @@
             .decision-header .decision-icon i {
                 font-size: 17px;
             }
-            .steps li { padding-left: 48px; }
-            .steps li::before { width: 36px; height: 36px; font-size: 14px; }
         }
 
         @media (max-width: 420px) {
