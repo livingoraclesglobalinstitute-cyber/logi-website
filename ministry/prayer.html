@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Prayer | Living Oracles Global Institute Ministry</title>
+
+    <meta name="description" content="Learn how to pray with confidence and intimacy. Discover what the Bible teaches about prayer, how to pray, and how to hear God's voice." />
+    <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
+    <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
+
+    <meta property="og:title" content="Prayer | LOGI Ministry" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/ministry/prayer" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Discover what the Bible teaches about prayer — how to pray, when to pray, and how to hear God's voice." />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR                                 */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before { left: 0; border-radius: 0 4px 4px 0; }
+        .top-bar::after { right: 0; border-radius: 4px 0 0 4px; }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover { color: #c9a86c; }
+        .top-bar .contact-info i { font-size: 0.65rem; color: #c9a86c; }
+
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; align-items: flex-start; padding: 4px 0; }
+            .top-bar::before, .top-bar::after { width: 25px; }
+            .top-bar .contact-info { padding: 0 35px; gap: 8px; }
+            .top-bar .contact-info a, .top-bar .contact-info span { font-size: 0.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before, .top-bar::after { width: 18px; }
+            .top-bar .contact-info { padding: 0 25px; gap: 6px; font-size: 0.55rem; }
+        }
+
+        /* ========================================== */
+        /*   HEADER                                  */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 40px; height: auto; object-fit: contain; display: block; }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header { top: 34px; padding: 6px 4%; }
+            .logo img { width: 32px; }
+            .logo .logo-text { font-size: 0.65rem; }
+            .logo .logo-text span { font-size: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .main-header { top: 30px; padding: 4px 3%; }
+            .logo img { width: 28px; }
+            .logo .logo-text { font-size: 0.55rem; }
+            .logo .logo-text span { font-size: 0.35rem; }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU                             */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover { background: rgba(26, 26, 46, 0.12); }
+        .menu-btn i { font-size: 16px; }
+
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li { position: relative; }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu { display: flex !important; }
+        .navigation-menu-bar ul li .submenu li { width: 100%; }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn { display: flex !important; }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu { display: flex !important; }
+            .navigation-menu-bar ul li .submenu li { border-bottom: none !important; }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                font-size: 0.85rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar { padding: 60px 1rem 1.5rem 1rem !important; }
+            .navigation-menu-bar ul li a { font-size: 0.85rem !important; }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .institutional-footer {
+            position: relative;
+            width: 100%;
+            background: #0d1b2a;
+            color: #f4f6f8;
+            padding: 2.5rem 5% 1.2rem;
+            margin-top: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem;
+            z-index: 2;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .institutional-footer .footer-column h2,
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+
+        .institutional-footer strong,
+        .footer-column strong {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        .institutional-footer .footer-column p,
+        .footer-column p,
+        .footer-column address {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover { color: #c9a86c !important; }
+
+        .footer-column ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .footer-column ul li { margin-bottom: 0.2rem !important; list-style: none !important; }
+
+        .footer-column ul li a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-column ul li a:hover { color: #c9a86c !important; }
+
+        .footer-column .footer-address-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(244, 246, 248, 0.6);
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff !important;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .subscription-form { display: flex; gap: 4px; width: 100%; flex-wrap: wrap; }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 5px 8px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            flex-grow: 1;
+            outline: none;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder { color: rgba(255, 255, 255, 0.5); }
+        .subscription-form input[type="email"]:focus { border-color: #c9a86c; }
+
+        .subscription-form button {
+            background: #8B5353;
+            color: #ffffff;
+            border: none;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subscription-form button:hover { background: #a66a6a; }
+
+        @media (max-width: 768px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+            .institutional-footer { font-size: 0.7rem; padding: 1.5rem 4% 1rem; }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   PLACEHOLDERS                             */
+        /* ========================================== */
+        #header-placeholder, #footer-placeholder { width: 100%; }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                           */
+        /* ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            background: #ffffff;
+            color: #2d3748;
+            line-height: 1.7;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (max-width: 768px) { body { padding-top: 70px; } }
+        @media (max-width: 480px) { body { padding-top: 60px; } }
+
+        /* ========================================== */
+        /*   HERO                                    */
+        /* ========================================== */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            background-image: url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(13, 27, 42, 0.65) 0%, rgba(139, 83, 83, 0.45) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .hero-content .hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content .hero-line {
+            width: 100px;
+            height: 3px;
+            background: #c9a86c;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 260px; }
+            .hero-content h1 { font-size: 30px; }
+            .hero-content .hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section { height: 220px; }
+            .hero-content h1 { font-size: 24px; }
+            .hero-content .hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
+        /*   MAIN CONTENT WRAPPER                    */
+        /* ========================================== */
+        .section-bg {
+            position: relative;
+            width: 100%;
+            padding: 60px 20px 80px;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: transparent;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-bg { padding: 40px 16px 60px; }
+        }
+
+        /* ========================================== */
+        /*   TYPOGRAPHY                              */
+        /* ========================================== */
+        .section-bg h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #8b5353;
+            margin: 40px 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8e3dc;
+            text-align: left;
+        }
+
+        .section-bg h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #8b5353;
+            margin: 25px 0 12px;
+            text-align: left;
+        }
+
+        .section-bg p {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 16px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .section-bg strong {
+            color: #8b5353;
+            font-weight: 700;
+        }
+
+        .section-bg em {
+            color: #8b5353;
+            font-style: italic;
+        }
+
+        /* ========================================== */
+        /*   SCRIPTURE — NO BORDER                   */
+        /* ========================================== */
+        .scripture {
+            padding: 0;
+            margin: 22px 0;
+            font-style: italic;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.8;
+            background: transparent;
+            text-align: left;
+        }
+
+        .scripture strong { color: #8b5353; }
+
+        /* ========================================== */
+        /*   WELCOME BOX                             */
+        /* ========================================== */
+        .welcome-box {
+            padding: 0;
+            margin-bottom: 30px;
+            background: transparent;
+            border: none;
+        }
+
+        .welcome-box p { margin-bottom: 14px; }
+        .welcome-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   KEY VERSES — NO BORDER                  */
+        /* ========================================== */
+        .key-verse {
+            padding: 0;
+            margin: 25px 0;
+        }
+
+        .key-verse p {
+            font-style: italic;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0 0 8px;
+        }
+
+        .key-verse p:last-child { margin-bottom: 0; }
+
+        .key-verse .verse-ref {
+            color: #8b5353;
+            font-weight: 800;
+            font-style: normal;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* ========================================== */
+        /*   PILLARS GRID — KEEPS BORDERS            */
+        /* ========================================== */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .pillar-card {
+            padding: 4px 0 4px 20px;
+            border-left: 3px solid #8b5353;
+            background: transparent;
+        }
+
+        .pillar-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: #8b5353;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            border: 1.5px solid #8b5353;
+        }
+
+        .pillar-card h4 {
+            color: #8b5353;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .pillar-card p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        @media (max-width: 640px) {
+            .pillars-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        /* ========================================== */
+        /*   STEPS — DECIMAL, NO CIRCLES             */
+        /* ========================================== */
+        .steps {
+            list-style: decimal;
+            padding-left: 22px;
+            margin: 20px 0;
+        }
+
+        .steps li {
+            margin-bottom: 22px;
+            padding-left: 6px;
+        }
+
+        .steps li strong {
+            display: block;
+            font-size: 17px;
+            color: #8b5353;
+            margin-bottom: 10px;
+        }
+
+        .steps li p {
+            font-size: 15.5px;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        /* ========================================== */
+        /*   PRAYER BOX — NO BORDER                  */
+        /* ========================================== */
+        .prayer-box {
+            padding: 0;
+            margin: 35px 0;
+            background: transparent;
+            text-align: left;
+        }
+
+        .prayer-box h3 {
+            color: #8b5353;
+            margin: 0 0 18px;
+            font-size: 19px;
+        }
+
+        .prayer-box p {
+            color: #4a5568;
+            font-style: italic;
+            line-height: 1.9;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .prayer-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   NEXT STEPS — NO BORDER                  */
+        /* ========================================== */
+        .next-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .step-card {
+            padding: 0;
+            background: transparent;
+            text-align: left;
+        }
+
+        .step-card h4 {
+            color: #8b5353;
+            font-size: 17px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-card h4 i {
+            color: #8b5353;
+            font-size: 18px;
+        }
+
+        .step-card p {
+            font-size: 15.5px;
+            margin: 0;
+        }
+
+        .step-card a {
+            color: #8b5353;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        /* ========================================== */
+        /*   DECISION SECTION — MINIMAL              */
+        /* ========================================== */
+        .decision-section {
+            padding: 40px 0 0;
+            margin-top: 45px;
+            text-align: left;
+            border-top: 2px solid #e8e3dc;
+            background: transparent;
+        }
+
+        .decision-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .decision-header .decision-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            background: #8b5353;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .decision-header .decision-icon i {
+            font-size: 20px;
+        }
+
+        .decision-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+            font-size: 26px;
+            color: #8b5353;
+            line-height: 1.1;
+            text-align: left;
+            font-weight: 800;
+        }
+
+        .decision-section > p {
+            text-align: left;
+            max-width: 100%;
+            margin: 0 0 28px;
+            font-size: 16px;
+            color: #4a5568;
+        }
+
+        /* ========================================== */
+        /*   FORM                                    */
+        /* ========================================== */
+        .form-container {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required { color: #c53030; }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #ffffff;
+            color: #1a1a2e;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: #a0aec0; }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #8b5353;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(139, 83, 83, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 400;
+            color: #4a5568;
+            cursor: pointer;
+            padding: 6px 0;
+            margin-bottom: 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #8b5353;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 22px 0;
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .consent input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #8b5353;
+            cursor: pointer;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .consent a {
+            color: #8b5353;
+            text-decoration: underline;
+        }
+
+        .consent a:hover { color: #5f2d2d; }
+
+        .submit-btn {
+            width: 100%;
+            background: #8b5353;
+            color: #ffffff;
+            border: 2px solid #8b5353;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #a66a6a;
+            border-color: #a66a6a;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        .success-message {
+            display: none;
+            padding: 0;
+            background: transparent;
+            margin-top: 24px;
+            text-align: left;
+        }
+
+        .success-message p {
+            color: #15803d;
+            margin: 0;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ========================================== */
+        /*   RESPONSIVE                              */
+        /* ========================================== */
+        @media (max-width: 600px) {
+            .section-bg h2 { font-size: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .decision-header h2 { font-size: 22px; }
+            .decision-header .decision-icon {
+                width: 42px;
+                height: 42px;
+            }
+            .decision-header .decision-icon i {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .section-bg h2 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Prayer</h1>
+            <p class="hero-subtitle">Talking With Your Heavenly Father</p>
+            <div class="hero-line"></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="section-bg">
+        <div class="container">
+
+            <div class="welcome-box">
+                <p><strong>Prayer is simply talking with God.</strong></p>
+                <p>It is not a religious ritual, a performance, or a formula. It is a conversation — honest, open, and personal — between you and your heavenly Father who loves you and wants to hear from you. You don't need fancy words, a special place, or perfect conditions. You just need a willing heart.</p>
+                <p>This page will help you understand what prayer is, why it matters, and how to pray with confidence and joy — whether you're brand new to prayer or have been praying for years.</p>
+            </div>
+
+            <h2>What Is Prayer?</h2>
+            <p>Prayer is the way we communicate with God. It is both speaking and listening — bringing our hearts before Him and waiting to hear His voice. The Bible describes prayer in many ways: as talking to a Father, as coming boldly to a throne of grace, as crying out in distress, as giving thanks, and as interceding for others.</p>
+            <p>The amazing truth is that the God of the universe invites you to approach Him personally — at any time, in any place, about anything. You do not need a priest, a mediator, or a ritual. You come directly to God through Jesus Christ.</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Hebrews 4:16</span>
+                <p>"Let us then approach God's throne of grace with confidence, so that we may receive mercy and find grace to help us in our time of need."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Jeremiah 33:3</span>
+                <p>"Call to me and I will answer you and tell you great and unsearchable things you do not know."</p>
+            </div>
+
+            <p>Prayer is one of the greatest privileges of the Christian life. And the more you pray, the more you will sense God's presence and direction in your daily walk.</p>
+
+            <h2>Four Kinds of Prayer</h2>
+            <p>Prayer takes many forms. Here are four biblical types of prayer that every believer should practice:</p>
+
+            <div class="pillars-grid">
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-hands-praying"></i></div>
+                    <h4>Adoration &amp; Praise</h4>
+                    <p>Adoring God for who He is — worshipping Him for His holiness, love, mercy, and majesty. Praise lifts our hearts above our circumstances and reminds us of His greatness.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-heart-crack"></i></div>
+                    <h4>Confession</h4>
+                    <p>Agreeing with God about our sins. When we confess, we receive His forgiveness and are cleansed. Confession keeps our relationship with Him honest and free.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-gift"></i></div>
+                    <h4>Thanksgiving</h4>
+                    <p>Thanking God for what He has done. Gratitude is the natural response to God's goodness — and it transforms our perspective on life.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-hands-helping"></i></div>
+                    <h4>Supplication &amp; Intercession</h4>
+                    <p>Bringing our needs and the needs of others before God. Prayer is powerful — it moves heaven and changes lives, including our own.</p>
+                </div>
+
+            </div>
+
+            <h2>How Do I Pray?</h2>
+            <p>Many people feel unsure about how to pray. But prayer is not as complicated as we sometimes make it. Here are some simple guidelines that come straight from Scripture:</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Pray honestly — in your own words.</strong>
+                    <p>You don't need fancy language or formulaic prayers. God wants to hear <em>you</em> — your heart, your fears, your joys, your questions. Jesus said, <em>"When you pray, do not keep on babbling like pagans, for they think they will be heard because of their many words"</em> (Matthew 6:7). Simple, honest prayer is powerful prayer.</p>
+                </li>
+                <li>
+                    <strong>Pray in Jesus' name.</strong>
+                    <p>We approach God the Father <em>through</em> Jesus Christ. To pray in Jesus' name is to pray with His authority and in alignment with who He is. Jesus said, <em>"I am the way and the truth and the life. No one comes to the Father except through me"</em> (John 14:6).</p>
+                </li>
+                <li>
+                    <strong>Pray in faith — believing God hears.</strong>
+                    <p>Prayer is not wishful thinking. It is trusting that God hears and answers. Jesus said, <em>"Whatever you ask for in prayer, believe that you have received it, and it will be yours"</em> (Mark 11:24). Pray with confidence, not doubting.</p>
+                </li>
+                <li>
+                    <strong>Pray according to God's will.</strong>
+                    <p>God answers prayer according to His perfect will — which is always better than ours. The Bible says, <em>"This is the confidence we have in approaching God: that if we ask anything according to his will, he hears us"</em> (1 John 5:14). Trust that His answers are always best.</p>
+                </li>
+                <li>
+                    <strong>Pray continually.</strong>
+                    <p>Prayer is not a once-a-day event. It is a constant conversation throughout your day. The Bible says, <em>"Pray continually"</em> (1 Thessalonians 5:17). As you go about your day, keep your heart open to God — talking with Him, listening to Him, and walking with Him.</p>
+                </li>
+            </ol>
+
+            <div class="scripture">
+                <strong>Philippians 4:6–7</strong> says, <em>"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus."</em>
+            </div>
+
+            <h2>When Should I Pray?</h2>
+            <p>The simple answer is: always. Prayer is not confined to a particular time, place, or posture. The Bible shows believers praying at all times and in all circumstances:</p>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-sun"></i> In the Morning</h4>
+                    <p>Begin each day with God. <em>"Very early in the morning, while it was still dark, Jesus got up, left the house and went off to a solitary place, where he prayed"</em> (Mark 1:35). Starting your day with prayer sets the tone for everything else.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-moon"></i> In the Evening</h4>
+                    <p>End each day in His presence. <em>"I lie down and sleep; I wake again, because the Lord sustains me"</em> (Psalm 3:5). Pray through your day before you sleep — releasing everything to God.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-clock"></i> Throughout the Day</h4>
+                    <p>Maintain an ongoing conversation with God. <em>"Pray continually"</em> (1 Thessalonians 5:17). Talk with Him as you work, drive, walk, eat, and rest.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-hands-praying"></i> In Times of Trouble</h4>
+                    <p>When you face difficulty, prayer is your first line of defense. <em>"Is anyone among you in trouble? Let them pray"</em> (James 5:13). God is a very present help in trouble (Psalm 46:1).</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-heart"></i> With Thanksgiving</h4>
+                    <p>Let gratitude shape your prayer life. <em>"Give thanks in all circumstances; for this is God's will for you in Christ Jesus"</em> (1 Thessalonians 5:18). Thanksgiving and prayer go hand in hand.</p>
+                </div>
+            </div>
+
+            <h2>The Lord's Prayer</h2>
+            <p>When the disciples asked Jesus to teach them how to pray, He gave them a simple model that has guided believers for two thousand years. It is not a formula to recite mindlessly — it is a template that shows us how to approach God and what to pray for.</p>
+
+            <div class="prayer-box">
+                <h3>The Model Prayer</h3>
+                <p>"Our Father in heaven, hallowed be your name,</p>
+                <p>your kingdom come, your will be done, on earth as it is in heaven.</p>
+                <p>Give us today our daily bread.</p>
+                <p>And forgive us our debts, as we also have forgiven our debtors.</p>
+                <p>And lead us not into temptation, but deliver us from the evil one.</p>
+                <p>For yours is the kingdom and the power and the glory forever. Amen."</p>
+                <p style="font-style: normal; font-size: 14px; margin-top: 16px; color: #718096;">— Matthew 6:9–13</p>
+            </div>
+
+            <p>Notice the structure: it begins with worship ("Our Father… hallowed be your name"), moves to surrender ("your kingdom come, your will be done"), then to requests ("give us… forgive us… lead us"). This is a beautiful pattern for our own prayers — worship first, then our needs.</p>
+
+            <h2>Does God Always Answer Prayer?</h2>
+            <p>Yes — but not always in the way or the timing we expect. God hears every prayer, and He always answers. Sometimes His answer is <strong>yes</strong>. Sometimes it is <strong>no</strong> — because what we asked for would not be best for us. And sometimes it is <strong>wait</strong> — because His timing is perfect, and He is doing something deeper than we can see.</p>
+            <p>God is a good Father. He gives what is best for His children — not always what they ask for, but always what they truly need. Trust Him. His answers are always wiser than our requests.</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Matthew 7:11</span>
+                <p>"If you, then, though you are evil, know how to give good gifts to your children, how much more will your Father in heaven give good gifts to those who ask him!"</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Isaiah 55:8–9</span>
+                <p>"'For my thoughts are not your thoughts, neither are your ways my ways,' declares the Lord. 'As the heavens are higher than the earth, so are my ways higher than your ways and my thoughts than your thoughts.'"</p>
+            </div>
+
+            <h2>A Prayer to Begin</h2>
+            <p>If you're not sure how to start praying, you can begin with a simple prayer like this. Use it as a starting point, then make it your own — praying in your own words, from your own heart:</p>
+
+            <div class="prayer-box">
+                <h3>Pray This Prayer:</h3>
+                <p>"Father, thank You for the gift of prayer — that I can come to You at any time, in any place, about anything.</p>
+                <p>Teach me to pray. Help me to talk with You honestly and to listen for Your voice. Give me a hunger for Your presence and a heart that longs to know You more.</p>
+                <p>I bring my needs before You, and I trust that You will answer in Your perfect way and perfect timing. Give me patience to wait, faith to believe, and joy in Your presence.</p>
+                <p>Thank You that You are always with me and always listening. I choose to walk with You today — in prayer, in worship, and in trust.</p>
+                <p>Amen."</p>
+            </div>
+
+            <h2>What Should I Do Next?</h2>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-book-bible"></i> Study God's Word</h4>
+                    <p>Prayer and Bible reading go hand in hand. Visit our <a href="/ministry/bible-studies">Bible Studies page</a> to learn how to read and study Scripture for yourself.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-hands-helping"></i> Grow in Discipleship</h4>
+                    <p>Prayer is one of the four key areas of discipleship. Visit our <a href="/ministry/discipleship">Discipleship page</a> to see the full picture of growing in Christ.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-church"></i> Join a Church Family</h4>
+                    <p>Prayer grows best in community. Find a Christ-centered, Bible-teaching church where you can pray with others and be encouraged.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-seedling"></i> Begin Your New Life</h4>
+                    <p>New to the faith? Start with our <a href="/ministry/new-life">New Life in Christ</a> page — it will help you understand what it means to walk with Jesus daily.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-envelope"></i> Contact Us</h4>
+                    <p>Have questions about prayer? We would love to hear from you. <a href="/ministry/contact">Contact us</a> and someone from our team will reach out.</p>
+                </div>
+            </div>
+
+            <!-- PRAYER REQUEST FORM -->
+            <div class="decision-section">
+
+                <div class="decision-header">
+                    <div class="decision-icon">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <h2>Submit a Prayer Request</h2>
+                </div>
+
+                <p>We would love to pray with you. Whether you have a need, a praise, or a burden on your heart, share it with us. Our ministry team prays over every request we receive.</p>
+
+                <form id="decisionForm" class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name <span class="required">*</span></label>
+                            <input type="text" name="firstName" placeholder="Your first name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name <span class="required">*</span></label>
+                            <input type="text" name="lastName" placeholder="Your last name" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="you@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Country <span class="required">*</span></label>
+                        <input type="text" name="country" placeholder="Your country" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Prayer Request <span class="required">*</span></label>
+                        <textarea name="prayerRequest" placeholder="Share your prayer request here. Your request will be held confidentially." required></textarea>
+                    </div>
+
+                    <div class="consent">
+                        <input type="checkbox" id="consent" required />
+                        <label for="consent">
+                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. I consent to share this prayer request with the Living Oracles Global Institute Ministry prayer team.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Prayer Request
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    <p>🙏 Thank you for sharing your prayer request. Our team will be praying for you. May the peace of God, which transcends all understanding, guard your heart and mind in Christ Jesus.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/load.js"></script>
+
+    <script>
+        document.getElementById('decisionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            setTimeout(function() {
+                form.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
