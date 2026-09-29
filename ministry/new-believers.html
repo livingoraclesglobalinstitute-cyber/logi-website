@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>New Believers | Living Oracles Global Institute Ministry</title>
+
+    <meta name="description" content="Just gave your life to Jesus? Start here. Foundational teaching for new believers — assurance, prayer, Bible reading, baptism, and growing in Christ." />
+    <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
+    <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
+
+    <meta property="og:title" content="New Believers | LOGI Ministry" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/ministry/new-believers" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Foundational teaching for new believers in Christ." />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR                                 */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before { left: 0; border-radius: 0 4px 4px 0; }
+        .top-bar::after { right: 0; border-radius: 4px 0 0 4px; }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover { color: #c9a86c; }
+        .top-bar .contact-info i { font-size: 0.65rem; color: #c9a86c; }
+
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; align-items: flex-start; padding: 4px 0; }
+            .top-bar::before, .top-bar::after { width: 25px; }
+            .top-bar .contact-info { padding: 0 35px; gap: 8px; }
+            .top-bar .contact-info a, .top-bar .contact-info span { font-size: 0.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before, .top-bar::after { width: 18px; }
+            .top-bar .contact-info { padding: 0 25px; gap: 6px; font-size: 0.55rem; }
+        }
+
+        /* ========================================== */
+        /*   HEADER                                  */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 40px; height: auto; object-fit: contain; display: block; }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header { top: 34px; padding: 6px 4%; }
+            .logo img { width: 32px; }
+            .logo .logo-text { font-size: 0.65rem; }
+            .logo .logo-text span { font-size: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .main-header { top: 30px; padding: 4px 3%; }
+            .logo img { width: 28px; }
+            .logo .logo-text { font-size: 0.55rem; }
+            .logo .logo-text span { font-size: 0.35rem; }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU                             */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover { background: rgba(26, 26, 46, 0.12); }
+        .menu-btn i { font-size: 16px; }
+
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li { position: relative; }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu { display: flex !important; }
+        .navigation-menu-bar ul li .submenu li { width: 100%; }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn { display: flex !important; }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu { display: flex !important; }
+            .navigation-menu-bar ul li .submenu li { border-bottom: none !important; }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                font-size: 0.85rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar { padding: 60px 1rem 1.5rem 1rem !important; }
+            .navigation-menu-bar ul li a { font-size: 0.85rem !important; }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .institutional-footer {
+            position: relative;
+            width: 100%;
+            background: #0d1b2a;
+            color: #f4f6f8;
+            padding: 2.5rem 5% 1.2rem;
+            margin-top: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem;
+            z-index: 2;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .institutional-footer .footer-column h2,
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+
+        .institutional-footer strong,
+        .footer-column strong {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        .institutional-footer .footer-column p,
+        .footer-column p,
+        .footer-column address {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover { color: #c9a86c !important; }
+
+        .footer-column ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .footer-column ul li { margin-bottom: 0.2rem !important; list-style: none !important; }
+
+        .footer-column ul li a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-column ul li a:hover { color: #c9a86c !important; }
+
+        .footer-column .footer-address-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(244, 246, 248, 0.6);
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff !important;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .subscription-form { display: flex; gap: 4px; width: 100%; flex-wrap: wrap; }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 5px 8px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            flex-grow: 1;
+            outline: none;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder { color: rgba(255, 255, 255, 0.5); }
+        .subscription-form input[type="email"]:focus { border-color: #c9a86c; }
+
+        .subscription-form button {
+            background: #8B5353;
+            color: #ffffff;
+            border: none;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subscription-form button:hover { background: #a66a6a; }
+
+        @media (max-width: 768px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+            .institutional-footer { font-size: 0.7rem; padding: 1.5rem 4% 1rem; }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   PLACEHOLDERS                             */
+        /* ========================================== */
+        #header-placeholder, #footer-placeholder { width: 100%; }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                           */
+        /* ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            background: #ffffff;
+            color: #2d3748;
+            line-height: 1.7;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (max-width: 768px) { body { padding-top: 70px; } }
+        @media (max-width: 480px) { body { padding-top: 60px; } }
+
+        /* ========================================== */
+        /*   HERO                                    */
+        /* ========================================== */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            background-image: url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(13, 27, 42, 0.62) 0%, rgba(30, 90, 130, 0.48) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .hero-content .hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content .hero-line {
+            width: 100px;
+            height: 3px;
+            background: #c9a86c;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 260px; }
+            .hero-content h1 { font-size: 30px; }
+            .hero-content .hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section { height: 220px; }
+            .hero-content h1 { font-size: 24px; }
+            .hero-content .hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
+        /*   MAIN CONTENT WRAPPER                    */
+        /* ========================================== */
+        .section-bg {
+            position: relative;
+            width: 100%;
+            padding: 60px 20px 80px;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: transparent;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-bg { padding: 40px 16px 60px; }
+        }
+
+        /* ========================================== */
+        /*   TYPOGRAPHY                              */
+        /* ========================================== */
+        .section-bg h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #8b5353;
+            margin: 40px 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8e3dc;
+            text-align: left;
+        }
+
+        .section-bg h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #8b5353;
+            margin: 25px 0 12px;
+            text-align: left;
+        }
+
+        .section-bg p {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 16px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .section-bg strong {
+            color: #8b5353;
+            font-weight: 700;
+        }
+
+        .section-bg em {
+            color: #8b5353;
+            font-style: italic;
+        }
+
+        /* ========================================== */
+        /*   SCRIPTURE — NO BORDER                   */
+        /* ========================================== */
+        .scripture {
+            padding: 0;
+            margin: 22px 0;
+            font-style: italic;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.8;
+            background: transparent;
+            text-align: left;
+        }
+
+        .scripture strong { color: #8b5353; }
+
+        /* ========================================== */
+        /*   WELCOME BOX                             */
+        /* ========================================== */
+        .welcome-box {
+            padding: 0;
+            margin-bottom: 30px;
+            background: transparent;
+            border: none;
+        }
+
+        .welcome-box p { margin-bottom: 14px; }
+        .welcome-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   KEY VERSES — NO BORDER                  */
+        /* ========================================== */
+        .key-verse {
+            padding: 0;
+            margin: 25px 0;
+        }
+
+        .key-verse p {
+            font-style: italic;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0 0 8px;
+        }
+
+        .key-verse p:last-child { margin-bottom: 0; }
+
+        .key-verse .verse-ref {
+            color: #8b5353;
+            font-weight: 800;
+            font-style: normal;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* ========================================== */
+        /*   PILLARS GRID — KEEPS BORDERS            */
+        /* ========================================== */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .pillar-card {
+            padding: 4px 0 4px 20px;
+            border-left: 3px solid #8b5353;
+            background: transparent;
+        }
+
+        .pillar-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: #8b5353;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            border: 1.5px solid #8b5353;
+        }
+
+        .pillar-card h4 {
+            color: #8b5353;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .pillar-card p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.7;
+            margin: 0 0 10px;
+        }
+
+        .pillar-card a {
+            font-size: 0.85rem;
+            color: #8b5353;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .pillars-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        /* ========================================== */
+        /*   STEPS — DECIMAL, NO CIRCLES             */
+        /* ========================================== */
+        .steps {
+            list-style: decimal;
+            padding-left: 22px;
+            margin: 20px 0;
+        }
+
+        .steps li {
+            margin-bottom: 22px;
+            padding-left: 6px;
+        }
+
+        .steps li strong {
+            display: block;
+            font-size: 17px;
+            color: #8b5353;
+            margin-bottom: 10px;
+        }
+
+        .steps li p {
+            font-size: 15.5px;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        /* ========================================== */
+        /*   PRAYER BOX — NO BORDER                  */
+        /* ========================================== */
+        .prayer-box {
+            padding: 0;
+            margin: 35px 0;
+            background: transparent;
+            text-align: left;
+        }
+
+        .prayer-box h3 {
+            color: #8b5353;
+            margin: 0 0 18px;
+            font-size: 19px;
+        }
+
+        .prayer-box p {
+            color: #4a5568;
+            font-style: italic;
+            line-height: 1.9;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .prayer-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   NEXT STEPS — NO BORDER                  */
+        /* ========================================== */
+        .next-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .step-card {
+            padding: 0;
+            background: transparent;
+            text-align: left;
+        }
+
+        .step-card h4 {
+            color: #8b5353;
+            font-size: 17px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-card h4 i {
+            color: #8b5353;
+            font-size: 18px;
+        }
+
+        .step-card p {
+            font-size: 15.5px;
+            margin: 0;
+        }
+
+        .step-card a {
+            color: #8b5353;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        /* ========================================== */
+        /*   DECISION SECTION — MINIMAL              */
+        /* ========================================== */
+        .decision-section {
+            padding: 40px 0 0;
+            margin-top: 45px;
+            text-align: left;
+            border-top: 2px solid #e8e3dc;
+            background: transparent;
+        }
+
+        .decision-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .decision-header .decision-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            background: #8b5353;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .decision-header .decision-icon i {
+            font-size: 20px;
+        }
+
+        .decision-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+            font-size: 26px;
+            color: #8b5353;
+            line-height: 1.1;
+            text-align: left;
+            font-weight: 800;
+        }
+
+        .decision-section > p {
+            text-align: left;
+            max-width: 100%;
+            margin: 0 0 28px;
+            font-size: 16px;
+            color: #4a5568;
+        }
+
+        /* ========================================== */
+        /*   FORM                                    */
+        /* ========================================== */
+        .form-container {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required { color: #c53030; }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #ffffff;
+            color: #1a1a2e;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: #a0aec0; }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #8b5353;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(139, 83, 83, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 400;
+            color: #4a5568;
+            cursor: pointer;
+            padding: 6px 0;
+            margin-bottom: 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #8b5353;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 22px 0;
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .consent input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #8b5353;
+            cursor: pointer;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .consent a {
+            color: #8b5353;
+            text-decoration: underline;
+        }
+
+        .consent a:hover { color: #5f2d2d; }
+
+        .submit-btn {
+            width: 100%;
+            background: #8b5353;
+            color: #ffffff;
+            border: 2px solid #8b5353;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #a66a6a;
+            border-color: #a66a6a;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        .success-message {
+            display: none;
+            padding: 0;
+            background: transparent;
+            margin-top: 24px;
+            text-align: left;
+        }
+
+        .success-message p {
+            color: #15803d;
+            margin: 0;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ========================================== */
+        /*   RESPONSIVE                              */
+        /* ========================================== */
+        @media (max-width: 600px) {
+            .section-bg h2 { font-size: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .decision-header h2 { font-size: 22px; }
+            .decision-header .decision-icon {
+                width: 42px;
+                height: 42px;
+            }
+            .decision-header .decision-icon i {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .section-bg h2 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>New Believers</h1>
+            <p class="hero-subtitle">Starting Your Walk With Jesus</p>
+            <div class="hero-line"></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="section-bg">
+        <div class="container">
+
+            <div class="welcome-box">
+                <p><strong>Welcome to the family of God!</strong></p>
+                <p>If you have just received Jesus Christ as your Lord and Savior, then something miraculous has happened. Your sins are forgiven. You have been made new. You have been adopted into God's family. The Holy Spirit now lives inside you. And heaven itself is rejoicing over you.</p>
+                <p>But this is just the beginning. Like a newborn baby, you now need to grow — to be nourished, strengthened, and cared for. This page is your starting point. It will help you understand what has happened to you and how to take your first steps as a follower of Jesus.</p>
+            </div>
+
+            <h2>What Just Happened to Me?</h2>
+            <p>When you placed your faith in Jesus, several incredible things happened at once — whether you felt them or not. These are not things you need to earn or maintain. They are gifts given to you the moment you believed.</p>
+
+            <div class="pillars-grid">
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-heart"></i></div>
+                    <h4>You Were Forgiven</h4>
+                    <p>Every sin — past, present, and future — has been completely forgiven through the blood of Jesus. There is no sin too great for His grace to cover.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-users"></i></div>
+                    <h4>You Were Adopted</h4>
+                    <p>You are now a child of God — not just a follower, but a son or daughter. You can call Him "Father," and you have a permanent place in His family.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-dove"></i></div>
+                    <h4>You Were Given the Spirit</h4>
+                    <p>The Holy Spirit now lives inside you — teaching you, guiding you, convicting you, comforting you, and empowering you to live for God.</p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-card-icon"><i class="fas fa-crown"></i></div>
+                    <h4>You Were Given Eternal Life</h4>
+                    <p>You have received a life that will never end — a relationship with God that begins now and continues forever, beyond even death itself.</p>
+                </div>
+
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">2 Corinthians 5:17 (KJV)</span>
+                <p>"Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Romans 8:16 (KJV)</span>
+                <p>"The Spirit itself beareth witness with our spirit, that we are the children of God."</p>
+            </div>
+
+            <p>You are not the same person you were before. You are a new creation in Christ — and everything about your life is now being made new by His grace.</p>
+
+            <h2>Your First Steps</h2>
+            <p>Now that you belong to Christ, here are the four most important things to do as a new believer. These are not requirements to earn salvation — they are simple steps of obedience and love that will help you grow.</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Be baptized.</strong>
+                    <p>Baptism is your first public act of obedience. It is how you tell the world — and yourself — that you belong to Jesus. Going under the water symbolizes being buried with Christ; coming up symbolizes being raised with Him to new life. If you haven't yet been baptized, this is your next step. See our <a href="/baptism" style="color:#8b5353;font-weight:700;text-decoration:underline;">Baptism teaching</a> to understand what the Bible says.</p>
+                </li>
+                <li>
+                    <strong>Read God's Word every day.</strong>
+                    <p>The Bible is your spiritual food. Just as your body needs food each day, your spirit needs Scripture. Start with the Gospel of John, then Acts, then Romans — reading a little every day. Ask God to speak to you through what you read. See our <a href="/ministry/bible-studies" style="color:#8b5353;font-weight:700;text-decoration:underline;">Bible Studies</a> for help getting started.</p>
+                </li>
+                <li>
+                    <strong>Pray continually.</strong>
+                    <p>Prayer is how you talk with God — honestly and often. You don't need fancy words. Tell Him what you're feeling, ask for what you need, thank Him for what He has done, and listen for His voice. Prayer is your lifeline. Learn more on our <a href="/ministry/prayer" style="color:#8b5353;font-weight:700;text-decoration:underline;">Prayer page</a>.</p>
+                </li>
+                <li>
+                    <strong>Join a Bible-believing church.</strong>
+                    <p>God never intended for you to walk this journey alone. Find a Christ-centered, Bible-teaching church where you can worship, learn, serve, and grow alongside other believers. You need their encouragement — and they need yours. <em>"Not forsaking the assembling of ourselves together… but exhorting one another"</em> (Hebrews 10:25).</p>
+                </li>
+            </ol>
+
+            <h2>What About When I Sin?</h2>
+            <p>Here is an important truth every new believer needs to know: you will still sin. Becoming a Christian does not make you perfect overnight. Your old nature is still present, and you will still stumble at times. But here is the good news — your salvation does not depend on your performance. It depends on Christ's finished work on the cross.</p>
+            <p>When you sin, don't run from God. Run <em>to</em> Him. Confess your sin, receive His forgiveness, and keep walking forward. He is not waiting to condemn you — He is waiting to forgive you.</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">1 John 1:9 (KJV)</span>
+                <p>"If we confess our sins, he is faithful and just to forgive us our sins, and to cleanse us from all unrighteousness."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Romans 8:1 (KJV)</span>
+                <p>"There is therefore now no condemnation to them which are in Christ Jesus, who walk not after the flesh, but after the Spirit."</p>
+            </div>
+
+            <p>You do not need to fear that your failures will cost you your salvation. You are held securely in Christ's hand — and He will not let you go.</p>
+
+            <h2>When You Struggle</h2>
+            <p>Every believer struggles. Even the greatest heroes of the faith doubted, sinned, and stumbled. But your struggles do not define you — Christ does. When you stumble, come back to Him. When you doubt, remember His promises. When you feel distant, draw near to Him.</p>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-sun"></i> When You Doubt</h4>
+                    <p>Doubt is normal. Even John the Baptist once doubted (Matthew 11:2–3). Trust God's Word more than your feelings. Your salvation rests on His promises, not on your emotions.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-cloud-rain"></i> When You Feel Distant From God</h4>
+                    <p>Feelings are not facts. God has promised never to leave you (Hebrews 13:5). If you feel distant, keep praying, keep reading His Word, and trust that He is near even when you don't feel Him.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-heart-crack"></i> When You Stumble Into Sin</h4>
+                    <p>Confess, receive His forgiveness, and keep walking. Do not let shame keep you from God. He already knows — and He already loves you. His grace is greater than your sin.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-users"></i> When You Feel Alone</h4>
+                    <p>You are not alone. You have the Holy Spirit living in you, and God designed you to be part of a church family. Reach out to other believers — you were never meant to walk this road alone.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-book-bible"></i> When You Don't Know What to Do</h4>
+                    <p>Open God's Word. The Bible is your guide for every decision, every season, and every question. <em>"Thy word is a lamp unto my feet, and a light unto my path"</em> (Psalm 119:105).</p>
+                </div>
+            </div>
+
+            <h2>A Prayer for Your New Walk</h2>
+            <p>Pray this prayer as you begin your journey with Jesus. Come back to it as often as you need to:</p>
+
+            <div class="prayer-box">
+                <h3>Pray This Prayer:</h3>
+                <p>"Father, thank You for saving me. Thank You for forgiving my sins, for adopting me as Your child, and for giving me the Holy Spirit. I don't fully understand everything You have done — but I trust You.</p>
+                <p>Teach me to walk with You. Give me a hunger for Your Word and a desire to pray. Help me find a Bible-believing church where I can grow with other believers. Lead me to be baptized as an act of obedience.</p>
+                <p>When I stumble, help me to run to You, not away from You. When I doubt, strengthen my faith. When I feel alone, remind me that You are always with me.</p>
+                <p>I choose today to follow Jesus — not just once, but every day of my life. Make me more like Him. Amen."</p>
+            </div>
+
+            <h2>What Should I Do Next?</h2>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-water"></i> Be Baptized</h4>
+                    <p>Your first step of obedience. Our <a href="/baptism">Baptism teaching</a> explains what the Bible says about this important step.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-seedling"></i> Learn About Your New Life</h4>
+                    <p>Grow deeper in your understanding of what it means to live for Jesus. Visit our <a href="/ministry/new-life">New Life in Christ</a> page.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-praying-hands"></i> Learn to Pray</h4>
+                    <p>Prayer is your lifeline. Visit our <a href="/ministry/prayer">Prayer page</a> to learn how to pray and to submit a prayer request.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-book-bible"></i> Start Reading the Bible</h4>
+                    <p>Begin with the Gospel of John, then Acts, then Romans. Our <a href="/ministry/bible-studies">Bible Studies</a> page will help you understand what you read.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-hands-helping"></i> Grow in Discipleship</h4>
+                    <p>You were saved to become a disciple — a lifelong learner of Jesus. Visit our <a href="/ministry/discipleship">Discipleship page</a> to see the big picture.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-envelope"></i> Talk With Us</h4>
+                    <p>Have questions about your new faith? We would love to help. <a href="/ministry/contact">Contact us</a> and someone from our team will reach out to you.</p>
+                </div>
+            </div>
+
+            <!-- DECISION FORM -->
+            <div class="decision-section">
+
+                <div class="decision-header">
+                    <div class="decision-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h2>I'm a New Believer!</h2>
+                </div>
+
+                <p>If you have recently given your life to Jesus Christ — or if you want to recommit to walking with Him — we would love to know. Complete the form below, and we will send you foundational resources to help you grow in your new faith.</p>
+
+                <form id="decisionForm" class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name <span class="required">*</span></label>
+                            <input type="text" name="firstName" placeholder="Your first name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name <span class="required">*</span></label>
+                            <input type="text" name="lastName" placeholder="Your last name" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="you@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Country <span class="required">*</span></label>
+                        <input type="text" name="country" placeholder="Your country" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>How did you find this page?</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="found" value="LOGI Website" /> LOGI Website</label>
+                            <label><input type="checkbox" name="found" value="A friend" /> A friend</label>
+                            <label><input type="checkbox" name="found" value="Social Media" /> Social Media</label>
+                            <label><input type="checkbox" name="found" value="Google" /> Google</label>
+                            <label><input type="checkbox" name="found" value="YouTube" /> YouTube</label>
+                            <label><input type="checkbox" name="found" value="WhatsApp" /> WhatsApp</label>
+                            <label><input type="checkbox" name="found" value="Church" /> Church</label>
+                            <label><input type="checkbox" name="found" value="Other" /> Other</label>
+                        </div>
+                    </div>
+
+                    <div class="consent">
+                        <input type="checkbox" id="consent" required />
+                        <label for="consent">
+                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute Ministry.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    <p>🎉 Praise God! Welcome to the family of God! Thank you for sharing your decision. We will send you foundational resources shortly to help you grow in your new faith. Heaven is rejoicing over you!</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/load.js"></script>
+
+    <script>
+        document.getElementById('decisionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            setTimeout(function() {
+                form.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
