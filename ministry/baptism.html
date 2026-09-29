@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Baptism | Living Oracles Global Institute Ministry</title>
+
+    <meta name="description" content="What does the Bible teach about baptism? Discover its meaning, its mode, who should be baptized, and why every believer should obey Christ in baptism." />
+    <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
+    <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
+
+    <meta property="og:title" content="Baptism | LOGI Ministry" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/baptism" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Discover what the Bible teaches about baptism — its meaning, its mode, who should be baptized, and why every believer should obey Christ in baptism." />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before { left: 0; border-radius: 0 4px 4px 0; }
+        .top-bar::after { right: 0; border-radius: 4px 0 0 4px; }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover { color: #c9a86c; }
+        .top-bar .contact-info i { font-size: 0.65rem; color: #c9a86c; }
+
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; align-items: flex-start; padding: 4px 0; }
+            .top-bar::before, .top-bar::after { width: 25px; }
+            .top-bar .contact-info { padding: 0 35px; gap: 8px; }
+            .top-bar .contact-info a, .top-bar .contact-info span { font-size: 0.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before, .top-bar::after { width: 18px; }
+            .top-bar .contact-info { padding: 0 25px; gap: 6px; font-size: 0.55rem; }
+        }
+
+        /* ========================================== */
+        /*   HEADER                                  */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 40px; height: auto; object-fit: contain; display: block; }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header { top: 34px; padding: 6px 4%; }
+            .logo img { width: 32px; }
+            .logo .logo-text { font-size: 0.65rem; }
+            .logo .logo-text span { font-size: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .main-header { top: 30px; padding: 4px 3%; }
+            .logo img { width: 28px; }
+            .logo .logo-text { font-size: 0.55rem; }
+            .logo .logo-text span { font-size: 0.35rem; }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU                             */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover { background: rgba(26, 26, 46, 0.12); }
+        .menu-btn i { font-size: 16px; }
+
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li { position: relative; }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu { display: flex !important; }
+        .navigation-menu-bar ul li .submenu li { width: 100%; }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn { display: flex !important; }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 100vh !important;
+                overflow-y: auto !important;
+                background: #ffffff !important;
+                display: block !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0 !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                flex: 1 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                white-space: normal !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important;
+                text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a {
+                justify-content: space-between !important;
+            }
+
+            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+                color: #8B5353 !important;
+                font-size: 0.65rem !important;
+                margin-left: auto !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                transform: none !important;
+                background: #f8f6f2 !important;
+                border-radius: 0 !important;
+                display: none !important;
+                flex-direction: column !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+                width: 100% !important;
+                box-shadow: none !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu { display: flex !important; }
+            .navigation-menu-bar ul li .submenu li { border-bottom: none !important; }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important;
+                font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                font-size: 0.85rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation-menu-bar { padding: 60px 1rem 1.5rem 1rem !important; }
+            .navigation-menu-bar ul li a { font-size: 0.85rem !important; }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .institutional-footer {
+            position: relative;
+            width: 100%;
+            background: #0d1b2a;
+            color: #f4f6f8;
+            padding: 2.5rem 5% 1.2rem;
+            margin-top: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem;
+            z-index: 2;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .institutional-footer .footer-column h2,
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+
+        .institutional-footer strong,
+        .footer-column strong {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+
+        .institutional-footer .footer-column p,
+        .footer-column p,
+        .footer-column address {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover { color: #c9a86c !important; }
+
+        .footer-column ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .footer-column ul li { margin-bottom: 0.2rem !important; list-style: none !important; }
+
+        .footer-column ul li a {
+            color: rgba(244, 246, 248, 0.8) !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .footer-column ul li a:hover { color: #c9a86c !important; }
+
+        .footer-column .footer-address-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px;
+            margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(244, 246, 248, 0.6);
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff !important;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.2rem;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(244, 246, 248, 0.8);
+            font-size: 0.75rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .subscription-form { display: flex; gap: 4px; width: 100%; flex-wrap: wrap; }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 5px 8px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            flex-grow: 1;
+            outline: none;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder { color: rgba(255, 255, 255, 0.5); }
+        .subscription-form input[type="email"]:focus { border-color: #c9a86c; }
+
+        .subscription-form button {
+            background: #8B5353;
+            color: #ffffff;
+            border: none;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+        }
+
+        .subscription-form button:hover { background: #a66a6a; }
+
+        @media (max-width: 768px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+            .institutional-footer { font-size: 0.7rem; padding: 1.5rem 4% 1rem; }
+            .footer-column h2 { font-size: 0.6rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.65rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   PLACEHOLDERS                             */
+        /* ========================================== */
+        #header-placeholder, #footer-placeholder { width: 100%; }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                           */
+        /* ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            background: #ffffff;
+            color: #2d3748;
+            line-height: 1.7;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (max-width: 768px) { body { padding-top: 70px; } }
+        @media (max-width: 480px) { body { padding-top: 60px; } }
+
+        /* ========================================== */
+        /*   HERO                                    */
+        /* ========================================== */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            background-image: url('https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(13, 27, 42, 0.62) 0%, rgba(30, 90, 130, 0.48) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .hero-content .hero-subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-top: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content .hero-line {
+            width: 100px;
+            height: 3px;
+            background: #c9a86c;
+            margin: 20px auto 0;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section { height: 260px; }
+            .hero-content h1 { font-size: 30px; }
+            .hero-content .hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section { height: 220px; }
+            .hero-content h1 { font-size: 24px; }
+            .hero-content .hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
+        /*   MAIN CONTENT WRAPPER                    */
+        /* ========================================== */
+        .section-bg {
+            position: relative;
+            width: 100%;
+            padding: 60px 20px 80px;
+            background: #ffffff;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: transparent;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-bg { padding: 40px 16px 60px; }
+        }
+
+        /* ========================================== */
+        /*   TYPOGRAPHY                              */
+        /* ========================================== */
+        .section-bg h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #8b5353;
+            margin: 40px 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8e3dc;
+            text-align: left;
+        }
+
+        .section-bg h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #8b5353;
+            margin: 25px 0 12px;
+            text-align: left;
+        }
+
+        .section-bg p {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 16px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .section-bg strong {
+            color: #8b5353;
+            font-weight: 700;
+        }
+
+        .section-bg em {
+            color: #8b5353;
+            font-style: italic;
+        }
+
+        /* ========================================== */
+        /*   SCRIPTURE                               */
+        /* ========================================== */
+        .scripture {
+            border-left: 4px solid #8b5353;
+            padding: 4px 0 4px 20px;
+            margin: 22px 0;
+            font-style: italic;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.8;
+            background: transparent;
+            text-align: left;
+        }
+
+        .scripture strong { color: #8b5353; }
+
+        /* ========================================== */
+        /*   WELCOME BOX                             */
+        /* ========================================== */
+        .welcome-box {
+            padding: 0;
+            margin-bottom: 30px;
+            background: transparent;
+            border: none;
+        }
+
+        .welcome-box p { margin-bottom: 14px; }
+        .welcome-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   KEY VERSES — HIGHLIGHT BOX              */
+        /* ========================================== */
+        .key-verse {
+            background: linear-gradient(135deg, rgba(201, 168, 108, 0.08), rgba(139, 83, 83, 0.05));
+            border-left: 4px solid #c9a86c;
+            padding: 20px 24px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .key-verse p {
+            font-style: italic;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0 0 8px;
+        }
+
+        .key-verse p:last-child { margin-bottom: 0; }
+
+        .key-verse .verse-ref {
+            color: #8b5353;
+            font-weight: 800;
+            font-style: normal;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* ========================================== */
+        /*   MEANING OF BAPTISM — 4 CARDS            */
+        /* ========================================== */
+        .meaning-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .meaning-card {
+            padding: 24px 22px;
+            border: 1px solid #e8e3dc;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+            text-align: left;
+            border-top: 4px solid #8b5353;
+        }
+
+        .meaning-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(139, 83, 83, 0.12);
+            border-color: #c9a86c;
+            border-top-color: #c9a86c;
+        }
+
+        .meaning-card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(139, 83, 83, 0.1);
+            color: #8b5353;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+        }
+
+        .meaning-card h4 {
+            color: #8b5353;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .meaning-card p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        @media (max-width: 640px) {
+            .meaning-grid { grid-template-columns: 1fr; gap: 14px; }
+        }
+
+        /* ========================================== */
+        /*   STEPS                                   */
+        /* ========================================== */
+        .steps {
+            list-style: none;
+            padding: 0;
+            counter-reset: step;
+        }
+
+        .steps li {
+            counter-increment: step;
+            margin-bottom: 28px;
+            padding-left: 55px;
+            position: relative;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: #8b5353;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .steps li strong {
+            display: block;
+            font-size: 17px;
+            color: #8b5353;
+            margin-bottom: 10px;
+        }
+
+        .steps li p {
+            font-size: 15.5px;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        /* ========================================== */
+        /*   COMPARISON TABLE                        */
+        /* ========================================== */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .compare-card {
+            padding: 24px 22px;
+            border-radius: 12px;
+            text-align: left;
+            border: 1px solid #e8e3dc;
+        }
+
+        .compare-card.old {
+            background: #fdf2f2;
+            border-top: 4px solid #c53030;
+        }
+
+        .compare-card.new {
+            background: #f0f9f4;
+            border-top: 4px solid #15803d;
+        }
+
+        .compare-card h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .compare-card.old h4 { color: #c53030; }
+        .compare-card.new h4 { color: #15803d; }
+
+        .compare-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .compare-card ul li {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.65;
+            padding: 6px 0 6px 22px;
+            position: relative;
+        }
+
+        .compare-card.old ul li::before {
+            content: '✕';
+            position: absolute;
+            left: 0;
+            color: #c53030;
+            font-weight: 800;
+        }
+
+        .compare-card.new ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #15803d;
+            font-weight: 800;
+        }
+
+        @media (max-width: 640px) {
+            .compare-grid { grid-template-columns: 1fr; gap: 14px; }
+        }
+
+        /* ========================================== */
+        /*   PRAYER BOX                              */
+        /* ========================================== */
+        .prayer-box {
+            padding: 24px 0 24px 24px;
+            margin: 35px 0;
+            border-left: 4px solid #8b5353;
+            background: transparent;
+            text-align: left;
+        }
+
+        .prayer-box h3 {
+            color: #8b5353;
+            margin: 0 0 18px;
+            font-size: 19px;
+        }
+
+        .prayer-box p {
+            color: #4a5568;
+            font-style: italic;
+            line-height: 1.9;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .prayer-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   CELEBRATION                             */
+        /* ========================================== */
+        .celebration {
+            padding: 20px 24px;
+            margin: 30px 0;
+            border-left: 4px solid #15803d;
+            background: transparent;
+            text-align: left;
+        }
+
+        .celebration p {
+            color: #15803d;
+            font-weight: 600;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ========================================== */
+        /*   NOTE BOX                                */
+        /* ========================================== */
+        .note-box {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-left: 4px solid #2563eb;
+            padding: 22px 26px;
+            margin: 30px 0;
+            border-radius: 0 10px 10px 0;
+            text-align: left;
+        }
+
+        .note-box h4 {
+            color: #1e40af;
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-box p {
+            color: #4a5568;
+            font-size: 15.5px;
+            line-height: 1.75;
+            margin-bottom: 10px;
+        }
+
+        .note-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
+        /*   NEXT STEPS                              */
+        /* ========================================== */
+        .next-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .step-card {
+            padding: 4px 0 4px 20px;
+            border-left: 3px solid #c9a86c;
+            background: transparent;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .step-card:hover {
+            border-left-color: #8b5353;
+            padding-left: 24px;
+        }
+
+        .step-card h4 {
+            color: #8b5353;
+            font-size: 17px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-card h4 i {
+            color: #8b5353;
+            font-size: 18px;
+        }
+
+        .step-card p {
+            font-size: 15.5px;
+            margin: 0;
+        }
+
+        .step-card a {
+            color: #8b5353;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+
+        /* ========================================== */
+        /*   SUBSCRIBE BUTTON                        */
+        /* ========================================== */
+        .subscribe-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #8b5353;
+            color: #ffffff;
+            padding: 10px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 14px;
+            transition: all 0.3s ease;
+            border: 2px solid #8b5353;
+        }
+
+        .subscribe-btn:hover {
+            background: #a66a6a;
+            border-color: #a66a6a;
+            transform: translateY(-2px);
+        }
+
+        /* ========================================== */
+        /*   DECISION SECTION                        */
+        /* ========================================== */
+        .decision-section {
+            padding: 40px 0 0;
+            margin-top: 45px;
+            text-align: left;
+            border-top: 2px solid #e8e3dc;
+            background: transparent;
+        }
+
+        .decision-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .decision-header .decision-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            background: #8b5353;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .decision-header .decision-icon i {
+            font-size: 20px;
+        }
+
+        .decision-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+            font-size: 26px;
+            color: #8b5353;
+            line-height: 1.1;
+            text-align: left;
+            font-weight: 800;
+        }
+
+        .decision-section > p {
+            text-align: left;
+            max-width: 100%;
+            margin: 0 0 28px;
+            font-size: 16px;
+            color: #4a5568;
+        }
+
+        /* ========================================== */
+        /*   FORM                                    */
+        /* ========================================== */
+        .form-container {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required { color: #c53030; }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #ffffff;
+            color: #1a1a2e;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: #a0aec0; }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #8b5353;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(139, 83, 83, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 400;
+            color: #4a5568;
+            cursor: pointer;
+            padding: 6px 0;
+            margin-bottom: 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #8b5353;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 22px 0;
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .consent input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #8b5353;
+            cursor: pointer;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .consent a {
+            color: #8b5353;
+            text-decoration: underline;
+        }
+
+        .consent a:hover { color: #5f2d2d; }
+
+        .submit-btn {
+            width: 100%;
+            background: #8b5353;
+            color: #ffffff;
+            border: 2px solid #8b5353;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #a66a6a;
+            border-color: #a66a6a;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        .success-message {
+            display: none;
+            padding: 24px 28px;
+            border-left: 4px solid #15803d;
+            background: transparent;
+            margin-top: 24px;
+            text-align: left;
+        }
+
+        .success-message p {
+            color: #15803d;
+            margin: 0;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* ========================================== */
+        /*   RESPONSIVE                              */
+        /* ========================================== */
+        @media (max-width: 600px) {
+            .section-bg h2 { font-size: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .decision-header h2 { font-size: 22px; }
+            .decision-header .decision-icon {
+                width: 42px;
+                height: 42px;
+            }
+            .decision-header .decision-icon i {
+                font-size: 17px;
+            }
+            .steps li { padding-left: 48px; }
+            .steps li::before { width: 36px; height: 36px; font-size: 14px; }
+        }
+
+        @media (max-width: 420px) {
+            .section-bg h2 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Baptism</h1>
+            <p class="hero-subtitle">A Step of Obedience &amp; Faith</p>
+            <div class="hero-line"></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="section-bg">
+        <div class="container">
+
+            <div class="welcome-box">
+                <p><strong>Have you been baptized?</strong></p>
+                <p>Baptism is one of the most beautiful and important steps a believer takes after receiving Jesus Christ as Savior. It is not a ritual that saves you — salvation is by grace through faith alone. But baptism is the first public act of obedience that declares your faith to the world.</p>
+                <p>This page explains what the Bible teaches about baptism: what it means, why it matters, who should be baptized, and how it should be done. If you've ever wondered whether you should be baptized — or how — this teaching will help you understand God's clear command.</p>
+            </div>
+
+            <h2>What Is Baptism?</h2>
+            <p>The word "baptism" comes from the Greek word <em>baptizo</em>, which means <strong>"to immerse"</strong> or <strong>"to dip."</strong> In the New Testament, baptism was always performed by fully immersing a person in water. It was not sprinkling or pouring — it was a burial in water, symbolizing a spiritual reality.</p>
+            <p>Baptism is a <strong>public declaration</strong> of an inward reality. It does not save you, but it visibly identifies you with Jesus Christ — His death, His burial, and His resurrection. It says to the world: <em>"I have died to my old life, and I now live for Christ."</em></p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Romans 6:3–4</span>
+                <p>"Or don't you know that all of us who were baptized into Christ Jesus were baptized into his death? We were therefore buried with him through baptism into death in order that, just as Christ was raised from the dead through the glory of the Father, we too may live a new life."</p>
+            </div>
+
+            <h2>The Meaning of Baptism</h2>
+            <p>Baptism is rich with meaning. Every time a person is immersed in water and raised again, several great spiritual truths are proclaimed:</p>
+
+            <div class="meaning-grid">
+
+                <div class="meaning-card">
+                    <div class="meaning-card-icon"><i class="fas fa-cross"></i></div>
+                    <h4>Union with Christ's Death</h4>
+                    <p>Going under the water symbolizes being buried with Christ — a picture of dying to the old life of sin.</p>
+                </div>
+
+                <div class="meaning-card">
+                    <div class="meaning-card-icon"><i class="fas fa-sun"></i></div>
+                    <h4>Union with Christ's Resurrection</h4>
+                    <p>Coming up out of the water symbolizes being raised with Christ — a picture of new life in Him.</p>
+                </div>
+
+                <div class="meaning-card">
+                    <div class="meaning-card-icon"><i class="fas fa-hand-holding-water"></i></div>
+                    <h4>Cleansing from Sin</h4>
+                    <p>Water is a picture of the washing away of sin — not by the water itself, but by the blood of Christ received through faith.</p>
+                </div>
+
+                <div class="meaning-card">
+                    <div class="meaning-card-icon"><i class="fas fa-users"></i></div>
+                    <h4>Identification with Christ's Body</h4>
+                    <p>Baptism publicly identifies you with Jesus and His church — you are no longer alone, but part of the family of God.</p>
+                </div>
+
+            </div>
+
+            <div class="scripture">
+                <strong>1 Peter 3:21</strong> says, <em>"And this water symbolizes baptism that now saves you also — not the removal of dirt from the body but the pledge of a clear conscience toward God. It saves you by the resurrection of Jesus Christ."</em>
+            </div>
+
+            <h2>Why Should I Be Baptized?</h2>
+            <p>There are several compelling reasons every believer should be baptized:</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Because Jesus commanded it.</strong>
+                    <p>Before ascending to heaven, Jesus gave His disciples this command: <em>"Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit"</em> (Matthew 28:19). Baptism is not optional for a follower of Christ — it is a direct command from our Lord.</p>
+                </li>
+                <li>
+                    <strong>Because Jesus Himself was baptized.</strong>
+                    <p>Though He had no sin, Jesus was baptized by John in the Jordan River to "fulfill all righteousness" (Matthew 3:15). If our sinless Savior was baptized, how much more should we be?</p>
+                </li>
+                <li>
+                    <strong>Because the early church practiced it immediately.</strong>
+                    <p>Throughout the book of Acts, we see that new believers were baptized without delay. On the day of Pentecost, three thousand were baptized the same day they believed (Acts 2:41). The Ethiopian official was baptized as soon as he professed faith (Acts 8:36–38).</p>
+                </li>
+                <li>
+                    <strong>Because it is the outward sign of an inward reality.</strong>
+                    <p>Baptism does not save you, but it declares that you have been saved. It is the public testimony of your faith — the way you tell the world, "I belong to Jesus Christ."</p>
+                </li>
+            </ol>
+
+            <h2>Who Should Be Baptized?</h2>
+            <p>The biblical pattern is clear: <strong>every person who has believed in Jesus Christ for salvation should be baptized.</strong></p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Acts 2:41</span>
+                <p>"Those who accepted his message were baptized, and about three thousand were added to their number that day."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Acts 8:12</span>
+                <p>"But when they believed Philip as he proclaimed the good news of the kingdom of God and the name of Jesus Christ, they were baptized, both men and women."</p>
+            </div>
+
+            <p>Notice the pattern: <em>believe</em>, then <em>be baptized</em>. Baptism is for believers — those who have already put their faith in Jesus Christ. It is the first step of obedience <em>after</em> salvation.</p>
+
+            <div class="note-box">
+                <h4><i class="fas fa-info-circle"></i> A Note on Infant Baptism</h4>
+                <p>The New Testament pattern shows baptism following personal faith in Christ. Every example in the book of Acts involves people who heard the gospel, believed, and were then baptized. Infants cannot yet believe or understand the gospel, so most Bible-believing churches dedicate infants to the Lord and baptize them later, once they have personally trusted in Christ.</p>
+            </div>
+
+            <h2>How Should Baptism Be Done?</h2>
+            <p>The Bible uses a specific method for baptism. Look closely at these verses:</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Mark 1:9–10</span>
+                <p>"At that time Jesus came from Nazareth in Galilee and was baptized by John in the Jordan. Just as Jesus was coming up out of the water, he saw heaven being torn open and the Spirit descending on him like a dove."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Acts 8:38–39</span>
+                <p>"And he gave orders to stop the chariot. Then both Philip and the eunuch went down into the water and Philip baptized him. When they came up out of the water, the Spirit of the Lord suddenly took Philip away."</p>
+            </div>
+
+            <p>The pattern is clear: they <strong>went down into</strong> the water and then <strong>came up out of</strong> the water. This describes full immersion, which perfectly pictures burial and resurrection — dying with Christ and being raised with Him to new life.</p>
+
+            <div class="compare-grid">
+                <div class="compare-card old">
+                    <h4><i class="fas fa-times-circle"></i> Not the Biblical Pattern</h4>
+                    <ul>
+                        <li>Sprinkling a few drops of water</li>
+                        <li>Pouring water over the head</li>
+                        <li>Baptizing infants who cannot believe</li>
+                        <li>Baptizing for salvation rather than obedience</li>
+                    </ul>
+                </div>
+                <div class="compare-card new">
+                    <h4><i class="fas fa-check-circle"></i> The Biblical Pattern</h4>
+                    <ul>
+                        <li>Full immersion in water</li>
+                        <li>Following a personal profession of faith</li>
+                        <li>Symbolizing death, burial, and resurrection</li>
+                        <li>A public act of obedience, not a means of salvation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>What About the Baptismal Formula?</h2>
+            <p>The Bible shows baptism administered in two similar ways. In Matthew 28:19, Jesus commanded baptism <em>"in the name of the Father and of the Son and of the Holy Spirit."</em> In the book of Acts, believers were baptized <em>"in the name of Jesus Christ"</em> (Acts 2:38; 8:16; 10:48; 19:5).</p>
+            <p>Both were accepted in the early church. Many churches today use the full Trinitarian formula from Matthew 28:19, while others use the phrase "in the name of Jesus." What matters most is the heart of the one being baptized and the faith in Christ that the baptism expresses.</p>
+
+            <h2>Does Baptism Save You?</h2>
+            <p>This is one of the most important questions about baptism. And the Bible is clear: <strong>Baptism does not save you.</strong></p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Ephesians 2:8–9</span>
+                <p>"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast."</p>
+            </div>
+
+            <p>Salvation is by grace through faith in Jesus Christ alone. Baptism is a <em>work</em> of obedience — an outward act that follows an inward reality. It is not a step you take to be saved; it is a step you take <em>because</em> you are saved.</p>
+            <p>This is why the thief on the cross could be saved without baptism (Luke 23:42–43), and why the Bible says the Corinthians were saved <em>before</em> they were baptized (Acts 18:8; 1 Corinthians 1:14–16).</p>
+
+            <div class="note-box">
+                <h4><i class="fas fa-info-circle"></i> Baptism Is a Response, Not a Requirement</h4>
+                <p>Baptism is the first act of obedience for a new believer — but it is not the cause of salvation. If you have trusted in Christ, you are saved whether or not you have been baptized yet. But every believer should be baptized, because Jesus commanded it.</p>
+            </div>
+
+            <h2>What Should I Do Next?</h2>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-cross"></i> Trust in Christ First</h4>
+                    <p>If you have not yet received Jesus Christ as your Savior, do that first. Baptism is for believers. Visit our <a href="/ministry/salvation">Salvation page</a> to understand how to be saved.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-sync-alt"></i> Repent and Turn to God</h4>
+                    <p>Baptism follows repentance and faith. See our teaching on <a href="/ministry/repentance">Repentance</a> to understand what it means to turn from sin.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-church"></i> Find a Bible-Believing Church</h4>
+                    <p>Baptism is meant to be done in the context of a local church. Find a Christ-centered, Bible-teaching church in your area and speak with a pastor about being baptized.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-seedling"></i> Begin Your New Life</h4>
+                    <p>After baptism, the journey has just begun. Explore our <a href="/ministry/new-life">New Life in Christ</a> resources to grow in your walk with God.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-envelope"></i> Contact Us</h4>
+                    <p>Have questions about baptism? We would love to help. <a href="/ministry/contact">Contact us</a> and someone from our ministry team will reach out to you.</p>
+                </div>
+            </div>
+
+            <!-- DECISION FORM -->
+            <div class="decision-section">
+
+                <div class="decision-header">
+                    <div class="decision-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h2>I Want to Be Baptized!</h2>
+                </div>
+
+                <p>If you have trusted in Jesus Christ and are ready to take this step of obedience, we would love to hear from you. Please complete the form below, and we will send you resources and help connect you with a Bible-believing church in your area that can baptize you.</p>
+
+                <form id="decisionForm" class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name <span class="required">*</span></label>
+                            <input type="text" name="firstName" placeholder="Your first name" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name <span class="required">*</span></label>
+                            <input type="text" name="lastName" placeholder="Your last name" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="you@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Country <span class="required">*</span></label>
+                        <input type="text" name="country" placeholder="Your country" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>How did you find this page?</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="found" value="LOGI Website" /> LOGI Website</label>
+                            <label><input type="checkbox" name="found" value="A friend" /> A friend</label>
+                            <label><input type="checkbox" name="found" value="Social Media" /> Social Media</label>
+                            <label><input type="checkbox" name="found" value="Google" /> Google</label>
+                            <label><input type="checkbox" name="found" value="YouTube" /> YouTube</label>
+                            <label><input type="checkbox" name="found" value="WhatsApp" /> WhatsApp</label>
+                            <label><input type="checkbox" name="found" value="Church" /> Church</label>
+                            <label><input type="checkbox" name="found" value="Other" /> Other</label>
+                        </div>
+                    </div>
+
+                    <div class="consent">
+                        <input type="checkbox" id="consent" required />
+                        <label for="consent">
+                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute Ministry.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    <p>🎉 Praise God! Thank you for taking this step of obedience. We will send you helpful resources and help connect you with a Bible-believing church where you can be baptized. Welcome to the family of God!</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/load.js"></script>
+
+    <script>
+        document.getElementById('decisionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            setTimeout(function() {
+                form.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
