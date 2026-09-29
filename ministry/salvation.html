@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>How to Know Christ | Living Oracles Global Institute</title>
+    <title>Salvation | Living Oracles Global Institute Ministry</title>
 
-    <meta name="description" content="Discover how to begin a personal relationship with Jesus Christ. Learn the steps to salvation and pray to receive Him as your Savior." />
+    <meta name="description" content="How can I be saved? Discover God's plan of salvation through Jesus Christ — the free gift of eternal life received by grace through faith." />
     <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
     <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
 
-    <meta property="og:title" content="How to Know Christ | Living Oracles Global Institute" />
+    <meta property="og:title" content="Salvation | LOGI Ministry" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://logi.education/how-to-know-christ" />
+    <meta property="og:url" content="https://logi.education/ministry/salvation" />
     <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
-    <meta property="og:description" content="Learn how to begin a personal relationship with Jesus Christ." />
+    <meta property="og:description" content="Discover God's plan of salvation through Jesus Christ — the free gift of eternal life received by grace through faith." />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
@@ -368,7 +368,7 @@
         }
 
         /* ========================================== */
-        /*   FOOTER — SCOPED TO NOT BE AFFECTED      */
+        /*   FOOTER                                  */
         /* ========================================== */
         .institutional-footer {
             position: relative;
@@ -588,7 +588,7 @@
             position: relative;
             width: 100%;
             height: 340px;
-            background-image: url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1600&q=80');
+            background-image: url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -597,6 +597,14 @@
             overflow: hidden;
             margin: 0;
             padding: 0;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(13, 27, 42, 0.60) 0%, rgba(139, 83, 83, 0.40) 100%);
+            z-index: 1;
         }
 
         .hero-content {
@@ -629,7 +637,7 @@
         .hero-content .hero-line {
             width: 100px;
             height: 3px;
-            background: #ffffff;
+            background: #c9a86c;
             margin: 20px auto 0;
             border-radius: 3px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
@@ -670,7 +678,7 @@
         }
 
         /* ========================================== */
-        /*   TYPOGRAPHY — SCOPED TO .section-bg      */
+        /*   TYPOGRAPHY                              */
         /* ========================================== */
         .section-bg h2 {
             font-size: 24px;
@@ -726,7 +734,7 @@
         .scripture strong { color: #8b5353; }
 
         /* ========================================== */
-        /*   WELCOME                                 */
+        /*   WELCOME BOX                             */
         /* ========================================== */
         .welcome-box {
             padding: 0;
@@ -739,7 +747,39 @@
         .welcome-box p:last-child { margin-bottom: 0; }
 
         /* ========================================== */
-        /*   VIDEO SECTION — YOUTUBE EMBED           */
+        /*   KEY VERSES — HIGHLIGHT BOX              */
+        /* ========================================== */
+        .key-verse {
+            background: linear-gradient(135deg, rgba(201, 168, 108, 0.08), rgba(139, 83, 83, 0.05));
+            border-left: 4px solid #c9a86c;
+            padding: 20px 24px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .key-verse p {
+            font-style: italic;
+            color: #4a5568;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0 0 8px;
+        }
+
+        .key-verse p:last-child { margin-bottom: 0; }
+
+        .key-verse .verse-ref {
+            color: #8b5353;
+            font-weight: 800;
+            font-style: normal;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* ========================================== */
+        /*   VIDEO CONTAINER                         */
         /* ========================================== */
         .video-container {
             margin: 30px 0;
@@ -833,7 +873,7 @@
         }
 
         /* ========================================== */
-        /*   PRAYER                                  */
+        /*   PRAYER BOX                              */
         /* ========================================== */
         .prayer-box {
             padding: 24px 0 24px 24px;
@@ -879,6 +919,34 @@
         }
 
         /* ========================================== */
+        /*   ASSURANCE BOX                           */
+        /* ========================================== */
+        .assurance-box {
+            background: linear-gradient(135deg, #f0f9f4, #e6f4ed);
+            border-radius: 14px;
+            padding: 28px 26px;
+            margin: 30px 0;
+            border-left: 5px solid #15803d;
+            text-align: left;
+        }
+
+        .assurance-box h3 {
+            color: #15803d;
+            margin: 0 0 14px;
+            font-size: 19px;
+            text-align: left;
+        }
+
+        .assurance-box p {
+            color: #2d3748;
+            font-size: 15.5px;
+            line-height: 1.75;
+            margin-bottom: 10px;
+        }
+
+        .assurance-box p:last-child { margin-bottom: 0; }
+
+        /* ========================================== */
         /*   NEXT STEPS                              */
         /* ========================================== */
         .next-steps {
@@ -918,6 +986,12 @@
         .step-card p {
             font-size: 15.5px;
             margin: 0;
+        }
+
+        .step-card a {
+            color: #8b5353;
+            font-weight: 700;
+            text-decoration: underline;
         }
 
         /* ========================================== */
@@ -1183,8 +1257,8 @@
     <!-- HERO -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1>How to Know Christ</h1>
-            <p class="hero-subtitle">Living Oracles Global Institute</p>
+            <h1>Salvation</h1>
+            <p class="hero-subtitle">The Free Gift of God</p>
             <div class="hero-line"></div>
         </div>
     </section>
@@ -1194,29 +1268,30 @@
         <div class="container">
 
             <div class="welcome-box">
-                <p><strong>Welcome!</strong></p>
-                <p>We're so glad you are here. The fact that you clicked this link means you are curious. Perhaps you just want to learn more about Jesus and the claims of the Christian faith. Or maybe you are ready to accept His offer of salvation.</p>
-                <p>No matter where you are in your faith journey, we are excited to help you. Choosing to follow Jesus is the most important decision you will ever make.</p>
+                <p><strong>Have you ever wondered what it takes to be saved?</strong></p>
+                <p>Many people believe that salvation is something they must earn — by being good enough, doing enough, or following enough religious rules. But the Bible tells a completely different story. Salvation is not something we achieve. It is a gift that God offers freely to every person who will receive it by faith in Jesus Christ.</p>
+                <p>This page walks you through what the Bible says about salvation — clearly, simply, and step by step. If you have ever asked "How can I be saved?" the answer is here.</p>
             </div>
 
-            <h2>What does knowing Jesus mean?</h2>
-            <p>One of the greatest truths in the Bible is that we not only can know <strong>about</strong> Jesus, but we can also know Him <strong>personally</strong>. Lots of people know about Jesus. He is recognized worldwide as an important historical figure. He is the subject of books, movies, and artwork.</p>
-            <p>But He is much more than that. Jesus is not just an amazing person; He is the Son of God—and God's free gift to us!</p>
+            <h2>What Is Salvation?</h2>
+            <p>Salvation is God's rescue plan for humanity. It is the act by which God forgives our sins, delivers us from eternal judgment, and gives us eternal life — not because of anything we have done, but because of what Jesus Christ has done on our behalf.</p>
+            <p>The word "salvation" means to be saved, delivered, or rescued. The Bible uses it to describe being saved from the penalty of sin, saved from the power of sin, and one day saved from the very presence of sin.</p>
 
-            <div class="scripture">
-                <strong>John 3:16</strong> says, <em>"For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."</em>
+            <div class="key-verse">
+                <span class="verse-ref">Titus 3:5</span>
+                <p>"He saved us, not because of righteous things we had done, but because of his mercy."</p>
             </div>
 
-            <!-- ========================================== -->
-            <!--   YOUTUBE VIDEO EMBED                     -->
-            <!-- ========================================== -->
+            <p>This truth is what makes Christianity unique among all religions. Every other system says <em>"do this and you will be saved."</em> The gospel says <strong>"it is done — believe and be saved."</strong></p>
+
+            <!-- YOUTUBE VIDEO -->
             <div class="video-container">
-                <h3>Learn More About Knowing Christ</h3>
-                <p>Watch this short message about the gift of salvation</p>
+                <h3>Watch: What Does It Mean to Be Saved?</h3>
+                <p>A short message on God's free gift of salvation</p>
                 <div class="video-embed-wrapper">
                     <iframe 
                         src="https://www.youtube.com/embed/DRu0v8hXOSY" 
-                        title="Learn More About Knowing Christ"
+                        title="What Does It Mean to Be Saved?"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin" 
@@ -1225,74 +1300,133 @@
                 </div>
             </div>
 
-            <h2>How can I accept Jesus Christ as my Savior?</h2>
-            <p>The Bible—God's inspired, perfect, and trustworthy Word—explains how you can begin a living and growing relationship with Jesus Christ.</p>
+            <h2>Why Do We Need to Be Saved?</h2>
+            <p>To understand why we need salvation, we must first understand our problem. The Bible tells us that every human being has sinned against God. Sin is not just doing bad things — it is the deeper rebellion of our hearts against God's rightful rule over our lives.</p>
+            <p>Because God is perfectly holy and perfectly just, sin cannot go unpunished. The penalty for sin is death — not just physical death, but eternal separation from God. This is the reality every one of us faces apart from Christ.</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Romans 3:23</span>
+                <p>"For all have sinned and fall short of the glory of God."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Romans 6:23</span>
+                <p>"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord."</p>
+            </div>
+
+            <p>But here is the good news: God did not leave us in our sin. He provided a way out. And that way is Jesus Christ.</p>
+
+            <h2>How Does God Save Us?</h2>
+            <p>God saves us through the life, death, and resurrection of His Son, Jesus Christ. Jesus lived the perfect, sinless life we could not live. He willingly went to the cross and died the death we deserved, taking the full penalty for our sins upon Himself. Three days later, He rose from the grave, defeating sin and death forever.</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Romans 5:8</span>
+                <p>"But God demonstrates his own love for us in this: While we were still sinners, Christ died for us."</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">1 Peter 2:24</span>
+                <p>"He himself bore our sins in his body on the cross, so that we might die to sins and live for righteousness."</p>
+            </div>
+
+            <p>Because Jesus paid the full price, there is nothing left for us to pay. Salvation is not a joint effort. It is entirely the work of God, received by faith alone.</p>
+
+            <h2>How Can I Be Saved?</h2>
+            <p>The Bible gives a clear answer. Salvation comes through faith in Jesus Christ. This is not a complicated process — it is a simple, wholehearted response to what God has already done. Here are the steps the Bible lays out:</p>
 
             <ol class="steps">
                 <li>
                     <strong>Admit that you are a sinner.</strong>
-                    <p>While most of us think we are "good people," everyone has committed sin. No one can meet God's perfect standard. The Bible says, <em>"For all have sinned and fall short of the glory of God"</em> (Romans 3:23).</p>
+                    <p>You cannot be saved until you acknowledge that you need to be saved. The Bible says, <em>"If we claim to be without sin, we deceive ourselves and the truth is not in us"</em> (1 John 1:8). This is not about being a "bad person" — it is about being honest before God.</p>
                 </li>
                 <li>
-                    <strong>Recognize that as a sinner, you deserve death.</strong>
-                    <p>None of us will ever be good enough for God. Because He is holy and perfect, God must judge sin. The penalty for our sin is eternal separation from God. The Bible explains that because we are sinners, we all deserve death: <em>"For the wages of sin is death"</em> (Romans 6:23).</p>
+                    <strong>Believe in the Lord Jesus Christ.</strong>
+                    <p>Faith is trusting in what Jesus has done — not in what you can do. It means believing that He is the Son of God, that He died for your sins, and that He rose again for your justification. The Bible says, <em>"Believe in the Lord Jesus, and you will be saved"</em> (Acts 16:31).</p>
                 </li>
                 <li>
-                    <strong>Understand that Christ died for your sins and that He rose from the grave.</strong>
-                    <p>Here is the good news! Because He loved us, God provided a substitute for the penalty we deserve. When Jesus died on a cross, He took the penalty for our sin. The Bible says, <em>"But God demonstrates His own love for us in this: While we were still sinners, Christ died for us"</em> (Romans 5:8). When Jesus rose again, He conquered the grave forever! His death and resurrection guarantee eternal life for those who believe in Him.</p>
+                    <strong>Repent of your sins.</strong>
+                    <p>Repentance means turning away from sin and turning to God. It is a change of mind that leads to a change of direction. The Bible says, <em>"Repent, then, and turn to God, so that your sins may be wiped out"</em> (Acts 3:19).</p>
                 </li>
                 <li>
-                    <strong>Put your trust in Christ as your Savior.</strong>
-                    <p>Will you accept this gift? God invites you to come into a relationship with Him. The final step is trusting Jesus as your Savior. This means you personally believe that Jesus died on the cross to take the penalty for your sins. You place your faith in Him to forgive all your sins, and you receive His gift of everlasting life. The Bible says, <em>"For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God—not by works, so that no one can boast"</em> (Ephesians 2:8-9).</p>
+                    <strong>Confess Jesus as Lord.</strong>
+                    <p>Salvation is not a private secret. It is a public confession of faith. The Bible says, <em>"If you declare with your mouth, 'Jesus is Lord,' and believe in your heart that God raised him from the dead, you will be saved"</em> (Romans 10:9).</p>
                 </li>
             </ol>
 
+            <div class="scripture">
+                <strong>Ephesians 2:8–9</strong> says, <em>"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast."</em>
+            </div>
+
+            <p>You do not need to clean yourself up first. You do not need to be good enough. You do not need to wait for the right moment. You only need to come to Jesus as you are, and He will receive you.</p>
+
+            <h2>A Prayer to Receive Christ</h2>
+            <p>If you are ready to receive Jesus Christ as your Savior and Lord, you can pray a simple prayer like this. It is not the words that save you — it is the faith in your heart. But praying this aloud, in your own words, is a good way to express your decision to God.</p>
+
             <div class="prayer-box">
-                <h3>Are you ready? Pray this simple prayer:</h3>
-                <p>"Lord Jesus, I know that I am a sinner and that I deserve death.</p>
-                <p>I believe you are the Son of God and that You died on the cross for my sins.</p>
-                <p>You paid my penalty and rose again so I can live.</p>
-                <p>I accept your gift of salvation, and I choose today to put my faith in you.</p>
+                <h3>Pray This Prayer:</h3>
+                <p>"Lord Jesus, I know that I am a sinner and I cannot save myself.</p>
+                <p>I believe that You are the Son of God, that You died on the cross for my sins, and that You rose again from the dead.</p>
+                <p>I repent of my sins and turn to You. I put my trust in You alone for my salvation.</p>
+                <p>Come into my life, forgive my sins, and give me eternal life. I choose today to follow You as my Lord and Savior.</p>
                 <p>Amen."</p>
             </div>
 
             <div class="celebration">
-                <p>If you just prayed that prayer, we are overjoyed to welcome you into the family of God! You have just entered into a life-changing relationship with Jesus that will last forever!</p>
+                <p>If you just prayed that prayer with a sincere heart, then according to God's Word, you are now saved! You have passed from death into life, and heaven rejoices over you. Welcome to the family of God!</p>
             </div>
+
+            <h2>Can I Be Sure I Am Saved?</h2>
+            <p>Yes. One of the greatest gifts of salvation is assurance. God does not want you to spend your life wondering whether you are truly saved. He wants you to know. The Bible gives us solid ground for confidence.</p>
+
+            <div class="assurance-box">
+                <h3>Assurance from God's Word</h3>
+                <p><strong>1 John 5:11–13:</strong> <em>"And this is the testimony: God has given us eternal life, and this life is in his Son. Whoever has the Son has life; whoever does not have the Son of God does not have life. I write these things to you who believe in the name of the Son of God so that you may know that you have eternal life."</em></p>
+                <p><strong>John 10:28:</strong> <em>"I give them eternal life, and they shall never perish; no one will snatch them out of my hand."</em></p>
+                <p><strong>Romans 8:38–39:</strong> <em>"For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord."</em></p>
+            </div>
+
+            <p>If you have believed in Jesus, you are saved — not because you feel saved on any given day, but because God has promised it. Your salvation rests on His faithfulness, not on your performance.</p>
 
             <h2>What Should I Do Next?</h2>
 
             <div class="next-steps">
                 <div class="step-card">
-                    <h4><i class="fas fa-users"></i> Tell Someone</h4>
-                    <p>We encourage you to talk to a pastor or a Christian you know about your decision to begin a personal relationship with Jesus.</p>
+                    <h4><i class="fas fa-water"></i> Be Baptized</h4>
+                    <p>Baptism is the first step of obedience after salvation. Our <a href="/baptism">Baptism teaching</a> explains what the Bible says about this important step.</p>
                 </div>
 
                 <div class="step-card">
-                    <h4><i class="fas fa-book-bible"></i> Read God's Word</h4>
-                    <p>One way to grow as a Christian is to begin the daily practice of reading God's Word and spending time in prayer. We'd love to have you join our <strong>free Bible study devotional</strong>.</p>
-                    <a href="#" class="subscribe-btn"><i class="fas fa-envelope"></i> Subscribe Now</a>
+                    <h4><i class="fas fa-book-bible"></i> Read God's Word Daily</h4>
+                    <p>Grow in your new faith by reading the Bible every day. Start with the Gospel of John, then Acts, then Romans. Our <a href="/ministry/bible-studies">Bible Studies page</a> can help you get started.</p>
                 </div>
 
                 <div class="step-card">
-                    <h4><i class="fas fa-church"></i> Get Connected to a Church</h4>
-                    <p>God designed us to live in community with one another and to grow spiritually together with other followers of Jesus (Acts 2:42-47, Hebrews 10:24-25). If you aren't already attending church, we encourage you to begin participating in a Christ-centered, Bible-believing church in your area.</p>
+                    <h4><i class="fas fa-praying-hands"></i> Learn to Pray</h4>
+                    <p>Prayer is how you talk to God. Visit our <a href="/ministry/prayer">Prayer page</a> to learn how to pray and to submit a prayer request.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-church"></i> Join a Bible-Believing Church</h4>
+                    <p>God designed us to grow together. Find a Christ-centered, Bible-teaching church in your area and become part of a spiritual family.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-seedling"></i> Begin Your New Life</h4>
+                    <p>Explore our <a href="/ministry/new-life">New Life in Christ</a> resources to grow deeper in your relationship with God.</p>
                 </div>
             </div>
 
-            <!-- ========================================== -->
-            <!--   DECISION SECTION — SVG + TITLE SAME LINE -->
-            <!-- ========================================== -->
+            <!-- DECISION FORM -->
             <div class="decision-section">
 
                 <div class="decision-header">
                     <div class="decision-icon">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <h2>I've Decided!</h2>
+                    <h2>I've Been Saved!</h2>
                 </div>
 
-                <p>If you just made a decision to follow Jesus, we'd love to know, too. To help you take the next step in your faith journey, we will send you some helpful Bible study resources. Simply complete the form below, and we'll send them to you!</p>
+                <p>If you just received Jesus Christ as your Savior, we would love to celebrate with you! Please complete the form below, and we will send you helpful resources to help you grow in your new faith.</p>
 
                 <form id="decisionForm" class="form-container">
                     <div class="form-row">
@@ -1317,7 +1451,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>How did you find this form?</label>
+                        <label>How did you find this page?</label>
                         <div class="checkbox-group">
                             <label><input type="checkbox" name="found" value="LOGI Website" /> LOGI Website</label>
                             <label><input type="checkbox" name="found" value="A friend" /> A friend</label>
@@ -1333,7 +1467,7 @@
                     <div class="consent">
                         <input type="checkbox" id="consent" required />
                         <label for="consent">
-                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute.
+                            I have read and agree to LOGI's <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. By submitting this form, you consent to receive helpful Bible study resources and communications from Living Oracles Global Institute Ministry.
                         </label>
                     </div>
 
@@ -1343,7 +1477,7 @@
                 </form>
 
                 <div class="success-message" id="successMessage">
-                    <p>🎉 Praise God! Thank you for sharing your decision. We will send you helpful resources shortly. Welcome to the family of God!</p>
+                    <p>🎉 Praise God! Thank you for sharing your decision with us. We will send you helpful resources shortly to help you grow in your new life with Christ. Welcome to the family of God!</p>
                 </div>
             </div>
 
