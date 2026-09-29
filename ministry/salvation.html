@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Salvation | Living Oracles Global Institute Ministry</title>
+    <title>Repentance | Living Oracles Global Institute Ministry</title>
 
-    <meta name="description" content="How can I be saved? Discover God's plan of salvation through Jesus Christ — the free gift of eternal life received by grace through faith." />
+    <meta name="description" content="What is repentance? Discover what the Bible teaches about turning from sin, changing your mind, and turning to God through Jesus Christ." />
     <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
     <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
 
-    <meta property="og:title" content="Salvation | LOGI Ministry" />
+    <meta property="og:title" content="Repentance | LOGI Ministry" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://logi.education/ministry/salvation" />
+    <meta property="og:url" content="https://logi.education/ministry/repentance" />
     <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
-    <meta property="og:description" content="Discover God's plan of salvation through Jesus Christ." />
+    <meta property="og:description" content="Discover what the Bible teaches about turning from sin and turning to God." />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
@@ -588,7 +588,7 @@
             position: relative;
             width: 100%;
             height: 340px;
-            background-image: url('https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=1600&q=80');
+            background-image: url('https://images.unsplash.com/photo-1445445290350-fe1b4b1c3d59?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -603,7 +603,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(13, 27, 42, 0.62) 0%, rgba(30, 90, 130, 0.48) 100%);
+            background: linear-gradient(180deg, rgba(13, 27, 42, 0.65) 0%, rgba(139, 83, 83, 0.45) 100%);
             z-index: 1;
         }
 
@@ -775,51 +775,69 @@
         }
 
         /* ========================================== */
-        /*   ASSURANCE GRID — KEEPS LEFT BORDER      */
+        /*   COMPARE GRID — KEEPS LEFT BORDER        */
         /* ========================================== */
-        .assurance-grid {
+        .compare-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin: 30px 0;
         }
 
-        .assurance-card {
+        .compare-card {
             padding: 4px 0 4px 20px;
-            border-left: 3px solid #8b5353;
+            border-left: 3px solid #c53030;
             background: transparent;
         }
 
-        .assurance-card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: transparent;
-            color: #8b5353;
+        .compare-card.new {
+            border-left-color: #15803d;
+        }
+
+        .compare-card h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            border: 1.5px solid #8b5353;
+            gap: 8px;
         }
 
-        .assurance-card h4 {
-            color: #8b5353;
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-            font-weight: 800;
-        }
+        .compare-card.old h4 { color: #c53030; }
+        .compare-card.new h4 { color: #15803d; }
 
-        .assurance-card p {
-            font-size: 0.9rem;
-            color: #4a5568;
-            line-height: 1.7;
+        .compare-card ul {
+            list-style: none;
+            padding: 0;
             margin: 0;
         }
 
+        .compare-card ul li {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.65;
+            padding: 6px 0 6px 22px;
+            position: relative;
+        }
+
+        .compare-card.old ul li::before {
+            content: '✕';
+            position: absolute;
+            left: 0;
+            color: #c53030;
+            font-weight: 800;
+        }
+
+        .compare-card.new ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #15803d;
+            font-weight: 800;
+        }
+
         @media (max-width: 640px) {
-            .assurance-grid { grid-template-columns: 1fr; gap: 20px; }
+            .compare-grid { grid-template-columns: 1fr; gap: 20px; }
         }
 
         /* ========================================== */
@@ -890,6 +908,32 @@
             margin: 0;
             font-size: 16px;
             line-height: 1.7;
+        }
+
+        /* ========================================== */
+        /*   WARNING BOX — NO BORDER                 */
+        /* ========================================== */
+        .warning-box {
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .warning-box h4 {
+            color: #b45309;
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box p {
+            color: #4a5568;
+            font-size: 15.5px;
+            line-height: 1.75;
+            margin: 0;
         }
 
         /* ========================================== */
@@ -1166,8 +1210,8 @@
     <!-- HERO -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1>Salvation</h1>
-            <p class="hero-subtitle">The Free Gift of God</p>
+            <h1>Repentance</h1>
+            <p class="hero-subtitle">Turning From Sin to God</p>
             <div class="hero-line"></div>
         </div>
     </section>
@@ -1177,174 +1221,181 @@
         <div class="container">
 
             <div class="welcome-box">
-                <p><strong>Have you ever wondered what it takes to be saved?</strong></p>
-                <p>Many people believe that salvation is something they must earn — by being good enough, doing enough, or following enough religious rules. But the Bible tells a completely different story. Salvation is not something we achieve. It is a gift that God offers freely to every person who will receive it by faith in Jesus Christ.</p>
-                <p>This page walks you through what the Bible says about salvation — clearly, simply, and step by step. If you have ever asked "How can I be saved?" the answer is here.</p>
+                <p><strong>What does it mean to repent?</strong></p>
+                <p>Repentance is one of the most important words in the entire Bible — and one of the most misunderstood. Many people think repentance is simply feeling sorry for sin, or promising to try harder. But biblical repentance goes far deeper than that. It is a complete change of mind, heart, and direction.</p>
+                <p>This page explains what repentance is, why it matters, and how it fits together with faith in Jesus Christ. If you want to understand the path to salvation clearly, you need to understand repentance.</p>
             </div>
 
-            <h2>What Is Salvation?</h2>
-            <p>Salvation is God's rescue plan for humanity. It is the act by which God forgives our sins, delivers us from eternal judgment, and gives us eternal life — not because of anything we have done, but because of what Jesus Christ has done on our behalf.</p>
-            <p>The word "salvation" means to be saved, delivered, or rescued. The Bible uses it to describe being saved from the penalty of sin, saved from the power of sin, and one day saved from the very presence of sin.</p>
+            <h2>What Is Repentance?</h2>
+            <p>The word "repent" in the New Testament comes from the Greek word <em>metanoia</em>, which literally means <strong>"a change of mind."</strong> It describes a fundamental shift in how a person thinks — a turning away from sin and a turning toward God.</p>
+            <p>But repentance is not just intellectual. It is not merely agreeing that you've done wrong. True repentance involves the whole person — mind, heart, and will. It is when you see your sin the way God sees it, grieve over it, and choose to turn from it, trusting in Christ alone for salvation.</p>
 
             <div class="key-verse">
-                <span class="verse-ref">Titus 3:5</span>
-                <p>"He saved us, not because of righteous things we had done, but because of his mercy."</p>
+                <span class="verse-ref">Acts 3:19</span>
+                <p>"Repent, then, and turn to God, so that your sins may be wiped out, that times of refreshing may come from the Lord."</p>
             </div>
 
-            <p>This truth is what makes Christianity unique among all religions. Every other system says <em>"do this and you will be saved."</em> The gospel says <strong>"it is done — believe and be saved."</strong></p>
+            <p>Repentance is not a one-time event you check off a list. It is the ongoing posture of a believer's heart. But it begins with a decisive turning at the moment of salvation — the moment you stop running from God and run to Him.</p>
 
-            <h2>Why Do We Need to Be Saved?</h2>
-            <p>To understand why we need salvation, we must first understand our problem. The Bible tells us that every human being has sinned against God. Sin is not just doing bad things — it is the deeper rebellion of our hearts against God's rightful rule over our lives.</p>
-            <p>Because God is perfectly holy and perfectly just, sin cannot go unpunished. The penalty for sin is death — not just physical death, but eternal separation from God. This is the reality every one of us faces apart from Christ.</p>
+            <h2>Repentance vs. Remorse</h2>
+            <p>One of the most important distinctions in Scripture is the difference between <strong>repentance</strong> and <strong>remorse</strong>. Remorse is feeling bad about sin. Repentance is turning from it. You can feel bad about your sin and still not be saved. But you cannot truly repent without being changed.</p>
 
-            <div class="key-verse">
-                <span class="verse-ref">Romans 3:23</span>
-                <p>"For all have sinned and fall short of the glory of God."</p>
-            </div>
-
-            <div class="key-verse">
-                <span class="verse-ref">Romans 6:23</span>
-                <p>"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord."</p>
-            </div>
-
-            <p>But here is the good news: God did not leave us in our sin. He provided a way out. And that way is Jesus Christ.</p>
-
-            <h2>How Does God Save Us?</h2>
-            <p>God saves us through the life, death, and resurrection of His Son, Jesus Christ. Jesus lived the perfect, sinless life we could not live. He willingly went to the cross and died the death we deserved, taking the full penalty for our sins upon Himself. Three days later, He rose from the grave, defeating sin and death forever.</p>
-
-            <div class="key-verse">
-                <span class="verse-ref">Romans 5:8</span>
-                <p>"But God demonstrates his own love for us in this: While we were still sinners, Christ died for us."</p>
-            </div>
-
-            <div class="key-verse">
-                <span class="verse-ref">1 Peter 2:24</span>
-                <p>"He himself bore our sins in his body on the cross, so that we might die to sins and live for righteousness."</p>
-            </div>
-
-            <p>Because Jesus paid the full price, there is nothing left for us to pay. Salvation is not a joint effort. It is entirely the work of God, received by faith alone.</p>
-
-            <h2>What Salvation Gives You</h2>
-            <p>When you are saved, four great realities become true of you — forever:</p>
-
-            <div class="assurance-grid">
-
-                <div class="assurance-card">
-                    <div class="assurance-card-icon"><i class="fas fa-heart"></i></div>
-                    <h4>Full Forgiveness</h4>
-                    <p>Every sin — past, present, and future — is completely forgiven through the blood of Jesus. Nothing you have done is beyond His grace.</p>
+            <div class="compare-grid">
+                <div class="compare-card old">
+                    <h4><i class="fas fa-frown"></i> Remorse (Worldly Sorrow)</h4>
+                    <ul>
+                        <li>Feels bad because I got caught</li>
+                        <li>Regrets the consequences of sin</li>
+                        <li>Wants to avoid punishment</li>
+                        <li>Keeps the sin, just hides it better</li>
+                        <li>Leads to guilt, despair, or self-pity</li>
+                    </ul>
                 </div>
-
-                <div class="assurance-card">
-                    <div class="assurance-card-icon"><i class="fas fa-users"></i></div>
-                    <h4>Adoption into God's Family</h4>
-                    <p>You become a child of God — not just a follower, but a son or daughter. You now have a Father in heaven who loves you completely.</p>
+                <div class="compare-card new">
+                    <h4><i class="fas fa-sync-alt"></i> Repentance (Godly Sorrow)</h4>
+                    <ul>
+                        <li>Feels sorrow because I sinned against God</li>
+                        <li>Grieves over the sin itself</li>
+                        <li>Wants to be made right with God</li>
+                        <li>Turns away from the sin completely</li>
+                        <li>Leads to salvation and freedom</li>
+                    </ul>
                 </div>
-
-                <div class="assurance-card">
-                    <div class="assurance-card-icon"><i class="fas fa-dove"></i></div>
-                    <h4>The Gift of the Holy Spirit</h4>
-                    <p>The Holy Spirit comes to live inside you — teaching, guiding, convicting, comforting, and empowering you to live for God.</p>
-                </div>
-
-                <div class="assurance-card">
-                    <div class="assurance-card-icon"><i class="fas fa-crown"></i></div>
-                    <h4>Eternal Life</h4>
-                    <p>You receive a life that will never end — a relationship with God that begins now and lasts forever, beyond even death itself.</p>
-                </div>
-
             </div>
 
-            <div class="scripture">
-                <strong>Ephesians 2:8–9</strong> says, <em>"For it is by grace you have been saved, through faith — and this is not from yourselves, it is the gift of God — not by works, so that no one can boast."</em>
+            <div class="key-verse">
+                <span class="verse-ref">2 Corinthians 7:10</span>
+                <p>"Godly sorrow brings repentance that leads to salvation and leaves no regret, but worldly sorrow brings death."</p>
             </div>
 
-            <h2>How Can I Be Saved?</h2>
-            <p>The Bible gives a clear answer. Salvation comes through faith in Jesus Christ. This is not a complicated process — it is a simple, wholehearted response to what God has already done. Here are the steps the Bible lays out:</p>
+            <p>Judas felt remorse over betraying Jesus — but he did not repent. Peter wept over denying Jesus — and he did repent. The difference was not the depth of the tears. It was the direction of the heart.</p>
+
+            <h2>Why Is Repentance Necessary?</h2>
+            <p>Repentance is necessary because sin is not just a mistake — it is rebellion against a holy God. You cannot be saved while clinging to your sin. You cannot receive Christ while rejecting His rule. Repentance is the turning of the heart that makes room for the Savior to enter in.</p>
+            <p>Jesus Himself preached repentance as the starting point of the gospel:</p>
+
+            <div class="key-verse">
+                <span class="verse-ref">Mark 1:15</span>
+                <p>"The time has come," he said. "The kingdom of God has come near. Repent and believe the good news!"</p>
+            </div>
+
+            <div class="key-verse">
+                <span class="verse-ref">Luke 13:3</span>
+                <p>"I tell you, no! But unless you repent, you too will all perish."</p>
+            </div>
+
+            <p>Notice how often repentance and faith appear together in Scripture. They are two sides of the same coin. Faith turns to Christ. Repentance turns from sin. Both happen at salvation. You cannot have one without the other.</p>
+
+            <h2>What Does True Repentance Involve?</h2>
+            <p>Biblical repentance is not a vague feeling. It has specific marks. Here is what genuine repentance looks like:</p>
 
             <ol class="steps">
                 <li>
-                    <strong>Admit that you are a sinner.</strong>
-                    <p>You cannot be saved until you acknowledge that you need to be saved. The Bible says, <em>"If we claim to be without sin, we deceive ourselves and the truth is not in us"</em> (1 John 1:8). This is not about being a "bad person" — it is about being honest before God.</p>
+                    <strong>Seeing sin as God sees it.</strong>
+                    <p>Repentance begins with a change of mind — agreeing with God about your sin. It means calling sin what God calls it, without excuse or minimization. You stop saying <em>"it's not that bad"</em> and start saying <em>"I have sinned against God."</em></p>
                 </li>
                 <li>
-                    <strong>Believe in the Lord Jesus Christ.</strong>
-                    <p>Faith is trusting in what Jesus has done — not in what you can do. It means believing that He is the Son of God, that He died for your sins, and that He rose again for your justification. The Bible says, <em>"Believe in the Lord Jesus, and you will be saved"</em> (Acts 16:31).</p>
+                    <strong>Sorrowing over sin (godly grief).</strong>
+                    <p>Repentance involves a genuine grief over sin — not because you were caught, but because you offended a holy God. This is the sorrow that 2 Corinthians 7:10 calls "godly sorrow" — a sorrow that leads to change.</p>
                 </li>
                 <li>
-                    <strong>Repent of your sins.</strong>
-                    <p>Repentance means turning away from sin and turning to God. It is a change of mind that leads to a change of direction. The Bible says, <em>"Repent, then, and turn to God, so that your sins may be wiped out"</em> (Acts 3:19).</p>
+                    <strong>Turning away from sin.</strong>
+                    <p>Repentance is not just feeling differently about sin. It is <em>turning</em> from it. This involves a decisive break with the old life. It means forsaking the sin, not just regretting it. It may involve restitution, confession, and radical change.</p>
                 </li>
                 <li>
-                    <strong>Confess Jesus as Lord.</strong>
-                    <p>Salvation is not a private secret. It is a public confession of faith. The Bible says, <em>"If you declare with your mouth, 'Jesus is Lord,' and believe in your heart that God raised him from the dead, you will be saved"</em> (Romans 10:9).</p>
+                    <strong>Turning to God through Christ.</strong>
+                    <p>Repentance is not enough on its own. You must turn <em>to</em> something — or rather, to Someone. You turn from sin and you turn to Jesus Christ, trusting in His finished work on the cross, and surrendering to Him as Lord.</p>
                 </li>
             </ol>
 
-            <p>You do not need to clean yourself up first. You do not need to be good enough. You do not need to wait for the right moment. You only need to come to Jesus as you are, and He will receive you.</p>
+            <div class="scripture">
+                <strong>Acts 2:38</strong> says, <em>"Peter replied, 'Repent and be baptized, every one of you, in the name of Jesus Christ for the forgiveness of your sins. And you will receive the gift of the Holy Spirit.'"</em>
+            </div>
 
-            <h2>A Prayer to Receive Christ</h2>
-            <p>If you are ready to receive Jesus Christ as your Savior and Lord, you can pray a simple prayer like this. It is not the words that save you — it is the faith in your heart. But praying this aloud, in your own words, is a good way to express your decision to God.</p>
+            <h2>How Do I Repent?</h2>
+            <p>If you want to repent and turn to God, here is what the Bible invites you to do:</p>
+
+            <div class="next-steps">
+                <div class="step-card">
+                    <h4><i class="fas fa-search"></i> Ask God to Search Your Heart</h4>
+                    <p>Pray honestly: <em>"Search me, God, and know my heart; test me and know my anxious thoughts. See if there is any offensive way in me, and lead me in the way everlasting"</em> (Psalm 139:23–24). Let God show you what needs to change.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-cross"></i> Confess Your Sin to God</h4>
+                    <p>Agree with God about your sin. Name it. Confess it. The Bible says, <em>"If we confess our sins, he is faithful and just and will forgive us our sins and purify us from all unrighteousness"</em> (1 John 1:9).</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-hand-holding-heart"></i> Trust in Christ Alone</h4>
+                    <p>Repentance does not earn salvation. Faith in Jesus does. Turn from sin, and place your full trust in Him — His death, His resurrection, and His promise to save all who come to Him.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-sync-alt"></i> Turn and Live Differently</h4>
+                    <p>Repentance produces fruit. It changes your actions. You stop doing what you once did and start walking in a new direction. Not perfectly, but genuinely and progressively.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-users"></i> Confess to a Trusted Believer</h4>
+                    <p>The Bible says, <em>"Confess your sins to each other and pray for each other so that you may be healed"</em> (James 5:16). Find a mature Christian and share your journey with them.</p>
+                </div>
+            </div>
+
+            <h2>A Prayer of Repentance</h2>
+            <p>If you are ready to turn from your sin and turn to God, pray this prayer — not as a magical formula, but as an honest expression of your heart:</p>
 
             <div class="prayer-box">
                 <h3>Pray This Prayer:</h3>
-                <p>"Lord Jesus, I know that I am a sinner and I cannot save myself.</p>
-                <p>I believe that You are the Son of God, that You died on the cross for my sins, and that You rose again from the dead.</p>
-                <p>I repent of my sins and turn to You. I put my trust in You alone for my salvation.</p>
-                <p>Come into my life, forgive my sins, and give me eternal life. I choose today to follow You as my Lord and Savior.</p>
+                <p>"Father, I come to You honestly. I confess that I have sinned against You in my thoughts, my words, and my actions.</p>
+                <p>I am truly sorry for my sin — not just because of the consequences, but because I have grieved Your heart.</p>
+                <p>I turn from my sin and turn to You. I place my full trust in Jesus Christ — His death for my sins and His resurrection for my justification.</p>
+                <p>Forgive me, cleanse me, and make me new. I choose to follow You as my Lord and Savior, from this day forward.</p>
                 <p>Amen."</p>
             </div>
 
             <div class="celebration">
-                <p>If you just prayed that prayer with a sincere heart, then according to God's Word, you are now saved! You have passed from death into life, and heaven rejoices over you. Welcome to the family of God!</p>
+                <p>If you just prayed that prayer with a sincere heart, God has forgiven you! Repentance and faith are the doorway into the family of God. Heaven rejoices over you. Welcome to new life in Christ!</p>
             </div>
 
-            <h2>Can I Be Sure I Am Saved?</h2>
-            <p>Yes. One of the greatest gifts of salvation is assurance. God does not want you to spend your life wondering whether you are truly saved. He wants you to know. The Bible gives us solid ground for confidence.</p>
+            <h2>Two Important Warnings</h2>
 
-            <div class="key-verse">
-                <span class="verse-ref">1 John 5:11–13</span>
-                <p>"And this is the testimony: God has given us eternal life, and this life is in his Son. Whoever has the Son has life; whoever does not have the Son of God does not have life. I write these things to you who believe in the name of the Son of God so that you may know that you have eternal life."</p>
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Warning 1: Do Not Delay</h4>
+                <p>Repentance is urgent. You are not guaranteed tomorrow. The Bible says, <em>"Now is the time of God's favor, now is the day of salvation"</em> (2 Corinthians 6:2). Do not put off turning to God. The longer you wait, the harder your heart becomes.</p>
             </div>
 
-            <div class="key-verse">
-                <span class="verse-ref">John 10:28</span>
-                <p>"I give them eternal life, and they shall never perish; no one will snatch them out of my hand."</p>
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Warning 2: Do Not Confuse Repentance with Penance</h4>
+                <p>You do not need to punish yourself, do good works, or perform religious rituals to earn forgiveness. Repentance is not about paying for your sins — Jesus already paid for them on the cross. Repentance is about turning from your sin and receiving His free gift.</p>
             </div>
-
-            <div class="key-verse">
-                <span class="verse-ref">Romans 8:38–39</span>
-                <p>"For I am convinced that neither death nor life, neither angels nor demons, neither the present nor the future, nor any powers, neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord."</p>
-            </div>
-
-            <p>If you have believed in Jesus, you are saved — not because you feel saved on any given day, but because God has promised it. Your salvation rests on His faithfulness, not on your performance.</p>
 
             <h2>What Should I Do Next?</h2>
 
             <div class="next-steps">
                 <div class="step-card">
+                    <h4><i class="fas fa-cross"></i> Understand Salvation</h4>
+                    <p>Learn how repentance fits into the full picture of salvation. Visit our <a href="/ministry/salvation">Salvation page</a> to walk through the Bible's teaching step by step.</p>
+                </div>
+
+                <div class="step-card">
                     <h4><i class="fas fa-water"></i> Be Baptized</h4>
-                    <p>Baptism is the first step of obedience after salvation. Our <a href="/baptism">Baptism teaching</a> explains what the Bible says about this important step.</p>
-                </div>
-
-                <div class="step-card">
-                    <h4><i class="fas fa-book-bible"></i> Read God's Word Daily</h4>
-                    <p>Grow in your new faith by reading the Bible every day. Start with the Gospel of John, then Acts, then Romans. Our <a href="/ministry/bible-studies">Bible Studies page</a> can help you get started.</p>
-                </div>
-
-                <div class="step-card">
-                    <h4><i class="fas fa-praying-hands"></i> Learn to Pray</h4>
-                    <p>Prayer is how you talk to God. Visit our <a href="/ministry/prayer">Prayer page</a> to learn how to pray and to submit a prayer request.</p>
-                </div>
-
-                <div class="step-card">
-                    <h4><i class="fas fa-church"></i> Join a Bible-Believing Church</h4>
-                    <p>God designed us to grow together. Find a Christ-centered, Bible-teaching church in your area and become part of a spiritual family.</p>
+                    <p>After repentance and faith comes baptism — the first step of obedience for a new believer. See our <a href="/baptism">Baptism teaching</a>.</p>
                 </div>
 
                 <div class="step-card">
                     <h4><i class="fas fa-seedling"></i> Begin Your New Life</h4>
-                    <p>Explore our <a href="/ministry/new-life">New Life in Christ</a> resources to grow deeper in your relationship with God.</p>
+                    <p>Explore our <a href="/ministry/new-life">New Life in Christ</a> resources to grow in your relationship with God after repentance.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-book-bible"></i> Study God's Word</h4>
+                    <p>Grow in your understanding of what God has done. Start with our <a href="/ministry/bible-studies">Bible Studies</a>.</p>
+                </div>
+
+                <div class="step-card">
+                    <h4><i class="fas fa-envelope"></i> Contact Us</h4>
+                    <p>Have questions about repentance? We would love to help. <a href="/ministry/contact">Contact us</a> and someone from our team will reach out to you.</p>
                 </div>
             </div>
 
@@ -1353,12 +1404,12 @@
 
                 <div class="decision-header">
                     <div class="decision-icon">
-                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-sync-alt"></i>
                     </div>
-                    <h2>I've Been Saved!</h2>
+                    <h2>I've Repented!</h2>
                 </div>
 
-                <p>If you just received Jesus Christ as your Savior, we would love to celebrate with you! Please complete the form below, and we will send you helpful resources to help you grow in your new faith.</p>
+                <p>If you have just repented of your sin and turned to Jesus Christ, we want to celebrate with you and help you take your next steps of faith. Please complete the form below, and we will send you helpful resources for your journey.</p>
 
                 <form id="decisionForm" class="form-container">
                     <div class="form-row">
@@ -1409,7 +1460,7 @@
                 </form>
 
                 <div class="success-message" id="successMessage">
-                    <p>🎉 Praise God! Thank you for sharing your decision with us. We will send you helpful resources shortly to help you grow in your new life with Christ. Welcome to the family of God!</p>
+                    <p>🎉 Praise God! Thank you for sharing your decision. We will send you helpful resources shortly to help you grow in your new life with Christ. Welcome to the family of God!</p>
                 </div>
             </div>
 
