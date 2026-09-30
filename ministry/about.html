@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport" />
+    <title>About | Living Oracles Global Institute Ministry</title>
+
+    <!-- Meta Tags -->
+    <meta content="Learn about LOGI Ministry — a Christ-centred ministry devoted to knowing Christ, following Christ, and making Christ known through Bible teaching, discipleship, prayer, evangelism, and missions." name="description" />
+    <meta content="https://logi.education/ministry/about" property="og:url" />
+    <meta content="About | LOGI Ministry" property="og:title" />
+    <meta content="Knowing Christ. Following Christ. Making Christ Known." property="og:description" />
+
+    <!-- Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- Open Graph -->
+    <meta content="LOGI Ministry" property="og:title" />
+    <meta content="website" property="og:type" />
+    <meta content="https://logi.education/ministry/about" property="og:url" />
+    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
+    <meta content="Knowing Christ. Following Christ. Making Christ Known." property="og:description" />
+    <meta content="summary_large_image" name="twitter:card" />
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR                                 */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before { left: 0; border-radius: 0 4px 4px 0; }
+        .top-bar::after { right: 0; border-radius: 4px 0 0 4px; }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover { color: #c9a86c; }
+        .top-bar .contact-info i { font-size: 0.65rem; color: #c9a86c; }
+
+        .top-bar .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .social-icons a {
+            color: #8a8680;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .top-bar .social-icons a:hover { color: #c9a86c; }
+
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; align-items: flex-start; padding: 4px 0; }
+            .top-bar::before, .top-bar::after { width: 25px; }
+            .top-bar .contact-info { padding: 0 35px; gap: 8px; }
+            .top-bar .social-icons { padding: 0 35px; }
+            .top-bar .contact-info a, .top-bar .contact-info span { font-size: 0.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before, .top-bar::after { width: 18px; }
+            .top-bar .contact-info { padding: 0 25px; gap: 6px; font-size: 0.55rem; }
+            .top-bar .social-icons { padding: 0 25px; gap: 8px; }
+            .top-bar .social-icons a { font-size: 0.65rem; }
+        }
+
+        /* ========================================== */
+        /*   HEADER                                  */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 40px; height: auto; object-fit: contain; display: block; }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header { top: 34px; padding: 6px 4%; }
+            .logo img { width: 32px; }
+            .logo .logo-text { font-size: 0.65rem; }
+            .logo .logo-text span { font-size: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .main-header { top: 30px; padding: 4px 3%; }
+            .logo img { width: 28px; }
+            .logo .logo-text { font-size: 0.55rem; }
+            .logo .logo-text span { font-size: 0.35rem; }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU BUTTON                      */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover { background: rgba(26, 26, 46, 0.12); }
+        .menu-btn i { font-size: 16px; }
+
+        /* ========================================== */
+        /*   DESKTOP NAVIGATION                      */
+        /* ========================================== */
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li { position: relative; }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu { display: flex !important; }
+        .navigation-menu-bar ul li .submenu li { width: 100%; }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU                             */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .menu-btn { display: flex !important; }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important; left: 0 !important;
+                right: 0 !important; bottom: 0 !important;
+                width: 100% !important; max-width: 100% !important;
+                height: 100vh !important; max-height: 100vh !important;
+                min-height: 100vh !important; overflow-y: auto !important;
+                background: #ffffff !important; display: block !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important; pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important; pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important; flex-direction: column !important;
+                align-items: stretch !important; gap: 0 !important;
+                width: 100% !important; padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important; font-weight: 500 !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                display: flex !important; align-items: center !important;
+                gap: 10px !important; font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important; text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                background: #f8f6f2 !important;
+                display: none !important;
+                flex-direction: column !important;
+                padding: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu { display: flex !important; }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important; font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                font-size: 0.85rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer {
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                border-top: 1px solid #f0ede6 !important;
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.2rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a {
+                color: #8a8680 !important;
+                font-size: 1.1rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .institutional-footer {
+            background: #1a1a2e;
+            color: #d4d0c8;
+            padding: 2.5rem 5% 1.2rem;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .footer-column p, .footer-column address {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover { color: #ffffff !important; }
+
+        .footer-column ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .footer-column ul li { margin-bottom: 0.2rem !important; }
+
+        .footer-column ul li a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+        }
+
+        .footer-column .footer-address-line {
+            display: flex; align-items: flex-start;
+            gap: 10px; margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c; font-size: 0.75rem;
+            margin-top: 4px; width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: #b0aca4; font-size: 0.82rem; line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px; margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem; color: #8a8680;
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff; font-size: 0.8rem;
+            text-transform: uppercase; font-weight: 800;
+            letter-spacing: 0.05em; margin-bottom: 0.2rem;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem; margin-bottom: 0.2rem;
+        }
+
+        .subscription-form { display: flex; gap: 4px; width: 100%; flex-wrap: wrap; }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px; padding: 5px 8px;
+            color: #ffffff; font-size: 0.75rem;
+            flex-grow: 1; outline: none;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .subscription-form input[type="email"]:focus { border-color: #ffffff; }
+
+        .subscription-form button {
+            background: #ffffff; color: #8B5353; border: none;
+            font-weight: 700; padding: 5px 12px; border-radius: 4px;
+            cursor: pointer; text-transform: uppercase;
+            font-size: 0.65rem; letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+            .institutional-footer { font-size: 0.7rem; padding: 1.5rem 4% 1rem; }
+            .footer-column h2 { font-size: 0.6rem !important; }
+        }
+
+        /* ========================================== */
+        /*   FLOATING CHAT                            */
+        /* ========================================== */
+        .floating-chat-container {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+        }
+
+        .floating-chat-link {
+            display: flex; align-items: center; gap: 8px;
+            background: #25d366; color: #ffffff;
+            text-decoration: none; padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 700; font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .floating-chat-link:hover {
+            transform: translateY(-3px) scale(1.03);
+            background: #20ba5a;
+        }
+
+        .floating-chat-link i { font-size: 1.1rem; }
+
+        @media (max-width: 480px) {
+            .floating-chat-link { padding: 8px 12px; }
+            .floating-chat-link span { display: none; }
+            .floating-chat-link i { font-size: 1.3rem; }
+        }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                            */
+        /* ========================================== */
+        * {
+            box-sizing: border-box; margin: 0; padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            overflow-x: hidden !important; width: 100% !important;
+        }
+
+        body {
+            background-color: #fcfdfe;
+            color: #334155;
+            line-height: 1.5;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (max-width: 768px) { body { padding-top: 70px; } }
+        @media (max-width: 480px) { body { padding-top: 60px; } }
+
+        .container-wrapper {
+            max-width: 100% !important; margin: 0 auto;
+            padding: 0 !important; width: 100% !important;
+        }
+
+        /* ========================================== */
+        /*   HERO — ABOUT                            */
+        /* ========================================== */
+        .faith-hero-section {
+            position: relative; width: 100%; height: 380px;
+            background-image: url('https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; margin: 0; padding: 0;
+        }
+
+        .faith-hero-content {
+            position: relative; z-index: 2;
+            text-align: center; color: #ffffff; padding: 0 20px;
+        }
+
+        .faith-hero-content h1 {
+            font-size: 46px; font-weight: 800; letter-spacing: 1px;
+            margin: 0; text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .faith-hero-content .faith-hero-subtitle {
+            font-size: 15px; font-weight: 400; color: #ffffff;
+            margin-top: 14px; letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .faith-hero-content .faith-hero-line {
+            width: 100px; height: 3px; background: #ffffff;
+            margin: 20px auto 0; border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .faith-hero-section { height: 280px; }
+            .faith-hero-content h1 { font-size: 30px; }
+            .faith-hero-content .faith-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .faith-hero-section { height: 240px; }
+            .faith-hero-content h1 { font-size: 24px; }
+            .faith-hero-content .faith-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
+        /*   ABOUT PAGE STYLES                       */
+        /* ========================================== */
+        .logi-biblical-section {
+            padding: 60px 20px !important;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            color: #444 !important;
+            background-color: #ffffff !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+        }
+
+        .logi-biblical-header {
+            max-width: 1050px !important;
+            margin: 0 auto 50px auto !important;
+        }
+
+        .logi-biblical-header h2 {
+            color: #8B5353 !important;
+            font-size: 24px !important;
+            font-weight: bold !important;
+            margin: 0 0 20px 0 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+            text-align: center !important;
+        }
+
+        .logi-biblical-intro {
+            margin-left: 64px !important;
+        }
+
+        .logi-biblical-intro p {
+            font-size: 16px !important;
+            line-height: 1.7 !important;
+            color: #555 !important;
+            margin: 0 0 16px 0 !important;
+            text-align: left !important;
+        }
+
+        .logi-biblical-intro p:last-child { margin-bottom: 0 !important; }
+
+        .logi-biblical-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: space-between !important;
+            gap: 40px 50px !important;
+            max-width: 1050px !important;
+            margin: 0 auto !important;
+        }
+
+        .logi-biblical-card {
+            flex: 0 1 calc(50% - 25px) !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            text-align: left !important;
+            gap: 20px !important;
+            background: transparent !important;
+            box-sizing: border-box !important;
+        }
+
+        .logi-biblical-text h3 {
+            color: #8B5353 !important;
+            font-size: 20px !important;
+            margin: 0 0 8px 0 !important;
+            font-weight: bold !important;
+        }
+
+        .logi-biblical-text p {
+            font-size: 16px !important;
+            line-height: 1.7 !important;
+            color: #555 !important;
+            margin: 0 !important;
+            text-align: left !important;
+        }
+
+        .logi-biblical-icon {
+            width: 44px !important;
+            height: 44px !important;
+            flex-shrink: 0 !important;
+            background: transparent !important;
+            color: #8B5353 !important;
+        }
+
+        .logi-biblical-icon svg {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        @media (max-width: 991px) {
+            .logi-biblical-header h2 { font-size: 30px !important; }
+            .logi-biblical-text h3 { font-size: 18px !important; }
+            .logi-biblical-text p,
+            .logi-biblical-intro p { font-size: 14px !important; }
+        }
+
+        @media (max-width: 650px) {
+            .logi-biblical-section { padding: 20px 15px !important; }
+            .logi-biblical-header h2 { font-size: 24px !important; }
+            .logi-biblical-intro { margin-left: 0 !important; padding: 0 10px !important; }
+            .logi-biblical-intro p { text-align: center !important; }
+            .logi-biblical-grid { flex-direction: column !important; gap: 35px !important; }
+            .logi-biblical-card {
+                flex: 1 1 100% !important;
+                max-width: 100% !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 12px !important;
+            }
+            .logi-biblical-text p { text-align: center !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="faith-hero-section">
+        <div class="faith-hero-content">
+            <h1>About</h1>
+            <div class="faith-hero-line"></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="container-wrapper">
+
+        <!-- === WHO WE ARE === -->
+        <section class="logi-biblical-section">
+
+            <div class="logi-biblical-header">
+                <h2>Who We Are</h2>
+                <div class="logi-biblical-intro">
+                    <p>LOGI Ministry is the ministry arm of Living Oracles Global Institute — a Christ-centred ministry devoted to knowing Christ, following Christ, and making Christ known. We exist to help believers grow in their walk with Jesus through Bible teaching, discipleship, prayer, evangelism, and missions.</p>
+                    <p>Our heart is simple: to see lives transformed by the gospel, to see believers rooted in God's Word, to see the church equipped for works of ministry, and to see the name of Jesus lifted up in every nation.</p>
+                </div>
+            </div>
+
+            <div class="logi-biblical-grid">
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="6"></circle>
+                            <circle cx="12" cy="12" r="2"></circle>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Our Mission</h3>
+                        <p>To help every believer know Christ personally, grow in Him deeply, and make Him known boldly — through Bible teaching, discipleship, prayer, evangelism, and missions.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Our Vision</h3>
+                        <p>A world where every person has the opportunity to hear the gospel, every believer is growing as a disciple of Jesus, and every church is equipped for the work of the ministry.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Our Values</h3>
+                        <p>We are committed to the authority of Scripture, the centrality of the cross, the work of the Holy Spirit, the priority of prayer, and the urgency of the Great Commission.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Our Story</h3>
+                        <p>LOGI Ministry was born out of Living Oracles Global Institute — a Christ-centred institution that had already been training leaders for ministry and the marketplace. This ministry was added to reach beyond the classroom and serve the wider body of Christ.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- === WHAT WE DO === -->
+        <section class="logi-biblical-section" style="background:#fcfdfe !important;">
+
+            <div class="logi-biblical-header">
+                <h2>What We Do</h2>
+                <div class="logi-biblical-intro">
+                    <p>Our ministry is focused on six key areas — all designed to help you know Christ, follow Christ, and make Christ known.</p>
+                </div>
+            </div>
+
+            <div class="logi-biblical-grid">
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Bible Teaching</h3>
+                        <p>We publish Bible studies, sermons, devotionals, and teaching resources to help believers understand and apply God's Word.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Discipleship</h3>
+                        <p>We help new believers grow and mature believers go deeper — through resources on prayer, Christian living, marriage, and spiritual growth.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Prayer</h3>
+                        <p>We stand in prayer for the nations, the church, and the needs of God's people — and we invite you to share your prayer requests with us.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 11l19-9-9 19-2-8-8-2z"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Evangelism</h3>
+                        <p>We equip believers to share the gospel with confidence — at home, at work, in their communities, and online.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Missions</h3>
+                        <p>We support missionaries, church planters, and outreach work around the world — reaching the unreached with the love of Jesus.</p>
+                    </div>
+                </div>
+
+                <div class="logi-biblical-card">
+                    <div class="logi-biblical-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <div class="logi-biblical-text">
+                        <h3>Ministries</h3>
+                        <p>We serve specific groups — youth, children, men, women, families — with resources and teaching tailored to their needs.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- === OUR COMMITMENT === -->
+        <section class="logi-biblical-section">
+
+            <div class="logi-biblical-header">
+                <h2>Our Commitment</h2>
+                <div class="logi-biblical-intro">
+                    <p>We are committed to the authority of God's Word, the centrality of Jesus Christ, and the work of the Holy Spirit. Every sermon we preach, every article we publish, and every ministry we undertake is measured against the Scriptures.</p>
+                    <p>We are not here to build our own name. We are here to lift up the name of Jesus — in every home, every community, and every nation — until He returns.</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <!-- LOAD.JS — fetches header and footer -->
+    <script src="/load.js"></script>
+
+</body>
+</html>
