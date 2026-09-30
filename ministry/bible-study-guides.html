@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport" />
+    <title>Bible Study Guides | Living Oracles Global Institute Ministry</title>
+
+    <!-- Meta Tags -->
+    <meta content="Free Bible study guides organized by series — The Gospel of Luke, Foundations of Faith, and more. Each guide follows our Evaluate, Learn, Lead, Discussion format." name="description" />
+    <meta content="https://logi.education/ministry/bible-study-guides" property="og:url" />
+    <meta content="Bible Study Guides | LOGI Ministry" property="og:title" />
+    <meta content="Free Bible study guides organized by series for personal and group study." property="og:description" />
+
+    <!-- Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- Open Graph -->
+    <meta content="LOGI Ministry" property="og:title" />
+    <meta content="website" property="og:type" />
+    <meta content="https://logi.education/ministry/bible-study-guides" property="og:url" />
+    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
+    <meta content="Free Bible study guides organized by series." property="og:description" />
+    <meta content="summary_large_image" name="twitter:card" />
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   TOP BAR                                 */
+        /* ========================================== */
+        .top-bar {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-bar::before,
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            background: linear-gradient(180deg, 
+                #c9a86c 0%, #c9a86c 20%,
+                #8B5353 20%, #8B5353 40%,
+                #1a7a3a 40%, #1a7a3a 60%,
+                #c9a86c 60%, #c9a86c 80%,
+                #8B5353 80%, #8B5353 100%
+            );
+            opacity: 0.5;
+        }
+
+        .top-bar::before { left: 0; border-radius: 0 4px 4px 0; }
+        .top-bar::after { right: 0; border-radius: 4px 0 0 4px; }
+
+        .top-bar .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .contact-info a,
+        .top-bar .contact-info span {
+            color: #d4d0c8;
+            text-decoration: none;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .top-bar .contact-info a:hover { color: #c9a86c; }
+        .top-bar .contact-info i { font-size: 0.65rem; color: #c9a86c; }
+
+        .top-bar .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar .social-icons a {
+            color: #8a8680;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .top-bar .social-icons a:hover { color: #c9a86c; }
+
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; align-items: flex-start; padding: 4px 0; }
+            .top-bar::before, .top-bar::after { width: 25px; }
+            .top-bar .contact-info { padding: 0 35px; gap: 8px; }
+            .top-bar .social-icons { padding: 0 35px; }
+            .top-bar .contact-info a, .top-bar .contact-info span { font-size: 0.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar::before, .top-bar::after { width: 18px; }
+            .top-bar .contact-info { padding: 0 25px; gap: 6px; font-size: 0.55rem; }
+            .top-bar .social-icons { padding: 0 25px; gap: 8px; }
+            .top-bar .social-icons a { font-size: 0.65rem; }
+        }
+
+        /* ========================================== */
+        /*   HEADER                                  */
+        /* ========================================== */
+        .main-header {
+            background: #ffffff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 38px;
+            left: 0;
+            width: 100%;
+            z-index: 9998;
+            border-bottom: 1px solid #e8e3dc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 40px; height: auto; object-fit: contain; display: block; }
+
+        .logo .logo-text {
+            color: #1a1a2e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo .logo-text span {
+            display: block;
+            font-weight: 300;
+            font-size: 0.45rem;
+            opacity: 0.6;
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 768px) {
+            .main-header { top: 34px; padding: 6px 4%; }
+            .logo img { width: 32px; }
+            .logo .logo-text { font-size: 0.65rem; }
+            .logo .logo-text span { font-size: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .main-header { top: 30px; padding: 4px 3%; }
+            .logo img { width: 28px; }
+            .logo .logo-text { font-size: 0.55rem; }
+            .logo .logo-text span { font-size: 0.35rem; }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU BUTTON                      */
+        /* ========================================== */
+        .menu-btn {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            color: #1a1a2e;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(26, 26, 46, 0.06);
+            border: 1px solid rgba(26, 26, 46, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .menu-btn:hover { background: rgba(26, 26, 46, 0.12); }
+        .menu-btn i { font-size: 16px; }
+
+        /* ========================================== */
+        /*   DESKTOP NAVIGATION                      */
+        /* ========================================== */
+        .navigation-menu-bar {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        .navigation-menu-bar ul {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            list-style: none !important;
+            gap: 0.2rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+        }
+
+        .navigation-menu-bar ul li { position: relative; }
+
+        .navigation-menu-bar ul li a {
+            color: #1a1a2e !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .navigation-menu-bar ul li a:hover {
+            color: #8B5353 !important;
+            background: rgba(139, 83, 83, 0.06);
+        }
+
+        .navigation-menu-bar ul li .submenu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 0.4rem 0;
+            margin-top: 6px;
+            z-index: 1100;
+            animation: fadeInDropdown 0.25s ease;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 0px !important;
+            min-width: 200px;
+            width: max-content !important;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open .submenu { display: flex !important; }
+        .navigation-menu-bar ul li .submenu li { width: 100%; }
+
+        .navigation-menu-bar ul li .submenu li a {
+            color: #1e3c4f !important;
+            font-size: 0.78rem;
+            padding: 8px 16px;
+            width: 100%;
+            border-radius: 0;
+            font-weight: 500;
+            display: block !important;
+            white-space: nowrap !important;
+            text-shadow: none !important;
+        }
+
+        .navigation-menu-bar ul li .submenu li a:hover {
+            background: rgba(139, 83, 83, 0.08) !important;
+            color: #8B5353 !important;
+        }
+
+        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
+            font-size: 0.5rem;
+            transition: transform 0.25s ease;
+        }
+
+        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeInDropdown {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================== */
+        /*   MOBILE MENU                             */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .menu-btn { display: flex !important; }
+
+            .navigation-menu-bar {
+                position: fixed !important;
+                top: 0 !important; left: 0 !important;
+                right: 0 !important; bottom: 0 !important;
+                width: 100% !important; max-width: 100% !important;
+                height: 100vh !important; max-height: 100vh !important;
+                min-height: 100vh !important; overflow-y: auto !important;
+                background: #ffffff !important; display: block !important;
+                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+                z-index: 10000 !important;
+                padding: 70px 1.2rem 1.5rem 1.2rem !important;
+                transform: translateX(100%) !important;
+                opacity: 0 !important; pointer-events: none !important;
+            }
+
+            .navigation-menu-bar.mobile-open {
+                transform: translateX(0) !important;
+                opacity: 1 !important; pointer-events: auto !important;
+            }
+
+            .navigation-menu-bar ul {
+                display: flex !important; flex-direction: column !important;
+                align-items: stretch !important; gap: 0 !important;
+                width: 100% !important; padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .navigation-menu-bar ul li {
+                border-bottom: 1px solid #f0ede6 !important;
+                list-style: none !important;
+            }
+
+            .navigation-menu-bar ul li a {
+                color: #1a1a2e !important; font-weight: 500 !important;
+                padding: 0.7rem 0.5rem !important;
+                justify-content: flex-start !important;
+                border-radius: 0 !important;
+                display: flex !important; align-items: center !important;
+                gap: 10px !important; font-size: 0.95rem !important;
+            }
+
+            .navigation-menu-bar ul li a i {
+                font-size: 1.1rem !important;
+                color: #c9a86c !important;
+                width: 24px !important; text-align: center !important;
+            }
+
+            .navigation-menu-bar ul li .submenu {
+                position: static !important;
+                background: #f8f6f2 !important;
+                display: none !important;
+                flex-direction: column !important;
+                padding: 0 !important;
+                border-left: 3px solid #c9a86c !important;
+            }
+
+            .navigation-menu-bar ul li.mobile-dropdown-open .submenu { display: flex !important; }
+
+            .navigation-menu-bar ul li .submenu li a {
+                color: #1a1a2e !important; font-weight: 400 !important;
+                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
+                font-size: 0.85rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer {
+                margin-top: auto !important;
+                padding-top: 1rem !important;
+                border-top: 1px solid #f0ede6 !important;
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.2rem !important;
+            }
+
+            .navigation-menu-bar .mobile-menu-footer a {
+                color: #8a8680 !important;
+                font-size: 1.1rem !important;
+            }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .institutional-footer {
+            background: #1a1a2e;
+            color: #d4d0c8;
+            padding: 2.5rem 5% 1.2rem;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        .footer-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .footer-column h2 {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.6rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .footer-column p, .footer-column address {
+            color: #b0aca4;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-style: normal;
+            margin-bottom: 4px;
+        }
+
+        .footer-column a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+            transition: color 0.25s ease !important;
+            display: inline-block;
+        }
+
+        .footer-column a:hover { color: #ffffff !important; }
+
+        .footer-column ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .footer-column ul li { margin-bottom: 0.2rem !important; }
+
+        .footer-column ul li a {
+            color: #b0aca4 !important;
+            text-decoration: none !important;
+            font-size: 0.82rem !important;
+        }
+
+        .footer-column .footer-address-line {
+            display: flex; align-items: flex-start;
+            gap: 10px; margin-bottom: 4px;
+        }
+
+        .footer-column .footer-address-line i {
+            color: #c9a86c; font-size: 0.75rem;
+            margin-top: 4px; width: 16px;
+        }
+
+        .footer-column .footer-address-line span {
+            color: #b0aca4; font-size: 0.82rem; line-height: 1.6;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1200px; margin: 1.2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 0.6rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem; color: #8a8680;
+        }
+
+        .footer-subscription-container h3 {
+            color: #ffffff; font-size: 0.8rem;
+            text-transform: uppercase; font-weight: 800;
+            letter-spacing: 0.05em; margin-bottom: 0.2rem;
+        }
+
+        .footer-subscription-container p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem; margin-bottom: 0.2rem;
+        }
+
+        .subscription-form { display: flex; gap: 4px; width: 100%; flex-wrap: wrap; }
+
+        .subscription-form input[type="email"] {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px; padding: 5px 8px;
+            color: #ffffff; font-size: 0.75rem;
+            flex-grow: 1; outline: none;
+            min-width: 100px;
+        }
+
+        .subscription-form input[type="email"]::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .subscription-form input[type="email"]:focus { border-color: #ffffff; }
+
+        .subscription-form button {
+            background: #ffffff; color: #8B5353; border: none;
+            font-weight: 700; padding: 5px 12px; border-radius: 4px;
+            cursor: pointer; text-transform: uppercase;
+            font-size: 0.65rem; letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+            .institutional-footer { font-size: 0.75rem; }
+            .footer-column h2 { font-size: 0.7rem !important; }
+            .footer-column p, .footer-column address, .footer-column a,
+            .footer-column ul li a, .footer-column .footer-address-line span {
+                font-size: 0.72rem !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+            .institutional-footer { font-size: 0.7rem; padding: 1.5rem 4% 1rem; }
+            .footer-column h2 { font-size: 0.6rem !important; }
+        }
+
+        /* ========================================== */
+        /*   FLOATING CHAT                            */
+        /* ========================================== */
+        .floating-chat-container {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+        }
+
+        .floating-chat-link {
+            display: flex; align-items: center; gap: 8px;
+            background: #25d366; color: #ffffff;
+            text-decoration: none; padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 700; font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .floating-chat-link:hover {
+            transform: translateY(-3px) scale(1.03);
+            background: #20ba5a;
+        }
+
+        .floating-chat-link i { font-size: 1.1rem; }
+
+        @media (max-width: 480px) {
+            .floating-chat-link { padding: 8px 12px; }
+            .floating-chat-link span { display: none; }
+            .floating-chat-link i { font-size: 1.3rem; }
+        }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                            */
+        /* ========================================== */
+        * {
+            box-sizing: border-box; margin: 0; padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            overflow-x: hidden !important; width: 100% !important;
+        }
+
+        body {
+            background-color: #fcfdfe;
+            color: #334155;
+            line-height: 1.5;
+            padding-top: 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (max-width: 768px) { body { padding-top: 70px; } }
+        @media (max-width: 480px) { body { padding-top: 60px; } }
+
+        .container-wrapper {
+            max-width: 100% !important; margin: 0 auto;
+            padding: 0 !important; width: 100% !important;
+        }
+
+        /* ========================================== */
+        /*   HERO — BIBLE STUDY GUIDES               */
+        /* ========================================== */
+        .faith-hero-section {
+            position: relative; width: 100%; height: 380px;
+            background-image: url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; margin: 0; padding: 0;
+        }
+
+        .faith-hero-content {
+            position: relative; z-index: 2;
+            text-align: center; color: #ffffff; padding: 0 20px;
+        }
+
+        .faith-hero-content h1 {
+            font-size: 46px; font-weight: 800; letter-spacing: 1px;
+            margin: 0; text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
+            line-height: 1.2;
+        }
+
+        .faith-hero-content .faith-hero-subtitle {
+            font-size: 15px; font-weight: 400; color: #ffffff;
+            margin-top: 14px; letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .faith-hero-content .faith-hero-line {
+            width: 100px; height: 3px; background: #ffffff;
+            margin: 20px auto 0; border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .faith-hero-section { height: 280px; }
+            .faith-hero-content h1 { font-size: 30px; }
+            .faith-hero-content .faith-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .faith-hero-section { height: 240px; }
+            .faith-hero-content h1 { font-size: 24px; }
+            .faith-hero-content .faith-hero-subtitle { font-size: 10px; }
+        }
+
+        /* ========================================== */
+        /*   PAGE STYLES                             */
+        /* ========================================== */
+        .logi-biblical-section {
+            padding: 60px 20px !important;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            color: #444 !important;
+            background-color: #ffffff !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+        }
+
+        .logi-biblical-header {
+            max-width: 1050px !important;
+            margin: 0 auto 50px auto !important;
+        }
+
+        .logi-biblical-header h2 {
+            color: #8B5353 !important;
+            font-size: 24px !important;
+            font-weight: bold !important;
+            margin: 0 0 20px 0 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+            text-align: center !important;
+        }
+
+        .logi-biblical-intro {
+            margin-left: 64px !important;
+        }
+
+        .logi-biblical-intro p {
+            font-size: 16px !important;
+            line-height: 1.7 !important;
+            color: #555 !important;
+            margin: 0 0 16px 0 !important;
+            text-align: left !important;
+        }
+
+        .logi-biblical-intro p:last-child { margin-bottom: 0 !important; }
+
+        .logi-biblical-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            justify-content: space-between !important;
+            gap: 40px 50px !important;
+            max-width: 1050px !important;
+            margin: 0 auto !important;
+        }
+
+        .logi-biblical-card {
+            flex: 0 1 calc(50% - 25px) !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            text-align: left !important;
+            gap: 20px !important;
+            background: transparent !important;
+            box-sizing: border-box !important;
+        }
+
+        .logi-biblical-text h3 {
+            color: #8B5353 !important;
+            font-size: 20px !important;
+            margin: 0 0 8px 0 !important;
+            font-weight: bold !important;
+        }
+
+        .logi-biblical-text p {
+            font-size: 16px !important;
+            line-height: 1.7 !important;
+            color: #555 !important;
+            margin: 0 0 10px 0 !important;
+            text-align: left !important;
+        }
+
+        .logi-biblical-text p:last-child { margin-bottom: 0 !important; }
+
+        .logi-biblical-text p a {
+            color: #8B5353 !important;
+            text-decoration: none !important;
+            font-weight: 700 !important;
+        }
+
+        .logi-biblical-text p a:hover {
+            text-decoration: underline !important;
+        }
+
+        .logi-biblical-icon {
+            width: 44px !important;
+            height: 44px !important;
+            flex-shrink: 0 !important;
+            background: transparent !important;
+            color: #8B5353 !important;
+        }
+
+        .logi-biblical-icon svg {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* ========================================== */
+        /*   FEATURED SERIES CARD                    */
+        /* ========================================== */
+        .logi-featured-series {
+            max-width: 1050px !important;
+            margin: 0 auto 60px auto !important;
+            padding: 40px !important;
+            border-left: 4px solid #8B5353 !important;
+            background: linear-gradient(135deg, #fdf8f8 0%, #ffffff 100%) !important;
+            border-radius: 0 12px 12px 0 !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 24px !important;
+            box-sizing: border-box !important;
+        }
+
+        .logi-featured-series-icon {
+            width: 60px !important;
+            height: 60px !important;
+            flex-shrink: 0 !important;
+            color: #8B5353 !important;
+        }
+
+        .logi-featured-series-icon svg {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .logi-featured-series-text {
+            flex: 1 !important;
+        }
+
+        .logi-featured-series-text h3 {
+            color: #8B5353 !important;
+            font-size: 24px !important;
+            font-weight: 800 !important;
+            margin: 0 0 10px 0 !important;
+            line-height: 1.25 !important;
+        }
+
+        .logi-featured-series-text .featured-meta {
+            display: inline-flex !important;
+            flex-wrap: wrap !important;
+            gap: 14px !important;
+            margin: 0 0 12px 0 !important;
+            font-size: 13px !important;
+            color: #8B5353 !important;
+            font-weight: 600 !important;
+        }
+
+        .logi-featured-series-text .featured-meta span {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+        }
+
+        .logi-featured-series-text p {
+            font-size: 16px !important;
+            line-height: 1.7 !important;
+            color: #555 !important;
+            margin: 0 0 16px 0 !important;
+        }
+
+        .logi-featured-series-text .featured-cta {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            background: #8B5353 !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            padding: 12px 24px !important;
+            border-radius: 50px !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 6px 16px rgba(139, 83, 83, 0.22) !important;
+        }
+
+        .logi-featured-series-text .featured-cta:hover {
+            background: #6d3d3d !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 10px 24px rgba(139, 83, 83, 0.35) !important;
+        }
+
+        /* ========================================== */
+        /*   LESSON LIST                             */
+        /* ========================================== */
+        .logi-lesson-list {
+            max-width: 1050px !important;
+            margin: 0 auto !important;
+        }
+
+        .logi-lesson-item {
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 20px !important;
+            padding: 24px 0 !important;
+            border-bottom: 1px solid #ebe5dc !important;
+        }
+
+        .logi-lesson-item:last-child {
+            border-bottom: none !important;
+        }
+
+        .logi-lesson-number {
+            flex-shrink: 0 !important;
+            width: 48px !important;
+            height: 48px !important;
+            border-radius: 50% !important;
+            border: 1.5px solid #8B5353 !important;
+            color: #8B5353 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 15px !important;
+            font-weight: 800 !important;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        }
+
+        .logi-lesson-body {
+            flex: 1 !important;
+        }
+
+        .logi-lesson-body h4 {
+            color: #8B5353 !important;
+            font-size: 18px !important;
+            font-weight: 800 !important;
+            margin: 0 0 6px 0 !important;
+            line-height: 1.3 !important;
+        }
+
+        .logi-lesson-scripture {
+            font-size: 14px !important;
+            color: #6d3d3d !important;
+            font-weight: 600 !important;
+            margin: 0 0 10px 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+        }
+
+        .logi-lesson-scripture i {
+            font-size: 12px !important;
+            opacity: 0.8 !important;
+        }
+
+        .logi-lesson-goal {
+            font-size: 15px !important;
+            line-height: 1.7 !important;
+            color: #555 !important;
+            font-style: italic !important;
+            margin: 0 0 14px 0 !important;
+        }
+
+        .logi-lesson-actions {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 16px !important;
+            align-items: center !important;
+        }
+
+        .logi-lesson-download {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            color: #8B5353 !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            text-decoration: none !important;
+            border-bottom: 1.5px solid #8B5353 !important;
+            padding-bottom: 2px !important;
+            transition: gap 0.25s ease !important;
+        }
+
+        .logi-lesson-download:hover { gap: 10px !important; }
+
+        .logi-lesson-preview {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            color: #6d3d3d !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            text-decoration: none !important;
+            transition: color 0.25s ease !important;
+        }
+
+        .logi-lesson-preview:hover { color: #8B5353 !important; }
+
+        /* Scripture quote block */
+        .logi-scripture {
+            max-width: 1050px !important;
+            margin: 40px auto !important;
+            padding: 0 0 0 24px !important;
+            border-left: 4px solid #c9a86c !important;
+        }
+
+        .logi-scripture p {
+            font-size: 16px !important;
+            font-style: italic !important;
+            line-height: 1.8 !important;
+            color: #555 !important;
+            margin: 0 0 8px 0 !important;
+        }
+
+        .logi-scripture .verse-ref {
+            color: #8B5353 !important;
+            font-weight: 800 !important;
+            font-style: normal !important;
+            font-size: 13px !important;
+            letter-spacing: 1px !important;
+            text-transform: uppercase !important;
+            display: block !important;
+            margin-bottom: 6px !important;
+        }
+
+        /* ========================================== */
+        /*   FORMAT EXPLAINER                        */
+        /* ========================================== */
+        .logi-format-grid {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 20px !important;
+            max-width: 1050px !important;
+            margin: 0 auto !important;
+        }
+
+        .logi-format-item {
+            text-align: center !important;
+            padding: 20px 12px !important;
+        }
+
+        .logi-format-item .format-icon {
+            width: 44px !important;
+            height: 44px !important;
+            margin: 0 auto 12px !important;
+            color: #8B5353 !important;
+        }
+
+        .logi-format-item .format-icon svg {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .logi-format-item h4 {
+            color: #8B5353 !important;
+            font-size: 15px !important;
+            font-weight: 800 !important;
+            margin: 0 0 8px 0 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .logi-format-item p {
+            font-size: 13px !important;
+            line-height: 1.6 !important;
+            color: #555 !important;
+            margin: 0 !important;
+        }
+
+        @media (max-width: 991px) {
+            .logi-biblical-header h2 { font-size: 30px !important; }
+            .logi-biblical-text h3 { font-size: 18px !important; }
+            .logi-biblical-text p,
+            .logi-biblical-intro p,
+            .logi-scripture p { font-size: 14px !important; }
+            .logi-featured-series-text h3 { font-size: 20px !important; }
+            .logi-format-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+
+        @media (max-width: 650px) {
+            .logi-biblical-section { padding: 20px 15px !important; }
+            .logi-biblical-header h2 { font-size: 24px !important; }
+            .logi-biblical-intro { margin-left: 0 !important; padding: 0 10px !important; }
+            .logi-biblical-intro p { text-align: center !important; }
+            .logi-biblical-grid { flex-direction: column !important; gap: 35px !important; }
+            .logi-biblical-card {
+                flex: 1 1 100% !important;
+                max-width: 100% !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 12px !important;
+            }
+            .logi-biblical-text p { text-align: center !important; }
+            .logi-scripture { padding: 0 15px !important; }
+            .logi-scripture p { text-align: left !important; }
+
+            .logi-featured-series {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 28px 20px !important;
+                gap: 16px !important;
+            }
+            .logi-featured-series-text h3 { font-size: 18px !important; }
+            .logi-featured-series-text p { text-align: center !important; font-size: 14px !important; }
+
+            .logi-lesson-item {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 12px !important;
+            }
+            .logi-lesson-body h4 { font-size: 16px !important; }
+            .logi-lesson-scripture { justify-content: center !important; }
+            .logi-lesson-actions { justify-content: center !important; }
+
+            .logi-format-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .logi-format-item h4 { font-size: 13px !important; }
+            .logi-format-item p { font-size: 12px !important; }
+        }
+
+        @media (max-width: 400px) {
+            .logi-format-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- HERO -->
+    <section class="faith-hero-section">
+        <div class="faith-hero-content">
+            <h1>Bible Study Guides</h1>
+            <p class="faith-hero-subtitle">Free Resources for Deeper Study</p>
+            <div class="faith-hero-line"></div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="container-wrapper">
+
+        <!-- === ABOUT OUR GUIDES === -->
+        <section class="logi-biblical-section">
+
+            <div class="logi-biblical-header">
+                <h2>About Our Guides</h2>
+                <div class="logi-biblical-intro">
+                    <p>Our Bible study guides are designed to help you go deeper into God's Word — whether you are studying alone, with a friend, or leading a small group. Each guide is written to be simple, practical, and Christ-centred.</p>
+                    <p>Every guide is <strong>completely free</strong>. Download them, print them, share them — our only aim is to help you know Christ more deeply and follow Him more faithfully.</p>
+                </div>
+            </div>
+
+            <div class="logi-scripture">
+                <span class="verse-ref">2 Timothy 2:15 (KJV)</span>
+                <p>"Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."</p>
+            </div>
+
+        </section>
+
+        <!-- === FEATURED SERIES === -->
+        <section class="logi-biblical-section" style="background:#fcfdfe !important;">
+
+            <div class="logi-biblical-header">
+                <h2>Featured Series</h2>
+                <div class="logi-biblical-intro">
+                    <p>Start with our flagship series — a verse-by-verse walk through one of the Gospels. Perfect for personal devotions, small groups, and discipleship relationships.</p>
+                </div>
+            </div>
+
+            <!-- Featured Series: The Gospel of Luke -->
+            <div class="logi-featured-series">
+                <div class="logi-featured-series-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                </div>
+                <div class="logi-featured-series-text">
+                    <h3>The Gospel of Luke</h3>
+                    <div class="featured-meta">
+                        <span><i class="fas fa-book-open"></i> 24 Lessons</span>
+                        <span><i class="fas fa-clock"></i> 30–45 min each</span>
+                        <span><i class="fas fa-users"></i> Personal &amp; Group</span>
+                    </div>
+                    <p>A verse-by-verse journey through the Gospel of Luke — from Gabriel's announcement to Mary, to the birth, life, death, and resurrection of Jesus Christ. Each lesson follows our Evaluate → Learn → Lead → Discussion format.</p>
+                    <a href="#luke-series" class="featured-cta">
+                        <i class="fas fa-arrow-down"></i>
+                        View All Lessons
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- === LESSON LIST === -->
+        <section class="logi-biblical-section" id="luke-series">
+
+            <div class="logi-biblical-header">
+                <h2>The Gospel of Luke — All Lessons</h2>
+                <div class="logi-biblical-intro">
+                    <p>Click any lesson below to download the PDF study guide. Each guide includes the Scripture reading, lesson goal, and questions organized under Evaluate, Learn, Lead, and Discussion.</p>
+                </div>
+            </div>
+
+            <div class="logi-lesson-list">
+
+                <!-- Lesson 1 -->
+                <div class="logi-lesson-item">
+                    <div class="logi-lesson-number">1</div>
+                    <div class="logi-lesson-body">
+                        <h4>Gabriel Announces the Birth of the Savior</h4>
+                        <div class="logi-lesson-scripture">
+                            <i class="fas fa-book-bible"></i>
+                            Luke 1:26–56
+                        </div>
+                        <p class="logi-lesson-goal">How does Gabriel's announcement to Mary reveal God's faithfulness to his promises and his power to fulfill salvation through ordinary people?</p>
+                        <div class="logi-lesson-actions">
+                            <a href="pdfs/luke-01-gabriel.pdf" class="logi-lesson-download" download>
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="pdfs/luke-01-gabriel.pdf" class="logi-lesson-preview" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="logi-lesson-item">
+                    <div class="logi-lesson-number">2</div>
+                    <div class="logi-lesson-body">
+                        <h4>Mary Visits Elizabeth</h4>
+                        <div class="logi-lesson-scripture">
+                            <i class="fas fa-book-bible"></i>
+                            Luke 1:39–56
+                        </div>
+                        <p class="logi-lesson-goal">How does Mary's song of praise reveal the kind of heart God honors and the kind of kingdom He is building?</p>
+                        <div class="logi-lesson-actions">
+                            <a href="pdfs/luke-02-mary-visits-elizabeth.pdf" class="logi-lesson-download" download>
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="pdfs/luke-02-mary-visits-elizabeth.pdf" class="logi-lesson-preview" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div class="logi-lesson-item">
+                    <div class="logi-lesson-number">3</div>
+                    <div class="logi-lesson-body">
+                        <h4>The Birth of John the Baptist</h4>
+                        <div class="logi-lesson-scripture">
+                            <i class="fas fa-book-bible"></i>
+                            Luke 1:57–80
+                        </div>
+                        <p class="logi-lesson-goal">How does the birth of John the Baptist prepare the way for the coming of the Savior and demonstrate God's faithfulness?</p>
+                        <div class="logi-lesson-actions">
+                            <a href="pdfs/luke-03-birth-john.pdf" class="logi-lesson-download" download>
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="pdfs/luke-03-birth-john.pdf" class="logi-lesson-preview" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lesson 4 -->
+                <div class="logi-lesson-item">
+                    <div class="logi-lesson-number">4</div>
+                    <div class="logi-lesson-body">
+                        <h4>The Birth of Jesus Christ</h4>
+                        <div class="logi-lesson-scripture">
+                            <i class="fas fa-book-bible"></i>
+                            Luke 2:1–20
+                        </div>
+                        <p class="logi-lesson-goal">How does the humble birth of Jesus reveal the character of God and the nature of the salvation He came to bring?</p>
+                        <div class="logi-lesson-actions">
+                            <a href="pdfs/luke-04-birth-jesus.pdf" class="logi-lesson-download" download>
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="pdfs/luke-04-birth-jesus.pdf" class="logi-lesson-preview" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lesson 5 -->
+                <div class="logi-lesson-item">
+                    <div class="logi-lesson-number">5</div>
+                    <div class="logi-lesson-body">
+                        <h4>Jesus Presented at the Temple</h4>
+                        <div class="logi-lesson-scripture">
+                            <i class="fas fa-book-bible"></i>
+                            Luke 2:21–40
+                        </div>
+                        <p class="logi-lesson-goal">What do Simeon and Anna teach us about waiting on God, recognizing the Savior, and testifying of Him to others?</p>
+                        <div class="logi-lesson-actions">
+                            <a href="pdfs/luke-05-presented-temple.pdf" class="logi-lesson-download" download>
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="pdfs/luke-05-presented-temple.pdf" class="logi-lesson-preview" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lesson 6 -->
+                <div class="logi-lesson-item">
+                    <div class="logi-lesson-number">6</div>
+                    <div class="logi-lesson-body">
+                        <h4>The Boy Jesus in the Temple</h4>
+                        <div class="logi-lesson-scripture">
+                            <i class="fas fa-book-bible"></i>
+                            Luke 2:41–52
+                        </div>
+                        <p class="logi-lesson-goal">What does the young Jesus teach us about growing in wisdom, in favor with God and man, and in obedience to His Father?</p>
+                        <div class="logi-lesson-actions">
+                            <a href="pdfs/luke-06-boy-jesus.pdf" class="logi-lesson-download" download>
+                                <i class="fas fa-download"></i>
+                                Download PDF
+                            </a>
+                            <a href="pdfs/luke-06-boy-jesus.pdf" class="logi-lesson-preview" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More lessons coming -->
+                <div class="logi-lesson-item" style="border-bottom:none;">
+                    <div class="logi-lesson-number" style="border-style:dashed;opacity:0.6;">+</div>
+                    <div class="logi-lesson-body">
+                        <h4 style="opacity:0.7;">More Lessons Coming Soon</h4>
+                        <div class="logi-lesson-scripture" style="opacity:0.7;">
+                            <i class="fas fa-hourglass-half"></i>
+                            New lessons added monthly
+                        </div>
+                        <p class="logi-lesson-goal" style="opacity:0.75;">We are adding new lessons to the Gospel of Luke series every month. Check back soon, or contact us to request a specific passage.</p>
+                        <div class="logi-lesson-actions">
+                            <a href="/ministry/contact" class="logi-lesson-download">
+                                <i class="fas fa-envelope"></i>
+                                Request a Lesson
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- === FORMAT EXPLAINER === -->
+        <section class="logi-biblical-section" style="background:#fcfdfe !important;">
+
+            <div class="logi-biblical-header">
+                <h2>How Our Study Guides Are Structured</h2>
+                <div class="logi-biblical-intro">
+                    <p>Every lesson follows the same simple structure — so whether you're studying alone or leading a group, you know exactly what to expect and how to engage with the passage.</p>
+                </div>
+            </div>
+
+            <div class="logi-format-grid">
+
+                <div class="logi-format-item">
+                    <div class="format-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <h4>Evaluate</h4>
+                    <p>Observe the text — who, what, where, when, and the problem being addressed.</p>
+                </div>
+
+                <div class="logi-format-item">
+                    <div class="format-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                    <h4>Learn</h4>
+                    <p>Discover the main theme, the sin to confess, and the love of God in the passage.</p>
+                </div>
+
+                <div class="logi-format-item">
+                    <div class="format-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 11l19-9-9 19-2-8-8-2z"></path>
+                        </svg>
+                    </div>
+                    <h4>Lead</h4>
+                    <p>Apply the truth — how will you live it out and share it with others?</p>
+                </div>
+
+                <div class="logi-format-item">
+                    <div class="format-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        </svg>
+                    </div>
+                    <h4>Discussion</h4>
+                    <p>Go deeper — wrestle with hard questions and related Scripture passages.</p>
+                </div>
+
+                <div class="logi-format-item">
+                    <div class="format-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h4>Wrap-Up</h4>
+                    <p>Restate the lesson goal and reflect on what God has taught you.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- === REQUEST A GUIDE === -->
+        <section class="logi-biblical-section">
+
+            <div class="logi-biblical-header">
+                <h2>Can't Find What You Need?</h2>
+                <div class="logi-biblical-intro">
+                    <p>We are continually adding new Bible study guides. If you are looking for a study on a specific book, topic, or theme that we do not yet have, we would love to hear from you.</p>
+                    <p>Send us your request and we will do our best to create a study guide to help you go deeper into God's Word.</p>
+                </div>
+            </div>
+
+            <div class="logi-scripture">
+                <span class="verse-ref">Psalm 119:105 (KJV)</span>
+                <p>"Thy word is a lamp unto my feet, and a light unto my path."</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <!-- LOAD.JS -->
+    <script src="/load.js"></script>
+
+</body>
+</html>
