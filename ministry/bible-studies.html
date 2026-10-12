@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Bible Studies | Living Oracles Global Institute Ministry</title>
+    <title>Bible Stories by Category — Living Oracles Global Institute</title>
 
-    <meta name="description" content="Explore Bible studies from LOGI Ministry. Study Scripture by topic and book, reflect on key questions, and apply God's Word to daily life." />
-    <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png" />
-    <link rel="apple-touch-icon" href="https://i.imgur.com/kkE49KM.png" />
-
-    <meta property="og:title" content="Bible Studies | LOGI Ministry" />
+    <meta name="description" content="Explore Bible stories organized by category. Each story includes a full study: Prepare, Think → Evaluate, Learn, Lead, Discussion, and a Goal." />
+    <meta property="og:title" content="Bible Stories by Category — Living Oracles Global Institute" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://logi.education/ministry/bible-studies" />
+    <meta property="og:url" content="https://logi.education/ministry/bible-stories" />
     <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
-    <meta property="og:description" content="Explore Scripture. Grow in truth. Live the Word." />
+    <meta property="og:description" content="Bible stories organized by category, each with a full guided study." />
+    <meta property="og:site_name" content="Living Oracles Global Institute" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
@@ -667,7 +669,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
             background: transparent;
             padding: 0;
@@ -691,14 +693,6 @@
         }
 
         .section-bg h2:first-of-type { margin-top: 0; }
-
-        .section-bg h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #8b5353;
-            margin: 25px 0 12px;
-            text-align: left;
-        }
 
         .section-bg p {
             font-size: 16px;
@@ -741,274 +735,203 @@
         .scripture strong { color: #8b5353; }
 
         /* ========================================== */
-        /*   STUDY TOOLS (SEARCH + FILTER)           */
+        /*   STORY GRID — 2 COLUMNS                  */
         /* ========================================== */
-        .study-tools {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin: 0 0 1.75rem;
-        }
-
-        .search-wrap { flex: 1 1 280px; position: relative; }
-
-        .search-wrap i {
-            position: absolute;
-            top: 50%;
-            left: 1rem;
-            transform: translateY(-50%);
-            color: #8b5353;
-            font-size: 0.85rem;
-        }
-
-        .search-wrap input {
-            width: 100%;
-            border: 1.5px solid #e8e3dc;
-            border-radius: 10px;
-            padding: 0.85rem 1rem 0.85rem 2.6rem;
-            font-size: 0.9rem;
-            font-family: inherit;
-            background: #ffffff;
-            color: #1a1a2e;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-wrap input:focus {
-            border-color: #8b5353;
-            box-shadow: 0 0 0 3px rgba(139, 83, 83, 0.10);
-        }
-
-        .filter-list { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-
-        .filter-btn {
-            border: 1.5px solid #e8e3dc;
-            border-radius: 50px;
-            padding: 0.55rem 1rem;
-            color: #4a5568;
-            background: #ffffff;
-            font-family: inherit;
-            font-size: 0.78rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        .filter-btn.active,
-        .filter-btn:hover {
-            color: #ffffff;
-            background: #8b5353;
-            border-color: #8b5353;
-        }
-
-        /* ========================================== */
-        /*   STUDY GRID                              */
-        /* ========================================== */
-        .study-grid {
+        .story-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.25rem;
-            margin: 0 0 1.5rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin: 0 0 20px;
         }
 
-        .study-card {
-            display: flex;
-            flex-direction: column;
+        .story-card {
+            background: #fbf9f6;
             border: 1px solid #ece7e1;
             border-radius: 14px;
             overflow: hidden;
-            background: #ffffff;
-            box-shadow: 0 4px 16px rgba(41, 37, 36, 0.04);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            transition: all 0.3s ease;
         }
 
-        .study-card[hidden] { display: none !important; }
-
-        .study-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 32px rgba(139, 83, 83, 0.12);
+        .story-card:hover {
+            border-color: #8b5353;
+            background: #fdf8f3;
         }
 
-        .study-card-top {
-            padding: 1.25rem 1.25rem 1rem;
-            background: linear-gradient(135deg, #fdf8f3, #fbf3eb);
-            border-bottom: 1px solid #f1e7db;
+        .story-card[open] {
+            border-color: #8b5353;
+            background: #fdf8f3;
         }
 
-        .study-card-icon {
-            width: 44px;
-            height: 44px;
-            display: grid;
-            place-items: center;
-            border-radius: 12px;
-            color: #ffffff;
-            background: linear-gradient(135deg, #8b5353, #c9a86c);
-            font-size: 1.05rem;
-            margin-bottom: 1rem;
-        }
-
-        .study-card h3 {
-            font-size: 1.1rem;
+        .story-card summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.98rem;
             color: #8b5353;
-            margin-bottom: 0.45rem;
+            list-style: none;
+            transition: color 0.3s ease;
+        }
+
+        .story-card summary::-webkit-details-marker { display: none; }
+
+        .story-card summary:hover { color: #6d3d3d; }
+
+        .story-card summary:after {
+            content: '+';
+            font-size: 1.4rem;
+            line-height: 1;
+            color: #8b5353;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .story-card[open] summary:after { content: '−'; }
+
+        .story-card .story-title {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .story-card .story-title .story-name {
             font-weight: 800;
+            font-size: 0.98rem;
+            color: #8b5353;
             line-height: 1.3;
         }
 
-        .study-card-top p {
-            color: #6b7280;
-            font-size: 0.83rem;
-            line-height: 1.65;
-            margin: 0;
+        /* ========================================== */
+        /*   STORY REFERENCE — BLACK                 */
+        /* ========================================== */
+        .story-card .story-title .story-ref {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #000000;
+            letter-spacing: 0.4px;
+            font-family: 'Courier New', monospace;
         }
 
-        .study-card-body {
-            padding: 1.15rem 1.25rem 1.3rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
+        .story-body {
+            padding: 0 20px 20px 20px;
+            border-top: 1px solid #ece7e1;
+            margin-top: 0;
+            animation: slideDown 0.3s ease;
         }
 
-        .study-ref {
-            display: inline-flex;
-            align-self: flex-start;
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .story-body h4 {
             color: #8b5353;
-            background: #fdf3ee;
-            border: 1px solid #f1d9cd;
-            padding: 0.3rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.72rem;
+            font-size: 0.78rem;
+            margin: 16px 0 8px;
             font-weight: 800;
-            margin-bottom: 0.85rem;
-            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
         }
 
-        .study-card-body > p {
+        .story-body h4:first-child { margin-top: 16px; }
+
+        .story-body p {
             color: #4a5568;
             font-size: 0.87rem;
             line-height: 1.7;
-            margin: 0;
+            margin: 0 0 10px;
         }
 
-        .study-card details {
-            margin-top: 1rem;
-            border-top: 1px solid #eee7df;
-            padding-top: 0.8rem;
-        }
-
-        .study-card summary {
-            cursor: pointer;
-            color: #8b5353;
-            font-size: 0.85rem;
-            font-weight: 800;
-            list-style: none;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.5rem;
-        }
-
-        .study-card summary::-webkit-details-marker { display: none; }
-        .study-card summary:after { content: '+'; font-size: 1.15rem; line-height: 1; }
-        .study-card details[open] summary:after { content: '−'; }
-
-        .study-content { padding-top: 0.85rem; }
-
-        .study-content h4 {
-            color: #8b5353;
-            font-size: 0.82rem;
-            margin: 1rem 0 0.4rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .study-content p {
-            color: #4a5568;
-            font-size: 0.85rem;
-            line-height: 1.75;
-            margin: 0.45rem 0;
-        }
-
-        .study-content ol {
+        .story-body ol {
             padding-left: 1.3rem;
             color: #4a5568;
-            font-size: 0.83rem;
+            font-size: 0.86rem;
             line-height: 1.75;
+            margin: 0 0 8px;
         }
 
-        .study-content ol li {
-            padding-left: 0.2rem;
-            margin: 0.25rem 0;
+        .story-body ol li {
+            padding-left: 0.15rem;
+            margin: 0.3rem 0;
         }
 
-        .study-empty {
-            display: none;
-            padding: 2rem;
-            text-align: center;
-            color: #6b7280;
-            background: #ffffff;
-            border: 1px dashed #d6d3d1;
-            border-radius: 12px;
+        .story-body .goal {
+            background: #fdf3ee;
+            border-left: 3px solid #c9a86c;
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.86rem;
+            color: #6d3d3d;
+            margin-top: 12px;
         }
 
-        @media (max-width: 900px) {
-            .study-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .story-body .goal strong { color: #8b5353; }
+
+        @media (max-width: 800px) {
+            .story-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 600px) {
-            .study-grid { grid-template-columns: 1fr; }
-            .filter-list { width: 100%; }
-            .filter-btn { flex: 1 1 auto; text-align: center; }
+            .story-card summary { padding: 14px 16px; }
+            .story-body { padding: 0 16px 16px 16px; }
         }
 
         /* ========================================== */
-        /*   HOW TO STUDY — 4 STEPS                  */
+        /*   CATEGORY HEADING                        */
         /* ========================================== */
-        .how-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1rem;
-            margin: 25px 0 0;
+        .category-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 50px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e8e3dc;
         }
 
-        .how-card {
-            padding: 4px 0 4px 20px;
-            border-left: 3px solid #8b5353;
-            background: transparent;
-        }
+        .category-heading:first-of-type { margin-top: 0; }
 
-        .how-card .num {
-            color: #c9a86c;
-            font-size: 0.72rem;
-            font-weight: 900;
-            letter-spacing: 0.12em;
-            display: block;
-            margin-bottom: 0.4rem;
-        }
-
-        .how-card h3 {
+        .category-heading .cat-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5353, #c9a86c);
+            color: #ffffff;
             font-size: 1rem;
-            color: #8b5353;
-            margin: 0 0 0.45rem;
             font-weight: 800;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(139, 83, 83, 0.25);
         }
 
-        .how-card p {
-            color: #4a5568;
-            font-size: 0.85rem;
-            line-height: 1.7;
+        .category-heading h2 {
+            border: none;
             margin: 0;
+            padding: 0;
+            font-size: 22px;
+            color: #8b5353;
+            font-weight: 800;
+            line-height: 1.2;
         }
 
-        @media (max-width: 900px) {
-            .how-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+        .category-heading .cat-sub {
+            display: block;
+            font-size: 0.75rem;
+            color: #c9a86c;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            text-transform: uppercase;
         }
 
-        @media (max-width: 520px) {
-            .how-grid { grid-template-columns: 1fr; }
+        @media (max-width: 600px) {
+            .category-heading h2 { font-size: 18px; }
+            .category-heading .cat-num { width: 34px; height: 34px; font-size: 0.85rem; }
         }
 
         /* ========================================== */
@@ -1099,8 +1022,8 @@
     <!-- HERO -->
     <section class="hero-section">
         <div class="hero-content">
-            <h1>Bible Studies</h1>
-            <p class="hero-subtitle">Explore Scripture &middot; Grow in Truth</p>
+            <h1>Bible Stories by Category</h1>
+            <p class="hero-subtitle">Stories That Teach &middot; Truths That Transform</p>
             <div class="hero-line"></div>
         </div>
     </section>
@@ -1110,767 +1033,1288 @@
         <div class="container">
 
             <div class="intro-text">
-                <p><strong>Where do you begin?</strong></p>
-                <p>Discover the message of the Bible, ask honest questions, and learn how God's Word shapes faith, character, prayer, relationships, and everyday decisions. These guided studies are designed for personal devotion, families, small groups, and church fellowships.</p>
-                <p>Start with a topic that speaks to your season of life. Open a study to find its key passages, guiding questions, and a practical response. Read the full passages in your Bible and allow Scripture to shape your conclusions.</p>
+                <p><strong>Why study Bible stories?</strong></p>
+                <p>Many passages in Scripture are teaching passages — letters, sermons, and instructions. But the Bible is also full of <em>stories</em>: real people in real situations, facing real choices. When we pair a teaching passage with a Bible story, the truth becomes concrete and memorable.</p>
+                <p>Each story below opens into a full guided study using the <strong>THINK → EVALUATE → LEARN → LEAD → DISCUSSION → Goal</strong> framework. Click a story to open it. Opening a new story closes the previous one.</p>
             </div>
 
             <div class="scripture">
-                <strong>2 Timothy 2:15 (KJV)</strong> — <em>"Study to shew thyself approved unto God, a workman that needeth not to be ashamed, rightly dividing the word of truth."</em>
+                <strong>Hebrews 12:1</strong> — <em>"Therefore, since we are surrounded by such a great cloud of witnesses, let us throw off everything that hinders and the sin that so easily entangles. And let us run with perseverance the race marked out for us."</em>
             </div>
 
-            <!-- ========================================== -->
-            <!--   HOW TO STUDY — MOVED FIRST              -->
-            <!-- ========================================== -->
-            <h2 id="how-to-study">How to Study the Bible</h2>
-            <p>You do not need to be a Bible scholar to begin studying Scripture. Start with prayer, read the passage more than once, and pay attention to what the text actually says.</p>
-
-            <div class="how-grid">
-                <div class="how-card">
-                    <span class="num">STEP 01</span>
-                    <h3>Pray</h3>
-                    <p>Ask God for humility, understanding, and a willingness to obey what you learn. See Psalm 119:18.</p>
-                </div>
-                <div class="how-card">
-                    <span class="num">STEP 02</span>
-                    <h3>Observe</h3>
-                    <p>Who is speaking? What is happening? Notice repeated words, commands, promises, and contrasts.</p>
-                </div>
-                <div class="how-card">
-                    <span class="num">STEP 03</span>
-                    <h3>Understand</h3>
-                    <p>Read the surrounding verses and consider the book's setting. Compare Scripture with Scripture.</p>
-                </div>
-                <div class="how-card">
-                    <span class="num">STEP 04</span>
-                    <h3>Apply</h3>
-                    <p>Identify one truthful, practical response. Share what you learned and return to the passage during the week.</p>
+            <!-- ============================================ -->
+            <!--   1. FOUNDATIONS                              -->
+            <!-- ============================================ -->
+            <div class="category-heading">
+                <span class="cat-num">1</span>
+                <div>
+                    <h2>Foundations — The Gospel &amp; Salvation</h2>
+                    <span class="cat-sub">Stories of sin, grace, faith, and the call to follow Jesus</span>
                 </div>
             </div>
 
-            <!-- ========================================== -->
-            <!--   CHOOSE A STUDY                          -->
-            <!-- ========================================== -->
-            <h2>Choose a Bible Study</h2>
+            <div class="story-grid">
 
-            <div class="study-tools">
-                <label class="search-wrap">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                    <input type="search" id="bsSearch" placeholder="Search topics or Bible books…" aria-label="Search Bible studies" />
-                </label>
-                <div class="filter-list" aria-label="Filter studies">
-                    <button class="filter-btn active" type="button" data-filter="all">All studies</button>
-                    <button class="filter-btn" type="button" data-filter="foundations">Foundations</button>
-                    <button class="filter-btn" type="button" data-filter="growth">Spiritual growth</button>
-                    <button class="filter-btn" type="button" data-filter="life">Christian living</button>
-                    <button class="filter-btn" type="button" data-filter="book">Bible books</button>
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">The Prodigal Son</span>
+                            <span class="story-ref">Luke 15:11–32</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Luke 15:11–32.</p>
+                        <p><strong>Teaching passage:</strong> Romans 5:1–11.</p>
+                        <p><strong>Related:</strong> Ephesians 2:1–10; 1 John 1:9.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What does the father's welcome teach about God's grace?</li>
+                            <li>How do the two sons each misunderstand the father's heart?</li>
+                            <li>What does Romans 5:8 say about how God loves sinners?</li>
+                            <li>How could you explain grace to someone who feels too far from God?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Can I explain how God offers forgiveness and new life through Jesus Christ?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">The Thief on the Cross</span>
+                            <span class="story-ref">Luke 23:39–43</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Luke 23:39–43.</p>
+                        <p><strong>Teaching passage:</strong> Romans 5:1; Ephesians 2:8–9.</p>
+                        <p><strong>Related:</strong> Titus 3:4–7; John 3:16.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did the thief do to be saved?</li>
+                            <li>Why does this story prove salvation is by grace, not works?</li>
+                            <li>What does the thief's request reveal about his faith?</li>
+                            <li>How does this story comfort someone who feels they have nothing to offer God?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Do I trust in Christ alone for salvation, and can I explain that to others?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Saul's Conversion</span>
+                            <span class="story-ref">Acts 9:1–19</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Acts 9:1–19.</p>
+                        <p><strong>Teaching passage:</strong> 1 Timothy 1:12–17.</p>
+                        <p><strong>Related:</strong> Acts 26:9–18; Galatians 1:11–24.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What was Saul doing when Jesus appeared to him?</li>
+                            <li>How does Paul describe his conversion in 1 Timothy 1:12–17?</li>
+                            <li>Why is Saul's conversion a pattern for all who come to Christ?</li>
+                            <li>Who in your life seems furthest from God, and how can you pray for them?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Do I believe God can save anyone, and do I pray for the hardest hearts?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Zacchaeus</span>
+                            <span class="story-ref">Luke 19:1–10</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Luke 19:1–10.</p>
+                        <p><strong>Teaching passage:</strong> Romans 5:8.</p>
+                        <p><strong>Related:</strong> Luke 5:27–32; 1 Timothy 1:15.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>Why did the crowd grumble when Jesus went to Zacchaeus' house?</li>
+                            <li>What did Zacchaeus' repentance look like in action?</li>
+                            <li>What does Jesus mean when He says He came to seek and save the lost?</li>
+                            <li>How does this story challenge how we treat people others overlook?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I reach out to someone others overlook, as Jesus did?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">The Philippian Jailer</span>
+                            <span class="story-ref">Acts 16:16–34</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Acts 16:16–34.</p>
+                        <p><strong>Teaching passage:</strong> Acts 16:31; Romans 10:9–13.</p>
+                        <p><strong>Related:</strong> Ephesians 2:8–9; John 3:16.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did Paul and Silas do in prison that changed the atmosphere?</li>
+                            <li>What was the jailer's urgent question, and what was the answer?</li>
+                            <li>How does this story show the gospel reaching an unlikely person?</li>
+                            <li>What simple truth could you share with someone who asks how to be saved?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Can I share the simple gospel with someone who is searching?</div>
+                    </div>
+                </details>
+
+            </div>
+
+            <!-- ============================================ -->
+            <!--   2. SPIRITUAL GROWTH                         -->
+            <!-- ============================================ -->
+            <div class="category-heading">
+                <span class="cat-num">2</span>
+                <div>
+                    <h2>Spiritual Growth — Prayer, Faith, the Spirit, Discipleship</h2>
+                    <span class="cat-sub">Stories of trusting, praying, obeying, and following Jesus</span>
                 </div>
             </div>
 
-            <div class="study-grid" id="bsGrid">
+            <div class="story-grid">
 
-                <!-- ===== STUDY 1 ===== -->
-                <article class="study-card" data-category="foundations" data-search="gospel salvation grace jesus christ romans foundations">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-cross"></i></div>
-                        <h3>The Good News of Jesus Christ</h3>
-                        <p>Understand the human need for salvation and the hope offered through Jesus.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Romans 3:23–24; 5:1–8</span>
-                        <p>Trace the Bible's message of sin, grace, faith, reconciliation, and new life in Christ.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Romans 5:1–11 in your Bible. Related: Romans 3:21–26; Ephesians 2:1–10.</p>
-                                <h4>Think → Evaluate (7 questions)</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn (4 questions)</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead (1 question)</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>According to Romans 5, what does it mean to be justified by faith?</li>
-                                    <li>How does Jesus' death demonstrate God's love for sinners?</li>
-                                    <li>What is the difference between earning salvation and receiving grace?</li>
-                                    <li>How could you explain the good news to someone who has never heard it?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Can I explain how God offers forgiveness and new life through Jesus Christ?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Elijah on Mount Carmel</span>
+                            <span class="story-ref">1 Kings 18:16–46</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> 1 Kings 18:16–46.</p>
+                        <p><strong>Teaching passage:</strong> James 5:16–18.</p>
+                        <p><strong>Related:</strong> Matthew 6:5–13; Philippians 4:6–7.</p>
 
-                <!-- ===== STUDY 2 ===== -->
-                <article class="study-card" data-category="growth" data-search="prayer relationship god matthew psalms spiritual growth">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-praying-hands"></i></div>
-                        <h3>Learning to Pray</h3>
-                        <p>Explore prayer as worship, dependence, confession, thanksgiving, and intercession.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Matthew 6:5–13; Philippians 4:6–7</span>
-                        <p>Learn from Jesus' teaching and develop a thoughtful, Scripture-shaped prayer life.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Matthew 6:5–13 in your Bible. Related: Philippians 4:4–9; 1 Timothy 2:1–4.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>Why does Jesus warn against praying to impress others?</li>
-                                    <li>What do the different parts of the Lord's Prayer teach us?</li>
-                                    <li>How can prayer include both honest requests and thanksgiving?</li>
-                                    <li>Who needs your prayers this week, and how will you remember?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Will I develop a sincere, regular prayer life shaped by Jesus' teaching?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
 
-                <!-- ===== STUDY 3 ===== -->
-                <article class="study-card" data-category="foundations" data-search="faith trust god hebrews abraham foundations">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-mountain"></i></div>
-                        <h3>Walking by Faith</h3>
-                        <p>Consider what biblical faith means when life is uncertain or difficult.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Hebrews 11:1–6; 2 Corinthians 5:7</span>
-                        <p>See how trust in God connects with obedience, patience, and hope.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Hebrews 11:1–6. Related: Hebrews 11:1–16; Genesis 12:1–9; James 2:14–18.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>What did Abraham have to trust God for when he left his homeland?</li>
-                                    <li>How do faith and obedience work together in James 2?</li>
-                                    <li>How can we trust God while still acknowledging uncertainty?</li>
-                                    <li>What practical step of obedience may God be calling you to take?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> What is one specific way I will trust God and act on His Word this week?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
 
-                <!-- ===== STUDY 4 ===== -->
-                <article class="study-card" data-category="book" data-search="romans book of romans grace sin righteousness salvation bible book">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-scroll"></i></div>
-                        <h3>Discover the Book of Romans</h3>
-                        <p>A guided introduction to Paul's teaching about sin, grace, faith, and transformed living.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Romans 1–8; 12:1–2</span>
-                        <p>Follow the major themes of Romans and consider what the gospel means for belief and conduct.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Romans 3:21–31. Related: Romans 1:18–3:20; 3:21–5:21; 6–8; 12:1–21.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>What does Romans teach about humanity's need for salvation?</li>
-                                    <li>How does Paul describe being made right with God through faith?</li>
-                                    <li>What does Romans 6 teach about life under sin and life in Christ?</li>
-                                    <li>How does Romans 12 describe a life transformed by God's mercy?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Can I identify the central message of Romans and name one way it should change my life?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
 
-                <!-- ===== STUDY 5 ===== -->
-                <article class="study-card" data-category="growth" data-search="fruit spirit galatians character love joy peace patience kindness goodness faithfulness gentleness self control">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-seedling"></i></div>
-                        <h3>The Fruit of the Spirit</h3>
-                        <p>Explore the character the Holy Spirit cultivates in the life of a believer.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Galatians 5:16–26</span>
-                        <p>Move beyond simply naming the fruit to considering how Christian character is seen in everyday relationships.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Galatians 5:16–26. Related: John 15:1–8; Colossians 3:12–17.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>What contrast does Paul make between the works of the flesh and the fruit of the Spirit?</li>
-                                    <li>Why is the fruit described as the fruit of the Spirit rather than human effort?</li>
-                                    <li>Which quality of the fruit is most difficult for you to practise?</li>
-                                    <li>What would that quality look like in one relationship this week?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Which fruit of the Spirit will I intentionally practise with God's help this week?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did Elijah pray for, and how did God answer?</li>
+                            <li>What does James 5:16–18 teach about the power of prayer?</li>
+                            <li>Why is persistent prayer important even when answers are delayed?</li>
+                            <li>What situation in your life needs bold, persistent prayer this week?</li>
+                        </ol>
 
-                <!-- ===== STUDY 6 ===== -->
-                <article class="study-card" data-category="life" data-search="christian living wisdom decisions relationships work integrity colossians james">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-shoe-prints"></i></div>
-                        <h3>Living Out Your Faith</h3>
-                        <p>Connect biblical truth with decisions, work, relationships, integrity, and service.</p>
+                        <div class="goal"><strong>Goal:</strong> Will I pray boldly and persistently, trusting God to answer?</div>
                     </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">James 1:19–27; Colossians 3:12–17</span>
-                        <p>Reflect on how hearing God's Word should lead to wise, compassionate, and faithful action.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> James 1:19–27. Related: Micah 6:6–8; Colossians 3:12–17, 22–24.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>According to James, what does it mean to be a doer of the Word?</li>
-                                    <li>How can a person control their speech during conflict?</li>
-                                    <li>What do these passages teach about justice, mercy, and integrity?</li>
-                                    <li>Where can you put one biblical teaching into practice this week?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> What specific action will show that I am putting God's Word into practice?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                </details>
 
-                <!-- ===== STUDY 7 ===== -->
-                <article class="study-card" data-category="foundations" data-search="identity in christ new life forgiveness adopted child of god ephesians john">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-heart"></i></div>
-                        <h3>Your Identity in Christ</h3>
-                        <p>Study the new identity and hope Scripture describes for those who belong to Jesus.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">2 Corinthians 5:17; Ephesians 1:3–14</span>
-                        <p>Consider how belonging to Christ shapes your security, purpose, humility, and relationships.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> 2 Corinthians 5:17–21. Related: John 1:9–13; Ephesians 1:3–14; 1 Peter 2:9–12.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>What does Paul mean when he says that anyone in Christ is a new creation?</li>
-                                    <li>What blessings and responsibilities are described in Ephesians 1?</li>
-                                    <li>How can our identity in Christ challenge shame, pride, or the need for approval?</li>
-                                    <li>How should belonging to Christ affect how we treat people who are different from us?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> What truth about my identity in Christ do I need to remember and live out?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Jesus Calms the Storm</span>
+                            <span class="story-ref">Mark 4:35–41</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Mark 4:35–41.</p>
+                        <p><strong>Teaching passage:</strong> Hebrews 11:1; 2 Corinthians 5:7.</p>
+                        <p><strong>Related:</strong> Psalm 46:1–3; Isaiah 41:10.</p>
 
-                <!-- ===== STUDY 8 ===== -->
-                <article class="study-card" data-category="life" data-search="forgiveness reconciliation anger relationships matthew ephesians christian living">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-hands-holding-circle"></i></div>
-                        <h3>Forgiveness and Reconciliation</h3>
-                        <p>Examine biblical teaching on forgiveness, humility, and seeking peace.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Matthew 18:21–35; Ephesians 4:25–32</span>
-                        <p>Learn how mercy shapes our responses to conflict while recognising the importance of truth and wise boundaries.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Ephesians 4:25–32. Related: Matthew 18:21–35; Romans 12:17–21.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>What does Jesus' parable in Matthew 18 teach about receiving and extending mercy?</li>
-                                    <li>Which attitudes and actions should Christians put away, according to Ephesians 4?</li>
-                                    <li>Why are forgiveness, reconciliation, truth, and wise boundaries not always identical?</li>
-                                    <li>What peaceful and wise step could you take toward addressing a conflict?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> What response would help me reflect God's mercy and pursue peace wisely?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
 
-                <!-- ===== STUDY 9 ===== -->
-                <article class="study-card" data-category="growth" data-search="discipleship great commission follow jesus serve others matthew 28 mark 8">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-people-group"></i></div>
-                        <h3>Following Jesus: A Life of Discipleship</h3>
-                        <p>Explore what it means to follow Jesus, learn from Him, and help others grow.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Luke 9:23–26; Matthew 28:18–20</span>
-                        <p>Consider the cost, joy, service, and mission involved in following Christ.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Luke 9:23–26. Related: John 13:1–17; Matthew 28:18–20; 2 Timothy 2:1–2.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>What does Jesus mean by denying ourselves and taking up our cross daily?</li>
-                                    <li>What does Jesus' act of washing His disciples' feet teach about service?</li>
-                                    <li>What responsibilities does Jesus give His followers in Matthew 28?</li>
-                                    <li>Who could you encourage or help grow in faith, and what first step could you take?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> What is one practical step I will take to follow Jesus and help someone else grow?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
 
-                <!-- ===== STUDY 10 (NEW) ===== -->
-                <article class="study-card" data-category="foundations" data-search="holy spirit comforter pentecost acts john 14 power gift foundations">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-dove"></i></div>
-                        <h3>The Person and Work of the Holy Spirit</h3>
-                        <p>Discover who the Holy Spirit is and how He helps, teaches, and empowers believers.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">John 14:15–27; Acts 2:1–13</span>
-                        <p>See how the Spirit comforts, convicts, guides, and equips the church for God's mission.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> John 14:15–27. Related: Acts 1:4–8; 2:1–13; Romans 8:1–17; Galatians 5:22–23.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>How does Jesus describe the Holy Spirit in John 14?</li>
-                                    <li>What happened at Pentecost, and why does it matter?</li>
-                                    <li>How does the Holy Spirit help us live the Christian life?</li>
-                                    <li>What evidence of the Spirit's work do you see in your own life?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Do I rely on the Holy Spirit for guidance, strength, and growth?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
 
-                <!-- ===== STUDY 11 (NEW) ===== -->
-                <article class="study-card" data-category="book" data-search="psalms book of psalms worship lament praise prayer bible book">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-music"></i></div>
-                        <h3>Discover the Book of Psalms</h3>
-                        <p>Explore the prayer and songbook of the Bible, from praise to lament and trust.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Psalm 1; 23; 51; 100</span>
-                        <p>Learn how the Psalms give words to every human emotion before God.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Psalm 23 and Psalm 51. Related: Psalm 1; 100; 103; 150.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>What different emotions and situations do the Psalms express?</li>
-                                    <li>How does Psalm 23 describe God's care for His people?</li>
-                                    <li>What does Psalm 51 teach about confession and mercy?</li>
-                                    <li>Which psalm speaks most to your current season, and why?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Will I use the Psalms to shape my prayers and worship?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did the disciples fear, and what did Jesus do?</li>
+                            <li>Why did Jesus ask them about their faith?</li>
+                            <li>What does this story teach about trusting Jesus in the storms of life?</li>
+                            <li>What storm are you facing now that you need to bring to Jesus?</li>
+                        </ol>
 
-                <!-- ===== STUDY 12 (NEW) ===== -->
-                <article class="study-card" data-category="life" data-search="marriage family relationships love ephesians parenting home christian living">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-home"></i></div>
-                        <h3>Marriage and Family God's Way</h3>
-                        <p>Study biblical teaching on love, marriage, parenting, and honoring one another.</p>
+                        <div class="goal"><strong>Goal:</strong> Will I trust Jesus in the middle of my storm, not just after it?</div>
                     </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Ephesians 5:21–33; 6:1–4</span>
-                        <p>Consider how the gospel shapes relationships in the home.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Ephesians 5:21–33. Related: Genesis 2:18–25; Ephesians 6:1–4; 1 Peter 3:1–7.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>How does Paul connect marriage to Christ and the church?</li>
-                                    <li>What does it mean for husbands and wives to serve one another?</li>
-                                    <li>How should children and parents relate to one another in the Lord?</li>
-                                    <li>What is one practical way to strengthen a family relationship this week?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> How will I reflect Christ in my home and family relationships?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                </details>
 
-                <!-- ===== STUDY 13 (NEW) ===== -->
-                <article class="study-card" data-category="life" data-search="money stewardship giving generosity contentment work finances christian living">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-hand-holding-heart"></i></div>
-                        <h3>Faith, Money, and Stewardship</h3>
-                        <p>Learn what the Bible says about money, generosity, contentment, and wise stewardship.</p>
-                    </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Matthew 6:19–34; 1 Timothy 6:6–10</span>
-                        <p>Consider how faith reshapes our view of possessions, work, and giving.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> 1 Timothy 6:6–10. Related: Matthew 6:19–34; Proverbs 3:9–10; 2 Corinthians 9:6–15.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>Why does Paul say the love of money is a root of evil?</li>
-                                    <li>How does Jesus teach us to trust God for our needs?</li>
-                                    <li>What does it mean to be a faithful steward of what God has given?</li>
-                                    <li>What is one step you can take toward greater generosity or contentment?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Does my use of money reflect trust in God and love for others?</p>
-                            </div>
-                        </details>
-                    </div>
-                </article>
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Pentecost</span>
+                            <span class="story-ref">Acts 2:1–13</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Acts 2:1–13.</p>
+                        <p><strong>Teaching passage:</strong> John 14:15–27.</p>
+                        <p><strong>Related:</strong> Acts 1:4–8; Romans 8:1–17.</p>
 
-                <!-- ===== STUDY 14 (NEW) ===== -->
-                <article class="study-card" data-category="growth" data-search="spiritual warfare prayer armor ephesians 6 devil evil spiritual growth">
-                    <div class="study-card-top">
-                        <div class="study-card-icon"><i class="fas fa-shield-halved"></i></div>
-                        <h3>Spiritual Warfare and the Armor of God</h3>
-                        <p>Understand the believer's spiritual battle and how God equips us to stand firm.</p>
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What visible signs accompanied the coming of the Holy Spirit?</li>
+                            <li>How does Jesus describe the Holy Spirit in John 14:15–27?</li>
+                            <li>What did the Spirit empower the disciples to do?</li>
+                            <li>How does the Holy Spirit help you live the Christian life today?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Do I rely on the Holy Spirit for guidance, strength, and witness?</div>
                     </div>
-                    <div class="study-card-body">
-                        <span class="study-ref">Ephesians 6:10–20; 1 Peter 5:6–11</span>
-                        <p>Learn how prayer, truth, faith, and God's Word equip us for spiritual conflict.</p>
-                        <details>
-                            <summary>Open this study</summary>
-                            <div class="study-content">
-                                <h4>Prepare</h4>
-                                <p><strong>Read:</strong> Ephesians 6:10–20. Related: 1 Peter 5:6–11; James 4:6–10; 2 Corinthians 10:3–5.</p>
-                                <h4>Think → Evaluate</h4>
-                                <ol>
-                                    <li>Who are the characters?</li>
-                                    <li>What are the objects?</li>
-                                    <li>Where did it happen?</li>
-                                    <li>When did it happen?</li>
-                                    <li>What is the problem?</li>
-                                    <li>What events occurred?</li>
-                                    <li>Is the problem solved?</li>
-                                </ol>
-                                <h4>Learn</h4>
-                                <ol start="8">
-                                    <li>What is the main theme?</li>
-                                    <li>What sin does this lesson teach us to confess?</li>
-                                    <li>Where do you see the love of God?</li>
-                                    <li>What does God teach us to do?</li>
-                                </ol>
-                                <h4>Lead</h4>
-                                <ol start="12">
-                                    <li>What would be a good situation to share this message?</li>
-                                </ol>
-                                <h4>Discussion</h4>
-                                <ol start="13">
-                                    <li>Who is our real enemy, according to Ephesians 6?</li>
-                                    <li>What are the pieces of the armor of God, and what does each represent?</li>
-                                    <li>How does prayer connect to spiritual warfare?</li>
-                                    <li>What practical step will help you stand firm in a current spiritual struggle?</li>
-                                </ol>
-                                <p><strong>Goal:</strong> Am I relying on God's strength and armor rather than my own?</p>
-                            </div>
-                        </details>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Jesus Washes the Disciples' Feet</span>
+                            <span class="story-ref">John 13:1–17</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> John 13:1–17.</p>
+                        <p><strong>Teaching passage:</strong> Luke 9:23–26; Matthew 28:18–20.</p>
+                        <p><strong>Related:</strong> Philippians 2:1–11; 1 Peter 5:5–6.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did Jesus do that shocked His disciples?</li>
+                            <li>Why did Peter first refuse, and why did Jesus insist?</li>
+                            <li>What does Jesus teach about greatness in His kingdom?</li>
+                            <li>What is one practical way you can serve someone this week?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> What is one act of humble service I will offer this week?</div>
                     </div>
-                </article>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Paul and Silas in Prison</span>
+                            <span class="story-ref">Acts 16:16–34</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Acts 16:16–34.</p>
+                        <p><strong>Teaching passage:</strong> Acts 16:25; Philippians 4:4–13.</p>
+                        <p><strong>Related:</strong> 2 Corinthians 12:9–10; James 1:2–4.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What were Paul and Silas doing at midnight in prison?</li>
+                            <li>How did God respond to their worship?</li>
+                            <li>What does this teach about worshipping God in hard circumstances?</li>
+                            <li>What circumstance in your life needs worship instead of despair?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I worship God even when circumstances are hard?</div>
+                    </div>
+                </details>
 
             </div>
 
-            <div class="study-empty" id="bsEmpty">
-                No studies match your search. Try another word or select "All studies."
+            <!-- ============================================ -->
+            <!--   3. CHRISTIAN LIVING                         -->
+            <!-- ============================================ -->
+            <div class="category-heading">
+                <span class="cat-num">3</span>
+                <div>
+                    <h2>Christian Living — Relationships, Holiness, Wisdom</h2>
+                    <span class="cat-sub">Stories of forgiveness, integrity, generosity, and conflict</span>
+                </div>
             </div>
 
-            <p style="margin-top:1.3rem;font-size:0.82rem;color:#6b7280;line-height:1.7;">
-                These guides are starting points for reading and discussion, not substitutes for reading the Bible passage in context. Compare related verses, consider the original passage's setting, and seek wise pastoral guidance when a question needs further study.
-            </p>
+            <div class="story-grid">
 
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Joseph Forgives His Brothers</span>
+                            <span class="story-ref">Genesis 45:1–15; 50:15–21</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Genesis 45:1–15; 50:15–21.</p>
+                        <p><strong>Teaching passage:</strong> Ephesians 4:25–32.</p>
+                        <p><strong>Related:</strong> Matthew 18:21–35; Romans 12:17–21.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>How does Joseph's response to his brothers mirror God's forgiveness?</li>
+                            <li>What attitudes must Christians put away according to Ephesians 4:31?</li>
+                            <li>Why is forgiveness different from reconciliation?</li>
+                            <li>What peaceful step could you take toward a broken relationship?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> What response would help me reflect God's mercy and pursue peace wisely?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">David Spares Saul</span>
+                            <span class="story-ref">1 Samuel 24:1–22</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> 1 Samuel 24:1–22.</p>
+                        <p><strong>Teaching passage:</strong> Romans 12:17–21.</p>
+                        <p><strong>Related:</strong> Matthew 5:43–48; 1 Peter 3:9.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>Why did David refuse to kill Saul when he had the chance?</li>
+                            <li>What does it mean to overcome evil with good?</li>
+                            <li>How does David's restraint show trust in God's justice?</li>
+                            <li>Where are you tempted to take revenge instead of trusting God?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I choose to overcome evil with good this week?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">David and Bathsheba</span>
+                            <span class="story-ref">2 Samuel 11–12; Psalm 51</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> 2 Samuel 11–12; Psalm 51.</p>
+                        <p><strong>Teaching passage:</strong> Psalm 51; 1 John 1:8–9.</p>
+                        <p><strong>Related:</strong> James 5:16; Proverbs 28:13.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What steps led David into sin?</li>
+                            <li>How did Nathan confront David, and how did David respond?</li>
+                            <li>What does Psalm 51 teach us about true repentance?</li>
+                            <li>Is there a sin you need to confess honestly to God this week?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I practice honest confession and receive God's cleansing?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">The Widow's Offering</span>
+                            <span class="story-ref">Mark 12:41–44</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Mark 12:41–44.</p>
+                        <p><strong>Teaching passage:</strong> 2 Corinthians 9:6–15; 1 Timothy 6:6–10.</p>
+                        <p><strong>Related:</strong> Malachi 3:10; Luke 6:38.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>Why did Jesus say the widow gave more than the rich?</li>
+                            <li>What does this teach about the heart behind giving?</li>
+                            <li>How does 2 Corinthians 9 describe cheerful generosity?</li>
+                            <li>What is one step you can take toward more generous giving?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Does my giving reflect trust in God and love for others?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Paul and Barnabas Split</span>
+                            <span class="story-ref">Acts 15:36–41</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Acts 15:36–41.</p>
+                        <p><strong>Teaching passage:</strong> Ephesians 4:25–32; Matthew 18:15–17.</p>
+                        <p><strong>Related:</strong> Romans 12:17–21; Colossians 3:12–17.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What caused the disagreement between Paul and Barnabas?</li>
+                            <li>How did God still use the split for good?</li>
+                            <li>What does Ephesians 4 teach about handling conflict between believers?</li>
+                            <li>What conflict in your life needs a peaceful, God-honoring response?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I handle conflict in a way that honors Christ?</div>
+                    </div>
+                </details>
+
+            </div>
+
+            <!-- ============================================ -->
+            <!--   4. SPIRITUAL WARFARE                        -->
+            <!-- ============================================ -->
+            <div class="category-heading">
+                <span class="cat-num">4</span>
+                <div>
+                    <h2>Spiritual Warfare</h2>
+                    <span class="cat-sub">Stories of God's power over the enemy</span>
+                </div>
+            </div>
+
+            <div class="story-grid">
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Jesus Tempted in the Wilderness</span>
+                            <span class="story-ref">Matthew 4:1–11</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Matthew 4:1–11.</p>
+                        <p><strong>Teaching passage:</strong> Ephesians 6:10–20.</p>
+                        <p><strong>Related:</strong> Hebrews 4:15–16; James 4:7.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>How did Jesus respond to each temptation?</li>
+                            <li>Why is God's Word our primary weapon against the enemy?</li>
+                            <li>How does Ephesians 6 describe the armor of God?</li>
+                            <li>What temptation do you face that needs God's Word this week?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I use God's Word to stand firm against temptation?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Elisha and the Chariots of Fire</span>
+                            <span class="story-ref">2 Kings 6:8–23</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> 2 Kings 6:8–23.</p>
+                        <p><strong>Teaching passage:</strong> 2 Kings 6:16–17; Ephesians 6:10–20.</p>
+                        <p><strong>Related:</strong> Romans 8:31; 1 John 4:4.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did Elisha's servant see, and what did Elisha pray?</li>
+                            <li>How does this story reveal the unseen spiritual battle?</li>
+                            <li>What does 1 John 4:4 teach about who is greater?</li>
+                            <li>Where do you need to open your eyes to God's protection?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I trust that God's power is greater than any enemy?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">The Gerasene Demoniac</span>
+                            <span class="story-ref">Mark 5:1–20</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Mark 5:1–20.</p>
+                        <p><strong>Teaching passage:</strong> Ephesians 6:10–20.</p>
+                        <p><strong>Related:</strong> Luke 4:31–37; Colossians 2:15.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What was the man's condition before he met Jesus?</li>
+                            <li>What did Jesus do, and what was the result?</li>
+                            <li>Why did Jesus tell him to go and tell others?</li>
+                            <li>How does Jesus' authority over evil give you confidence today?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Do I trust Jesus' authority over every dark power?</div>
+                    </div>
+                </details>
+
+            </div>
+
+            <!-- ============================================ -->
+            <!--   5. MARRIAGE, FAMILY & RELATIONSHIPS         -->
+            <!-- ============================================ -->
+            <div class="category-heading">
+                <span class="cat-num">5</span>
+                <div>
+                    <h2>Marriage, Family &amp; Relationships</h2>
+                    <span class="cat-sub">Stories of God's design for the home</span>
+                </div>
+            </div>
+
+            <div class="story-grid">
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Adam and Eve</span>
+                            <span class="story-ref">Genesis 2:18–25</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Genesis 2:18–25.</p>
+                        <p><strong>Teaching passage:</strong> Ephesians 5:21–33.</p>
+                        <p><strong>Related:</strong> Matthew 19:4–6; 1 Peter 3:1–7.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>Why did God say it was not good for man to be alone?</li>
+                            <li>What does the phrase "one flesh" mean?</li>
+                            <li>How does Ephesians 5 connect marriage to Christ and the church?</li>
+                            <li>What step can you take to strengthen a marriage or family relationship?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> How will I honor God's design for marriage and family this week?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Hannah and Elkanah</span>
+                            <span class="story-ref">1 Samuel 1–2</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> 1 Samuel 1–2.</p>
+                        <p><strong>Teaching passage:</strong> Ephesians 6:1–4.</p>
+                        <p><strong>Related:</strong> Psalm 127:3–5; Proverbs 22:6.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did Hannah do with her grief?</li>
+                            <li>How did God answer her prayer?</li>
+                            <li>What does Hannah's dedication of Samuel teach about parenting?</li>
+                            <li>How can you bring your deepest burdens to God this week?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I bring my family's needs to God in prayer?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">The Wedding at Cana</span>
+                            <span class="story-ref">John 2:1–11</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> John 2:1–11.</p>
+                        <p><strong>Teaching passage:</strong> Ephesians 5:21–33.</p>
+                        <p><strong>Related:</strong> Hebrews 13:4; 1 Corinthians 7:1–5.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>Why was Jesus' presence at the wedding significant?</li>
+                            <li>What did His first miracle reveal about Him?</li>
+                            <li>How does this story show that Jesus blesses marriage?</li>
+                            <li>How can you invite Jesus into the center of your relationships?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I invite Jesus into the center of my relationships?</div>
+                    </div>
+                </details>
+
+            </div>
+
+            <!-- ============================================ -->
+            <!--   6. BIBLE BOOK STUDIES                       -->
+            <!-- ============================================ -->
+            <div class="category-heading">
+                <span class="cat-num">6</span>
+                <div>
+                    <h2>Bible Book Studies</h2>
+                    <span class="cat-sub">Stories that sit behind specific Bible books</span>
+                </div>
+            </div>
+
+            <div class="story-grid">
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Abraham Justified by Faith</span>
+                            <span class="story-ref">Genesis 15:1–6 (Romans 4)</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> Genesis 15:1–6.</p>
+                        <p><strong>Teaching passage:</strong> Romans 4:1–25.</p>
+                        <p><strong>Related:</strong> Galatians 3:6–9; James 2:20–24.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did God promise Abraham, and how did Abraham respond?</li>
+                            <li>What does it mean that Abraham's faith was credited as righteousness?</li>
+                            <li>How does Paul use this story to explain justification?</li>
+                            <li>How does this truth shape the way you approach God?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Do I trust God's promises the way Abraham did?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">David's Confession (Psalm 51)</span>
+                            <span class="story-ref">2 Samuel 11–12 → Psalm 51</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> 2 Samuel 11–12.</p>
+                        <p><strong>Teaching passage:</strong> Psalm 51.</p>
+                        <p><strong>Related:</strong> 1 John 1:8–9; Proverbs 28:13.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>What did David ask God to do in Psalm 51?</li>
+                            <li>What does "a broken and contrite heart" mean?</li>
+                            <li>Why is honest confession the first step toward restoration?</li>
+                            <li>Is there a sin you need to confess honestly this week?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Will I practice honest confession and receive God's cleansing?</div>
+                    </div>
+                </details>
+
+                <details class="story-card">
+                    <summary>
+                        <span class="story-title">
+                            <span class="story-name">Jesus and Nicodemus</span>
+                            <span class="story-ref">John 3:1–21</span>
+                        </span>
+                    </summary>
+                    <div class="story-body">
+                        <h4>Prepare</h4>
+                        <p><strong>Read the story:</strong> John 3:1–21.</p>
+                        <p><strong>Teaching passage:</strong> John 3:16–21.</p>
+                        <p><strong>Related:</strong> Romans 5:8; Titus 3:5.</p>
+
+                        <h4>Think → Evaluate</h4>
+                        <ol>
+                            <li>Who are the characters?</li>
+                            <li>What are the objects?</li>
+                            <li>Where did it happen?</li>
+                            <li>When did it happen?</li>
+                            <li>What is the problem?</li>
+                            <li>What events occurred?</li>
+                            <li>Is the problem solved?</li>
+                        </ol>
+
+                        <h4>Learn</h4>
+                        <ol>
+                            <li>What is the main theme?</li>
+                            <li>What sin does this lesson teach us to confess?</li>
+                            <li>Where do you see the love of God?</li>
+                            <li>What does God teach us to do?</li>
+                        </ol>
+
+                        <h4>Lead</h4>
+                        <ol>
+                            <li>What would be a good situation to share this message?</li>
+                        </ol>
+
+                        <h4>Discussion</h4>
+                        <ol>
+                            <li>Why did Nicodemus come to Jesus at night?</li>
+                            <li>What did Jesus mean by being "born again"?</li>
+                            <li>What does John 3:16 reveal about God's love?</li>
+                            <li>How would you explain being born again to someone?</li>
+                        </ol>
+
+                        <div class="goal"><strong>Goal:</strong> Can I explain what it means to be born again?</div>
+                    </div>
+                </details>
+
+            </div>
+
+            <!-- CTA -->
             <div class="cta-section">
                 <div class="cta-header">
                     <div class="cta-icon"><i class="fas fa-book-bible"></i></div>
-                    <h2>Grow in the Word Together</h2>
+                    <h2>Use These Stories in Your Study</h2>
                 </div>
-                <p>Use these studies with your family, fellowship, ministry team, or small group. If you have a question or would like to suggest a future Bible study topic, get in touch with LOGI Ministry.</p>
+                <p>Pick a story, read it in your Bible, then work through the questions slowly. The <strong>Think → Evaluate</strong> questions help you observe the story. The <strong>Learn</strong> questions help you find the truth. The <strong>Lead</strong> and <strong>Discussion</strong> questions help you live it out and share it. If you need help preparing a study, contact LOGI Ministry.</p>
                 <a class="cta-btn" href="/ministry/contact"><i class="fas fa-envelope"></i> Contact LOGI Ministry</a>
             </div>
 
@@ -1883,32 +2327,24 @@
     <script src="/load.js"></script>
 
     <script>
+        /* ==========================================
+           ONE DROPDOWN OPEN AT A TIME
+           Closing others when a new one opens.
+           ========================================== */
         document.addEventListener('DOMContentLoaded', function () {
-            const search = document.getElementById('bsSearch');
-            const cards = Array.from(document.querySelectorAll('#bsGrid .study-card'));
-            const buttons = Array.from(document.querySelectorAll('.filter-btn'));
-            const empty = document.getElementById('bsEmpty');
-            let category = 'all';
+            const allDetails = document.querySelectorAll('.story-card');
 
-            function updateStudies() {
-                const term = (search.value || '').trim().toLowerCase();
-                let visible = 0;
-                cards.forEach(card => {
-                    const matchesText = !term || ((card.dataset.search || '') + ' ' + card.innerText).toLowerCase().includes(term);
-                    const matchesCategory = category === 'all' || card.dataset.category === category;
-                    const show = matchesText && matchesCategory;
-                    card.hidden = !show;
-                    if (show) visible++;
+            allDetails.forEach(function (details) {
+                details.addEventListener('toggle', function () {
+                    if (details.open) {
+                        allDetails.forEach(function (other) {
+                            if (other !== details && other.open) {
+                                other.open = false;
+                            }
+                        });
+                    }
                 });
-                empty.style.display = visible ? 'none' : 'block';
-            }
-
-            search.addEventListener('input', updateStudies);
-            buttons.forEach(button => button.addEventListener('click', function () {
-                category = button.dataset.filter;
-                buttons.forEach(item => item.classList.toggle('active', item === button));
-                updateStudies();
-            }));
+            });
         });
     </script>
 
