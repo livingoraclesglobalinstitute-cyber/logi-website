@@ -835,6 +835,241 @@
         }
 
         /* ==========================================
+   DAILY DEVOTIONALS CTA — MINISTRY
+   ========================================== */
+.devotionals-cta-section {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+    padding: 3rem 5%;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.devotionals-cta-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: rgba(217,119,6,0.08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.devotionals-cta-section::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: -80px;
+    width: 340px; height: 340px;
+    background: rgba(76,29,149,0.06);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.devotionals-cta-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+.devotionals-cta-heading {
+    text-align: center;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.75rem;
+    line-height: 1.15;
+}
+.devotionals-cta-heading .highlight {
+    background: var(--min-accent);
+    color: #fff;
+    padding: 0.05rem 0.7rem;
+    border-radius: 6px;
+    display: inline-block;
+}
+.devotionals-cta-banner {
+    display: grid;
+    grid-template-columns: 0.85fr 1.4fr;
+    gap: 0;
+    align-items: stretch;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(139,83,83,0.12);
+    border: 1px solid rgba(217,119,6,0.10);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.devotionals-cta-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    background: #8B5353;
+}
+.devotionals-cta-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.devotionals-cta-banner:hover .devotionals-cta-image img {
+    transform: scale(1.06);
+}
+.devotionals-cta-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(139,83,83,0.30), rgba(74,40,40,0.55));
+    pointer-events: none;
+}
+.devotionals-cta-image-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: rgba(255,255,255,0.95);
+    color: var(--min-accent);
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    backdrop-filter: blur(6px);
+    z-index: 2;
+    white-space: nowrap;
+}
+.devotionals-cta-image-badge i {
+    font-size: 0.62rem;
+    color: var(--min-accent);
+}
+.devotionals-cta-content {
+    padding: 1.75rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+}
+.devotionals-cta-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--min-accent-soft);
+    color: var(--min-accent);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border-radius: 50px;
+    margin-bottom: 0.85rem;
+    align-self: flex-start;
+    border: 1px solid rgba(217,119,6,0.15);
+    white-space: nowrap;
+}
+.devotionals-cta-eyebrow i { font-size: 0.68rem; }
+.devotionals-cta-content h3 {
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.65rem;
+}
+.devotionals-cta-content h3 .accent { color: var(--min-accent); }
+.devotionals-cta-content > p {
+    font-size: 0.88rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 1.1rem;
+    max-width: 480px;
+}
+.devotionals-cta-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+.devotionals-cta-feature {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #4a4540;
+}
+.devotionals-cta-feature i {
+    color: #10b981;
+    font-size: 0.78rem;
+}
+.devotionals-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--min-accent);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 8px 22px rgba(217,119,6,0.28);
+    align-self: flex-start;
+    white-space: nowrap;
+}
+.devotionals-cta-btn:hover {
+    background: #b45309;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(217,119,6,0.42);
+    gap: 0.75rem;
+}
+.devotionals-cta-btn i {
+    font-size: 0.88rem;
+    transition: transform 0.3s ease;
+}
+.devotionals-cta-btn:hover i:last-child { transform: translateX(4px); }
+
+@media (min-width: 1200px) {
+    .devotionals-cta-banner { grid-template-columns: 0.8fr 1.45fr; }
+    .devotionals-cta-content { padding: 1.75rem 2.5rem; }
+}
+@media (max-width: 1023px) and (min-width: 640px) {
+    .devotionals-cta-section { padding: 2.5rem 4%; }
+    .devotionals-cta-banner { grid-template-columns: 0.9fr 1.1fr; max-width: 100%; }
+    .devotionals-cta-image { min-height: 200px; }
+    .devotionals-cta-content { padding: 1.5rem 1.75rem; }
+    .devotionals-cta-content h3 { font-size: 1.15rem; }
+    .devotionals-cta-content > p { font-size: 0.82rem; margin-bottom: 0.95rem; }
+    .devotionals-cta-features { gap: 0.7rem; margin-bottom: 1.1rem; }
+    .devotionals-cta-feature { font-size: 0.72rem; }
+    .devotionals-cta-btn { padding: 0.7rem 1.3rem; font-size: 0.82rem; }
+    .devotionals-cta-image-badge { font-size: 0.55rem; padding: 0.28rem 0.65rem; }
+}
+@media (max-width: 639px) {
+    .devotionals-cta-section { padding: 2.5rem 5%; }
+    .devotionals-cta-banner { grid-template-columns: 1fr; max-width: 100%; }
+    .devotionals-cta-image { min-height: 170px; }
+    .devotionals-cta-content { padding: 1.5rem 1.5rem; }
+    .devotionals-cta-content h3 { font-size: 1.15rem; }
+    .devotionals-cta-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.85rem;
+    }
+    .devotionals-cta-features { gap: 0.7rem; }
+}
+@media (max-width: 400px) {
+    .devotionals-cta-heading { font-size: 1.25rem; }
+    .devotionals-cta-content { padding: 1.25rem 1.15rem; }
+    .devotionals-cta-content h3 { font-size: 1.05rem; }
+    .devotionals-cta-content > p { font-size: 0.8rem; }
+    .devotionals-cta-feature { font-size: 0.7rem; }
+}                        
+
+        /* ==========================================
            DISCIPLESHIP — 4 STEPS
            ========================================== */
         .discipleship-section {
@@ -1813,15 +2048,6 @@
                         </div>
                     </a>
 
-                    <a href="/ministry/devotionals" class="teaching-item">
-                        <div class="teaching-item-icon"><i class="fas fa-feather-alt"></i></div>
-                        <div class="teaching-item-body">
-                            <h4>Today's Devotional: Walking in the Spirit</h4>
-                            <p>How to yield to the Holy Spirit's leading in your daily walk with Christ.</p>
-                            <span class="teaching-item-meta">Devotional · 5 min read</span>
-                        </div>
-                    </a>
-
                     <a href="/ministry/bible-studies/prayer" class="teaching-item">
                         <div class="teaching-item-icon"><i class="fas fa-praying-hands"></i></div>
                         <div class="teaching-item-body">
@@ -1838,6 +2064,60 @@
             </div>
         </div>
     </section>
+
+<!-- ============================================================
+     DAILY DEVOTIONALS — CTA SECTION (school-style)
+     ============================================================ -->
+<section class="devotionals-cta-section">
+    <div class="devotionals-cta-inner">
+        <h2 class="devotionals-cta-heading">Grow in the Word — <span class="highlight">Daily Devotionals</span></h2>
+
+        <div class="devotionals-cta-banner">
+            <div class="devotionals-cta-image">
+                <img
+                    src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=900&q=80"
+                    alt="Open Bible with warm light"
+                    loading="lazy"
+                >
+                <div class="devotionals-cta-image-overlay"></div>
+                <div class="devotionals-cta-image-badge">
+                    <i class="fas fa-feather-alt"></i> Walking in the Spirit
+                </div>
+            </div>
+
+            <div class="devotionals-cta-content">
+                <span class="devotionals-cta-eyebrow">
+                    <i class="fas fa-book-bible"></i> Today's Devotional
+                </span>
+                <h3>Walking in the Spirit — <span class="accent">yield to His leading</span></h3>
+                <p>How to yield to the Holy Spirit's leading in your daily walk with Christ. Scripture, prayer, and practical application for every believer.</p>
+
+                <div class="devotionals-cta-features">
+                    <div class="devotionals-cta-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Updated daily</span>
+                    </div>
+                    <div class="devotionals-cta-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>5-minute read</span>
+                    </div>
+                    <div class="devotionals-cta-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Free forever</span>
+                    </div>
+                </div>
+
+                <a href="/ministry/devotionals" class="devotionals-cta-btn">
+                    <i class="fas fa-book-bible"></i>
+                    Open Today's Devotional
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
 
     <!-- ============================================================
          DISCIPLESHIP — 4 STEPS
