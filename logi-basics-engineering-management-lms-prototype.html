@@ -1,48 +1,1570 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Free online short course in Basics of Engineering Management from Living Oracles Global Institute.">
-<title>Basics of Engineering Management | LOGI</title>
-<style>
-:root{--p:#ff4b93;--pd:#e93680;--ink:#34343b;--muted:#777780;--line:#e9e8ef;--soft:#f5f5f8}
-*{box-sizing:border-box}body{margin:0;font:15px/1.65 Arial,sans-serif;color:var(--ink)}a{text-decoration:none;color:inherit}
-.inner{width:min(1160px,92%);margin:auto}.top{height:66px;border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;background:white;z-index:5}.nav{display:flex;justify-content:space-between;align-items:center}.brand{font-size:21px;font-weight:800}.brand span{color:var(--p)}.nav a:last-child,.btn{background:var(--p);color:white;border:0;border-radius:24px;padding:10px 18px;font-weight:bold;cursor:pointer}
-.hero{padding:42px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa)}.crumb,.muted{color:var(--muted);font-size:13px}.eyebrow{color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase}.hero h1{font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0}.hero h1 span{color:var(--pd)}.hero p{max-width:720px;color:#666}.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.pill{background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px}
-.layout{display:grid;grid-template-columns:285px 1fr;gap:25px;padding:32px 0 55px;align-items:start}.side,.card{border:1px solid var(--line);border-radius:8px;background:white;box-shadow:0 4px 16px #201b3210}.side{position:sticky;top:82px;overflow:hidden}.sidehead{padding:16px;border-bottom:1px solid var(--line)}.sidehead h2{font-size:16px;margin:0}.progress{height:7px;background:#f0edf3;border-radius:9px;margin-top:8px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--p)}.modules{padding:8px}.mod{width:100%;text-align:left;background:white;border:0;padding:11px 9px;border-radius:5px;cursor:pointer;font-weight:bold;color:var(--ink)}.mod.active,.mod:hover{background:#fff3f8;color:var(--pd)}.lessonlink{display:block;width:100%;text-align:left;background:white;border:0;border-left:2px solid transparent;padding:7px 12px 7px 22px;font-size:12px;color:#666;cursor:pointer}.lessonlink.active{color:var(--pd);border-color:var(--p);background:#fff8fb}.lessonlink.done:after{content:" ✓";color:green}.content{min-width:0}.welcome{padding:20px;background:var(--soft);border-radius:8px;margin-bottom:18px}.welcome h2{font-size:20px;margin:3px 0}.card{padding:clamp(20px,4vw,34px)}.card h2{font-size:clamp(24px,3vw,32px);line-height:1.2;margin:9px 0 18px}.card h3{font-size:18px;margin:25px 0 7px}.card p,.card li{color:#555;line-height:1.8}.callout{background:#f0f7ff;border-left:4px solid #438bd5;padding:14px 17px;margin:18px 0}.case{background:#fff8fb;border:1px solid #f4dce7;padding:16px;border-radius:6px;margin:18px 0}.compare{width:100%;border-collapse:collapse}.compare td,.compare th{border:1px solid var(--line);padding:10px;text-align:left}.compare th{background:#fff3f8}.q{border-top:1px solid var(--line);padding:14px 0}.q label{display:block;border:1px solid var(--line);padding:7px 10px;margin:6px 0;border-radius:5px;cursor:pointer}.actions{display:flex;justify-content:space-between;gap:9px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;margin-top:24px}.secondary{border:1px solid var(--line);background:white;border-radius:22px;padding:9px 15px;cursor:pointer}.notice{font-size:12px;color:var(--muted);margin-top:14px}.foot{background:#292832;color:white;text-align:center;padding:25px}.foot strong{color:#ff8cba}
-@media(max-width:800px){.layout{grid-template-columns:1fr}.side{position:static}}@media(max-width:500px){.hero{padding:30px 0}.layout{padding-top:20px}.card{padding:18px}.nav a:not(.brand){font-size:12px}}
-</style></head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LOGI LMS Demonstration – Basics of Engineering Management">
+  <title>LOGI LMS · Basics of Engineering Management</title>
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 10;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-danger { background: #d32f2f; }
+    .btn-danger:hover { background: #b71c1c; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    /* Auth screens */
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    /* Dashboard layout */
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; }
+    .sidebar a, .sidebar button.nav-link {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Course catalogue */
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    /* Lesson content */
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .case {
+      background: #fff8fb;
+      border: 1px solid #f4dce7;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 18px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+    .notice { font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+    /* Module sidebar inside course view */
+    .course-layout { display: grid; grid-template-columns: 260px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 22px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; }
+    .mod-btn {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 11px 9px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--ink);
+      font-size: 13px;
+      transition: background 0.1s;
+    }
+    .mod-btn:hover { background: #fff3f8; color: var(--pd); }
+    .mod-btn.active { background: #fff0f6; color: var(--pd); }
+    .mod-btn.locked { color: #aaa; cursor: not-allowed; }
+    .lesson-link {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-left: 2px solid transparent;
+      padding: 7px 12px 7px 22px;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-link:hover { background: #fafafa; }
+    .lesson-link.active { color: var(--pd); border-color: var(--p); background: #fff8fb; }
+    .lesson-link.done:after { content: " ✓"; color: var(--success); }
+    .lesson-link.locked { color: #bbb; cursor: not-allowed; }
+
+    /* Certificate */
+    .cert-preview {
+      background: white;
+      border: 4px double var(--p);
+      border-radius: 12px;
+      padding: 40px 36px;
+      text-align: center;
+      max-width: 720px;
+      margin: 20px auto;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #333;
+    }
+    .cert-preview .cert-brand { font-size: 26px; font-weight: 800; letter-spacing: 1px; font-family: Arial, sans-serif; }
+    .cert-preview .cert-brand span { color: var(--p); }
+    .cert-preview .cert-sub { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin: 6px 0 24px; font-family: Arial, sans-serif; }
+    .cert-preview .cert-title { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-family: Arial, sans-serif; }
+    .cert-preview .cert-name { font-size: 32px; font-weight: 700; margin: 10px 0; color: var(--ink); }
+    .cert-preview .cert-course { font-size: 18px; font-weight: 600; color: var(--pd); margin: 14px 0; }
+    .cert-preview .cert-meta { font-size: 13px; color: var(--muted); margin-top: 24px; font-family: Arial, sans-serif; }
+    .cert-preview .cert-id { font-family: monospace; font-size: 12px; background: var(--soft); display: inline-block; padding: 4px 12px; border-radius: 4px; margin-top: 8px; }
+    .cert-preview .cert-seal { font-size: 36px; margin: 18px 0 0; }
+    .cert-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+
+    /* Discussion */
+    .post { border-bottom: 1px solid var(--line); padding: 14px 0; }
+    .post .post-meta { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .post .post-author { font-weight: 700; color: var(--pd); font-size: 13px; }
+    .post .post-body { font-size: 14px; color: #444; margin-top: 4px; }
+
+    /* Announcements */
+    .announcement { background: #fff8fb; border-left: 4px solid var(--p); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 14px; }
+    .announcement .a-meta { font-size: 12px; color: var(--muted); }
+    .announcement .a-title { font-weight: 700; font-size: 15px; margin: 2px 0; }
+
+    /* Admin tables */
+    table.admin-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.admin-table th { background: var(--soft); text-align: left; padding: 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+    table.admin-table td { padding: 10px; border-bottom: 1px solid var(--line); }
+    .badge { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+    .badge-pass { background: #e8f5e9; color: #2e7d32; }
+    .badge-fail { background: #fdecea; color: #c62828; }
+    .badge-pending { background: #fff8e1; color: #b28704; }
+    .badge-done { background: #e8f5e9; color: #2e7d32; }
+
+    .foot { background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px; }
+    .foot strong { color: #ff8cba; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px; gap: 4px; }
+      .sidebar .user-badge { display: none; }
+      .sidebar .spacer { display: none; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; }
+      .module-side { position: static; }
+    }
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .cert-preview { padding: 24px 16px; }
+      .cert-preview .cert-name { font-size: 24px; }
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
 <body>
-<header class="top"><div class="inner nav"><a class="brand" href="https://www.logi.education">LOGI<span>.</span></a><a href="https://learn.logi.education">Learning Portal ↗</a></div></header>
-<section class="hero"><div class="inner"><div class="crumb">Home / Short Courses / Engineering &amp; Technology</div><div class="eyebrow">Free online short course · Beginner level</div><h1>Basics of <span>Engineering Management</span></h1><p>Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.</p><a class="btn" href="#learn">Start learning</a><div class="pills"><span class="pill">⏱ 4–6 hours</span><span class="pill">6 modules</span><span class="pill">Self-paced</span><span class="pill">Beginner level</span></div></div></section>
-<main class="inner layout" id="learn"><aside class="side"><div class="sidehead"><h2>Course content</h2><div class="muted"><span id="pct">0%</span> completed</div><div class="progress"><span id="bar"></span></div></div><div class="modules" id="menu"></div></aside><section class="content"><div class="welcome"><div class="eyebrow">Welcome to the course</div><h2>Learn at your own pace</h2><div class="muted">Choose a lesson from the course menu. Your progress is saved in this browser on this device.</div></div><article class="card" id="lesson"></article></section></main>
-<footer class="foot"><strong>Living Oracles Global Institute</strong><br>Faith. Excellence. Impact.</footer>
+
+<header class="top">
+  <div class="inner nav">
+    <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div id="app"></div>
+
+<footer class="foot">
+  <strong>Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
 <script>
-const data=[
-["Introduction to Engineering Management",[
-["Lesson 1: Understanding Engineering Management","35 minutes",`<h2>Understanding Engineering Management</h2><p>Engineering management is the application of management principles, technical knowledge and problem-solving methods to plan, organise, coordinate and control engineering activities. It connects engineering expertise with the people, resources, time, cost and quality requirements needed to complete work successfully.</p><div class="callout"><b>Key idea:</b> Engineering focuses on designing and solving technical problems. Engineering management organises the people, processes and resources required to deliver engineering work effectively.</div><h3>1. What does an engineering manager do?</h3><ul><li>Plans engineering activities and sets priorities.</li><li>Coordinates engineers, technicians, contractors and stakeholders.</li><li>Manages equipment, materials, time and budgets.</li><li>Monitors quality, safety, cost and project performance.</li><li>Identifies problems and supports practical solutions.</li></ul><h3>2. Engineering and engineering management</h3><table class="compare"><tr><th>Engineering</th><th>Engineering management</th></tr><tr><td>Focuses on technical design, analysis and solutions.</td><td>Coordinates technical work, people and resources.</td></tr><tr><td>May involve calculations, testing and system development.</td><td>May involve planning, budgeting, scheduling and team coordination.</td></tr><tr><td>Asks: How can this technical problem be solved?</td><td>Asks: How can the work be delivered safely, on time and within budget?</td></tr></table><h3>3. Where is it applied?</h3><p>Engineering management is used in construction, manufacturing, energy, mining, oil and gas, infrastructure, maintenance and technology projects. A construction project, for example, needs technical design as well as labour planning, material procurement, equipment scheduling, cost control and safety coordination.</p><div class="case"><h3>Practical case: A delayed construction project</h3><p>A contractor is constructing a community health facility. Work has slowed because cement deliveries are late, equipment is unavailable when needed and the site team has not received an updated work schedule.</p><p><b>Management response:</b> Review the work plan, confirm material delivery dates, coordinate equipment use, assign responsibilities and monitor progress against revised milestones—without compromising safety or quality.</p></div><h3>Lesson summary</h3><ul><li>Engineering management combines technical understanding with management practices.</li><li>It coordinates people, materials, equipment, time, cost, quality and risk.</li><li>It is important across many engineering industries.</li></ul><h3>Knowledge check</h3><p>Choose the best answer for each question, then submit your responses.</p><div id="quiz"></div><button class="btn" id="submit">Submit answers</button><p id="result" aria-live="polite"></p>`]
-]],
-["Engineering Planning and Project Management",[["Module 2 overview","50 minutes",`<h2>Engineering Planning and Project Management</h2><p>This module explores how engineering activities are translated into practical work plans.</p><div class="callout"><b>Topics:</b> defining scope and deliverables; breaking work into activities; sequencing tasks; scheduling and milestones; coordinating contractors and stakeholders; monitoring project progress.</div><p>Detailed lessons and activities will be added as the course is developed.</p>`]]],
-["Resource, Cost and Budget Management",[["Module 3 overview","45 minutes",`<h2>Resource, Cost and Budget Management</h2><p>This module introduces the management of resources and costs in engineering operations.</p><div class="callout"><b>Topics:</b> workforce and equipment planning; materials management; cost estimation; budget preparation; cost monitoring; responding to resource shortages.</div><p>Detailed lessons and activities will be added as the course is developed.</p>`]]],
-["Quality, Safety and Risk Management",[["Module 4 overview","60 minutes",`<h2>Quality, Safety and Risk Management</h2><p>This module examines how engineering teams maintain work standards and manage operational risks.</p><div class="callout"><b>Topics:</b> quality assurance and control; workplace safety responsibilities; hazard identification; risk assessment; incident prevention; corrective action.</div><p>Detailed lessons and activities will be added as the course is developed.</p>`]]],
-["Engineering Teams, Communication and Leadership",[["Module 5 overview","45 minutes",`<h2>Engineering Teams, Communication and Leadership</h2><p>This module explores how engineering managers guide people and coordinate work across teams.</p><div class="callout"><b>Topics:</b> team roles and responsibilities; workplace communication; coordination meetings; leadership approaches; conflict resolution; stakeholder engagement.</div><p>Detailed lessons and activities will be added as the course is developed.</p>`]]],
-["Performance Monitoring and Continuous Improvement",[["Module 6 overview","45 minutes",`<h2>Performance Monitoring and Continuous Improvement</h2><p>This module introduces methods for checking performance and improving engineering processes.</p><div class="callout"><b>Topics:</b> key performance indicators; progress reporting; identifying performance gaps; root cause analysis; corrective actions; continuous improvement.</div><p>Detailed lessons and activities will be added as the course is developed.</p>`]]]
-];
-const qs=[
-["Which statement best describes engineering management?",["Designing technical systems only","Coordinating technical work, people and resources to achieve objectives","Replacing engineering with administration"],1,"It coordinates technical work, people and resources to achieve objectives."],
-["Which is an engineering management activity?",["Ignoring delivery schedules","Working without defined responsibilities","Coordinating equipment, materials and labour"],2,"Coordinating equipment, materials and labour is a management responsibility."],
-["Materials arrive late on a project. What is a sensible response?",["Review the plan and coordinate suppliers and work activities","Stop monitoring the project","Ignore the delay"],0,"Reviewing the plan and coordinating suppliers helps address the delay."],
-["Which question is most closely associated with engineering management?",["How can planning be avoided?","How can work be delivered safely, on time and within budget?","How can standards be ignored?"],1,"Engineering management considers safe delivery, time, cost and quality."],
-["Where can engineering management be applied?",["Construction only","Manufacturing only","Across many engineering sectors"],2,"It is applied across construction, manufacturing, energy and other sectors."]
-];
-let pos=[0,0],done=JSON.parse(localStorage.getItem("logi_eng_course_done")||"[]");
-function id(){return pos[0]+"-"+pos[1]}
-function draw(){let menu=document.getElementById("menu");menu.innerHTML="";data.forEach((m,i)=>{let b=document.createElement("button");b.className="mod"+(i===pos[0]?" active":"");b.textContent=(i+1)+". "+m[0];b.onclick=()=>{pos=[i,0];draw()};menu.appendChild(b);m[1].forEach((l,j)=>{let x=document.createElement("button");x.className="lessonlink"+(pos[0]===i&&pos[1]===j?" active":"")+(done.includes(i+"-"+j)?" done":"");x.textContent=l[0];x.onclick=()=>{pos=[i,j];draw()};menu.appendChild(x)})});let total=data.reduce((n,m)=>n+m[1].length,0),pct=Math.round(done.length/total*100);document.getElementById("pct").textContent=pct+"%";document.getElementById("bar").style.width=pct+"%";
-let l=data[pos[0]][1][pos[1]],el=document.getElementById("lesson");el.innerHTML=`<div class="muted">MODULE ${pos[0]+1} · ${l[1]}</div>${l[2]}<div class="actions"><button class="secondary" id="prev">← Previous</button><button class="btn" id="mark">${done.includes(id())?"Completed ✓":"Mark lesson complete"}</button><button class="secondary" id="next">Next →</button></div><div class="notice">Prototype: completion is stored only in this browser. Student accounts, central progress records, grading and certificates require integration with the LOGI Moodle portal.</div>`;
-document.getElementById("prev").onclick=()=>step(-1);document.getElementById("next").onclick=()=>step(1);document.getElementById("mark").onclick=()=>{if(!done.includes(id()))done.push(id());localStorage.setItem("logi_eng_course_done",JSON.stringify(done));draw()};
-if(pos[0]===0&&pos[1]===0)quiz();
+/* ============================================================
+   LOGI LMS DEMO — single-file browser prototype
+   Storage: localStorage (demo only)
+   ============================================================ */
+
+const STORE = {
+  users: 'logi_users',
+  session: 'logi_session',
+  progress: 'logi_progress',       // { username: { lessons: { "m-l": true }, quizzes: { m: { score, total, passed } } } }
+  certificates: 'logi_certificates', // { username: [ { id, courseId, date, name } ] }
+  posts: 'logi_posts',             // [ { id, user, text, ts } ]
+  announcements: 'logi_announcements', // [ { id, title, body, ts } ]
+  enrolments: 'logi_enrolments'     // { username: [courseId, ...] }
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
 }
-function step(d){let m=pos[0],l=pos[1]+d;if(l<0){m--;if(m<0)return;l=data[m][1].length-1}else if(l>=data[m][1].length){m++;l=0;if(m>=data.length)return}pos=[m,l];draw();document.getElementById("learn").scrollIntoView({behavior:"smooth"})}
-function quiz(){let q=document.getElementById("quiz");if(!q)return;q.innerHTML=qs.map((v,i)=>`<div class="q"><b>${i+1}. ${v[0]}</b>${v[1].map((a,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${a}</label>`).join("")}<div id="fb${i}" class="muted"></div></div>`).join("");document.getElementById("submit").onclick=()=>{let score=0;qs.forEach((v,i)=>{let a=document.querySelector('input[name="q'+i+'"]:checked'),ok=a&&+a.value===v[2];if(ok)score++;let f=document.getElementById("fb"+i);f.textContent=(ok?"Correct. ":"Review: ")+v[3];f.style.color=ok?"green":"#b33"});document.getElementById("result").textContent="Your score: "+score+" / "+qs.length+". Review the explanations and try again."}}
-draw();
-</script></body></html>
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+/* ---------- Course data ---------- */
+const COURSE = {
+  id: 'eng-mgmt-101',
+  title: 'Basics of Engineering Management',
+  desc: 'Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.',
+  passMark: 80, // percent
+  modules: [
+    {
+      title: 'Introduction to Engineering Management',
+      lessons: [
+        {
+          title: 'Understanding Engineering Management',
+          duration: '35 minutes',
+          html: `
+            <h2>Understanding Engineering Management</h2>
+            <p>Engineering management is the application of management principles, technical knowledge and problem-solving methods to plan, organise, coordinate and control engineering activities. It connects engineering expertise with the people, resources, time, cost and quality requirements needed to complete work successfully.</p>
+            <div class="callout"><b>Key idea:</b> Engineering focuses on designing and solving technical problems. Engineering management organises the people, processes and resources required to deliver engineering work effectively.</div>
+            <h3>1. What does an engineering manager do?</h3>
+            <ul>
+              <li>Plans engineering activities and sets priorities.</li>
+              <li>Coordinates engineers, technicians, contractors and stakeholders.</li>
+              <li>Manages equipment, materials, time and budgets.</li>
+              <li>Monitors quality, safety, cost and project performance.</li>
+              <li>Identifies problems and supports practical solutions.</li>
+            </ul>
+            <h3>2. Engineering and engineering management</h3>
+            <table class="compare">
+              <tr><th>Engineering</th><th>Engineering management</th></tr>
+              <tr><td>Focuses on technical design, analysis and solutions.</td><td>Coordinates technical work, people and resources.</td></tr>
+              <tr><td>May involve calculations, testing and system development.</td><td>May involve planning, budgeting, scheduling and team coordination.</td></tr>
+              <tr><td>Asks: How can this technical problem be solved?</td><td>Asks: How can the work be delivered safely, on time and within budget?</td></tr>
+            </table>
+            <h3>3. Where is it applied?</h3>
+            <p>Engineering management is used in construction, manufacturing, energy, mining, oil and gas, infrastructure, maintenance and technology projects. A construction project, for example, needs technical design as well as labour planning, material procurement, equipment scheduling, cost control and safety coordination.</p>
+            <div class="case">
+              <h3>Practical case: A delayed construction project</h3>
+              <p>A contractor is constructing a community health facility. Work has slowed because cement deliveries are late, equipment is unavailable when needed and the site team has not received an updated work schedule.</p>
+              <p><b>Management response:</b> Review the work plan, confirm material delivery dates, coordinate equipment use, assign responsibilities and monitor progress against revised milestones—without compromising safety or quality.</p>
+            </div>
+            <h3>Lesson summary</h3>
+            <ul>
+              <li>Engineering management combines technical understanding with management practices.</li>
+              <li>It coordinates people, materials, equipment, time, cost, quality and risk.</li>
+              <li>It is important across many engineering industries.</li>
+            </ul>
+          `,
+          quiz: [
+            {
+              q: 'Which statement best describes engineering management?',
+              opts: ['Designing technical systems only', 'Coordinating technical work, people and resources to achieve objectives', 'Replacing engineering with administration'],
+              answer: 1,
+              explanation: 'It coordinates technical work, people and resources to achieve objectives.'
+            },
+            {
+              q: 'Which is an engineering management activity?',
+              opts: ['Ignoring delivery schedules', 'Working without defined responsibilities', 'Coordinating equipment, materials and labour'],
+              answer: 2,
+              explanation: 'Coordinating equipment, materials and labour is a management responsibility.'
+            },
+            {
+              q: 'Materials arrive late on a project. What is a sensible response?',
+              opts: ['Review the plan and coordinate suppliers and work activities', 'Stop monitoring the project', 'Ignore the delay'],
+              answer: 0,
+              explanation: 'Reviewing the plan and coordinating suppliers helps address the delay.'
+            },
+            {
+              q: 'Which question is most closely associated with engineering management?',
+              opts: ['How can planning be avoided?', 'How can work be delivered safely, on time and within budget?', 'How can standards be ignored?'],
+              answer: 1,
+              explanation: 'Engineering management considers safe delivery, time, cost and quality.'
+            },
+            {
+              q: 'Where can engineering management be applied?',
+              opts: ['Construction only', 'Manufacturing only', 'Across many engineering sectors'],
+              answer: 2,
+              explanation: 'It is applied across construction, manufacturing, energy and other sectors.'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Engineering Planning and Project Management',
+      lessons: [
+        {
+          title: 'Module 2 overview',
+          duration: '50 minutes',
+          html: `
+            <h2>Engineering Planning and Project Management</h2>
+            <p>This module explores how engineering activities are translated into practical work plans.</p>
+            <div class="callout"><b>Topics:</b> defining scope and deliverables; breaking work into activities; sequencing tasks; scheduling and milestones; coordinating contractors and stakeholders; monitoring project progress.</div>
+            <p>Detailed lessons and activities will be added as the course is developed.</p>
+          `,
+          quiz: [
+            { q: 'What is a key output of engineering planning?', opts: ['A work plan with activities and milestones', 'A list of unrelated tasks', 'No documentation'], answer: 0, explanation: 'Planning produces a structured work plan.' },
+            { q: 'Why sequence tasks?', opts: ['To delay work', 'To ensure dependencies are respected', 'To avoid coordination'], answer: 1, explanation: 'Sequencing respects dependencies between activities.' },
+            { q: 'Who should be coordinated during a project?', opts: ['Only engineers', 'Only contractors', 'Contractors, engineers and stakeholders'], answer: 2, explanation: 'All parties need coordination.' },
+            { q: 'What helps monitor progress?', opts: ['Ignoring milestones', 'Tracking against a schedule', 'Removing all reporting'], answer: 1, explanation: 'Tracking against a schedule reveals progress.' },
+            { q: 'What is a deliverable?', opts: ['A tangible output of a project', 'An unnecessary document', 'A type of delay'], answer: 0, explanation: 'Deliverables are tangible outputs.' }
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Resource, Cost and Budget Management',
+      lessons: [
+        {
+          title: 'Module 3 overview',
+          duration: '45 minutes',
+          html: `
+            <h2>Resource, Cost and Budget Management</h2>
+            <p>This module introduces the management of resources and costs in engineering operations.</p>
+            <div class="callout"><b>Topics:</b> workforce and equipment planning; materials management; cost estimation; budget preparation; cost monitoring; responding to resource shortages.</div>
+            <p>Detailed lessons and activities will be added as the course is developed.</p>
+          `,
+          quiz: [
+            { q: 'What is cost estimation?', opts: ['Predicting project costs', 'Ignoring budgets', 'Removing resources'], answer: 0, explanation: 'Cost estimation predicts project costs.' },
+            { q: 'Why monitor costs?', opts: ['To avoid overspending', 'To increase waste', 'To ignore budgets'], answer: 0, explanation: 'Monitoring helps avoid overspending.' },
+            { q: 'What is a resource shortage?', opts: ['Having too many resources', 'Not having enough resources', 'A type of budget'], answer: 1, explanation: 'A shortage means insufficient resources.' },
+            { q: 'What is materials management?', opts: ['Tracking and controlling materials', 'Ignoring materials', 'Only ordering materials'], answer: 0, explanation: 'It involves tracking and controlling materials.' },
+            { q: 'What should you do when costs rise?', opts: ['Review budget and adjust plans', 'Ignore the rise', 'Stop all work'], answer: 0, explanation: 'Reviewing and adjusting plans is the right response.' }
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Quality, Safety and Risk Management',
+      lessons: [
+        {
+          title: 'Module 4 overview',
+          duration: '60 minutes',
+          html: `
+            <h2>Quality, Safety and Risk Management</h2>
+            <p>This module examines how engineering teams maintain work standards and manage operational risks.</p>
+            <div class="callout"><b>Topics:</b> quality assurance and control; workplace safety responsibilities; hazard identification; risk assessment; incident prevention; corrective action.</div>
+            <p>Detailed lessons and activities will be added as the course is developed.</p>
+          `,
+          quiz: [
+            { q: 'What is quality assurance?', opts: ['Preventing defects through processes', 'Ignoring standards', 'Only checking at the end'], answer: 0, explanation: 'Quality assurance prevents defects through processes.' },
+            { q: 'What is a hazard?', opts: ['A source of potential harm', 'A type of reward', 'A guaranteed success'], answer: 0, explanation: 'A hazard is a source of potential harm.' },
+            { q: 'Why assess risk?', opts: ['To understand likelihood and impact', 'To ignore dangers', 'To increase accidents'], answer: 0, explanation: 'Risk assessment understands likelihood and impact.' },
+            { q: 'What is corrective action?', opts: ['Fixing a problem after detection', 'Ignoring problems', 'Creating new problems'], answer: 0, explanation: 'Corrective action fixes detected problems.' },
+            { q: 'Who is responsible for safety?', opts: ['Only managers', 'Only workers', 'Everyone in the workplace'], answer: 2, explanation: 'Safety is everyone’s responsibility.' }
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Engineering Teams, Communication and Leadership',
+      lessons: [
+        {
+          title: 'Module 5 overview',
+          duration: '45 minutes',
+          html: `
+            <h2>Engineering Teams, Communication and Leadership</h2>
+            <p>This module explores how engineering managers guide people and coordinate work across teams.</p>
+            <div class="callout"><b>Topics:</b> team roles and responsibilities; workplace communication; coordination meetings; leadership approaches; conflict resolution; stakeholder engagement.</div>
+            <p>Detailed lessons and activities will be added as the course is developed.</p>
+          `,
+          quiz: [
+            { q: 'What is a key leadership role?', opts: ['Guiding and supporting the team', 'Ignoring the team', 'Avoiding communication'], answer: 0, explanation: 'Leadership involves guiding and supporting the team.' },
+            { q: 'Why hold coordination meetings?', opts: ['To share information and align work', 'To waste time', 'To avoid collaboration'], answer: 0, explanation: 'Coordination meetings share information and align work.' },
+            { q: 'What helps resolve conflict?', opts: ['Open communication', 'Ignoring the issue', 'Blaming others'], answer: 0, explanation: 'Open communication helps resolve conflict.' },
+            { q: 'Who are stakeholders?', opts: ['Only managers', 'Anyone affected by the project', 'Only external clients'], answer: 1, explanation: 'Stakeholders are anyone affected by the project.' },
+            { q: 'What is a team role?', opts: ['A set of responsibilities', 'An unnecessary label', 'A type of meeting'], answer: 0, explanation: 'A team role is a set of responsibilities.' }
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Performance Monitoring and Continuous Improvement',
+      lessons: [
+        {
+          title: 'Module 6 overview',
+          duration: '45 minutes',
+          html: `
+            <h2>Performance Monitoring and Continuous Improvement</h2>
+            <p>This module introduces methods for checking performance and improving engineering processes.</p>
+            <div class="callout"><b>Topics:</b> key performance indicators; progress reporting; identifying performance gaps; root cause analysis; corrective actions; continuous improvement.</div>
+            <p>Detailed lessons and activities will be added as the course is developed.</p>
+          `,
+          quiz: [
+            { q: 'What is a KPI?', opts: ['A key performance indicator', 'A type of tool', 'A project delay'], answer: 0, explanation: 'KPI stands for key performance indicator.' },
+            { q: 'Why identify performance gaps?', opts: ['To understand where improvement is needed', 'To ignore issues', 'To increase waste'], answer: 0, explanation: 'Gaps show where improvement is needed.' },
+            { q: 'What is root cause analysis?', opts: ['Finding the underlying cause of a problem', 'Ignoring the problem', 'Only treating symptoms'], answer: 0, explanation: 'Root cause analysis finds underlying causes.' },
+            { q: 'What is continuous improvement?', opts: ['Ongoing effort to improve processes', 'A one-time fix', 'Avoiding change'], answer: 0, explanation: 'Continuous improvement is ongoing.' },
+            { q: 'What does progress reporting do?', opts: ['Communicates status to stakeholders', 'Hides information', 'Stops work'], answer: 0, explanation: 'Progress reporting communicates status.' }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+/* ---------- Helpers ---------- */
+function uid() {
+  return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+}
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function nowISO() { return new Date().toISOString(); }
+
+/* ---------- Session / user ---------- */
+function getUsers() { return load(STORE.users, {}); }
+function getSession() { return load(STORE.session, null); }
+function setSession(u) { save(STORE.session, u); }
+function clearSession() { localStorage.removeItem(STORE.session); }
+function currentUser() {
+  const s = getSession();
+  if (!s) return null;
+  return getUsers()[s.username] || null;
+}
+function getProgress(username) {
+  const p = load(STORE.progress, {});
+  if (!p[username]) p[username] = { lessons: {}, quizzes: {} };
+  return p[username];
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  all[username] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) {
+  const e = load(STORE.enrolments, {});
+  return e[username] || [];
+}
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) {
+  const c = load(STORE.certificates, {});
+  return c[username] || [];
+}
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+/* ---------- Progress calculations ---------- */
+function isLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  return !!p.lessons[mi + '-' + li];
+}
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+}
+function getQuizResult(username, mi) {
+  const p = getProgress(username);
+  return p.quizzes[mi] || null;
+}
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  // previous module quiz must be passed
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function moduleLessonsDone(username, mi) {
+  const mod = COURSE.modules[mi];
+  if (!mod) return 0;
+  let n = 0;
+  mod.lessons.forEach((_, li) => { if (isLessonDone(username, mi, li)) n++; });
+  return n;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+    if (getQuizResult(username, mi)?.passed) { /* module complete */ }
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  // all lessons done and all quizzes passed
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+
+/* ---------- Certificate generation ---------- */
+function generateCertificate(username) {
+  const user = getUsers()[username];
+  if (!user) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+  const certId = 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+  cert = {
+    id: certId,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: user.fullName || user.username,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+/* ============================================================
+   APP ROUTER
+   ============================================================ */
+const App = (() => {
+  let state = {
+    screen: 'landing', // landing | login | register | dashboard | course | certificate | admin
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    adminTab: 'overview'
+  };
+
+  function renderNav() {
+    const el = document.getElementById('navActions');
+    const u = currentUser();
+    if (u) {
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.username)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function esc(s) {
+    if (typeof s !== 'string') return s;
+    return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  }
+
+  /* ---------- Landing ---------- */
+  function showLanding() {
+    state.screen = 'landing';
+    if (currentUser()) { showDashboard(); return; }
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Engineering &amp; Technology</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Engineering Management</span></h1>
+          <p style="max-width:720px;color:#666;">Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.</p>
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4–6 hours</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">6 modules</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Self-paced</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Beginner level</span>
+          </div>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+      <section class="inner" style="padding:36px 0 55px;">
+        <h2 style="font-size:22px;margin-bottom:16px;">What you will learn</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+          ${COURSE.modules.map((m, i) => `
+            <div class="card" style="margin:0;">
+              <div style="font-size:12px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
+              <h3 style="margin:6px 0 4px;font-size:16px;">${esc(m.title)}</h3>
+              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Assessment included</div>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  }
+
+  /* ---------- Auth: login ---------- */
+  function showLogin() {
+    state.screen = 'login';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue your course.</p>
+          <div class="field"><label for="loginUser">Username</label><input id="loginUser" autocomplete="username" placeholder="e.g. jsmith"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+          <div class="auth-switch" style="margin-top:6px;"><a onclick="App.showLanding()">← Back to course overview</a></div>
+        </div>
+      </div>
+    `;
+    document.getElementById('loginUser').focus();
+  }
+
+  function doLogin() {
+    const u = document.getElementById('loginUser').value.trim().toLowerCase();
+    const p = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+    if (!u || !p) { err.textContent = 'Please enter both username and password.'; return; }
+    const users = getUsers();
+    if (!users[u] || users[u].password !== p) {
+      err.textContent = 'Invalid username or password.';
+      return;
+    }
+    setSession({ username: u });
+    showDashboard();
+  }
+
+  /* ---------- Auth: register ---------- */
+  function showRegister() {
+    state.screen = 'register';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Engineering Management.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith" autocomplete="name"></div>
+          <div class="field"><label for="regUser">Username</label><input id="regUser" placeholder="Choose a username" autocomplete="username"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password" autocomplete="new-password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password" autocomplete="new-password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+          <div class="auth-switch" style="margin-top:6px;"><a onclick="App.showLanding()">← Back to course overview</a></div>
+        </div>
+      </div>
+    `;
+    document.getElementById('regName').focus();
+  }
+
+  function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const u = document.getElementById('regUser').value.trim().toLowerCase();
+    const p = document.getElementById('regPass').value;
+    const p2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !u || !p) { err.textContent = 'All fields are required.'; return; }
+    if (u.length < 3) { err.textContent = 'Username must be at least 3 characters.'; return; }
+    if (!/^[a-z0-9._-]+$/.test(u)) { err.textContent = 'Username may only contain letters, numbers, dots, underscores or hyphens.'; return; }
+    if (p.length < 4) { err.textContent = 'Password must be at least 4 characters.'; return; }
+    if (p !== p2) { err.textContent = 'Passwords do not match.'; return; }
+
+    const users = getUsers();
+    if (users[u]) { err.textContent = 'That username is already taken.'; return; }
+
+    users[u] = { username: u, fullName: name, password: p, createdAt: nowISO(), role: 'student' };
+    save(STORE.users, users);
+
+    // auto-enrol in the course
+    enrol(u, COURSE.id);
+    setSession({ username: u });
+    showDashboard();
+  }
+
+  function logout() {
+    clearSession();
+    showLanding();
+  }
+
+  /* ---------- Dashboard ---------- */
+  function showDashboard() {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const enrolled = getEnrolments(username);
+    const pct = courseProgressPct(username);
+    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
+    const passedModules = quizzes.filter(q => q?.passed).length;
+    const completed = courseCompleted(username);
+    const certs = getCerts(username);
+    const cert = certs.find(c => c.courseId === COURSE.id);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge">
+            <strong>${esc(u.fullName || u.username)}</strong>
+            <span>@${esc(u.username)}</span>
+          </div>
+          <button class="nav-link active" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${passedModules} / ${COURSE.modules.length}</div><div class="lbl">Modules passed</div></div>
+            <div class="stat-box"><div class="num">${completed ? '✅' : '—'}</div><div class="lbl">Course complete</div></div>
+            <div class="stat-box"><div class="num">${cert ? '🏅' : '—'}</div><div class="lbl">Certificate issued</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Engineering Management</h2>
+            <p style="font-size:13px;color:var(--muted);margin-top:-4px;">${esc(COURSE.desc)}</p>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
+              <button class="btn" onclick="App.openCourse(${state.activeCourseModule||0},${state.activeCourseLesson||0})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Module progress</h2>
+            <table class="admin-table">
+              <thead><tr><th>Module</th><th>Lessons</th><th>Assessment</th><th>Status</th></tr></thead>
+              <tbody>
+                ${COURSE.modules.map((m, mi) => {
+                  const done = moduleLessonsDone(username, mi);
+                  const total = m.lessons.length;
+                  const qr = getQuizResult(username, mi);
+                  const locked = isModuleLocked(username, mi);
+                  let statusBadge = '<span class="badge badge-pending">Locked</span>';
+                  if (!locked) {
+                    if (qr?.passed) statusBadge = '<span class="badge badge-pass">Passed</span>';
+                    else if (qr && !qr.passed) statusBadge = '<span class="badge badge-fail">Retake needed</span>';
+                    else statusBadge = '<span class="badge badge-pending">In progress</span>';
+                  }
+                  return `<tr>
+                    <td><b>${mi+1}. ${esc(m.title)}</b></td>
+                    <td>${done} / ${total} done</td>
+                    <td>${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
+                    <td>${statusBadge}</td>
+                  </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h2>Quick links</h2>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="btn-outline" onclick="App.showCatalogue()">Browse catalogue</button>
+              <button class="btn-outline" onclick="App.showCertificate()">View certificate</button>
+              <button class="btn-outline" onclick="App.showDiscussion()">Discussion forum</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  /* ---------- Course catalogue ---------- */
+  function showCatalogue() {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    state.screen = 'catalogue';
+    const enrolled = getEnrolments(u.username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link active" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <p class="subtitle">Browse available short courses.</p>
+          <div class="catalogue-grid">
+            <div class="course-tile">
+              <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Engineering &amp; Technology</div>
+              <h3>${esc(COURSE.title)}</h3>
+              <div class="meta">6 modules · Beginner · Free</div>
+              <div class="desc">${esc(COURSE.desc)}</div>
+              ${enrolled.includes(COURSE.id)
+                ? `<button class="btn" onclick="App.openCourse(0,0)">Open course</button>`
+                : `<button class="btn" onclick="App.enrolAndOpen()">Enrol now</button>`}
+            </div>
+            <div class="course-tile" style="opacity:0.65;">
+              <div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Coming soon</div>
+              <h3>Construction Project Controls</h3>
+              <div class="meta">4 modules · Intermediate</div>
+              <div class="desc">Learn how to monitor cost, schedule and change on construction projects.</div>
+              <button class="btn-secondary" disabled>Not yet available</button>
+            </div>
+            <div class="course-tile" style="opacity:0.65;">
+              <div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Coming soon</div>
+              <h3>Engineering Risk &amp; Safety Essentials</h3>
+              <div class="meta">5 modules · Beginner</div>
+              <div class="desc">Identify hazards, assess risk and support a safer engineering workplace.</div>
+              <button class="btn-secondary" disabled>Not yet available</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function enrolAndOpen() {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    enrol(u.username, COURSE.id);
+    openCourse(0, 0);
+  }
+
+  /* ---------- Course viewer ---------- */
+  function openCourse(mi, li) {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    if (!getEnrolments(u.username).includes(COURSE.id)) {
+      enrolAndOpen(); return;
+    }
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    renderCourse();
+  }
+
+  function renderCourse() {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (!lesson) { openCourse(mi, 0); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:24px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
+          <div>
+            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Basics of Engineering Management</div>
+            <h1 style="font-size:24px;margin:2px 0;">${esc(mod.title)}</h1>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-secondary btn-sm" onclick="App.showDashboard()">← Dashboard</button>
+            <button class="btn-outline btn-sm" onclick="App.showCatalogue()">Catalogue</button>
+          </div>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead">
+              <h2>Course content</h2>
+              <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+              <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                return `
+                  <button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}"
+                    onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse(${i},0)`}">
+                    ${i+1}. ${esc(m.title)} ${locked?'🔒':''}
+                  </button>
+                  ${i===mi ? m.lessons.map((l, j) => {
+                    const done = isLessonDone(username, i, j);
+                    return `
+                      <button class="lesson-link ${j===li?'active':''} ${done?'done':''}"
+                        onclick="App.openCourse(${i},${j})">
+                        ${esc(l.title)}
+                      </button>
+                    `;
+                  }).join('') : ''}
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card" id="lessonCard">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:28px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div id="lessonBody">${lesson.html}</div>
+              ${lesson.quiz ? renderQuizUI(mi, lesson.quiz) : ''}
+              <div class="actions">
+                <button class="secondary btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  ${lesson.quiz ? '' : `<button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>`}
+                  <button class="secondary btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+              <div class="notice">Demo LMS: accounts, progress and certificates are stored only in this browser. Not a secure institutional system.</div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+    if (lesson.quiz) attachQuizEvents(mi, lesson.quiz);
+  }
+
+  function alertLocked(i) {
+    alert('Module ' + (i+1) + ' is locked until you pass the previous module assessment.');
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = currentUser();
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = result?.passed;
+    return `
+      <div id="quizWrap" style="margin-top:32px;border-top:2px solid var(--line);padding-top:24px;">
+        <h2 style="font-size:22px;">Module ${mi+1} assessment</h2>
+        <p style="font-size:14px;color:var(--muted);">Answer all questions. Pass mark: ${COURSE.passMark}%. Unlimited retakes allowed.</p>
+        ${result ? `<div class="callout" style="background:${passed?'#e8f5e9':'#fdecea'};border-left-color:${passed?'#2e7d32':'#c62828'};">
+          <b>Previous attempt:</b> ${result.score} / ${result.total} (${Math.round(result.score/result.total*100)}%) — ${passed?'Passed ✅':'Not passed — try again'}</div>` : ''}
+        <div id="quizQuestions">
+          ${quiz.map((q, qi) => `
+            <div class="q" data-qindex="${qi}">
+              <b>${qi+1}. ${esc(q.q)}</b>
+              ${q.opts.map((opt, oi) => `
+                <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                  <input type="radio" name="q${mi}_${qi}" value="${oi}" style="margin-right:6px;">
+                  ${esc(opt)}
+                </label>
+              `).join('')}
+              <div class="feedback" id="fb_${mi}_${qi}"></div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;">
+          <button class="btn" onclick="App.submitQuiz(${mi})">Submit answers</button>
+          ${result && !passed ? '<span style="font-size:13px;color:var(--error);">You can retake this assessment.</span>' : ''}
+        </div>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  function attachQuizEvents(mi, quiz) {
+    // pre-select any previous answers? no, fresh each render
+  }
+
+  function submitQuiz(mi) {
+    const u = currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    if (!quiz) return;
+    let score = 0;
+    let answeredAll = true;
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      const val = parseInt(sel.value, 10);
+      const ok = val === q.answer;
+      if (ok) score++;
+      if (fb) {
+        fb.textContent = (ok ? '✅ Correct. ' : '❌ Review: ') + q.explanation;
+        fb.style.color = ok ? 'var(--success)' : 'var(--error)';
+      }
+    });
+    if (!answeredAll) {
+      document.getElementById('quizResult_' + mi).textContent = 'Please answer all questions before submitting.';
+      return;
+    }
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const pct = Math.round(score / quiz.length * 100);
+    const passed = pct >= COURSE.passMark;
+    const resEl = document.getElementById('quizResult_' + mi);
+    if (resEl) {
+      resEl.textContent = `You scored ${score} / ${quiz.length} (${pct}%). ${passed ? 'Passed ✅ — next module unlocked.' : 'Not passed. Review the explanations and retake when ready.'}`;
+      resEl.style.color = passed ? 'var(--success)' : 'var(--error)';
+    }
+    // if passed, mark module lesson done automatically
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      // if course completed, generate certificate
+      if (courseCompleted(u.username)) {
+        generateCertificate(u.username);
+      }
+      // re-render to unlock next module
+      setTimeout(() => {
+        const curMi = state.activeCourseModule;
+        const curLi = state.activeCourseLesson;
+        renderCourse();
+      }, 1200);
+    } else {
+      // keep quiz visible with feedback
+    }
+  }
+
+  function markCurrentLesson() {
+    const u = currentUser();
+    if (!u) return;
+    const mi = state.activeCourseModule, li = state.activeCourseLesson;
+    markLessonDone(u.username, mi, li);
+    if (courseCompleted(u.username)) generateCertificate(u.username);
+    renderCourse();
+  }
+
+  function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) {
+      mi--;
+      if (mi < 0) { showDashboard(); return; }
+      if (isModuleLocked(currentUser().username, mi)) { alertLocked(mi); return; }
+      li = COURSE.modules[mi].lessons.length - 1;
+    }
+    openCourse(mi, li);
+  }
+
+  function nextLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li >= COURSE.modules[mi].lessons.length) {
+      mi++; li = 0;
+      if (mi >= COURSE.modules.length) {
+        alert('You have reached the end of the course content. Check the dashboard for your certificate status.');
+        showDashboard(); return;
+      }
+      if (isModuleLocked(currentUser().username, mi)) {
+        alert('Complete and pass the current module assessment before moving to the next module.');
+        return;
+      }
+    }
+    openCourse(mi, li);
+  }
+
+  /* ---------- Certificate view ---------- */
+  function showCertificate() {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link active" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+          ${cert ? `
+            <div id="certArea">
+              <div class="cert-preview" id="printableCert">
+                <div class="cert-brand">LOGI<span>.</span></div>
+                <div class="cert-sub">Living Oracles Global Institute</div>
+                <div class="cert-title">Certificate of Completion</div>
+                <div class="cert-name">${esc(cert.studentName)}</div>
+                <div style="font-size:13px;color:var(--muted);font-family:Arial,sans-serif;">has successfully completed</div>
+                <div class="cert-course">${esc(cert.courseTitle)}</div>
+                <div class="cert-meta">Completed on ${fmtDate(cert.date)}</div>
+                <div class="cert-id">Certificate ID: ${esc(cert.id)}</div>
+                <div class="cert-seal">🏅</div>
+                <div class="cert-meta" style="margin-top:18px;font-size:11px;">This is a demonstration certificate stored in your browser. Not an independently verifiable credential.</div>
+              </div>
+              <div class="cert-actions">
+                <button class="btn" onclick="App.printCertificate()">🖨️ Print / save as PDF</button>
+                <button class="btn-outline" onclick="App.showDashboard()">Back to dashboard</button>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function printCertificate() {
+    const certEl = document.getElementById('printableCert');
+    if (!certEl) return;
+    const w = window.open('', '_blank');
+    w.document.write(`
+      <html><head><title>LOGI Certificate</title>
+      <style>
+        body{font-family:Georgia,'Times New Roman',serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#fff;}
+        .cert-preview{border:4px double #ff4b93;border-radius:12px;padding:40px 36px;text-align:center;max-width:720px;width:90%;color:#333;}
+        .cert-brand{font-size:26px;font-weight:800;letter-spacing:1px;font-family:Arial,sans-serif;}
+        .cert-brand span{color:#ff4b93;}
+        .cert-sub{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#777780;margin:6px 0 24px;font-family:Arial,sans-serif;}
+        .cert-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#777780;margin-bottom:6px;font-family:Arial,sans-serif;}
+        .cert-name{font-size:32px;font-weight:700;margin:10px 0;color:#34343b;}
+        .cert-course{font-size:18px;font-weight:600;color:#e93680;margin:14px 0;}
+        .cert-meta{font-size:13px;color:#777780;margin-top:24px;font-family:Arial,sans-serif;}
+        .cert-id{font-family:monospace;font-size:12px;background:#f5f5f8;display:inline-block;padding:4px 12px;border-radius:4px;margin-top:8px;}
+        .cert-seal{font-size:36px;margin:18px 0 0;}
+        @media print{body{margin:0;} .cert-preview{max-width:100%;}}
+      </style></head><body>${certEl.outerHTML}</body></html>
+    `);
+    w.document.close();
+    w.focus();
+    setTimeout(() => w.print(), 400);
+  }
+
+  /* ---------- Discussion ---------- */
+  function showDiscussion() {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    state.screen = 'discussion';
+    const posts = load(STORE.posts, []);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link active" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>Discussion forum</h1>
+          <p class="subtitle">Ask questions and share ideas with other learners.</p>
+          <div class="card">
+            <h3 style="margin-top:0;">Start a discussion</h3>
+            <textarea id="postText" rows="3" placeholder="Write your question or comment..." style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:14px;resize:vertical;"></textarea>
+            <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:12px;color:var(--muted);">Posting as <b>${esc(u.fullName||u.username)}</b></span>
+              <button class="btn btn-sm" onclick="App.submitPost()">Post to forum</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Recent posts (${posts.length})</h2>
+            ${posts.length === 0 ? '<p style="color:var(--muted);">No posts yet. Be the first to start a discussion.</p>' :
+              posts.slice().reverse().map(p => `
+                <div class="post">
+                  <div class="post-meta"><span class="post-author">${esc(p.user)}</span> · ${fmtDate(p.ts)}</div>
+                  <div class="post-body">${esc(p.text)}</div>
+                </div>
+              `).join('')
+            }
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function submitPost() {
+    const u = currentUser();
+    if (!u) return;
+    const text = document.getElementById('postText').value.trim();
+    if (!text) return;
+    const posts = load(STORE.posts, []);
+    posts.push({ id: uid(), user: u.fullName || u.username, text, ts: nowISO() });
+    save(STORE.posts, posts);
+    showDiscussion();
+  }
+
+  /* ---------- Announcements ---------- */
+  function showAnnouncements() {
+    const u = currentUser();
+    if (!u) { showLogin(); return; }
+    state.screen = 'announcements';
+    const anns = load(STORE.announcements, [
+      { id: uid(), title: 'Welcome to Basics of Engineering Management', body: 'We are glad you are here. Work through the modules in order, and remember you can retake assessments as many times as you need.', ts: nowISO() },
+      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate you must complete every lesson and pass each module assessment with at least ' + COURSE.passMark + '%.', ts: nowISO() }
+    ]);
+    save(STORE.announcements, anns);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link active" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Course news and important updates.</p>
+          ${anns.slice().reverse().map(a => `
+            <div class="announcement">
+              <div class="a-meta">${fmtDate(a.ts)}</div>
+              <div class="a-title">${esc(a.title)}</div>
+              <div style="font-size:14px;color:#444;">${esc(a.body)}</div>
+            </div>
+          `).join('')}
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  /* ---------- Admin dashboard (demo) ---------- */
+  function showAdmin() {
+    const u = currentUser();
+    if (!u || u.role !== 'admin') { alert('Admin access only. (Demo tip: make a user an admin by editing localStorage.)'); showDashboard(); return; }
+    state.screen = 'admin';
+    const users = getUsers();
+    const allProgress = load(STORE.progress, {});
+    const allCerts = load(STORE.certificates, {});
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>Admin</span></div>
+          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          <button class="nav-link active" onclick="App.showAdmin()">⚙️ Admin dashboard</button>
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>Admin dashboard</h1>
+          <p class="subtitle">Demo overview — all data is local to this browser.</p>
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${Object.keys(users).length}</div><div class="lbl">Registered students</div></div>
+            <div class="stat-box"><div class="num">${Object.keys(allCerts).reduce((n,k)=>n+(allCerts[k]||[]).length,0)}</div><div class="lbl">Certificates issued</div></div>
+          </div>
+          <div class="card">
+            <h2>Student performance</h2>
+            <table class="admin-table">
+              <thead><tr><th>Student</th><th>Course progress</th><th>Modules passed</th><th>Certificate</th></tr></thead>
+              <tbody>
+                ${Object.keys(users).map(un => {
+                  const p = allProgress[un] || { lessons:{}, quizzes:{} };
+                  const doneLessons = Object.keys(p.lessons||{}).length;
+                  const totalLessons = COURSE.modules.reduce((n,m)=>n+m.lessons.length,0);
+                  const pct = totalLessons ? Math.round(doneLessons/totalLessons*100) : 0;
+                  const passedMods = Object.values(p.quizzes||{}).filter(q=>q.passed).length;
+                  const hasCert = (allCerts[un]||[]).some(c=>c.courseId===COURSE.id);
+                  return `<tr>
+                    <td><b>${esc(users[un].fullName||un)}</b><br><span style="font-size:12px;color:var(--muted);">@${esc(un)}</span></td>
+                    <td>${pct}%</td>
+                    <td>${passedMods} / ${COURSE.modules.length}</td>
+                    <td>${hasCert ? '<span class="badge badge-done">Issued</span>' : '<span class="badge badge-pending">Not yet</span>'}</td>
+                  </tr>`;
+                }).join('') || '<tr><td colspan="4" style="color:var(--muted);">No students yet.</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h2>Admin demo controls</h2>
+            <p style="font-size:13px;color:var(--muted);">To explore admin features, open the browser console and run:</p>
+            <pre style="background:var(--soft);padding:12px;border-radius:6px;font-size:12px;overflow:auto;">const u = JSON.parse(localStorage.getItem('logi_users')); u['${esc(u.username)}'].role='admin'; localStorage.setItem('logi_users', JSON.stringify(u)); location.reload();</pre>
+            <button class="btn-secondary btn-sm" onclick="App.showDashboard()">Back to dashboard</button>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  /* ---------- Home / boot ---------- */
+  function goHome() {
+    if (currentUser()) showDashboard();
+    else showLanding();
+  }
+
+  function init() {
+    renderNav();
+    if (currentUser()) showDashboard();
+    else showLanding();
+  }
+
+  /* ---------- Public API ---------- */
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements, showAdmin,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, enrolAndOpen,
+    submitQuiz, selectOption, alertLocked, submitPost, printCertificate,
+    goHome
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
