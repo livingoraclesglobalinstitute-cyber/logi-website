@@ -577,7 +577,7 @@
       .main-panel h1 { font-size: 22px; }
     }
 
-    /* Print specific styles to force landscape and hide UI */
+    /* Print specific styles to force landscape and reset scaling */
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -585,7 +585,10 @@
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
       .cert-display-area { padding: 0; overflow: visible; }
-      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; }
+      
+      /* Crucial: Reset the scale for printing so it fills the PDF page properly */
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      
       .cert-wrapper {
         box-shadow: none;
         width: 1000px !important;
@@ -1584,18 +1587,24 @@ const App = (() => {
 
   function downloadCertificateImage() {
     const cert = document.getElementById('printableCert');
-    if (!cert) return;
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
     
     const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
     const originalText = btn.innerHTML;
     btn.innerHTML = '⏳ Generating...';
     btn.disabled = true;
 
+    // Temporarily remove the scale so html2canvas captures the full 1000x707 size
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+
     html2canvas(cert, {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#fafafa',
-      // Ensure we capture the full 1000x707 size even if visually scaled down
       width: 1000,
       height: 707,
       windowWidth: 1000,
@@ -1618,11 +1627,20 @@ const App = (() => {
       link.href = imgData;
       link.click();
       
+      // Restore the scale immediately after generating
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      
       btn.innerHTML = originalText;
       btn.disabled = false;
     }).catch(err => {
       console.error('Error generating image:', err);
       alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      
+      // Restore scale on error
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      
       btn.innerHTML = originalText;
       btn.disabled = false;
     });
