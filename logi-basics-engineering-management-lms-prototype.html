@@ -13,7 +13,6 @@
       --muted: #777780;
       --line: #e9e8ef;
       --soft: #f5f5f8;
-      --bg: #ffffff;
       --success: #2e7d32;
       --error: #b33;
       --warn: #f0f7ff;
@@ -71,8 +70,6 @@
     }
     .btn-outline:hover { background: #fff0f6; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
-    .btn-danger { background: #d32f2f; }
-    .btn-danger:hover { background: #b71c1c; }
     .btn-secondary {
       background: #f0edf3;
       color: var(--ink);
@@ -309,54 +306,224 @@
     .lesson-link.done:after { content: " ✓"; color: var(--success); }
     .lesson-link.locked { color: #bbb; cursor: not-allowed; }
 
-    /* Certificate */
-    .cert-preview {
+    /* NEW CERTIFICATE DESIGN */
+    .cert-wrapper {
       background: white;
-      border: 4px double var(--p);
-      border-radius: 12px;
-      padding: 40px 36px;
-      text-align: center;
-      max-width: 720px;
+      max-width: 1000px;
       margin: 20px auto;
-      font-family: Georgia, 'Times New Roman', serif;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    
+    .cert-main {
+      padding: 50px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cert-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 50px;
+    }
+    .cert-logo-text {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--pd);
+      letter-spacing: -0.5px;
+    }
+    .cert-logo-sub {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .cert-date {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    .cert-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .cert-completion {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .cert-course-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .cert-description {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+      max-width: 500px;
+      margin-bottom: 60px;
+    }
+
+    .cert-signature-area {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      max-width: 250px;
+    }
+
+    .cert-signature-img {
+      font-family: 'Brush Script MT', 'Dancing Script', cursive, sans-serif;
+      font-size: 32px;
+      color: #222;
+      margin-bottom: 5px;
+      transform: rotate(-3deg);
+      letter-spacing: 1px;
+    }
+
+    .cert-signature-line {
+      border-top: 2px solid #444;
+      margin-bottom: 8px;
+    }
+
+    .cert-signer-name {
+      font-size: 13px;
+      font-weight: 700;
       color: #333;
     }
-    .cert-preview .cert-brand { font-size: 26px; font-weight: 800; letter-spacing: 1px; font-family: Arial, sans-serif; }
-    .cert-preview .cert-brand span { color: var(--p); }
-    .cert-preview .cert-sub { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin: 6px 0 24px; font-family: Arial, sans-serif; }
-    .cert-preview .cert-title { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-family: Arial, sans-serif; }
-    .cert-preview .cert-name { font-size: 32px; font-weight: 700; margin: 10px 0; color: var(--ink); }
-    .cert-preview .cert-course { font-size: 18px; font-weight: 600; color: var(--pd); margin: 14px 0; }
-    .cert-preview .cert-meta { font-size: 13px; color: var(--muted); margin-top: 24px; font-family: Arial, sans-serif; }
-    .cert-preview .cert-id { font-family: monospace; font-size: 12px; background: var(--soft); display: inline-block; padding: 4px 12px; border-radius: 4px; margin-top: 8px; }
-    .cert-preview .cert-seal { font-size: 36px; margin: 18px 0 0; }
-    .cert-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
 
-    /* Discussion */
-    .post { border-bottom: 1px solid var(--line); padding: 14px 0; }
-    .post .post-meta { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-    .post .post-author { font-weight: 700; color: var(--pd); font-size: 13px; }
-    .post .post-body { font-size: 14px; color: #444; margin-top: 4px; }
+    .cert-signer-title {
+      font-size: 11px;
+      color: var(--muted);
+    }
 
-    /* Announcements */
-    .announcement { background: #fff8fb; border-left: 4px solid var(--p); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 14px; }
-    .announcement .a-meta { font-size: 12px; color: var(--muted); }
-    .announcement .a-title { font-weight: 700; font-size: 15px; margin: 2px 0; }
+    .cert-footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 40px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+      font-size: 10px;
+      color: #777;
+      line-height: 1.5;
+    }
 
-    /* Admin tables */
-    table.admin-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    table.admin-table th { background: var(--soft); text-align: left; padding: 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
-    table.admin-table td { padding: 10px; border-bottom: 1px solid var(--line); }
-    .badge { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700; }
-    .badge-pass { background: #e8f5e9; color: #2e7d32; }
-    .badge-fail { background: #fdecea; color: #c62828; }
-    .badge-pending { background: #fff8e1; color: #b28704; }
-    .badge-done { background: #e8f5e9; color: #2e7d32; }
+    .cert-footer-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 45%;
+    }
+    .cert-footer-logo {
+      font-weight: 800;
+      font-size: 14px;
+      color: #d32f2f;
+    }
 
-    .foot { background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px; }
-    .foot strong { color: #ff8cba; }
+    .cert-sidebar {
+      background-color: #e91e63; /* Vibrant magenta */
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
 
-    /* Responsive */
+    .cert-partner-box {
+      background: white;
+      padding: 25px 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: #444;
+      letter-spacing: -0.5px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cert-sidebar-pattern {
+      flex: 1;
+      background-image: 
+        linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent),
+        linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 20px 20px, 100% 100%;
+      /* Simulating a circuit board feel with abstract geometry */
+      background-position: 0 0, 10px 10px;
+      position: relative;
+    }
+    
+    /* Simple pseudo-element circuit lines */
+    .cert-sidebar-pattern::before {
+      content: '';
+      position: absolute;
+      top: 20%; left: 10%; width: 40px; height: 80px;
+      border-left: 2px solid rgba(255,255,255,0.2);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+    .cert-sidebar-pattern::after {
+      content: '';
+      position: absolute;
+      bottom: 30%; right: 15%; width: 60px; height: 40px;
+      border-right: 2px solid rgba(255,255,255,0.2);
+      border-top: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .cert-verify-area {
+      padding: 20px;
+      text-align: center;
+      background: white;
+    }
+
+    .cert-verify-text {
+      font-size: 9px;
+      color: #555;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cert-qr {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 10px;
+      display: block;
+    }
+
+    .cert-blockchain {
+      font-size: 9px;
+      color: #888;
+      font-family: monospace;
+      word-break: break-all;
+    }
+
+    .cert-bottom-block {
+      height: 50px;
+      background: #e91e63;
+    }
+
+    .cert-actions-bar {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    /* Responsive overrides */
     @media (max-width: 900px) {
       .dash-layout { grid-template-columns: 1fr; }
       .sidebar { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px; gap: 4px; }
@@ -365,15 +532,26 @@
       .main-panel { max-height: none; padding: 20px 16px 40px; }
       .course-layout { grid-template-columns: 1fr; }
       .module-side { position: static; }
+      .cert-wrapper { grid-template-columns: 1fr; }
+      .cert-sidebar { flex-direction: row; align-items: stretch; height: 120px; }
+      .cert-partner-box { flex: 1; border-bottom: 0; border-right: 1px solid #eee; display: flex; align-items: center; justify-content: center; }
+      .cert-sidebar-pattern { display: none; }
+      .cert-verify-area { display: flex; align-items: center; gap: 15px; padding: 10px 20px; }
+      .cert-verify-text { margin-bottom: 0; }
+      .cert-qr { width: 60px; height: 60px; margin: 0; }
+      .cert-bottom-block { display: none; }
+      .cert-main { padding: 30px; }
     }
     @media (max-width: 500px) {
       .auth-card { padding: 24px 18px; }
       .main-panel h1 { font-size: 22px; }
-      .cert-preview { padding: 24px 16px; }
-      .cert-preview .cert-name { font-size: 24px; }
+      .cert-signature-area { margin-top: 30px; }
+      .cert-footer-info { flex-direction: column; gap: 15px; align-items: flex-start; }
     }
     .hidden { display: none !important; }
   </style>
+  <!-- Import a handwriting font for the signature -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -386,8 +564,8 @@
 
 <div id="app"></div>
 
-<footer class="foot">
-  <strong>Living Oracles Global Institute</strong><br>
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
   Faith. Excellence. Impact.
 </footer>
 
@@ -400,11 +578,11 @@
 const STORE = {
   users: 'logi_users',
   session: 'logi_session',
-  progress: 'logi_progress',       // { username: { lessons: { "m-l": true }, quizzes: { m: { score, total, passed } } } }
-  certificates: 'logi_certificates', // { username: [ { id, courseId, date, name } ] }
-  posts: 'logi_posts',             // [ { id, user, text, ts } ]
-  announcements: 'logi_announcements', // [ { id, title, body, ts } ]
-  enrolments: 'logi_enrolments'     // { username: [courseId, ...] }
+  progress: 'logi_progress',       
+  certificates: 'logi_certificates', 
+  posts: 'logi_posts',             
+  announcements: 'logi_announcements', 
+  enrolments: 'logi_enrolments'     
 };
 
 function load(key, fallback) {
@@ -422,7 +600,7 @@ const COURSE = {
   id: 'eng-mgmt-101',
   title: 'Basics of Engineering Management',
   desc: 'Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.',
-  passMark: 80, // percent
+  passMark: 80,
   modules: [
     {
       title: 'Introduction to Engineering Management',
@@ -464,36 +642,11 @@ const COURSE = {
             </ul>
           `,
           quiz: [
-            {
-              q: 'Which statement best describes engineering management?',
-              opts: ['Designing technical systems only', 'Coordinating technical work, people and resources to achieve objectives', 'Replacing engineering with administration'],
-              answer: 1,
-              explanation: 'It coordinates technical work, people and resources to achieve objectives.'
-            },
-            {
-              q: 'Which is an engineering management activity?',
-              opts: ['Ignoring delivery schedules', 'Working without defined responsibilities', 'Coordinating equipment, materials and labour'],
-              answer: 2,
-              explanation: 'Coordinating equipment, materials and labour is a management responsibility.'
-            },
-            {
-              q: 'Materials arrive late on a project. What is a sensible response?',
-              opts: ['Review the plan and coordinate suppliers and work activities', 'Stop monitoring the project', 'Ignore the delay'],
-              answer: 0,
-              explanation: 'Reviewing the plan and coordinating suppliers helps address the delay.'
-            },
-            {
-              q: 'Which question is most closely associated with engineering management?',
-              opts: ['How can planning be avoided?', 'How can work be delivered safely, on time and within budget?', 'How can standards be ignored?'],
-              answer: 1,
-              explanation: 'Engineering management considers safe delivery, time, cost and quality.'
-            },
-            {
-              q: 'Where can engineering management be applied?',
-              opts: ['Construction only', 'Manufacturing only', 'Across many engineering sectors'],
-              answer: 2,
-              explanation: 'It is applied across construction, manufacturing, energy and other sectors.'
-            }
+            { q: 'Which statement best describes engineering management?', opts: ['Designing technical systems only', 'Coordinating technical work, people and resources to achieve objectives', 'Replacing engineering with administration'], answer: 1, explanation: 'It coordinates technical work, people and resources to achieve objectives.' },
+            { q: 'Which is an engineering management activity?', opts: ['Ignoring delivery schedules', 'Working without defined responsibilities', 'Coordinating equipment, materials and labour'], answer: 2, explanation: 'Coordinating equipment, materials and labour is a management responsibility.' },
+            { q: 'Materials arrive late on a project. What is a sensible response?', opts: ['Review the plan and coordinate suppliers and work activities', 'Stop monitoring the project', 'Ignore the delay'], answer: 0, explanation: 'Reviewing the plan and coordinating suppliers helps address the delay.' },
+            { q: 'Which question is most closely associated with engineering management?', opts: ['How can planning be avoided?', 'How can work be delivered safely, on time and within budget?', 'How can standards be ignored?'], answer: 1, explanation: 'Engineering management considers safe delivery, time, cost and quality.' },
+            { q: 'Where can engineering management be applied?', opts: ['Construction only', 'Manufacturing only', 'Across many engineering sectors'], answer: 2, explanation: 'It is applied across construction, manufacturing, energy and other sectors.' }
           ]
         }
       ]
@@ -508,7 +661,6 @@ const COURSE = {
             <h2>Engineering Planning and Project Management</h2>
             <p>This module explores how engineering activities are translated into practical work plans.</p>
             <div class="callout"><b>Topics:</b> defining scope and deliverables; breaking work into activities; sequencing tasks; scheduling and milestones; coordinating contractors and stakeholders; monitoring project progress.</div>
-            <p>Detailed lessons and activities will be added as the course is developed.</p>
           `,
           quiz: [
             { q: 'What is a key output of engineering planning?', opts: ['A work plan with activities and milestones', 'A list of unrelated tasks', 'No documentation'], answer: 0, explanation: 'Planning produces a structured work plan.' },
@@ -530,7 +682,6 @@ const COURSE = {
             <h2>Resource, Cost and Budget Management</h2>
             <p>This module introduces the management of resources and costs in engineering operations.</p>
             <div class="callout"><b>Topics:</b> workforce and equipment planning; materials management; cost estimation; budget preparation; cost monitoring; responding to resource shortages.</div>
-            <p>Detailed lessons and activities will be added as the course is developed.</p>
           `,
           quiz: [
             { q: 'What is cost estimation?', opts: ['Predicting project costs', 'Ignoring budgets', 'Removing resources'], answer: 0, explanation: 'Cost estimation predicts project costs.' },
@@ -552,7 +703,6 @@ const COURSE = {
             <h2>Quality, Safety and Risk Management</h2>
             <p>This module examines how engineering teams maintain work standards and manage operational risks.</p>
             <div class="callout"><b>Topics:</b> quality assurance and control; workplace safety responsibilities; hazard identification; risk assessment; incident prevention; corrective action.</div>
-            <p>Detailed lessons and activities will be added as the course is developed.</p>
           `,
           quiz: [
             { q: 'What is quality assurance?', opts: ['Preventing defects through processes', 'Ignoring standards', 'Only checking at the end'], answer: 0, explanation: 'Quality assurance prevents defects through processes.' },
@@ -574,7 +724,6 @@ const COURSE = {
             <h2>Engineering Teams, Communication and Leadership</h2>
             <p>This module explores how engineering managers guide people and coordinate work across teams.</p>
             <div class="callout"><b>Topics:</b> team roles and responsibilities; workplace communication; coordination meetings; leadership approaches; conflict resolution; stakeholder engagement.</div>
-            <p>Detailed lessons and activities will be added as the course is developed.</p>
           `,
           quiz: [
             { q: 'What is a key leadership role?', opts: ['Guiding and supporting the team', 'Ignoring the team', 'Avoiding communication'], answer: 0, explanation: 'Leadership involves guiding and supporting the team.' },
@@ -596,7 +745,6 @@ const COURSE = {
             <h2>Performance Monitoring and Continuous Improvement</h2>
             <p>This module introduces methods for checking performance and improving engineering processes.</p>
             <div class="callout"><b>Topics:</b> key performance indicators; progress reporting; identifying performance gaps; root cause analysis; corrective actions; continuous improvement.</div>
-            <p>Detailed lessons and activities will be added as the course is developed.</p>
           `,
           quiz: [
             { q: 'What is a KPI?', opts: ['A key performance indicator', 'A type of tool', 'A project delay'], answer: 0, explanation: 'KPI stands for key performance indicator.' },
@@ -619,6 +767,10 @@ function fmtDate(d) {
   return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 function nowISO() { return new Date().toISOString(); }
+function esc(s) {
+  if (typeof s !== 'string') return s;
+  return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
 
 /* ---------- Session / user ---------- */
 function getUsers() { return load(STORE.users, {}); }
@@ -682,7 +834,6 @@ function saveQuizResult(username, mi, score, total) {
 }
 function isModuleLocked(username, mi) {
   if (mi === 0) return false;
-  // previous module quiz must be passed
   const prev = getQuizResult(username, mi - 1);
   return !prev || !prev.passed;
 }
@@ -700,12 +851,10 @@ function courseProgressPct(username) {
       total++;
       if (isLessonDone(username, mi, li)) done++;
     });
-    if (getQuizResult(username, mi)?.passed) { /* module complete */ }
   });
   return total ? Math.round(done / total * 100) : 0;
 }
 function courseCompleted(username) {
-  // all lessons done and all quizzes passed
   for (let mi = 0; mi < COURSE.modules.length; mi++) {
     if (!getQuizResult(username, mi)?.passed) return false;
     for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
@@ -722,9 +871,13 @@ function generateCertificate(username) {
   const certs = getCerts(username);
   let cert = certs.find(c => c.courseId === COURSE.id);
   if (cert) return cert;
-  const certId = 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+  
+  // Generate a fake blockchain hash style ID
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  
   cert = {
-    id: certId,
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
     courseId: COURSE.id,
     courseTitle: COURSE.title,
     studentName: user.fullName || user.username,
@@ -740,7 +893,7 @@ function generateCertificate(username) {
    ============================================================ */
 const App = (() => {
   let state = {
-    screen: 'landing', // landing | login | register | dashboard | course | certificate | admin
+    screen: 'landing',
     user: null,
     activeCourseModule: 0,
     activeCourseLesson: 0,
@@ -762,11 +915,6 @@ const App = (() => {
         <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
       `;
     }
-  }
-
-  function esc(s) {
-    if (typeof s !== 'string') return s;
-    return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   }
 
   /* ---------- Landing ---------- */
@@ -793,18 +941,6 @@ const App = (() => {
           </div>
         </div>
       </section>
-      <section class="inner" style="padding:36px 0 55px;">
-        <h2 style="font-size:22px;margin-bottom:16px;">What you will learn</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
-          ${COURSE.modules.map((m, i) => `
-            <div class="card" style="margin:0;">
-              <div style="font-size:12px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
-              <h3 style="margin:6px 0 4px;font-size:16px;">${esc(m.title)}</h3>
-              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Assessment included</div>
-            </div>
-          `).join('')}
-        </div>
-      </section>
     `;
   }
 
@@ -822,7 +958,6 @@ const App = (() => {
           <div class="error-msg" id="loginError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
           <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
-          <div class="auth-switch" style="margin-top:6px;"><a onclick="App.showLanding()">← Back to course overview</a></div>
         </div>
       </div>
     `;
@@ -859,7 +994,6 @@ const App = (() => {
           <div class="error-msg" id="regError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
           <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
-          <div class="auth-switch" style="margin-top:6px;"><a onclick="App.showLanding()">← Back to course overview</a></div>
         </div>
       </div>
     `;
@@ -884,8 +1018,6 @@ const App = (() => {
 
     users[u] = { username: u, fullName: name, password: p, createdAt: nowISO(), role: 'student' };
     save(STORE.users, users);
-
-    // auto-enrol in the course
     enrol(u, COURSE.id);
     setSession({ username: u });
     showDashboard();
@@ -903,7 +1035,6 @@ const App = (() => {
     state.user = u;
     state.screen = 'dashboard';
     const username = u.username;
-    const enrolled = getEnrolments(username);
     const pct = courseProgressPct(username);
     const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
     const passedModules = quizzes.filter(q => q?.passed).length;
@@ -952,38 +1083,29 @@ const App = (() => {
 
           <div class="card">
             <h2>Module progress</h2>
-            <table class="admin-table">
-              <thead><tr><th>Module</th><th>Lessons</th><th>Assessment</th><th>Status</th></tr></thead>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+              <thead><tr style="background: var(--soft); text-align: left;"><th style="padding: 10px;">Module</th><th style="padding: 10px;">Lessons</th><th style="padding: 10px;">Assessment</th><th style="padding: 10px;">Status</th></tr></thead>
               <tbody>
                 ${COURSE.modules.map((m, mi) => {
                   const done = moduleLessonsDone(username, mi);
                   const total = m.lessons.length;
                   const qr = getQuizResult(username, mi);
                   const locked = isModuleLocked(username, mi);
-                  let statusBadge = '<span class="badge badge-pending">Locked</span>';
+                  let statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Locked</span>';
                   if (!locked) {
-                    if (qr?.passed) statusBadge = '<span class="badge badge-pass">Passed</span>';
-                    else if (qr && !qr.passed) statusBadge = '<span class="badge badge-fail">Retake needed</span>';
-                    else statusBadge = '<span class="badge badge-pending">In progress</span>';
+                    if (qr?.passed) statusBadge = '<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Passed</span>';
+                    else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Retake needed</span>';
+                    else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">In progress</span>';
                   }
-                  return `<tr>
-                    <td><b>${mi+1}. ${esc(m.title)}</b></td>
-                    <td>${done} / ${total} done</td>
-                    <td>${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
-                    <td>${statusBadge}</td>
+                  return `<tr style="border-bottom: 1px solid var(--line);">
+                    <td style="padding: 10px;"><b>${mi+1}. ${esc(m.title)}</b></td>
+                    <td style="padding: 10px;">${done} / ${total} done</td>
+                    <td style="padding: 10px;">${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
+                    <td style="padding: 10px;">${statusBadge}</td>
                   </tr>`;
                 }).join('')}
               </tbody>
             </table>
-          </div>
-
-          <div class="card">
-            <h2>Quick links</h2>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn-outline" onclick="App.showCatalogue()">Browse catalogue</button>
-              <button class="btn-outline" onclick="App.showCertificate()">View certificate</button>
-              <button class="btn-outline" onclick="App.showDiscussion()">Discussion forum</button>
-            </div>
           </div>
         </main>
       </div>
@@ -1024,20 +1146,6 @@ const App = (() => {
               ${enrolled.includes(COURSE.id)
                 ? `<button class="btn" onclick="App.openCourse(0,0)">Open course</button>`
                 : `<button class="btn" onclick="App.enrolAndOpen()">Enrol now</button>`}
-            </div>
-            <div class="course-tile" style="opacity:0.65;">
-              <div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Coming soon</div>
-              <h3>Construction Project Controls</h3>
-              <div class="meta">4 modules · Intermediate</div>
-              <div class="desc">Learn how to monitor cost, schedule and change on construction projects.</div>
-              <button class="btn-secondary" disabled>Not yet available</button>
-            </div>
-            <div class="course-tile" style="opacity:0.65;">
-              <div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Coming soon</div>
-              <h3>Engineering Risk &amp; Safety Essentials</h3>
-              <div class="meta">5 modules · Beginner</div>
-              <div class="desc">Identify hazards, assess risk and support a safer engineering workplace.</div>
-              <button class="btn-secondary" disabled>Not yet available</button>
             </div>
           </div>
         </main>
@@ -1198,7 +1306,7 @@ const App = (() => {
   }
 
   function attachQuizEvents(mi, quiz) {
-    // pre-select any previous answers? no, fresh each render
+    // Optional pre-fill
   }
 
   function submitQuiz(mi) {
@@ -1236,21 +1344,15 @@ const App = (() => {
       resEl.textContent = `You scored ${score} / ${quiz.length} (${pct}%). ${passed ? 'Passed ✅ — next module unlocked.' : 'Not passed. Review the explanations and retake when ready.'}`;
       resEl.style.color = passed ? 'var(--success)' : 'var(--error)';
     }
-    // if passed, mark module lesson done automatically
+    
     if (passed) {
       markLessonDone(u.username, mi, 0);
-      // if course completed, generate certificate
       if (courseCompleted(u.username)) {
         generateCertificate(u.username);
       }
-      // re-render to unlock next module
       setTimeout(() => {
-        const curMi = state.activeCourseModule;
-        const curLi = state.activeCourseLesson;
         renderCourse();
       }, 1200);
-    } else {
-      // keep quiz visible with feedback
     }
   }
 
@@ -1290,7 +1392,7 @@ const App = (() => {
     openCourse(mi, li);
   }
 
-  /* ---------- Certificate view ---------- */
+  /* ---------- NEW CERTIFICATE VIEW ---------- */
   function showCertificate() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
@@ -1298,6 +1400,7 @@ const App = (() => {
     const completed = courseCompleted(u.username);
     let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
     if (completed && !cert) cert = generateCertificate(u.username);
+    
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
@@ -1313,30 +1416,64 @@ const App = (() => {
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
-        <main class="main-panel">
+        <main class="main-panel" style="background: #eef2f5;">
           <h1>My certificate</h1>
           <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+          
           ${cert ? `
             <div id="certArea">
-              <div class="cert-preview" id="printableCert">
-                <div class="cert-brand">LOGI<span>.</span></div>
-                <div class="cert-sub">Living Oracles Global Institute</div>
-                <div class="cert-title">Certificate of Completion</div>
-                <div class="cert-name">${esc(cert.studentName)}</div>
-                <div style="font-size:13px;color:var(--muted);font-family:Arial,sans-serif;">has successfully completed</div>
-                <div class="cert-course">${esc(cert.courseTitle)}</div>
-                <div class="cert-meta">Completed on ${fmtDate(cert.date)}</div>
-                <div class="cert-id">Certificate ID: ${esc(cert.id)}</div>
-                <div class="cert-seal">🏅</div>
-                <div class="cert-meta" style="margin-top:18px;font-size:11px;">This is a demonstration certificate stored in your browser. Not an independently verifiable credential.</div>
+              <div class="cert-wrapper" id="printableCert">
+                <div class="cert-main">
+                  <div class="cert-header">
+                    <div class="cert-logo-text">LOGI</div>
+                    <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                  </div>
+                  
+                  <div class="cert-date">${fmtDate(cert.date)}</div>
+                  <div class="cert-name">${esc(cert.studentName)}</div>
+                  <div class="cert-completion">has successfully completed</div>
+                  <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                  <div class="cert-description">
+                    This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of engineering management, planning, and resource control.
+                  </div>
+                  
+                  <div class="cert-signature-area">
+                    <div class="cert-signature-img">H. O. Director</div>
+                    <div class="cert-signature-line"></div>
+                    <div class="cert-signer-name">Program Director</div>
+                    <div class="cert-signer-title">Living Oracles Global Institute</div>
+                  </div>
+                  
+                  <div class="cert-footer-info">
+                    <div class="cert-footer-box">
+                      <div class="cert-footer-logo">LOGI</div>
+                      <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                    </div>
+                    <div class="cert-footer-box" style="border-left: 1px solid #ddd; padding-left: 15px;">
+                      <div>This is a digitally generated certificate. The authenticity of this document can be verified by scanning the QR code on the right.</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="cert-sidebar">
+                  <div class="cert-partner-box">uniathena</div>
+                  <div class="cert-sidebar-pattern"></div>
+                  <div class="cert-verify-area">
+                    <div class="cert-verify-text">Scan to verify this certificate</div>
+                    <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code">
+                    <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                  </div>
+                  <div class="cert-bottom-block"></div>
+                </div>
               </div>
-              <div class="cert-actions">
-                <button class="btn" onclick="App.printCertificate()">🖨️ Print / save as PDF</button>
-                <button class="btn-outline" onclick="App.showDashboard()">Back to dashboard</button>
+              
+              <div class="cert-actions-bar">
+                <button class="btn" onclick="App.printCertificate()">🖨️ Print / Save as PDF</button>
+                <button class="btn-outline" onclick="App.showDashboard()" style="background:white;">Back to dashboard</button>
               </div>
             </div>
           ` : `
-            <div class="card" style="text-align:center;padding:40px 20px;">
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
               <div style="font-size:48px;margin-bottom:12px;">🔒</div>
               <h2>Certificate not yet available</h2>
               <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
@@ -1353,26 +1490,34 @@ const App = (() => {
     const certEl = document.getElementById('printableCert');
     if (!certEl) return;
     const w = window.open('', '_blank');
+    
+    // Grab all styles from the current page to pass to the print window
+    const styles = Array.from(document.querySelectorAll('style, link[rel="stylesheet"]'))
+      .map(el => el.outerHTML)
+      .join('\n');
+      
     w.document.write(`
-      <html><head><title>LOGI Certificate</title>
-      <style>
-        body{font-family:Georgia,'Times New Roman',serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#fff;}
-        .cert-preview{border:4px double #ff4b93;border-radius:12px;padding:40px 36px;text-align:center;max-width:720px;width:90%;color:#333;}
-        .cert-brand{font-size:26px;font-weight:800;letter-spacing:1px;font-family:Arial,sans-serif;}
-        .cert-brand span{color:#ff4b93;}
-        .cert-sub{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#777780;margin:6px 0 24px;font-family:Arial,sans-serif;}
-        .cert-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#777780;margin-bottom:6px;font-family:Arial,sans-serif;}
-        .cert-name{font-size:32px;font-weight:700;margin:10px 0;color:#34343b;}
-        .cert-course{font-size:18px;font-weight:600;color:#e93680;margin:14px 0;}
-        .cert-meta{font-size:13px;color:#777780;margin-top:24px;font-family:Arial,sans-serif;}
-        .cert-id{font-family:monospace;font-size:12px;background:#f5f5f8;display:inline-block;padding:4px 12px;border-radius:4px;margin-top:8px;}
-        .cert-seal{font-size:36px;margin:18px 0 0;}
-        @media print{body{margin:0;} .cert-preview{max-width:100%;}}
-      </style></head><body>${certEl.outerHTML}</body></html>
+      <html>
+      <head>
+        <title>LOGI Certificate</title>
+        ${styles}
+        <style>
+          body { background: white; padding: 0; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          .cert-wrapper { box-shadow: none; margin: 0; width: 100%; min-height: 100vh; border-radius: 0; }
+          @media print {
+            @page { size: landscape; margin: 0; }
+            body { padding: 20px; }
+          }
+        </style>
+      </head>
+      <body>
+        ${certEl.outerHTML}
+      </body>
+      </html>
     `);
     w.document.close();
     w.focus();
-    setTimeout(() => w.print(), 400);
+    setTimeout(() => w.print(), 600);
   }
 
   /* ---------- Discussion ---------- */
@@ -1411,9 +1556,9 @@ const App = (() => {
             <h2>Recent posts (${posts.length})</h2>
             ${posts.length === 0 ? '<p style="color:var(--muted);">No posts yet. Be the first to start a discussion.</p>' :
               posts.slice().reverse().map(p => `
-                <div class="post">
-                  <div class="post-meta"><span class="post-author">${esc(p.user)}</span> · ${fmtDate(p.ts)}</div>
-                  <div class="post-body">${esc(p.text)}</div>
+                <div class="post" style="border-bottom: 1px solid var(--line); padding: 14px 0;">
+                  <div style="font-size:12px;color:var(--muted);margin-bottom:4px;"><span style="font-weight:700;color:var(--pd);">${esc(p.user)}</span> · ${fmtDate(p.ts)}</div>
+                  <div style="font-size:14px;color:#444;margin-top:4px;">${esc(p.text)}</div>
                 </div>
               `).join('')
             }
@@ -1464,9 +1609,9 @@ const App = (() => {
           <h1>Announcements</h1>
           <p class="subtitle">Course news and important updates.</p>
           ${anns.slice().reverse().map(a => `
-            <div class="announcement">
-              <div class="a-meta">${fmtDate(a.ts)}</div>
-              <div class="a-title">${esc(a.title)}</div>
+            <div class="announcement" style="background: #fff8fb; border-left: 4px solid var(--p); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 14px;">
+              <div style="font-size:12px;color:var(--muted);">${fmtDate(a.ts)}</div>
+              <div style="font-weight:700;font-size:15px;margin:2px 0;">${esc(a.title)}</div>
               <div style="font-size:14px;color:#444;">${esc(a.body)}</div>
             </div>
           `).join('')}
@@ -1528,19 +1673,12 @@ const App = (() => {
               </tbody>
             </table>
           </div>
-          <div class="card">
-            <h2>Admin demo controls</h2>
-            <p style="font-size:13px;color:var(--muted);">To explore admin features, open the browser console and run:</p>
-            <pre style="background:var(--soft);padding:12px;border-radius:6px;font-size:12px;overflow:auto;">const u = JSON.parse(localStorage.getItem('logi_users')); u['${esc(u.username)}'].role='admin'; localStorage.setItem('logi_users', JSON.stringify(u)); location.reload();</pre>
-            <button class="btn-secondary btn-sm" onclick="App.showDashboard()">Back to dashboard</button>
-          </div>
         </main>
       </div>
     `;
     renderNav();
   }
 
-  /* ---------- Home / boot ---------- */
   function goHome() {
     if (currentUser()) showDashboard();
     else showLanding();
@@ -1552,7 +1690,6 @@ const App = (() => {
     else showLanding();
   }
 
-  /* ---------- Public API ---------- */
   return {
     init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
     showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements, showAdmin,
