@@ -16,6 +16,9 @@
       --line: #ececf1;
       --white: #fff;
       --shadow: 0 3px 14px rgba(30, 30, 50, .09);
+      
+      /* Certificate specific colors */
+      --p: #e91e63;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -129,25 +132,252 @@
       background: white;
     }
     .feature strong { display: block; margin-bottom: 5px; }
-    .certificate {
-      margin: 26px 0 34px;
-      padding: 24px;
-      border: 1px solid var(--line);
-      background: #fff;
+    
+    /* =========================================
+       CERTIFICATE PREVIEW STYLES
+       ========================================= */
+    .cert-preview-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 20px auto;
+      /* The height will be adjusted by JavaScript based on the scale */
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
       box-shadow: var(--shadow);
+      background: #e8eaed;
+    }
+
+    .cert-scaler {
+      transform-origin: top left;
+      width: 1000px;
+      height: 707px;
+    }
+
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cert-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 35px;
+    }
+
+    .cert-header-logo {
+      height: 45px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .cert-logo-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 1px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .cert-date {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    .cert-name {
+      font-size: 36px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .cert-completion {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .cert-course-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 25px;
+      line-height: 1.2;
+    }
+
+    .cert-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 40px;
+      letter-spacing: 0.2px;
+      word-spacing: 1px;
+    }
+
+    .cert-signature-area {
+      display: flex;
+      flex-direction: column;
+      max-width: 300px;
+      margin-top: auto;
+    }
+
+    .cert-signature-img {
+      height: 55px;
+      width: auto;
+      object-fit: contain;
+      align-self: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .cert-signer-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      margin-bottom: 6px;
+    }
+
+    .cert-signer-title {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .cert-footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 30px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 15px;
+      font-size: 10px;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    .cert-footer-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 48%;
+    }
+
+    .cert-footer-logo {
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--p);
+    }
+
+    .cert-sidebar {
+      background-color: var(--p);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-partner-box {
+      background: white;
+      padding: 25px 15px;
       text-align: center;
+      font-size: 42px;
+      font-weight: 900;
+      color: #000;
+      letter-spacing: 3px;
+      border-bottom: 1px solid #eee;
     }
-    .certificate .sample {
-      max-width: 620px;
-      min-height: 230px;
-      margin: 0 auto;
-      padding: 30px 18px;
-      border: 7px double #e7e4ef;
-      background: linear-gradient(135deg, #fff, #faf9ff);
+
+    .cert-sidebar-pattern {
+      flex: 1;
+      position: relative;
+      background-image: 
+        linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent),
+        linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 20px 20px, 100% 100%;
+      background-position: 0 0, 10px 10px;
     }
-    .certificate .sample small { color: var(--pink-dark); font-weight: 700; letter-spacing: 2px; }
-    .certificate h3 { margin: 12px 0 4px; font-family: Georgia, serif; font-size: 27px; }
-    .certificate p { margin: 4px 0; color: var(--muted); }
+
+    .cert-sidebar-pattern::before {
+      content: '';
+      position: absolute;
+      top: 15%; left: 10%; width: 40px; height: 80px;
+      border-left: 2px solid rgba(255,255,255,0.2);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+    .cert-sidebar-pattern::after {
+      content: '';
+      position: absolute;
+      bottom: 20%; right: 15%; width: 60px; height: 40px;
+      border-right: 2px solid rgba(255,255,255,0.2);
+      border-top: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .cert-verify-area {
+      padding: 25px 20px;
+      text-align: center;
+      background: white;
+    }
+
+    .cert-verify-text {
+      font-size: 9px;
+      color: #555;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    .cert-qr {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 15px;
+      display: block;
+    }
+
+    .cert-blockchain {
+      font-size: 9px;
+      color: #888;
+      font-family: monospace;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    .cert-bottom-block {
+      height: 40px;
+      background: #c2185b;
+    }
+
+    /* ========================================= */
+
     .banner {
       min-height: 220px;
       display: flex;
@@ -157,7 +387,7 @@
       color: white;
       background:
         linear-gradient(90deg, rgba(28,30,44,.76), rgba(28,30,44,.12)),
-        url("industrial-automation-banner.jpg") center/cover no-repeat,
+        url("https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat,
         #55546a;
       border-radius: 4px 4px 0 0;
     }
@@ -225,6 +455,7 @@
     .account { text-align: center; color: var(--muted); margin-top: 22px; }
     .site-footer { background: #f7f7fa; color: #777; text-align: center; padding: 22px; font-size: 13px; }
     .hidden { display: none; }
+    
     @media (max-width: 700px) {
       .site-header { padding: 0 18px; }
       .header-actions { gap: 12px; }
@@ -305,19 +536,72 @@
     <section class="tab-panel hidden" id="certificate" role="tabpanel">
       <h2>Certificate of Completion</h2>
       <p class="lead">Learners who complete the required course activities and achieve the stated pass mark in the final assessment may receive a LOGI Certificate of Completion.</p>
-      <div class="certificate">
-        <div class="sample">
-          <small>LIVING ORACLES GLOBAL INSTITUTE</small>
-          <h3>Certificate of Completion</h3>
-          <p>This is to certify that</p>
-          <h3>[Learner Name]</h3>
-          <p>has successfully completed</p>
-          <strong>Basics of Engineering Management</strong>
-          <p>School of Engineering &amp; Technology</p>
-          <p><em>Faith. Excellence. Impact.</em></p>
+      
+      <!-- LIVE CERTIFICATE PREVIEW -->
+      <div class="cert-preview-container" id="certPreviewContainer">
+        <div class="cert-scaler" id="certScaler">
+          <div class="cert-wrapper">
+            
+            <!-- Background Watermark -->
+            <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+
+            <!-- Left Side: Main Content -->
+            <div class="cert-main">
+              
+              <div class="cert-header">
+                <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+              </div>
+              
+              <div class="cert-date">30, October 2026</div>
+              <div class="cert-name">[Learner Name]</div>
+              <div class="cert-completion">has successfully completed</div>
+              <div class="cert-course-title">Basics of Engineering Management</div>
+              
+              <div class="cert-description">
+                This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of engineering management, planning, and resource control.
+              </div>
+              
+              <div class="cert-signature-area">
+                <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+              </div>
+              
+              <div class="cert-footer-info">
+                <div class="cert-footer-box">
+                  <div class="cert-footer-logo">LOGI</div>
+                  <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                </div>
+                <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                  <div>This is a digitally generated certificate. The authenticity of this document can be verified by scanning the QR code on the right.</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Side: Sidebar -->
+            <div class="cert-sidebar">
+              
+              <div class="cert-partner-box">LOGI</div>
+              
+              <div class="cert-sidebar-pattern"></div>
+              
+              <div class="cert-verify-area">
+                <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LOGI-SAMPLE-PREVIEW" alt="QR Code" crossorigin="anonymous">
+                <div class="cert-blockchain">
+                  Blockchain ID:<br>
+                  SAMPLE-PREVIEW-1234567890
+                </div>
+              </div>
+              
+              <div class="cert-bottom-block"></div>
+            </div>
+          </div>
         </div>
-        <p><small>Illustrative certificate preview. The issued certificate may differ in layout and verification features.</small></p>
       </div>
+      <p style="text-align:center; font-size:12px; color:var(--muted); margin-top:12px;">Illustrative certificate preview. Your issued certificate will contain your full name and unique verification ID.</p>
+      
     </section>
 
     <div class="banner">
@@ -348,6 +632,7 @@
   </footer>
 
   <script>
+    // Tab Switching Logic
     document.querySelectorAll('.tab').forEach(function (button) {
       button.addEventListener('click', function () {
         document.querySelectorAll('.tab').forEach(function (tab) {
@@ -360,8 +645,37 @@
         button.classList.add('active');
         button.setAttribute('aria-selected', 'true');
         document.getElementById(button.dataset.tab).classList.remove('hidden');
+        
+        // Re-scale certificate when tab becomes visible
+        if (button.dataset.tab === 'certificate') {
+          setTimeout(scalePreviewCertificate, 10);
+        }
       });
     });
+
+    // Certificate Scaling Logic
+    function scalePreviewCertificate() {
+      const container = document.getElementById('certPreviewContainer');
+      const scaler = document.getElementById('certScaler');
+      if (!container || !scaler) return;
+      
+      const containerWidth = container.clientWidth;
+      const certWidth = 1000;
+      
+      if (containerWidth < certWidth) {
+        const scale = containerWidth / certWidth;
+        scaler.style.transform = `scale(${scale})`;
+        // Adjust container height to match the scaled certificate height
+        container.style.height = `${707 * scale}px`;
+      } else {
+        scaler.style.transform = 'none';
+        container.style.height = '707px';
+      }
+    }
+
+    // Run on load and on window resize
+    window.addEventListener('load', scalePreviewCertificate);
+    window.addEventListener('resize', scalePreviewCertificate);
   </script>
 </body>
 </html>
