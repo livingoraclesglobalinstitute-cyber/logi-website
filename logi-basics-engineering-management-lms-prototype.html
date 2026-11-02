@@ -316,20 +316,26 @@
     /* =========================================
        CERTIFICATE STYLES (Landscape, 1000x707)
        ========================================= */
-    .cert-container {
+    .cert-display-area {
+      width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 20px;
-      background: #e8eaed;
-      border-radius: var(--radius);
+      overflow: hidden; /* Prevents horizontal scroll */
+      padding: 10px 0;
+    }
+
+    .cert-scaler {
+      /* Auto-scales the 1000x707 certificate to fit any screen */
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
     }
 
     .cert-wrapper {
       background: #fafafa;
       width: 1000px;
       height: 707px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       display: grid;
       grid-template-columns: 1fr 220px;
       position: relative;
@@ -548,21 +554,14 @@
       background: #c2185b;
     }
 
-    /* Controls specifically for the certificate view */
     .cert-controls {
       display: flex;
       gap: 15px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     /* Responsive */
-    @media (max-width: 1000px) {
-      .cert-wrapper { width: 100%; height: auto; aspect-ratio: 1000/707; }
-      .cert-main { padding: 20px; }
-      .cert-name { font-size: 28px; }
-      .cert-course-title { font-size: 24px; }
-    }
-
     @media (max-width: 900px) {
       .dash-layout { grid-template-columns: 1fr; }
       .sidebar { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px; gap: 4px; }
@@ -571,23 +570,13 @@
       .main-panel { max-height: none; padding: 20px 16px 40px; }
       .course-layout { grid-template-columns: 1fr; }
       .module-side { position: static; }
-      .cert-wrapper { grid-template-columns: 1fr; height: auto; }
-      .cert-sidebar { flex-direction: row; height: auto; }
-      .cert-partner-box { flex: 1; padding: 15px; display: flex; align-items: center; justify-content: center; border-bottom: 0; border-right: 1px solid #eee; }
-      .cert-sidebar-pattern { display: none; }
-      .cert-verify-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-      .cert-bottom-block { display: none; }
     }
 
     @media (max-width: 500px) {
       .auth-card { padding: 24px 18px; }
       .main-panel h1 { font-size: 22px; }
-      .cert-wrapper { aspect-ratio: auto; }
-      .cert-header { flex-direction: column; align-items: flex-start; }
     }
 
-    .hidden { display: none !important; }
-    
     /* Print specific styles to force landscape and hide UI */
     @media print {
       @page { size: landscape; margin: 0; }
@@ -595,7 +584,8 @@
       .top, .sidebar, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
-      .cert-container { padding: 0; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; }
       .cert-wrapper {
         box-shadow: none;
         width: 1000px !important;
@@ -1491,63 +1481,66 @@ const App = (() => {
               <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
             </div>
             
-            <div class="cert-container">
-              <div class="cert-wrapper" id="printableCert">
-                
-                <!-- Background Watermark -->
-                <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+            <!-- Added a wrapper to scale the certificate for mobile/smaller screens -->
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  
+                  <!-- Background Watermark -->
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
 
-                <!-- Left Side: Main Content -->
-                <div class="cert-main">
-                  
-                  <div class="cert-header">
-                    <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
-                    <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
-                  </div>
-                  
-                  <div class="cert-date">${fmtDate(cert.date)}</div>
-                  <div class="cert-name">${esc(cert.studentName)}</div>
-                  <div class="cert-completion">has successfully completed</div>
-                  <div class="cert-course-title">${esc(cert.courseTitle)}</div>
-                  
-                  <div class="cert-description">
-                    This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of engineering management, planning, and resource control.
-                  </div>
-                  
-                  <div class="cert-signature-area">
-                    <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
-                    <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
-                    <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
-                  </div>
-                  
-                  <div class="cert-footer-info">
-                    <div class="cert-footer-box">
-                      <div class="cert-footer-logo">LOGI</div>
-                      <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                  <!-- Left Side: Main Content -->
+                  <div class="cert-main">
+                    
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
                     </div>
-                    <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
-                      <div>This is a digitally generated certificate. The authenticity of this document can be verified by scanning the QR code on the right.</div>
+                    
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of engineering management, planning, and resource control.
                     </div>
-                  </div>
-                </div>
-                
-                <!-- Right Side: Sidebar -->
-                <div class="cert-sidebar">
-                  
-                  <div class="cert-partner-box">LOGI</div>
-                  
-                  <div class="cert-sidebar-pattern"></div>
-                  
-                  <div class="cert-verify-area">
-                    <div class="cert-verify-text">Scan to verify<br>this certificate</div>
-                    <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
-                    <div class="cert-blockchain">
-                      Blockchain ID:<br>
-                      ${esc(cert.hash)}
+                    
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. The authenticity of this document can be verified by scanning the QR code on the right.</div>
+                      </div>
                     </div>
                   </div>
                   
-                  <div class="cert-bottom-block"></div>
+                  <!-- Right Side: Sidebar -->
+                  <div class="cert-sidebar">
+                    
+                    <div class="cert-partner-box">LOGI</div>
+                    
+                    <div class="cert-sidebar-pattern"></div>
+                    
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">
+                        Blockchain ID:<br>
+                        ${esc(cert.hash)}
+                      </div>
+                    </div>
+                    
+                    <div class="cert-bottom-block"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1563,6 +1556,30 @@ const App = (() => {
       </div>
     `;
     renderNav();
+    
+    // Auto scale the certificate to fit the screen width
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  // Function to scale certificate down on smaller screens while keeping it full-size for printing
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000; // Original certificate width
+
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`; // Prevents large blank space below
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
   }
 
   function downloadCertificateImage() {
@@ -1578,6 +1595,11 @@ const App = (() => {
       scale: 2, 
       useCORS: true, 
       backgroundColor: '#fafafa',
+      // Ensure we capture the full 1000x707 size even if visually scaled down
+      width: 1000,
+      height: 707,
+      windowWidth: 1000,
+      windowHeight: 707,
       onclone: (clonedDoc) => {
         const desc = clonedDoc.querySelector('.cert-description');
         if (desc) {
