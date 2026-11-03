@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View sample certificates issued by Living Oracles Global Institute (LOGI) for our short courses and programmes.">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <title>Our Certificates | LOGI</title>
+  <style>
+    :root {
+      --pink: #ff4b93;
+      --pink-dark: #e93680;
+      --lavender: #f1f0fb;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #ececf1;
+      --white: #fff;
+      --shadow: 0 3px 14px rgba(30, 30, 50, .09);
+      --p: #e91e63; /* Certificate sidebar color */
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fcfcfc;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    .site-header {
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 max(5vw, 20px);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      position: relative;
+      z-index: 10;
+    }
+    .brand { font-size: 27px; font-weight: 800; letter-spacing: -1.5px; color: #55545c; }
+    .brand span { color: var(--pink); }
+    .header-actions { display: flex; align-items: center; gap: 22px; }
+    .explore { display: inline-block; padding: 9px 22px; border-radius: 4px; background: var(--pink); color: #fff; font-size: 13px; }
+    .header-link { font-size: 13px; color: #555; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(110deg, #f5f2fc 0%, #fff 58%, #ffeaf2 100%);
+      padding: 50px max(6.5vw, 22px) 40px;
+      text-align: center;
+    }
+    .hero h1 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 42px); color: #222; }
+    .hero p { color: #666; font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+    /* Gallery Grid */
+    .gallery-container {
+      width: min(1120px, 90%);
+      margin: 40px auto 60px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    
+    /* Individual Card */
+    .cert-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .cert-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(30, 30, 50, 0.15);
+    }
+    .cert-thumbnail {
+      width: 100%;
+      height: 220px;
+      background: #e8eaed;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .cert-thumbnail-inner {
+      /* Scale down the 1000px certificate to fit the card */
+      transform: scale(0.32);
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+      position: absolute;
+      top: 10px;
+    }
+    .cert-card-info {
+      padding: 20px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+      z-index: 2;
+    }
+    .cert-card-info h3 { margin: 0 0 5px; font-size: 16px; color: #222; }
+    .cert-card-info p { margin: 0; font-size: 13px; color: var(--muted); }
+    .cert-card-info .tags {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-block;
+      background: #f0edf3;
+      color: var(--pink);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge.type {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+    .modal.active { display: flex; flex-direction: column; align-items: center; }
+    .modal-content {
+      background: #fff;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 1100px;
+      position: relative;
+      animation: zoomIn 0.3s ease;
+      overflow: hidden;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .close-btn:hover { background: rgba(0,0,0,0.8); }
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      background: #e8eaed;
+    }
+
+    /* Certificate Styles (for both thumbnail and modal) */
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* SAMPLE WATERMARK */
+    .cert-sample-text {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 140px;
+      font-weight: 900;
+      color: rgba(0,0,0,0.06);
+      letter-spacing: 15px;
+      pointer-events: none;
+      z-index: 1;
+      white-space: nowrap;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--p); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-sidebar-pattern::before { content: ''; position: absolute; top: 15%; left: 10%; width: 40px; height: 80px; border-left: 2px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.2); }
+    .cert-sidebar-pattern::after { content: ''; position: absolute; bottom: 20%; right: 15%; width: 60px; height: 40px; border-right: 2px solid rgba(255,255,255,0.2); border-top: 2px solid rgba(255,255,255,0.2); }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    
+    /* Learning Preview Badge */
+    .cert-preview-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.1);
+      color: #b33;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 5px 15px;
+      border-radius: 20px;
+      z-index: 5;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid rgba(179,51,51,0.2);
+    }
+
+    /* Modal specific scaling */
+    .modal-scaler { width: 1000px; height: 707px; transform-origin: top left; }
+    .modal-wrapper { width: 100%; overflow: hidden; position: relative; }
+
+    /* Footer */
+    .site-footer { background: #f7f7fa; color: #777; text-align: center; padding: 22px; font-size: 12px; }
+
+    @media (max-width: 700px) {
+      .site-header { padding: 0 16px; height: 60px; }
+      .header-actions { gap: 10px; }
+      .explore { padding: 8px 12px; font-size: 11px; }
+      .header-link { font-size: 11px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .cert-thumbnail { height: 180px; }
+      .cert-thumbnail-inner { transform: scale(0.26); }
+      .modal { padding: 20px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="https://www.logi.education" aria-label="LOGI home">LOGI<span>.</span></a>
+    <nav class="header-actions" aria-label="Main navigation">
+      <a class="explore" href="/our-program/">All Programmes</a>
+      <a class="header-link" href="https://www.logi.education">Home</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Our Certificates &amp; Awards</h1>
+    <p>Explore sample certificates issued by Living Oracles Global Institute upon successful completion of our short courses and programmes.</p>
+  </section>
+
+  <main class="gallery-container">
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Cards will be injected here by JavaScript -->
+    </div>
+  </main>
+
+  <!-- Modal for viewing certificate -->
+  <div id="certModal" class="modal">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-wrapper" id="modalWrapper">
+          <div class="modal-scaler" id="modalScaler">
+            <!-- Certificate HTML will be injected here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    Living Oracles Global Institute (LOGI) · Faith. Excellence. Impact.
+  </footer>
+
+  <script>
+    // Data for the certificates
+    const certs = [
+      // --- SHORT COURSES ---
+      {
+        type: "Short Course",
+        title: "Basics of Engineering Management",
+        name: "Kwame Mensah",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of engineering management, planning, and resource control."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Agile Project Management",
+        name: "Sarah Jenkins",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of agile project management, iterative delivery, and continuous improvement."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Building Information Modelling (BIM)",
+        name: "David Osei",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of Building Information Modelling, digital coordination, and asset lifecycle management."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Buildings and Construction Works",
+        name: "Amina Yusuf",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of building projects, construction stages, key participants, and basic site processes."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Concrete Technology",
+        name: "John Appiah",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of concrete ingredients, fresh and hardened properties, production, and quality considerations."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Construction Cost Estimation",
+        name: "Grace Owusu",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of estimating construction costs from project information, quantities, rates, and clear assumptions."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Construction Safety",
+        name: "Michael Adeyemi",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of construction safety, hazard identification, and emergency preparedness."
+      },
+      {
+        type: "Short Course",
+        title: "Cybersecurity Fundamentals",
+        name: "Linda Boakye",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of protecting devices, accounts, networks, and information."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Data Analytics",
+        name: "Emmanuel Tetteh",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of data collection, preparation, exploration, and communication to support decisions."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Fire Safety",
+        name: "Fatima Alhassan",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of fire prevention, common hazards, emergency procedures, and evacuation."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Hazard Identification and Risk Assessment",
+        name: "Daniel Mwangi",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of hazard recognition, risk evaluation, and the hierarchy of controls."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Industrial Instrumentation",
+        name: "Abena Serwaa",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of measurement, sensors, transmitters, and control loops in industrial processes."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Industrial Maintenance Management",
+        name: "Kofi Boateng",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of maintenance strategies, work planning, equipment reliability, and safe maintenance practices."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Industrial Automation",
+        name: "Nana Ama Addo",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of industrial automation, sensors, actuators, PLCs, and robotics."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to ISO 45001 Occupational Health and Safety",
+        name: "Samuel Nkrumah",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of occupational health and safety management systems, worker participation, and continual improvement."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Lean Six Sigma",
+        name: "Priscilla Amoah",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of Lean and Six Sigma, process improvement, and continuous improvement."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Manufacturing Processes",
+        name: "Yaw Antwi",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of manufacturing methods, production systems, materials, and process selection."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Oil & Gas – Reserves, Risk & Value",
+        name: "Esi Mensimah",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of the upstream oil and gas sector, reserves, uncertainty, project risk, and value."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to PRINCE2 Project Management",
+        name: "Richard Asante",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of PRINCE2 project management, including principles, practices, processes, roles and tailoring."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Project Planning and Scheduling",
+        name: "Evelyn Osei",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of project planning, scope definition, activity sequencing, and schedule control."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Project Risk Management",
+        name: "Isaac Kusi",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of identifying uncertainty, assessing potential effects, and planning risk responses throughout the project lifecycle."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Quality Management Systems (ISO 9001)",
+        name: "Comfort Adjei",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of quality management, process approach, risk-based thinking, and continual improvement."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Root Cause Analysis",
+        name: "Peter Amoako",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of systematic problem investigation, evidence gathering, and identifying root causes."
+      },
+      {
+        type: "Short Course",
+        title: "Basics of Six Sigma – DMAIC Methodology",
+        name: "Joyce Appiah",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of the DMAIC improvement cycle, including Define, Measure, Analyse, Improve, and Control."
+      },
+      {
+        type: "Short Course",
+        title: "Introduction to Solar Photovoltaic Technology",
+        name: "Bright Agyeman",
+        school: "School of Engineering & Technology",
+        desc: "This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of solar photovoltaic systems, including PV modules, system components, and performance considerations."
+      },
+
+      // --- PROGRAMMES ---
+      {
+        type: "Programme",
+        title: "Certificate in Organizational Leadership",
+        name: "Esther Darko",
+        school: "School of Business & Leadership",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of organizational behavior, strategic planning, innovation, ethical decision-making, and servant leadership."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in NextGen Ministry",
+        name: "Joshua Adjei",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of youth culture, discipleship strategies, program development, and engaging young people in meaningful faith formation and ministry."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Intercultural Studies",
+        name: "Ruth Danso",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of cultural anthropology, cross-cultural communication, contextualization, and practical preparation for effective missions and cross-cultural ministry."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Leadership & Management",
+        name: "Michael Owusu",
+        school: "School of Business & Leadership",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of strategic leadership, team building, conflict resolution, vision casting, and change management skills."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Ministry to Women",
+        name: "Hannah Nyarko",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of women's discipleship, mentoring, Bible teaching, and addressing contemporary issues women face with biblical wisdom and compassion."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Missions & Evangelism",
+        name: "Daniel Asare",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of missiology, cross-cultural ministry, evangelism strategies, community engagement, and church planting."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Human Services",
+        name: "Gifty Mensah",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of community care, social support, helping relationships, mercy ministry, and ethical principles for serving individuals and communities in need."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Disability Ministry",
+        name: "Emmanuel Osei",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of disability awareness, accessibility, inclusion strategies, and creating supportive, Christ-centered ministry environments for individuals with disabilities."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Crisis & Trauma Care",
+        name: "Grace Amankwah",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of pastoral care, crisis intervention, grief counseling, trauma response, and compassionate support for individuals and families in distress."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Church Leadership & Administration",
+        name: "Samuel Boateng",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of church governance, financial stewardship, congregational care, discipleship, and strategic planning."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Business Administration",
+        name: "Abigail Frimpong",
+        school: "School of Business & Leadership",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of business principles, financial literacy, ethical leadership, and organizational management skills."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Children & Family Ministry",
+        name: "Isaac Tetteh",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of child development, family dynamics, curriculum design, and creating engaging, biblically-based ministry environments for children and families."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Christian Ministry",
+        name: "Rebecca Owusu",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of foundations of faith, preaching, teaching, pastoral care, biblical interpretation, and ministry leadership."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Business Analysis & Process Improvement",
+        name: "Stephen Adjei",
+        school: "School of Engineering & Technology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of business process mapping, quality improvement, data-driven decision making, lean principles, and optimization."
+      },
+      {
+        type: "Programme",
+        title: "Certificate in Biblical Studies",
+        name: "Naomi Asante",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of Old and New Testament survey, biblical interpretation, core doctrines, and practical Scripture application for ministry and personal growth."
+      },
+      {
+        type: "Programme",
+        title: "Advanced Professional Diploma in Project, Quality & Process Management",
+        name: "Joseph Mensah",
+        school: "School of Engineering & Technology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of advanced project management, quality assurance, risk management, strategic planning, and capstone project."
+      },
+      {
+        type: "Programme",
+        title: "Advanced Professional Diploma in Ministry",
+        name: "Mary Adjei",
+        school: "School of Ministry & Theology",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of advanced pastoral leadership, spiritual formation, discipleship strategies, and capstone project."
+      },
+      {
+        type: "Programme",
+        title: "Advanced Professional Diploma in Business Administration",
+        name: "David Asare",
+        school: "School of Business & Leadership",
+        desc: "This programme has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of advanced business strategy, financial management, entrepreneurship, and capstone project."
+      }
+    ];
+
+    const galleryGrid = document.getElementById('galleryGrid');
+    const modal = document.getElementById('certModal');
+    const modalScaler = document.getElementById('modalScaler');
+    const modalWrapper = document.getElementById('modalWrapper');
+
+    // Function to generate the certificate HTML
+    function generateCertHTML(title, name, school, desc) {
+      return `
+        <div class="cert-wrapper">
+          <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+          
+          <!-- SAMPLE WATERMARK -->
+          <div class="cert-sample-text">SAMPLE</div>
+          
+          <div class="cert-main">
+            <div class="cert-header">
+              <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+              <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+            </div>
+            <div class="cert-date">30, October 2026</div>
+            <div class="cert-name">${name}</div>
+            <div class="cert-completion">has successfully completed</div>
+            <div class="cert-course-title">${title}</div>
+            <div class="cert-description">${desc}</div>
+            <div class="cert-signature-area">
+              <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Signature" crossorigin="anonymous">
+              <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+              <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+            </div>
+            <div class="cert-footer-info">
+              <div class="cert-footer-box">
+                <div class="cert-footer-logo">LOGI</div>
+                <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+              </div>
+              <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                <div>This is a digitally generated certificate. The authenticity of this document can be verified by scanning the QR code on the right.</div>
+              </div>
+            </div>
+          </div>
+          <div class="cert-sidebar">
+            <div class="cert-partner-box">LOGI</div>
+            <div class="cert-sidebar-pattern"></div>
+            <div class="cert-verify-area">
+              <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+              <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LOGI-SAMPLE-PREVIEW" alt="QR Code" crossorigin="anonymous">
+              <div class="cert-blockchain">Blockchain ID:<br>SAMPLE-PREVIEW-1234567890</div>
+            </div>
+            <div class="cert-bottom-block"></div>
+          </div>
+
+          <!-- PREVIEW BADGE -->
+          <div class="cert-preview-badge">Learning Preview Only</div>
+        </div>
+      `;
+    }
+
+    // Build the gallery
+    certs.forEach((cert, index) => {
+      const card = document.createElement('div');
+      card.className = 'cert-card';
+      card.innerHTML = `
+        <div class="cert-thumbnail">
+          <div class="cert-thumbnail-inner">
+            ${generateCertHTML(cert.title, cert.name, cert.school, cert.desc)}
+          </div>
+        </div>
+        <div class="cert-card-info">
+          <h3>${cert.title}</h3>
+          <p>${cert.name} &middot; ${cert.school}</p>
+          <div class="tags">
+            <span class="badge type">${cert.type}</span>
+            <span class="badge">View Certificate</span>
+          </div>
+        </div>
+      `;
+      card.onclick = () => openModal(cert.title, cert.name, cert.school, cert.desc);
+      galleryGrid.appendChild(card);
+    });
+
+    // Open Modal
+    function openModal(title, name, school, desc) {
+      modalScaler.innerHTML = generateCertHTML(title, name, school, desc);
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      scaleModalCert();
+    }
+
+    // Close Modal
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      modalScaler.innerHTML = ''; // Clean up
+    }
+
+    // Close on clicking outside content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Scale modal certificate to fit screen width
+    function scaleModalCert() {
+      if (!modalScaler) return;
+      const wrapperWidth = modalWrapper.clientWidth;
+      const certWidth = 1000;
+      
+      if (wrapperWidth < certWidth) {
+        const scale = wrapperWidth / certWidth;
+        modalScaler.style.transform = `scale(${scale})`;
+        modalWrapper.style.height = `${707 * scale}px`; // Adjust wrapper height to match scaled content
+      } else {
+        modalScaler.style.transform = 'none';
+        modalWrapper.style.height = '707px';
+      }
+    }
+
+    // Handle window resize for modal
+    window.addEventListener('resize', () => {
+      if (modal.classList.contains('active')) {
+        scaleModalCert();
+      }
+    });
+  </script>
+</body>
+</html>
