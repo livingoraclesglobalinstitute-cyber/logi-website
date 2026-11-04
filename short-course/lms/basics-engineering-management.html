@@ -3,187 +3,565 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="LOGI LMS – Learning Portal">
-  <title>LOGI LMS · Learning Portal</title>
+  <meta name="description" content="LOGI LMS Demonstration – Short Courses">
+  <title>LOGI LMS · Short Courses</title>
   
+  <!-- Include html2canvas for certificate image download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   
   <style>
     :root {
       --p: #ff4b93;
       --pd: #e93680;
-      --purple: #7b218b;
       --ink: #34343b;
       --muted: #777780;
-      --line: #ececf1;
-      --soft: #f1f0fb;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
       --bg: #ffffff;
       --success: #2e7d32;
       --error: #b33;
       --warn: #f0f7ff;
       --radius: 10px;
-      --shadow: 0 3px 14px rgba(30,30,50,.09);
     }
     * { box-sizing: border-box; }
-    body { margin: 0; font: 15px/1.65 Arial, sans-serif; color: var(--ink); background: #fff; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
     a { text-decoration: none; color: inherit; }
     .inner { width: min(1160px, 92%); margin: auto; }
-    
     .top {
-      height: 66px; border-bottom: 1px solid var(--line); display: flex; align-items: center;
-      position: sticky; top: 0; background: white; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 10;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
     }
     .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
     .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
     .brand span { color: var(--p); }
     .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    
     .btn {
-      background: var(--p); color: white; border: 0; border-radius: 24px; padding: 10px 18px;
-      font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s;
-      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .btn:hover { background: var(--pd); }
-    .btn-purple { background: var(--purple); }
-    .btn-purple:hover { background: #641b70; }
     .btn-outline {
-      background: transparent; color: var(--pd); border: 1.5px solid var(--p);
-      border-radius: 24px; padding: 9px 16px; font-weight: bold; cursor: pointer; font-size: 14px;
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
     }
     .btn-outline:hover { background: #fff0f6; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-danger { background: #d32f2f; }
+    .btn-danger:hover { background: #b71c1c; }
     .btn-secondary {
-      background: #f0edf3; color: var(--ink); border: 0; border-radius: 24px;
-      padding: 9px 15px; font-weight: 600; cursor: pointer; font-size: 14px;
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
     }
     .btn-secondary:hover { background: #e5e1ea; }
 
+    /* Auth screens */
     .auth-wrap {
-      display: flex; justify-content: center; align-items: center;
-      min-height: calc(100vh - 66px); padding: 40px 16px;
-      background: linear-gradient(110deg,#f5f2fc 0%,#fff 58%,#ffeaf2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
     }
     .auth-card {
-      background: white; border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 36px 32px; width: 100%; max-width: 440px; box-shadow: var(--shadow);
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
     }
     .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
     .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
     .field { margin-bottom: 14px; }
     .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
-    .field input {
-      width: 100%; padding: 10px 12px; border: 1px solid var(--line);
-      border-radius: 6px; font: inherit; font-size: 14px;
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
     }
-    .field input:focus { outline: 2px solid var(--p); outline-offset: 1px; border-color: transparent; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
     .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
     .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
     .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
 
-    .dash-layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 66px); }
-    .sidebar {
-      background: white; border-right: 1px solid var(--line); padding: 22px 14px;
-      display: flex; flex-direction: column; gap: 6px;
+    /* Dashboard layout */
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
     }
-    .sidebar .user-badge { background: var(--soft); border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 13px; }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
     .sidebar .user-badge strong { display: block; font-size: 14px; }
     .sidebar .user-badge span { color: var(--muted); font-size: 12px; }
     .sidebar a, .sidebar button.nav-link {
-      display: block; width: 100%; text-align: left; padding: 10px 12px;
-      border-radius: 6px; background: transparent; border: 0; font: inherit;
-      font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
     }
     .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
     .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
     .sidebar .spacer { flex: 1; }
-
     .main-panel {
-      padding: 40px max(5vw, 22px); overflow-y: auto; max-height: calc(100vh - 66px);
-      background: linear-gradient(110deg,#f5f2fc 0%,#fff 58%,#ffeaf2 100%);
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
     }
-    .main-panel h1 { font-size: clamp(28px, 4vw, 38px); margin: 0 0 6px; color: #222; }
-    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 30px; }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
 
-    .card { background: white; border: 1px solid var(--line); border-radius: 8px; padding: 24px; margin-bottom: 20px; box-shadow: var(--shadow); }
-    .card h2 { font-size: 20px; margin: 0 0 10px; font-weight: 800; }
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
     .card h3 { font-size: 17px; margin: 18px 0 8px; }
     .card p, .card li { color: #555; line-height: 1.75; }
-    
-    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 24px; }
-    .stat-box { background: white; border: 1px solid var(--line); border-radius: 7px; padding: 17px; box-shadow: var(--shadow); }
-    .stat-box .num { font-size: 28px; font-weight: 800; color: var(--purple); }
-    .stat-box .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
-    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
-    .course-tile { background: white; border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow); }
+    /* Course catalogue */
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
     .course-tile h3 { margin: 0; font-size: 17px; }
     .course-tile .meta { font-size: 12px; color: var(--muted); }
-    .course-tile .desc { font-size: 13px; color: #666; flex: 1; margin-bottom: 12px; }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
 
-    .lesson-card { max-width: 900px; background: white; }
-    .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 14px 17px; margin: 18px 0; border-radius: 0 6px 6px 0; }
-    .case { background: #fff8fb; border: 1px solid #f4dce7; padding: 16px; border-radius: 6px; margin: 18px 0; }
+    /* Lesson content */
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .case {
+      background: #fff8fb;
+      border: 1px solid #f4dce7;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 18px 0;
+    }
     .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
     .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
     .compare th { background: #fff3f8; }
 
     .q { border-top: 1px solid var(--line); padding: 14px 0; }
-    .q label { display: block; border: 1px solid var(--line); padding: 8px 12px; margin: 6px 0; border-radius: 5px; cursor: pointer; font-size: 14px; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
     .q label:hover { background: #fafafa; }
     .q label.selected { background: #fff0f6; border-color: var(--p); }
     .feedback { font-size: 13px; margin-top: 6px; }
-    .actions { display: flex; justify-content: space-between; gap: 9px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 24px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
     .notice { font-size: 12px; color: var(--muted); margin-top: 14px; }
 
+    /* Module sidebar inside course view */
     .course-layout { display: grid; grid-template-columns: 260px 1fr; gap: 22px; align-items: start; }
-    .module-side { background: white; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; position: sticky; top: 22px; box-shadow: var(--shadow); }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 22px;
+    }
     .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
     .module-side .sidehead h2 { font-size: 16px; margin: 0; }
     .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
     .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
     .module-side .modules { padding: 8px; }
-    .mod-btn { width: 100%; text-align: left; background: white; border: 0; padding: 11px 9px; border-radius: 5px; cursor: pointer; font-weight: bold; color: var(--ink); font-size: 13px; }
+    .mod-btn {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 11px 9px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--ink);
+      font-size: 13px;
+      transition: background 0.1s;
+    }
     .mod-btn:hover { background: #fff3f8; color: var(--pd); }
     .mod-btn.active { background: #fff0f6; color: var(--pd); }
     .mod-btn.locked { color: #aaa; cursor: not-allowed; }
-    .lesson-link { display: block; width: 100%; text-align: left; background: white; border: 0; border-left: 2px solid transparent; padding: 7px 12px 7px 22px; font-size: 12px; color: #666; cursor: pointer; }
+    .lesson-link {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-left: 2px solid transparent;
+      padding: 7px 12px 7px 22px;
+      font-size: 12px;
+      color: #666;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
     .lesson-link:hover { background: #fafafa; }
     .lesson-link.active { color: var(--pd); border-color: var(--p); background: #fff8fb; }
     .lesson-link.done:after { content: " ✓"; color: var(--success); }
     .lesson-link.locked { color: #bbb; cursor: not-allowed; }
 
-    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
-    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
-    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
-    .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
-    .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
-    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
-    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
-    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
-    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
-    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
-    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
-    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
-    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
-    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
-    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
-    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
-    .cert-signer-title { font-size: 12px; color: var(--muted); }
-    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
-    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
-    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
-    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
-    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
-    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
-    .cert-sidebar-pattern::before { content: ''; position: absolute; top: 15%; left: 10%; width: 40px; height: 80px; border-left: 2px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.2); }
-    .cert-sidebar-pattern::after { content: ''; position: absolute; bottom: 20%; right: 15%; width: 60px; height: 40px; border-right: 2px solid rgba(255,255,255,0.2); border-top: 2px solid rgba(255,255,255,0.2); }
-    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
-    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
-    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
-    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
-    .cert-bottom-block { height: 40px; background: #c2185b; }
-    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+    /* =========================================
+       CERTIFICATE STYLES (Landscape, 1000x707)
+       ========================================= */
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden; /* Prevents horizontal scroll */
+      padding: 10px 0;
+    }
 
+    .cert-scaler {
+      /* Auto-scales the 1000x707 certificate to fit any screen */
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cert-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 35px;
+    }
+
+    .cert-header-logo {
+      height: 45px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .cert-logo-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 1px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .cert-date {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 25px;
+      font-weight: 500;
+    }
+
+    .cert-name {
+      font-size: 36px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .cert-completion {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .cert-course-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 25px;
+      line-height: 1.2;
+    }
+
+    .cert-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 40px;
+      letter-spacing: 0.2px;
+      word-spacing: 1px;
+    }
+
+    .cert-signature-area {
+      display: flex;
+      flex-direction: column;
+      max-width: 300px;
+      margin-top: auto;
+    }
+
+    .cert-signature-img {
+      height: 55px;
+      width: auto;
+      object-fit: contain;
+      align-self: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .cert-signer-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      margin-bottom: 6px;
+    }
+
+    .cert-signer-title {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .cert-footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 30px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 15px;
+      font-size: 10px;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    .cert-footer-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 48%;
+    }
+
+    .cert-footer-logo {
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--p);
+    }
+
+    .cert-sidebar {
+      background-color: var(--pd);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-partner-box {
+      background: white;
+      padding: 25px 15px;
+      text-align: center;
+      font-size: 42px;
+      font-weight: 900;
+      color: #000;
+      letter-spacing: 3px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cert-sidebar-pattern {
+      flex: 1;
+      position: relative;
+      background-image: 
+        linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent),
+        linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px);
+      background-size: 20px 20px, 100% 100%;
+      background-position: 0 0, 10px 10px;
+    }
+
+    .cert-sidebar-pattern::before {
+      content: '';
+      position: absolute;
+      top: 15%; left: 10%; width: 40px; height: 80px;
+      border-left: 2px solid rgba(255,255,255,0.2);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+    .cert-sidebar-pattern::after {
+      content: '';
+      position: absolute;
+      bottom: 20%; right: 15%; width: 60px; height: 40px;
+      border-right: 2px solid rgba(255,255,255,0.2);
+      border-top: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .cert-verify-area {
+      padding: 25px 20px;
+      text-align: center;
+      background: white;
+    }
+
+    .cert-verify-text {
+      font-size: 9px;
+      color: #555;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    .cert-qr {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 15px;
+      display: block;
+    }
+
+    .cert-blockchain {
+      font-size: 9px;
+      color: #888;
+      font-family: monospace;
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    .cert-bottom-block {
+      height: 40px;
+      background: #c2185b;
+    }
+
+    .cert-controls {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
     @media (max-width: 900px) {
       .dash-layout { grid-template-columns: 1fr; }
       .sidebar { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px; gap: 4px; }
@@ -194,6 +572,12 @@
       .module-side { position: static; }
     }
 
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+    }
+
+    /* Print specific styles to force landscape and reset scaling */
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -201,8 +585,18 @@
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
       .cert-display-area { padding: 0; overflow: visible; }
+      
+      /* Crucial: Reset the scale for printing so it fills the PDF page properly */
       .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
-      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+      
+      .cert-wrapper {
+        box-shadow: none;
+        width: 1000px !important;
+        height: 707px !important;
+        border: none;
+        margin: 0 auto;
+        background: #fafafa !important;
+      }
     }
   </style>
 </head>
@@ -224,7 +618,8 @@
 
 <script>
 /* ============================================================
-   LOGI LMS DEMO — Single File Multi-Course Prototype
+   LOGI LMS DEMO — single-file browser prototype
+   Storage: localStorage (demo only)
    ============================================================ */
 
 const STORE = {
@@ -247,582 +642,104 @@ function save(key, val) {
   localStorage.setItem(key, JSON.stringify(val));
 }
 
-/* ---------- COURSES DATA (Linked to your main catalogue) ---------- */
-const COURSES = [
+/* ---------- Course data ---------- */
+let COURSE = {
+  id: 'eng-mgmt-101',
+  title: 'Basics of Engineering Management',
+  desc: 'Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.',
+  passMark: 80,
+  modules: [
+    {
+      title: 'Introduction to Engineering Management',
+      lessons: [
+        {
+          title: 'Understanding Engineering Management',
+          duration: '35 minutes',
+          html: `
+            <h2>Understanding Engineering Management</h2>
+            <p>Engineering management is the application of management principles, technical knowledge and problem-solving methods to plan, organise, coordinate and control engineering activities. It connects engineering expertise with the people, resources, time, cost and quality requirements needed to complete work successfully.</p>
+            <div class="callout"><b>Key idea:</b> Engineering focuses on designing and solving technical problems. Engineering management organises the people, processes and resources required to deliver engineering work effectively.</div>
+            <h3>1. What does an engineering manager do?</h3>
+            <ul>
+              <li>Plans engineering activities and sets priorities.</li>
+              <li>Coordinates engineers, technicians, contractors and stakeholders.</li>
+              <li>Manages equipment, materials, time and budgets.</li>
+              <li>Monitors quality, safety, cost and project performance.</li>
+              <li>Identifies problems and supports practical solutions.</li>
+            </ul>
+            <h3>2. Engineering and engineering management</h3>
+            <table class="compare">
+              <tr><th>Engineering</th><th>Engineering management</th></tr>
+              <tr><td>Focuses on technical design, analysis and solutions.</td><td>Coordinates technical work, people and resources.</td></tr>
+              <tr><td>May involve calculations, testing and system development.</td><td>May involve planning, budgeting, scheduling and team coordination.</td></tr>
+              <tr><td>Asks: How can this technical problem be solved?</td><td>Asks: How can the work be delivered safely, on time and within budget?</td></tr>
+            </table>
+            <h3>3. Where is it applied?</h3>
+            <p>Engineering management is used in construction, manufacturing, energy, mining, oil and gas, infrastructure, maintenance and technology projects. A construction project, for example, needs technical design as well as labour planning, material procurement, equipment scheduling, cost control and safety coordination.</p>
+            <div class="case">
+              <h3>Practical case: A delayed construction project</h3>
+              <p>A contractor is constructing a community health facility. Work has slowed because cement deliveries are late, equipment is unavailable when needed and the site team has not received an updated work schedule.</p>
+              <p><b>Management response:</b> Review the work plan, confirm material delivery dates, coordinate equipment use, assign responsibilities and monitor progress against revised milestones—without compromising safety or quality.</p>
+            </div>
+            <h3>Lesson summary</h3>
+            <ul>
+              <li>Engineering management combines technical understanding with management practices.</li>
+              <li>It coordinates people, materials, equipment, time, cost, quality and risk.</li>
+              <li>It is important across many engineering industries.</li>
+            </ul>
+          `,
+          quiz: [
+            { q: 'Which statement best describes engineering management?', opts: ['Designing technical systems only', 'Coordinating technical work, people and resources to achieve objectives', 'Replacing engineering with administration'], answer: 1, explanation: 'It coordinates technical work, people and resources to achieve objectives.' },
+            { q: 'Which is an engineering management activity?', opts: ['Ignoring delivery schedules', 'Working without defined responsibilities', 'Coordinating equipment, materials and labour'], answer: 2, explanation: 'Coordinating equipment, materials and labour is a management responsibility.' },
+            { q: 'Materials arrive late on a project. What is a sensible response?', opts: ['Review the plan and coordinate suppliers and work activities', 'Stop monitoring the project', 'Ignore the delay'], answer: 0, explanation: 'Reviewing the plan and coordinating suppliers helps address the delay.' },
+            { q: 'Which question is most closely associated with engineering management?', opts: ['How can planning be avoided?', 'How can work be delivered safely, on time and within budget?', 'How can standards be ignored?'], answer: 1, explanation: 'Engineering management considers safe delivery, time, cost and quality.' },
+            { q: 'Where can engineering management be applied?', opts: ['Construction only', 'Manufacturing only', 'Across many engineering sectors'], answer: 2, explanation: 'It is applied across construction, manufacturing, energy and other sectors.' }
+          ]
+        }
+      ]
+    },
+    {
+      title: 'Engineering Planning and Project Management',
+      lessons: [
+        {
+          title: 'Module 2 overview',
+          duration: '50 minutes',
+          html: `
+            <h2>Engineering Planning and Project Management</h2>
+            <p>This module explores how engineering activities are translated into practical work plans.</p>
+            <div class="callout"><b>Topics:</b> defining scope and deliverables; breaking work into activities; sequencing tasks; scheduling and milestones; coordinating contractors and stakeholders; monitoring project progress.</div>
+          `,
+          quiz: [
+            { q: 'What is a key output of engineering planning?', opts: ['A work plan with activities and milestones', 'A list of unrelated tasks', 'No documentation'], answer: 0, explanation: 'Planning produces a structured work plan.' },
+            { q: 'Why sequence tasks?', opts: ['To delay work', 'To ensure dependencies are respected', 'To avoid coordination'], answer: 1, explanation: 'Sequencing respects dependencies between activities.' },
+            { q: 'Who should be coordinated during a project?', opts: ['Only engineers', 'Only contractors', 'Contractors, engineers and stakeholders'], answer: 2, explanation: 'All parties need coordination.' },
+            { q: 'What helps monitor progress?', opts: ['Ignoring milestones', 'Tracking against a schedule', 'Removing all reporting'], answer: 1, explanation: 'Tracking against a schedule reveals progress.' },
+            { q: 'What is a deliverable?', opts: ['A tangible output of a project', 'An unnecessary document', 'A type of delay'], answer: 0, explanation: 'Deliverables are tangible outputs.' }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+/* ---------- AVAILABLE COURSES FOR CATALOGUE ---------- */
+const AVAILABLE_COURSES = [
   {
-    id: 'introduction-to-industrial-automation',
-    title: 'Introduction to Industrial Automation',
-    school: 'Engineering & Technology',
-    desc: 'This introductory course explores the principles and practical applications of Industrial Automation.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Fundamentals of Industrial Automation',
-        lessons: [
-          {
-            title: 'Introduction to Automation',
-            duration: '30 minutes',
-            html: `<h2>Introduction to Automation</h2><p>Industrial automation is the use of control systems, such as computers or robots, and information technologies for handling different processes and machineries in an industry to replace a human being.</p>`,
-            quiz: [
-              { q: 'What is industrial automation?', opts: ['Manual control of machines', 'Use of control systems to handle processes', 'A type of manual labour'], answer: 1, explanation: 'It uses control systems to handle industrial processes.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'business-analysis-process-improvement',
-    title: 'Business Analysis & Process Improvement',
-    school: 'Business & Management',
-    desc: 'Business process mapping, quality improvement, data-driven decision making, lean principles, and optimization.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Business Process Mapping',
-        lessons: [
-          {
-            title: 'Introduction to Process Mapping',
-            duration: '35 minutes',
-            html: `<h2>Introduction to Process Mapping</h2><p>Process mapping is a workflow diagram to bring forth a clearer understanding of a process or series of parallel processes.</p>`,
-            quiz: [
-              { q: 'What is process mapping?', opts: ['A type of geographical map', 'A workflow diagram', 'A software tool'], answer: 1, explanation: 'It is a workflow diagram.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'engineering-management',
+    id: 'eng-mgmt-101',
     title: 'Basics of Engineering Management',
-    school: 'Engineering Management',
     desc: 'Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Introduction to Engineering Management',
-        lessons: [
-          {
-            title: 'Understanding Engineering Management',
-            duration: '35 minutes',
-            html: `<h2>Understanding Engineering Management</h2><p>Engineering management is the application of management principles, technical knowledge and problem-solving methods to plan, organise, coordinate and control engineering activities.</p>`,
-            quiz: [
-              { q: 'Which statement best describes engineering management?', opts: ['Designing technical systems only', 'Coordinating technical work, people and resources', 'Replacing engineering with administration'], answer: 1, explanation: 'It coordinates technical work, people and resources.' }
-            ]
-          }
-        ]
-      }
-    ]
   },
   {
-    id: 'lean-six-sigma',
-    title: 'Introduction to Lean Six Sigma',
-    school: 'Quality & Process Improvement',
-    desc: 'This course introduces Lean and Six Sigma as complementary approaches for improving processes, reducing waste and delivering consistent value.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Introduction to Lean and Six Sigma',
-        lessons: [
-          {
-            title: 'Lean Principles and Waste',
-            duration: '40 minutes',
-            html: `<h2>Lean Principles and Waste</h2><p>Lean focuses on creating value for the customer while minimizing waste. Six Sigma focuses on reducing variation and defects.</p>`,
-            quiz: [
-              { q: 'What is the main focus of Lean?', opts: ['Increasing defects', 'Maximizing waste', 'Creating value and minimizing waste'], answer: 2, explanation: 'Lean focuses on creating value and minimizing waste.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'manufacturing-processes',
-    title: 'Basics of Manufacturing Processes',
-    school: 'Manufacturing',
-    desc: 'Explore how raw materials are transformed into finished products. Introduces common manufacturing methods and production systems.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Overview of Manufacturing',
-        lessons: [
-          {
-            title: 'Manufacturing Fundamentals',
-            duration: '30 minutes',
-            html: `<h2>Manufacturing Fundamentals</h2><p>Manufacturing is the processing of raw materials into finished goods through various processes.</p>`,
-            quiz: [
-              { q: 'What is manufacturing?', opts: ['Processing raw materials into finished goods', 'Growing crops', 'Selling products'], answer: 0, explanation: 'It is the processing of raw materials.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'industrial-instrumentation',
-    title: 'Introduction to Industrial Instrumentation',
-    school: 'Instrumentation & Control',
-    desc: 'This course introduces the instruments used to measure and monitor industrial process variables.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Instrumentation Fundamentals',
-        lessons: [
-          {
-            title: 'Measurement Principles',
-            duration: '45 minutes',
-            html: `<h2>Measurement Principles</h2><p>Instrumentation involves the measurement and control of process variables such as pressure, temperature, flow and level.</p>`,
-            quiz: [
-              { q: 'What does instrumentation measure?', opts: ['Only temperature', 'Process variables like pressure and flow', 'Only flow rate'], answer: 1, explanation: 'It measures various process variables.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'industrial-maintenance-management',
-    title: 'Basics of Industrial Maintenance Management',
-    school: 'Industrial Operations',
-    desc: 'Learn the foundations of maintaining industrial equipment and facilities.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Introduction to Maintenance Management',
-        lessons: [
-          {
-            title: 'Maintenance Strategies',
-            duration: '35 minutes',
-            html: `<h2>Maintenance Strategies</h2><p>Maintenance strategies include reactive, preventive, and predictive maintenance.</p>`,
-            quiz: [
-              { q: 'Which is a type of maintenance strategy?', opts: ['Reactive', 'Preventive', 'Both A and B'], answer: 2, explanation: 'Both reactive and preventive are strategies.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'six-sigma-dmaic',
-    title: 'Basics of Six Sigma – DMAIC Methodology',
-    school: 'Process Improvement',
-    desc: 'This course explains the DMAIC improvement cycle—Define, Measure, Analyse, Improve and Control.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Six Sigma and DMAIC Overview',
-        lessons: [
-          {
-            title: 'The DMAIC Cycle',
-            duration: '30 minutes',
-            html: `<h2>The DMAIC Cycle</h2><p>DMAIC stands for Define, Measure, Analyse, Improve, and Control.</p>`,
-            quiz: [
-              { q: 'What does DMAIC stand for?', opts: ['Define, Manage, Analyze, Implement, Control', 'Define, Measure, Analyse, Improve, Control', 'Design, Measure, Analyze, Improve, Check'], answer: 1, explanation: 'It stands for Define, Measure, Analyse, Improve, Control.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'quality-management-systems-iso-9001',
-    title: 'Introduction to Quality Management Systems (ISO 9001)',
-    school: 'Quality Assurance',
-    desc: 'Explore the purpose and core concepts of a quality management system.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Quality Management Fundamentals',
-        lessons: [
-          {
-            title: 'ISO 9001 Overview',
-            duration: '30 minutes',
-            html: `<h2>ISO 9001 Overview</h2><p>ISO 9001 is the international standard for quality management systems (QMS).</p>`,
-            quiz: [
-              { q: 'What is ISO 9001?', opts: ['A quality management standard', 'A software program', 'A manufacturing process'], answer: 0, explanation: 'It is a quality management standard.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'root-cause-analysis',
-    title: 'Basics of Root Cause Analysis',
-    school: 'Problem Solving',
-    desc: 'This course introduces systematic ways to investigate problems beyond their immediate symptoms.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Understanding Problems and Symptoms',
-        lessons: [
-          {
-            title: 'The 5 Whys Technique',
-            duration: '25 minutes',
-            html: `<h2>The 5 Whys Technique</h2><p>The 5 Whys is an iterative interrogative technique used to explore the cause-and-effect relationships underlying a particular problem.</p>`,
-            quiz: [
-              { q: 'What is the 5 Whys technique?', opts: ['A technique to ask 5 questions', 'A technique to find root causes', 'A type of software'], answer: 1, explanation: 'It is used to find root causes.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'prince2-project-management',
-    title: 'Introduction to PRINCE2 Project Management',
-    school: 'Project Management',
-    desc: 'This introductory course familiarises learners with PRINCE2 project management concepts.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Project Management and PRINCE2 Overview',
-        lessons: [
-          {
-            title: 'PRINCE2 Principles',
-            duration: '35 minutes',
-            html: `<h2>PRINCE2 Principles</h2><p>PRINCE2 is a structured project management method and practitioner certification programme.</p>`,
-            quiz: [
-              { q: 'What is PRINCE2?', opts: ['A software tool', 'A structured project management method', 'A type of project'], answer: 1, explanation: 'It is a structured project management method.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'project-planning-scheduling',
-    title: 'Basics of Project Planning and Scheduling',
-    school: 'Project Controls',
-    desc: 'Learn the foundations of turning project objectives into an organised plan.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Project Planning Fundamentals',
-        lessons: [
-          {
-            title: 'Work Breakdown Structure',
-            duration: '40 minutes',
-            html: `<h2>Work Breakdown Structure</h2><p>A Work Breakdown Structure (WBS) is a deliverable-oriented breakdown of a project into smaller components.</p>`,
-            quiz: [
-              { q: 'What is a WBS?', opts: ['Work Breakdown Structure', 'Weekly Business Summary', 'Work Budget System'], answer: 0, explanation: 'WBS stands for Work Breakdown Structure.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'agile-project-management',
+    id: 'agile-project-101',
     title: 'Introduction to Agile Project Management',
-    school: 'Project Management',
-    desc: 'This course introduces Agile values and ways of organising work in short, feedback-driven cycles.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Agile Mindset and Principles',
-        lessons: [
-          {
-            title: 'Agile Principles',
-            duration: '30 minutes',
-            html: `<h2>Agile Principles</h2><p>Agile is an iterative approach to project management and software development that helps teams deliver value to their customers faster.</p>`,
-            quiz: [
-              { q: 'What is Agile?', opts: ['A waterfall method', 'An iterative approach', 'A type of software'], answer: 1, explanation: 'Agile is an iterative approach.' }
-            ]
-          }
-        ]
-      }
-    ]
+    desc: 'This course introduces Agile values and ways of organising work in short, feedback-driven cycles. Learners explore iterative delivery, collaboration, prioritisation and common Scrum concepts.',
   },
   {
-    id: 'project-risk-management',
-    title: 'Introduction to Project Risk Management',
-    school: 'Risk & Governance',
-    desc: 'Understand how project teams identify uncertainty, assess potential effects and plan responses.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Project Risk Fundamentals',
-        lessons: [
-          {
-            title: 'Risk Identification',
-            duration: '35 minutes',
-            html: `<h2>Risk Identification</h2><p>Risk identification is the process of determining risks that could potentially prevent the program, enterprise, or investment from achieving its objectives.</p>`,
-            quiz: [
-              { q: 'What is risk identification?', opts: ['Ignoring risks', 'Finding risks that could prevent success', 'Creating new risks'], answer: 1, explanation: 'It is finding risks that could prevent success.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'buildings-construction-works',
-    title: 'Basics of Buildings and Construction Works',
-    school: 'Construction',
-    desc: 'This course provides a beginner-friendly overview of building projects, construction stages, and key participants.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Introduction to Building Construction',
-        lessons: [
-          {
-            title: 'Construction Project Stages',
-            duration: '40 minutes',
-            html: `<h2>Construction Project Stages</h2><p>Construction projects typically go through several stages: planning, design, pre-construction, construction, and post-construction.</p>`,
-            quiz: [
-              { q: 'What is the first stage of a construction project?', opts: ['Construction', 'Planning', 'Post-construction'], answer: 1, explanation: 'Planning is usually the first stage.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'construction-cost-estimation',
-    title: 'Basics of Construction Cost Estimation',
-    school: 'Quantity & Cost',
-    desc: 'Learn the basic process of estimating construction costs from project information.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Introduction to Cost Estimation',
-        lessons: [
-          {
-            title: 'Quantity Take-Off',
-            duration: '35 minutes',
-            html: `<h2>Quantity Take-Off</h2><p>Quantity take-off is the process of identifying the elements of a construction project and calculating their quantities from the drawings and specifications.</p>`,
-            quiz: [
-              { q: 'What is quantity take-off?', opts: ['Estimating quantities from drawings', 'Removing quantities', 'Ignoring quantities'], answer: 0, explanation: 'It is the process of estimating quantities from drawings.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'building-information-modelling-bim',
-    title: 'Introduction to Building Information Modelling (BIM)',
-    school: 'Digital Construction',
-    desc: 'Discover how Building Information Modelling supports the creation and management of coordinated digital information.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'BIM Fundamentals',
-        lessons: [
-          {
-            title: 'What is BIM?',
-            duration: '30 minutes',
-            html: `<h2>What is BIM?</h2><p>Building Information Modelling (BIM) is a process involving the generation and management of digital representations of the physical and functional characteristics of places.</p>`,
-            quiz: [
-              { q: 'What does BIM stand for?', opts: ['Building Information Modelling', 'Basic Information Model', 'Building Internal Management'], answer: 0, explanation: 'It stands for Building Information Modelling.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'concrete-technology',
-    title: 'Basics of Concrete Technology',
-    school: 'Civil Engineering',
-    desc: 'This course introduces concrete ingredients, fresh and hardened properties, production, placement, curing and quality considerations.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Concrete and Its Constituents',
-        lessons: [
-          {
-            title: 'Concrete Ingredients',
-            duration: '30 minutes',
-            html: `<h2>Concrete Ingredients</h2><p>Concrete is made from a mixture of cement, aggregates (sand and gravel), water, and sometimes admixtures.</p>`,
-            quiz: [
-              { q: 'What are the main ingredients of concrete?', opts: ['Cement, water, aggregates', 'Wood and glue', 'Steel and glass'], answer: 0, explanation: 'The main ingredients are cement, water, and aggregates.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'fire-safety',
-    title: 'Basics of Fire Safety',
-    school: 'Workplace Safety',
-    desc: 'Understand the fundamentals of fire prevention and response in workplaces and buildings.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Fire Fundamentals',
-        lessons: [
-          {
-            title: 'The Fire Triangle',
-            duration: '25 minutes',
-            html: `<h2>The Fire Triangle</h2><p>The fire triangle illustrates the three elements a fire needs to ignite: heat, fuel, and an oxidizing agent (usually oxygen).</p>`,
-            quiz: [
-              { q: 'What are the three elements of the fire triangle?', opts: ['Heat, fuel, oxygen', 'Water, sand, foam', 'Smoke, fire, ash'], answer: 0, explanation: 'The fire triangle consists of heat, fuel, and oxygen.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'iso-45001-occupational-health-safety',
-    title: 'Introduction to ISO 45001 Occupational Health and Safety',
-    school: 'Safety Management',
-    desc: 'This course introduces the purpose and structure of an occupational health and safety management system.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'OH&S Management System Overview',
-        lessons: [
-          {
-            title: 'ISO 45001 Overview',
-            duration: '30 minutes',
-            html: `<h2>ISO 45001 Overview</h2><p>ISO 45001 is an international standard for occupational health and safety management systems.</p>`,
-            quiz: [
-              { q: 'What does ISO 45001 cover?', opts: ['Food safety', 'Occupational health and safety', 'Information security'], answer: 1, explanation: 'It covers occupational health and safety.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'hazard-identification-risk-assessment',
-    title: 'Basics of Hazard Identification and Risk Assessment',
-    school: 'Hazard & Risk Control',
-    desc: 'Learn a structured approach to recognising hazards and evaluating risks before selecting suitable controls.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Hazards and Risk Concepts',
-        lessons: [
-          {
-            title: 'Hierarchy of Controls',
-            duration: '35 minutes',
-            html: `<h2>Hierarchy of Controls</h2><p>The hierarchy of controls is a system used in process safety management to minimize or eliminate exposure to hazards.</p>`,
-            quiz: [
-              { q: 'What is the most effective control in the hierarchy?', opts: ['PPE', 'Elimination', 'Administrative controls'], answer: 1, explanation: 'Elimination is the most effective control.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'construction-safety',
-    title: 'Basics of Construction Safety',
-    school: 'Construction Safety',
-    desc: 'This course introduces common construction-site hazards and the basic practices used to prevent injury and ill health.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Construction Safety Fundamentals',
-        lessons: [
-          {
-            title: 'Site Inductions and PPE',
-            duration: '30 minutes',
-            html: `<h2>Site Inductions and PPE</h2><p>Site inductions and Personal Protective Equipment (PPE) are critical for maintaining safety on construction sites.</p>`,
-            quiz: [
-              { q: 'Why are site inductions important?', opts: ['To waste time', 'To ensure everyone knows safety rules', 'To check attendance'], answer: 1, explanation: 'They ensure everyone knows the safety rules.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'solar-photovoltaic-technology',
-    title: 'Introduction to Solar Photovoltaic Technology',
-    school: 'Renewable Energy',
-    desc: 'Explore how solar photovoltaic systems convert sunlight into electricity.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Solar Energy and the PV Effect',
-        lessons: [
-          {
-            title: 'The PV Effect',
-            duration: '35 minutes',
-            html: `<h2>The PV Effect</h2><p>The photovoltaic effect is the generation of voltage and electric current in a material upon exposure to light.</p>`,
-            quiz: [
-              { q: 'What is the PV effect?', opts: ['Generating electricity from light', 'Generating heat from electricity', 'Storing energy in batteries'], answer: 0, explanation: 'It is the generation of electricity from light.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'oil-gas-reserves-risk-value',
-    title: 'Basics of Oil & Gas – Reserves, Risk & Value',
-    school: 'Oil & Gas',
-    desc: 'This course introduces the upstream oil and gas sector and the concepts used to understand reserves, uncertainty, project risk and value.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Oil and Gas Industry Overview',
-        lessons: [
-          {
-            title: 'Upstream Lifecycle',
-            duration: '40 minutes',
-            html: `<h2>Upstream Lifecycle</h2><p>The upstream sector includes exploration, development, and production of oil and gas.</p>`,
-            quiz: [
-              { q: 'What does the upstream sector include?', opts: ['Refining', 'Exploration and production', 'Retail sales'], answer: 1, explanation: 'It includes exploration and production.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'data-analytics',
-    title: 'Introduction to Data Analytics',
-    school: 'Technology & Data',
-    desc: 'Learn how data can be collected, prepared, explored and communicated to support decisions.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Introduction to Data Analytics',
-        lessons: [
-          {
-            title: 'Data Types and Quality',
-            duration: '30 minutes',
-            html: `<h2>Data Types and Quality</h2><p>Understanding data types (qualitative vs quantitative) and ensuring data quality are foundational steps in analytics.</p>`,
-            quiz: [
-              { q: 'What is data quality?', opts: ['The color of the data', 'The accuracy and completeness of data', 'The size of the dataset'], answer: 1, explanation: 'Data quality refers to accuracy and completeness.' }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'cybersecurity-fundamentals',
+    id: 'cybersecurity-101',
     title: 'Cybersecurity Fundamentals',
-    school: 'Digital Skills',
-    desc: 'This course introduces the principles of protecting devices, accounts, networks and information.',
-    passMark: 80,
-    modules: [
-      {
-        title: 'Cybersecurity and Digital Assets',
-        lessons: [
-          {
-            title: 'Common Threats',
-            duration: '35 minutes',
-            html: `<h2>Common Threats</h2><p>Common cyber threats include phishing, malware, ransomware, and social engineering.</p>`,
-            quiz: [
-              { q: 'What is malware?', opts: ['Malicious software', 'A type of hardware', 'A network protocol'], answer: 0, explanation: 'Malware is malicious software.' }
-            ]
-          }
-        ]
-      }
-    ]
+    desc: 'This course introduces the principles of protecting devices, accounts, networks and information. Learners explore common threats and practical habits for safer digital work.',
   }
 ];
-
 
 /* ---------- Helpers ---------- */
 function uid() {
@@ -847,8 +764,6 @@ function currentUser() {
   if (!s) return null;
   return getUsers()[s.username] || null;
 }
-
-/* ---------- Progress ---------- */
 function getProgress(username) {
   const p = load(STORE.progress, {});
   if (!p[username]) p[username] = { lessons: {}, quizzes: {} };
@@ -859,63 +774,6 @@ function saveProgress(username, p) {
   all[username] = p;
   save(STORE.progress, all);
 }
-function isLessonDone(username, courseId, mi, li) {
-  const p = getProgress(username);
-  return !!p.lessons[courseId + '-' + mi + '-' + li];
-}
-function markLessonDone(username, courseId, mi, li) {
-  const p = getProgress(username);
-  p.lessons[courseId + '-' + mi + '-' + li] = true;
-  saveProgress(username, p);
-}
-function getQuizResult(username, courseId, mi) {
-  const p = getProgress(username);
-  return p.quizzes[courseId + '-' + mi] || null;
-}
-function saveQuizResult(username, courseId, mi, score, total, passMark) {
-  const p = getProgress(username);
-  p.quizzes[courseId + '-' + mi] = { score, total, passed: score / total * 100 >= passMark };
-  saveProgress(username, p);
-}
-function isModuleLocked(username, courseId, mi) {
-  if (mi === 0) return false;
-  const prev = getQuizResult(username, courseId, mi - 1);
-  return !prev || !prev.passed;
-}
-function moduleLessonsDone(username, courseId, mi) {
-  const course = COURSES.find(c => c.id === courseId);
-  if(!course) return 0;
-  const mod = course.modules[mi];
-  if (!mod) return 0;
-  let n = 0;
-  mod.lessons.forEach((_, li) => { if (isLessonDone(username, courseId, mi, li)) n++; });
-  return n;
-}
-function courseProgressPct(username, courseId) {
-  const course = COURSES.find(c => c.id === courseId);
-  if (!course) return 0;
-  let total = 0, done = 0;
-  course.modules.forEach((m, mi) => {
-    m.lessons.forEach((l, li) => {
-      total++;
-      if (isLessonDone(username, courseId, mi, li)) done++;
-    });
-  });
-  return total ? Math.round(done / total * 100) : 0;
-}
-function courseCompleted(username, courseId) {
-  const course = COURSES.find(c => c.id === courseId);
-  if (!course) return false;
-  for (let mi = 0; mi < course.modules.length; mi++) {
-    if (!getQuizResult(username, courseId, mi)?.passed) return false;
-    for (let li = 0; li < course.modules[mi].lessons.length; li++) {
-      if (!isLessonDone(username, courseId, mi, li)) return false;
-    }
-  }
-  return true;
-}
-
-/* ---------- Enrolments ---------- */
 function getEnrolments(username) {
   const e = load(STORE.enrolments, {});
   return e[username] || [];
@@ -926,8 +784,6 @@ function enrol(username, courseId) {
   if (!e[username].includes(courseId)) e[username].push(courseId);
   save(STORE.enrolments, e);
 }
-
-/* ---------- Certificates ---------- */
 function getCerts(username) {
   const c = load(STORE.certificates, {});
   return c[username] || [];
@@ -938,21 +794,73 @@ function addCert(username, cert) {
   c[username].push(cert);
   save(STORE.certificates, c);
 }
-function generateCertificate(username, courseId) {
+
+/* ---------- Progress calculations ---------- */
+function isLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  return !!p.lessons[mi + '-' + li];
+}
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+}
+function getQuizResult(username, mi) {
+  const p = getProgress(username);
+  return p.quizzes[mi] || null;
+}
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function moduleLessonsDone(username, mi) {
+  const mod = COURSE.modules[mi];
+  if (!mod) return 0;
+  let n = 0;
+  mod.lessons.forEach((_, li) => { if (isLessonDone(username, mi, li)) n++; });
+  return n;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+
+/* ---------- Certificate generation ---------- */
+function generateCertificate(username) {
   const user = getUsers()[username];
   if (!user) return null;
   const certs = getCerts(username);
-  let cert = certs.find(c => c.courseId === courseId);
+  let cert = certs.find(c => c.courseId === COURSE.id);
   if (cert) return cert;
   
-  const course = COURSES.find(c => c.id === courseId);
   const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
   
   cert = {
-    id: 'LOGI-' + courseId.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
     hash: hash,
-    courseId: courseId,
-    courseTitle: course.title,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
     studentName: user.fullName || user.username,
     date: nowISO(),
     issuedBy: 'Living Oracles Global Institute'
@@ -968,9 +876,9 @@ const App = (() => {
   let state = {
     screen: 'landing',
     user: null,
-    activeCourseId: null,
     activeCourseModule: 0,
-    activeCourseLesson: 0
+    activeCourseLesson: 0,
+    adminTab: 'overview'
   };
 
   function renderNav() {
@@ -996,12 +904,18 @@ const App = (() => {
     if (currentUser()) { showDashboard(); return; }
     const el = document.getElementById('app');
     el.innerHTML = `
-      <section style="padding:52px 0;background:linear-gradient(110deg,#f5f2fc 0%,#fff 58%,#ffeaf2 100%);">
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
         <div class="inner">
-          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses</div>
-          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short courses · Beginner level</div>
-          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Upgrade your skills with <span style="color:var(--pd)">LOGI Short Courses</span></h1>
-          <p style="max-width:720px;color:#666;">Explore our range of free, self-paced online courses designed to build practical foundational knowledge.</p>
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Engineering &amp; Technology</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Engineering Management</span></h1>
+          <p style="max-width:720px;color:#666;">Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.</p>
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4–6 hours</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">6 modules</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Self-paced</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Beginner level</span>
+          </div>
           <div style="margin-top:26px;">
             <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
             <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
@@ -1009,15 +923,13 @@ const App = (() => {
         </div>
       </section>
       <section class="inner" style="padding:36px 0 55px;">
-        <h2 style="font-size:22px;margin-bottom:16px;">Available Courses</h2>
-        <div class="catalogue-grid">
-          ${COURSES.map(course => `
-            <div class="course-tile">
-              <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">${esc(course.school)}</div>
-              <h3>${esc(course.title)}</h3>
-              <div class="meta">${course.modules.length} modules · Beginner · Free</div>
-              <div class="desc">${esc(course.desc)}</div>
-              <button class="btn" onclick="App.showRegister()">Register to enrol</button>
+        <h2 style="font-size:22px;margin-bottom:16px;">What you will learn</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+          ${COURSE.modules.map((m, i) => `
+            <div class="card" style="margin:0;">
+              <div style="font-size:12px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
+              <h3 style="margin:6px 0 4px;font-size:16px;">${esc(m.title)}</h3>
+              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Assessment included</div>
             </div>
           `).join('')}
         </div>
@@ -1033,7 +945,7 @@ const App = (() => {
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Welcome back</h2>
-          <p class="muted">Log in to continue your courses.</p>
+          <p class="muted">Log in to continue your course.</p>
           <div class="field"><label for="loginUser">Username</label><input id="loginUser" autocomplete="username" placeholder="e.g. jsmith"></div>
           <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Your password"></div>
           <div class="error-msg" id="loginError"></div>
@@ -1067,13 +979,13 @@ const App = (() => {
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Create your free account</h2>
-          <p class="muted">Register to enrol in LOGI Short Courses.</p>
+          <p class="muted">Register to enrol in Basics of Engineering Management.</p>
           <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith" autocomplete="name"></div>
           <div class="field"><label for="regUser">Username</label><input id="regUser" placeholder="Choose a username" autocomplete="username"></div>
           <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password" autocomplete="new-password"></div>
           <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password" autocomplete="new-password"></div>
           <div class="error-msg" id="regError"></div>
-          <button class="btn btn-purple" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
           <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
         </div>
       </div>
@@ -1099,8 +1011,9 @@ const App = (() => {
 
     users[u] = { username: u, fullName: name, password: p, createdAt: nowISO(), role: 'student' };
     save(STORE.users, users);
+    enrol(u, COURSE.id);
     setSession({ username: u });
-    showCatalogue(); // Send them to catalogue to choose a course
+    showDashboard();
   }
 
   function logout() {
@@ -1115,21 +1028,12 @@ const App = (() => {
     state.user = u;
     state.screen = 'dashboard';
     const username = u.username;
-    const enrolled = getEnrolments(username);
-
-    // Calculate total stats across ALL enrolled courses
-    let totalPassedModules = 0;
-    let totalCompletedCourses = 0;
-    let totalCerts = 0;
-    
-    enrolled.forEach(cid => {
-      const course = COURSES.find(c => c.id === cid);
-      if(!course) return;
-      const quizzes = course.modules.map((_, mi) => getQuizResult(username, cid, mi));
-      totalPassedModules += quizzes.filter(q => q?.passed).length;
-      if (courseCompleted(username, cid)) totalCompletedCourses++;
-      if (getCerts(username).find(c => c.courseId === cid)) totalCerts++;
-    });
+    const pct = courseProgressPct(username);
+    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
+    const passedModules = quizzes.filter(q => q?.passed).length;
+    const completed = courseCompleted(username);
+    const certs = getCerts(username);
+    const cert = certs.find(c => c.courseId === COURSE.id);
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1140,80 +1044,86 @@ const App = (() => {
             <span>@${esc(u.username)}</span>
           </div>
           <button class="nav-link active" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
         <main class="main-panel">
           <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
-          <p class="subtitle">Here is an overview of your learning progress across all enrolled courses.</p>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
 
           <div class="stat-grid">
-            <div class="stat-box"><div class="num">${enrolled.length}</div><div class="lbl">Enrolled courses</div></div>
-            <div class="stat-box"><div class="num">${totalPassedModules}</div><div class="lbl">Total modules passed</div></div>
-            <div class="stat-box"><div class="num">${totalCompletedCourses}</div><div class="lbl">Courses completed</div></div>
-            <div class="stat-box"><div class="num">${totalCerts}</div><div class="lbl">Certificates earned</div></div>
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${passedModules} / ${COURSE.modules.length}</div><div class="lbl">Modules passed</div></div>
+            <div class="stat-box"><div class="num">${completed ? '✅' : '—'}</div><div class="lbl">Course complete</div></div>
+            <div class="stat-box"><div class="num">${cert ? '🏅' : '—'}</div><div class="lbl">Certificate issued</div></div>
           </div>
 
-          ${enrolled.length === 0 ? `
-            <div class="card" style="text-align:center;padding:40px;">
-              <h2>You are not enrolled in any courses yet.</h2>
-              <p>Visit the course catalogue to find a course and enrol.</p>
-              <button class="btn" onclick="App.showCatalogue()">Browse Courses</button>
+          <div class="card">
+            <h2>${esc(COURSE.title)}</h2>
+            <p style="font-size:13px;color:var(--muted);margin-top:-4px;">${esc(COURSE.desc)}</p>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
+              <button class="btn" onclick="App.openCourse(${state.activeCourseModule||0},${state.activeCourseLesson||0})">${pct===0?'Start course':'Continue learning'}</button>
             </div>
-          ` : enrolled.map(cid => {
-            const course = COURSES.find(c => c.id === cid);
-            if(!course) return '';
-            
-            const pct = courseProgressPct(username, cid);
-            const isCompleted = courseCompleted(username, cid);
-            const cert = getCerts(username).find(c => c.courseId === cid);
-            
-            return `
-              <div class="card" style="margin-bottom: 24px;">
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap;">
-                  <div>
-                    <h2 style="margin-bottom: 4px;">${esc(course.title)}</h2>
-                    <p style="font-size:13px;color:var(--muted);margin-top:0;">${esc(course.school)}</p>
-                  </div>
-                  ${isCompleted ? `<span style="background:#e8f5e9;color:#2e7d32;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">Completed ✅</span>` : `<span style="background:#fff8e1;color:#b28704;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">In Progress</span>`}
-                </div>
-                
-                <div class="progress-bar" style="margin:16px 0 10px;"><span style="width:${pct}%;"></span></div>
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-                  <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
-                  <div style="display:flex; gap:8px;">
-                    <button class="btn btn-sm" onclick="App.openCourse('${cid}', 0, 0)">${pct===0?'Start course':'Continue learning'}</button>
-                    ${isCompleted ? `<button class="btn-outline btn-sm" onclick="App.showCertificate('${cid}')">View Certificate</button>` : ''}
-                  </div>
-                </div>
-              </div>
-            `;
-          }).join('')}
+          </div>
+
+          <div class="card">
+            <h2>Module progress</h2>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+              <thead><tr style="background: var(--soft); text-align: left;"><th style="padding: 10px;">Module</th><th style="padding: 10px;">Lessons</th><th style="padding: 10px;">Assessment</th><th style="padding: 10px;">Status</th></tr></thead>
+              <tbody>
+                ${COURSE.modules.map((m, mi) => {
+                  const done = moduleLessonsDone(username, mi);
+                  const total = m.lessons.length;
+                  const qr = getQuizResult(username, mi);
+                  const locked = isModuleLocked(username, mi);
+                  let statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Locked</span>';
+                  if (!locked) {
+                    if (qr?.passed) statusBadge = '<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Passed</span>';
+                    else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Retake needed</span>';
+                    else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">In progress</span>';
+                  }
+                  return `<tr style="border-bottom: 1px solid var(--line);">
+                    <td style="padding: 10px;"><b>${mi+1}. ${esc(m.title)}</b></td>
+                    <td style="padding: 10px;">${done} / ${total} done</td>
+                    <td style="padding: 10px;">${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
+                    <td style="padding: 10px;">${statusBadge}</td>
+                  </tr>`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
         </main>
       </div>
     `;
     renderNav();
   }
 
-  /* ---------- Course Catalogue ---------- */
+  /* ---------- Course catalogue ---------- */
   function showCatalogue() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
     state.screen = 'catalogue';
     const enrolled = getEnrolments(u.username);
-    
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link active" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1221,15 +1131,15 @@ const App = (() => {
           <h1>Course catalogue</h1>
           <p class="subtitle">Browse available short courses.</p>
           <div class="catalogue-grid">
-            ${COURSES.map(course => `
+            ${AVAILABLE_COURSES.map(c => `
               <div class="course-tile">
-                <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">${esc(course.school)}</div>
-                <h3>${esc(course.title)}</h3>
-                <div class="meta">${course.modules.length} modules · Beginner · Free</div>
-                <div class="desc">${esc(course.desc)}</div>
-                ${enrolled.includes(course.id)
-                  ? `<button class="btn" onclick="App.openCourse('${course.id}', 0, 0)">Open course</button>`
-                  : `<button class="btn btn-purple" onclick="App.enrolAndOpen('${course.id}')">Enrol now</button>`}
+                <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">LOGI Programme</div>
+                <h3>${esc(c.title)}</h3>
+                <div class="meta">Free · Beginner</div>
+                <div class="desc">${esc(c.desc)}</div>
+                ${enrolled.includes(c.id)
+                  ? `<button class="btn" onclick="App.selectCourse('${c.id}')">Open course</button>`
+                  : `<button class="btn" onclick="App.enrolAndOpen('${c.id}')">Enrol now</button>`}
               </div>
             `).join('')}
           </div>
@@ -1243,18 +1153,70 @@ const App = (() => {
     const u = currentUser();
     if (!u) { showLogin(); return; }
     enrol(u.username, courseId);
-    openCourse(courseId, 0, 0);
+    selectCourse(courseId);
   }
 
-  /* ---------- Course Viewer ---------- */
-  function openCourse(courseId, mi, li) {
+  function selectCourse(courseId) {
+    // In a real app, this would fetch the course data from the server.
+    // For this prototype, we simulate loading a new course.
+    if(courseId !== 'eng-mgmt-101') {
+        COURSE = {
+            id: courseId,
+            title: AVAILABLE_COURSES.find(c => c.id === courseId).title,
+            desc: AVAILABLE_COURSES.find(c => c.id === courseId).desc,
+            passMark: 80,
+            modules: [
+                {
+                    title: 'Introduction',
+                    lessons: [
+                        {
+                            title: 'Welcome',
+                            duration: '10 minutes',
+                            html: `<h2>Welcome to ${AVAILABLE_COURSES.find(c => c.id === courseId).title}</h2><p>This is a demo content module. In the real system, this would contain the full lesson text.</p>`,
+                            quiz: [
+                                { q: 'Are you ready to learn?', opts: ['Yes', 'No'], answer: 0, explanation: 'Great!' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+    } else {
+        // Reset to original hardcoded course
+        COURSE = {
+            id: 'eng-mgmt-101',
+            title: 'Basics of Engineering Management',
+            desc: 'Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.',
+            passMark: 80,
+            modules: [
+                {
+                title: 'Introduction to Engineering Management',
+                lessons: [
+                    {
+                    title: 'Understanding Engineering Management',
+                    duration: '35 minutes',
+                    html: `<h2>Understanding Engineering Management</h2><p>Engineering management is the application of management principles, technical knowledge and problem-solving methods to plan, organise, coordinate and control engineering activities.</p>`,
+                    quiz: [
+                        { q: 'Which statement best describes engineering management?', opts: ['Designing technical systems only', 'Coordinating technical work, people and resources to achieve objectives', 'Replacing engineering with administration'], answer: 1, explanation: 'It coordinates technical work, people and resources to achieve objectives.' }
+                    ]
+                    }
+                ]
+                }
+            ]
+        };
+    }
+    
+    showDashboard();
+  }
+
+  /* ---------- Course viewer ---------- */
+  function openCourse(mi, li) {
     const u = currentUser();
     if (!u) { showLogin(); return; }
-    if (!getEnrolments(u.username).includes(courseId)) {
-      enrolAndOpen(courseId); return;
+    if (!getEnrolments(u.username).includes(COURSE.id)) {
+      enrol(u.username, COURSE.id);
     }
     state.screen = 'course';
-    state.activeCourseId = courseId;
     state.activeCourseModule = mi;
     state.activeCourseLesson = li;
     renderCourse();
@@ -1263,31 +1225,26 @@ const App = (() => {
   function renderCourse() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
-    
-    const course = COURSES.find(c => c.id === state.activeCourseId);
-    if (!course) { showDashboard(); return; }
-
     const username = u.username;
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson;
-    const mod = course.modules[mi];
-    
+    const mod = COURSE.modules[mi];
     if (!mod) { showDashboard(); return; }
-    if (isModuleLocked(username, course.id, mi)) {
+    if (isModuleLocked(username, mi)) {
       alert('This module is locked. Pass the previous module assessment to unlock it.');
-      openCourse(course.id, Math.max(0, mi-1), 0);
+      openCourse(Math.max(0, mi-1), 0);
       return;
     }
     const lesson = mod.lessons[li];
-    if (!lesson) { openCourse(course.id, mi, 0); return; }
+    if (!lesson) { openCourse(mi, 0); return; }
 
-    const pct = courseProgressPct(username, course.id);
+    const pct = courseProgressPct(username);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="inner" style="padding:24px 0 48px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
           <div>
-            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">${esc(course.title)}</div>
+            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">${esc(COURSE.title)}</div>
             <h1 style="font-size:24px;margin:2px 0;">${esc(mod.title)}</h1>
           </div>
           <div style="display:flex;gap:8px;">
@@ -1303,18 +1260,18 @@ const App = (() => {
               <div class="progress-bar"><span style="width:${pct}%;"></span></div>
             </div>
             <div class="modules">
-              ${course.modules.map((m, i) => {
-                const locked = isModuleLocked(username, course.id, i);
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
                 return `
                   <button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}"
-                    onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse('${course.id}', ${i}, 0)`}">
+                    onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse(${i},0)`}">
                     ${i+1}. ${esc(m.title)} ${locked?'🔒':''}
                   </button>
                   ${i===mi ? m.lessons.map((l, j) => {
-                    const done = isLessonDone(username, course.id, i, j);
+                    const done = isLessonDone(username, i, j);
                     return `
                       <button class="lesson-link ${j===li?'active':''} ${done?'done':''}"
-                        onclick="App.openCourse('${course.id}', ${i}, ${j})">
+                        onclick="App.openCourse(${i},${j})">
                         ${esc(l.title)}
                       </button>
                     `;
@@ -1328,11 +1285,11 @@ const App = (() => {
               <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · ${esc(lesson.duration)}</div>
               <h1 style="font-size:28px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
               <div id="lessonBody">${lesson.html}</div>
-              ${lesson.quiz ? renderQuizUI(course, mi, lesson.quiz) : ''}
+              ${lesson.quiz ? renderQuizUI(mi, lesson.quiz) : ''}
               <div class="actions">
                 <button class="secondary btn-secondary" onclick="App.prevLesson()">← Previous</button>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  ${lesson.quiz ? '' : `<button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, course.id, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>`}
+                  ${lesson.quiz ? '' : `<button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>`}
                   <button class="secondary btn-secondary" onclick="App.nextLesson()">Next →</button>
                 </div>
               </div>
@@ -1343,21 +1300,22 @@ const App = (() => {
       </div>
     `;
     renderNav();
+    if (lesson.quiz) attachQuizEvents(mi, lesson.quiz);
   }
 
   function alertLocked(i) {
     alert('Module ' + (i+1) + ' is locked until you pass the previous module assessment.');
   }
 
-  function renderQuizUI(course, mi, quiz) {
+  function renderQuizUI(mi, quiz) {
     const u = currentUser();
     const username = u.username;
-    const result = getQuizResult(username, course.id, mi);
+    const result = getQuizResult(username, mi);
     const passed = result?.passed;
     return `
       <div id="quizWrap" style="margin-top:32px;border-top:2px solid var(--line);padding-top:24px;">
         <h2 style="font-size:22px;">Module ${mi+1} assessment</h2>
-        <p style="font-size:14px;color:var(--muted);">Answer all questions. Pass mark: ${course.passMark}%. Unlimited retakes allowed.</p>
+        <p style="font-size:14px;color:var(--muted);">Answer all questions. Pass mark: ${COURSE.passMark}%. Unlimited retakes allowed.</p>
         ${result ? `<div class="callout" style="background:${passed?'#e8f5e9':'#fdecea'};border-left-color:${passed?'#2e7d32':'#c62828'};">
           <b>Previous attempt:</b> ${result.score} / ${result.total} (${Math.round(result.score/result.total*100)}%) — ${passed?'Passed ✅':'Not passed — try again'}</div>` : ''}
         <div id="quizQuestions">
@@ -1375,7 +1333,7 @@ const App = (() => {
           `).join('')}
         </div>
         <div style="display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;">
-          <button class="btn" onclick="App.submitQuiz('${course.id}', ${mi})">Submit answers</button>
+          <button class="btn" onclick="App.submitQuiz(${mi})">Submit answers</button>
           ${result && !passed ? '<span style="font-size:13px;color:var(--error);">You can retake this assessment.</span>' : ''}
         </div>
         <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;"></p>
@@ -1395,11 +1353,14 @@ const App = (() => {
     }
   }
 
-  function submitQuiz(courseId, mi) {
+  function attachQuizEvents(mi, quiz) {
+    // Optional pre-fill
+  }
+
+  function submitQuiz(mi) {
     const u = currentUser();
     if (!u) return;
-    const course = COURSES.find(c => c.id === courseId);
-    const quiz = course.modules[mi].lessons[0].quiz;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
     if (!quiz) return;
     let score = 0;
     let answeredAll = true;
@@ -1423,9 +1384,9 @@ const App = (() => {
       document.getElementById('quizResult_' + mi).textContent = 'Please answer all questions before submitting.';
       return;
     }
-    saveQuizResult(u.username, courseId, mi, score, quiz.length, course.passMark);
+    saveQuizResult(u.username, mi, score, quiz.length);
     const pct = Math.round(score / quiz.length * 100);
-    const passed = pct >= course.passMark;
+    const passed = pct >= COURSE.passMark;
     const resEl = document.getElementById('quizResult_' + mi);
     if (resEl) {
       resEl.textContent = `You scored ${score} / ${quiz.length} (${pct}%). ${passed ? 'Passed ✅ — next module unlocked.' : 'Not passed. Review the explanations and retake when ready.'}`;
@@ -1433,9 +1394,9 @@ const App = (() => {
     }
     
     if (passed) {
-      markLessonDone(u.username, courseId, mi, 0);
-      if (courseCompleted(u.username, courseId)) {
-        generateCertificate(u.username, courseId);
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) {
+        generateCertificate(u.username);
       }
       setTimeout(() => {
         renderCourse();
@@ -1446,58 +1407,47 @@ const App = (() => {
   function markCurrentLesson() {
     const u = currentUser();
     if (!u) return;
-    const mi = state.activeCourseModule, li = state.activeCourseLesson, cid = state.activeCourseId;
-    markLessonDone(u.username, cid, mi, li);
-    if (courseCompleted(u.username, cid)) generateCertificate(u.username, cid);
+    const mi = state.activeCourseModule, li = state.activeCourseLesson;
+    markLessonDone(u.username, mi, li);
+    if (courseCompleted(u.username)) generateCertificate(u.username);
     renderCourse();
   }
 
   function prevLesson() {
-    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1, cid = state.activeCourseId;
-    const course = COURSES.find(c => c.id === cid);
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
     if (li < 0) {
       mi--;
       if (mi < 0) { showDashboard(); return; }
-      if (isModuleLocked(currentUser().username, cid, mi)) { alertLocked(mi); return; }
-      li = course.modules[mi].lessons.length - 1;
+      if (isModuleLocked(currentUser().username, mi)) { alertLocked(mi); return; }
+      li = COURSE.modules[mi].lessons.length - 1;
     }
-    openCourse(cid, mi, li);
+    openCourse(mi, li);
   }
 
   function nextLesson() {
-    let mi = state.activeCourseModule, li = state.activeCourseLesson + 1, cid = state.activeCourseId;
-    const course = COURSES.find(c => c.id === cid);
-    if (li >= course.modules[mi].lessons.length) {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li >= COURSE.modules[mi].lessons.length) {
       mi++; li = 0;
-      if (mi >= course.modules.length) {
+      if (mi >= COURSE.modules.length) {
         alert('You have reached the end of the course content. Check the dashboard for your certificate status.');
         showDashboard(); return;
       }
-      if (isModuleLocked(currentUser().username, cid, mi)) {
+      if (isModuleLocked(currentUser().username, mi)) {
         alert('Complete and pass the current module assessment before moving to the next module.');
         return;
       }
     }
-    openCourse(cid, mi, li);
+    openCourse(mi, li);
   }
 
   /* ---------- CERTIFICATE VIEW ---------- */
-  function showCertificate(courseId) {
+  function showCertificate() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
     state.screen = 'certificate';
-    
-    if(!courseId) {
-      const enrolled = getEnrolments(u.username);
-      if(enrolled.length > 0) courseId = enrolled[0];
-    }
-    
-    const course = COURSES.find(c => c.id === courseId);
-    if(!course) { showDashboard(); return; }
-
-    const completed = courseCompleted(u.username, courseId);
-    let cert = getCerts(u.username).find(c => c.courseId === courseId);
-    if (completed && !cert) cert = generateCertificate(u.username, courseId);
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
     
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1505,16 +1455,18 @@ const App = (() => {
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link active" onclick="App.showCertificate('${courseId}')">🏅 My certificate</button>
+          <button class="nav-link active" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
-        <main class="main-panel">
-          <h1>Certificate</h1>
-          <p class="subtitle">${esc(course.title)}</p>
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
           
           ${cert ? `
             <div class="cert-controls">
@@ -1522,27 +1474,37 @@ const App = (() => {
               <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
             </div>
             
+            <!-- Added a wrapper to scale the certificate for mobile/smaller screens -->
             <div class="cert-display-area">
               <div class="cert-scaler" id="certScaler">
                 <div class="cert-wrapper" id="printableCert">
+                  
+                  <!-- Background Watermark -->
                   <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+
+                  <!-- Left Side: Main Content -->
                   <div class="cert-main">
+                    
                     <div class="cert-header">
                       <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
                       <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
                     </div>
+                    
                     <div class="cert-date">${fmtDate(cert.date)}</div>
                     <div class="cert-name">${esc(cert.studentName)}</div>
                     <div class="cert-completion">has successfully completed</div>
                     <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    
                     <div class="cert-description">
                       This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of this subject area.
                     </div>
+                    
                     <div class="cert-signature-area">
-                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Signature" crossorigin="anonymous">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
                       <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
                       <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
                     </div>
+                    
                     <div class="cert-footer-info">
                       <div class="cert-footer-box">
                         <div class="cert-footer-logo">LOGI</div>
@@ -1553,14 +1515,23 @@ const App = (() => {
                       </div>
                     </div>
                   </div>
+                  
+                  <!-- Right Side: Sidebar -->
                   <div class="cert-sidebar">
+                    
                     <div class="cert-partner-box">LOGI</div>
+                    
                     <div class="cert-sidebar-pattern"></div>
+                    
                     <div class="cert-verify-area">
                       <div class="cert-verify-text">Scan to verify<br>this certificate</div>
                       <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
-                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                      <div class="cert-blockchain">
+                        Blockchain ID:<br>
+                        ${esc(cert.hash)}
+                      </div>
                     </div>
+                    
                     <div class="cert-bottom-block"></div>
                   </div>
                 </div>
@@ -1570,8 +1541,8 @@ const App = (() => {
             <div class="card" style="text-align:center;padding:40px 20px; background:white;">
               <div style="font-size:48px;margin-bottom:12px;">🔒</div>
               <h2>Certificate not yet available</h2>
-              <p>You need to complete all lessons and pass every module assessment for this course to unlock your certificate.</p>
-              <button class="btn" onclick="App.openCourse('${courseId}', 0, 0)">Continue learning</button>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
             </div>
           `}
         </main>
@@ -1579,23 +1550,25 @@ const App = (() => {
     `;
     renderNav();
     
+    // Auto scale the certificate to fit the screen width
     if (cert) {
       scaleCertificate();
       window.addEventListener('resize', scaleCertificate);
     }
   }
 
+  // Function to scale certificate down on smaller screens while keeping it full-size for printing
   function scaleCertificate() {
     const scaler = document.getElementById('certScaler');
     if (!scaler) return;
     const container = scaler.parentElement;
     const containerWidth = container.clientWidth;
-    const certWidth = 1000;
+    const certWidth = 1000; // Original certificate width
 
     if (containerWidth < certWidth) {
       const scale = containerWidth / certWidth;
       scaler.style.transform = `scale(${scale})`;
-      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`; // Prevents large blank space below
     } else {
       scaler.style.transform = 'none';
       scaler.style.marginBottom = '0';
@@ -1612,6 +1585,7 @@ const App = (() => {
     btn.innerHTML = '⏳ Generating...';
     btn.disabled = true;
 
+    // Temporarily remove the scale so html2canvas captures the full 1000x707 size
     const originalTransform = scaler.style.transform;
     const originalMargin = scaler.style.marginBottom;
     scaler.style.transform = 'none';
@@ -1643,6 +1617,7 @@ const App = (() => {
       link.href = imgData;
       link.click();
       
+      // Restore the scale immediately after generating
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
       
@@ -1650,9 +1625,12 @@ const App = (() => {
       btn.disabled = false;
     }).catch(err => {
       console.error('Error generating image:', err);
-      alert('Failed to generate image.');
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      
+      // Restore scale on error
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
+      
       btn.innerHTML = originalText;
       btn.disabled = false;
     });
@@ -1662,6 +1640,7 @@ const App = (() => {
   function showDiscussion() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
+    state.screen = 'discussion';
     const posts = load(STORE.posts, []);
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1669,9 +1648,12 @@ const App = (() => {
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link active" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1718,9 +1700,10 @@ const App = (() => {
   function showAnnouncements() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
+    state.screen = 'announcements';
     const anns = load(STORE.announcements, [
-      { id: uid(), title: 'Welcome to LOGI Short Courses', body: 'We are glad you are here. Work through the modules in order, and remember you can retake assessments as many times as you need.', ts: nowISO() },
-      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate you must complete every lesson and pass each module assessment.', ts: nowISO() }
+      { id: uid(), title: 'Welcome to Basics of Engineering Management', body: 'We are glad you are here. Work through the modules in order, and remember you can retake assessments as many times as you need.', ts: nowISO() },
+      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate you must complete every lesson and pass each module assessment with at least ' + COURSE.passMark + '%.', ts: nowISO() }
     ]);
     save(STORE.announcements, anns);
     const el = document.getElementById('app');
@@ -1729,9 +1712,12 @@ const App = (() => {
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link active" onclick="App.showAnnouncements()">📢 Announcements</button>
+          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1751,6 +1737,64 @@ const App = (() => {
     renderNav();
   }
 
+  /* ---------- Admin dashboard (demo) ---------- */
+  function showAdmin() {
+    const u = currentUser();
+    if (!u || u.role !== 'admin') { alert('Admin access only. (Demo tip: make a user an admin by editing localStorage.)'); showDashboard(); return; }
+    state.screen = 'admin';
+    const users = getUsers();
+    const allProgress = load(STORE.progress, {});
+    const allCerts = load(STORE.certificates, {});
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>Admin</span></div>
+          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          <button class="nav-link active" onclick="App.showAdmin()">⚙️ Admin dashboard</button>
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>Admin dashboard</h1>
+          <p class="subtitle">Demo overview — all data is local to this browser.</p>
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${Object.keys(users).length}</div><div class="lbl">Registered students</div></div>
+            <div class="stat-box"><div class="num">${Object.keys(allCerts).reduce((n,k)=>n+(allCerts[k]||[]).length,0)}</div><div class="lbl">Certificates issued</div></div>
+          </div>
+          <div class="card">
+            <h2>Student performance</h2>
+            <table class="admin-table" style="width: 100%; border-collapse: collapse; font-size: 14px;">
+              <thead><tr style="background: var(--soft); text-align: left;"><th style="padding:10px;">Student</th><th style="padding:10px;">Course progress</th><th style="padding:10px;">Modules passed</th><th style="padding:10px;">Certificate</th></tr></thead>
+              <tbody>
+                ${Object.keys(users).map(un => {
+                  const p = allProgress[un] || { lessons:{}, quizzes:{} };
+                  const doneLessons = Object.keys(p.lessons||{}).length;
+                  const totalLessons = COURSE.modules.reduce((n,m)=>n+m.lessons.length,0);
+                  const pct = totalLessons ? Math.round(doneLessons/totalLessons*100) : 0;
+                  const passedMods = Object.values(p.quizzes||{}).filter(q=>q.passed).length;
+                  const hasCert = (allCerts[un]||[]).some(c=>c.courseId===COURSE.id);
+                  return `<tr style="border-bottom: 1px solid var(--line);">
+                    <td style="padding:10px;"><b>${esc(users[un].fullName||un)}</b><br><span style="font-size:12px;color:var(--muted);">@${esc(un)}</span></td>
+                    <td style="padding:10px;">${pct}%</td>
+                    <td style="padding:10px;">${passedMods} / ${COURSE.modules.length}</td>
+                    <td style="padding:10px;">${hasCert ? '<span style="background:#e8f5e9;color:#2e7d32;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700;">Issued</span>' : '<span style="background:#fff8e1;color:#b28704;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700;">Not yet</span>'}</td>
+                  </tr>`;
+                }).join('') || '<tr><td colspan="4" style="color:var(--muted);">No students yet.</td></tr>'}
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
   function goHome() {
     if (currentUser()) showDashboard();
     else showLanding();
@@ -1764,8 +1808,8 @@ const App = (() => {
 
   return {
     init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
-    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
-    openCourse, prevLesson, nextLesson, markCurrentLesson, enrolAndOpen,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements, showAdmin,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, enrolAndOpen, selectCourse,
     submitQuiz, selectOption, alertLocked, submitPost, downloadCertificateImage,
     goHome
   };
