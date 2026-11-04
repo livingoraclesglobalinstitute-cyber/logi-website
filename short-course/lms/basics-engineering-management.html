@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="LOGI LMS Demonstration – Basics of Engineering Management">
-  <title>LOGI LMS · Basics of Engineering Management</title>
+  <meta name="description" content="LOGI LMS Demonstration – Multiple Short Courses">
+  <title>LOGI LMS · Short Courses</title>
   
   <!-- Include html2canvas for certificate image download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -175,7 +175,7 @@
     .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
     .sidebar .spacer { flex: 1; }
 
-    /* Main Panel - Styled like the Hero Section */
+    /* Main Panel */
     .main-panel {
       padding: 40px max(5vw, 22px);
       overflow-y: auto;
@@ -216,7 +216,7 @@
     .stat-box .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
 
     /* Course Catalogue */
-    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
     .course-tile {
       background: white;
       border: 1px solid var(--line);
@@ -229,7 +229,7 @@
     }
     .course-tile h3 { margin: 0; font-size: 17px; }
     .course-tile .meta { font-size: 12px; color: var(--muted); }
-    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; margin-bottom: 12px; }
 
     /* Lesson content */
     .lesson-card { max-width: 900px; background: white; }
@@ -443,7 +443,7 @@
 
 <script>
 /* ============================================================
-   LOGI LMS DEMO — single-file browser prototype
+   LOGI LMS DEMO — Single File Multi-Course Prototype
    ============================================================ */
 
 const STORE = {
@@ -466,169 +466,105 @@ function save(key, val) {
   localStorage.setItem(key, JSON.stringify(val));
 }
 
-/* ---------- Course data ---------- */
-const COURSE = {
-  id: 'eng-mgmt-101',
-  title: 'Basics of Engineering Management',
-  desc: 'Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.',
-  passMark: 80,
-  modules: [
-    {
-      title: 'Introduction to Engineering Management',
-      lessons: [
-        {
-          title: 'Understanding Engineering Management',
-          duration: '35 minutes',
-          html: `
-            <h2>Understanding Engineering Management</h2>
-            <p>Engineering management is the application of management principles, technical knowledge and problem-solving methods to plan, organise, coordinate and control engineering activities. It connects engineering expertise with the people, resources, time, cost and quality requirements needed to complete work successfully.</p>
-            <div class="callout"><b>Key idea:</b> Engineering focuses on designing and solving technical problems. Engineering management organises the people, processes and resources required to deliver engineering work effectively.</div>
-            <h3>1. What does an engineering manager do?</h3>
-            <ul>
-              <li>Plans engineering activities and sets priorities.</li>
-              <li>Coordinates engineers, technicians, contractors and stakeholders.</li>
-              <li>Manages equipment, materials, time and budgets.</li>
-              <li>Monitors quality, safety, cost and project performance.</li>
-              <li>Identifies problems and supports practical solutions.</li>
-            </ul>
-            <h3>2. Engineering and engineering management</h3>
-            <table class="compare">
-              <tr><th>Engineering</th><th>Engineering management</th></tr>
-              <tr><td>Focuses on technical design, analysis and solutions.</td><td>Coordinates technical work, people and resources.</td></tr>
-              <tr><td>May involve calculations, testing and system development.</td><td>May involve planning, budgeting, scheduling and team coordination.</td></tr>
-              <tr><td>Asks: How can this technical problem be solved?</td><td>Asks: How can the work be delivered safely, on time and within budget?</td></tr>
-            </table>
-            <h3>3. Where is it applied?</h3>
-            <p>Engineering management is used in construction, manufacturing, energy, mining, oil and gas, infrastructure, maintenance and technology projects. A construction project, for example, needs technical design as well as labour planning, material procurement, equipment scheduling, cost control and safety coordination.</p>
-            <div class="case">
-              <h3>Practical case: A delayed construction project</h3>
-              <p>A contractor is constructing a community health facility. Work has slowed because cement deliveries are late, equipment is unavailable when needed and the site team has not received an updated work schedule.</p>
-              <p><b>Management response:</b> Review the work plan, confirm material delivery dates, coordinate equipment use, assign responsibilities and monitor progress against revised milestones—without compromising safety or quality.</p>
-            </div>
-            <h3>Lesson summary</h3>
-            <ul>
-              <li>Engineering management combines technical understanding with management practices.</li>
-              <li>It coordinates people, materials, equipment, time, cost, quality and risk.</li>
-              <li>It is important across many engineering industries.</li>
-            </ul>
-          `,
-          quiz: [
-            { q: 'Which statement best describes engineering management?', opts: ['Designing technical systems only', 'Coordinating technical work, people and resources to achieve objectives', 'Replacing engineering with administration'], answer: 1, explanation: 'It coordinates technical work, people and resources to achieve objectives.' },
-            { q: 'Which is an engineering management activity?', opts: ['Ignoring delivery schedules', 'Working without defined responsibilities', 'Coordinating equipment, materials and labour'], answer: 2, explanation: 'Coordinating equipment, materials and labour is a management responsibility.' },
-            { q: 'Materials arrive late on a project. What is a sensible response?', opts: ['Review the plan and coordinate suppliers and work activities', 'Stop monitoring the project', 'Ignore the delay'], answer: 0, explanation: 'Reviewing the plan and coordinating suppliers helps address the delay.' },
-            { q: 'Which question is most closely associated with engineering management?', opts: ['How can planning be avoided?', 'How can work be delivered safely, on time and within budget?', 'How can standards be ignored?'], answer: 1, explanation: 'Engineering management considers safe delivery, time, cost and quality.' },
-            { q: 'Where can engineering management be applied?', opts: ['Construction only', 'Manufacturing only', 'Across many engineering sectors'], answer: 2, explanation: 'It is applied across construction, manufacturing, energy and other sectors.' }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Engineering Planning and Project Management',
-      lessons: [
-        {
-          title: 'Module 2 overview',
-          duration: '50 minutes',
-          html: `
-            <h2>Engineering Planning and Project Management</h2>
-            <p>This module explores how engineering activities are translated into practical work plans.</p>
-            <div class="callout"><b>Topics:</b> defining scope and deliverables; breaking work into activities; sequencing tasks; scheduling and milestones; coordinating contractors and stakeholders; monitoring project progress.</div>
-          `,
-          quiz: [
-            { q: 'What is a key output of engineering planning?', opts: ['A work plan with activities and milestones', 'A list of unrelated tasks', 'No documentation'], answer: 0, explanation: 'Planning produces a structured work plan.' },
-            { q: 'Why sequence tasks?', opts: ['To delay work', 'To ensure dependencies are respected', 'To avoid coordination'], answer: 1, explanation: 'Sequencing respects dependencies between activities.' },
-            { q: 'Who should be coordinated during a project?', opts: ['Only engineers', 'Only contractors', 'Contractors, engineers and stakeholders'], answer: 2, explanation: 'All parties need coordination.' },
-            { q: 'What helps monitor progress?', opts: ['Ignoring milestones', 'Tracking against a schedule', 'Removing all reporting'], answer: 1, explanation: 'Tracking against a schedule reveals progress.' },
-            { q: 'What is a deliverable?', opts: ['A tangible output of a project', 'An unnecessary document', 'A type of delay'], answer: 0, explanation: 'Deliverables are tangible outputs.' }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Resource, Cost and Budget Management',
-      lessons: [
-        {
-          title: 'Module 3 overview',
-          duration: '45 minutes',
-          html: `
-            <h2>Resource, Cost and Budget Management</h2>
-            <p>This module introduces the management of resources and costs in engineering operations.</p>
-            <div class="callout"><b>Topics:</b> workforce and equipment planning; materials management; cost estimation; budget preparation; cost monitoring; responding to resource shortages.</div>
-          `,
-          quiz: [
-            { q: 'What is cost estimation?', opts: ['Predicting project costs', 'Ignoring budgets', 'Removing resources'], answer: 0, explanation: 'Cost estimation predicts project costs.' },
-            { q: 'Why monitor costs?', opts: ['To avoid overspending', 'To increase waste', 'To ignore budgets'], answer: 0, explanation: 'Monitoring helps avoid overspending.' },
-            { q: 'What is a resource shortage?', opts: ['Having too many resources', 'Not having enough resources', 'A type of budget'], answer: 1, explanation: 'A shortage means insufficient resources.' },
-            { q: 'What is materials management?', opts: ['Tracking and controlling materials', 'Ignoring materials', 'Only ordering materials'], answer: 0, explanation: 'It involves tracking and controlling materials.' },
-            { q: 'What should you do when costs rise?', opts: ['Review budget and adjust plans', 'Ignore the rise', 'Stop all work'], answer: 0, explanation: 'Reviewing and adjusting plans is the right response.' }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Quality, Safety and Risk Management',
-      lessons: [
-        {
-          title: 'Module 4 overview',
-          duration: '60 minutes',
-          html: `
-            <h2>Quality, Safety and Risk Management</h2>
-            <p>This module examines how engineering teams maintain work standards and manage operational risks.</p>
-            <div class="callout"><b>Topics:</b> quality assurance and control; workplace safety responsibilities; hazard identification; risk assessment; incident prevention; corrective action.</div>
-          `,
-          quiz: [
-            { q: 'What is quality assurance?', opts: ['Preventing defects through processes', 'Ignoring standards', 'Only checking at the end'], answer: 0, explanation: 'Quality assurance prevents defects through processes.' },
-            { q: 'What is a hazard?', opts: ['A source of potential harm', 'A type of reward', 'A guaranteed success'], answer: 0, explanation: 'A hazard is a source of potential harm.' },
-            { q: 'Why assess risk?', opts: ['To understand likelihood and impact', 'To ignore dangers', 'To increase accidents'], answer: 0, explanation: 'Risk assessment understands likelihood and impact.' },
-            { q: 'What is corrective action?', opts: ['Fixing a problem after detection', 'Ignoring problems', 'Creating new problems'], answer: 0, explanation: 'Corrective action fixes detected problems.' },
-            { q: 'Who is responsible for safety?', opts: ['Only managers', 'Only workers', 'Everyone in the workplace'], answer: 2, explanation: 'Safety is everyone’s responsibility.' }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Engineering Teams, Communication and Leadership',
-      lessons: [
-        {
-          title: 'Module 5 overview',
-          duration: '45 minutes',
-          html: `
-            <h2>Engineering Teams, Communication and Leadership</h2>
-            <p>This module explores how engineering managers guide people and coordinate work across teams.</p>
-            <div class="callout"><b>Topics:</b> team roles and responsibilities; workplace communication; coordination meetings; leadership approaches; conflict resolution; stakeholder engagement.</div>
-          `,
-          quiz: [
-            { q: 'What is a key leadership role?', opts: ['Guiding and supporting the team', 'Ignoring the team', 'Avoiding communication'], answer: 0, explanation: 'Leadership involves guiding and supporting the team.' },
-            { q: 'Why hold coordination meetings?', opts: ['To share information and align work', 'To waste time', 'To avoid collaboration'], answer: 0, explanation: 'Coordination meetings share information and align work.' },
-            { q: 'What helps resolve conflict?', opts: ['Open communication', 'Ignoring the issue', 'Blaming others'], answer: 0, explanation: 'Open communication helps resolve conflict.' },
-            { q: 'Who are stakeholders?', opts: ['Only managers', 'Anyone affected by the project', 'Only external clients'], answer: 1, explanation: 'Stakeholders are anyone affected by the project.' },
-            { q: 'What is a team role?', opts: ['A set of responsibilities', 'An unnecessary label', 'A type of meeting'], answer: 0, explanation: 'A team role is a set of responsibilities.' }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Performance Monitoring and Continuous Improvement',
-      lessons: [
-        {
-          title: 'Module 6 overview',
-          duration: '45 minutes',
-          html: `
-            <h2>Performance Monitoring and Continuous Improvement</h2>
-            <p>This module introduces methods for checking performance and improving engineering processes.</p>
-            <div class="callout"><b>Topics:</b> key performance indicators; progress reporting; identifying performance gaps; root cause analysis; corrective actions; continuous improvement.</div>
-          `,
-          quiz: [
-            { q: 'What is a KPI?', opts: ['A key performance indicator', 'A type of tool', 'A project delay'], answer: 0, explanation: 'KPI stands for key performance indicator.' },
-            { q: 'Why identify performance gaps?', opts: ['To understand where improvement is needed', 'To ignore issues', 'To increase waste'], answer: 0, explanation: 'Gaps show where improvement is needed.' },
-            { q: 'What is root cause analysis?', opts: ['Finding the underlying cause of a problem', 'Ignoring the problem', 'Only treating symptoms'], answer: 0, explanation: 'Root cause analysis finds underlying causes.' },
-            { q: 'What is continuous improvement?', opts: ['Ongoing effort to improve processes', 'A one-time fix', 'Avoiding change'], answer: 0, explanation: 'Continuous improvement is ongoing.' },
-            { q: 'What does progress reporting do?', opts: ['Communicates status to stakeholders', 'Hides information', 'Stops work'], answer: 0, explanation: 'Progress reporting communicates status.' }
-          ]
-        }
-      ]
-    }
-  ]
-};
+/* ---------- COURSES DATA ---------- */
+const COURSES = [
+  {
+    id: 'eng-mgmt-101',
+    title: 'Basics of Engineering Management',
+    school: 'School of Engineering & Technology',
+    desc: 'Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.',
+    passMark: 80,
+    modules: [
+      {
+        title: 'Introduction to Engineering Management',
+        lessons: [
+          {
+            title: 'Understanding Engineering Management',
+            duration: '35 minutes',
+            html: `
+              <h2>Understanding Engineering Management</h2>
+              <p>Engineering management is the application of management principles, technical knowledge and problem-solving methods to plan, organise, coordinate and control engineering activities. It connects engineering expertise with the people, resources, time, cost and quality requirements needed to complete work successfully.</p>
+              <div class="callout"><b>Key idea:</b> Engineering focuses on designing and solving technical problems. Engineering management organises the people, processes and resources required to deliver engineering work effectively.</div>
+              <h3>1. What does an engineering manager do?</h3>
+              <ul>
+                <li>Plans engineering activities and sets priorities.</li>
+                <li>Coordinates engineers, technicians, contractors and stakeholders.</li>
+                <li>Manages equipment, materials, time and budgets.</li>
+                <li>Monitors quality, safety, cost and project performance.</li>
+                <li>Identifies problems and supports practical solutions.</li>
+              </ul>
+              <h3>2. Engineering and engineering management</h3>
+              <table class="compare">
+                <tr><th>Engineering</th><th>Engineering management</th></tr>
+                <tr><td>Focuses on technical design, analysis and solutions.</td><td>Coordinates technical work, people and resources.</td></tr>
+                <tr><td>May involve calculations, testing and system development.</td><td>May involve planning, budgeting, scheduling and team coordination.</td></tr>
+                <tr><td>Asks: How can this technical problem be solved?</td><td>Asks: How can the work be delivered safely, on time and within budget?</td></tr>
+              </table>
+            `,
+            quiz: [
+              { q: 'Which statement best describes engineering management?', opts: ['Designing technical systems only', 'Coordinating technical work, people and resources to achieve objectives', 'Replacing engineering with administration'], answer: 1, explanation: 'It coordinates technical work, people and resources to achieve objectives.' },
+              { q: 'Which is an engineering management activity?', opts: ['Ignoring delivery schedules', 'Working without defined responsibilities', 'Coordinating equipment, materials and labour'], answer: 2, explanation: 'Coordinating equipment, materials and labour is a management responsibility.' }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'agile-project-101',
+    title: 'Introduction to Agile Project Management',
+    school: 'School of Engineering & Technology',
+    desc: 'This course introduces Agile values and ways of organising work in short, feedback-driven cycles. Learners explore iterative delivery, collaboration, prioritisation and common Scrum concepts.',
+    passMark: 80,
+    modules: [
+      {
+        title: 'Agile Mindset and Principles',
+        lessons: [
+          {
+            title: 'Agile Principles',
+            duration: '30 minutes',
+            html: `
+              <h2>Agile Mindset and Principles</h2>
+              <p>Agile is an iterative approach to project management and software development that helps teams deliver value to their customers faster and with fewer headaches. Instead of betting everything on a "big bang" launch, an agile team delivers work in small, but consumable, increments.</p>
+              <div class="callout"><b>Key idea:</b> Requirements, plans, and results are evaluated continuously so teams have a natural mechanism for responding to change quickly.</div>
+            `,
+            quiz: [
+              { q: 'What is Agile?', opts: ['A waterfall method', 'An iterative approach', 'A type of software'], answer: 1, explanation: 'Agile is an iterative approach.' },
+              { q: 'How does Agile handle change?', opts: ['It ignores change', 'It plans for all change upfront', 'It evaluates continuously and responds quickly'], answer: 2, explanation: 'Agile evaluates requirements and plans continuously.' }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'cybersecurity-101',
+    title: 'Cybersecurity Fundamentals',
+    school: 'School of Engineering & Technology',
+    desc: 'This course introduces the principles of protecting devices, accounts, networks and information. Learners explore common threats and practical habits for safer digital work.',
+    passMark: 80,
+    modules: [
+      {
+        title: 'Common Threats and Protection',
+        lessons: [
+          {
+            title: 'Phishing and Malware',
+            duration: '40 minutes',
+            html: `
+              <h2>Phishing and Malware Awareness</h2>
+              <p>Phishing is a type of social engineering where attackers deceive people into revealing sensitive information or installing malware such as ransomware.</p>
+              <div class="callout"><b>Key idea:</b> Always verify the sender's email address and never click on suspicious links.</div>
+            `,
+            quiz: [
+              { q: 'What is phishing?', opts: ['A type of fishing', 'A social engineering attack to steal data', 'A software update'], answer: 1, explanation: 'Phishing is a social engineering attack.' }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
 
 /* ---------- Helpers ---------- */
 function uid() {
@@ -653,6 +589,8 @@ function currentUser() {
   if (!s) return null;
   return getUsers()[s.username] || null;
 }
+
+/* ---------- Progress ---------- */
 function getProgress(username) {
   const p = load(STORE.progress, {});
   if (!p[username]) p[username] = { lessons: {}, quizzes: {} };
@@ -663,6 +601,62 @@ function saveProgress(username, p) {
   all[username] = p;
   save(STORE.progress, all);
 }
+function isLessonDone(username, courseId, mi, li) {
+  const p = getProgress(username);
+  return !!p.lessons[courseId + '-' + mi + '-' + li];
+}
+function markLessonDone(username, courseId, mi, li) {
+  const p = getProgress(username);
+  p.lessons[courseId + '-' + mi + '-' + li] = true;
+  saveProgress(username, p);
+}
+function getQuizResult(username, courseId, mi) {
+  const p = getProgress(username);
+  return p.quizzes[courseId + '-' + mi] || null;
+}
+function saveQuizResult(username, courseId, mi, score, total, passMark) {
+  const p = getProgress(username);
+  p.quizzes[courseId + '-' + mi] = { score, total, passed: score / total * 100 >= passMark };
+  saveProgress(username, p);
+}
+function isModuleLocked(username, courseId, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, courseId, mi - 1);
+  return !prev || !prev.passed;
+}
+function moduleLessonsDone(username, courseId, mi) {
+  const course = COURSES.find(c => c.id === courseId);
+  const mod = course.modules[mi];
+  if (!mod) return 0;
+  let n = 0;
+  mod.lessons.forEach((_, li) => { if (isLessonDone(username, courseId, mi, li)) n++; });
+  return n;
+}
+function courseProgressPct(username, courseId) {
+  const course = COURSES.find(c => c.id === courseId);
+  if (!course) return 0;
+  let total = 0, done = 0;
+  course.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, courseId, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username, courseId) {
+  const course = COURSES.find(c => c.id === courseId);
+  if (!course) return false;
+  for (let mi = 0; mi < course.modules.length; mi++) {
+    if (!getQuizResult(username, courseId, mi)?.passed) return false;
+    for (let li = 0; li < course.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, courseId, mi, li)) return false;
+    }
+  }
+  return true;
+}
+
+/* ---------- Enrolments ---------- */
 function getEnrolments(username) {
   const e = load(STORE.enrolments, {});
   return e[username] || [];
@@ -673,6 +667,8 @@ function enrol(username, courseId) {
   if (!e[username].includes(courseId)) e[username].push(courseId);
   save(STORE.enrolments, e);
 }
+
+/* ---------- Certificates ---------- */
 function getCerts(username) {
   const c = load(STORE.certificates, {});
   return c[username] || [];
@@ -683,73 +679,21 @@ function addCert(username, cert) {
   c[username].push(cert);
   save(STORE.certificates, c);
 }
-
-/* ---------- Progress calculations ---------- */
-function isLessonDone(username, mi, li) {
-  const p = getProgress(username);
-  return !!p.lessons[mi + '-' + li];
-}
-function markLessonDone(username, mi, li) {
-  const p = getProgress(username);
-  p.lessons[mi + '-' + li] = true;
-  saveProgress(username, p);
-}
-function getQuizResult(username, mi) {
-  const p = getProgress(username);
-  return p.quizzes[mi] || null;
-}
-function saveQuizResult(username, mi, score, total) {
-  const p = getProgress(username);
-  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
-  saveProgress(username, p);
-}
-function isModuleLocked(username, mi) {
-  if (mi === 0) return false;
-  const prev = getQuizResult(username, mi - 1);
-  return !prev || !prev.passed;
-}
-function moduleLessonsDone(username, mi) {
-  const mod = COURSE.modules[mi];
-  if (!mod) return 0;
-  let n = 0;
-  mod.lessons.forEach((_, li) => { if (isLessonDone(username, mi, li)) n++; });
-  return n;
-}
-function courseProgressPct(username) {
-  let total = 0, done = 0;
-  COURSE.modules.forEach((m, mi) => {
-    m.lessons.forEach((l, li) => {
-      total++;
-      if (isLessonDone(username, mi, li)) done++;
-    });
-  });
-  return total ? Math.round(done / total * 100) : 0;
-}
-function courseCompleted(username) {
-  for (let mi = 0; mi < COURSE.modules.length; mi++) {
-    if (!getQuizResult(username, mi)?.passed) return false;
-    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
-      if (!isLessonDone(username, mi, li)) return false;
-    }
-  }
-  return true;
-}
-
-/* ---------- Certificate generation ---------- */
-function generateCertificate(username) {
+function generateCertificate(username, courseId) {
   const user = getUsers()[username];
   if (!user) return null;
   const certs = getCerts(username);
-  let cert = certs.find(c => c.courseId === COURSE.id);
+  let cert = certs.find(c => c.courseId === courseId);
   if (cert) return cert;
   
+  const course = COURSES.find(c => c.id === courseId);
   const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
   
   cert = {
-    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    id: 'LOGI-' + courseId.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
     hash: hash,
-    courseId: COURSE.id,
-    courseTitle: COURSE.title,
+    courseId: courseId,
+    courseTitle: course.title,
     studentName: user.fullName || user.username,
     date: nowISO(),
     issuedBy: 'Living Oracles Global Institute'
@@ -765,9 +709,9 @@ const App = (() => {
   let state = {
     screen: 'landing',
     user: null,
+    activeCourseId: null,
     activeCourseModule: 0,
-    activeCourseLesson: 0,
-    adminTab: 'overview'
+    activeCourseLesson: 0
   };
 
   function renderNav() {
@@ -795,16 +739,10 @@ const App = (() => {
     el.innerHTML = `
       <section style="padding:52px 0;background:linear-gradient(110deg,#f5f2fc 0%,#fff 58%,#ffeaf2 100%);">
         <div class="inner">
-          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Engineering &amp; Technology</div>
-          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level</div>
-          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Engineering Management</span></h1>
-          <p style="max-width:720px;color:#666;">Understand how engineering work is planned, coordinated and improved through structured lessons, practical examples and knowledge checks.</p>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
-            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4–6 hours</span>
-            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">6 modules</span>
-            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Self-paced</span>
-            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Beginner level</span>
-          </div>
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short courses · Beginner level</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Upgrade your skills with <span style="color:var(--pd)">LOGI Short Courses</span></h1>
+          <p style="max-width:720px;color:#666;">Explore our range of free, self-paced online courses designed to build practical foundational knowledge.</p>
           <div style="margin-top:26px;">
             <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
             <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
@@ -812,13 +750,15 @@ const App = (() => {
         </div>
       </section>
       <section class="inner" style="padding:36px 0 55px;">
-        <h2 style="font-size:22px;margin-bottom:16px;">What you will learn</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
-          ${COURSE.modules.map((m, i) => `
-            <div class="card" style="margin:0;">
-              <div style="font-size:12px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
-              <h3 style="margin:6px 0 4px;font-size:16px;">${esc(m.title)}</h3>
-              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Assessment included</div>
+        <h2 style="font-size:22px;margin-bottom:16px;">Available Courses</h2>
+        <div class="catalogue-grid">
+          ${COURSES.map(course => `
+            <div class="course-tile">
+              <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">${esc(course.school)}</div>
+              <h3>${esc(course.title)}</h3>
+              <div class="meta">${course.modules.length} modules · Beginner · Free</div>
+              <div class="desc">${esc(course.desc)}</div>
+              <button class="btn" onclick="App.showRegister()">Register to enrol</button>
             </div>
           `).join('')}
         </div>
@@ -834,7 +774,7 @@ const App = (() => {
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Welcome back</h2>
-          <p class="muted">Log in to continue your course.</p>
+          <p class="muted">Log in to continue your courses.</p>
           <div class="field"><label for="loginUser">Username</label><input id="loginUser" autocomplete="username" placeholder="e.g. jsmith"></div>
           <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Your password"></div>
           <div class="error-msg" id="loginError"></div>
@@ -868,7 +808,7 @@ const App = (() => {
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Create your free account</h2>
-          <p class="muted">Register to enrol in Basics of Engineering Management.</p>
+          <p class="muted">Register to enrol in LOGI Short Courses.</p>
           <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith" autocomplete="name"></div>
           <div class="field"><label for="regUser">Username</label><input id="regUser" placeholder="Choose a username" autocomplete="username"></div>
           <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password" autocomplete="new-password"></div>
@@ -900,9 +840,8 @@ const App = (() => {
 
     users[u] = { username: u, fullName: name, password: p, createdAt: nowISO(), role: 'student' };
     save(STORE.users, users);
-    enrol(u, COURSE.id);
     setSession({ username: u });
-    showDashboard();
+    showCatalogue(); // Send them to catalogue to choose a course
   }
 
   function logout() {
@@ -917,12 +856,21 @@ const App = (() => {
     state.user = u;
     state.screen = 'dashboard';
     const username = u.username;
-    const pct = courseProgressPct(username);
-    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
-    const passedModules = quizzes.filter(q => q?.passed).length;
-    const completed = courseCompleted(username);
-    const certs = getCerts(username);
-    const cert = certs.find(c => c.courseId === COURSE.id);
+    const enrolled = getEnrolments(username);
+
+    // Calculate total stats across ALL enrolled courses
+    let totalPassedModules = 0;
+    let totalCompletedCourses = 0;
+    let totalCerts = 0;
+    
+    enrolled.forEach(cid => {
+      const course = COURSES.find(c => c.id === cid);
+      if(!course) return;
+      const quizzes = course.modules.map((_, mi) => getQuizResult(username, cid, mi));
+      totalPassedModules += quizzes.filter(q => q?.passed).length;
+      if (courseCompleted(username, cid)) totalCompletedCourses++;
+      if (getCerts(username).find(c => c.courseId === cid)) totalCerts++;
+    });
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -933,86 +881,80 @@ const App = (() => {
             <span>@${esc(u.username)}</span>
           </div>
           <button class="nav-link active" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
         <main class="main-panel">
           <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
-          <p class="subtitle">Here is an overview of your learning progress.</p>
+          <p class="subtitle">Here is an overview of your learning progress across all enrolled courses.</p>
 
           <div class="stat-grid">
-            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
-            <div class="stat-box"><div class="num">${passedModules} / ${COURSE.modules.length}</div><div class="lbl">Modules passed</div></div>
-            <div class="stat-box"><div class="num">${completed ? '✅' : '—'}</div><div class="lbl">Course complete</div></div>
-            <div class="stat-box"><div class="num">${cert ? '🏅' : '—'}</div><div class="lbl">Certificate issued</div></div>
+            <div class="stat-box"><div class="num">${enrolled.length}</div><div class="lbl">Enrolled courses</div></div>
+            <div class="stat-box"><div class="num">${totalPassedModules}</div><div class="lbl">Total modules passed</div></div>
+            <div class="stat-box"><div class="num">${totalCompletedCourses}</div><div class="lbl">Courses completed</div></div>
+            <div class="stat-box"><div class="num">${totalCerts}</div><div class="lbl">Certificates earned</div></div>
           </div>
 
-          <div class="card">
-            <h2>Basics of Engineering Management</h2>
-            <p style="font-size:13px;color:var(--muted);margin-top:-4px;">${esc(COURSE.desc)}</p>
-            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-              <span style="font-size:13px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
-              <button class="btn" onclick="App.openCourse(${state.activeCourseModule||0},${state.activeCourseLesson||0})">${pct===0?'Start course':'Continue learning'}</button>
+          ${enrolled.length === 0 ? `
+            <div class="card" style="text-align:center;padding:40px;">
+              <h2>You are not enrolled in any courses yet.</h2>
+              <p>Visit the course catalogue to find a course and enrol.</p>
+              <button class="btn" onclick="App.showCatalogue()">Browse Courses</button>
             </div>
-          </div>
-
-          <div class="card">
-            <h2>Module progress</h2>
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-              <thead><tr style="background: var(--soft); text-align: left;"><th style="padding: 10px;">Module</th><th style="padding: 10px;">Lessons</th><th style="padding: 10px;">Assessment</th><th style="padding: 10px;">Status</th></tr></thead>
-              <tbody>
-                ${COURSE.modules.map((m, mi) => {
-                  const done = moduleLessonsDone(username, mi);
-                  const total = m.lessons.length;
-                  const qr = getQuizResult(username, mi);
-                  const locked = isModuleLocked(username, mi);
-                  let statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Locked</span>';
-                  if (!locked) {
-                    if (qr?.passed) statusBadge = '<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Passed</span>';
-                    else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Retake needed</span>';
-                    else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">In progress</span>';
-                  }
-                  return `<tr style="border-bottom: 1px solid var(--line);">
-                    <td style="padding: 10px;"><b>${mi+1}. ${esc(m.title)}</b></td>
-                    <td style="padding: 10px;">${done} / ${total} done</td>
-                    <td style="padding: 10px;">${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
-                    <td style="padding: 10px;">${statusBadge}</td>
-                  </tr>`;
-                }).join('')}
-              </tbody>
-            </table>
-          </div>
+          ` : enrolled.map(cid => {
+            const course = COURSES.find(c => c.id === cid);
+            if(!course) return '';
+            
+            const pct = courseProgressPct(username, cid);
+            const isCompleted = courseCompleted(username, cid);
+            const cert = getCerts(username).find(c => c.courseId === cid);
+            
+            return `
+              <div class="card" style="margin-bottom: 24px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap;">
+                  <div>
+                    <h2 style="margin-bottom: 4px;">${esc(course.title)}</h2>
+                    <p style="font-size:13px;color:var(--muted);margin-top:0;">${esc(course.school)}</p>
+                  </div>
+                  ${isCompleted ? `<span style="background:#e8f5e9;color:#2e7d32;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">Completed ✅</span>` : `<span style="background:#fff8e1;color:#b28704;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:700;">In Progress</span>`}
+                </div>
+                
+                <div class="progress-bar" style="margin:16px 0 10px;"><span style="width:${pct}%;"></span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                  <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+                  <div style="display:flex; gap:8px;">
+                    <button class="btn btn-sm" onclick="App.openCourse('${cid}', 0, 0)">${pct===0?'Start course':'Continue learning'}</button>
+                    ${isCompleted ? `<button class="btn-outline btn-sm" onclick="App.showCertificate('${cid}')">View Certificate</button>` : ''}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
         </main>
       </div>
     `;
     renderNav();
   }
 
-  /* ---------- Course catalogue ---------- */
+  /* ---------- Course Catalogue ---------- */
   function showCatalogue() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
     state.screen = 'catalogue';
     const enrolled = getEnrolments(u.username);
+    
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link active" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1020,15 +962,17 @@ const App = (() => {
           <h1>Course catalogue</h1>
           <p class="subtitle">Browse available short courses.</p>
           <div class="catalogue-grid">
-            <div class="course-tile">
-              <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Engineering &amp; Technology</div>
-              <h3>${esc(COURSE.title)}</h3>
-              <div class="meta">6 modules · Beginner · Free</div>
-              <div class="desc">${esc(COURSE.desc)}</div>
-              ${enrolled.includes(COURSE.id)
-                ? `<button class="btn" onclick="App.openCourse(0,0)">Open course</button>`
-                : `<button class="btn" onclick="App.enrolAndOpen()">Enrol now</button>`}
-            </div>
+            ${COURSES.map(course => `
+              <div class="course-tile">
+                <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">${esc(course.school)}</div>
+                <h3>${esc(course.title)}</h3>
+                <div class="meta">${course.modules.length} modules · Beginner · Free</div>
+                <div class="desc">${esc(course.desc)}</div>
+                ${enrolled.includes(course.id)
+                  ? `<button class="btn" onclick="App.openCourse('${course.id}', 0, 0)">Open course</button>`
+                  : `<button class="btn btn-purple" onclick="App.enrolAndOpen('${course.id}')">Enrol now</button>`}
+              </div>
+            `).join('')}
           </div>
         </main>
       </div>
@@ -1036,21 +980,22 @@ const App = (() => {
     renderNav();
   }
 
-  function enrolAndOpen() {
+  function enrolAndOpen(courseId) {
     const u = currentUser();
     if (!u) { showLogin(); return; }
-    enrol(u.username, COURSE.id);
-    openCourse(0, 0);
+    enrol(u.username, courseId);
+    openCourse(courseId, 0, 0);
   }
 
-  /* ---------- Course viewer ---------- */
-  function openCourse(mi, li) {
+  /* ---------- Course Viewer ---------- */
+  function openCourse(courseId, mi, li) {
     const u = currentUser();
     if (!u) { showLogin(); return; }
-    if (!getEnrolments(u.username).includes(COURSE.id)) {
-      enrolAndOpen(); return;
+    if (!getEnrolments(u.username).includes(courseId)) {
+      enrolAndOpen(courseId); return;
     }
     state.screen = 'course';
+    state.activeCourseId = courseId;
     state.activeCourseModule = mi;
     state.activeCourseLesson = li;
     renderCourse();
@@ -1059,26 +1004,31 @@ const App = (() => {
   function renderCourse() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
+    
+    const course = COURSES.find(c => c.id === state.activeCourseId);
+    if (!course) { showDashboard(); return; }
+
     const username = u.username;
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson;
-    const mod = COURSE.modules[mi];
+    const mod = course.modules[mi];
+    
     if (!mod) { showDashboard(); return; }
-    if (isModuleLocked(username, mi)) {
+    if (isModuleLocked(username, course.id, mi)) {
       alert('This module is locked. Pass the previous module assessment to unlock it.');
-      openCourse(Math.max(0, mi-1), 0);
+      openCourse(course.id, Math.max(0, mi-1), 0);
       return;
     }
     const lesson = mod.lessons[li];
-    if (!lesson) { openCourse(mi, 0); return; }
+    if (!lesson) { openCourse(course.id, mi, 0); return; }
 
-    const pct = courseProgressPct(username);
+    const pct = courseProgressPct(username, course.id);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="inner" style="padding:24px 0 48px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
           <div>
-            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Basics of Engineering Management</div>
+            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">${esc(course.title)}</div>
             <h1 style="font-size:24px;margin:2px 0;">${esc(mod.title)}</h1>
           </div>
           <div style="display:flex;gap:8px;">
@@ -1094,18 +1044,18 @@ const App = (() => {
               <div class="progress-bar"><span style="width:${pct}%;"></span></div>
             </div>
             <div class="modules">
-              ${COURSE.modules.map((m, i) => {
-                const locked = isModuleLocked(username, i);
+              ${course.modules.map((m, i) => {
+                const locked = isModuleLocked(username, course.id, i);
                 return `
                   <button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}"
-                    onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse(${i},0)`}">
+                    onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse('${course.id}', ${i}, 0)`}">
                     ${i+1}. ${esc(m.title)} ${locked?'🔒':''}
                   </button>
                   ${i===mi ? m.lessons.map((l, j) => {
-                    const done = isLessonDone(username, i, j);
+                    const done = isLessonDone(username, course.id, i, j);
                     return `
                       <button class="lesson-link ${j===li?'active':''} ${done?'done':''}"
-                        onclick="App.openCourse(${i},${j})">
+                        onclick="App.openCourse('${course.id}', ${i}, ${j})">
                         ${esc(l.title)}
                       </button>
                     `;
@@ -1119,11 +1069,11 @@ const App = (() => {
               <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · ${esc(lesson.duration)}</div>
               <h1 style="font-size:28px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
               <div id="lessonBody">${lesson.html}</div>
-              ${lesson.quiz ? renderQuizUI(mi, lesson.quiz) : ''}
+              ${lesson.quiz ? renderQuizUI(course, mi, lesson.quiz) : ''}
               <div class="actions">
                 <button class="secondary btn-secondary" onclick="App.prevLesson()">← Previous</button>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  ${lesson.quiz ? '' : `<button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>`}
+                  ${lesson.quiz ? '' : `<button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, course.id, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>`}
                   <button class="secondary btn-secondary" onclick="App.nextLesson()">Next →</button>
                 </div>
               </div>
@@ -1134,22 +1084,21 @@ const App = (() => {
       </div>
     `;
     renderNav();
-    if (lesson.quiz) attachQuizEvents(mi, lesson.quiz);
   }
 
   function alertLocked(i) {
     alert('Module ' + (i+1) + ' is locked until you pass the previous module assessment.');
   }
 
-  function renderQuizUI(mi, quiz) {
+  function renderQuizUI(course, mi, quiz) {
     const u = currentUser();
     const username = u.username;
-    const result = getQuizResult(username, mi);
+    const result = getQuizResult(username, course.id, mi);
     const passed = result?.passed;
     return `
       <div id="quizWrap" style="margin-top:32px;border-top:2px solid var(--line);padding-top:24px;">
         <h2 style="font-size:22px;">Module ${mi+1} assessment</h2>
-        <p style="font-size:14px;color:var(--muted);">Answer all questions. Pass mark: ${COURSE.passMark}%. Unlimited retakes allowed.</p>
+        <p style="font-size:14px;color:var(--muted);">Answer all questions. Pass mark: ${course.passMark}%. Unlimited retakes allowed.</p>
         ${result ? `<div class="callout" style="background:${passed?'#e8f5e9':'#fdecea'};border-left-color:${passed?'#2e7d32':'#c62828'};">
           <b>Previous attempt:</b> ${result.score} / ${result.total} (${Math.round(result.score/result.total*100)}%) — ${passed?'Passed ✅':'Not passed — try again'}</div>` : ''}
         <div id="quizQuestions">
@@ -1167,7 +1116,7 @@ const App = (() => {
           `).join('')}
         </div>
         <div style="display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;">
-          <button class="btn" onclick="App.submitQuiz(${mi})">Submit answers</button>
+          <button class="btn" onclick="App.submitQuiz('${course.id}', ${mi})">Submit answers</button>
           ${result && !passed ? '<span style="font-size:13px;color:var(--error);">You can retake this assessment.</span>' : ''}
         </div>
         <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;"></p>
@@ -1187,14 +1136,11 @@ const App = (() => {
     }
   }
 
-  function attachQuizEvents(mi, quiz) {
-    // Optional pre-fill
-  }
-
-  function submitQuiz(mi) {
+  function submitQuiz(courseId, mi) {
     const u = currentUser();
     if (!u) return;
-    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    const course = COURSES.find(c => c.id === courseId);
+    const quiz = course.modules[mi].lessons[0].quiz;
     if (!quiz) return;
     let score = 0;
     let answeredAll = true;
@@ -1218,9 +1164,9 @@ const App = (() => {
       document.getElementById('quizResult_' + mi).textContent = 'Please answer all questions before submitting.';
       return;
     }
-    saveQuizResult(u.username, mi, score, quiz.length);
+    saveQuizResult(u.username, courseId, mi, score, quiz.length, course.passMark);
     const pct = Math.round(score / quiz.length * 100);
-    const passed = pct >= COURSE.passMark;
+    const passed = pct >= course.passMark;
     const resEl = document.getElementById('quizResult_' + mi);
     if (resEl) {
       resEl.textContent = `You scored ${score} / ${quiz.length} (${pct}%). ${passed ? 'Passed ✅ — next module unlocked.' : 'Not passed. Review the explanations and retake when ready.'}`;
@@ -1228,9 +1174,9 @@ const App = (() => {
     }
     
     if (passed) {
-      markLessonDone(u.username, mi, 0);
-      if (courseCompleted(u.username)) {
-        generateCertificate(u.username);
+      markLessonDone(u.username, courseId, mi, 0);
+      if (courseCompleted(u.username, courseId)) {
+        generateCertificate(u.username, courseId);
       }
       setTimeout(() => {
         renderCourse();
@@ -1241,47 +1187,59 @@ const App = (() => {
   function markCurrentLesson() {
     const u = currentUser();
     if (!u) return;
-    const mi = state.activeCourseModule, li = state.activeCourseLesson;
-    markLessonDone(u.username, mi, li);
-    if (courseCompleted(u.username)) generateCertificate(u.username);
+    const mi = state.activeCourseModule, li = state.activeCourseLesson, cid = state.activeCourseId;
+    markLessonDone(u.username, cid, mi, li);
+    if (courseCompleted(u.username, cid)) generateCertificate(u.username, cid);
     renderCourse();
   }
 
   function prevLesson() {
-    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1, cid = state.activeCourseId;
+    const course = COURSES.find(c => c.id === cid);
     if (li < 0) {
       mi--;
       if (mi < 0) { showDashboard(); return; }
-      if (isModuleLocked(currentUser().username, mi)) { alertLocked(mi); return; }
-      li = COURSE.modules[mi].lessons.length - 1;
+      if (isModuleLocked(currentUser().username, cid, mi)) { alertLocked(mi); return; }
+      li = course.modules[mi].lessons.length - 1;
     }
-    openCourse(mi, li);
+    openCourse(cid, mi, li);
   }
 
   function nextLesson() {
-    let mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
-    if (li >= COURSE.modules[mi].lessons.length) {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson + 1, cid = state.activeCourseId;
+    const course = COURSES.find(c => c.id === cid);
+    if (li >= course.modules[mi].lessons.length) {
       mi++; li = 0;
-      if (mi >= COURSE.modules.length) {
+      if (mi >= course.modules.length) {
         alert('You have reached the end of the course content. Check the dashboard for your certificate status.');
         showDashboard(); return;
       }
-      if (isModuleLocked(currentUser().username, mi)) {
+      if (isModuleLocked(currentUser().username, cid, mi)) {
         alert('Complete and pass the current module assessment before moving to the next module.');
         return;
       }
     }
-    openCourse(mi, li);
+    openCourse(cid, mi, li);
   }
 
   /* ---------- CERTIFICATE VIEW ---------- */
-  function showCertificate() {
+  function showCertificate(courseId) {
     const u = currentUser();
     if (!u) { showLogin(); return; }
     state.screen = 'certificate';
-    const completed = courseCompleted(u.username);
-    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
-    if (completed && !cert) cert = generateCertificate(u.username);
+    
+    // If no specific course requested, and they only have 1, pick that one
+    if(!courseId) {
+      const enrolled = getEnrolments(u.username);
+      if(enrolled.length > 0) courseId = enrolled[0];
+    }
+    
+    const course = COURSES.find(c => c.id === courseId);
+    if(!course) { showDashboard(); return; }
+
+    const completed = courseCompleted(u.username, courseId);
+    let cert = getCerts(u.username).find(c => c.courseId === courseId);
+    if (completed && !cert) cert = generateCertificate(u.username, courseId);
     
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1289,18 +1247,16 @@ const App = (() => {
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link active" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link active" onclick="App.showCertificate('${courseId}')">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
         <main class="main-panel">
-          <h1>My certificate</h1>
-          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+          <h1>Certificate</h1>
+          <p class="subtitle">${esc(course.title)}</p>
           
           ${cert ? `
             <div class="cert-controls">
@@ -1308,37 +1264,27 @@ const App = (() => {
               <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
             </div>
             
-            <!-- Added a wrapper to scale the certificate for mobile/smaller screens -->
             <div class="cert-display-area">
               <div class="cert-scaler" id="certScaler">
                 <div class="cert-wrapper" id="printableCert">
-                  
-                  <!-- Background Watermark -->
                   <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
-
-                  <!-- Left Side: Main Content -->
                   <div class="cert-main">
-                    
                     <div class="cert-header">
                       <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
                       <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
                     </div>
-                    
                     <div class="cert-date">${fmtDate(cert.date)}</div>
                     <div class="cert-name">${esc(cert.studentName)}</div>
                     <div class="cert-completion">has successfully completed</div>
                     <div class="cert-course-title">${esc(cert.courseTitle)}</div>
-                    
                     <div class="cert-description">
-                      This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of engineering management, planning, and resource control.
+                      This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of this subject area.
                     </div>
-                    
                     <div class="cert-signature-area">
-                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Signature" crossorigin="anonymous">
                       <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
                       <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
                     </div>
-                    
                     <div class="cert-footer-info">
                       <div class="cert-footer-box">
                         <div class="cert-footer-logo">LOGI</div>
@@ -1349,23 +1295,14 @@ const App = (() => {
                       </div>
                     </div>
                   </div>
-                  
-                  <!-- Right Side: Sidebar -->
                   <div class="cert-sidebar">
-                    
                     <div class="cert-partner-box">LOGI</div>
-                    
                     <div class="cert-sidebar-pattern"></div>
-                    
                     <div class="cert-verify-area">
                       <div class="cert-verify-text">Scan to verify<br>this certificate</div>
                       <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
-                      <div class="cert-blockchain">
-                        Blockchain ID:<br>
-                        ${esc(cert.hash)}
-                      </div>
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
                     </div>
-                    
                     <div class="cert-bottom-block"></div>
                   </div>
                 </div>
@@ -1375,8 +1312,8 @@ const App = (() => {
             <div class="card" style="text-align:center;padding:40px 20px; background:white;">
               <div style="font-size:48px;margin-bottom:12px;">🔒</div>
               <h2>Certificate not yet available</h2>
-              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
-              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+              <p>You need to complete all lessons and pass every module assessment for this course to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse('${courseId}', 0, 0)">Continue learning</button>
             </div>
           `}
         </main>
@@ -1455,21 +1392,18 @@ const App = (() => {
       btn.disabled = false;
     }).catch(err => {
       console.error('Error generating image:', err);
-      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
-      
+      alert('Failed to generate image.');
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
-      
       btn.innerHTML = originalText;
       btn.disabled = false;
     });
   }
 
-  /* ---------- Discussion ---------- */
+  /* ---------- Placeholder sections for Demo ---------- */
   function showDiscussion() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
-    state.screen = 'discussion';
     const posts = load(STORE.posts, []);
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1477,12 +1411,9 @@ const App = (() => {
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link active" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1525,14 +1456,12 @@ const App = (() => {
     showDiscussion();
   }
 
-  /* ---------- Announcements ---------- */
   function showAnnouncements() {
     const u = currentUser();
     if (!u) { showLogin(); return; }
-    state.screen = 'announcements';
     const anns = load(STORE.announcements, [
-      { id: uid(), title: 'Welcome to Basics of Engineering Management', body: 'We are glad you are here. Work through the modules in order, and remember you can retake assessments as many times as you need.', ts: nowISO() },
-      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate you must complete every lesson and pass each module assessment with at least ' + COURSE.passMark + '%.', ts: nowISO() }
+      { id: uid(), title: 'Welcome to LOGI Short Courses', body: 'We are glad you are here. Work through the modules in order, and remember you can retake assessments as many times as you need.', ts: nowISO() },
+      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate you must complete every lesson and pass each module assessment.', ts: nowISO() }
     ]);
     save(STORE.announcements, anns);
     const el = document.getElementById('app');
@@ -1541,12 +1470,9 @@ const App = (() => {
         <aside class="sidebar">
           <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link active" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1566,64 +1492,6 @@ const App = (() => {
     renderNav();
   }
 
-  /* ---------- Admin dashboard (demo) ---------- */
-  function showAdmin() {
-    const u = currentUser();
-    if (!u || u.role !== 'admin') { alert('Admin access only. (Demo tip: make a user an admin by editing localStorage.)'); showDashboard(); return; }
-    state.screen = 'admin';
-    const users = getUsers();
-    const allProgress = load(STORE.progress, {});
-    const allCerts = load(STORE.certificates, {});
-    const el = document.getElementById('app');
-    el.innerHTML = `
-      <div class="dash-layout">
-        <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>Admin</span></div>
-          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
-          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
-          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
-          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          <button class="nav-link active" onclick="App.showAdmin()">⚙️ Admin dashboard</button>
-          <div class="spacer"></div>
-          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
-        </aside>
-        <main class="main-panel">
-          <h1>Admin dashboard</h1>
-          <p class="subtitle">Demo overview — all data is local to this browser.</p>
-          <div class="stat-grid">
-            <div class="stat-box"><div class="num">${Object.keys(users).length}</div><div class="lbl">Registered students</div></div>
-            <div class="stat-box"><div class="num">${Object.keys(allCerts).reduce((n,k)=>n+(allCerts[k]||[]).length,0)}</div><div class="lbl">Certificates issued</div></div>
-          </div>
-          <div class="card">
-            <h2>Student performance</h2>
-            <table class="admin-table" style="width: 100%; border-collapse: collapse; font-size: 14px;">
-              <thead><tr style="background: var(--soft); text-align: left;"><th style="padding:10px;">Student</th><th style="padding:10px;">Course progress</th><th style="padding:10px;">Modules passed</th><th style="padding:10px;">Certificate</th></tr></thead>
-              <tbody>
-                ${Object.keys(users).map(un => {
-                  const p = allProgress[un] || { lessons:{}, quizzes:{} };
-                  const doneLessons = Object.keys(p.lessons||{}).length;
-                  const totalLessons = COURSE.modules.reduce((n,m)=>n+m.lessons.length,0);
-                  const pct = totalLessons ? Math.round(doneLessons/totalLessons*100) : 0;
-                  const passedMods = Object.values(p.quizzes||{}).filter(q=>q.passed).length;
-                  const hasCert = (allCerts[un]||[]).some(c=>c.courseId===COURSE.id);
-                  return `<tr style="border-bottom: 1px solid var(--line);">
-                    <td style="padding:10px;"><b>${esc(users[un].fullName||un)}</b><br><span style="font-size:12px;color:var(--muted);">@${esc(un)}</span></td>
-                    <td style="padding:10px;">${pct}%</td>
-                    <td style="padding:10px;">${passedMods} / ${COURSE.modules.length}</td>
-                    <td style="padding:10px;">${hasCert ? '<span style="background:#e8f5e9;color:#2e7d32;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700;">Issued</span>' : '<span style="background:#fff8e1;color:#b28704;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700;">Not yet</span>'}</td>
-                  </tr>`;
-                }).join('') || '<tr><td colspan="4" style="color:var(--muted);">No students yet.</td></tr>'}
-              </tbody>
-            </table>
-          </div>
-        </main>
-      </div>
-    `;
-    renderNav();
-  }
-
   function goHome() {
     if (currentUser()) showDashboard();
     else showLanding();
@@ -1637,7 +1505,7 @@ const App = (() => {
 
   return {
     init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
-    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements, showAdmin,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
     openCourse, prevLesson, nextLesson, markCurrentLesson, enrolAndOpen,
     submitQuiz, selectOption, alertLocked, submitPost, downloadCertificateImage,
     goHome
