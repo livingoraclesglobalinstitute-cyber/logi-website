@@ -10,6 +10,8 @@
   
   <!-- Include html2canvas for certificate image download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- Include Supabase for real authentication -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <style>
     :root {
@@ -322,17 +324,14 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      overflow: hidden; /* Prevents horizontal scroll */
+      overflow: hidden;
       padding: 10px 0;
     }
-
     .cert-scaler {
-      /* Auto-scales the 1000x707 certificate to fit any screen */
       transform-origin: top center;
       width: 1000px;
       height: 707px;
     }
-
     .cert-wrapper {
       background: #fafafa;
       width: 1000px;
@@ -344,7 +343,6 @@
       overflow: hidden;
       color: var(--ink);
     }
-    
     .cert-watermark {
       position: absolute;
       top: 50%;
@@ -355,7 +353,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
     .cert-main {
       padding: 40px 60px 30px 60px;
       display: flex;
@@ -363,205 +360,32 @@
       position: relative;
       z-index: 2;
     }
-
-    .cert-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 35px;
-    }
-
-    .cert-header-logo {
-      height: 45px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .cert-logo-sub {
-      font-size: 10px;
-      text-transform: uppercase;
-      color: var(--muted);
-      letter-spacing: 1px;
-      line-height: 1.2;
-      font-weight: 600;
-    }
-
-    .cert-date {
-      font-size: 15px;
-      color: var(--muted);
-      margin-bottom: 25px;
-      font-weight: 500;
-    }
-
-    .cert-name {
-      font-size: 36px;
-      font-weight: 700;
-      color: #222;
-      margin-bottom: 12px;
-    }
-
-    .cert-completion {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .cert-course-title {
-      font-size: 32px;
-      font-weight: 800;
-      color: #333;
-      margin-bottom: 25px;
-      line-height: 1.2;
-    }
-
-    .cert-description {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.7;
-      max-width: 560px;
-      margin-bottom: 40px;
-      letter-spacing: 0.2px;
-      word-spacing: 1px;
-    }
-
-    .cert-signature-area {
-      display: flex;
-      flex-direction: column;
-      max-width: 300px;
-      margin-top: auto;
-    }
-
-    .cert-signature-img {
-      height: 55px;
-      width: auto;
-      object-fit: contain;
-      align-self: flex-start;
-      margin-bottom: 15px;
-    }
-
-    .cert-signer-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: #333;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      margin-bottom: 6px;
-    }
-
-    .cert-signer-title {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .cert-footer-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-top: 30px;
-      border-top: 1px solid #e0e0e0;
-      padding-top: 15px;
-      font-size: 10px;
-      color: #777;
-      line-height: 1.5;
-    }
-
-    .cert-footer-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      max-width: 48%;
-    }
-
-    .cert-footer-logo {
-      font-weight: 800;
-      font-size: 16px;
-      color: var(--p);
-    }
-
-    .cert-sidebar {
-      background-color: var(--pd);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cert-partner-box {
-      background: white;
-      padding: 25px 15px;
-      text-align: center;
-      font-size: 42px;
-      font-weight: 900;
-      color: #000;
-      letter-spacing: 3px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .cert-sidebar-pattern {
-      flex: 1;
-      position: relative;
-      background-image: 
-        linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent),
-        linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px);
-      background-size: 20px 20px, 100% 100%;
-      background-position: 0 0, 10px 10px;
-    }
-
-    .cert-sidebar-pattern::before {
-      content: '';
-      position: absolute;
-      top: 15%; left: 10%; width: 40px; height: 80px;
-      border-left: 2px solid rgba(255,255,255,0.2);
-      border-bottom: 2px solid rgba(255,255,255,0.2);
-    }
-    .cert-sidebar-pattern::after {
-      content: '';
-      position: absolute;
-      bottom: 20%; right: 15%; width: 60px; height: 40px;
-      border-right: 2px solid rgba(255,255,255,0.2);
-      border-top: 2px solid rgba(255,255,255,0.2);
-    }
-
-    .cert-verify-area {
-      padding: 25px 20px;
-      text-align: center;
-      background: white;
-    }
-
-    .cert-verify-text {
-      font-size: 9px;
-      color: #555;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      line-height: 1.4;
-    }
-
-    .cert-qr {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 15px;
-      display: block;
-    }
-
-    .cert-blockchain {
-      font-size: 9px;
-      color: #888;
-      font-family: monospace;
-      word-break: break-all;
-      line-height: 1.4;
-    }
-
-    .cert-bottom-block {
-      height: 40px;
-      background: #c2185b;
-    }
-
-    .cert-controls {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-sidebar-pattern::before { content: ''; position: absolute; top: 15%; left: 10%; width: 40px; height: 80px; border-left: 2px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.2); }
+    .cert-sidebar-pattern::after { content: ''; position: absolute; bottom: 20%; right: 15%; width: 60px; height: 40px; border-right: 2px solid rgba(255,255,255,0.2); border-top: 2px solid rgba(255,255,255,0.2); }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
 
     /* Responsive */
     @media (max-width: 900px) {
@@ -573,13 +397,12 @@
       .course-layout { grid-template-columns: 1fr; }
       .module-side { position: static; }
     }
-
     @media (max-width: 500px) {
       .auth-card { padding: 24px 18px; }
       .main-panel h1 { font-size: 22px; }
     }
 
-    /* Print specific styles to force landscape and reset scaling */
+    /* Print specific styles */
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -587,18 +410,8 @@
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
       .cert-display-area { padding: 0; overflow: visible; }
-      
-      /* Crucial: Reset the scale for printing so it fills the PDF page properly */
       .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
-      
-      .cert-wrapper {
-        box-shadow: none;
-        width: 1000px !important;
-        height: 707px !important;
-        border: none;
-        margin: 0 auto;
-        background: #fafafa !important;
-      }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
     }
   </style>
 </head>
@@ -620,13 +433,16 @@
 
 <script>
 /* ============================================================
-   LOGI LMS DEMO — single-file browser prototype
-   Storage: localStorage (demo only)
+   LOGI LMS DEMO — Supabase Authentication
    ============================================================ */
 
+/* ---------- SUPABASE CONNECTION ---------- */
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+/* ---------- LOCAL STORAGE (for course data only) ---------- */
 const STORE = {
-  users: 'logi_users',
-  session: 'logi_session',
   progress: 'logi_progress',       
   certificates: 'logi_certificates', 
   posts: 'logi_posts',             
@@ -644,7 +460,7 @@ function save(key, val) {
   localStorage.setItem(key, JSON.stringify(val));
 }
 
-/* ---------- Course data ---------- */
+/* ---------- COURSE DATA ---------- */
 const COURSE = {
   id: 'eng-mgmt-101',
   title: 'Basics of Engineering Management',
@@ -663,7 +479,6 @@ const COURSE = {
 <h3>2. Engineering and engineering management</h3><table class="compare"><tr><th>Engineering practice</th><th>Engineering management</th></tr><tr><td>Develops, tests and applies technical solutions.</td><td>Coordinates the work needed to deliver those solutions.</td></tr><tr><td>May focus on calculations, design, testing and operation.</td><td>May focus on scope, schedules, budgets, teams, quality and risk.</td></tr><tr><td>Asks: Does the technical solution work?</td><td>Asks: Can it be delivered safely, reliably, on time and within budget?</td></tr></table>
 <h3>3. The engineering management system</h3><p>Successful delivery depends on connected constraints. A change in one area can affect others: accelerating a schedule may increase labour costs; reducing material cost may affect quality; using unfamiliar equipment may introduce safety and training needs. Managers should assess the whole system rather than optimise one measure in isolation.</p>
 <h3>4. Where it is applied</h3><p>Construction, manufacturing, energy, mining, water and sanitation, transport, maintenance, telecommunications and technology projects all require coordination of technical work and resources.</p>
-
 `,
         quiz: [
             { q: "A design is technically correct, but the project misses its deadline because materials and labour were not coordinated. Which gap is most evident?", opts: ["Technical design", "Engineering management", "Product testing", "Scientific research"], answer: 1, explanation: "The failure concerns coordination of resources and work, a central engineering management responsibility." },
@@ -688,7 +503,6 @@ const COURSE = {
 <h3>3. Sequence and schedule activities</h3><p>Some tasks can run in parallel; others depend on earlier work. A schedule assigns start and finish dates, durations and responsible persons. A milestone is a significant checkpoint, such as equipment delivery or successful commissioning. Identify the critical sequence of dependent tasks because delays there can delay the overall completion date.</p>
 <h3>4. Coordinate stakeholders and change</h3><p>Stakeholders may include the client, engineers, technicians, suppliers, contractors, regulators, operators and nearby communities. Record decisions, communicate changes and assess their effects on scope, time, cost, quality and risk before approving them.</p>
 <h3>5. Monitor and control progress</h3><p>Compare actual progress with planned progress. Use site reports, inspection records, milestone status and issue logs. When a variance appears, identify its cause, agree an action, assign an owner and due date, then check whether the action worked.</p>
-
 `,
         quiz: [
             { q: "A client requests an additional control panel after the project scope has been approved. What should the project manager do first?", opts: ["Install it immediately", "Reject every change", "Assess the effect on scope, cost, schedule and risk through change control", "Ask the supplier to decide"], answer: 2, explanation: "A change should be assessed and authorised before the baseline plan is altered." },
@@ -813,16 +627,25 @@ function esc(s) {
   return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
 
-/* ---------- Session / user ---------- */
-function getUsers() { return load(STORE.users, {}); }
-function getSession() { return load(STORE.session, null); }
-function setSession(u) { save(STORE.session, u); }
-function clearSession() { localStorage.removeItem(STORE.session); }
-function currentUser() {
-  const s = getSession();
-  if (!s) return null;
-  return getUsers()[s.username] || null;
+/* ---------- Session / user (Supabase) ---------- */
+let currentSessionUser = null;
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+
+  const { data: { session }, error } = await supabaseClient.auth.getSession();
+  if (session && session.user) {
+    currentSessionUser = {
+      id: session.user.id,
+      username: session.user.email, // Using email as the unique identifier
+      fullName: session.user.user_metadata.full_name || session.user.email
+    };
+    return currentSessionUser;
+  }
+  return null;
 }
+
+/* ---------- Progress (Local Storage tied to Email) ---------- */
 function getProgress(username) {
   const p = load(STORE.progress, {});
   if (!p[username]) p[username] = { lessons: {}, quizzes: {} };
@@ -907,20 +730,25 @@ function courseCompleted(username) {
 
 /* ---------- Certificate generation ---------- */
 function generateCertificate(username) {
-  const user = getUsers()[username];
-  if (!user) return null;
+  if (!username) return null;
   const certs = getCerts(username);
   let cert = certs.find(c => c.courseId === COURSE.id);
   if (cert) return cert;
   
   const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
   
+  // Find user's full name from session data
+  let studentName = username;
+  if(currentSessionUser && currentSessionUser.fullName) {
+    studentName = currentSessionUser.fullName;
+  }
+
   cert = {
     id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
     hash: hash,
     courseId: COURSE.id,
     courseTitle: COURSE.title,
-    studentName: user.fullName || user.username,
+    studentName: studentName,
     date: nowISO(),
     issuedBy: 'Living Oracles Global Institute'
   };
@@ -941,12 +769,12 @@ const App = (() => {
     adminTab: 'overview'
   };
 
-  function renderNav() {
+  async function renderNav() {
     const el = document.getElementById('navActions');
-    const u = currentUser();
+    const u = await currentUser();
     if (u) {
       el.innerHTML = `
-        <span style="font-size:13px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.username)}</b></span>
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
         <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
         <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
       `;
@@ -959,9 +787,11 @@ const App = (() => {
   }
 
   /* ---------- Landing ---------- */
-  function showLanding() {
+  async function showLanding() {
     state.screen = 'landing';
-    if (currentUser()) { showDashboard(); return; }
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+    
     const el = document.getElementById('app');
     el.innerHTML = `
       <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
@@ -1006,7 +836,7 @@ const App = (() => {
         <div class="auth-card">
           <h2>Welcome back</h2>
           <p class="muted">Log in to continue your course.</p>
-          <div class="field"><label for="loginUser">Username</label><input id="loginUser" autocomplete="username" placeholder="e.g. jsmith"></div>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" autocomplete="email" placeholder="Enter your email address"></div>
           <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Your password"></div>
           <div class="error-msg" id="loginError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
@@ -1017,18 +847,25 @@ const App = (() => {
     document.getElementById('loginUser').focus();
   }
 
-  function doLogin() {
-    const u = document.getElementById('loginUser').value.trim().toLowerCase();
-    const p = document.getElementById('loginPass').value;
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim();
+    const password = document.getElementById('loginPass').value;
     const err = document.getElementById('loginError');
-    if (!u || !p) { err.textContent = 'Please enter both username and password.'; return; }
-    const users = getUsers();
-    if (!users[u] || users[u].password !== p) {
-      err.textContent = 'Invalid username or password.';
-      return;
+    
+    if (!email || !password) { err.textContent = 'Please enter both email and password.'; return; }
+    err.textContent = 'Logging in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      err.textContent = error.message;
+    } else {
+      currentSessionUser = null; // Reset cache so it fetches the fresh user
+      showDashboard();
     }
-    setSession({ username: u });
-    showDashboard();
   }
 
   /* ---------- Auth: register ---------- */
@@ -1041,8 +878,8 @@ const App = (() => {
           <h2>Create your free account</h2>
           <p class="muted">Register to enrol in Basics of Engineering Management.</p>
           <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith" autocomplete="name"></div>
-          <div class="field"><label for="regUser">Username</label><input id="regUser" placeholder="Choose a username" autocomplete="username"></div>
-          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password" autocomplete="new-password"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address" autocomplete="email"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password (min 6 chars)" autocomplete="new-password"></div>
           <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password" autocomplete="new-password"></div>
           <div class="error-msg" id="regError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
@@ -1053,41 +890,53 @@ const App = (() => {
     document.getElementById('regName').focus();
   }
 
-  function doRegister() {
+  async function doRegister() {
     const name = document.getElementById('regName').value.trim();
-    const u = document.getElementById('regUser').value.trim().toLowerCase();
-    const p = document.getElementById('regPass').value;
-    const p2 = document.getElementById('regPass2').value;
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
     const err = document.getElementById('regError');
 
-    if (!name || !u || !p) { err.textContent = 'All fields are required.'; return; }
-    if (u.length < 3) { err.textContent = 'Username must be at least 3 characters.'; return; }
-    if (!/^[a-z0-9._-]+$/.test(u)) { err.textContent = 'Username may only contain letters, numbers, dots, underscores or hyphens.'; return; }
-    if (p.length < 4) { err.textContent = 'Password must be at least 4 characters.'; return; }
-    if (p !== p2) { err.textContent = 'Passwords do not match.'; return; }
+    if (!name || !email || !password) { err.textContent = 'All fields are required.'; return; }
+    if (password.length < 6) { err.textContent = 'Password must be at least 6 characters.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
 
-    const users = getUsers();
-    if (users[u]) { err.textContent = 'That username is already taken.'; return; }
+    err.textContent = 'Creating account...';
 
-    users[u] = { username: u, fullName: name, password: p, createdAt: nowISO(), role: 'student' };
-    save(STORE.users, users);
-    enrol(u, COURSE.id);
-    setSession({ username: u });
-    showDashboard();
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name
+        }
+      }
+    });
+
+    if (error) {
+      err.textContent = error.message;
+    } else {
+      currentSessionUser = null;
+      // Auto-enrol in the first course for demo purposes
+      enrol(email, COURSE.id);
+      showDashboard();
+    }
   }
 
-  function logout() {
-    clearSession();
+  async function logout() {
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
     showLanding();
   }
 
   /* ---------- Dashboard ---------- */
-  function showDashboard() {
-    const u = currentUser();
+  async function showDashboard() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.user = u;
     state.screen = 'dashboard';
-    const username = u.username;
+    const username = u.username; // This is the email
     const pct = courseProgressPct(username);
     const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
     const passedModules = quizzes.filter(q => q?.passed).length;
@@ -1100,7 +949,7 @@ const App = (() => {
       <div class="dash-layout">
         <aside class="sidebar">
           <div class="user-badge">
-            <strong>${esc(u.fullName || u.username)}</strong>
+            <strong>${esc(u.fullName)}</strong>
             <span>@${esc(u.username)}</span>
           </div>
           <button class="nav-link active" onclick="App.showDashboard()">📊 My dashboard</button>
@@ -1109,12 +958,11 @@ const App = (() => {
           <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
         <main class="main-panel">
-          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <h1>Welcome back, ${esc(u.fullName.split(' ')[0])} 👋</h1>
           <p class="subtitle">Here is an overview of your learning progress.</p>
 
           <div class="stat-grid">
@@ -1167,23 +1015,23 @@ const App = (() => {
   }
 
   /* ---------- Course catalogue ---------- */
-  function showCatalogue() {
-    const u = currentUser();
+  async function showCatalogue() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.screen = 'catalogue';
     const enrolled = getEnrolments(u.username);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
         <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link active" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1207,16 +1055,16 @@ const App = (() => {
     renderNav();
   }
 
-  function enrolAndOpen() {
-    const u = currentUser();
+  async function enrolAndOpen() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
     enrol(u.username, COURSE.id);
     openCourse(0, 0);
   }
 
   /* ---------- Course viewer ---------- */
-  function openCourse(mi, li) {
-    const u = currentUser();
+  async function openCourse(mi, li) {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
     if (!getEnrolments(u.username).includes(COURSE.id)) {
       enrolAndOpen(); return;
@@ -1228,9 +1076,10 @@ const App = (() => {
     renderCourse();
   }
 
-  function renderCourse() {
-    const u = currentUser();
+  async function renderCourse() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     const username = u.username;
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson;
@@ -1299,7 +1148,7 @@ const App = (() => {
                   <button class="secondary btn-secondary" onclick="App.nextLesson()">Next →</button>
                 </div>
               </div>
-              <div class="notice">Demo LMS: accounts, progress and certificates are stored only in this browser. Not a secure institutional system.</div>
+              <div class="notice">Demo LMS: accounts are secured by Supabase. Progress is saved locally.</div>
             </article>
           </section>
         </div>
@@ -1308,9 +1157,10 @@ const App = (() => {
     renderNav();
   }
 
-  function renderAssessmentScreen() {
-    const u = currentUser();
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     const username = u.username;
     const mi = state.activeCourseModule;
     const mod = COURSE.modules[mi];
@@ -1349,8 +1199,8 @@ const App = (() => {
     renderCourse();
   }
 
-  function continueAfterAssessment() {
-    const u = currentUser();
+  async function continueAfterAssessment() {
+    const u = await currentUser();
     if (!u) return;
     const mi = state.activeCourseModule;
     const result = getQuizResult(u.username, mi);
@@ -1367,7 +1217,7 @@ const App = (() => {
   }
 
   function renderQuizUI(mi, quiz) {
-    const u = currentUser();
+    const u = state.user;
     const username = u.username;
     const result = getQuizResult(username, mi);
     const passed = result?.passed;
@@ -1416,8 +1266,8 @@ const App = (() => {
     // Optional pre-fill
   }
 
-  function submitQuiz(mi) {
-    const u = currentUser();
+  async function submitQuiz(mi) {
+    const u = await currentUser();
     if (!u) return;
     const quiz = COURSE.modules[mi].lessons[0].quiz;
     if (!quiz) return;
@@ -1461,8 +1311,8 @@ const App = (() => {
     }
   }
 
-  function markCurrentLesson() {
-    const u = currentUser();
+  async function markCurrentLesson() {
+    const u = await currentUser();
     if (!u) return;
     const mi = state.activeCourseModule, li = state.activeCourseLesson;
     markLessonDone(u.username, mi, li);
@@ -1470,18 +1320,18 @@ const App = (() => {
     renderCourse();
   }
 
-  function prevLesson() {
+  async function prevLesson() {
     let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
     if (li < 0) {
       mi--;
       if (mi < 0) { showDashboard(); return; }
-      if (isModuleLocked(currentUser().username, mi)) { alertLocked(mi); return; }
+      if (isModuleLocked(state.user.username, mi)) { alertLocked(mi); return; }
       li = COURSE.modules[mi].lessons.length - 1;
     }
     openCourse(mi, li);
   }
 
-  function nextLesson() {
+  async function nextLesson() {
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson + 1;
     if (li < COURSE.modules[mi].lessons.length) { openCourse(mi, li); return; }
@@ -1491,9 +1341,10 @@ const App = (() => {
   }
 
   /* ---------- CERTIFICATE VIEW ---------- */
-  function showCertificate() {
-    const u = currentUser();
+  async function showCertificate() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.screen = 'certificate';
     const completed = courseCompleted(u.username);
     let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
@@ -1503,14 +1354,13 @@ const App = (() => {
     el.innerHTML = `
       <div class="dash-layout">
         <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link active" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1687,23 +1537,23 @@ const App = (() => {
   }
 
   /* ---------- Discussion ---------- */
-  function showDiscussion() {
-    const u = currentUser();
+  async function showDiscussion() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.screen = 'discussion';
     const posts = load(STORE.posts, []);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
         <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link active" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1714,7 +1564,7 @@ const App = (() => {
             <h3 style="margin-top:0;">Start a discussion</h3>
             <textarea id="postText" rows="3" placeholder="Write your question or comment..." style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:14px;resize:vertical;"></textarea>
             <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:12px;color:var(--muted);">Posting as <b>${esc(u.fullName||u.username)}</b></span>
+              <span style="font-size:12px;color:var(--muted);">Posting as <b>${esc(u.fullName)}</b></span>
               <button class="btn btn-sm" onclick="App.submitPost()">Post to forum</button>
             </div>
           </div>
@@ -1735,8 +1585,8 @@ const App = (() => {
     renderNav();
   }
 
-  function submitPost() {
-    const u = currentUser();
+  async function submitPost() {
+    const u = await currentUser();
     if (!u) return;
     const text = document.getElementById('postText').value.trim();
     if (!text) return;
@@ -1747,9 +1597,10 @@ const App = (() => {
   }
 
   /* ---------- Announcements ---------- */
-  function showAnnouncements() {
-    const u = currentUser();
+  async function showAnnouncements() {
+    const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.screen = 'announcements';
     const anns = load(STORE.announcements, [
       { id: uid(), title: 'Welcome to Basics of Engineering Management', body: 'We are glad you are here. Work through the modules in order, and remember you can retake assessments as many times as you need.', ts: nowISO() },
@@ -1760,14 +1611,13 @@ const App = (() => {
     el.innerHTML = `
       <div class="dash-layout">
         <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>@${esc(u.username)}</span></div>
+          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
           <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link active" onclick="App.showAnnouncements()">📢 Announcements</button>
-          ${u.role === 'admin' ? '<button class="nav-link" onclick="App.showAdmin()">⚙️ Admin dashboard</button>' : ''}
           <div class="spacer"></div>
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
@@ -1787,78 +1637,22 @@ const App = (() => {
     renderNav();
   }
 
-  /* ---------- Admin dashboard (demo) ---------- */
-  function showAdmin() {
-    const u = currentUser();
-    if (!u || u.role !== 'admin') { alert('Admin access only. (Demo tip: make a user an admin by editing localStorage.)'); showDashboard(); return; }
-    state.screen = 'admin';
-    const users = getUsers();
-    const allProgress = load(STORE.progress, {});
-    const allCerts = load(STORE.certificates, {});
-    const el = document.getElementById('app');
-    el.innerHTML = `
-      <div class="dash-layout">
-        <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName||u.username)}</strong><span>Admin</span></div>
-          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
-          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
-          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
-          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          <button class="nav-link active" onclick="App.showAdmin()">⚙️ Admin dashboard</button>
-          <div class="spacer"></div>
-          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
-        </aside>
-        <main class="main-panel">
-          <h1>Admin dashboard</h1>
-          <p class="subtitle">Demo overview — all data is local to this browser.</p>
-          <div class="stat-grid">
-            <div class="stat-box"><div class="num">${Object.keys(users).length}</div><div class="lbl">Registered students</div></div>
-            <div class="stat-box"><div class="num">${Object.keys(allCerts).reduce((n,k)=>n+(allCerts[k]||[]).length,0)}</div><div class="lbl">Certificates issued</div></div>
-          </div>
-          <div class="card">
-            <h2>Student performance</h2>
-            <table class="admin-table" style="width: 100%; border-collapse: collapse; font-size: 14px;">
-              <thead><tr style="background: var(--soft); text-align: left;"><th style="padding:10px;">Student</th><th style="padding:10px;">Course progress</th><th style="padding:10px;">Modules passed</th><th style="padding:10px;">Certificate</th></tr></thead>
-              <tbody>
-                ${Object.keys(users).map(un => {
-                  const p = allProgress[un] || { lessons:{}, quizzes:{} };
-                  const doneLessons = Object.keys(p.lessons||{}).length;
-                  const totalLessons = COURSE.modules.reduce((n,m)=>n+m.lessons.length,0);
-                  const pct = totalLessons ? Math.round(doneLessons/totalLessons*100) : 0;
-                  const passedMods = Object.values(p.quizzes||{}).filter(q=>q.passed).length;
-                  const hasCert = (allCerts[un]||[]).some(c=>c.courseId===COURSE.id);
-                  return `<tr style="border-bottom: 1px solid var(--line);">
-                    <td style="padding:10px;"><b>${esc(users[un].fullName||un)}</b><br><span style="font-size:12px;color:var(--muted);">@${esc(un)}</span></td>
-                    <td style="padding:10px;">${pct}%</td>
-                    <td style="padding:10px;">${passedMods} / ${COURSE.modules.length}</td>
-                    <td style="padding:10px;">${hasCert ? '<span style="background:#e8f5e9;color:#2e7d32;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700;">Issued</span>' : '<span style="background:#fff8e1;color:#b28704;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:700;">Not yet</span>'}</td>
-                  </tr>`;
-                }).join('') || '<tr><td colspan="4" style="color:var(--muted);">No students yet.</td></tr>'}
-              </tbody>
-            </table>
-          </div>
-        </main>
-      </div>
-    `;
-    renderNav();
-  }
-
-  function goHome() {
-    if (currentUser()) showDashboard();
+  async function goHome() {
+    const u = await currentUser();
+    if (u) showDashboard();
     else showLanding();
   }
 
-  function init() {
-    renderNav();
-    if (currentUser()) showDashboard();
+  async function init() {
+    await renderNav();
+    const u = await currentUser();
+    if (u) showDashboard();
     else showLanding();
   }
 
   return {
     init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
-    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements, showAdmin,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
     openCourse, prevLesson, nextLesson, markCurrentLesson, enrolAndOpen,
     submitQuiz, selectOption, alertLocked, previousFromAssessment, continueAfterAssessment, submitPost, downloadCertificateImage,
     goHome
