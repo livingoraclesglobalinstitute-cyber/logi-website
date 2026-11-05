@@ -189,7 +189,7 @@
 
 <script>
 /* ============================================================
-   LOGI LMS — Cloud-Synced (Supabase)
+   LOGI LMS — Cloud-Synced with Supabase (UUID Auth)
    ============================================================ */
 
 const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
@@ -204,7 +204,6 @@ function uid() {
 function fmtDate(d) {
   return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 }
-function nowISO() { return new Date().toISOString(); }
 function esc(s) {
   if (typeof s !== 'string') return s;
   return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -216,7 +215,7 @@ async function currentUser() {
   if (session && session.user) {
     currentSessionUser = {
       id: session.user.id,
-      username: session.user.email,
+      username: session.user.email, 
       fullName: session.user.user_metadata.full_name || session.user.email
     };
     return currentSessionUser;
@@ -235,9 +234,9 @@ const COURSE = {
       lessons: [{
         title: "Understanding Engineering Management",
         duration: "35 minutes",
-        html: `<p>Engineering management applies management principles, technical knowledge and structured problem-solving to deliver engineering work. It connects technical decisions with people, materials, equipment, time, cost, quality and safety.</p>
+        html: `<p>Engineering management applies management principles, technical knowledge and structured problem-solving to deliver engineering work.</p>
 <div class="callout"><b>Core principle:</b> A technically sound solution can still fail if the work is poorly planned, resources are unavailable, responsibilities are unclear or risks are ignored.</div>
-<h3>Course learning outcomes</h3><p>By completing this course, you should be able to:</p><ul><li>Explain the role and functions of engineering management.</li><li>Plan activities, deliverables, dependencies and milestones.</li><li>Estimate and monitor resource and cost requirements.</li><li>Apply basic quality, safety and risk-management principles.</li><li>Coordinate engineering teams and stakeholders.</li><li>Use performance measures and root-cause thinking to improve work.</li></ul>`,
+<h3>Course learning outcomes</h3><ul><li>Explain the role and functions of engineering management.</li><li>Plan activities, deliverables, dependencies and milestones.</li><li>Estimate and monitor resource and cost requirements.</li><li>Apply basic quality, safety and risk-management principles.</li></ul>`,
         quiz: [
             { q: "A design is technically correct, but the project misses its deadline because materials and labour were not coordinated. Which gap is most evident?", opts: ["Technical design", "Engineering management", "Product testing", "Scientific research"], answer: 1, explanation: "The failure concerns coordination of resources and work." }
         ]
@@ -246,9 +245,7 @@ const COURSE = {
   ]
 };
 
-/* ---------- Cloud Data Synchronization ---------- */
-
-// Keep a local cache of progress so the UI remains fast
+/* ---------- Cloud Data Cache ---------- */
 let cachedProgress = { lessons: {}, quizzes: {} };
 let cachedEnrolments = [];
 let cachedCerts = [];
@@ -257,12 +254,12 @@ async function loadUserData() {
   const user = await currentUser();
   if (!user) return;
 
-  // Load Enrolments
-  const { data: enrData } = await supabaseClient.from('enrolments').select('course_id').eq('user_email', user.username);
+  // Load Enrolments using user_id
+  const { data: enrData } = await supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id);
   if (enrData) cachedEnrolments = enrData.map(e => e.course_id);
 
-  // Load Progress
-  const { data: progData } = await supabaseClient.from('progress').select('*').eq('user_email', user.username);
+  // Load Progress using user_id
+  const { data: progData } = await supabaseClient.from('progress').select('*').eq('user_id', user.id);
   cachedProgress = { lessons: {}, quizzes: {} };
   if (progData) {
     progData.forEach(p => {
@@ -272,8 +269,8 @@ async function loadUserData() {
     });
   }
 
-  // Load Certificates
-  const { data: certData } = await supabaseClient.from('certificates').select('*').eq('user_email', user.username);
+  // Load Certificates using user_id
+  const { data: certData } = await supabaseClient.from('certificates').select('*').eq('user_id', user.id);
   if (certData) {
     cachedCerts = certData.map(c => ({
       id: c.certificate_id,
@@ -292,63 +289,52 @@ function getCerts(username) { return cachedCerts; }
 
 async function enrol(username, courseId) {
   if (cachedEnrolments.includes(courseId)) return;
-  await supabaseClient.from('enrolments').insert({ user_email: username, course_id: courseId });
+  const user = await currentUser();
+  if (!user) return;
+  
+  await supabaseClient.from('enrolments').insert({ user_id: user.id, course_id: courseId });
   cachedEnrolments.push(courseId);
 }
 
 async function markLessonDone(username, courseId, mi, li) {
+  const user = await currentUser();
+  if (!user) return;
+
   const key = `${courseId}-${mi}-${li}`;
   cachedProgress.lessons[key] = true;
   
   await supabaseClient.from('progress').upsert({
-    user_email: username,
+    user_id: user.id,
     course_id: courseId,
     module_index: mi,
     lesson_index: li,
     passed: true,
-    updated_at: nowISO()
-  }, { onConflict: 'user_email, course_id, module_index, lesson_index' });
+    updated_at: new Date().toISOString()
+  }, { onConflict: 'user_id, course_id, module_index, lesson_index' });
 }
 
 async function saveQuizResult(username, courseId, mi, score, total, passMark) {
+  const user = await currentUser();
+  if (!user) return;
+
   const passed = score / total * 100 >= passMark;
   const key = `${courseId}-${mi}`;
   cachedProgress.quizzes[key] = { score, total, passed };
 
   await supabaseClient.from('progress').upsert({
-    user_email: username,
+    user_id: user.id,
     course_id: courseId,
     module_index: mi,
     lesson_index: -1, // -1 represents the module quiz
     quiz_score: score,
     quiz_total: total,
     passed: passed,
-    updated_at: nowISO()
-  }, { onConflict: 'user_email, course_id, module_index, lesson_index' });
+    updated_at: new Date().toISOString()
+  }, { onConflict: 'user_id, course_id, module_index, lesson_index' });
 }
 
-async function generateCertificate(username, courseId) {
-  if (cachedCerts.find(c => c.courseId === courseId)) return;
-  
-  const user = await currentUser();
-  const certId = 'LOGI-' + courseId.toUpperCase() + '-' + Date.now().toString(36).toUpperCase();
-  
-  await supabaseClient.from('certificates').insert({
-    user_email: username,
-    course_id: courseId,
-    certificate_id: certId,
-    student_name: user.fullName
-  });
-
-  cachedCerts.push({
-    id: certId,
-    courseId: courseId,
-    courseTitle: COURSE.title,
-    studentName: user.fullName,
-    date: nowISO(),
-    hash: 'BLOCKCHAIN-HASH-PLACEHOLDER'
-  });
-}
+// Note: Certificate creation is blocked by RLS (security policy). 
+// This function is left here as a placeholder, but won't insert unless RLS is changed.
 
 /* ---------- Logic & Calculations ---------- */
 
@@ -362,13 +348,6 @@ function isModuleLocked(username, courseId, mi) {
   if (mi === 0) return false;
   const prev = getQuizResult(username, courseId, mi - 1);
   return !prev || !prev.passed;
-}
-function moduleLessonsDone(username, courseId, mi) {
-  const mod = COURSE.modules[mi];
-  if (!mod) return 0;
-  let n = 0;
-  mod.lessons.forEach((_, li) => { if (isLessonDone(username, courseId, mi, li)) n++; });
-  return n;
 }
 function courseProgressPct(username, courseId) {
   let total = 0, done = 0;
@@ -414,14 +393,12 @@ const App = (() => {
   }
 
   async function showLanding() {
-    state.screen = 'landing';
     const u = await currentUser();
     if (u) { showDashboard(); return; }
     const el = document.getElementById('app');
     el.innerHTML = `
       <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
         <div class="inner">
-          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses</div>
           <h1 style="font-size:clamp(30px,4vw,44px);margin:8px 0;">Basics of <span style="color:var(--pd)">Engineering Management</span></h1>
           <p style="max-width:720px;color:#666;">Develop practical skills in engineering planning, resource and cost control, quality, safety, teamwork and performance improvement.</p>
           <div style="margin-top:26px;">
@@ -646,8 +623,9 @@ const App = (() => {
     const passed = (score / quiz.length * 100) >= COURSE.passMark;
     
     document.getElementById('quizResult_' + mi).innerHTML = passed ? '<b style="color:green;">Passed!</b>' : '<b style="color:red;">Failed. Try again.</b>';
+    
     if (passed && courseCompleted(u.username, COURSE.id)) {
-      await generateCertificate(u.username, COURSE.id);
+      // Note: RLS blocks this insert. The certificate must be issued by an admin/backend.
     }
   }
 
@@ -697,7 +675,7 @@ const App = (() => {
                  <p>Date: ${fmtDate(cert.date)}</p>
                </div>
             </div>
-          ` : `<p>Certificate locked. Complete the course first.</p>`}
+          ` : `<p>Certificate locked. Complete the course and wait for admin approval.</p>`}
         </main>
       </div>
     `;
