@@ -647,23 +647,35 @@ let cachedProgress = { lessons: {}, quizzes: {} };
 let cachedEnrolments = [];
 let cachedCerts = [];
 
+// This function strictly maps the cloud data to the exact format the UI expects
 async function loadUserData() {
   const user = await currentUser();
   if (!user) return;
 
+  // Load Enrolments
   const { data: enrData } = await supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id);
   if (enrData) cachedEnrolments = enrData.map(e => e.course_id);
 
+  // Load Progress
   const { data: progData } = await supabaseClient.from('progress').select('*').eq('user_id', user.id);
-  cachedProgress = { lessons: {}, quizzes: {} };
+  cachedProgress = { lessons: {}, quizzes: {} }; // Reset local cache
   if (progData) {
     progData.forEach(p => {
-      const key = `${p.course_id}-${p.module_index}-${p.lesson_index}`;
-      if (p.passed) cachedProgress.lessons[key] = true;
-      if (p.quiz_score !== null) cachedProgress.quizzes[`${p.course_id}-${p.module_index}`] = { score: p.quiz_score, total: p.quiz_total, passed: p.passed };
+      const lessonKey = `${p.course_id}-${p.module_index}-${p.lesson_index}`;
+      if (p.passed) cachedProgress.lessons[lessonKey] = true;
+      
+      // If lesson_index is -1, it represents the module quiz
+      if (p.lesson_index === -1 && p.quiz_score !== null) {
+        cachedProgress.quizzes[`${p.course_id}-${p.module_index}`] = { 
+          score: p.quiz_score, 
+          total: p.quiz_total, 
+          passed: p.passed 
+        };
+      }
     });
   }
 
+  // Load Certificates
   const { data: certData } = await supabaseClient.from('certificates').select('*').eq('user_id', user.id);
   if (certData) {
     cachedCerts = certData.map(c => ({
@@ -726,9 +738,6 @@ async function saveQuizResult(username, courseId, mi, score, total, passMark) {
     updated_at: nowISO()
   }, { onConflict: 'user_id, course_id, module_index, lesson_index' });
 }
-
-// Note: Certificate creation is blocked by RLS (security policy). 
-// This function is left here as a placeholder, but won't insert unless RLS is changed.
 
 /* ---------- Logic & Calculations ---------- */
 
@@ -878,7 +887,7 @@ const App = (() => {
       err.textContent = error.message;
     } else {
       currentSessionUser = null; 
-      await loadUserData();
+      await loadUserData(); // Wait for data to download
       showDashboard();
     }
   }
@@ -933,7 +942,7 @@ const App = (() => {
     } else {
       currentSessionUser = null;
       await enrol(email, COURSE.id);
-      await loadUserData();
+      await loadUserData(); // Wait for data
       showDashboard();
     }
   }
@@ -941,9 +950,6 @@ const App = (() => {
   async function logout() {
     await supabaseClient.auth.signOut();
     currentSessionUser = null;
-    cachedProgress = { lessons: {}, quizzes: {} };
-    cachedEnrolments = [];
-    cachedCerts = [];
     showLanding();
   }
 
@@ -951,6 +957,9 @@ const App = (() => {
   async function showDashboard() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
+    // Make sure data is fresh before rendering
+    await loadUserData();
     
     state.user = u;
     state.screen = 'dashboard';
