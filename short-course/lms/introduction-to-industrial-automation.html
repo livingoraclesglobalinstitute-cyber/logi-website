@@ -126,6 +126,7 @@
     .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
     .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
     .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+    .error-msg a { color: var(--pd); font-weight: 600; cursor: pointer; }
 
     .dash-layout {
       display: grid;
@@ -421,7 +422,6 @@
 <script>
 /* ============================================================
    LOGI LMS — Introduction to Industrial Automation
-   (standalone file, mirrors eng-mgmt-101 structure)
    ============================================================ */
 
 const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
@@ -755,7 +755,7 @@ const App = (() => {
     }
   }
 
-  /* ---------- Landing (course sales / explore page) ---------- */
+  /* ---------- Landing ---------- */
   async function showLanding() {
     state.screen = 'landing';
     const u = await currentUser();
@@ -804,7 +804,7 @@ const App = (() => {
     `;
   }
 
-  /* ---------- Auth ---------- */
+  /* ---------- Auth: login ---------- */
   function showLogin() {
     state.screen = 'login';
     const el = document.getElementById('app');
@@ -837,6 +837,7 @@ const App = (() => {
     await showDashboard();
   }
 
+  /* ---------- Auth: register (smart — detects existing emails) ---------- */
   function showRegister() {
     state.screen = 'register';
     const el = document.getElementById('app');
@@ -852,6 +853,10 @@ const App = (() => {
           <div class="error-msg" id="regError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
           <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5;">
+            Already have a LOGI account from another course?<br>
+            <a onclick="App.showLogin()" style="color:var(--pd);font-weight:600;cursor:pointer;">Log in to enrol in this course</a>
+          </div>
         </div>
       </div>
     `;
@@ -864,21 +869,69 @@ const App = (() => {
     const password = document.getElementById('regPass').value;
     const password2 = document.getElementById('regPass2').value;
     const err = document.getElementById('regError');
-    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
-    if (password.length < 8) { err.textContent = 'Password must be at least 8 characters.'; return; }
-    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    if (!name || !email || !password || !password2) {
+      err.textContent = 'All fields are required.';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      err.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    if (password.length < 8) {
+      err.textContent = 'Password must be at least 8 characters.';
+      return;
+    }
+    if (password !== password2) {
+      err.textContent = 'Passwords do not match.';
+      return;
+    }
+
     err.textContent = 'Creating your account...';
+
+    // 1. Try to sign up
     const { data, error } = await supabaseClient.auth.signUp({
-      email, password, options: { data: { full_name: name } }
+      email,
+      password,
+      options: { data: { full_name: name } }
     });
-    if (error) { err.textContent = error.message; return; }
+
+    // 2. If the email already exists → try signing in with the password they just typed.
+    //    A returning learner from another LOGI course lands straight on this course.
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'This email already has a LOGI account — signing you in...';
+
+      const { data: signInData, error: signInError } =
+        await supabaseClient.auth.signInWithPassword({ email, password });
+
+      if (signInError) {
+        err.innerHTML =
+          'This email is already registered on LOGI. ' +
+          '<a onclick="App.showLogin()" style="color:var(--pd);font-weight:600;cursor:pointer;">Click here to log in</a> ' +
+          'with your existing password.';
+        return;
+      }
+
+      // Successfully signed in → enrol in THIS course and go to dashboard
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await showDashboard();
+      return;
+    }
+
+    if (error) {
+      err.textContent = error.message;
+      return;
+    }
+
+    // 3. Fresh signup — normal path
     if (data.session && data.user) {
       syncLocalUser(data.user);
       enrol(email, COURSE.id);
       await showDashboard();
     } else {
-      err.textContent = 'Registration successful! Please check your email and confirm your account before logging in.';
+      err.textContent =
+        'Registration successful! Please check your email and confirm your account before logging in.';
     }
   }
 
