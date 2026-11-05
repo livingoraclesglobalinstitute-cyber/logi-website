@@ -1,0 +1,81 @@
+-- LOGI LMS: learning progress and certificate support
+-- Run this in Supabase SQL Editor before deploying the updated HTML.
+
+-- 1. Track lesson completion in the new progress table.
+ALTER TABLE public.progress
+ADD COLUMN IF NOT EXISTS completed boolean NOT NULL DEFAULT false;
+
+-- 2. Store the certificate verification hash in Supabase.
+ALTER TABLE public.certificates
+ADD COLUMN IF NOT EXISTS verification_hash text;
+
+-- 3. Issue certificates through a controlled database function.
+-- The current LMS course has six modules, each with one lesson and one assessment.
+-- This function checks that all six lesson records are complete and all six
+-- module assessments have a passing result before issuing the certificate.
+CREATE OR REPLACE FUNCTION public.issue_course_certificate(
+    p_course_id text,
+    p_certificate_id text,
+    p_student_name text,
+    p_verification_hash text
+)
+RETURNS SETOF public.certificates
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+    v_user_id uuid := auth.uid();
+    v_completed_modules integer;
+    v_passed_assessments integer;
+BEGIN
+    IF v_user_id IS NULL THEN
+        RAISE EXCEPTION 'You must be signed in to request a certificate.';
+    END IF;
+
+    IF p_course_id <> 'eng-mgmt-101' THEN
+        RAISE EXCEPTION 'Certificate issuance is not configured for this course.';
+    END IF;
+
+    SELECT
+        COUNT(DISTINCT module_index) FILTER (WHERE completed),
+        COUNT(DISTINCT module_index) FILTER (
+            WHERE quiz_score IS NOT NULL AND passed IS TRUE
+        )
+    INTO v_completed_modules, v_passed_assessments
+    FROM public.progress
+    WHERE user_id = v_user_id
+      AND course_id = p_course_id;
+
+    IF COALESCE(v_completed_modules, 0) < 6
+       OR COALESCE(v_passed_assessments, 0) < 6 THEN
+        RAISE EXCEPTION 'Complete all six lessons and pass all six assessments before requesting your certificate.';
+    END IF;
+
+    INSERT INTO public.certificates (
+        user_id,
+        course_id,
+        certificate_id,
+        student_name,
+        verification_hash
+    )
+    VALUES (
+        v_user_id,
+        p_course_id,
+        p_certificate_id,
+        p_student_name,
+        p_verification_hash
+    )
+    ON CONFLICT (user_id, course_id) DO NOTHING;
+
+    RETURN QUERY
+    SELECT *
+    FROM public.certificates
+    WHERE user_id = v_user_id
+      AND course_id = p_course_id;
+END;
+$$;
+
+-- Students may execute the function but still cannot directly insert certificates.
+REVOKE ALL ON FUNCTION public.issue_course_certificate(text, text, text, text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.issue_course_certificate(text, text, text, text) TO authenticated;
