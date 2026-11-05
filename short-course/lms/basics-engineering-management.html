@@ -433,7 +433,7 @@
 
 <script>
 /* ============================================================
-   LOGI LMS DEMO — Supabase Authentication
+   LOGI LMS DEMO — Supabase Cloud Synced
    ============================================================ */
 
 /* ---------- SUPABASE CONNECTION ---------- */
@@ -441,13 +441,10 @@ const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-/* ---------- LOCAL STORAGE (for course data only) ---------- */
+/* ---------- LOCAL STORAGE (for discussions/announcements only) ---------- */
 const STORE = {
-  progress: 'logi_progress',       
-  certificates: 'logi_certificates', 
   posts: 'logi_posts',             
-  announcements: 'logi_announcements', 
-  enrolments: 'logi_enrolments'     
+  announcements: 'logi_announcements' 
 };
 
 function load(key, fallback) {
@@ -460,7 +457,7 @@ function save(key, val) {
   localStorage.setItem(key, JSON.stringify(val));
 }
 
-/* ---------- COURSE DATA ---------- */
+/* ---------- Course data ---------- */
 const COURSE = {
   id: 'eng-mgmt-101',
   title: 'Basics of Engineering Management',
@@ -637,7 +634,7 @@ async function currentUser() {
   if (session && session.user) {
     currentSessionUser = {
       id: session.user.id,
-      username: session.user.email, // Using email as the unique identifier
+      username: session.user.email,
       fullName: session.user.user_metadata.full_name || session.user.email
     };
     return currentSessionUser;
@@ -645,115 +642,132 @@ async function currentUser() {
   return null;
 }
 
-/* ---------- Progress (Local Storage tied to Email) ---------- */
-function getProgress(username) {
-  const p = load(STORE.progress, {});
-  if (!p[username]) p[username] = { lessons: {}, quizzes: {} };
-  return p[username];
-}
-function saveProgress(username, p) {
-  const all = load(STORE.progress, {});
-  all[username] = p;
-  save(STORE.progress, all);
-}
-function getEnrolments(username) {
-  const e = load(STORE.enrolments, {});
-  return e[username] || [];
-}
-function enrol(username, courseId) {
-  const e = load(STORE.enrolments, {});
-  if (!e[username]) e[username] = [];
-  if (!e[username].includes(courseId)) e[username].push(courseId);
-  save(STORE.enrolments, e);
-}
-function getCerts(username) {
-  const c = load(STORE.certificates, {});
-  return c[username] || [];
-}
-function addCert(username, cert) {
-  const c = load(STORE.certificates, {});
-  if (!c[username]) c[username] = [];
-  c[username].push(cert);
-  save(STORE.certificates, c);
+/* ---------- Cloud Data Cache ---------- */
+let cachedProgress = { lessons: {}, quizzes: {} };
+let cachedEnrolments = [];
+let cachedCerts = [];
+
+async function loadUserData() {
+  const user = await currentUser();
+  if (!user) return;
+
+  const { data: enrData } = await supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id);
+  if (enrData) cachedEnrolments = enrData.map(e => e.course_id);
+
+  const { data: progData } = await supabaseClient.from('progress').select('*').eq('user_id', user.id);
+  cachedProgress = { lessons: {}, quizzes: {} };
+  if (progData) {
+    progData.forEach(p => {
+      const key = `${p.course_id}-${p.module_index}-${p.lesson_index}`;
+      if (p.passed) cachedProgress.lessons[key] = true;
+      if (p.quiz_score !== null) cachedProgress.quizzes[`${p.course_id}-${p.module_index}`] = { score: p.quiz_score, total: p.quiz_total, passed: p.passed };
+    });
+  }
+
+  const { data: certData } = await supabaseClient.from('certificates').select('*').eq('user_id', user.id);
+  if (certData) {
+    cachedCerts = certData.map(c => ({
+      id: c.certificate_id,
+      courseId: c.course_id,
+      courseTitle: COURSE.title,
+      studentName: c.student_name,
+      date: c.issue_date,
+      hash: 'BLOCKCHAIN-HASH-PLACEHOLDER'
+    }));
+  }
 }
 
-/* ---------- Progress calculations ---------- */
-function isLessonDone(username, mi, li) {
-  const p = getProgress(username);
-  return !!p.lessons[mi + '-' + li];
+function getEnrolments(username) { return cachedEnrolments; }
+function getProgress(username) { return cachedProgress; }
+function getCerts(username) { return cachedCerts; }
+
+async function enrol(username, courseId) {
+  if (cachedEnrolments.includes(courseId)) return;
+  const user = await currentUser();
+  if (!user) return;
+  
+  await supabaseClient.from('enrolments').insert({ user_id: user.id, course_id: courseId });
+  cachedEnrolments.push(courseId);
 }
-function markLessonDone(username, mi, li) {
-  const p = getProgress(username);
-  p.lessons[mi + '-' + li] = true;
-  saveProgress(username, p);
+
+async function markLessonDone(username, courseId, mi, li) {
+  const user = await currentUser();
+  if (!user) return;
+
+  const key = `${courseId}-${mi}-${li}`;
+  cachedProgress.lessons[key] = true;
+  
+  await supabaseClient.from('progress').upsert({
+    user_id: user.id,
+    course_id: courseId,
+    module_index: mi,
+    lesson_index: li,
+    passed: true,
+    updated_at: nowISO()
+  }, { onConflict: 'user_id, course_id, module_index, lesson_index' });
 }
-function getQuizResult(username, mi) {
-  const p = getProgress(username);
-  return p.quizzes[mi] || null;
+
+async function saveQuizResult(username, courseId, mi, score, total, passMark) {
+  const user = await currentUser();
+  if (!user) return;
+
+  const passed = score / total * 100 >= passMark;
+  const key = `${courseId}-${mi}`;
+  cachedProgress.quizzes[key] = { score, total, passed };
+
+  await supabaseClient.from('progress').upsert({
+    user_id: user.id,
+    course_id: courseId,
+    module_index: mi,
+    lesson_index: -1, 
+    quiz_score: score,
+    quiz_total: total,
+    passed: passed,
+    updated_at: nowISO()
+  }, { onConflict: 'user_id, course_id, module_index, lesson_index' });
 }
-function saveQuizResult(username, mi, score, total) {
-  const p = getProgress(username);
-  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
-  saveProgress(username, p);
+
+// Note: Certificate creation is blocked by RLS (security policy). 
+// This function is left here as a placeholder, but won't insert unless RLS is changed.
+
+/* ---------- Logic & Calculations ---------- */
+
+function isLessonDone(username, courseId, mi, li) {
+  return !!cachedProgress.lessons[`${courseId}-${mi}-${li}`];
 }
-function isModuleLocked(username, mi) {
+function getQuizResult(username, courseId, mi) {
+  return cachedProgress.quizzes[`${courseId}-${mi}`] || null;
+}
+function isModuleLocked(username, courseId, mi) {
   if (mi === 0) return false;
-  const prev = getQuizResult(username, mi - 1);
+  const prev = getQuizResult(username, courseId, mi - 1);
   return !prev || !prev.passed;
 }
-function moduleLessonsDone(username, mi) {
+function moduleLessonsDone(username, courseId, mi) {
   const mod = COURSE.modules[mi];
   if (!mod) return 0;
   let n = 0;
-  mod.lessons.forEach((_, li) => { if (isLessonDone(username, mi, li)) n++; });
+  mod.lessons.forEach((_, li) => { if (isLessonDone(username, courseId, mi, li)) n++; });
   return n;
 }
-function courseProgressPct(username) {
+function courseProgressPct(username, courseId) {
   let total = 0, done = 0;
   COURSE.modules.forEach((m, mi) => {
     m.lessons.forEach((l, li) => {
       total++;
-      if (isLessonDone(username, mi, li)) done++;
+      if (isLessonDone(username, courseId, mi, li)) done++;
     });
   });
   return total ? Math.round(done / total * 100) : 0;
 }
-function courseCompleted(username) {
+function courseCompleted(username, courseId) {
   for (let mi = 0; mi < COURSE.modules.length; mi++) {
-    if (!getQuizResult(username, mi)?.passed) return false;
+    if (!getQuizResult(username, courseId, mi)?.passed) return false;
     for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
-      if (!isLessonDone(username, mi, li)) return false;
+      if (!isLessonDone(username, courseId, mi, li)) return false;
     }
   }
   return true;
-}
-
-/* ---------- Certificate generation ---------- */
-function generateCertificate(username) {
-  if (!username) return null;
-  const certs = getCerts(username);
-  let cert = certs.find(c => c.courseId === COURSE.id);
-  if (cert) return cert;
-  
-  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
-  
-  // Find user's full name from session data
-  let studentName = username;
-  if(currentSessionUser && currentSessionUser.fullName) {
-    studentName = currentSessionUser.fullName;
-  }
-
-  cert = {
-    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
-    hash: hash,
-    courseId: COURSE.id,
-    courseTitle: COURSE.title,
-    studentName: studentName,
-    date: nowISO(),
-    issuedBy: 'Living Oracles Global Institute'
-  };
-  addCert(username, cert);
-  return cert;
 }
 
 /* ============================================================
@@ -863,7 +877,8 @@ const App = (() => {
     if (error) {
       err.textContent = error.message;
     } else {
-      currentSessionUser = null; // Reset cache so it fetches the fresh user
+      currentSessionUser = null; 
+      await loadUserData();
       showDashboard();
     }
   }
@@ -917,8 +932,8 @@ const App = (() => {
       err.textContent = error.message;
     } else {
       currentSessionUser = null;
-      // Auto-enrol in the first course for demo purposes
-      enrol(email, COURSE.id);
+      await enrol(email, COURSE.id);
+      await loadUserData();
       showDashboard();
     }
   }
@@ -926,6 +941,9 @@ const App = (() => {
   async function logout() {
     await supabaseClient.auth.signOut();
     currentSessionUser = null;
+    cachedProgress = { lessons: {}, quizzes: {} };
+    cachedEnrolments = [];
+    cachedCerts = [];
     showLanding();
   }
 
@@ -936,11 +954,11 @@ const App = (() => {
     
     state.user = u;
     state.screen = 'dashboard';
-    const username = u.username; // This is the email
-    const pct = courseProgressPct(username);
-    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
+    const username = u.username; 
+    const pct = courseProgressPct(username, COURSE.id);
+    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, COURSE.id, mi));
     const passedModules = quizzes.filter(q => q?.passed).length;
-    const completed = courseCompleted(username);
+    const completed = courseCompleted(username, COURSE.id);
     const certs = getCerts(username);
     const cert = certs.find(c => c.courseId === COURSE.id);
 
@@ -988,10 +1006,10 @@ const App = (() => {
               <thead><tr style="background: var(--soft); text-align: left;"><th style="padding: 10px;">Module</th><th style="padding: 10px;">Lessons</th><th style="padding: 10px;">Assessment</th><th style="padding: 10px;">Status</th></tr></thead>
               <tbody>
                 ${COURSE.modules.map((m, mi) => {
-                  const done = moduleLessonsDone(username, mi);
+                  const done = moduleLessonsDone(username, COURSE.id, mi);
                   const total = m.lessons.length;
-                  const qr = getQuizResult(username, mi);
-                  const locked = isModuleLocked(username, mi);
+                  const qr = getQuizResult(username, COURSE.id, mi);
+                  const locked = isModuleLocked(username, COURSE.id, mi);
                   let statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Locked</span>';
                   if (!locked) {
                     if (qr?.passed) statusBadge = '<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Passed</span>';
@@ -1058,7 +1076,7 @@ const App = (() => {
   async function enrolAndOpen() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
-    enrol(u.username, COURSE.id);
+    await enrol(u.username, COURSE.id);
     openCourse(0, 0);
   }
 
@@ -1067,7 +1085,7 @@ const App = (() => {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     if (!getEnrolments(u.username).includes(COURSE.id)) {
-      enrolAndOpen(); return;
+      await enrolAndOpen(); return;
     }
     state.screen = 'course';
     state.activeCourseModule = mi;
@@ -1085,7 +1103,7 @@ const App = (() => {
     const li = state.activeCourseLesson;
     const mod = COURSE.modules[mi];
     if (!mod) { showDashboard(); return; }
-    if (isModuleLocked(username, mi)) {
+    if (isModuleLocked(username, COURSE.id, mi)) {
       alert('This module is locked. Pass the previous module assessment to unlock it.');
       openCourse(Math.max(0, mi-1), 0);
       return;
@@ -1094,7 +1112,7 @@ const App = (() => {
     if (!lesson) { openCourse(mi, 0); return; }
     if (state.activeAssessment) { renderAssessmentScreen(); return; }
 
-    const pct = courseProgressPct(username);
+    const pct = courseProgressPct(username, COURSE.id);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="inner" style="padding:24px 0 48px;">
@@ -1117,14 +1135,14 @@ const App = (() => {
             </div>
             <div class="modules">
               ${COURSE.modules.map((m, i) => {
-                const locked = isModuleLocked(username, i);
+                const locked = isModuleLocked(username, COURSE.id, i);
                 return `
                   <button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}"
                     onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse(${i},0)`}">
                     ${i+1}. ${esc(m.title)} ${locked?'🔒':''}
                   </button>
                   ${i===mi ? m.lessons.map((l, j) => {
-                    const done = isLessonDone(username, i, j);
+                    const done = isLessonDone(username, COURSE.id, i, j);
                     return `
                       <button class="lesson-link ${j===li?'active':''} ${done?'done':''}"
                         onclick="App.openCourse(${i},${j})">
@@ -1144,11 +1162,11 @@ const App = (() => {
               <div class="actions">
                 <button class="secondary btn-secondary" onclick="App.prevLesson()">← Previous</button>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>
+                  <button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, COURSE.id, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>
                   <button class="secondary btn-secondary" onclick="App.nextLesson()">Next →</button>
                 </div>
               </div>
-              <div class="notice">Demo LMS: accounts are secured by Supabase. Progress is saved locally.</div>
+              <div class="notice">Demo LMS: accounts are secured by Supabase. Progress is saved to the cloud.</div>
             </article>
           </section>
         </div>
@@ -1166,9 +1184,9 @@ const App = (() => {
     const mod = COURSE.modules[mi];
     const lesson = mod.lessons[state.activeCourseLesson];
     const quiz = lesson.quiz || [];
-    const result = getQuizResult(username, mi);
+    const result = getQuizResult(username, COURSE.id, mi);
     const passed = !!result?.passed;
-    const pct = courseProgressPct(username);
+    const pct = courseProgressPct(username, COURSE.id);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="inner" style="padding:24px 0 48px;">
@@ -1179,7 +1197,7 @@ const App = (() => {
         </div>
         <div class="course-layout">
           <aside class="module-side"><div class="sidehead"><h2>Course content</h2><div style="font-size:12px;color:var(--muted);">${pct}% completed</div><div class="progress-bar"><span style="width:${pct}%;"></span></div></div>
-            <div class="modules">${COURSE.modules.map((m,i)=>{const locked=isModuleLocked(username,i);return `<button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.openCourse(${i},0)`}">${i+1}. ${esc(m.title)} ${locked?'🔒':''}</button>${i===mi?`<button class="lesson-link" onclick="App.openCourse(${i},0)">${esc(m.lessons[0].title)}</button><button class="lesson-link active">Module ${i+1} assessment</button>`:''}`}).join('')}</div>
+            <div class="modules">${COURSE.modules.map((m,i)=>{const locked=isModuleLocked(username,COURSE.id,i);return `<button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.openCourse(${i},0)`}">${i+1}. ${esc(m.title)} ${locked?'🔒':''}</button>${i===mi?`<button class="lesson-link" onclick="App.openCourse(${i},0)">${esc(m.lessons[0].title)}</button><button class="lesson-link active">Module ${i+1} assessment</button>`:''}`}).join('')}</div>
           </aside>
           <section class="content"><article class="card lesson-card">
             <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · Assessment</div>
@@ -1203,7 +1221,7 @@ const App = (() => {
     const u = await currentUser();
     if (!u) return;
     const mi = state.activeCourseModule;
-    const result = getQuizResult(u.username, mi);
+    const result = getQuizResult(u.username, COURSE.id, mi);
     if (!result || !result.passed) { alert('Pass this assessment with at least ' + COURSE.passMark + '% before continuing.'); return; }
     if (mi + 1 >= COURSE.modules.length) { showDashboard(); return; }
     state.activeCourseModule = mi + 1;
@@ -1219,7 +1237,7 @@ const App = (() => {
   function renderQuizUI(mi, quiz) {
     const u = state.user;
     const username = u.username;
-    const result = getQuizResult(username, mi);
+    const result = getQuizResult(username, COURSE.id, mi);
     const passed = result?.passed;
     return `
       <div id="quizWrap" style="margin-top:32px;border-top:2px solid var(--line);padding-top:24px;">
@@ -1262,10 +1280,6 @@ const App = (() => {
     }
   }
 
-  function attachQuizEvents(mi, quiz) {
-    // Optional pre-fill
-  }
-
   async function submitQuiz(mi) {
     const u = await currentUser();
     if (!u) return;
@@ -1293,7 +1307,7 @@ const App = (() => {
       document.getElementById('quizResult_' + mi).textContent = 'Please answer all questions before submitting.';
       return;
     }
-    saveQuizResult(u.username, mi, score, quiz.length);
+    await saveQuizResult(u.username, COURSE.id, mi, score, quiz.length, COURSE.passMark);
     const pct = Math.round(score / quiz.length * 100);
     const passed = pct >= COURSE.passMark;
     const resEl = document.getElementById('quizResult_' + mi);
@@ -1303,10 +1317,7 @@ const App = (() => {
     }
     
     if (passed) {
-      markLessonDone(u.username, mi, 0);
-      if (courseCompleted(u.username)) {
-        generateCertificate(u.username);
-      }
+      await markLessonDone(u.username, COURSE.id, mi, 0);
       setTimeout(() => { renderCourse(); }, 900);
     }
   }
@@ -1315,8 +1326,7 @@ const App = (() => {
     const u = await currentUser();
     if (!u) return;
     const mi = state.activeCourseModule, li = state.activeCourseLesson;
-    markLessonDone(u.username, mi, li);
-    if (courseCompleted(u.username)) generateCertificate(u.username);
+    await markLessonDone(u.username, COURSE.id, mi, li);
     renderCourse();
   }
 
@@ -1325,7 +1335,7 @@ const App = (() => {
     if (li < 0) {
       mi--;
       if (mi < 0) { showDashboard(); return; }
-      if (isModuleLocked(state.user.username, mi)) { alertLocked(mi); return; }
+      if (isModuleLocked(state.user.username, COURSE.id, mi)) { alertLocked(mi); return; }
       li = COURSE.modules[mi].lessons.length - 1;
     }
     openCourse(mi, li);
@@ -1335,7 +1345,6 @@ const App = (() => {
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson + 1;
     if (li < COURSE.modules[mi].lessons.length) { openCourse(mi, li); return; }
-    // The assessment is a separate learning step after the module lesson.
     state.activeAssessment = true;
     renderCourse();
   }
@@ -1346,9 +1355,7 @@ const App = (() => {
     if (!u) { showLogin(); return; }
     
     state.screen = 'certificate';
-    const completed = courseCompleted(u.username);
-    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
-    if (completed && !cert) cert = generateCertificate(u.username);
+    const cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
     
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1374,17 +1381,13 @@ const App = (() => {
               <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
             </div>
             
-            <!-- Added a wrapper to scale the certificate for mobile/smaller screens -->
             <div class="cert-display-area">
               <div class="cert-scaler" id="certScaler">
                 <div class="cert-wrapper" id="printableCert">
                   
-                  <!-- Background Watermark -->
                   <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
 
-                  <!-- Left Side: Main Content -->
                   <div class="cert-main">
-                    
                     <div class="cert-header">
                       <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
                       <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
@@ -1416,13 +1419,9 @@ const App = (() => {
                     </div>
                   </div>
                   
-                  <!-- Right Side: Sidebar -->
                   <div class="cert-sidebar">
-                    
                     <div class="cert-partner-box">LOGI</div>
-                    
                     <div class="cert-sidebar-pattern"></div>
-                    
                     <div class="cert-verify-area">
                       <div class="cert-verify-text">Scan to verify<br>this certificate</div>
                       <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
@@ -1431,7 +1430,6 @@ const App = (() => {
                         ${esc(cert.hash)}
                       </div>
                     </div>
-                    
                     <div class="cert-bottom-block"></div>
                   </div>
                 </div>
@@ -1450,25 +1448,23 @@ const App = (() => {
     `;
     renderNav();
     
-    // Auto scale the certificate to fit the screen width
     if (cert) {
       scaleCertificate();
       window.addEventListener('resize', scaleCertificate);
     }
   }
 
-  // Function to scale certificate down on smaller screens while keeping it full-size for printing
   function scaleCertificate() {
     const scaler = document.getElementById('certScaler');
     if (!scaler) return;
     const container = scaler.parentElement;
     const containerWidth = container.clientWidth;
-    const certWidth = 1000; // Original certificate width
+    const certWidth = 1000;
 
     if (containerWidth < certWidth) {
       const scale = containerWidth / certWidth;
       scaler.style.transform = `scale(${scale})`;
-      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`; // Prevents large blank space below
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
     } else {
       scaler.style.transform = 'none';
       scaler.style.marginBottom = '0';
@@ -1485,7 +1481,6 @@ const App = (() => {
     btn.innerHTML = '⏳ Generating...';
     btn.disabled = true;
 
-    // Temporarily remove the scale so html2canvas captures the full 1000x707 size
     const originalTransform = scaler.style.transform;
     const originalMargin = scaler.style.marginBottom;
     scaler.style.transform = 'none';
@@ -1517,7 +1512,6 @@ const App = (() => {
       link.href = imgData;
       link.click();
       
-      // Restore the scale immediately after generating
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
       
@@ -1527,7 +1521,6 @@ const App = (() => {
       console.error('Error generating image:', err);
       alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
       
-      // Restore scale on error
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
       
@@ -1646,8 +1639,12 @@ const App = (() => {
   async function init() {
     await renderNav();
     const u = await currentUser();
-    if (u) showDashboard();
-    else showLanding();
+    if (u) {
+      await loadUserData();
+      showDashboard();
+    } else {
+      showLanding();
+    }
   }
 
   return {
