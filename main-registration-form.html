@@ -5,7 +5,11 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="Register to study at Living Oracles Global Institute. Complete our online registration form to begin your application." name="description"/>
 <title>Student Registration | LOGI – Living Oracles Global Institute</title>
+
+<!-- FAVICON -->
 <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png"/>
+<link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png"/>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
 <style>
 :root{--pink:#ff4b93;--pink-dark:#e93680;--lav:#f3f0fa;--ink:#34343b;--muted:#777780;--line:#e9e8ef;--white:#fff}
@@ -57,24 +61,25 @@ input[type=file]:hover{border-color:var(--pink)}
 .btn:disabled{background:#c9c9d2;cursor:not-allowed}
 .btn i{margin-right:8px}
 
-/* ALERTS - now visible above submit */
+/* ALERTS */
 #alert-box{display:none;margin:16px 0 4px;padding:12px 15px;border-radius:4px;font-size:13px;font-weight:600;text-align:center}
 #alert-box.loading{display:block;background:#fff4d6;color:#8a6100}
 #alert-box.success{display:block;background:#d9f7e3;color:#0a6b34}
 #alert-box.error{display:block;background:#ffe0e6;color:#a0122f}
 
-/* THANK YOU */
-.thank{display:none;text-align:center;padding:34px 20px}
-.thank.active{display:block;animation:fade .6s ease}
-.thank .tick{font-size:64px;color:#2bb673;margin-bottom:10px}
-.thank h2{font-size:28px;color:var(--pink);margin:0 0 10px}
-.thank .sub{max-width:560px;margin:0 auto 20px;color:#555;font-size:14px;line-height:1.7}
-.thank .box{background:#fbf7fa;border-left:4px solid var(--pink);padding:18px 22px;border-radius:6px;max-width:560px;margin:14px auto;text-align:left}
-.thank .box h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--pink)}
-.thank .box p{margin:8px 0;font-size:13px;color:#555;line-height:1.6}
-.thank .box i{color:var(--pink);width:22px;text-align:center;margin-right:6px}
-.thank .box a{color:var(--pink);font-weight:600}
-.thank .btn{width:auto;padding:12px 32px;margin-top:8px}
+/* THANK YOU PAGE STYLES */
+.thank{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background-color:#f4f5f8;z-index:9999;overflow-y:auto;padding:40px 20px;font-family:Arial,Helvetica,sans-serif;}
+.thank.active{display:flex;align-items:flex-start;justify-content:center;}
+.thank-card{background:#fff;border-radius:8px;box-shadow:0 4px 25px rgba(0,0,0,0.06);max-width:680px;width:100%;padding:50px 40px;text-align:center;margin:auto;animation:fade 0.6s ease;}
+.thank-svg{width:180px;height:auto;margin:0 auto 20px auto;display:block;}
+.thank h2.thank-title{color:var(--pink);font-size:36px;font-weight:800;margin:0 0 10px 0;}
+.thank h3.thank-subtitle{color:#2d2d2d;font-size:24px;font-weight:600;margin:0 0 30px 0;}
+.thank .box{background:#fafafa;border:1px solid var(--line);border-left:4px solid var(--pink);padding:25px 30px;border-radius:6px;text-align:left;margin-bottom:30px;}
+.thank .box h3{margin:0 0 15px;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--pink);border-bottom:1px solid #eee;padding-bottom:10px;}
+.thank .box p{margin:12px 0;font-size:14px;color:#555;line-height:1.6;}
+.thank .box i{color:var(--pink);width:24px;text-align:center;margin-right:8px;}
+.thank .box a{color:var(--pink);font-weight:600;text-decoration:none;}
+.thank .box a:hover{text-decoration:underline;}
 
 @keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
@@ -88,6 +93,10 @@ input[type=file]:hover{border-color:var(--pink)}
 .hero{padding:22px 5%}.hero-mark{font-size:48px;letter-spacing:-4px}.hero p{font-size:12px}
 .section-head h2{font-size:17px}.panel{padding:16px 14px 20px}
 .row{flex-direction:column;gap:0}.field{margin-bottom:12px}
+.thank-card{padding:30px 20px;}
+.thank h2.thank-title{font-size:28px;}
+.thank h3.thank-subtitle{font-size:20px;}
+.thank .box{padding:18px 20px;}
 }
 </style>
 </head>
@@ -115,7 +124,7 @@ input[type=file]:hover{border-color:var(--pink)}
   </div>
 </section>
 
-<!-- FORM -->
+<!-- MAIN FORM -->
 <main class="inner" id="registration">
   <section class="section">
     <div class="section-head">
@@ -123,9 +132,7 @@ input[type=file]:hover{border-color:var(--pink)}
       <span style="font-size:12px;color:#999;">All fields marked <span class="req">*</span> are required</span>
     </div>
 
-    <!-- FORM -->
     <form id="registrationPipelineForm" class="panel">
-
       <!-- PERSONAL -->
       <div class="section-head" style="margin-top:0;"><h2 style="font-size:15px;">Personal Information</h2></div>
 
@@ -213,8 +220,8 @@ input[type=file]:hover{border-color:var(--pink)}
       <div class="section-head"><h2 style="font-size:15px;">Verification Documentation</h2></div>
 
       <div class="field">
-        <label>National ID / Passport / School ID / Voter's ID / Driver's License <span class="req">*</span></label>
-        <input type="file" id="nationalIdFile" accept=".pdf,.png,.jpg,.jpeg" required>
+        <label>National ID / Passport / School ID / Voter's ID / Driver's License <span style="color:#999;font-weight:400;text-transform:none;">(optional)</span></label>
+        <input type="file" id="nationalIdFile" accept=".pdf,.png,.jpg,.jpeg">
         <div class="hint">Upload a clear photo or scan of any valid identification.</div>
       </div>
 
@@ -250,37 +257,50 @@ input[type=file]:hover{border-color:var(--pink)}
         <label for="termsAccepted">I accept the institutional terms and conditions and certify that all declarations and file uploads are accurate. <span class="req">*</span></label>
       </div>
 
-      <!-- ALERT (visible, above submit) -->
+      <!-- ALERT -->
       <div id="alert-box"></div>
 
       <button type="submit" class="btn" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Application</button>
-
     </form>
 
-    <!-- THANK YOU -->
+    <!-- THANK YOU PAGE -->
     <div class="thank" id="thankYouPage">
-      <div class="tick"><i class="fas fa-check-circle"></i></div>
-      <h2>Welcome to the LOGI Family!</h2>
-      <p class="sub">Your application has been successfully submitted. We are excited to embark on this academic journey with you at <strong>Living Oracles Global Institute</strong>.</p>
+      <div class="thank-card">
+        
+        <!-- Embedded SVG Illustration -->
+        <svg class="thank-svg" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="70" y="30" width="60" height="45" rx="4" fill="#f3f0fa"/>
+          <rect x="80" y="40" width="40" height="4" rx="2" fill="#d8d8e0"/>
+          <rect x="80" y="48" width="25" height="4" rx="2" fill="#d8d8e0"/>
+          <circle cx="100" cy="105" r="32" fill="#ffe9f1"/>
+          <path d="M85 105 L95 115 L120 90" fill="none" stroke="#ff4b93" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="100" cy="105" r="38" fill="none" stroke="#ff4b93" stroke-width="3" stroke-dasharray="10 10" opacity="0.5"/>
+          <path d="M50 60 L60 50 M150 60 L140 50" stroke="#f4c52d" stroke-width="4" stroke-linecap="round"/>
+        </svg>
 
-      <div class="box">
-        <h3><i class="fas fa-info-circle"></i> What to Expect</h3>
-        <p><i class="fas fa-envelope"></i><strong>Confirmation Email:</strong> A detailed confirmation has been sent to your registered email address. Please check your inbox and spam folder.</p>
-        <p><i class="fas fa-file-alt"></i><strong>Application Review:</strong> Our admission committee will carefully review your application and supporting documents.</p>
-        <p><i class="fas fa-clock"></i><strong>Processing Timeline:</strong> You can expect to hear from us within 3–5 business days.</p>
-        <p><i class="fas fa-phone-alt"></i><strong>Need Assistance?</strong> Contact <a href="mailto:info@logi.education">info@logi.education</a> or call +233 241 456 581.</p>
+        <h2 class="thank-title">Thank you !</h2>
+        <h3 class="thank-subtitle">Your application has been successfully submitted</h3>
+
+        <div class="box">
+          <h3><i class="fas fa-info-circle"></i> What to Expect</h3>
+          <p><i class="fas fa-clock"></i><strong>Processing Timeline:</strong> You can expect to hear from us within 3–5 business days.</p>
+          <p><i class="fas fa-phone-alt"></i><strong>Need Assistance?</strong> Contact <a href="mailto:info@logi.education">info@logi.education</a> or call +233 241 456 581.</p>
+        </div>
+
+        <p style="color: #777; font-size: 15px; margin-bottom: 25px;">We are excited to embark on this academic journey with you.</p>
+        <button class="btn" onclick="window.location.href='https://www.logi.education'" style="width:auto; padding: 14px 40px; font-size: 15px;">Return to Homepage</button>
       </div>
-
-      <button class="btn" onclick="window.location.reload()"><i class="fas fa-home"></i> Return to Registration</button>
     </div>
 
   </section>
 </main>
 
+<!-- FOOTER -->
 <footer class="footer">Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong></footer>
 
-<!-- PROGRAM MATRIX -->
+<!-- JAVASCRIPT -->
 <script>
+// Program Matrix
 const programMatrix = {
   "School of Business & Leadership": [
     "Certificate in Business Administration (CBA)",
@@ -309,6 +329,7 @@ const programMatrix = {
   ]
 };
 
+// Update Program Dropdown
 function updateProgramsDropdown(){
   const area = document.getElementById('programArea').value;
   const prog = document.getElementById('program');
@@ -323,6 +344,7 @@ function updateProgramsDropdown(){
   }
 }
 
+// File Processing
 function processFileAsync(input){
   return new Promise(resolve=>{
     const f=input.files[0];
@@ -333,12 +355,14 @@ function processFileAsync(input){
   });
 }
 
+// Show Thank You Page
 function showThankYou(){
   document.getElementById('registrationPipelineForm').style.display='none';
   document.getElementById('thankYouPage').classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+// Form Submit Logic
 document.addEventListener('DOMContentLoaded',function(){
   const form=document.getElementById('registrationPipelineForm');
   const btn=document.getElementById('submitBtn');
@@ -357,7 +381,7 @@ document.addEventListener('DOMContentLoaded',function(){
       const el=document.getElementById(id);
       if(!el.value.trim()) missing.push(el.previousElementSibling?.textContent?.replace('*','').trim() || id);
     });
-    if(!document.getElementById('nationalIdFile').files[0]) missing.push('National ID file');
+    
     if(!document.getElementById('certFile').files[0]) missing.push('Certificate');
     if(!document.getElementById('termsAccepted').checked) missing.push('Terms & Conditions');
 
