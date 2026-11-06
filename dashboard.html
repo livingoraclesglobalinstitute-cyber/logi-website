@@ -38,7 +38,7 @@
     a{color:inherit;text-decoration:none}
     button,input{font:inherit}
 
-    /* ---------- Top bar (mirrors short-courses topbar) ---------- */
+    /* ---------- Top bar ---------- */
     .topbar{
       height:64px;
       background:#fff;
@@ -482,7 +482,7 @@
     .notice.error{color:#9d2929;background:#fff5f8;border-color:#f6c7da}
     .notice.info{background:#fff6fa;border-color:#ffd1e3;color:#a83c69}
 
-    /* ---------- Login ---------- */
+    /* ---------- Login / Register Forms ---------- */
     .login-shell{
       min-height:calc(100vh - 64px);
       display:grid;
@@ -514,6 +514,22 @@
       box-shadow:0 0 0 3px rgba(255,75,147,.15);
     }
     .login-card .btn{width:100%;padding:13px}
+    
+    .auth-toggle {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .auth-toggle a {
+      color: var(--pink);
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .auth-toggle a:hover {
+      text-decoration: underline;
+    }
 
     /* ---------- Footer ---------- */
     .footer{
@@ -615,6 +631,8 @@ function showMessage(message, type='info') {
   const el = document.getElementById('messageBox');
   if (el) { el.className = 'notice ' + type; el.textContent = message; el.style.display = 'block'; }
 }
+
+// SHOW LOGIN
 function showLogin(message='') {
   document.getElementById('logoutBtn').style.display='none';
   document.getElementById('userEmail').textContent='';
@@ -625,7 +643,12 @@ function showLogin(message='') {
     <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="username" required></div>
     <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
     <button class="btn" type="submit">Sign in to my dashboard</button>
+    
+    <div class="auth-toggle">
+      Don't have an account? <a onclick="showRegister()">Create one now</a>
+    </div>
   </form></div>`;
+  
   document.getElementById('loginForm').addEventListener('submit', async e => {
     e.preventDefault();
     const button=e.currentTarget.querySelector('button'); button.disabled=true; button.textContent='Signing in…';
@@ -634,6 +657,68 @@ function showLogin(message='') {
     await loadDashboard();
   });
 }
+
+// SHOW REGISTER
+function showRegister() {
+  document.getElementById('logoutBtn').style.display='none';
+  document.getElementById('userEmail').textContent='';
+  app.innerHTML = `<div class="login-shell"><form class="login-card" id="registerForm">
+    <div class="eyebrow">Living Oracles Global Institute</div><h1>Create an account</h1>
+    <p>Join LOGI to access free courses, track your progress, and earn certificates.</p>
+    <div id="messageBox" class="notice error" style="display:none"></div>
+    
+    <div class="field"><label for="regName">Full Name</label><input id="regName" type="text" autocomplete="name" required></div>
+    <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="regPassword">Password (min 8 characters)</label><input id="regPassword" type="password" autocomplete="new-password" required></div>
+    
+    <button class="btn" type="submit">Create Account</button>
+    
+    <div class="auth-toggle">
+      Already have an account? <a onclick="showLogin()">Sign in here</a>
+    </div>
+  </form></div>`;
+
+  document.getElementById('registerForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    
+    if (password.length < 8) {
+      showMessage('Password must be at least 8 characters.', 'error');
+      return;
+    }
+
+    const button = e.currentTarget.querySelector('button'); 
+    button.disabled = true; 
+    button.textContent = 'Creating account…';
+
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: name } }
+    });
+
+    if (error) {
+      showMessage(error.message, 'error');
+      button.disabled = false;
+      button.textContent = 'Create Account';
+      return;
+    }
+
+    // Auto-login if email confirmation is disabled in Supabase
+    if (data.session) {
+      await loadDashboard();
+    } else {
+      // If email confirmation is required
+      showMessage('Account created! Please check your email to verify your account, then sign in.', 'info');
+      button.disabled = false;
+      button.textContent = 'Create Account';
+    }
+  });
+}
+
+
 function progressForCourse(rows, courseId, totalLessons, localProgress={}) {
   const courseRows=rows.filter(r=>r.course_id===courseId);
   const completedKeys=new Set(courseRows.filter(r=>r.completed===true).map(r=>`${r.module_index}-${r.lesson_index}`));
@@ -658,7 +743,6 @@ function renderCourse(course, progress, certificate) {
   const progressText=percent===null ? `${progress.completed} lesson${progress.completed===1?'':'s'} completed` : `${percent}% complete`;
   const certText=certificate ? `Certificate issued${certificate.issue_date?' · '+new Date(certificate.issue_date).toLocaleDateString():''}` : 'Certificate not yet issued';
   
-  // Use LMS URL for enrolled courses
   const courseUrl=course.course_url || '';
   
   return `<article class="course">
@@ -673,7 +757,6 @@ function renderCourse(course, progress, certificate) {
   </article>`;
 }
 
-// EXACT replica of the short-course catalogue card from the screenshot
 function renderCatalogueCourse(course) {
   const url = course.catalogue_url || course.course_url || '';
   const image = course.image || 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80';
@@ -693,11 +776,9 @@ function renderCatalogueCourse(course) {
   </article>`;
 }
 
-// Groups courses by category and returns HTML accordions
 function renderGroupedCatalogue(courses) {
   if (!courses.length) return '';
 
-  // Group by category
   const grouped = courses.reduce((acc, course) => {
     const cat = course.category || 'Other Courses';
     if (!acc[cat]) acc[cat] = [];
@@ -705,7 +786,6 @@ function renderGroupedCatalogue(courses) {
     return acc;
   }, {});
 
-  // Sort categories alphabetically
   const sortedCats = Object.keys(grouped).sort();
 
   return sortedCats.map(cat => `
@@ -737,20 +817,17 @@ async function loadDashboard() {
     supabaseClient.from('courses').select('id,title,description,category,course_url,total_lessons,sort_order').eq('published',true).order('sort_order',{ascending:true}).order('title',{ascending:true})
   ]);
 
-  // Only show warning if critical user data fails, not just the catalogue
   const criticalError = enrolmentsResult.error || progressResult.error || certificatesResult.error;
   
   const enrolments=enrolmentsResult.data||[];
   let progressRows=progressResult.data||[];
   const certificates=certificatesResult.data||[];
   
-  // Use Supabase catalogue if successful and not empty, otherwise fallback
   let catalogue = coursesResult.data || [];
   if (coursesResult.error || catalogue.length === 0) {
     catalogue = FALLBACK_COURSES;
   }
 
-  // One-time compatibility recovery for this student's existing browser-saved progress.
   const automationLocal=localCourseProgress['ind-auto-101'];
   if(!progressResult.error && automationLocal && typeof automationLocal==='object' && !progressRows.some(row=>row.course_id==='ind-auto-101')){
     const rowsByKey=new Map();
