@@ -28,36 +28,21 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font: 15px/1.65 Arial, sans-serif;
+      font: 16px/1.6 Arial, sans-serif;
       color: var(--ink);
       background: #fbfafc;
     }
     a { text-decoration: none; color: inherit; }
-    .inner { width: min(1160px, 92%); margin: auto; }
-    .top {
-      height: 66px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: white;
-      z-index: 10;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
-    }
-    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
-    .brand span { color: var(--p); }
-    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    button { font: inherit; border: 0; cursor: pointer; }
+    
+    /* ---------- Global Buttons ---------- */
     .btn {
       background: var(--p);
       color: white;
-      border: 0;
       border-radius: 24px;
-      padding: 10px 18px;
+      padding: 12px 24px;
       font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       transition: background 0.15s;
       display: inline-flex;
       align-items: center;
@@ -69,32 +54,48 @@
       color: var(--pd);
       border: 1.5px solid var(--p);
       border-radius: 24px;
-      padding: 9px 16px;
+      padding: 10px 20px;
       font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       transition: background 0.15s;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
     .btn-outline:hover { background: #fff0f6; }
-    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-sm { padding: 8px 16px; font-size: 13px; }
     .btn-secondary {
       background: #f0edf3;
       color: var(--ink);
-      border: 0;
       border-radius: 24px;
-      padding: 9px 15px;
+      padding: 10px 20px;
       font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
     .btn-secondary:hover { background: #e5e1ea; }
 
+    /* ---------- Landing Page Top Nav ---------- */
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 10;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .inner { width: min(1160px, 92%); margin: auto; }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand { font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+    /* ---------- Auth Forms ---------- */
     .auth-wrap {
       display: flex;
       justify-content: center;
@@ -112,16 +113,16 @@
       box-shadow: 0 8px 28px rgba(0,0,0,0.05);
     }
     .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
-    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 15px; color: var(--muted); }
     .field { margin-bottom: 14px; }
-    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
     .field input, .field select, .field textarea {
       width: 100%;
-      padding: 10px 12px;
+      padding: 12px;
       border: 1px solid var(--line);
       border-radius: 6px;
       font: inherit;
-      font-size: 14px;
+      font-size: 15px;
       background: white;
     }
     .field input:focus, .field select:focus, .field textarea:focus {
@@ -129,11 +130,12 @@
       outline-offset: 1px;
       border-color: transparent;
     }
-    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 15px; }
     .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
-    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+    .error-msg { color: var(--error); font-size: 14px; margin-top: 8px; min-height: 18px; }
     .error-msg a { color: var(--pd); font-weight: 600; cursor: pointer; }
 
+    /* ---------- Dashboard Layout (Landing) ---------- */
     .dash-layout {
       display: grid;
       grid-template-columns: 240px 1fr;
@@ -152,10 +154,10 @@
       border-radius: 8px;
       padding: 12px;
       margin-bottom: 10px;
-      font-size: 13px;
+      font-size: 14px;
     }
-    .sidebar .user-badge strong { display: block; font-size: 14px; }
-    .sidebar .user-badge span { color: var(--muted); font-size: 12px; }
+    .sidebar .user-badge strong { display: block; font-size: 15px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 13px; }
     .sidebar a, .sidebar button.nav-link {
       display: block;
       width: 100%;
@@ -165,7 +167,7 @@
       background: transparent;
       border: 0;
       font: inherit;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--ink);
       cursor: pointer;
@@ -181,8 +183,9 @@
       background: #fbfafc;
     }
     .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
-    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
 
+    /* ---------- Cards ---------- */
     .card {
       background: white;
       border: 1px solid var(--line);
@@ -207,21 +210,7 @@
       padding: 16px;
     }
     .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
-    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-
-    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
-    .course-tile {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .course-tile h3 { margin: 0; font-size: 17px; }
-    .course-tile .meta { font-size: 12px; color: var(--muted); }
-    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+    .stat-box .lbl { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
     .lesson-card { max-width: 900px; }
     .callout {
@@ -231,131 +220,293 @@
       margin: 18px 0;
       border-radius: 0 6px 6px 0;
     }
-    .case {
-      background: #fff8fb;
-      border: 1px solid #f4dce7;
-      padding: 16px;
-      border-radius: 6px;
-      margin: 18px 0;
-    }
     .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 15px; }
     .compare th { background: #fff3f8; }
 
     .q { border-top: 1px solid var(--line); padding: 14px 0; }
     .q label {
       display: block;
       border: 1px solid var(--line);
-      padding: 8px 12px;
+      padding: 10px 14px;
       margin: 6px 0;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
       transition: background 0.1s;
     }
     .q label:hover { background: #fafafa; }
     .q label.selected { background: #fff0f6; border-color: var(--p); }
-    .feedback { font-size: 13px; margin-top: 6px; }
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 9px;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--line);
-      padding-top: 18px;
-      margin-top: 24px;
-    }
-    .notice { font-size: 12px; color: var(--muted); margin-top: 14px; }
+    .feedback { font-size: 14px; margin-top: 6px; }
+    .notice { font-size: 13px; color: var(--muted); margin-top: 14px; }
 
-    .course-layout { display: grid; grid-template-columns: 260px 1fr; gap: 22px; align-items: start; }
-    .module-side {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      position: sticky;
-      top: 22px;
-    }
-    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
-    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
-    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
-    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
-    .module-side .modules { padding: 8px; }
-    .mod-btn {
-      width: 100%;
-      text-align: left;
-      background: white;
-      border: 0;
-      padding: 11px 9px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      color: var(--ink);
-      font-size: 13px;
-      transition: background 0.1s;
-    }
-    .mod-btn:hover { background: #fff3f8; color: var(--pd); }
-    .mod-btn.active { background: #fff0f6; color: var(--pd); }
-    .mod-btn.locked { color: #aaa; cursor: not-allowed; }
-    .lesson-link {
-      display: block;
-      width: 100%;
-      text-align: left;
-      background: white;
-      border: 0;
-      border-left: 2px solid transparent;
-      padding: 7px 12px 7px 22px;
-      font-size: 12px;
-      color: #666;
-      cursor: pointer;
-      transition: background 0.1s;
-    }
-    .lesson-link:hover { background: #fafafa; }
-    .lesson-link.active { color: var(--pd); border-color: var(--p); background: #fff8fb; }
-    .lesson-link.done:after { content: " ✓"; color: var(--success); }
-    .lesson-link.locked { color: #bbb; cursor: not-allowed; }
-
-    /* Certificate */
-    .cert-display-area {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      overflow: hidden;
-      padding: 10px 0;
-    }
-    .cert-scaler {
-      transform-origin: top center;
-      width: 1000px;
-      height: 707px;
-    }
-    .cert-wrapper {
-      background: #fafafa;
-      width: 1000px;
-      height: 707px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      position: relative;
-      overflow: hidden;
-      color: var(--ink);
-    }
-    .cert-watermark {
-      position: absolute;
-      top: 50%;
-      left: 45%;
-      transform: translate(-50%, -50%);
-      width: 550px;
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .cert-main {
-      padding: 40px 60px 30px 60px;
+    /* ============================================================
+       MOBILE-FIRST COURSE VIEWER (MATCHES SCREENSHOT)
+       ============================================================ */
+    .course-app {
       display: flex;
       flex-direction: column;
-      position: relative;
-      z-index: 2;
+      min-height: 100vh;
+      background: #f8f9fa;
     }
+
+    /* Top Bar */
+    .course-topbar {
+      height: 60px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid #e5e5e5;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .course-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 700;
+      font-size: 16px;
+      color: #333;
+    }
+    .course-topbar-left .back-btn {
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      padding: 0;
+      color: #333;
+    }
+    .course-topbar-right .menu-btn {
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      padding: 0;
+      color: #333;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Main Reading Area */
+    .course-content-area {
+      flex: 1;
+      padding: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .lesson-paper {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      line-height: 1.7;
+    }
+    .lesson-paper h1 { font-size: 24px; margin: 0 0 16px; color: #1a1a1a; }
+    .lesson-paper h3 { font-size: 20px; margin: 28px 0 12px; color: #1a1a1a; font-weight: 700; }
+    .lesson-paper p, .lesson-paper li { font-size: 16px; color: #333; }
+    .lesson-paper ul { padding-left: 20px; }
+
+    /* Bottom Action Bar */
+    .course-bottombar {
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+      border-top: 1px solid #e5e5e5;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 90;
+    }
+    .course-bottombar .nav-btn {
+      color: #777;
+      font-size: 15px;
+      font-weight: 600;
+      background: none;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .course-bottombar .nav-btn:hover { color: #333; }
+    
+    .course-bottombar .complete-btn {
+      background: var(--p);
+      color: white;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    .course-bottombar .complete-btn.done {
+      background: var(--success);
+    }
+
+    /* ============================================================
+       MENU OVERLAY (MODULES ACCORDION)
+       ============================================================ */
+    .menu-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #fff;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .menu-overlay.open {
+      transform: translateY(0);
+    }
+
+    .menu-header {
+      height: 60px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .menu-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      color: #222;
+    }
+    .menu-header .close-btn {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: #333;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .menu-progress {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .menu-progress .pct-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .menu-progress .bar-bg {
+      height: 8px;
+      background: #e5e5e5;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .menu-progress .bar-fill {
+      height: 100%;
+      background: #ff4b93;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    .menu-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 0;
+    }
+
+    /* Accordion Styles */
+    details.mod-accordion {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    details.mod-accordion summary {
+      display: flex;
+      align-items: flex-start;
+      padding: 16px 24px;
+      cursor: pointer;
+      list-style: none; /* Hide default arrow */
+      font-weight: 600;
+      font-size: 15px;
+      color: #222;
+      user-select: none;
+      gap: 12px;
+    }
+    details.mod-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+    details.mod-accordion summary .icon {
+      font-size: 18px;
+      color: #777;
+      margin-top: 2px;
+    }
+    details.mod-accordion summary .arrow {
+      margin-left: auto;
+      color: #777;
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+    details.mod-accordion[open] summary .arrow {
+      transform: rotate(180deg);
+    }
+    
+    /* Lesson Items inside Accordion */
+    .lesson-items {
+      padding: 0 24px 16px 54px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .lesson-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-align: left;
+      background: transparent;
+      border: none;
+      width: 100%;
+      font-size: 14px;
+      color: #333;
+    }
+    .lesson-item:hover {
+      background: #f5f5f5;
+    }
+    .lesson-item.active {
+      background: #f0f0f0;
+      font-weight: 600;
+    }
+    .lesson-item .icon {
+      font-size: 18px;
+      color: #888;
+    }
+    .lesson-item .meta {
+      display: flex;
+      flex-direction: column;
+    }
+    .lesson-item .meta .type {
+      font-size: 12px;
+      color: #888;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    /* ---------- Media Queries ---------- */
+    @media (max-width: 900px) {
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .main-panel { padding: 20px 16px 40px; }
+    }
+
+    /* Certificate (kept from original) */
+    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
+    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
+    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
+    .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
+    .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
     .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
     .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
     .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
@@ -383,20 +534,6 @@
     .cert-bottom-block { height: 40px; background: #c2185b; }
     .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
 
-    @media (max-width: 900px) {
-      .dash-layout { grid-template-columns: 1fr; }
-      .sidebar { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px; gap: 4px; }
-      .sidebar .user-badge { display: none; }
-      .sidebar .spacer { display: none; }
-      .main-panel { max-height: none; padding: 20px 16px 40px; }
-      .course-layout { grid-template-columns: 1fr; }
-      .module-side { position: static; }
-    }
-    @media (max-width: 500px) {
-      .auth-card { padding: 24px 18px; }
-      .main-panel h1 { font-size: 22px; }
-    }
-
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -411,7 +548,7 @@
 </head>
 <body>
 
-<header class="top">
+<header class="top" id="mainHeader">
   <div class="inner nav">
     <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
     <div class="nav-actions" id="navActions"></div>
@@ -420,7 +557,7 @@
 
 <div id="app"></div>
 
-<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+<footer class="foot" id="mainFooter" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
   <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
   Faith. Excellence. Impact.
 </footer>
@@ -431,7 +568,7 @@
    ============================================================ */
 
 const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH1TK6jfP9BdHPNZng_AJqpsjvt';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const STORE = {
@@ -854,13 +991,6 @@ function isModuleLocked(username, mi) {
   const prev = getQuizResult(username, mi - 1);
   return !prev || !prev.passed;
 }
-function moduleLessonsDone(username, mi) {
-  const mod = COURSE.modules[mi];
-  if (!mod) return 0;
-  let n = 0;
-  mod.lessons.forEach((_, li) => { if (isLessonDone(username, mi, li)) n++; });
-  return n;
-}
 function courseProgressPct(username) {
   let total = 0, done = 0;
   COURSE.modules.forEach((m, mi) => {
@@ -911,7 +1041,8 @@ const App = (() => {
     user: null,
     activeCourseModule: 0,
     activeCourseLesson: 0,
-    activeAssessment: false
+    activeAssessment: false,
+    menuOpen: false
   };
 
   async function renderNav() {
@@ -919,7 +1050,7 @@ const App = (() => {
     const u = await currentUser();
     if (u) {
       el.innerHTML = `
-        <span style="font-size:13px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <span style="font-size:14px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
         <a class="btn-outline btn-sm" href="https://www.logi.education/dashboard">Dashboard</a>
         <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
       `;
@@ -934,6 +1065,8 @@ const App = (() => {
   /* ---------- Landing ---------- */
   async function showLanding() {
     state.screen = 'landing';
+    document.getElementById('mainHeader').style.display = 'flex';
+    document.getElementById('mainFooter').style.display = 'block';
     const u = await currentUser();
     if (u) { showDashboard(); return; }
 
@@ -941,15 +1074,15 @@ const App = (() => {
     el.innerHTML = `
       <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
         <div class="inner">
-          <div style="color:var(--muted);font-size:13px;">Home / Short Courses / Introduction to Industrial Automation</div>
-          <div style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;margin-top:10px;">Free online short course · Beginner level</div>
+          <div style="color:var(--muted);font-size:14px;">Home / Short Courses / Introduction to Industrial Automation</div>
+          <div style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:13px;text-transform:uppercase;margin-top:10px;">Free online short course · Beginner level</div>
           <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Introduction to <span style="color:var(--pd)">Industrial Automation</span></h1>
           <p style="max-width:720px;color:#666;">This introductory course explores the principles and practical applications of Industrial Automation. Learners discover how sensors, actuators, programmable logic controllers (PLCs), industrial robots and monitoring systems work together to control and improve industrial processes.</p>
           <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">★★★★★</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Beginner Level</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4–5 Hours</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Online, Self-Paced</span>
+            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:14px;">★★★★★</span>
+            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:14px;">Beginner Level</span>
+            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:14px;">⏱ 4–5 Hours</span>
+            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:14px;">Online, Self-Paced</span>
           </div>
           <div style="margin-top:26px;">
             <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Register / Login to Enrol</button>
@@ -963,16 +1096,16 @@ const App = (() => {
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
           ${COURSE.modules.map((m, i) => `
             <div class="card" style="margin:0;">
-              <div style="font-size:12px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
+              <div style="font-size:13px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
               <h3 style="margin:6px 0 4px;font-size:16px;">${esc(m.title)}</h3>
-              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Knowledge checks</div>
+              <div style="font-size:13px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Knowledge checks</div>
             </div>
           `).join('')}
         </div>
 
         <div class="card" style="margin-top:22px;text-align:center;">
           <h3 style="margin:0 0 6px;">Learning this course is <span style="color:var(--pd)">absolutely free!</span></h3>
-          <p style="margin:6px 0 14px;color:var(--muted);font-size:14px;">Create your learner account or sign in to the LOGI Learning Portal to access the course.</p>
+          <p style="margin:6px 0 14px;color:var(--muted);font-size:15px;">Create your learner account or sign in to the LOGI Learning Portal to access the course.</p>
           <button class="btn" onclick="App.showRegister()" style="margin-right:8px;">Create Your Learning Account</button>
           <button class="btn-outline" onclick="App.showLogin()">Continue to LOGI Learning Portal</button>
         </div>
@@ -983,6 +1116,8 @@ const App = (() => {
   /* ---------- Auth: login ---------- */
   function showLogin() {
     state.screen = 'login';
+    document.getElementById('mainHeader').style.display = 'flex';
+    document.getElementById('mainFooter').style.display = 'block';
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="auth-wrap">
@@ -1018,6 +1153,8 @@ const App = (() => {
   /* ---------- Auth: register (smart — detects existing emails) ---------- */
   function showRegister() {
     state.screen = 'register';
+    document.getElementById('mainHeader').style.display = 'flex';
+    document.getElementById('mainFooter').style.display = 'block';
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="auth-wrap">
@@ -1031,7 +1168,7 @@ const App = (() => {
           <div class="error-msg" id="regError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
           <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5;">
+          <div style="font-size:13px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5;">
             Already have a LOGI account from another course?<br>
             <a onclick="App.showLogin()" style="color:var(--pd);font-weight:600;cursor:pointer;">Log in to enrol in this course</a>
           </div>
@@ -1134,6 +1271,9 @@ const App = (() => {
     await loadStudentData(u);
     state.user = u;
     state.screen = 'dashboard';
+    document.getElementById('mainHeader').style.display = 'flex';
+    document.getElementById('mainFooter').style.display = 'block';
+    
     const username = u.username;
     if (!getEnrolments(username).includes(COURSE.id)) enrol(username, COURSE.id);
 
@@ -1173,17 +1313,17 @@ const App = (() => {
 
           <div class="card">
             <h2>${esc(COURSE.title)}</h2>
-            <p style="font-size:13px;color:var(--muted);margin-top:-4px;">${esc(COURSE.desc)}</p>
+            <p style="font-size:14px;color:var(--muted);margin-top:-4px;">${esc(COURSE.desc)}</p>
             <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-              <span style="font-size:13px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
+              <span style="font-size:14px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
               <button class="btn" onclick="App.openCourse(${state.activeCourseModule||0},${state.activeCourseLesson||0})">${pct===0?'Start course':'Continue learning'}</button>
             </div>
           </div>
 
           <div class="card">
             <h2>Module progress</h2>
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
               <thead><tr style="background: var(--soft); text-align: left;"><th style="padding: 10px;">Module</th><th style="padding: 10px;">Lessons</th><th style="padding: 10px;">Assessment</th><th style="padding: 10px;">Status</th></tr></thead>
               <tbody>
                 ${COURSE.modules.map((m, mi) => {
@@ -1191,11 +1331,11 @@ const App = (() => {
                   const total = m.lessons.length;
                   const qr = getQuizResult(username, mi);
                   const locked = isModuleLocked(username, mi);
-                  let statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Locked</span>';
+                  let statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 12px; font-weight: 700;">Locked</span>';
                   if (!locked) {
-                    if (qr?.passed) statusBadge = '<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Passed</span>';
-                    else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Retake needed</span>';
-                    else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">In progress</span>';
+                    if (qr?.passed) statusBadge = '<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 9px; border-radius: 12px; font-size: 12px; font-weight: 700;">Passed</span>';
+                    else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 12px; font-weight: 700;">Retake needed</span>';
+                    else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 12px; font-weight: 700;">In progress</span>';
                   }
                   return `<tr style="border-bottom: 1px solid var(--line);">
                     <td style="padding: 10px;"><b>${mi+1}. ${esc(m.title)}</b></td>
@@ -1213,7 +1353,7 @@ const App = (() => {
     renderNav();
   }
 
-  /* ---------- Course viewer ---------- */
+  /* ---------- Course Viewer ---------- */
   async function openCourse(mi, li) {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
@@ -1222,12 +1362,18 @@ const App = (() => {
     state.activeCourseModule = mi;
     state.activeCourseLesson = li;
     state.activeAssessment = false;
+    state.menuOpen = false;
     renderCourse();
   }
 
   async function renderCourse() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
+    // Hide main header and footer in course view
+    document.getElementById('mainHeader').style.display = 'none';
+    document.getElementById('mainFooter').style.display = 'none';
+
     const username = u.username;
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson;
@@ -1244,69 +1390,115 @@ const App = (() => {
 
     const pct = courseProgressPct(username);
     const el = document.getElementById('app');
+    
     el.innerHTML = `
-      <div class="inner" style="padding:24px 0 48px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
-          <div>
-            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">${esc(COURSE.title)}</div>
-            <h1 style="font-size:24px;margin:2px 0;">${esc(mod.title)}</h1>
+      <div class="course-app">
+        <!-- Course Topbar -->
+        <div class="course-topbar">
+          <div class="course-topbar-left">
+            <button class="back-btn" onclick="App.showDashboard()">←</button>
+            <span>${esc(COURSE.title)}</span>
           </div>
-          <div style="display:flex;gap:8px;">
-            <a class="btn-secondary btn-sm" href="https://www.logi.education/dashboard">← Dashboard</a>
+          <div class="course-topbar-right">
+            <button class="menu-btn" onclick="App.toggleMenu()">☰</button>
           </div>
         </div>
-        <div class="course-layout">
-          <aside class="module-side">
-            <div class="sidehead">
-              <h2>Course content</h2>
-              <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
-              <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+
+        <!-- Lesson Content -->
+        <div class="course-content-area">
+          <div class="lesson-paper">
+            <h1>${esc(lesson.title)}</h1>
+            <div>${lesson.html}</div>
+          </div>
+        </div>
+
+        <!-- Bottom Sticky Bar -->
+        <div class="course-bottombar">
+          <button class="nav-btn" onclick="App.prevLesson()">← Previous</button>
+          <button class="complete-btn ${isLessonDone(username, mi, li) ? 'done' : ''}" onclick="App.markCurrentLesson()">
+            ${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark Complete'}
+          </button>
+          <button class="nav-btn" onclick="App.nextLesson()">Next →</button>
+        </div>
+
+        <!-- Menu Overlay -->
+        <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
+          <div class="menu-header">
+            <h2>${esc(COURSE.title)}</h2>
+            <button class="close-btn" onclick="App.toggleMenu()">✕</button>
+          </div>
+          
+          <div class="menu-progress">
+            <div class="pct-text">${pct}% Completed</div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: ${pct}%"></div>
             </div>
-            <div class="modules">
-              ${COURSE.modules.map((m, i) => {
-                const locked = isModuleLocked(username, i);
-                return `
-                  <button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}"
-                    onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse(${i},0)`}">
-                    ${i+1}. ${esc(m.title)} ${locked?'🔒':''}
-                  </button>
-                  ${i===mi ? m.lessons.map((l, j) => {
-                    const done = isLessonDone(username, i, j);
-                    return `
-                      <button class="lesson-link ${j===li?'active':''} ${done?'done':''}"
-                        onclick="App.openCourse(${i},${j})">
-                        ${esc(l.title)}
-                      </button>
-                    `;
-                  }).join('') : ''}
-                `;
-              }).join('')}
-            </div>
-          </aside>
-          <section class="content">
-            <article class="card lesson-card">
-              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · ${esc(lesson.duration)}</div>
-              <h1 style="font-size:28px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
-              <div>${lesson.html}</div>
-              <div class="actions">
-                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>
-                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
-                </div>
-              </div>
-              <div class="notice">Progress is saved locally. Accounts are secured by Supabase.</div>
-            </article>
-          </section>
+          </div>
+
+          <div class="menu-list">
+            ${COURSE.modules.map((m, i) => {
+              const locked = isModuleLocked(username, i);
+              const isCurrentMod = i === mi;
+              const modDone = getQuizResult(username, i)?.passed;
+              
+              let icon = locked ? '🔒' : (modDone ? '✅' : '○');
+              let arrow = '<span class="arrow">▼</span>';
+              if (locked) arrow = '';
+
+              return `
+                <details class="mod-accordion" ${isCurrentMod ? 'open' : ''}>
+                  <summary>
+                    <span class="icon">${icon}</span>
+                    <span>Module ${i+1}: ${esc(m.title)}</span>
+                    ${arrow}
+                  </summary>
+                  <div class="lesson-items">
+                    ${m.lessons.map((l, j) => {
+                      const done = isLessonDone(username, i, j);
+                      const isActive = (i === mi && j === li);
+                      return `
+                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j})">
+                          <span class="icon">${done ? '📖' : '📘'}</span>
+                          <div class="meta">
+                            <span>${esc(l.title).toUpperCase()}</span>
+                            <span class="type">Reading</span>
+                          </div>
+                        </button>
+                      `;
+                    }).join('')}
+                    <!-- Module Quiz / Assessment -->
+                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100);">
+                      <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
+                      <div class="meta">
+                        <span>Module ${i+1} Assessment</span>
+                        <span class="type">Quiz</span>
+                      </div>
+                    </button>
+                  </div>
+                </details>
+              `;
+            }).join('')}
+          </div>
         </div>
       </div>
     `;
-    renderNav();
+  }
+
+  function toggleMenu() {
+    state.menuOpen = !state.menuOpen;
+    const overlay = document.getElementById('courseMenu');
+    if (overlay) {
+      if (state.menuOpen) overlay.classList.add('open');
+      else overlay.classList.remove('open');
+    }
   }
 
   async function renderAssessmentScreen() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    document.getElementById('mainHeader').style.display = 'none';
+    document.getElementById('mainFooter').style.display = 'none';
+
     const username = u.username;
     const mi = state.activeCourseModule;
     const mod = COURSE.modules[mi];
@@ -1316,42 +1508,94 @@ const App = (() => {
     const passed = !!result?.passed;
     const pct = courseProgressPct(username);
     const el = document.getElementById('app');
+    
     el.innerHTML = `
-      <div class="inner" style="padding:24px 0 48px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
-          <div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">${esc(COURSE.title)}</div>
-          <h1 style="font-size:24px;margin:2px 0;">${esc(mod.title)}</h1></div>
-          <div style="display:flex;gap:8px;"><a class="btn-secondary btn-sm" href="https://www.logi.education/dashboard">← Dashboard</a></div>
+      <div class="course-app">
+        <div class="course-topbar">
+          <div class="course-topbar-left">
+            <button class="back-btn" onclick="App.showDashboard()">←</button>
+            <span>${esc(COURSE.title)}</span>
+          </div>
+          <div class="course-topbar-right">
+            <button class="menu-btn" onclick="App.toggleMenu()">☰</button>
+          </div>
         </div>
-        <div class="course-layout">
-          <aside class="module-side">
-            <div class="sidehead"><h2>Course content</h2><div style="font-size:12px;color:var(--muted);">${pct}% completed</div><div class="progress-bar"><span style="width:${pct}%;"></span></div></div>
-            <div class="modules">
-              ${COURSE.modules.map((m,i)=>{
-                const locked=isModuleLocked(username,i);
-                return `<button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.openCourse(${i},0)`}">${i+1}. ${esc(m.title)} ${locked?'🔒':''}</button>
-                ${i===mi?`<button class="lesson-link" onclick="App.openCourse(${i},0)">${esc(m.lessons[0].title)}</button><button class="lesson-link active">Module ${i+1} assessment</button>`:''}`;
-              }).join('')}
+
+        <div class="course-content-area">
+          <div class="lesson-paper">
+            <h1>${esc(mod.title)} Assessment</h1>
+            <p style="color:#666; margin-bottom: 24px;">Answer all questions. Pass mark: <b>${COURSE.passMark}%</b>. You may retake the assessment if you do not pass.</p>
+            ${renderQuizUI(mi, quiz)}
+          </div>
+        </div>
+
+        <div class="course-bottombar">
+          <button class="nav-btn" onclick="App.previousFromAssessment()">← Back to lesson</button>
+          <button class="complete-btn ${passed?'done':''}" ${passed?'':'disabled style="opacity:.5;cursor:not-allowed;"'} onclick="App.continueAfterAssessment()">
+            ${mi===COURSE.modules.length-1?'Finish course':'Next module →'}
+          </button>
+        </div>
+
+        <!-- Menu Overlay -->
+        <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
+          <div class="menu-header">
+            <h2>${esc(COURSE.title)}</h2>
+            <button class="close-btn" onclick="App.toggleMenu()">✕</button>
+          </div>
+          
+          <div class="menu-progress">
+            <div class="pct-text">${pct}% Completed</div>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: ${pct}%"></div>
             </div>
-          </aside>
-          <section class="content">
-            <article class="card lesson-card">
-              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · Assessment</div>
-              <h1 style="font-size:28px;line-height:1.2;margin:6px 0 8px;">${esc(mod.title)} — Assessment</h1>
-              <p style="color:var(--muted);">Answer all questions. Pass mark: <b>${COURSE.passMark}%</b>. You may retake the assessment if you do not pass.</p>
-              ${renderQuizUI(mi, quiz)}
-              <div class="actions">
-                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <button class="btn ${passed?'':'btn-secondary'}" ${passed?'':'disabled style="opacity:.55;cursor:not-allowed;"'} onclick="App.continueAfterAssessment()">${mi===COURSE.modules.length-1?'Finish course':'Next module →'}</button>
-                </div>
-              </div>
-              <div class="notice">Your next module becomes available after you pass this assessment with at least ${COURSE.passMark}%.</div>
-            </article>
-          </section>
+          </div>
+
+          <div class="menu-list">
+            ${COURSE.modules.map((m, i) => {
+              const locked = isModuleLocked(username, i);
+              const isCurrentMod = i === mi;
+              const modDone = getQuizResult(username, i)?.passed;
+              
+              let icon = locked ? '🔒' : (modDone ? '✅' : '○');
+              let arrow = '<span class="arrow">▼</span>';
+              if (locked) arrow = '';
+
+              return `
+                <details class="mod-accordion" ${isCurrentMod ? 'open' : ''}>
+                  <summary>
+                    <span class="icon">${icon}</span>
+                    <span>Module ${i+1}: ${esc(m.title)}</span>
+                    ${arrow}
+                  </summary>
+                  <div class="lesson-items">
+                    ${m.lessons.map((l, j) => {
+                      const done = isLessonDone(username, i, j);
+                      const isActive = (i === mi && j === li && !state.activeAssessment);
+                      return `
+                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j})">
+                          <span class="icon">${done ? '📖' : '📘'}</span>
+                          <div class="meta">
+                            <span>${esc(l.title).toUpperCase()}</span>
+                            <span class="type">Reading</span>
+                          </div>
+                        </button>
+                      `;
+                    }).join('')}
+                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100);">
+                      <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
+                      <div class="meta">
+                        <span>Module ${i+1} Assessment</span>
+                        <span class="type">Quiz</span>
+                      </div>
+                    </button>
+                  </div>
+                </details>
+              `;
+            }).join('')}
+          </div>
         </div>
-      </div>`;
-    renderNav();
+      </div>
+    `;
   }
 
   function renderQuizUI(mi, quiz) {
@@ -1360,9 +1604,7 @@ const App = (() => {
     const result = getQuizResult(username, mi);
     const passed = result?.passed;
     return `
-      <div style="margin-top:32px;border-top:2px solid var(--line);padding-top:24px;">
-        <h2 style="font-size:22px;">Module ${mi+1} assessment</h2>
-        <p style="font-size:14px;color:var(--muted);">Answer all questions. Pass mark: ${COURSE.passMark}%. Unlimited retakes allowed.</p>
+      <div style="margin-top:20px;">
         ${result ? `<div class="callout" style="background:${passed?'#e8f5e9':'#fdecea'};border-left-color:${passed?'#2e7d32':'#c62828'};">
           <b>Previous attempt:</b> ${result.score} / ${result.total} (${Math.round(result.score/result.total*100)}%) — ${passed?'Passed ✅':'Not passed — try again'}</div>` : ''}
         <div>
@@ -1371,7 +1613,7 @@ const App = (() => {
               <b>${qi+1}. ${esc(q.q)}</b>
               ${q.opts.map((opt, oi) => `
                 <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
-                  <input type="radio" name="q${mi}_${qi}" value="${oi}" style="margin-right:6px;">
+                  <input type="radio" name="q${mi}_${qi}" value="${oi}" style="margin-right:8px;">
                   ${esc(opt)}
                 </label>
               `).join('')}
@@ -1379,11 +1621,11 @@ const App = (() => {
             </div>
           `).join('')}
         </div>
-        <div style="display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;">
+        <div style="display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap;">
           <button class="btn" onclick="App.submitQuiz(${mi})">Submit answers</button>
-          ${result && !passed ? '<span style="font-size:13px;color:var(--error);">You can retake this assessment.</span>' : ''}
+          ${result && !passed ? '<span style="font-size:14px;color:var(--error);">You can retake this assessment.</span>' : ''}
         </div>
-        <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;"></p>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;font-size:16px;"></p>
       </div>
     `;
   }
@@ -1438,7 +1680,7 @@ const App = (() => {
     if (passed) {
       markLessonDone(u.username, mi, 0);
       if (courseCompleted(u.username)) generateCertificate(u.username);
-      setTimeout(() => { renderCourse(); }, 900);
+      setTimeout(() => { renderAssessmentScreen(); }, 1500);
     }
   }
 
@@ -1497,6 +1739,9 @@ const App = (() => {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     state.screen = 'certificate';
+    document.getElementById('mainHeader').style.display = 'flex';
+    document.getElementById('mainFooter').style.display = 'block';
+
     const completed = courseCompleted(u.username);
     let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
     if (completed && !cert) cert = generateCertificate(u.username);
@@ -1645,6 +1890,9 @@ const App = (() => {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     state.screen = 'discussion';
+    document.getElementById('mainHeader').style.display = 'flex';
+    document.getElementById('mainFooter').style.display = 'block';
+
     const posts = load(STORE.posts, []);
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1664,9 +1912,9 @@ const App = (() => {
           <p class="subtitle">Ask questions and share ideas with other learners.</p>
           <div class="card">
             <h3 style="margin-top:0;">Start a discussion</h3>
-            <textarea id="postText" rows="3" placeholder="Write your question or comment..." style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:14px;resize:vertical;"></textarea>
+            <textarea id="postText" rows="3" placeholder="Write your question or comment..." style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:15px;resize:vertical;"></textarea>
             <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:12px;color:var(--muted);">Posting as <b>${esc(u.fullName)}</b></span>
+              <span style="font-size:13px;color:var(--muted);">Posting as <b>${esc(u.fullName)}</b></span>
               <button class="btn btn-sm" onclick="App.submitPost()">Post to forum</button>
             </div>
           </div>
@@ -1675,8 +1923,8 @@ const App = (() => {
             ${posts.length === 0 ? '<p style="color:var(--muted);">No posts yet. Be the first to start a discussion.</p>' :
               posts.slice().reverse().map(p => `
                 <div class="post" style="border-bottom: 1px solid var(--line); padding: 14px 0;">
-                  <div style="font-size:12px;color:var(--muted);margin-bottom:4px;"><span style="font-weight:700;color:var(--pd);">${esc(p.user)}</span> · ${fmtDate(p.ts)}</div>
-                  <div style="font-size:14px;color:#444;margin-top:4px;">${esc(p.text)}</div>
+                  <div style="font-size:13px;color:var(--muted);margin-bottom:4px;"><span style="font-weight:700;color:var(--pd);">${esc(p.user)}</span> · ${fmtDate(p.ts)}</div>
+                  <div style="font-size:15px;color:#444;margin-top:4px;">${esc(p.text)}</div>
                 </div>
               `).join('')
             }
@@ -1703,6 +1951,9 @@ const App = (() => {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     state.screen = 'announcements';
+    document.getElementById('mainHeader').style.display = 'flex';
+    document.getElementById('mainFooter').style.display = 'block';
+
     const anns = load(STORE.announcements, [
       { id: uid(), title: 'Welcome to Introduction to Industrial Automation', body: 'We are glad you are here. Work through the modules in order. Assessments can be retaken as many times as you need.', ts: nowISO() },
       { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate, complete every lesson and pass each module assessment with at least ' + COURSE.passMark + '%.', ts: nowISO() }
@@ -1726,9 +1977,9 @@ const App = (() => {
           <p class="subtitle">Course news and important updates.</p>
           ${anns.slice().reverse().map(a => `
             <div style="background: #fff8fb; border-left: 4px solid var(--p); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 14px;">
-              <div style="font-size:12px;color:var(--muted);">${fmtDate(a.ts)}</div>
-              <div style="font-weight:700;font-size:15px;margin:2px 0;">${esc(a.title)}</div>
-              <div style="font-size:14px;color:#444;">${esc(a.body)}</div>
+              <div style="font-size:13px;color:var(--muted);">${fmtDate(a.ts)}</div>
+              <div style="font-weight:700;font-size:16px;margin:2px 0;">${esc(a.title)}</div>
+              <div style="font-size:15px;color:#444;">${esc(a.body)}</div>
             </div>
           `).join('')}
         </main>
@@ -1767,7 +2018,7 @@ const App = (() => {
   return {
     init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
     showDashboard, showCertificate, showDiscussion, showAnnouncements,
-    openCourse, prevLesson, nextLesson, markCurrentLesson,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, toggleMenu,
     submitQuiz, selectOption, alertLocked, previousFromAssessment, continueAfterAssessment,
     submitPost, downloadCertificateImage, goHome
   };
