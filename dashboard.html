@@ -217,7 +217,7 @@
     .section-head span{font-size:13px;color:var(--muted)}
     .highlight{background:var(--pink);color:#fff;padding:1px 5px}
 
-    /* ---------- Course grid / cards ---------- */
+    /* ---------- Course grid / cards (My Courses) ---------- */
     .course-grid{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
@@ -307,6 +307,69 @@
     .course-foot small{font-size:12px;color:var(--muted)}
     .actions{display:flex;gap:8px;flex-wrap:wrap}
 
+    /* ---------- Dropdown / Accordion (Explore Courses) ---------- */
+    .category-dropdown {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+    }
+    .category-dropdown summary {
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 20px;
+      cursor: pointer;
+      list-style: none; /* Hide default arrow */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .category-dropdown summary::-webkit-details-marker {
+      display: none; /* Hide default arrow on WebKit */
+    }
+    .category-dropdown summary::after {
+      content: "＋";
+      font-size: 20px;
+      color: var(--pink);
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .category-dropdown[open] summary::after {
+      content: "−";
+    }
+    .category-dropdown[open] summary {
+      border-bottom: 1px solid var(--line);
+    }
+    
+    .catalogue-grid-inner {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .catalogue-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:5px;
+      padding:19px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .catalogue-card h3{font-size:16px;margin:0;font-weight:600}
+    .catalogue-card p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}
+    .catalogue-meta{
+      font-size:11px;
+      color:var(--pink);
+      text-transform:uppercase;
+      letter-spacing:.6px;
+      font-weight:700;
+    }
+    .catalogue-card .btn{align-self:flex-start;margin-top:auto}
+
     /* ---------- Empty / notices ---------- */
     .empty,.notice{
       background:#fff;
@@ -370,33 +433,6 @@
     }
     .footer strong{color:var(--pink)}
 
-    /* ---------- Catalogue card (matches course-tile styling) ---------- */
-    .catalogue-card{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:5px;
-      padding:19px;
-      box-shadow:var(--shadow);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      transition:transform .2s,box-shadow .2s;
-    }
-    .catalogue-card:hover{
-      transform:translateY(-3px);
-      box-shadow:var(--shadow-hover);
-    }
-    .catalogue-card h3{font-size:16px;margin:0;font-weight:600}
-    .catalogue-card p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}
-    .catalogue-meta{
-      font-size:11px;
-      color:var(--pink);
-      text-transform:uppercase;
-      letter-spacing:.6px;
-      font-weight:700;
-    }
-    .catalogue-card .btn{align-self:flex-start;margin-top:auto}
-
     /* ---------- Responsive ---------- */
     @media(max-width:900px){
       .welcome:after{font-size:70px;letter-spacing:-4px}
@@ -413,6 +449,7 @@
       .stat .num{font-size:24px}
       .stat .label{font-size:11px}
       .course-grid{grid-template-columns:1fr}
+      .catalogue-grid-inner{grid-template-columns:1fr; padding:15px;}
       .course{padding:18px}
       .course-foot{align-items:flex-start;flex-direction:column}
       .actions{width:100%}
@@ -556,6 +593,31 @@ function renderCatalogueCourse(course) {
   </article>`;
 }
 
+// Groups courses by category and returns HTML accordions
+function renderGroupedCatalogue(courses) {
+  if (!courses.length) return '';
+
+  // Group by category
+  const grouped = courses.reduce((acc, course) => {
+    const cat = course.category || 'Other Courses';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(course);
+    return acc;
+  }, {});
+
+  // Sort categories alphabetically
+  const sortedCats = Object.keys(grouped).sort();
+
+  return sortedCats.map(cat => `
+    <details class="category-dropdown">
+      <summary>${escapeHTML(cat)} <span style="font-size:12px;color:var(--muted);font-weight:normal;margin-left:8px;">(${grouped[cat].length} course${grouped[cat].length===1?'':'s'})</span></summary>
+      <div class="catalogue-grid-inner">
+        ${grouped[cat].map(renderCatalogueCourse).join('')}
+      </div>
+    </details>
+  `).join('');
+}
+
 async function loadDashboard() {
   const {data:{user},error:authError}=await supabaseClient.auth.getUser();
   if(authError || !user){showLogin();return;}
@@ -639,11 +701,13 @@ async function loadDashboard() {
       <div class="stat"><div class="num">${activeCount}</div><div class="label">In progress</div></div>
       <div class="stat"><div class="num">${completedCount}</div><div class="label">Completed</div></div>
     </section>
+    
     <div class="section-head"><h2>My <span class="highlight">courses</span></h2><span>${courseRecords.length} course${courseRecords.length===1?'':'s'} found</span></div>
     ${courseRecords.length?`<div class="course-grid">${courseRecords.map(c=>renderCourse(c,c.progress,c.certificate)).join('')}</div>`:`<div class="empty"><h3>No enrolled courses found</h3><p>Your enrolled courses will appear here after your LOGI enrolment has been recorded in your account.</p></div>`}
     ${courseRecords.some(c=>c.progress.percent===null)?'<div class="notice info">A percentage is shown only when the course catalogue contains a valid lesson total. For other courses, the dashboard displays the completed lesson count to avoid reporting inaccurate progress.</div>':''}
+    
     <div class="section-head"><h2>Explore <span class="highlight">available courses</span></h2><span>${availableCourses.length} published course${availableCourses.length===1?'':'s'}</span></div>
-    ${availableCourses.length?`<div class="course-grid">${availableCourses.map(renderCatalogueCourse).join('')}</div>`:`<div class="empty">You are viewing all currently published courses available in the LOGI catalogue.</div>`}
+    ${availableCourses.length ? renderGroupedCatalogue(availableCourses) : `<div class="empty">You are viewing all currently published courses available in the LOGI catalogue.</div>`}
   </div>`;
 }
 function showCertificateDetails(id){alert('Certificate ID: '+id+'\\nUse the LOGI certificate verification page to verify this award.');}
