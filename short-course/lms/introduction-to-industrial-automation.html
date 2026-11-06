@@ -1502,7 +1502,7 @@ const App = (() => {
                       const done = isLessonDone(username, i, j);
                       const isActive = (i === mi && j === li);
                       return `
-                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j})">
+                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j}); App.toggleMenu();">
                           <span class="icon">${done ? '📖' : '📘'}</span>
                           <div class="meta">
                             <span>${esc(l.title).toUpperCase()}</span>
@@ -1512,7 +1512,7 @@ const App = (() => {
                       `;
                     }).join('')}
                     <!-- Module Quiz / Assessment -->
-                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100);">
+                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100); App.toggleMenu();">
                       <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
                       <div class="meta">
                         <span>Module ${i+1} Assessment</span>
@@ -1617,7 +1617,7 @@ const App = (() => {
                       const done = isLessonDone(username, i, j);
                       const isActive = (i === mi && j === li && !state.activeAssessment);
                       return `
-                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j})">
+                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j}); App.toggleMenu();">
                           <span class="icon">${done ? '📖' : '📘'}</span>
                           <div class="meta">
                             <span>${esc(l.title).toUpperCase()}</span>
@@ -1626,7 +1626,7 @@ const App = (() => {
                         </button>
                       `;
                     }).join('')}
-                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100);">
+                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100); App.toggleMenu();">
                       <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
                       <div class="meta">
                         <span>Module ${i+1} Assessment</span>
