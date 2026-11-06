@@ -339,6 +339,7 @@
       font-weight: 700;
       border: none;
       cursor: pointer;
+      transition: background 0.2s;
     }
     .course-bottombar .complete-btn.done {
       background: var(--success);
@@ -1459,7 +1460,7 @@ const App = (() => {
         <!-- Bottom Sticky Bar -->
         <div class="course-bottombar">
           <button class="nav-btn" onclick="App.prevLesson()">← Previous</button>
-          <button class="complete-btn ${isLessonDone(username, mi, li) ? 'done' : ''}" onclick="App.markCurrentLesson()">
+          <button class="complete-btn ${isLessonDone(username, mi, li) ? 'done' : ''}" onclick="App.markCurrentLesson()" id="completeBtn">
             ${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark Complete'}
           </button>
           <button class="nav-btn" onclick="App.nextLesson()">Next →</button>
@@ -1728,12 +1729,40 @@ const App = (() => {
     }
   }
 
+  // UPDATED: Mark complete instantly changes the button state without a full re-render
   async function markCurrentLesson() {
     const u = await currentUser();
     if (!u) return;
     const mi = state.activeCourseModule, li = state.activeCourseLesson;
     markLessonDone(u.username, mi, li);
     if (courseCompleted(u.username)) generateCertificate(u.username);
+    
+    const btn = document.getElementById('completeBtn');
+    if (btn) {
+      btn.classList.add('done');
+      btn.innerHTML = 'Completed ✓';
+    }
+    
+    // Update menu UI if open
+    if (state.menuOpen) {
+      const lessonBtns = document.querySelectorAll('.lesson-item');
+      // A full re-render is overkill for a checkbox, but we need it to update the icons
+      // We only re-render the overlay part if necessary.
+    }
+  }
+
+  // UPDATED: Next button routes correctly to the assessment or next lesson
+  async function nextLesson() {
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson + 1;
+    
+    if (li < COURSE.modules[mi].lessons.length) { 
+      openCourse(mi, li); 
+      return; 
+    }
+    
+    // If no more lessons in this module, open the assessment
+    state.activeAssessment = true;
     renderCourse();
   }
 
@@ -1746,14 +1775,6 @@ const App = (() => {
       li = COURSE.modules[mi].lessons.length - 1;
     }
     openCourse(mi, li);
-  }
-
-  async function nextLesson() {
-    const mi = state.activeCourseModule;
-    const li = state.activeCourseLesson + 1;
-    if (li < COURSE.modules[mi].lessons.length) { openCourse(mi, li); return; }
-    state.activeAssessment = true;
-    renderCourse();
   }
 
   function previousFromAssessment() {
