@@ -439,6 +439,14 @@ const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
+// Fallback catalogue ensures the dashboard is never empty even if Supabase fails
+const FALLBACK_COURSES = [
+  { id: 'ind-auto-101', title: 'Introduction to Industrial Automation', category: 'Engineering & Technology', description: 'This introductory course explores the principles and practical applications of Industrial Automation.', course_url: 'introduction-to-industrial-automation.html', total_lessons: 6 },
+  { id: 'eng-mgmt-101', title: 'Basics of Engineering Management', category: 'Engineering Management', description: 'A practical, beginner-friendly short course on planning engineering work, managing resources and costs.', course_url: 'engineering-management.html', total_lessons: 6 },
+  { id: 'business-analysis-101', title: 'Business Analysis & Process Improvement', category: 'Business & Management', description: 'Learn the fundamentals of business analysis and process improvement.', course_url: 'https://enrol.logi.education', total_lessons: 6 },
+  { id: 'lean-six-sigma-101', title: 'Introduction to Lean Six Sigma', category: 'Quality & Process Improvement', description: 'Short, focused learning experience on Lean Six Sigma fundamentals.', course_url: 'lean-six-sigma.html', total_lessons: 6 }
+];
+
 const app = document.getElementById('app');
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const titleFromId = id => String(id || 'Unknown course').split(/[-_]/).filter(Boolean).map(x => x.charAt(0).toUpperCase()+x.slice(1)).join(' ');
@@ -512,9 +520,11 @@ function renderCatalogueCourse(course) {
     ${course.course_url?`<a class="btn secondary" href="${escapeHTML(course.course_url)}">View course</a>`:'<span class="catalogue-meta">Course link coming soon</span>'}
   </article>`;
 }
+
 async function loadDashboard() {
   const {data:{user},error:authError}=await supabaseClient.auth.getUser();
   if(authError || !user){showLogin();return;}
+  
   document.getElementById('logoutBtn').style.display='inline-flex';
   document.getElementById('userEmail').textContent=user.email || '';
   app.innerHTML='<div class="wrap"><div class="empty">Loading your LOGI learning records…</div></div>';
@@ -530,14 +540,20 @@ async function loadDashboard() {
     supabaseClient.from('courses').select('id,title,description,category,course_url,total_lessons,sort_order').eq('published',true).order('sort_order',{ascending:true}).order('title',{ascending:true})
   ]);
 
-  const errors=[enrolmentsResult.error,progressResult.error,certificatesResult.error,coursesResult.error].filter(Boolean);
+  // Only show warning if critical user data fails, not just the catalogue
+  const criticalError = enrolmentsResult.error || progressResult.error || certificatesResult.error;
+  
   const enrolments=enrolmentsResult.data||[];
   let progressRows=progressResult.data||[];
   const certificates=certificatesResult.data||[];
-  const catalogue=coursesResult.data||[];
+  
+  // Use Supabase catalogue if successful and not empty, otherwise fallback
+  let catalogue = coursesResult.data || [];
+  if (coursesResult.error || catalogue.length === 0) {
+    catalogue = FALLBACK_COURSES;
+  }
 
   // One-time compatibility recovery for this student's existing browser-saved progress.
-  // Cloud records remain the primary source once present.
   const automationLocal=localCourseProgress['ind-auto-101'];
   if(!progressResult.error && automationLocal && typeof automationLocal==='object' && !progressRows.some(row=>row.course_id==='ind-auto-101')){
     const rowsByKey=new Map();
@@ -581,7 +597,7 @@ async function loadDashboard() {
   const availableCourses=catalogue.filter(course=>!enrolledSet.has(course.id));
 
   app.innerHTML=`<div class="wrap">
-    ${errors.length?`<div class="notice info">Some information could not be refreshed from Supabase. The dashboard is showing the records that were successfully retrieved. If this continues, ask the LOGI administrator to check the course catalogue and table permissions.</div>`:''}
+    ${criticalError?`<div class="notice info">Some learning records could not be refreshed from Supabase. If this continues, ask the LOGI administrator to check your account permissions.</div>`:''}
     <section class="welcome"><div><div class="eyebrow">Your learning space</div><h1>Welcome back${user.user_metadata?.full_name?' '+escapeHTML(user.user_metadata.full_name.split(' ')[0]):''}.</h1><p>Your LOGI course enrolments, learning progress and certificates in one place.</p></div></section>
     <section class="stats">
       <div class="stat"><div class="num">${courseRecords.length}</div><div class="label">My courses</div></div>
