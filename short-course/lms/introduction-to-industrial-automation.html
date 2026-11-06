@@ -1417,7 +1417,6 @@ const App = (() => {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     
-    // Hide main header and footer in course view
     document.getElementById('mainHeader').style.display = 'none';
     document.getElementById('mainFooter').style.display = 'none';
 
@@ -1440,7 +1439,6 @@ const App = (() => {
     
     el.innerHTML = `
       <div class="course-app">
-        <!-- Course Topbar -->
         <div class="course-topbar">
           <div class="course-topbar-left">
             <button class="back-btn" onclick="App.showDashboard()">←</button>
@@ -1451,7 +1449,6 @@ const App = (() => {
           </div>
         </div>
 
-        <!-- Lesson Content -->
         <div class="course-content-area">
           <div class="lesson-paper">
             <h1>${esc(lesson.title)}</h1>
@@ -1459,7 +1456,6 @@ const App = (() => {
           </div>
         </div>
 
-        <!-- Bottom Sticky Bar -->
         <div class="course-bottombar">
           <button class="nav-btn" onclick="App.prevLesson()">← Previous</button>
           <button class="complete-btn ${isLessonDone(username, mi, li) ? 'done' : ''}" onclick="App.markCurrentLesson()" id="completeBtn">
@@ -1468,7 +1464,6 @@ const App = (() => {
           <button class="nav-btn" onclick="App.nextLesson()">Next →</button>
         </div>
 
-        <!-- Menu Overlay -->
         <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
           <div class="menu-header">
             <h2>${esc(COURSE.title)}</h2>
@@ -1513,7 +1508,6 @@ const App = (() => {
                         </button>
                       `;
                     }).join('')}
-                    <!-- Module Quiz / Assessment -->
                     <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100); App.toggleMenu();">
                       <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
                       <div class="meta">
@@ -1583,7 +1577,6 @@ const App = (() => {
           </button>
         </div>
 
-        <!-- Menu Overlay -->
         <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
           <div class="menu-header">
             <h2>${esc(COURSE.title)}</h2>
