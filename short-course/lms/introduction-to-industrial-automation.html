@@ -74,12 +74,11 @@
       cursor: pointer;
       font-size: 14px;
       transition: background 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
     .btn-outline:hover { background: #fff0f6; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-danger { background: #d32f2f; }
+    .btn-danger:hover { background: #b71c1c; }
     .btn-secondary {
       background: #f0edf3;
       color: var(--ink);
@@ -89,9 +88,6 @@
       font-weight: 600;
       cursor: pointer;
       font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
     .btn-secondary:hover { background: #e5e1ea; }
 
@@ -132,7 +128,6 @@
     .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
     .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
     .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
-    .error-msg a { color: var(--pd); font-weight: 600; cursor: pointer; }
 
     .dash-layout {
       display: grid;
@@ -217,6 +212,13 @@
       margin: 18px 0;
       border-radius: 0 6px 6px 0;
     }
+    .case {
+      background: #fff8fb;
+      border: 1px solid #f4dce7;
+      padding: 16px;
+      border-radius: 6px;
+      margin: 18px 0;
+    }
     .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
     .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
     .compare th { background: #fff3f8; }
@@ -235,293 +237,64 @@
     .q label:hover { background: #fafafa; }
     .q label.selected { background: #fff0f6; border-color: var(--p); }
     .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
     .notice { font-size: 12px; color: var(--muted); margin-top: 14px; }
 
-    /* ============================================================
-       MOBILE-FIRST COURSE VIEWER (MATCHES SCREENSHOT)
-       ============================================================ */
-    .course-app {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background: #f8f9fa;
-    }
-
-    /* Top Bar */
-    .course-topbar {
-      height: 60px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      border-bottom: 1px solid #e5e5e5;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .course-topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-weight: 700;
-      font-size: 16px;
-      color: #333;
-    }
-    .course-topbar-left .back-btn {
-      font-size: 20px;
-      cursor: pointer;
-      background: none;
-      padding: 0;
-      color: #333;
-    }
-    .course-topbar-right .menu-btn {
-      font-size: 24px;
-      cursor: pointer;
-      background: none;
-      padding: 0;
-      color: #333;
-      display: flex;
-      align-items: center;
-    }
-
-    /* Main Reading Area */
-    .course-content-area {
-      flex: 1;
-      padding: 16px;
-      max-width: 800px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .lesson-paper {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-      line-height: 1.7;
-    }
-    .lesson-paper h1 { font-size: 24px; margin: 0 0 16px; color: #1a1a1a; }
-    .lesson-paper h3 { font-size: 20px; margin: 28px 0 12px; color: #1a1a1a; font-weight: 700; }
-    .lesson-paper p, .lesson-paper li { font-size: 16px; color: #333; }
-    .lesson-paper ul { padding-left: 20px; }
-
-    /* Bottom Action Bar — explicit button styling to survive host-page resets */
-    .course-bottombar {
-      position: sticky;
-      position: -webkit-sticky;
-      bottom: 0;
-      width: 100%;
-      min-height: 68px;
-      background: #fff !important;
-      border-top: 1px solid #e5e5e5;
-      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
-      display: flex !important;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      z-index: 500;
-      box-shadow: 0 -3px 12px rgba(0,0,0,.06);
-    }
-    .course-bottombar button.nav-btn {
-      appearance: none;
-      -webkit-appearance: none;
-      border: 0 !important;
-      color: #555 !important;
-      font: 600 14px/1.2 Arial, sans-serif !important;
-      background: transparent !important;
-      padding: 12px 8px !important;
-      display: inline-flex !important;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      white-space: nowrap;
-      cursor: pointer;
-      min-height: 44px;
-      flex: 0 1 auto;
-    }
-    .course-bottombar button.nav-btn:hover { color: #222 !important; }
-    .course-bottombar button.complete-btn {
-      appearance: none;
-      -webkit-appearance: none;
-      display: inline-flex !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      align-items: center;
-      justify-content: center;
-      flex: 0 1 auto;
-      min-width: 132px;
-      min-height: 46px;
-      background: #e93680 !important;
-      color: #fff !important;
-      border: 0 !important;
-      border-radius: 7px !important;
-      padding: 12px 16px !important;
-      font: 700 14px/1.2 Arial, sans-serif !important;
-      white-space: nowrap;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,.12);
-    }
-    .course-bottombar button.complete-btn.done {
-      background: #2e7d32 !important;
-      color: #fff !important;
-    }
-    .course-bottombar button.complete-btn:disabled {
-      opacity: 1 !important;
-      cursor: default !important;
-    }
-    @media (max-width: 380px) {
-      .course-bottombar { padding-left: 7px; padding-right: 7px; gap: 3px; }
-      .course-bottombar button.nav-btn { font-size: 12px !important; padding: 10px 4px !important; }
-      .course-bottombar button.complete-btn { min-width: 116px; padding: 11px 9px !important; font-size: 12px !important; }
-    }
-
-    /* ============================================================
-       MENU OVERLAY (MODULES ACCORDION)
-       ============================================================ */
-    .menu-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #fff;
-      z-index: 200;
-      display: flex;
-      flex-direction: column;
-      transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .menu-overlay.open {
-      transform: translateY(0);
-    }
-
-    .menu-header {
-      height: 60px;
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    .menu-header h2 {
-      font-size: 18px;
-      font-weight: 700;
-      margin: 0;
-      color: #222;
-    }
-    .menu-header .close-btn {
-      font-size: 24px;
-      background: none;
-      border: none;
-      color: #333;
-      cursor: pointer;
-      padding: 8px;
-    }
-
-    .menu-progress {
-      padding: 20px 24px;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    .menu-progress .pct-text {
-      font-size: 14px;
-      font-weight: 700;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .menu-progress .bar-bg {
-      height: 8px;
-      background: #e5e5e5;
-      border-radius: 4px;
+    .course-layout { display: grid; grid-template-columns: 260px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       overflow: hidden;
+      position: sticky;
+      top: 22px;
     }
-    .menu-progress .bar-fill {
-      height: 100%;
-      background: #ff4b93;
-      border-radius: 4px;
-      transition: width 0.3s ease;
-    }
-
-    .menu-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px 0;
-    }
-
-    /* Accordion Styles */
-    details.mod-accordion {
-      border-bottom: 1px solid #f0f0f0;
-    }
-    details.mod-accordion summary {
-      display: flex;
-      align-items: flex-start;
-      padding: 16px 24px;
-      cursor: pointer;
-      list-style: none; /* Hide default arrow */
-      font-weight: 600;
-      font-size: 15px;
-      color: #222;
-      user-select: none;
-      gap: 12px;
-    }
-    details.mod-accordion summary::-webkit-details-marker {
-      display: none;
-    }
-    details.mod-accordion summary .icon {
-      font-size: 18px;
-      color: #777;
-      margin-top: 2px;
-    }
-    details.mod-accordion summary .arrow {
-      margin-left: auto;
-      color: #777;
-      font-size: 16px;
-      transition: transform 0.2s;
-    }
-    details.mod-accordion[open] summary .arrow {
-      transform: rotate(180deg);
-    }
-    
-    /* Lesson Items inside Accordion */
-    .lesson-items {
-      padding: 0 24px 16px 54px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .lesson-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s;
-      text-align: left;
-      background: transparent;
-      border: none;
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; }
+    .mod-btn {
       width: 100%;
-      font-size: 14px;
-      color: #333;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 11px 9px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--ink);
+      font-size: 13px;
+      transition: background 0.1s;
     }
-    .lesson-item:hover {
-      background: #f5f5f5;
-    }
-    .lesson-item.active {
-      background: #f0f0f0;
-      font-weight: 600;
-    }
-    .lesson-item .icon {
-      font-size: 18px;
-      color: #888;
-    }
-    .lesson-item .meta {
-      display: flex;
-      flex-direction: column;
-    }
-    .lesson-item .meta .type {
+    .mod-btn:hover { background: #fff3f8; color: var(--pd); }
+    .mod-btn.active { background: #fff0f6; color: var(--pd); }
+    .mod-btn.locked { color: #aaa; cursor: not-allowed; }
+    .lesson-link {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-left: 2px solid transparent;
+      padding: 7px 12px 7px 22px;
       font-size: 12px;
-      color: #888;
-      font-weight: 400;
-      margin-top: 2px;
+      color: #666;
+      cursor: pointer;
+      transition: background 0.1s;
     }
+    .lesson-link:hover { background: #fafafa; }
+    .lesson-link.active { color: var(--pd); border-color: var(--p); background: #fff8fb; }
+    .lesson-link.done:after { content: " ✓"; color: var(--success); }
+    .lesson-link.locked { color: #bbb; cursor: not-allowed; }
 
     /* Certificate */
     .cert-display-area {
@@ -597,6 +370,8 @@
       .sidebar .user-badge { display: none; }
       .sidebar .spacer { display: none; }
       .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; }
+      .module-side { position: static; }
     }
     @media (max-width: 500px) {
       .auth-card { padding: 24px 18px; }
@@ -617,7 +392,7 @@
 </head>
 <body>
 
-<header class="top" id="mainHeader">
+<header class="top">
   <div class="inner nav">
     <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
     <div class="nav-actions" id="navActions"></div>
@@ -626,26 +401,28 @@
 
 <div id="app"></div>
 
-<footer class="foot" id="mainFooter" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
   <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
   Faith. Excellence. Impact.
 </footer>
 
 <script>
 /* ============================================================
-   LOGI LMS — Introduction to Industrial Automation
+   LOGI LMS DEMO — Supabase Authentication
    ============================================================ */
 
+/* ---------- SUPABASE CONNECTION ---------- */
 const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
+/* ---------- LOCAL STORAGE (for course data only) ---------- */
 const STORE = {
-  progress: 'logi_progress',
-  certificates: 'logi_certificates',
-  posts: 'logi_posts',
-  announcements: 'logi_announcements',
-  enrolments: 'logi_enrolments'
+  progress: 'logi_progress',       
+  certificates: 'logi_certificates', 
+  posts: 'logi_posts',             
+  announcements: 'logi_announcements', 
+  enrolments: 'logi_enrolments'     
 };
 
 function load(key, fallback) {
@@ -654,9 +431,11 @@ function load(key, fallback) {
     return v ? JSON.parse(v) : fallback;
   } catch { return fallback; }
 }
-function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
 
-/* ---------- THIS COURSE ---------- */
+/* ---------- COURSE DATA ---------- */
 const COURSE = {
   id: 'ind-auto-101',
   title: 'Introduction to Industrial Automation',
@@ -809,12 +588,17 @@ function esc(s) {
   return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
 
-/* ---------- Supabase session ---------- */
+/* ---------- Supabase Session / user ---------- */
 let currentSessionUser = null;
 
 function syncLocalUser(authUser) {
-  if (!authUser) { currentSessionUser = null; return null; }
+  if (!authUser) {
+    currentSessionUser = null;
+    return null;
+  }
+
   const email = (authUser.email || '').toLowerCase();
+
   currentSessionUser = {
     id: authUser.id,
     username: email,
@@ -822,19 +606,22 @@ function syncLocalUser(authUser) {
     fullName: authUser.user_metadata?.full_name || email,
     role: 'student'
   };
+
   return currentSessionUser;
 }
 
 async function currentUser() {
   if (currentSessionUser) return currentSessionUser;
+
   const { data, error } = await supabaseClient.auth.getSession();
+
   if (error) {
     console.error('Unable to read Supabase session:', error.message);
     return null;
   }
+
   return data.session?.user ? syncLocalUser(data.session.user) : null;
 }
-
 
 /* ---------- Cross-device learning data ---------- */
 let studentDataLoadedFor = null;
@@ -924,8 +711,6 @@ async function loadStudentData(user, force = false) {
 
   // Cloud enrolments are merged with local enrolments.
   if (!enrolmentResult.error && Array.isArray(enrolmentResult.data)) {
-    // Keep every same-browser course enrolment associated with this signed-in
-    // account, not only the course page currently being opened.
     const all = new Set([...localEnrolments, ...getEnrolments(email),
       ...enrolmentResult.data.map(r => r.course_id), COURSE.id]);
     const store = load(STORE.enrolments, {});
@@ -1020,8 +805,6 @@ function enrol(username, courseId) {
   const isNew = !e[username].includes(courseId);
   if (isNew) e[username].push(courseId);
   save(STORE.enrolments, e);
-  // Retry cloud synchronisation even when the course was already present in
-  // localStorage from an earlier session. Duplicate inserts are handled safely.
   if (currentSessionUser?.id) saveEnrolmentToSupabase(courseId);
 }
 function getCerts(username) {
@@ -1070,7 +853,7 @@ function moduleLessonsDone(username, mi) {
 function courseProgressPct(username) {
   let total = 0, done = 0;
   COURSE.modules.forEach((m, mi) => {
-    m.lessons.forEach((_, li) => {
+    m.lessons.forEach((l, li) => {
       total++;
       if (isLessonDone(username, mi, li)) done++;
     });
@@ -1087,20 +870,39 @@ function courseCompleted(username) {
   return true;
 }
 
+/* Next incomplete lesson helper for the dashboard "Continue" button */
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+/* ---------- Certificate generation ---------- */
 function generateCertificate(username) {
   if (!username) return null;
   const certs = getCerts(username);
   let cert = certs.find(c => c.courseId === COURSE.id);
   if (cert) return cert;
+  
   const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  
+  // Find user's full name from session data
   let studentName = username;
-  if (currentSessionUser && currentSessionUser.fullName) studentName = currentSessionUser.fullName;
+  if(currentSessionUser && currentSessionUser.fullName) {
+    studentName = currentSessionUser.fullName;
+  }
+
   cert = {
     id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
-    hash,
+    hash: hash,
     courseId: COURSE.id,
     courseTitle: COURSE.title,
-    studentName,
+    studentName: studentName,
     date: nowISO(),
     issuedBy: 'Living Oracles Global Institute'
   };
@@ -1109,7 +911,7 @@ function generateCertificate(username) {
 }
 
 /* ============================================================
-   APP
+   APP ROUTER
    ============================================================ */
 const App = (() => {
   let state = {
@@ -1118,7 +920,7 @@ const App = (() => {
     activeCourseModule: 0,
     activeCourseLesson: 0,
     activeAssessment: false,
-    menuOpen: false
+    adminTab: 'overview'
   };
 
   async function renderNav() {
@@ -1127,7 +929,7 @@ const App = (() => {
     if (u) {
       el.innerHTML = `
         <span style="font-size:13px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
-        <a class="btn-outline btn-sm" href="https://www.logi.education/dashboard">Dashboard</a>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
         <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
       `;
     } else {
@@ -1141,49 +943,39 @@ const App = (() => {
   /* ---------- Landing ---------- */
   async function showLanding() {
     state.screen = 'landing';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
     const u = await currentUser();
     if (u) { showDashboard(); return; }
-
+    
     const el = document.getElementById('app');
     el.innerHTML = `
       <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
         <div class="inner">
-          <div style="color:var(--muted);font-size:13px;">Home / Short Courses / Introduction to Industrial Automation</div>
-          <div style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;margin-top:10px;">Free online short course · Beginner level</div>
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Engineering &amp; Technology</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level</div>
           <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Introduction to <span style="color:var(--pd)">Industrial Automation</span></h1>
           <p style="max-width:720px;color:#666;">This introductory course explores the principles and practical applications of Industrial Automation. Learners discover how sensors, actuators, programmable logic controllers (PLCs), industrial robots and monitoring systems work together to control and improve industrial processes.</p>
           <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">★★★★★</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Beginner Level</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4–5 Hours</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Online, Self-Paced</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4 hours 10 minutes</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">6 modules</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Self-paced</span>
+            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Beginner level</span>
           </div>
           <div style="margin-top:26px;">
-            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Register / Login to Enrol</button>
-            <button class="btn-outline" onclick="App.showLogin()">Already have an account? Login</button>
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
           </div>
         </div>
       </section>
-
       <section class="inner" style="padding:36px 0 55px;">
-        <h2 style="font-size:22px;margin-bottom:16px;">Course modules</h2>
+        <h2 style="font-size:22px;margin-bottom:16px;">What you will learn</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
           ${COURSE.modules.map((m, i) => `
             <div class="card" style="margin:0;">
               <div style="font-size:12px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
               <h3 style="margin:6px 0 4px;font-size:16px;">${esc(m.title)}</h3>
-              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Knowledge checks</div>
+              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Learning activities</div>
             </div>
           `).join('')}
-        </div>
-
-        <div class="card" style="margin-top:22px;text-align:center;">
-          <h3 style="margin:0 0 6px;">Learning this course is <span style="color:var(--pd)">absolutely free!</span></h3>
-          <p style="margin:6px 0 14px;color:var(--muted);font-size:14px;">Create your learner account or sign in to the LOGI Learning Portal to access the course.</p>
-          <button class="btn" onclick="App.showRegister()" style="margin-right:8px;">Create Your Learning Account</button>
-          <button class="btn-outline" onclick="App.showLogin()">Continue to LOGI Learning Portal</button>
         </div>
       </section>
     `;
@@ -1192,14 +984,12 @@ const App = (() => {
   /* ---------- Auth: login ---------- */
   function showLogin() {
     state.screen = 'login';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Welcome back</h2>
-          <p class="muted">Log in to continue Introduction to Industrial Automation.</p>
+          <p class="muted">Log in to continue your course.</p>
           <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" autocomplete="email" placeholder="Enter your email address"></div>
           <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Your password"></div>
           <div class="error-msg" id="loginError"></div>
@@ -1215,10 +1005,24 @@ const App = (() => {
     const email = document.getElementById('loginUser').value.trim().toLowerCase();
     const password = document.getElementById('loginPass').value;
     const err = document.getElementById('loginError');
-    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+
+    if (!email || !password) {
+      err.textContent = 'Please enter your email and password.';
+      return;
+    }
+
     err.textContent = 'Signing in...';
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) { err.textContent = error.message; return; }
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      err.textContent = error.message;
+      return;
+    }
+
     syncLocalUser(data.user);
     studentDataLoadedFor = null;
     enrol(email, COURSE.id);
@@ -1229,8 +1033,6 @@ const App = (() => {
   /* ---------- Auth: register (smart — detects existing emails) ---------- */
   function showRegister() {
     state.screen = 'register';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="auth-wrap">
@@ -1265,14 +1067,17 @@ const App = (() => {
       err.textContent = 'All fields are required.';
       return;
     }
+
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       err.textContent = 'Please enter a valid email address.';
       return;
     }
+
     if (password.length < 8) {
       err.textContent = 'Password must be at least 8 characters.';
       return;
     }
+
     if (password !== password2) {
       err.textContent = 'Passwords do not match.';
       return;
@@ -1284,7 +1089,11 @@ const App = (() => {
     const { data, error } = await supabaseClient.auth.signUp({
       email,
       password,
-      options: { data: { full_name: name } }
+      options: {
+        data: {
+          full_name: name
+        }
+      }
     });
 
     // 2. If the email already exists → try signing in with the password they just typed.
@@ -1332,7 +1141,11 @@ const App = (() => {
 
   async function logout() {
     const { error } = await supabaseClient.auth.signOut();
-    if (error) console.error('Supabase sign-out error:', error.message);
+
+    if (error) {
+      console.error('Supabase sign-out error:', error.message);
+    }
+
     currentSessionUser = null;
     studentDataLoadedFor = null;
     studentDataSyncWarning = '';
@@ -1344,20 +1157,24 @@ const App = (() => {
   async function showDashboard() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+
     await loadStudentData(u);
     state.user = u;
     state.screen = 'dashboard';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-    
-    const username = u.username;
-    if (!getEnrolments(username).includes(COURSE.id)) enrol(username, COURSE.id);
-
+    const username = u.username; // This is the email
     const pct = courseProgressPct(username);
-    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
-    const passedModules = quizzes.filter(q => q?.passed).length;
+
+    // Sequential module count (clamped)
+    let passedModules = 0;
+    for (let mi = 0; mi < COURSE.modules.length; mi++) {
+      if (!getQuizResult(username, mi)?.passed) break;
+      passedModules++;
+    }
+
     const completed = courseCompleted(username);
-    const cert = getCerts(username).find(c => c.courseId === COURSE.id);
+    const certs = getCerts(username);
+    const cert = certs.find(c => c.courseId === COURSE.id);
+    const next = nextIncompleteLesson(username);
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1369,6 +1186,7 @@ const App = (() => {
           </div>
           <button class="nav-link active" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
@@ -1376,7 +1194,7 @@ const App = (() => {
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
         <main class="main-panel">
-          <h1>Welcome back, ${esc(u.fullName.split(' ')[0])} 👋</h1>
+          <h1>Welcome back, ${esc((u.fullName || u.username || 'learner').split(' ')[0])} 👋</h1>
           <p class="subtitle">Here is an overview of your learning progress.</p>
           ${studentDataSyncWarning ? `<div class="callout" role="status">${esc(studentDataSyncWarning)}</div>` : ''}
 
@@ -1388,12 +1206,12 @@ const App = (() => {
           </div>
 
           <div class="card">
-            <h2>${esc(COURSE.title)}</h2>
+            <h2>Introduction to Industrial Automation</h2>
             <p style="font-size:13px;color:var(--muted);margin-top:-4px;">${esc(COURSE.desc)}</p>
             <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
               <span style="font-size:13px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
-              <button class="btn" onclick="App.openCourse(${state.activeCourseModule||0},${state.activeCourseLesson||0})">${pct===0?'Start course':'Continue learning'}</button>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
             </div>
           </div>
 
@@ -1413,10 +1231,14 @@ const App = (() => {
                     else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Retake needed</span>';
                     else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">In progress</span>';
                   }
-                  return `<tr style="border-bottom: 1px solid var(--line);">
+                  const quizCell = (qr && qr.total)
+                    ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)`
+                    : 'Not taken';
+                  return `<tr style="border-bottom: 1px solid var(--line); cursor:${locked ? 'not-allowed' : 'pointer'};"
+                      onclick="${locked ? '' : `App.openCourse(${mi},0)`}">
                     <td style="padding: 10px;"><b>${mi+1}. ${esc(m.title)}</b></td>
                     <td style="padding: 10px;">${done} / ${total} done</td>
-                    <td style="padding: 10px;">${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
+                    <td style="padding: 10px;">${quizCell}</td>
                     <td style="padding: 10px;">${statusBadge}</td>
                   </tr>`;
                 }).join('')}
@@ -1429,27 +1251,72 @@ const App = (() => {
     renderNav();
   }
 
-  /* ---------- Course Viewer ---------- */
+  /* ---------- Course catalogue ---------- */
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    
+    state.screen = 'catalogue';
+    const enrolled = getEnrolments(u.username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        <aside class="sidebar">
+          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
+          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
+          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link active" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
+          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
+          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
+          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
+          <div class="spacer"></div>
+          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+        </aside>
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <p class="subtitle">Browse available short courses.</p>
+          <div class="catalogue-grid">
+            <div class="course-tile">
+              <div style="font-size:11px;color:var(--pd);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Engineering &amp; Technology</div>
+              <h3>${esc(COURSE.title)}</h3>
+              <div class="meta">6 modules · Beginner · Free</div>
+              <div class="desc">${esc(COURSE.desc)}</div>
+              ${enrolled.includes(COURSE.id)
+                ? `<button class="btn" onclick="App.openCourse(0,0)">Open course</button>`
+                : `<button class="btn" onclick="App.enrolAndOpen()">Enrol now</button>`}
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function enrolAndOpen() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    enrol(u.username, COURSE.id);
+    openCourse(0, 0);
+  }
+
+  /* ---------- Course viewer ---------- */
   async function openCourse(mi, li) {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
-    if (!getEnrolments(u.username).includes(COURSE.id)) enrol(u.username, COURSE.id);
+    if (!getEnrolments(u.username).includes(COURSE.id)) {
+      enrolAndOpen(); return;
+    }
     state.screen = 'course';
     state.activeCourseModule = mi;
     state.activeCourseLesson = li;
     state.activeAssessment = false;
-    state.menuOpen = false;
-    await renderCourse();
+    renderCourse();
   }
 
   async function renderCourse() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     
-    // Hide main header and footer in course view
-    document.getElementById('mainHeader').style.display = 'none';
-    document.getElementById('mainFooter').style.display = 'none';
-
     const username = u.username;
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson;
@@ -1460,137 +1327,77 @@ const App = (() => {
       openCourse(Math.max(0, mi-1), 0);
       return;
     }
-    if (state.activeAssessment) {
-      await renderAssessmentScreen();
-      return;
-    }
     const lesson = mod.lessons[li];
-    if (!lesson) { await openCourse(mi, 0); return; }
+    if (!lesson) { openCourse(mi, 0); return; }
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
 
     const pct = courseProgressPct(username);
     const el = document.getElementById('app');
-    
     el.innerHTML = `
-      <div class="course-app">
-        <!-- Course Topbar -->
-        <div class="course-topbar">
-          <div class="course-topbar-left">
-            <button class="back-btn" onclick="App.showDashboard()">←</button>
-            <span>${esc(COURSE.title)}</span>
+      <div class="inner" style="padding:24px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
+          <div>
+            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Introduction to Industrial Automation</div>
+            <h1 style="font-size:24px;margin:2px 0;">${esc(mod.title)}</h1>
           </div>
-          <div class="course-topbar-right">
-            <button class="menu-btn" onclick="App.toggleMenu()">☰</button>
-          </div>
-        </div>
-
-        <!-- Lesson Content -->
-        <div class="course-content-area">
-          <div class="lesson-paper">
-            <h1>${esc(lesson.title)}</h1>
-            <div>${lesson.html}</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-secondary btn-sm" onclick="App.showDashboard()">← Dashboard</button>
+            <button class="btn-outline btn-sm" onclick="App.showCatalogue()">Catalogue</button>
           </div>
         </div>
-
-        <!-- Bottom Sticky Bar -->
-        <div class="course-bottombar">
-          <button type="button" class="nav-btn" onclick="App.prevLesson()"><span aria-hidden="true">←</span><span>Previous</span></button>
-          <button type="button" class="complete-btn ${isLessonDone(username, mi, li) ? 'done' : ''}" onclick="App.markCurrentLesson()" id="completeBtn" aria-live="polite">
-            ${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark Complete'}
-          </button>
-          <button type="button" class="nav-btn" onclick="App.nextLesson()"><span>Next</span><span aria-hidden="true">→</span></button>
-        </div>
-
-        <!-- Menu Overlay -->
-        <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
-          <div class="menu-header">
-            <h2>${esc(COURSE.title)}</h2>
-            <button class="close-btn" onclick="App.toggleMenu()">✕</button>
-          </div>
-          
-          <div class="menu-progress">
-            <div class="pct-text">${pct}% Completed</div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: ${pct}%"></div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead">
+              <h2>Course content</h2>
+              <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+              <div class="progress-bar"><span style="width:${pct}%;"></span></div>
             </div>
-          </div>
-
-          <div class="menu-list">
-            ${COURSE.modules.map((m, i) => {
-              const locked = isModuleLocked(username, i);
-              const isCurrentMod = i === mi;
-              const modDone = getQuizResult(username, i)?.passed;
-              
-              let icon = locked ? '🔒' : (modDone ? '✅' : '○');
-              let arrow = '<span class="arrow">▼</span>';
-              if (locked) arrow = '';
-
-              return `
-                <details class="mod-accordion" ${isCurrentMod ? 'open' : ''}>
-                  <summary>
-                    <span class="icon">${icon}</span>
-                    <span>Module ${i+1}: ${esc(m.title)}</span>
-                    ${arrow}
-                  </summary>
-                  <div class="lesson-items">
-                    ${m.lessons.map((l, j) => {
-                      const done = isLessonDone(username, i, j);
-                      const isActive = (i === mi && j === li);
-                      return `
-                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j})">
-                          <span class="icon">${done ? '📖' : '📘'}</span>
-                          <div class="meta">
-                            <span>${esc(l.title).toUpperCase()}</span>
-                            <span class="type">Reading</span>
-                          </div>
-                        </button>
-                      `;
-                    }).join('')}
-                    <!-- Module Quiz / Assessment -->
-                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openAssessment(${i})">
-                      <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
-                      <div class="meta">
-                        <span>Module ${i+1} Assessment</span>
-                        <span class="type">Quiz</span>
-                      </div>
-                    </button>
-                  </div>
-                </details>
-              `;
-            }).join('')}
-          </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                return `
+                  <button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}"
+                    onclick="${locked ? `App.alertLocked(${i})` : `App.openCourse(${i},0)`}">
+                    ${i+1}. ${esc(m.title)} ${locked?'🔒':''}
+                  </button>
+                  ${i===mi ? m.lessons.map((l, j) => {
+                    const done = isLessonDone(username, i, j);
+                    return `
+                      <button class="lesson-link ${j===li?'active':''} ${done?'done':''}"
+                        onclick="App.openCourse(${i},${j})">
+                        ${esc(l.title)}
+                      </button>
+                    `;
+                  }).join('') : ''}
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card" id="lessonCard">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:28px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div id="lessonBody">${lesson.html}</div>
+              <div class="actions">
+                <button class="secondary btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" id="markBtn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark lesson complete'}</button>
+                  <button class="secondary btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+              <div class="notice">Accounts are secured by Supabase. Progress syncs across devices when signed in.</div>
+            </article>
+          </section>
         </div>
       </div>
     `;
-  }
-
-  function toggleMenu(force) {
-    state.menuOpen = typeof force === 'boolean' ? force : !state.menuOpen;
-    const overlay = document.getElementById('courseMenu');
-    if (overlay) overlay.classList.toggle('open', state.menuOpen);
-  }
-
-  async function openAssessment(mi) {
-    const u = await currentUser();
-    if (!u) { showLogin(); return; }
-    if (isModuleLocked(u.username, mi)) {
-      alertLocked(mi);
-      toggleMenu(false);
-      return;
-    }
-    state.screen = 'course';
-    state.activeCourseModule = mi;
-    state.activeCourseLesson = 0;
-    state.activeAssessment = true;
-    state.menuOpen = false;
-    await renderAssessmentScreen();
+    renderNav();
   }
 
   async function renderAssessmentScreen() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
-    document.getElementById('mainHeader').style.display = 'none';
-    document.getElementById('mainFooter').style.display = 'none';
-
+    
     const username = u.username;
     const mi = state.activeCourseModule;
     const mod = COURSE.modules[mi];
@@ -1600,94 +1407,50 @@ const App = (() => {
     const passed = !!result?.passed;
     const pct = courseProgressPct(username);
     const el = document.getElementById('app');
-    
     el.innerHTML = `
-      <div class="course-app">
-        <div class="course-topbar">
-          <div class="course-topbar-left">
-            <button class="back-btn" onclick="App.showDashboard()">←</button>
-            <span>${esc(COURSE.title)}</span>
-          </div>
-          <div class="course-topbar-right">
-            <button class="menu-btn" onclick="App.toggleMenu()">☰</button>
-          </div>
+      <div class="inner" style="padding:24px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;">
+          <div><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Introduction to Industrial Automation</div>
+          <h1 style="font-size:24px;margin:2px 0;">${esc(mod.title)}</h1></div>
+          <div style="display:flex;gap:8px;"><button class="btn-secondary btn-sm" onclick="App.showDashboard()">← Dashboard</button><button class="btn-outline btn-sm" onclick="App.showCatalogue()">Catalogue</button></div>
         </div>
-
-        <div class="course-content-area">
-          <div class="lesson-paper">
-            <h1>${esc(mod.title)} Assessment</h1>
-            <p style="color:#666; margin-bottom: 24px;">Answer all questions. Pass mark: <b>${COURSE.passMark}%</b>. You may retake the assessment if you do not pass.</p>
+        <div class="course-layout">
+          <aside class="module-side"><div class="sidehead"><h2>Course content</h2><div style="font-size:12px;color:var(--muted);">${pct}% completed</div><div class="progress-bar"><span style="width:${pct}%;"></span></div></div>
+            <div class="modules">${COURSE.modules.map((m,i)=>{const locked=isModuleLocked(username,i);return `<button class="mod-btn ${i===mi?'active':''} ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.openCourse(${i},0)`}">${i+1}. ${esc(m.title)} ${locked?'🔒':''}</button>${i===mi?`<button class="lesson-link" onclick="App.openCourse(${i},0)">${esc(m.lessons[0].title)}</button><button class="lesson-link active">Module ${i+1} assessment</button>`:''}`}).join('')}</div>
+          </aside>
+          <section class="content"><article class="card lesson-card">
+            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Module ${mi+1} · Assessment</div>
+            <h1 style="font-size:28px;line-height:1.2;margin:6px 0 8px;">${esc(mod.title)} — Assessment</h1>
+            <p style="color:var(--muted);">Answer all questions. Pass mark: <b>${COURSE.passMark}%</b>. You may retake the assessment if you do not pass.</p>
             ${renderQuizUI(mi, quiz)}
-          </div>
+            <div class="actions"><button class="secondary btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button><div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn ${passed?'':'btn-secondary'}" ${passed?'':'disabled style="opacity:.55;cursor:not-allowed;"'} onclick="App.continueAfterAssessment()">${mi===COURSE.modules.length-1?'Finish course':'Next module →'}</button></div></div>
+            <div class="notice">Your next module becomes available after you pass this assessment with at least ${COURSE.passMark}%.</div>
+          </article></section>
         </div>
+      </div>`;
+    renderNav();
+  }
 
-        <div class="course-bottombar">
-          <button type="button" class="nav-btn" onclick="App.previousFromAssessment()"><span aria-hidden="true">←</span><span>Back to lesson</span></button>
-          <button class="complete-btn ${passed?'done':''}" ${passed?'':'disabled style="opacity:.5;cursor:not-allowed;"'} onclick="App.continueAfterAssessment()">
-            ${mi===COURSE.modules.length-1?'Finish course':'Next module →'}
-          </button>
-        </div>
+  function previousFromAssessment() {
+    state.activeAssessment = false;
+    renderCourse();
+  }
 
-        <!-- Menu Overlay -->
-        <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
-          <div class="menu-header">
-            <h2>${esc(COURSE.title)}</h2>
-            <button class="close-btn" onclick="App.toggleMenu()">✕</button>
-          </div>
-          
-          <div class="menu-progress">
-            <div class="pct-text">${pct}% Completed</div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: ${pct}%"></div>
-            </div>
-          </div>
+  async function continueAfterAssessment() {
+    const u = await currentUser();
+    if (!u) return;
+    const mi = state.activeCourseModule;
+    const result = getQuizResult(u.username, mi);
+    if (!result || !result.passed) { alert('Pass this assessment with at least ' + COURSE.passMark + '% before continuing.'); return; }
+    if (mi + 1 >= COURSE.modules.length) { showDashboard(); return; }
+    state.activeCourseModule = mi + 1;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
 
-          <div class="menu-list">
-            ${COURSE.modules.map((m, i) => {
-              const locked = isModuleLocked(username, i);
-              const isCurrentMod = i === mi;
-              const modDone = getQuizResult(username, i)?.passed;
-              
-              let icon = locked ? '🔒' : (modDone ? '✅' : '○');
-              let arrow = '<span class="arrow">▼</span>';
-              if (locked) arrow = '';
-
-              return `
-                <details class="mod-accordion" ${isCurrentMod ? 'open' : ''}>
-                  <summary>
-                    <span class="icon">${icon}</span>
-                    <span>Module ${i+1}: ${esc(m.title)}</span>
-                    ${arrow}
-                  </summary>
-                  <div class="lesson-items">
-                    ${m.lessons.map((l, j) => {
-                      const done = isLessonDone(username, i, j);
-                      const isActive = (i === mi && j === li && !state.activeAssessment);
-                      return `
-                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j})">
-                          <span class="icon">${done ? '📖' : '📘'}</span>
-                          <div class="meta">
-                            <span>${esc(l.title).toUpperCase()}</span>
-                            <span class="type">Reading</span>
-                          </div>
-                        </button>
-                      `;
-                    }).join('')}
-                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openAssessment(${i})">
-                      <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
-                      <div class="meta">
-                        <span>Module ${i+1} Assessment</span>
-                        <span class="type">Quiz</span>
-                      </div>
-                    </button>
-                  </div>
-                </details>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      </div>
-    `;
+  function alertLocked(i) {
+    alert('Module ' + (i+1) + ' is locked until you pass the previous module assessment.');
   }
 
   function renderQuizUI(mi, quiz) {
@@ -1696,16 +1459,18 @@ const App = (() => {
     const result = getQuizResult(username, mi);
     const passed = result?.passed;
     return `
-      <div style="margin-top:20px;">
+      <div id="quizWrap" style="margin-top:32px;border-top:2px solid var(--line);padding-top:24px;">
+        <h2 style="font-size:22px;">Module ${mi+1} assessment</h2>
+        <p style="font-size:14px;color:var(--muted);">Answer all questions. Pass mark: ${COURSE.passMark}%. Unlimited retakes allowed.</p>
         ${result ? `<div class="callout" style="background:${passed?'#e8f5e9':'#fdecea'};border-left-color:${passed?'#2e7d32':'#c62828'};">
           <b>Previous attempt:</b> ${result.score} / ${result.total} (${Math.round(result.score/result.total*100)}%) — ${passed?'Passed ✅':'Not passed — try again'}</div>` : ''}
-        <div>
+        <div id="quizQuestions">
           ${quiz.map((q, qi) => `
             <div class="q" data-qindex="${qi}">
               <b>${qi+1}. ${esc(q.q)}</b>
               ${q.opts.map((opt, oi) => `
                 <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
-                  <input type="radio" name="q${mi}_${qi}" value="${oi}" style="margin-right:8px;">
+                  <input type="radio" name="q${mi}_${qi}" value="${oi}" style="margin-right:6px;">
                   ${esc(opt)}
                 </label>
               `).join('')}
@@ -1713,11 +1478,11 @@ const App = (() => {
             </div>
           `).join('')}
         </div>
-        <div style="display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap;">
+        <div style="display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap;">
           <button class="btn" onclick="App.submitQuiz(${mi})">Submit answers</button>
-          ${result && !passed ? '<span style="font-size:14px;color:var(--error);">You can retake this assessment.</span>' : ''}
+          ${result && !passed ? '<span style="font-size:13px;color:var(--error);">You can retake this assessment.</span>' : ''}
         </div>
-        <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;font-size:16px;"></p>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;"></p>
       </div>
     `;
   }
@@ -1769,123 +1534,55 @@ const App = (() => {
       resEl.textContent = `You scored ${score} / ${quiz.length} (${pct}%). ${passed ? 'Passed ✅ — you may continue to the next module.' : 'Not passed. Review the explanations and retake when ready.'}`;
       resEl.style.color = passed ? 'var(--success)' : 'var(--error)';
     }
+    
     if (passed) {
       markLessonDone(u.username, mi, 0);
-      if (courseCompleted(u.username)) generateCertificate(u.username);
-      setTimeout(() => { renderAssessmentScreen(); }, 1500);
+      if (courseCompleted(u.username)) {
+        generateCertificate(u.username);
+      }
+      setTimeout(() => { renderCourse(); }, 900);
     }
   }
 
-  // Mark completion in storage and update visible controls without rebuilding the page.
   async function markCurrentLesson() {
     const u = await currentUser();
     if (!u) return;
-
-    const mi = state.activeCourseModule;
-    const li = state.activeCourseLesson;
+    const mi = state.activeCourseModule, li = state.activeCourseLesson;
     markLessonDone(u.username, mi, li);
     if (courseCompleted(u.username)) generateCertificate(u.username);
-
-    const btn = document.getElementById('completeBtn');
-    if (btn) {
-      btn.classList.add('done');
-      btn.textContent = 'Completed ✓';
-      btn.disabled = true;
-      btn.setAttribute('aria-label', 'Lesson completed');
-    }
-    // Wait for the cloud write as well as the local write so the UI does not
-    // report completion before the student's account has been synchronised.
-    await saveProgressToSupabase(u.username, mi, li);
-
-    // Refresh progress and completion icons if the menu is currently visible.
-    const overlay = document.getElementById('courseMenu');
-    if (overlay) {
-      const pct = courseProgressPct(u.username);
-      const pctText = overlay.querySelector('.pct-text');
-      const bar = overlay.querySelector('.bar-fill');
-      if (pctText) pctText.textContent = pct + '% Completed';
-      if (bar) bar.style.width = pct + '%';
-
-      const activeItem = overlay.querySelector(
-        `.lesson-item[onclick="App.openCourse(${mi},${li})"]`
-      );
-      if (activeItem) {
-        const icon = activeItem.querySelector('.icon');
-        if (icon) icon.textContent = '📖';
-      }
-    }
-  }
-
-  // Navigate deterministically: lessons first, then that module's assessment.
-  async function nextLesson() {
-    const u = await currentUser();
-    if (!u) return;
-
-    const mi = state.activeCourseModule;
-    const module = COURSE.modules[mi];
-    if (!module) return;
-    const nextLi = state.activeCourseLesson + 1;
-    toggleMenu(false);
-
-    if (nextLi < module.lessons.length) {
-      await openCourse(mi, nextLi);
-      return;
-    }
-
-    await openAssessment(mi);
+    renderCourse();
   }
 
   async function prevLesson() {
-    const u = await currentUser();
-    if (!u) return;
-
-    let mi = state.activeCourseModule;
-    let li = state.activeCourseLesson - 1;
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
     if (li < 0) {
       mi--;
-      if (mi < 0) { await showDashboard(); return; }
-      if (isModuleLocked(u.username, mi)) { alertLocked(mi); return; }
+      if (mi < 0) { showDashboard(); return; }
+      if (isModuleLocked(state.user.username, mi)) { alertLocked(mi); return; }
       li = COURSE.modules[mi].lessons.length - 1;
     }
-    await openCourse(mi, li);
+    openCourse(mi, li);
   }
 
-  async function previousFromAssessment() {
-    state.activeAssessment = false;
-    state.menuOpen = false;
-    await renderCourse();
-  }
-
-  async function continueAfterAssessment() {
-    const u = await currentUser();
-    if (!u) return;
+  async function nextLesson() {
     const mi = state.activeCourseModule;
-    const result = getQuizResult(u.username, mi);
-    if (!result || !result.passed) { alert('Pass this assessment with at least ' + COURSE.passMark + '% before continuing.'); return; }
-    if (mi + 1 >= COURSE.modules.length) { showDashboard(); return; }
-    state.activeCourseModule = mi + 1;
-    state.activeCourseLesson = 0;
-    state.activeAssessment = false;
-    state.menuOpen = false;
-    await renderCourse();
+    const li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) { openCourse(mi, li); return; }
+    // The assessment is a separate learning step after the module lesson.
+    state.activeAssessment = true;
+    renderCourse();
   }
 
-  function alertLocked(i) {
-    alert('Module ' + (i+1) + ' is locked until you pass the previous module assessment.');
-  }
-
-  /* ---------- Certificate view ---------- */
+  /* ---------- CERTIFICATE VIEW ---------- */
   async function showCertificate() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.screen = 'certificate';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-
     const completed = courseCompleted(u.username);
     let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
     if (completed && !cert) cert = generateCertificate(u.username);
-
+    
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
@@ -1893,6 +1590,7 @@ const App = (() => {
           <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link active" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
@@ -1902,51 +1600,67 @@ const App = (() => {
         <main class="main-panel" style="background: #fbfafc;">
           <h1>My certificate</h1>
           <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
-
+          
           ${cert ? `
             <div class="cert-controls">
               <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
               <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
             </div>
+            
             <div class="cert-display-area">
               <div class="cert-scaler" id="certScaler">
                 <div class="cert-wrapper" id="printableCert">
+                  
                   <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+
                   <div class="cert-main">
+                    
                     <div class="cert-header">
                       <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
                       <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
                     </div>
+                    
                     <div class="cert-date">${fmtDate(cert.date)}</div>
                     <div class="cert-name">${esc(cert.studentName)}</div>
                     <div class="cert-completion">has successfully completed</div>
                     <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    
                     <div class="cert-description">
                       This course has been developed and delivered by Living Oracles Global Institute, introducing the fundamentals of industrial automation, sensors, actuators, PLCs, robotics and monitoring.
                     </div>
+                    
                     <div class="cert-signature-area">
                       <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
                       <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
                       <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
                     </div>
+                    
                     <div class="cert-footer-info">
                       <div class="cert-footer-box">
                         <div class="cert-footer-logo">LOGI</div>
                         <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
                       </div>
                       <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
-                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                        <div>This is a digitally generated certificate. The authenticity of this document can be verified by scanning the QR code on the right.</div>
                       </div>
                     </div>
                   </div>
+                  
                   <div class="cert-sidebar">
+                    
                     <div class="cert-partner-box">LOGI</div>
+                    
                     <div class="cert-sidebar-pattern"></div>
+                    
                     <div class="cert-verify-area">
                       <div class="cert-verify-text">Scan to verify<br>this certificate</div>
                       <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
-                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                      <div class="cert-blockchain">
+                        Blockchain ID:<br>
+                        ${esc(cert.hash)}
+                      </div>
                     </div>
+                    
                     <div class="cert-bottom-block"></div>
                   </div>
                 </div>
@@ -1964,6 +1678,7 @@ const App = (() => {
       </div>
     `;
     renderNav();
+    
     if (cert) {
       scaleCertificate();
       window.addEventListener('resize', scaleCertificate);
@@ -1976,6 +1691,7 @@ const App = (() => {
     const container = scaler.parentElement;
     const containerWidth = container.clientWidth;
     const certWidth = 1000;
+
     if (containerWidth < certWidth) {
       const scale = containerWidth / certWidth;
       scaler.style.transform = `scale(${scale})`;
@@ -1990,20 +1706,35 @@ const App = (() => {
     const cert = document.getElementById('printableCert');
     const scaler = document.getElementById('certScaler');
     if (!cert || !scaler) return;
+    
     const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
     const originalText = btn.innerHTML;
     btn.innerHTML = '⏳ Generating...';
     btn.disabled = true;
+
     const originalTransform = scaler.style.transform;
     const originalMargin = scaler.style.marginBottom;
     scaler.style.transform = 'none';
     scaler.style.marginBottom = '0';
+
     html2canvas(cert, {
-      scale: 2, useCORS: true, backgroundColor: '#fafafa',
-      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      scale: 2, 
+      useCORS: true, 
+      backgroundColor: '#fafafa',
+      width: 1000,
+      height: 707,
+      windowWidth: 1000,
+      windowHeight: 707,
       onclone: (clonedDoc) => {
         const desc = clonedDoc.querySelector('.cert-description');
-        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+        if (desc) {
+          desc.style.wordSpacing = 'normal';
+          desc.style.letterSpacing = 'normal';
+        }
+        const watermark = clonedDoc.querySelector('.cert-watermark');
+        if (watermark) {
+          watermark.style.display = 'block';
+        }
       }
     }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
@@ -2011,15 +1742,19 @@ const App = (() => {
       link.download = 'LOGI_Certificate_Industrial_Automation.png';
       link.href = imgData;
       link.click();
+      
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
+      
       btn.innerHTML = originalText;
       btn.disabled = false;
     }).catch(err => {
       console.error('Error generating image:', err);
       alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
+      
       btn.innerHTML = originalText;
       btn.disabled = false;
     });
@@ -2029,10 +1764,8 @@ const App = (() => {
   async function showDiscussion() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.screen = 'discussion';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-
     const posts = load(STORE.posts, []);
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -2041,6 +1774,7 @@ const App = (() => {
           <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link active" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
@@ -2090,13 +1824,11 @@ const App = (() => {
   async function showAnnouncements() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    
     state.screen = 'announcements';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-
     const anns = load(STORE.announcements, [
-      { id: uid(), title: 'Welcome to Introduction to Industrial Automation', body: 'We are glad you are here. Work through the modules in order. Assessments can be retaken as many times as you need.', ts: nowISO() },
-      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate, complete every lesson and pass each module assessment with at least ' + COURSE.passMark + '%.', ts: nowISO() }
+      { id: uid(), title: 'Welcome to Introduction to Industrial Automation', body: 'We are glad you are here. Work through the modules in order, and remember you can retake assessments as many times as you need.', ts: nowISO() },
+      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate you must complete every lesson and pass each module assessment with at least ' + COURSE.passMark + '%.', ts: nowISO() }
     ]);
     save(STORE.announcements, anns);
     const el = document.getElementById('app');
@@ -2106,6 +1838,7 @@ const App = (() => {
           <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
           <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
           <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
+          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
           <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
           <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
           <button class="nav-link active" onclick="App.showAnnouncements()">📢 Announcements</button>
@@ -2116,7 +1849,7 @@ const App = (() => {
           <h1>Announcements</h1>
           <p class="subtitle">Course news and important updates.</p>
           ${anns.slice().reverse().map(a => `
-            <div style="background: #fff8fb; border-left: 4px solid var(--p); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 14px;">
+            <div class="announcement" style="background: #fff8fb; border-left: 4px solid var(--p); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 14px;">
               <div style="font-size:12px;color:var(--muted);">${fmtDate(a.ts)}</div>
               <div style="font-weight:700;font-size:15px;margin:2px 0;">${esc(a.title)}</div>
               <div style="font-size:14px;color:#444;">${esc(a.body)}</div>
@@ -2130,11 +1863,13 @@ const App = (() => {
 
   async function goHome() {
     const u = await currentUser();
-    if (u) showDashboard(); else showLanding();
+    if (u) showDashboard();
+    else showLanding();
   }
 
   async function init() {
     const { data, error } = await supabaseClient.auth.getSession();
+
     if (error) {
       console.error('Session error:', error.message);
       currentSessionUser = null;
@@ -2142,6 +1877,7 @@ const App = (() => {
       showLanding();
       return;
     }
+
     if (data.session?.user) {
       syncLocalUser(data.session.user);
       studentDataLoadedFor = null;
@@ -2157,14 +1893,16 @@ const App = (() => {
 
   return {
     init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
-    showDashboard, showCertificate, showDiscussion, showAnnouncements,
-    openCourse, openAssessment, prevLesson, nextLesson, markCurrentLesson, toggleMenu,
-    submitQuiz, selectOption, alertLocked, previousFromAssessment, continueAfterAssessment,
-    submitPost, downloadCertificateImage, goHome
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, enrolAndOpen,
+    submitQuiz, selectOption, alertLocked, previousFromAssessment, continueAfterAssessment, submitPost, downloadCertificateImage,
+    goHome
   };
 })();
 
-document.addEventListener('DOMContentLoaded', () => { App.init(); });
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
 </script>
 </body>
 </html>
