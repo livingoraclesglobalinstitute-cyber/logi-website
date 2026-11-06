@@ -662,15 +662,172 @@ async function currentUser() {
   return data.session?.user ? syncLocalUser(data.session.user) : null;
 }
 
-/* ---------- Progress (Local Storage tied to Email) ---------- */
+/* ---------- Cross-device learning data ---------- */
+let studentDataLoadedFor = null;
+let studentDataSyncWarning = '';
+
+function isPermissionError(error) {
+  const message = String(error?.message || '').toLowerCase();
+  return error?.code === '42501' || message.includes('permission denied') ||
+    message.includes('row-level security') || message.includes('not allowed');
+}
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+  const localProgress = getProgress(email);
+  const localEnrolments = getEnrolments(email);
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress')
+      .select('module_index,lesson_index,quiz_score,quiz_total,passed,completed')
+      .eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments')
+      .select('course_id').eq('user_id', user.id)
+  ]);
+
+  const denied = [];
+  if (progressResult.error) {
+    console.warn('LOGI progress could not be loaded:', progressResult.error.message);
+    if (isPermissionError(progressResult.error)) denied.push('progress');
+  }
+  if (enrolmentResult.error) {
+    console.warn('LOGI enrolments could not be loaded:', enrolmentResult.error.message);
+    if (isPermissionError(enrolmentResult.error)) denied.push('enrolments');
+  }
+
+  // Merge cloud progress into the existing local cache.
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = {
+          score: row.quiz_score,
+          total: row.quiz_total,
+          passed: !!row.passed
+        };
+      }
+    });
+    saveProgress(email, merged);
+
+    // If the cloud has no progress yet, migrate this browser's existing records.
+    if (progressResult.data.length === 0) {
+      const rows = [];
+      Object.entries(localProgress.lessons || {}).forEach(([key, completed]) => {
+        if (!completed) return;
+        const [mi, li] = key.split('-').map(Number);
+        if (Number.isInteger(mi) && Number.isInteger(li)) {
+          rows.push({
+            user_id: user.id, course_id: COURSE.id,
+            module_index: mi, lesson_index: li, completed: true
+          });
+        }
+      });
+      Object.entries(localProgress.quizzes || {}).forEach(([moduleKey, quiz]) => {
+        const mi = Number(moduleKey);
+        if (!Number.isInteger(mi) || !quiz) return;
+        const existing = rows.find(row => row.module_index === mi && row.lesson_index === 0);
+        const row = existing || {
+          user_id: user.id, course_id: COURSE.id,
+          module_index: mi, lesson_index: 0, completed: !!localProgress.lessons?.[mi + '-0']
+        };
+        row.quiz_score = Number(quiz.score);
+        row.quiz_total = Number(quiz.total);
+        row.passed = !!quiz.passed;
+        if (!existing) rows.push(row);
+      });
+      if (rows.length) {
+        const { error } = await supabaseClient.from('progress')
+          .upsert(rows, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+        if (error) console.warn('LOGI legacy progress migration failed:', error.message);
+      }
+    }
+  }
+
+  // Cloud enrolments are merged with local enrolments.
+  if (!enrolmentResult.error && Array.isArray(enrolmentResult.data)) {
+    const all = new Set([...localEnrolments, ...getEnrolments(email),
+      ...enrolmentResult.data.map(r => r.course_id), COURSE.id]);
+    const store = load(STORE.enrolments, {});
+    store[email] = [...all];
+    save(STORE.enrolments, store);
+
+    const cloudIds = new Set(enrolmentResult.data.map(r => r.course_id));
+    const missingIds = [...all].filter(Boolean).filter(id => !cloudIds.has(id));
+    if (missingIds.length) {
+      const payload = missingIds.map(course_id => ({ user_id: user.id, course_id }));
+      const { error } = await supabaseClient.from('enrolments')
+        .upsert(payload, { onConflict: 'user_id,course_id', ignoreDuplicates: true });
+      if (error) {
+        console.warn('LOGI enrolment recovery failed:', error.message);
+        if (isPermissionError(error) && !denied.includes('enrolments')) denied.push('enrolments');
+      }
+    }
+  }
+
+  studentDataSyncWarning = denied.length
+    ? 'Some learning records could not be synchronised with your LOGI account because Supabase denied access to: ' + denied.join(', ') + '. Your current-device records remain available.'
+    : '';
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id,
+    course_id: COURSE.id,
+    module_index: moduleIndex,
+    lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null,
+    quiz_total: quiz ? quiz.total : null,
+    passed: quiz ? !!quiz.passed : false
+  };
+  const { error } = await supabaseClient.from('progress')
+    .upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+  if (error) {
+    console.warn('LOGI progress sync failed:', error.message);
+    if (isPermissionError(error)) {
+      studentDataSyncWarning = 'Your learning progress is saved on this device, but Supabase has denied cloud synchronisation for this course.';
+    }
+  }
+}
+
+async function saveEnrolmentToSupabase(courseId) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const { error } = await supabaseClient.from('enrolments').insert({
+    user_id: user.id, course_id: courseId
+  });
+  if (error && error.code !== '23505') {
+    console.warn('LOGI enrolment sync failed:', error.message);
+    if (isPermissionError(error)) {
+      studentDataSyncWarning = 'Your enrolment is available on this device, but Supabase has denied cloud synchronisation.';
+    }
+  }
+}
+
+/* ---------- Progress (Local Storage tied to Email, isolated per course) ---------- */
 function getProgress(username) {
-  const p = load(STORE.progress, {});
-  if (!p[username]) p[username] = { lessons: {}, quizzes: {} };
-  return p[username];
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  const courseProgress = all[username][COURSE.id];
+  if (!courseProgress || !courseProgress.lessons || !courseProgress.quizzes) {
+    return { lessons: {}, quizzes: {} };
+  }
+  return courseProgress;
 }
 function saveProgress(username, p) {
   const all = load(STORE.progress, {});
-  all[username] = p;
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
   save(STORE.progress, all);
 }
 function getEnrolments(username) {
@@ -680,8 +837,10 @@ function getEnrolments(username) {
 function enrol(username, courseId) {
   const e = load(STORE.enrolments, {});
   if (!e[username]) e[username] = [];
-  if (!e[username].includes(courseId)) e[username].push(courseId);
+  const isNew = !e[username].includes(courseId);
+  if (isNew) e[username].push(courseId);
   save(STORE.enrolments, e);
+  if (currentSessionUser?.id) saveEnrolmentToSupabase(courseId);
 }
 function getCerts(username) {
   const c = load(STORE.certificates, {});
@@ -703,6 +862,7 @@ function markLessonDone(username, mi, li) {
   const p = getProgress(username);
   p.lessons[mi + '-' + li] = true;
   saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
 }
 function getQuizResult(username, mi) {
   const p = getProgress(username);
@@ -712,6 +872,7 @@ function saveQuizResult(username, mi, score, total) {
   const p = getProgress(username);
   p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
   saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
 }
 function isModuleLocked(username, mi) {
   if (mi === 0) return false;
@@ -743,6 +904,18 @@ function courseCompleted(username) {
     }
   }
   return true;
+}
+
+/* Next incomplete lesson helper for the dashboard "Continue" button */
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
 }
 
 /* ---------- Certificate generation ---------- */
@@ -887,10 +1060,13 @@ const App = (() => {
     }
 
     syncLocalUser(data.user);
+    studentDataLoadedFor = null;
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
     await showDashboard();
   }
 
-  /* ---------- Auth: register ---------- */
+  /* ---------- Auth: register (smart — detects existing emails) ---------- */
   function showRegister() {
     state.screen = 'register';
     const el = document.getElementById('app');
@@ -906,6 +1082,10 @@ const App = (() => {
           <div class="error-msg" id="regError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
           <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5;">
+            Already have a LOGI account from another course?<br>
+            <a onclick="App.showLogin()" style="color:var(--pd);font-weight:600;cursor:pointer;">Log in to enrol in this course</a>
+          </div>
         </div>
       </div>
     `;
@@ -941,6 +1121,7 @@ const App = (() => {
 
     err.textContent = 'Creating your account...';
 
+    // 1. Try to sign up
     const { data, error } = await supabaseClient.auth.signUp({
       email,
       password,
@@ -951,14 +1132,42 @@ const App = (() => {
       }
     });
 
+    // 2. If the email already exists → try signing in with the password they just typed.
+    //    A returning learner from another LOGI course lands straight on this course.
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'This email already has a LOGI account — signing you in...';
+
+      const { data: signInData, error: signInError } =
+        await supabaseClient.auth.signInWithPassword({ email, password });
+
+      if (signInError) {
+        err.innerHTML =
+          'This email is already registered on LOGI. ' +
+          '<a onclick="App.showLogin()" style="color:var(--pd);font-weight:600;cursor:pointer;">Click here to log in</a> ' +
+          'with your existing password.';
+        return;
+      }
+
+      // Successfully signed in → enrol in THIS course and go to dashboard
+      syncLocalUser(signInData.user);
+      studentDataLoadedFor = null;
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
     if (error) {
       err.textContent = error.message;
       return;
     }
 
+    // 3. Fresh signup — normal path
     if (data.session && data.user) {
       syncLocalUser(data.user);
+      studentDataLoadedFor = null;
       enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
       await showDashboard();
     } else {
       err.textContent =
@@ -974,6 +1183,8 @@ const App = (() => {
     }
 
     currentSessionUser = null;
+    studentDataLoadedFor = null;
+    studentDataSyncWarning = '';
     showLanding();
     renderNav();
   }
@@ -982,16 +1193,24 @@ const App = (() => {
   async function showDashboard() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
-    
+
+    await loadStudentData(u);
     state.user = u;
     state.screen = 'dashboard';
     const username = u.username; // This is the email
     const pct = courseProgressPct(username);
-    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
-    const passedModules = quizzes.filter(q => q?.passed).length;
+
+    // Sequential module count (clamped)
+    let passedModules = 0;
+    for (let mi = 0; mi < COURSE.modules.length; mi++) {
+      if (!getQuizResult(username, mi)?.passed) break;
+      passedModules++;
+    }
+
     const completed = courseCompleted(username);
     const certs = getCerts(username);
     const cert = certs.find(c => c.courseId === COURSE.id);
+    const next = nextIncompleteLesson(username);
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1011,8 +1230,9 @@ const App = (() => {
           <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
         </aside>
         <main class="main-panel">
-          <h1>Welcome back, ${esc(u.fullName.split(' ')[0])} 👋</h1>
+          <h1>Welcome back, ${esc((u.fullName || u.username || 'learner').split(' ')[0])} 👋</h1>
           <p class="subtitle">Here is an overview of your learning progress.</p>
+          ${studentDataSyncWarning ? `<div class="callout" role="status">${esc(studentDataSyncWarning)}</div>` : ''}
 
           <div class="stat-grid">
             <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
@@ -1027,7 +1247,7 @@ const App = (() => {
             <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
               <span style="font-size:13px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
-              <button class="btn" onclick="App.openCourse(${state.activeCourseModule||0},${state.activeCourseLesson||0})">${pct===0?'Start course':'Continue learning'}</button>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
             </div>
           </div>
 
@@ -1047,10 +1267,14 @@ const App = (() => {
                     else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Retake needed</span>';
                     else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">In progress</span>';
                   }
-                  return `<tr style="border-bottom: 1px solid var(--line);">
+                  const quizCell = (qr && qr.total)
+                    ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)`
+                    : 'Not taken';
+                  return `<tr style="border-bottom: 1px solid var(--line); cursor:${locked ? 'not-allowed' : 'pointer'};"
+                      onclick="${locked ? '' : `App.openCourse(${mi},0)`}">
                     <td style="padding: 10px;"><b>${mi+1}. ${esc(m.title)}</b></td>
                     <td style="padding: 10px;">${done} / ${total} done</td>
-                    <td style="padding: 10px;">${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
+                    <td style="padding: 10px;">${quizCell}</td>
                     <td style="padding: 10px;">${statusBadge}</td>
                   </tr>`;
                 }).join('')}
@@ -1197,7 +1421,7 @@ const App = (() => {
                   <button class="secondary btn-secondary" onclick="App.nextLesson()">Next →</button>
                 </div>
               </div>
-              <div class="notice">Demo LMS: accounts are secured by Supabase. Progress is saved locally.</div>
+              <div class="notice">Accounts are secured by Supabase. Progress syncs across devices when signed in.</div>
             </article>
           </section>
         </div>
@@ -1311,10 +1535,6 @@ const App = (() => {
     }
   }
 
-  function attachQuizEvents(mi, quiz) {
-    // Optional pre-fill
-  }
-
   async function submitQuiz(mi) {
     const u = await currentUser();
     if (!u) return;
@@ -1423,15 +1643,12 @@ const App = (() => {
               <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
             </div>
             
-            <!-- Added a wrapper to scale the certificate for mobile/smaller screens -->
             <div class="cert-display-area">
               <div class="cert-scaler" id="certScaler">
                 <div class="cert-wrapper" id="printableCert">
                   
-                  <!-- Background Watermark -->
                   <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
 
-                  <!-- Left Side: Main Content -->
                   <div class="cert-main">
                     
                     <div class="cert-header">
@@ -1465,7 +1682,6 @@ const App = (() => {
                     </div>
                   </div>
                   
-                  <!-- Right Side: Sidebar -->
                   <div class="cert-sidebar">
                     
                     <div class="cert-partner-box">LOGI</div>
@@ -1499,25 +1715,23 @@ const App = (() => {
     `;
     renderNav();
     
-    // Auto scale the certificate to fit the screen width
     if (cert) {
       scaleCertificate();
       window.addEventListener('resize', scaleCertificate);
     }
   }
 
-  // Function to scale certificate down on smaller screens while keeping it full-size for printing
   function scaleCertificate() {
     const scaler = document.getElementById('certScaler');
     if (!scaler) return;
     const container = scaler.parentElement;
     const containerWidth = container.clientWidth;
-    const certWidth = 1000; // Original certificate width
+    const certWidth = 1000;
 
     if (containerWidth < certWidth) {
       const scale = containerWidth / certWidth;
       scaler.style.transform = `scale(${scale})`;
-      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`; // Prevents large blank space below
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
     } else {
       scaler.style.transform = 'none';
       scaler.style.marginBottom = '0';
@@ -1534,7 +1748,6 @@ const App = (() => {
     btn.innerHTML = '⏳ Generating...';
     btn.disabled = true;
 
-    // Temporarily remove the scale so html2canvas captures the full 1000x707 size
     const originalTransform = scaler.style.transform;
     const originalMargin = scaler.style.marginBottom;
     scaler.style.transform = 'none';
@@ -1566,7 +1779,6 @@ const App = (() => {
       link.href = imgData;
       link.click();
       
-      // Restore the scale immediately after generating
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
       
@@ -1576,7 +1788,6 @@ const App = (() => {
       console.error('Error generating image:', err);
       alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
       
-      // Restore scale on error
       scaler.style.transform = originalTransform;
       scaler.style.marginBottom = originalMargin;
       
@@ -1705,6 +1916,8 @@ const App = (() => {
 
     if (data.session?.user) {
       syncLocalUser(data.session.user);
+      studentDataLoadedFor = null;
+      await loadStudentData(currentSessionUser, true);
       await renderNav();
       await showDashboard();
     } else {
