@@ -1216,6 +1216,14 @@ const App = (() => {
   }
 
   function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      // Toggle accordion open/close visually if clicking current active module
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) {
+        modSections[i].classList.toggle('open');
+      }
+      return;
+    }
     state.activeCourseModule = i;
     state.activeCourseLesson = 0;
     state.activeAssessment = false;
@@ -1250,9 +1258,12 @@ const App = (() => {
         </div>
         <div class="course-layout">
           <aside class="module-side">
-            <div class="sidehead">
-              <h2>Course content</h2>
-              <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
             </div>
             <div class="modules">
               ${COURSE.modules.map((m,i)=>{
