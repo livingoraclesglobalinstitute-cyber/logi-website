@@ -360,6 +360,36 @@
     }
     .drawer-overlay.open { display: block; }
 
+    /* Module Drawer Overlay for Course Content on Mobile */
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    /* Floating / Header button for Course Modules on Mobile */
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
     /* =========================================
        CERTIFICATE STYLES (Landscape, 1000x707)
        ========================================= */
@@ -436,7 +466,7 @@
       
       .dash-layout { grid-template-columns: 1fr; }
       
-      /* Slide-out Sidebar Drawer for Mobile */
+      /* Slide-out Sidebar Drawer for Mobile Main Nav */
       .sidebar {
         position: fixed;
         top: 66px;
@@ -454,9 +484,31 @@
       .sidebar .user-badge { display: block; }
 
       .main-panel { max-height: none; padding: 20px 16px 40px; }
+      
+      /* Course Layout Responsive & Slide-Out Module Sidebar */
       .course-layout { grid-template-columns: 1fr; gap: 16px; }
-      .module-side { position: static; }
-      .module-side .modules { max-height: 350px; }
+      .mobile-module-toggle { display: inline-flex; }
+
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open {
+        transform: translateX(0);
+      }
+      .module-side .modules { max-height: calc(100vh - 140px); }
     }
 
     @media (max-width: 500px) {
@@ -494,8 +546,11 @@
   </div>
 </header>
 
-<!-- Backdrop overlay for mobile drawer -->
+<!-- Backdrop overlay for main navigation mobile drawer -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+
+<!-- Backdrop overlay for course content modules mobile drawer -->
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
 
 <div id="app"></div>
 
@@ -815,6 +870,20 @@ const App = (() => {
     if (overlay) overlay.classList.remove('open');
   }
 
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
   async function renderNav() {
     const el = document.getElementById('navActions');
     const toggleBtn = document.getElementById('menuToggleBtn');
@@ -1050,6 +1119,7 @@ const App = (() => {
     state.activeCourseModule = mi;
     state.activeCourseLesson = li;
     state.activeAssessment = false;
+    closeModuleMenu();
     renderCourse();
   }
 
@@ -1075,12 +1145,20 @@ const App = (() => {
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
         <div class="course-layout">
           <aside class="module-side">
-            <div class="sidehead">
-              <h2>Course content</h2>
-              <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
-              <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
             </div>
             <div class="modules">
               ${COURSE.modules.map((m, i) => {
@@ -1147,6 +1225,7 @@ const App = (() => {
   function openAssessment(i) {
     state.activeCourseModule = i;
     state.activeAssessment = true;
+    closeModuleMenu();
     renderAssessmentScreen();
   }
 
@@ -1164,6 +1243,11 @@ const App = (() => {
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
         <div class="course-layout">
           <aside class="module-side">
             <div class="sidehead">
@@ -1377,7 +1461,8 @@ const App = (() => {
     showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
     openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
     alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
-    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu, navigate
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate
   };
 })();
 
