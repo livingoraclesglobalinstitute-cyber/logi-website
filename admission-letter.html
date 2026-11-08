@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOGI | Admission Letter Generator</title>
+<title>LOGI | Admission Letter</title>
 <style>
   /* Core Page Setup */
   body {
@@ -14,7 +14,7 @@
     color: #000;
   }
   
-  /* Form Styling */
+  /* Form Styling (Hidden during print) */
   .controls {
     width: 100%;
     max-width: 800px;
@@ -39,12 +39,12 @@
   button:hover { background: #6d3f3f; }
   button.secondary { background: #333; margin-left: 10px; }
 
-  /* A4 Paper Simulation */
+  /* A4 Paper Simulation - STRICT ONE PAGE */
   .paper {
     width: 210mm;
-    min-height: 297mm;
+    height: 297mm;
     margin: 0 auto;
-    padding: 20mm 22mm; /* Standard official margins */
+    padding: 12mm 18mm; /* Tightened padding for one-page fit */
     background: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     position: relative;
@@ -58,7 +58,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px;
+    width: 400px;
     opacity: 0.03; 
     z-index: 1;
     pointer-events: none;
@@ -68,69 +68,123 @@
   .content {
     position: relative;
     z-index: 2;
-    font-size: 12pt; 
-    line-height: 1.5;
+    font-size: 11pt;
+    line-height: 1.3;
   }
 
-  /* --- EXACT KTU LETTERHEAD FORMAT --- */
-  .header-container {
+  /* --- EXACT KTU HEADER FORMAT --- */
+  .header-top {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 25px;
+    align-items: center;
+    font-size: 9pt;
+    margin-bottom: 5px;
   }
   .header-left {
+    width: 25%;
+    text-align: left;
+    line-height: 1.2;
+  }
+  .header-center {
+    width: 50%;
+    text-align: center;
+  }
+  .header-center img {
+    height: 50px;
+    width: auto;
+    margin-bottom: 2px;
+  }
+  .header-center h1 {
+    margin: 0;
     font-size: 12pt;
-    line-height: 1.4;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .header-center p {
+    margin: 0;
+    font-size: 9pt;
+    font-weight: bold;
   }
   .header-right {
-    font-size: 12pt;
+    width: 25%;
     text-align: right;
+    line-height: 1.2;
+  }
+  
+  /* Header Dividers */
+  .header-divider {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    height: 2px;
+    margin: 3px 0 15px 0;
+  }
+
+  /* Date and Photo Container */
+  .date-photo-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .date-line {
+    font-size: 11pt;
+    margin-right: 20px;
+    margin-top: 15px;
+  }
+  .student-photo {
+    width: 70px;
+    height: 80px;
+    border: 1px solid #000;
+    object-fit: cover;
+    background-color: #f0f0f0; /* Placeholder background */
   }
   
   /* Recipient Block */
   .recipient {
-    font-size: 12pt;
-    margin-bottom: 25px;
-    line-height: 1.4;
+    font-size: 11pt;
+    margin-bottom: 15px;
+    line-height: 1.3;
+  }
+  .recipient span {
+    display: block;
+    margin-bottom: 2px;
   }
   
   /* Subject Line */
   .subject-line {
-    text-align: center;
     font-weight: bold;
-    text-decoration: underline;
     text-transform: uppercase;
-    margin: 25px 0;
-    font-size: 12pt;
+    margin: 15px 0;
+    font-size: 11pt;
   }
 
   /* Body Text */
   .intro {
     text-align: justify;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
-  /* Numbered List */
+  /* Numbered List - Tightened */
   ol.conditions {
     padding-left: 20px;
     text-align: justify;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   ol.conditions li {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   /* Closing & Signatures */
   .closing {
-    margin-top: 25px;
+    margin-top: 15px;
   }
   
   .signature-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: 40px;
+    margin-top: 20px;
   }
   
   .signature-block {
@@ -138,26 +192,26 @@
   }
   
   .signature-image {
-    height: 55px;
-    margin-bottom: 5px;
+    height: 45px;
+    margin-bottom: 2px;
     display: block;
   }
   
   .signature-name {
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 12pt;
+    font-size: 11pt;
   }
   
   .signature-title {
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 11pt;
+    font-size: 10pt;
     margin-top: 2px;
   }
   
   .signature-email {
-    font-size: 11pt;
+    font-size: 10pt;
     margin-top: 2px;
   }
 
@@ -165,12 +219,12 @@
   .qr-block {
     width: 35%;
     text-align: right;
-    font-size: 9pt;
+    font-size: 8pt;
     color: #555;
   }
   .qr-block img {
-    width: 75px;
-    height: 75px;
+    width: 65px;
+    height: 65px;
     margin-bottom: 4px;
   }
 
@@ -189,9 +243,10 @@
     }
     .paper {
       width: 100%;
+      height: 100%;
       box-shadow: none;
       margin: 0;
-      padding: 20mm;
+      padding: 12mm 18mm;
     }
   }
 </style>
@@ -202,7 +257,7 @@
 <div class="controls">
   <h2>LOGI Admission Letter Generator</h2>
   <div class="form-grid">
-    <div class="field"><label>Student Name</label><input id="studentName" value="BEREKET KASAHUN"></div>
+    <div class="field"><label>Student Name</label><input id="studentName" value="Bereket Kasahun"></div>
     <div class="field"><label>Application Number</label><input id="candidateNumber" value="APP-2026-6363"></div>
     <div class="field full"><label>Programme</label><input id="programme" value="Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)"></div>
     <div class="field"><label>School</label><input id="school" value="School of Engineering & Technology"></div>
@@ -210,7 +265,7 @@
     <div class="field full"><label>Programme Fee</label><input id="fee" value="USD 250"></div>
     <div class="field"><label>Fee Coverage</label><input id="coverage" value="training and certification examination"></div>
     <div class="field"><label>Location/Country</label><input id="location" value="Wolayita, Ethiopia"></div>
-    <div class="field"><label>Email Address</label><input id="email" value="bekkast768@gmail.com"></div>
+    <div class="field"><label>Phone Number</label><input id="phone" value="+251 906 473 979"></div>
     <div class="field full"><label>Date of Letter</label><input id="letterDate" value="7 November 2026"></div>
   </div>
   <div class="actions">
@@ -226,20 +281,40 @@
   
   <div class="content">
     
-    <!-- Header matching KTU Format exactly (No top logo, city/phone left, date right) -->
-    <div class="header-container">
+    <!-- Exact KTU Header Layout -->
+    <div class="header-top">
       <div class="header-left">
-        Wolayita, Ethiopia<br>
-        +251 906 473 979
+        Registrar<br>
+        Tel: +233 322 496534/498380<br>
+        Fax: +233 322 22387
       </div>
-      <div class="header-right" id="outDate">
-        7 November 2026
+      <div class="header-center">
+        <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo"><br>
+        <h1>LIVING ORACLES GLOBAL INSTITUTE</h1>
+        <p>2026/2027 ACADEMIC YEAR</p>
+      </div>
+      <div class="header-right">
+        P.O.BOX 854<br>
+        <span id="outHeaderLocation">Wolayita, Ethiopia</span>
       </div>
     </div>
 
-    <!-- Recipient -->
+    <!-- Divider Lines -->
+    <div class="header-divider"></div>
+
+    <!-- Date and Photo Row -->
+    <div class="date-photo-row">
+      <div class="date-line" id="outDate">7 November 2026</div>
+      <!-- You can replace the src below with a real photo URL if you have one -->
+      <img src="https://via.placeholder.com/70x80?text=Photo" alt="Student Photo" class="student-photo">
+    </div>
+
+    <!-- Recipient Block exactly like KTU -->
     <div class="recipient">
-      Dear <strong><span id="outName">BEREKET KASAHUN</span></strong> Candidate Number: <span id="outCandidate">APP-2026-6363</span>
+      <span id="outLocation">Wolayita, Ethiopia</span>
+      <span id="outPhone">+251 906 473 979</span><br>
+      <span>Dear <strong><span id="outName">Bereket Kasahun</span></strong></span>
+      <span><strong>Candidate Number: <span id="outCandidate">APP-2026-6363</span></strong></span>
     </div>
 
     <!-- Subject -->
@@ -249,7 +324,7 @@
 
     <!-- Introduction -->
     <div class="intro">
-      With reference to your application, I am pleased to offer you provisional admission to Living Oracles Global Institute to pursue a <span id="outDuration">programme</span> in <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong> (online session) beginning at the current level. 
+      With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
     </div>
 
     <!-- Conditions List -->
@@ -273,14 +348,13 @@
       Please accept our congratulations on your admission. We look forward to supporting you as you develop practical knowledge and skills in project, quality and process management.
     </div>
 
-    <div class="closing" style="margin-top: 20px;">
+    <div class="closing" style="margin-top: 10px;">
       Yours faithfully,
     </div>
 
     <!-- Signature and QR Code Row -->
     <div class="signature-section">
       <div class="signature-block">
-        <!-- Using the raw GitHub URL for the SVG signature -->
         <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Registrar Signature" class="signature-image">
         <div class="signature-name">MR. STEPHEN ELIAN</div>
         <div class="signature-title">REGISTRAR</div>
@@ -298,7 +372,6 @@
 
 <script>
   function updateLetter() {
-    // Get values from form
     const name = document.getElementById('studentName').value;
     const candidate = document.getElementById('candidateNumber').value;
     const programme = document.getElementById('programme').value;
@@ -307,10 +380,9 @@
     const fee = document.getElementById('fee').value;
     const coverage = document.getElementById('coverage').value;
     const location = document.getElementById('location').value;
-    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
     const date = document.getElementById('letterDate').value;
 
-    // Update DOM
     document.getElementById('outName').innerText = name;
     document.getElementById('outCandidate').innerText = candidate;
     document.getElementById('outAppNumber').innerText = candidate;
@@ -321,11 +393,11 @@
     document.getElementById('outFee').innerText = fee;
     document.getElementById('outCoverage').innerText = coverage;
     document.getElementById('outLocation').innerText = location;
-    document.getElementById('outEmail').innerText = email;
+    document.getElementById('outPhone').innerText = phone;
     document.getElementById('outDate').innerText = date;
     
-    // Dynamically update header left side based on location
-    document.querySelector('.header-left').innerHTML = location + '<br>+251 906 473 979';
+    // Update the top right header location
+    document.getElementById('outHeaderLocation').innerText = location;
   }
   
   // Initialize on page load
