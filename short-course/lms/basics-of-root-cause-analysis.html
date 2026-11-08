@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Basics of Root Cause Analysis">
+  <title>LOGI LMS · Basics of Root Cause Analysis</title>
+
+  <!-- html2canvas for certificate image download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- Supabase for real authentication -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Basics of Root Cause Analysis
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'rca-101',
+  title: 'Basics of Root Cause Analysis',
+  desc: 'This course introduces systematic ways to investigate problems beyond their immediate symptoms. Learners practise defining problems, gathering evidence and identifying causes before selecting corrective actions.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Understanding Problems and Symptoms",
+      lessons: [{
+        title: "Problems, Symptoms and Root Causes",
+        duration: "45 minutes",
+        html: `<p>Root Cause Analysis (RCA) is a structured method for finding the underlying reason a problem occurs so that it can be eliminated rather than treated. A <b>problem</b> is the undesirable outcome — a leak, a delay, a complaint. A <b>symptom</b> is how the problem presents. A <b>root cause</b> is the condition that, if removed, prevents recurrence.</p>
+<div class="callout"><b>Core principle:</b> Treating the symptom brings the problem back. RCA seeks the cause behind the cause so that the fix is permanent.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to distinguish problems, symptoms and causes, explain why symptom-focused fixes fail, and identify when RCA is warranted.</p>
+<h3>1. Problem, symptom, cause</h3>
+<table class="compare"><tr><th>Element</th><th>Definition</th><th>Example</th></tr><tr><td>Problem</td><td>The undesirable result</td><td>Customers receive late orders</td></tr><tr><td>Symptom</td><td>How the problem shows itself</td><td>Delivery log shows 200 late shipments</td></tr><tr><td>Root cause</td><td>The underlying condition</td><td>Picking list template omits a SKU</td></tr></table>
+<div class="diagram">
+  <svg viewBox="0 0 620 220" role="img" aria-label="Iceberg model: symptoms above water, causes below">
+    <defs>
+      <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#bfe3ff"/>
+        <stop offset="100%" stop-color="#438bd5"/>
+      </linearGradient>
+    </defs>
+    <g font-family="Arial" font-size="12">
+      <rect x="0" y="100" width="620" height="120" fill="url(#sea)" opacity="0.4"/>
+      <text x="320" y="215" text-anchor="middle" font-size="11" fill="#2b6cb0">Below the surface: causes</text>
+      <text x="320" y="90" text-anchor="middle" font-size="11" fill="#e93680">Above the surface: what we see</text>
+      <!-- Iceberg -->
+      <polygon points="310,40 380,95 240,95" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+      <polygon points="240,95 380,95 440,190 180,190" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+      <text x="310" y="80" text-anchor="middle" font-weight="bold" fill="#e93680">Symptom</text>
+      <text x="310" y="140" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Immediate</text>
+      <text x="310" y="158" text-anchor="middle" font-size="11" fill="#555">cause</text>
+      <text x="310" y="180" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Root cause</text>
+      <line x1="0" y1="95" x2="620" y2="95" stroke="#438bd5" stroke-width="2" stroke-dasharray="6,4"/>
+    </g>
+  </svg>
+  <div class="diagram-cap">Symptoms are visible; causes — especially root causes — sit below the surface.</div>
+</div>
+<h3>2. Why symptom fixes fail</h3><p>Removing a symptom is fast and feels like progress. But unless the cause is addressed, the problem recurs — sometimes worse. Examples:</p>
+<ul>
+  <li>Retraining an operator after an error without checking whether the procedure was ambiguous.</li>
+  <li>Replacing a failed pump without asking why it failed (e.g., dry running, wrong duty point).</li>
+  <li>Adding a final inspection step instead of preventing the defect at source.</li>
+</ul>
+<h3>3. When RCA is warranted</h3>
+<ul>
+  <li>The problem recurs and is costly, unsafe or customer-visible.</li>
+  <li>The cause is not obvious from a quick look.</li>
+  <li>There is a risk that a superficial fix will mask the true issue.</li>
+  <li>Regulation, safety or reputation demands a documented investigation.</li>
+</ul>
+<h3>4. The RCA mindset</h3>
+<p>Good RCA is evidence-led, not opinion-led. It avoids blame, separates cause from coincidence, and accepts that the true cause may be uncomfortable (a design flaw, a management decision, a supplier issue). It ends only when a verified cause produces a fix that works.</p>
+<div class="callout"><b>Watch for:</b> "The operator was careless." — This is almost never a root cause. Ask what system, training, tool or condition made the error possible or likely.</div>
+<h3>5. The RCA process at a glance</h3>
+<div class="diagram">
+  <svg viewBox="0 0 620 130" role="img" aria-label="Five-step RCA process">
+    <defs>
+      <marker id="arrR" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <g>
+        <rect x="10" y="40" width="110" height="60" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="65" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">1. Define</text>
+        <text x="65" y="83" text-anchor="middle" font-size="10" fill="#555">the problem</text>
+      </g>
+      <g>
+        <rect x="130" y="40" width="110" height="60" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="185" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">2. Collect</text>
+        <text x="185" y="83" text-anchor="middle" font-size="10" fill="#555">evidence</text>
+      </g>
+      <g>
+        <rect x="250" y="40" width="110" height="60" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="305" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">3. Analyse</text>
+        <text x="305" y="83" text-anchor="middle" font-size="10" fill="#555">causes</text>
+      </g>
+      <g>
+        <rect x="370" y="40" width="110" height="60" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="425" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">4. Verify</text>
+        <text x="425" y="83" text-anchor="middle" font-size="10" fill="#555">root cause</text>
+      </g>
+      <g>
+        <rect x="490" y="40" width="110" height="60" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="545" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">5. Fix</text>
+        <text x="545" y="83" text-anchor="middle" font-size="10" fill="#555">and verify</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="120" y1="70" x2="128" y2="70" marker-end="url(#arrR)"/>
+        <line x1="240" y1="70" x2="248" y2="70" marker-end="url(#arrR)"/>
+        <line x1="360" y1="70" x2="368" y2="70" marker-end="url(#arrR)"/>
+        <line x1="480" y1="70" x2="488" y2="70" marker-end="url(#arrR)"/>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">The five-step RCA process — each step feeds the next.</div>
+</div>`,
+        quiz: [
+          { q: "What is the difference between a symptom and a root cause?", opts: ["A symptom is what we see; a root cause is underlying", "A symptom is always invisible; a root cause is measurable", "A symptom is technical; a root cause is emotional", "A symptom is documented; a root cause is assumed"], answer: 0, explanation: "A symptom is the visible effect; the root cause is the underlying condition that produces it." },
+          { q: "Why do symptom-only fixes usually fail?", opts: ["They cost too much to implement", "They do not remove the cause, so the problem returns", "They require too much data", "They only work in manufacturing"], answer: 1, explanation: "Symptom fixes treat the effect, not the cause, so recurrence is likely." },
+          { q: "Which is a likely sign that RCA is warranted?", opts: ["A problem recurs and is costly or unsafe", "A problem occurred once, harmlessly", "A problem is well understood already", "A problem is predicted to disappear"], answer: 0, explanation: "Recurring, costly or unsafe problems are strong candidates for structured RCA." },
+          { q: "What does a good RCA attitude avoid?", opts: ["Gathering evidence before deciding", "Blaming an individual without examining the system", "Asking why repeatedly", "Documenting findings clearly"], answer: 1, explanation: "RCA seeks systemic causes; personal blame usually hides the true cause." },
+          { q: "Which statement best describes a root cause?", opts: ["It is the loudest explanation offered", "It is the most expensive fix available", "It is the condition whose removal prevents recurrence", "It is the first event in the timeline"], answer: 2, explanation: "A true root cause, when removed, prevents the problem from recurring." }
+        ]
+      }]
+    },
+    {
+      title: "Collecting Evidence",
+      lessons: [{
+        title: "Gathering and Organising Reliable Evidence",
+        duration: "45 minutes",
+        html: `<p>Evidence is the foundation of RCA. Without reliable evidence, conclusions are opinions. The Collect Evidence phase gathers facts — physical, documentary, witness and measurement evidence — and organises them so the analysis can proceed safely.</p>
+<div class="callout"><b>Golden rule:</b> Collect before you interpret. Do not force the evidence to fit an early hypothesis.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the main types of evidence, plan an evidence-gathering effort, avoid contamination, and record evidence so it survives scrutiny.</p>
+<h3>1. Types of evidence</h3>
+<table class="compare"><tr><th>Type</th><th>Examples</th><th>Strength / caveat</th></tr><tr><td>Physical</td><td>Failed part, sample, damaged component</td><td>Strong if preserved; degrades if disturbed</td></tr><tr><td>Documentary</td><td>Logs, work orders, procedures, emails</td><td>Reliable if authentic; may be incomplete</td></tr><tr><td>Witness</td><td>Interviews, statements, observations</td><td>Rich but subject to memory and bias</td></tr><tr><td>Measurement</td><td>Sensor data, test results, calibrations</td><td>Objective but limited by instrument accuracy</td></tr><tr><td>Photographic</td><td>Photographs, video, CCTV</td><td>Compelling but easily misread out of context</td></tr></table>
+<h3>2. Securing the scene</h3>
+<p>Where physical evidence matters (a failure, an accident, a defect), preserve the scene before disturbing it. Photograph from multiple angles, sketch the layout, tag parts, and — where necessary — isolate the equipment or area.</p>
+<div class="diagram">
+  <svg viewBox="0 0 620 220" role="img" aria-label="Evidence collection checklist">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Evidence collection checklist</text>
+      <g>
+        <rect x="20" y="40" width="280" height="160" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="160" y="62" text-anchor="middle" font-weight="bold" fill="#e93680">Before disturbing</text>
+        <g font-size="11" fill="#333">
+          <text x="35" y="85">☐ Photograph overall and close-up</text>
+          <text x="35" y="107">☐ Sketch layout / tag parts</text>
+          <text x="35" y="129">☐ Isolate / secure equipment</text>
+          <text x="35" y="151">☐ Note conditions (temperature, time)</text>
+          <text x="35" y="173">☐ Preserve original state</text>
+        </g>
+      </g>
+      <g>
+        <rect x="320" y="40" width="280" height="160" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="460" y="62" text-anchor="middle" font-weight="bold" fill="#2b6cb0">During collection</text>
+        <g font-size="11" fill="#333">
+          <text x="335" y="85">☐ Record who, what, when, where</text>
+          <text x="335" y="107">☐ Chain of custody documented</text>
+          <text x="335" y="129">☐ Use calibrated instruments</text>
+          <text x="335" y="151">☐ Interview witnesses separately</text>
+          <text x="335" y="173">☐ Store / label safely</text>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Preserve first, gather second — evidence lost is evidence gone.</div>
+</div>
+<h3>3. Witness interviews</h3>
+<p>Interview witnesses promptly and separately. Ask open questions first ("What did you see?"), then closed questions ("Did the alarm sound before or after?"). Avoid leading questions ("You forgot the step, right?") and record statements verbatim where possible.</p>
+<h3>4. Data and measurement evidence</h3>
+<p>Sensor logs, control chart data, maintenance records, supplier certificates and inspection results are powerful — but only if trustworthy. Before using data, confirm:</p>
+<ul>
+  <li>Was the instrument calibrated and in range?</li>
+  <li>Was the sampling method unbiased (all shifts, all machines)?</li>
+  <li>Were any values substituted, rounded or estimated?</li>
+  <li>Is missingness random or systematic?</li>
+</ul>
+<h3>5. Bias in evidence collection</h3>
+<table class="compare"><tr><th>Bias</th><th>Effect</th><th>Mitigation</th></tr><tr><td>Confirmation bias</td><td>Only evidence supporting the preferred cause is collected</td><td>Actively seek disconfirming evidence</td></tr><tr><td>Hindsight bias</td><td>"It was obvious" after the event</td><td>Record what was knowable at the time</td></tr><tr><td>Recency</td><td>Recent events dominate</td><td>Sample across a representative period</td></tr><tr><td>Authority</td><td>Senior opinion outweighs data</td><td>Separate opinion from evidence</td></tr></table>
+<h3>6. Organising evidence</h3>
+<p>Keep an evidence log: item, source, date, collector, condition, location. A clear log makes the analysis defensible and allows others to review the reasoning. Timelines are particularly useful — they reveal sequence, delays and coincidence versus causation.</p>`,
+        quiz: [
+          { q: "Which evidence type is most fragile if the scene is disturbed?", opts: ["Documentary records", "Physical evidence", "Witness statements", "Photographic evidence"], answer: 1, explanation: "Physical evidence degrades once moved or contaminated; the scene must be preserved first." },
+          { q: "Why should witnesses be interviewed separately?", opts: ["It is faster than group interviews", "It prevents statements from influencing one another", "It reduces paperwork", "It is required by law only"], answer: 1, explanation: "Separate interviews prevent cross-contamination of memory and opinion." },
+          { q: "Which practice reduces confirmation bias in evidence collection?", opts: ["Seeking evidence that supports the leading theory", "Deliberately seeking disconfirming evidence", "Ignoring inconvenient data", "Using only sensor data"], answer: 1, explanation: "Actively hunting for evidence against the hypothesis reduces confirmation bias." },
+          { q: "What does 'chain of custody' refer to?", opts: ["A record of who handled evidence and when", "The sequence of events in a timeline", "The hierarchy of authority in a team", "The order of interviews"], answer: 0, explanation: "Chain of custody documents evidence handling to preserve authenticity." },
+          { q: "What should be confirmed about measurement data before use?", opts: ["That it comes from the newest instrument", "That calibration, sampling and completeness are sound", "That it was stored in a spreadsheet", "That it was collected in one shift"], answer: 1, explanation: "Data quality depends on calibration, unbiased sampling and completeness." }
+        ]
+      }]
+    },
+    {
+      title: "The 5 Whys Technique",
+      lessons: [{
+        title: "Drilling Down with Five Whys",
+        duration: "45 minutes",
+        html: `<p>The 5 Whys technique drills down from a symptom to a root cause by repeatedly asking "why?" Each answer becomes the subject of the next question. The name "5" is a guideline — the useful number is however many questions it takes to reach an actionable, controllable cause.</p>
+<div class="callout"><b>Purpose:</b> Move from the surface to the cause in a small number of focused questions, using evidence to validate each answer.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to apply the 5 Whys to a real problem, avoid shallow or blame-based answers, and know when a different tool is needed.</p>
+<h3>1. How it works</h3>
+<ol>
+  <li>State the problem clearly, with data.</li>
+  <li>Ask "Why does this happen?" and answer with evidence.</li>
+  <li>Ask "Why does <i>that</i> happen?" — and so on.</li>
+  <li>Stop when the cause is actionable and verifiable.</li>
+  <li>Test the chain: does reversing each answer prevent the symptom?</li>
+</ol>
+<div class="diagram">
+  <svg viewBox="0 0 620 320" role="img" aria-label="Five Whys chain example">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Five Whys — late deliveries</text>
+      <!-- Levels -->
+      <g>
+        <rect x="20" y="40" width="580" height="40" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="30" y="56" font-weight="bold" fill="#e93680">Problem:</text>
+        <text x="100" y="56" fill="#333">Customer orders arrive late</text>
+        <text x="30" y="72" font-size="10" fill="#555">data: 200 late shipments in Q1</text>
+      </g>
+      <g>
+        <rect x="20" y="90" width="580" height="40" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="30" y="106" font-weight="bold" fill="#e93680">Why 1:</text>
+        <text x="100" y="106" fill="#333">Picking takes longer than planned</text>
+      </g>
+      <g>
+        <rect x="20" y="140" width="580" height="40" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="30" y="156" font-weight="bold" fill="#e93680">Why 2:</text>
+        <text x="100" y="156" fill="#333">Pickers re-walk aisles to find items</text>
+      </g>
+      <g>
+        <rect x="20" y="190" width="580" height="40" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="30" y="206" font-weight="bold" fill="#e93680">Why 3:</text>
+        <text x="100" y="206" fill="#333">Pick list is not sorted by aisle sequence</text>
+      </g>
+      <g>
+        <rect x="20" y="240" width="580" height="40" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="30" y="256" font-weight="bold" fill="#e93680">Why 4:</text>
+        <text x="100" y="256" fill="#333">Warehouse system sorts by SKU, not location</text>
+      </g>
+      <g>
+        <rect x="20" y="290" width="580" height="0" rx="6" fill="#dcecff" stroke="#438bd5"/>
+      </g>
+      <text x="30" y="300" font-weight="bold" fill="#2b6cb0" font-size="11">Why 5 (root cause):</text>
+      <text x="160" y="300" fill="#333" font-size="11">System setup was never configured for aisle-based sort</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Each "why" must be supported by evidence — not a guess about who or what is to blame.</div>
+</div>
+<h3>2. Good answers vs. poor answers</h3>
+<table class="compare"><tr><th>Poor answer</th><th>Why poor</th><th>Better probe</th></tr><tr><td>"The operator was careless"</td><td>Blames a person; not actionable</td><td>What made the error possible? Was training, tooling or procedure inadequate?</td></tr><tr><td>"It just happens sometimes"</td><td>Ends inquiry</td><td>Which conditions correlate with it? What data do we have?</td></tr><tr><td>"We need more staff"</td><td>Jumps to solution</td><td>Why is staffing the bottleneck? Is work balanced?</td></tr></table>
+<h3>3. Verifying the chain</h3>
+<p>Once a candidate root cause is reached, test it: if the cause were removed or controlled, would the symptom disappear? Can you prove it from data or a controlled change? A chain that has no evidence behind any link is a story, not an analysis.</p>
+<h3>4. When 5 Whys is not enough</h3>
+<ul>
+  <li><b>Multiple interacting causes</b> — use fishbone or FMEA to broaden first.</li>
+  <li><b>Statistical variation</b> — use control charts and hypothesis tests.</li>
+  <li><b>Design problems</b> — use design review, FMEA, fault tree analysis.</li>
+  <li><b>Complex systems</b> — use fault tree or event tree analysis.</li>
+</ul>
+<h3>5. Combining 5 Whys with fishbone</h3>
+<p>Use the fishbone to generate a wide set of possible causes, then take each significant branch through 5 Whys to reach a controllable cause. This combines breadth (fishbone) with depth (5 Whys).</p>`,
+        quiz: [
+          { q: "The number '5' in 5 Whys is best understood as:", opts: ["A strict legal requirement", "A guideline — use as many as needed", "The maximum number allowed", "The number of team members"], answer: 1, explanation: "The number 5 is a guideline; what matters is reaching a controllable, verified cause." },
+          { q: "Which answer is a poor link in a 5 Whys chain?", opts: ["The seal was fitted backwards", "The inspection step missed a defect", "The worker was careless", "The procedure lacked a second check"], answer: 2, explanation: "Blaming a person is usually not actionable and hides the systemic cause." },
+          { q: "What is the best test of a candidate root cause?", opts: ["Removing or controlling it prevents the symptom", "It sounds the most plausible", "It requires the largest budget", "It matches the manager's opinion"], answer: 0, explanation: "A verified root cause, when removed, prevents recurrence — this can be tested." },
+          { q: "When is 5 Whys likely insufficient?", opts: ["When there is a single clear cause", "When causes are multiple and interacting", "When data is already available", "When the problem is simple"], answer: 1, explanation: "Multiple interacting causes need broader tools like fishbone or FMEA." },
+          { q: "How do fishbone and 5 Whys combine usefully?", opts: ["Fishbone verifies; 5 Whys generates", "Fishbone broadens; 5 Whys deepens each branch", "They are interchangeable", "Fishbone replaces 5 Whys entirely"], answer: 1, explanation: "Fishbone generates a wide range of causes; 5 Whys drills into the significant ones." }
+        ]
+      }]
+    },
+    {
+      title: "Fishbone and Other Analysis Tools",
+      lessons: [{
+        title: "Fishbone, Fault Tree and Pareto",
+        duration: "50 minutes",
+        html: `<p>RCA uses several analysis tools depending on the nature of the problem. The fishbone (Ishikawa) diagram organises potential causes. Pareto analysis prioritises the causes worth attacking. Fault tree analysis (FTA) traces how combinations of failures produce an unwanted event.</p>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to build a fishbone diagram with meaningful sub-causes, use Pareto analysis to prioritise, and describe when fault tree analysis is appropriate.</p>
+<h3>1. Fishbone diagram</h3>
+<p>The spine leads to the problem statement; each rib is a cause category; each sub-rib is a potential cause. Common categories are Man, Machine, Method, Material, Measurement, Environment (6M).</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 300" role="img" aria-label="Fishbone diagram for a welding defect">
+    <g font-family="Arial" font-size="11">
+      <line x1="60" y1="150" x2="540" y2="150" stroke="#333" stroke-width="2.5"/>
+      <polygon points="540,150 600,130 600,170" fill="#e93680"/>
+      <text x="570" y="154" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Weld crack</text>
+
+      <g stroke="#438bd5" stroke-width="2">
+        <line x1="150" y1="150" x2="210" y2="70"/>
+        <line x1="270" y1="150" x2="330" y2="70"/>
+        <line x1="390" y1="150" x2="450" y2="70"/>
+        <line x1="150" y1="150" x2="210" y2="230"/>
+        <line x1="270" y1="150" x2="330" y2="230"/>
+        <line x1="390" y1="150" x2="450" y2="230"/>
+      </g>
+      <text x="210" y="55" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Man</text>
+      <text x="210" y="75" text-anchor="middle" font-size="10" fill="#555">Welder fatigue</text>
+      <text x="210" y="90" text-anchor="middle" font-size="10" fill="#555">Skill gap</text>
+
+      <text x="330" y="55" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Method</text>
+      <text x="330" y="75" text-anchor="middle" font-size="10" fill="#555">Current not set</text>
+      <text x="330" y="90" text-anchor="middle" font-size="10" fill="#555">No pre-heat</text>
+
+      <text x="450" y="55" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Machine</text>
+      <text x="450" y="75" text-anchor="middle" font-size="10" fill="#555">Voltage drift</text>
+      <text x="450" y="90" text-anchor="middle" font-size="10" fill="#555">Wire feed</text>
+
+      <text x="210" y="248" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Material</text>
+      <text x="210" y="265" text-anchor="middle" font-size="10" fill="#555">Plate contamination</text>
+      <text x="210" y="280" text-anchor="middle" font-size="10" fill="#555">Wrong filler</text>
+
+      <text x="330" y="248" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Measurement</text>
+      <text x="330" y="265" text-anchor="middle" font-size="10" fill="#555">No NDT check</text>
+      <text x="330" y="280" text-anchor="middle" font-size="10" fill="#555">Visual only</text>
+
+      <text x="450" y="248" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Environment</text>
+      <text x="450" y="265" text-anchor="middle" font-size="10" fill="#555">Draught</text>
+      <text x="450" y="280" text-anchor="middle" font-size="10" fill="#555">Humidity</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Fishbone for a weld crack — a wide set of candidate causes before investigation narrows the search.</div>
+</div>
+<h3>2. Building a good fishbone</h3>
+<ul>
+  <li>Write the problem as a precise statement (with data) at the head.</li>
+  <li>Use the 6M categories consistently.</li>
+  <li>List causes at the level that allows investigation — not "bad quality" but "pre-heat temperature not recorded".</li>
+  <li>Verify significant branches with data (5 Whys, stratification, tests).</li>
+</ul>
+<h3>3. Pareto analysis</h3>
+<p>Pareto ranks causes or defects by frequency, revealing the "vital few". A Pareto chart is the companion to a fishbone — the fishbone generates candidates, the Pareto focuses effort on the largest contributors.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Pareto chart of defect types">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Pareto — defect types by frequency</text>
+      <line x1="70" y1="200" x2="600" y2="200" stroke="#999"/>
+      <line x1="70" y1="30" x2="70" y2="200" stroke="#999"/>
+      <g>
+        <rect x="90" y="50" width="70" height="150" fill="#ff4b93"/>
+        <text x="125" y="215" text-anchor="middle" font-size="10" fill="#333">Crack</text>
+        <text x="125" y="45" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">48%</text>
+        <rect x="180" y="95" width="70" height="105" fill="#ff6ba0"/>
+        <text x="215" y="215" text-anchor="middle" font-size="10" fill="#333">Porosity</text>
+        <text x="215" y="90" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">28%</text>
+        <rect x="270" y="145" width="70" height="55" fill="#ff8ab7"/>
+        <text x="305" y="215" text-anchor="middle" font-size="10" fill="#333">Undercut</text>
+        <text x="305" y="140" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">14%</text>
+        <rect x="360" y="175" width="70" height="25" fill="#ffaad0"/>
+        <text x="395" y="215" text-anchor="middle" font-size="10" fill="#333">Spatter</text>
+        <text x="395" y="170" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">7%</text>
+        <rect x="450" y="188" width="70" height="12" fill="#ffcfe3"/>
+        <text x="485" y="215" text-anchor="middle" font-size="10" fill="#333">Other</text>
+        <text x="485" y="183" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">3%</text>
+      </g>
+      <polyline points="160,50 250,95 340,145 430,175 520,188" fill="none" stroke="#333" stroke-width="1.5"/>
+      <g fill="#333">
+        <circle cx="160" cy="50" r="3"/>
+        <circle cx="250" cy="95" r="3"/>
+        <circle cx="340" cy="145" r="3"/>
+        <circle cx="430" cy="175" r="3"/>
+        <circle cx="520" cy="188" r="3"/>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Crack and porosity account for 76% of defects — investigate those first.</div>
+</div>
+<h3>4. Fault Tree Analysis (FTA)</h3>
+<p>FTA works top-down: start with the unwanted event and trace the combinations of failures and conditions that could produce it. It uses AND and OR gates: an AND gate requires all inputs to fail; an OR gate requires any one input to fail.</p>
+<div class="diagram">
+  <svg viewBox="0 0 620 260" role="img" aria-label="Fault tree with AND and OR gates">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Fault tree — pump fails to deliver flow</text>
+      <!-- Top event -->
+      <rect x="240" y="35" width="140" height="40" rx="20" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+      <text x="310" y="60" text-anchor="middle" font-weight="bold" fill="#e93680">Pump no flow</text>
+      <!-- OR gate -->
+      <polygon points="290,110 330,110 310,135" fill="#fff" stroke="#333" stroke-width="2"/>
+      <text x="310" y="125" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">OR</text>
+      <line x1="310" y1="75" x2="310" y2="110" stroke="#333"/>
+      <!-- Left branch -->
+      <line x1="310" y1="135" x2="180" y2="180" stroke="#333"/>
+      <rect x="110" y="180" width="140" height="40" rx="6" fill="#dcecff" stroke="#438bd5"/>
+      <text x="180" y="205" text-anchor="middle" fill="#2b6cb0">Pump not running</text>
+      <!-- AND gate on left -->
+      <polygon points="150,230 210,230 180,245" fill="#fff" stroke="#333" stroke-width="2"/>
+      <text x="180" y="243" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">AND</text>
+      <line x1="180" y1="220" x2="180" y2="230" stroke="#333"/>
+      <line x1="180" y1="245" x2="100" y2="255" stroke="#333"/>
+      <line x1="180" y1="245" x2="260" y2="255" stroke="#333"/>
+      <text x="70" y="270" text-anchor="middle" font-size="10" fill="#555">Power off</text>
+      <text x="290" y="270" text-anchor="middle" font-size="10" fill="#555">Motor tripped</text>
+      <!-- Right branch -->
+      <line x1="310" y1="135" x2="440" y2="180" stroke="#333"/>
+      <rect x="370" y="180" width="140" height="40" rx="6" fill="#dcecff" stroke="#438bd5"/>
+      <text x="440" y="205" text-anchor="middle" fill="#2b6cb0">No fluid delivered</text>
+      <text x="440" y="240" text-anchor="middle" font-size="10" fill="#555">Valve closed / blockage</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Fault tree shows how combinations of failures cause a top event.</div>
+</div>
+<h3>5. Choosing the right tool</h3>
+<table class="compare"><tr><th>Tool</th><th>Best for</th><th>Limitation</th></tr><tr><td>5 Whys</td><td>Simple, single-cause problems</td><td>Misses interacting causes</td></tr><tr><td>Fishbone</td><td>Wide range of possible causes</td><td>Does not verify</td></tr><tr><td>Pareto</td><td>Prioritising where to investigate</td><td>Needs data on cause categories</td></tr><tr><td>Fault tree</td><td>Complex systems, safety events</td><td>Labour-intensive to build</td></tr><tr><td>FMEA</td><td>Preventing failures before they occur</td><td>Scores depend on team judgement</td></tr></table>`,
+        quiz: [
+          { q: "What is the primary purpose of a fishbone diagram?", opts: ["Verify statistical significance", "Organise candidate causes into categories", "Calculate the return on investment", "Schedule maintenance activities"], answer: 1, explanation: "The fishbone organises potential causes into categories for investigation." },
+          { q: "In a fault tree, what does an AND gate represent?", opts: ["Any input causes the event", "All inputs must fail for the event", "The event is impossible", "Only one input is relevant"], answer: 1, explanation: "An AND gate requires all its inputs to occur for the event to happen." },
+          { q: "Pareto analysis helps most with which task?", opts: ["Generating new hypotheses", "Prioritising which causes to investigate", "Designing a new process", "Estimating project cost"], answer: 1, explanation: "Pareto ranks causes so effort focuses on the biggest contributors." },
+          { q: "Which tool is best for preventing a failure before it happens?", opts: ["5 Whys", "FMEA", "Pareto chart", "Fishbone"], answer: 1, explanation: "FMEA evaluates potential failure modes and prioritises prevention." },
+          { q: "Which statement about fishbone and verification is correct?", opts: ["Fishbone verifies causes with statistics", "Fishbone generates candidates but does not verify", "Fishbone only works after verification", "Fishbone and fault tree are identical"], answer: 1, explanation: "The fishbone generates possible causes; verification requires further evidence." }
+        ]
+      }]
+    },
+    {
+      title: "Corrective and Preventive Actions",
+      lessons: [{
+        title: "Selecting, Implementing and Verifying Actions",
+        duration: "50 minutes",
+        html: `<p>The final stage of RCA is selecting actions that eliminate the verified cause, implementing them so they stick, and verifying that the problem does not recur. <b>Corrective</b> actions address a problem that has occurred; <b>preventive</b> actions reduce the likelihood of similar problems elsewhere.</p>
+<div class="callout"><b>Rule:</b> Corrective action must address the verified cause, not the symptom. If the fix "works" without evidence that it targeted the cause, treat it as a hypothesis, not a solution.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to distinguish corrective from preventive actions, select actions based on effectiveness rather than convenience, plan implementation and verify results.</p>
+<h3>1. Corrective vs. preventive</h3>
+<table class="compare"><tr><th>Type</th><th>Focus</th><th>Example</th></tr><tr><td>Corrective</td><td>Eliminate the verified cause of an existing problem</td><td>Change pick-list sort to aisle-based in the warehouse system</td></tr><tr><td>Preventive</td><td>Reduce risk of similar problems elsewhere</td><td>Audit other sites for the same pick-list issue</td></tr><tr><td>Detective</td><td>Detect the problem faster next time</td><td>Add a check that flags late-picking orders</td></tr><tr><td>Containment</td><td>Immediate protection while the cause is addressed</td><td>Manually expedite late orders</td></tr></table>
+<h3>2. Selecting actions</h3>
+<p>Rate candidate actions on:</p>
+<ul>
+  <li><b>Effectiveness</b> — will it truly eliminate the verified cause?</li>
+  <li><b>Cost</b> — total cost, not just the purchase price.</li>
+  <li><b>Feasibility</b> — skills, time, approvals.</li>
+  <li><b>Risk</b> — what new risks does the action introduce?</li>
+  <li><b>Durability</b> — will it stay in place without constant effort?</li>
+</ul>
+<div class="diagram">
+  <svg viewBox="0 0 620 240" role="img" aria-label="Action selection matrix comparing two options">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Action selection matrix — weighted scoring</text>
+      <!-- Table -->
+      <rect x="20" y="35" width="580" height="30" fill="#fff2f7" stroke="#e93680"/>
+      <text x="60" y="55" font-weight="bold" fill="#e93680">Criterion (weight)</text>
+      <text x="300" y="55" text-anchor="middle" font-weight="bold" fill="#e93680">A: Re-sort system</text>
+      <text x="460" y="55" text-anchor="middle" font-weight="bold" fill="#e93680">B: Add picker</text>
+      <text x="560" y="55" text-anchor="middle" font-weight="bold" fill="#e93680">Score</text>
+
+      <g fill="#333">
+        <rect x="20" y="65" width="580" height="26" fill="#fff" stroke="#ddd"/>
+        <text x="30" y="82" font-size="11">Effectiveness (40%)</text>
+        <text x="300" y="82" text-anchor="middle">5</text>
+        <text x="460" y="82" text-anchor="middle">3</text>
+        <text x="560" y="82" text-anchor="middle" fill="#e93680" font-weight="bold">A: 4.8 / B: 3.2</text>
+
+        <rect x="20" y="91" width="580" height="26" fill="#fff" stroke="#ddd"/>
+        <text x="30" y="108" font-size="11">Cost (20%)</text>
+        <text x="300" y="108" text-anchor="middle">4</text>
+        <text x="460" y="108" text-anchor="middle">2</text>
+        <text x="560" y="108" text-anchor="middle" fill="#e93680" font-weight="bold">A wins</text>
+
+        <rect x="20" y="117" width="580" height="26" fill="#fff" stroke="#ddd"/>
+        <text x="30" y="134" font-size="11">Feasibility (20%)</text>
+        <text x="300" y="134" text-anchor="middle">4</text>
+        <text x="460" y="134" text-anchor="middle">4</text>
+
+        <rect x="20" y="143" width="580" height="26" fill="#fff" stroke="#ddd"/>
+        <text x="30" y="160" font-size="11">Risk / side effects (20%)</text>
+        <text x="300" y="160" text-anchor="middle">4</text>
+        <text x="460" y="160" text-anchor="middle">3</text>
+      </g>
+      <text x="310" y="200" text-anchor="middle" font-size="10" fill="#777">Weighted score guides choice; verify effectiveness with a pilot</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Score actions against weighted criteria — effectiveness first, cost second.</div>
+</div>
+<h3>3. Implementation</h3>
+<p>Every action needs an <b>owner</b>, a <b>due date</b> and a <b>deliverable</b>. Publish the action plan and review progress weekly. Where an action depends on another (training before deployment), sequence the plan carefully.</p>
+<h3>4. Verification</h3>
+<p>Verification is the test that separates a real fix from a hopeful one. Compare performance before and after using the same measures. If the problem does not recur over a defined observation period, the action is effective. If it recurs, the cause was not truly found — return to the analysis phase.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Before and after comparison showing improvement">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Verification — defects before vs after action</text>
+      <line x1="60" y1="180" x2="600" y2="180" stroke="#999"/>
+      <line x1="60" y1="40" x2="60" y2="180" stroke="#999"/>
+      <g fill="#ff4b93">
+        <rect x="100" y="60" width="40" height="120" fill="#ffb3d1"/>
+        <rect x="150" y="70" width="40" height="110" fill="#ffb3d1"/>
+        <rect x="200" y="55" width="40" height="125" fill="#ffb3d1"/>
+        <rect x="250" y="75" width="40" height="105" fill="#ffb3d1"/>
+        <rect x="300" y="65" width="40" height="115" fill="#ffb3d1"/>
+      </g>
+      <g fill="#ff4b93">
+        <rect x="370" y="160" width="40" height="20" fill="#2e7d32" opacity="0.7"/>
+        <rect x="420" y="155" width="40" height="25" fill="#2e7d32" opacity="0.7"/>
+        <rect x="470" y="162" width="40" height="18" fill="#2e7d32" opacity="0.7"/>
+        <rect x="520" y="158" width="40" height="22" fill="#2e7d32" opacity="0.7"/>
+        <rect x="570" y="163" width="40" height="17" fill="#2e7d32" opacity="0.7"/>
+      </g>
+      <text x="200" y="205" text-anchor="middle" font-size="11" fill="#e93680">Before: ~6% defect rate</text>
+      <text x="480" y="205" text-anchor="middle" font-size="11" fill="#2e7d32">After: ~1% defect rate</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Verification compares performance under the same measures before and after the action.</div>
+</div>
+<h3>5. Documenting for the future</h3>
+<p>Update procedures, training materials and checklists. Share lessons with other teams and sites. A single RCA that prevents recurrence elsewhere has far greater value than a local fix.</p>
+<h3>6. Common pitfalls</h3>
+<ul>
+  <li>Choosing the cheapest action without checking effectiveness.</li>
+  <li>Treating containment (expediting, rework) as a permanent fix.</li>
+  <li>Skipping verification because results "look better".</li>
+  <li>Writing actions with no owner or due date.</li>
+  <li>Failing to update documentation, so the old problem recurs when staff change.</li>
+</ul>`,
+        quiz: [
+          { q: "What distinguishes a preventive action from a corrective action?", opts: ["Preventive is more expensive", "Preventive reduces risk of similar problems elsewhere", "Preventive only works in manufacturing", "Preventive replaces containment"], answer: 1, explanation: "Preventive actions reduce the risk of similar problems occurring elsewhere." },
+          { q: "Which action addresses the cause directly?", opts: ["Expediting late orders", "Sorting pick lists by aisle sequence", "Apologising to customers", "Hiring a temporary clerk"], answer: 1, explanation: "Re-sorting pick lists directly addresses the verified root cause." },
+          { q: "What is the primary purpose of verification?", opts: ["To prove the action is complete", "To confirm performance improved and the problem did not recur", "To satisfy the auditor", "To justify the budget"], answer: 1, explanation: "Verification confirms that the action actually eliminated the cause." },
+          { q: "Which is a sign that an action was really containment, not a fix?", opts: ["It eliminates the cause permanently", "It reduces symptoms while the cause persists", "It requires no follow-up", "It has an owner and a due date"], answer: 1, explanation: "Containment limits damage but leaves the cause intact; the problem recurs once containment ends." },
+          { q: "What should every action in a plan include?", opts: ["An owner and a due date", "A marketing slogan", "A budget increase", "A new team meeting"], answer: 0, explanation: "Ownership and deadlines make actions trackable and accountable." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Basics of Root Cause Analysis</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Root Cause Analysis</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Basics of Root Cause Analysis.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Root Cause Analysis.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Root Cause Analysis</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering problem definition, evidence collection, 5 Whys, fishbone and fault tree analysis, and corrective and preventive actions.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Root_Cause_Analysis.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
