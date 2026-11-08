@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
   <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
-  <meta name="description" content="LOGI LMS Demonstration – Basics of Engineering Management">
+  <meta name="description" content="LOGI LMS – Basics of Engineering Management">
   <title>LOGI LMS · Basics of Engineering Management</title>
   
   <!-- Include html2canvas for certificate image download -->
@@ -466,7 +466,6 @@
       
       .dash-layout { grid-template-columns: 1fr; }
       
-      /* Slide-out Sidebar Drawer for Mobile Main Nav */
       .sidebar {
         position: fixed;
         top: 66px;
@@ -485,7 +484,6 @@
 
       .main-panel { max-height: none; padding: 20px 16px 40px; }
       
-      /* Course Layout Responsive & Slide-Out Module Sidebar */
       .course-layout { grid-template-columns: 1fr; gap: 16px; }
       .mobile-module-toggle { display: inline-flex; }
 
@@ -519,7 +517,6 @@
       .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
     }
 
-    /* Print specific styles */
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -561,7 +558,7 @@
 
 <script>
 /* ============================================================
-   LOGI LMS DEMO — Supabase Authentication & App Logic
+   LOGI LMS — Basics of Engineering Management
    ============================================================ */
 
 const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
@@ -599,13 +596,18 @@ const COURSE = {
         duration: "35 minutes",
         html: `<p>Engineering management applies management principles, technical knowledge and structured problem-solving to deliver engineering work. It connects technical decisions with people, materials, equipment, time, cost, quality and safety.</p>
 <div class="callout"><b>Core principle:</b> A technically sound solution can still fail if the work is poorly planned, resources are unavailable, responsibilities are unclear or risks are ignored.</div>
-<h3>Course learning outcomes</h3><p>By completing this course, you should be able to:</p><ul><li>Explain the role and functions of engineering management.</li><li>Plan activities, deliverables, dependencies and milestones.</li><li>Estimate and monitor resource and cost requirements.</li><li>Apply basic quality, safety and risk-management principles.</li><li>Coordinate engineering teams and stakeholders.</li><li>Use performance measures and root-cause thinking to improve work.</li></ul>
+<h3>Course learning outcomes</h3><p>By completing this course, you should be able to:</p><ul><li>Explain the role and functions of engineering management.</li><li>Plan activities, deliverables, dependencies and milestones.</li><li>Estimate and monitor resource and cost requirements.</li><li>Apply basic quality, safety and risk-management principles.</li><li>Coordinate engineering teams and stakeholders.</li><li>Use performance measures and root-cause thinking to improve work.</li></ul><h3>Lesson learning outcomes</h3><p>By the end of this lesson, you should be able to explain engineering management, distinguish it from engineering practice, identify its main responsibilities and recognise where it is used.</p>
 <h3>1. The management function</h3><ul><li><b>Planning:</b> defining objectives, activities, sequence, time and resources.</li><li><b>Organising:</b> assigning responsibilities and arranging people, equipment and materials.</li><li><b>Leading:</b> guiding teams, communicating expectations and resolving obstacles.</li><li><b>Controlling:</b> comparing actual performance with the plan and taking corrective action.</li></ul>
-<h3>2. Engineering and engineering management</h3><table class="compare"><tr><th>Engineering practice</th><th>Engineering management</th></tr><tr><td>Develops, tests and applies technical solutions.</td><td>Coordinates the work needed to deliver those solutions.</td></tr><tr><td>May focus on calculations, design, testing and operation.</td><td>May focus on scope, schedules, budgets, teams, quality and risk.</td></tr><tr><td>Asks: Does the technical solution work?</td><td>Asks: Can it be delivered safely, reliably, on time and within budget?</td></tr></table>`,
+<h3>2. Engineering and engineering management</h3><table class="compare"><tr><th>Engineering practice</th><th>Engineering management</th></tr><tr><td>Develops, tests and applies technical solutions.</td><td>Coordinates the work needed to deliver those solutions.</td></tr><tr><td>May focus on calculations, design, testing and operation.</td><td>May focus on scope, schedules, budgets, teams, quality and risk.</td></tr><tr><td>Asks: Does the technical solution work?</td><td>Asks: Can it be delivered safely, reliably, on time and within budget?</td></tr></table>
+<h3>3. The engineering management system</h3><p>Successful delivery depends on connected constraints. A change in one area can affect others: accelerating a schedule may increase labour costs; reducing material cost may affect quality; using unfamiliar equipment may introduce safety and training needs. Managers should assess the whole system rather than optimise one measure in isolation.</p>
+<h3>4. Where it is applied</h3><p>Construction, manufacturing, energy, mining, water and sanitation, transport, maintenance, telecommunications and technology projects all require coordination of technical work and resources.</p>
+`,
         quiz: [
             { q: "A design is technically correct, but the project misses its deadline because materials and labour were not coordinated. Which gap is most evident?", opts: ["Technical design", "Engineering management", "Product testing", "Scientific research"], answer: 1, explanation: "The failure concerns coordination of resources and work, a central engineering management responsibility." },
             { q: "A manager proposes reducing inspection time to recover a delayed schedule. What should be checked first?", opts: ["Whether quality and safety requirements would be compromised", "Whether the report can be shortened", "Whether workers can skip the briefing", "Whether the project name can be changed"], answer: 0, explanation: "Schedule recovery must not bypass required quality or safety controls." },
-            { q: "Which sequence best represents the basic management functions?", opts: ["Control, ignore, purchase, close", "Design, advertise, sell, deliver", "Plan, organise, lead, control", "Inspect, dismiss, replace, restart"], answer: 2, explanation: "Planning, organising, leading and controlling are complementary management functions." }
+            { q: "Which sequence best represents the basic management functions?", opts: ["Control, ignore, purchase, close", "Design, advertise, sell, deliver", "Plan, organise, lead, control", "Inspect, dismiss, replace, restart"], answer: 2, explanation: "Planning, organising, leading and controlling are complementary management functions." },
+            { q: "A project team is choosing between a cheaper material and one with a longer service life. What is the best management approach?", opts: ["Choose the cheapest option automatically", "Ignore maintenance costs", "Allow each worker to choose separately", "Compare whole-life cost, performance and specification requirements"], answer: 3, explanation: "A sound decision considers lifecycle implications and compliance, not purchase price alone." },
+            { q: "Which statement best captures the purpose of engineering management?", opts: ["To replace technical expertise with paperwork", "To coordinate technical work and resources to achieve project objectives", "To focus only on construction projects", "To eliminate all uncertainty"], answer: 1, explanation: "Engineering management coordinates people, processes and resources to support successful technical delivery." }
         ]
       }]
     },
@@ -616,10 +618,20 @@ const COURSE = {
         duration: "45 minutes",
         html: `<p>Engineering planning converts an objective into a coordinated set of activities, deliverables, responsibilities, resources and time targets. Project management then coordinates execution and responds to changes while protecting agreed requirements.</p>
 <div class="callout"><b>Planning question:</b> What must be delivered, what work is required, in what order, by whom, with which resources and by when?</div>
-<h3>1. Define scope and deliverables</h3><p><b>Scope</b> describes the work included and excluded. A <b>deliverable</b> is a verifiable output, such as an installed pump, tested control panel, completed inspection report or commissioned production line.</p>`,
+<h3>Learning outcomes</h3><p>You should be able to define scope and deliverables, break work into activities, identify dependencies, develop milestones and use progress information to manage a project.</p>
+<h3>1. Define scope and deliverables</h3><p><b>Scope</b> describes the work included and excluded. A <b>deliverable</b> is a verifiable output, such as an installed pump, tested control panel, completed inspection report or commissioned production line. Clear acceptance criteria help prevent disagreement about completion.</p>
+<h3>2. Break the work into manageable activities</h3><p>A work breakdown structure (WBS) divides a project into smaller components. For a pump installation, work packages might include site preparation, foundation work, procurement, mechanical installation, electrical connection, testing and handover.</p>
+<table class="compare"><tr><th>Activity</th><th>Dependency / evidence of completion</th></tr><tr><td>Prepare foundation</td><td>Approved site and foundation inspection</td></tr><tr><td>Install pump</td><td>Foundation ready; equipment delivered</td></tr><tr><td>Connect power</td><td>Installation complete; electrical isolation controls applied</td></tr><tr><td>Test and commission</td><td>Mechanical and electrical checks complete</td></tr></table>
+<h3>3. Sequence and schedule activities</h3><p>Some tasks can run in parallel; others depend on earlier work. A schedule assigns start and finish dates, durations and responsible persons. A milestone is a significant checkpoint, such as equipment delivery or successful commissioning. Identify the critical sequence of dependent tasks because delays there can delay the overall completion date.</p>
+<h3>4. Coordinate stakeholders and change</h3><p>Stakeholders may include the client, engineers, technicians, suppliers, contractors, regulators, operators and nearby communities. Record decisions, communicate changes and assess their effects on scope, time, cost, quality and risk before approving them.</p>
+<h3>5. Monitor and control progress</h3><p>Compare actual progress with planned progress. Use site reports, inspection records, milestone status and issue logs. When a variance appears, identify its cause, agree an action, assign an owner and due date, then check whether the action worked.</p>
+`,
         quiz: [
             { q: "A client requests an additional control panel after the project scope has been approved. What should the project manager do first?", opts: ["Install it immediately", "Reject every change", "Assess the effect on scope, cost, schedule and risk through change control", "Ask the supplier to decide"], answer: 2, explanation: "A change should be assessed and authorised before the baseline plan is altered." },
-            { q: "Which item is the clearest project deliverable?", opts: ["A commissioned pump that passes the agreed tests", "A discussion about the pump", "A general intention to improve water supply", "An unassigned list of tasks"], answer: 0, explanation: "A deliverable is a tangible or verifiable output with acceptance criteria." }
+            { q: "Which item is the clearest project deliverable?", opts: ["A commissioned pump that passes the agreed tests", "A discussion about the pump", "A general intention to improve water supply", "An unassigned list of tasks"], answer: 0, explanation: "A deliverable is a tangible or verifiable output with acceptance criteria." },
+            { q: "The electrical connection cannot begin until the pump is mechanically installed. This is an example of:", opts: ["A budget variance", "A stakeholder register", "A quality policy", "A task dependency"], answer: 3, explanation: "The electrical task depends on completion of mechanical installation." },
+            { q: "A weekly report shows that a milestone is two weeks late. What is the most useful next step?", opts: ["Change the reported date to hide the delay", "Identify the cause, assess downstream effects and assign a recovery action", "Stop collecting progress data", "Blame the supplier without checking evidence"], answer: 1, explanation: "Good control uses evidence to diagnose the variance and manage its consequences." },
+            { q: "Why is a work breakdown structure useful?", opts: ["It removes the need for a schedule", "It guarantees there will be no risks", "It divides project scope into manageable work components", "It replaces communication with the client"], answer: 2, explanation: "Breaking scope into smaller work packages improves estimating, assignment and tracking." }
         ]
       }]
     },
@@ -628,9 +640,22 @@ const COURSE = {
       lessons: [{
         title: "Planning Resources and Controlling Engineering Costs",
         duration: "40 minutes",
-        html: `<p>Engineering activities depend on people, materials, equipment, technology, time and money. Resource management identifies, acquires, allocates and controls these inputs.</p>`,
+        html: `<p>Engineering activities depend on people, materials, equipment, technology, time and money. Resource management identifies, acquires, allocates and controls these inputs. Cost management estimates, budgets, monitors and controls expenditure so work can be completed efficiently without unnecessary waste.</p>
+<div class="callout"><b>Management principle:</b> Resources must be available in the right quantity, at the right time, in the right place and at an acceptable cost.</div>
+<h3>Learning objectives</h3><ul><li>Identify major categories of engineering resources.</li><li>Explain resource allocation and utilisation.</li><li>Differentiate direct, indirect, fixed and variable costs.</li><li>Prepare and interpret a basic engineering budget.</li><li>Calculate cost variance and explain cost-control methods.</li></ul>
+<h3>1. Categories of engineering resources</h3><p><b>Human resources:</b> engineers, technicians, operators, electricians, welders, supervisors and safety personnel. Assign work according to competence, authorisation and experience.</p><p><b>Materials:</b> steel, cement, pipes, cables, bearings, lubricants, valves and consumables. Check specifications, quantities, storage conditions and delivery dates.</p><p><b>Equipment:</b> pumps, compressors, welding machines, generators, lifting equipment, measuring instruments and production machinery. Plan availability, inspection and maintenance.</p><p><b>Financial resources:</b> funds for purchasing, labour, transport, operation and maintenance. <b>Information and technology:</b> drawings, specifications, work orders, software, maintenance records and monitoring data.</p>
+<h3>2. Resource planning and allocation</h3><p>Resource planning determines what is needed, how much is needed, when it is needed and how it will be obtained. Allocation assigns resources to particular activities. Check project requirements, availability, skills, equipment capacity, delivery lead times and budget limits.</p><table class="compare"><tr><th>Resource</th><th>Requirement</th><th>Purpose</th></tr><tr><td>Mechanical engineers</td><td>2</td><td>Installation supervision</td></tr><tr><td>Technicians</td><td>4</td><td>Mechanical assembly</td></tr><tr><td>Electricians</td><td>2</td><td>Electrical connections</td></tr><tr><td>Lifting equipment</td><td>1 unit</td><td>Positioning the pump</td></tr><tr><td>Steel pipes</td><td>30 metres</td><td>Pipe connections</td></tr></table><p>Coordinate resource timing with the project schedule. Arranging a crane before the foundation is ready may create avoidable hire charges.</p>
+<h3>3. Resource utilisation and productivity</h3><p><b>Equipment utilisation (%) = (Actual operating time ÷ Available operating time) × 100.</b> If a machine operates for 8 hours out of 10 available hours, utilisation is (8 ÷ 10) × 100 = <b>80%</b>. Investigate the remaining time: it may involve breakdowns, setup, waiting for materials or planned maintenance.</p><p><b>Labour productivity = Output ÷ Labour hours.</b> If a team produces 40 components in 20 labour hours, productivity is 2 components per labour hour. Interpret this alongside quality and safety; higher output is not an improvement if defects or unsafe practices increase.</p>
+<h3>4. Understanding engineering costs</h3><p><b>Direct costs</b> can be attributed to a particular project or product, such as project materials, project labour and equipment rented specifically for the work. <b>Indirect costs</b> support wider operations, such as general security, administration and shared facility services.</p><p><b>Fixed costs</b> generally remain unchanged within a relevant period and operating range, such as rent or certain lease payments. <b>Variable costs</b> change with activity or output, such as raw materials and production consumables. A cost may be both direct and variable; raw material used in a product is a common example.</p><table class="compare"><tr><th>Classification</th><th>Meaning</th><th>Example</th></tr><tr><td>Direct</td><td>Traceable to a job or product</td><td>Steel for a fabricated frame</td></tr><tr><td>Indirect</td><td>Supports general operations</td><td>Factory security</td></tr><tr><td>Fixed</td><td>Generally stable within a period</td><td>Building rent</td></tr><tr><td>Variable</td><td>Changes with output/activity</td><td>Production materials</td></tr></table>
+<h3>5. Cost estimation and budgeting</h3><p>Cost estimation predicts the resources and money needed. Methods include using historical information from comparable work, applying unit rates to quantities, and preparing detailed estimates from labour, materials, equipment and other cost items. A budget is the approved financial plan used to allocate and control funds.</p><table class="compare"><tr><th>Ventilation installation item</th><th>Estimated cost</th></tr><tr><td>Ventilation equipment</td><td>GH¢8,000</td></tr><tr><td>Ducting materials</td><td>GH¢4,000</td></tr><tr><td>Labour</td><td>GH¢2,500</td></tr><tr><td>Electrical installation</td><td>GH¢1,500</td></tr><tr><td>Transportation</td><td>GH¢1,000</td></tr><tr><th>Total</th><th>GH¢17,000</th></tr></table><p>A project budget may include materials, labour, equipment, transport, operating expenses and an evidence-based contingency allowance for uncertainty. Monitor cash requirements and supplier commitments as well as money already paid.</p>
+<h3>6. Cost monitoring and control</h3><p><b>Cost variance = Budgeted cost − Actual cost.</b> A positive result means spending is below budget; a negative result means spending is above budget. If the materials budget is GH¢12,000 and actual expenditure is GH¢13,500, variance = 12,000 − 13,500 = <b>−GH¢1,500</b>, meaning the budget is exceeded by GH¢1,500.</p><p>Investigate price increases, wastage, inaccurate estimates, unauthorised purchases or scope changes. Do not simply cut expenditure if doing so would compromise specification, quality or safety.</p><p>For earned-value control, <b>Cost Variance (CV) = Earned Value − Actual Cost</b> and <b>Cost Performance Index (CPI) = Earned Value ÷ Actual Cost</b>. If earned value is GH¢20,000 and actual cost is GH¢25,000, CPI = 0.80. A CPI below 1 indicates cost performance is unfavourable against the value of work completed.</p>
+<h3>7. Improving cost efficiency</h3><ul><li>Buy to approved specifications and compare supplier value, not price alone.</li><li>Reduce material waste and unnecessary inventory.</li><li>Schedule labour and equipment to avoid idle time.</li><li>Use preventive maintenance to reduce emergency repairs.</li><li>Monitor energy use, overtime and transport costs.</li><li>Review expenditure regularly and document approvals.</li></ul>`,
         quiz: [
-            { q: "A project has a GH¢20,000 budget and has spent GH¢22,500. What is the cost variance using budget minus actual cost?", opts: ["GH¢2,500 favourable", "GH¢42,500", "GH¢2,500 unfavourable", "GH¢20,000 favourable"], answer: 2, explanation: "20,000 − 22,500 = −GH¢2,500, indicating an overrun of GH¢2,500." }
+            { q: "A project has a GH¢20,000 budget and has spent GH¢22,500. What is the cost variance using budget minus actual cost?", opts: ["GH¢2,500 favourable", "GH¢42,500", "GH¢2,500 unfavourable", "GH¢20,000 favourable"], answer: 2, explanation: "20,000 − 22,500 = −GH¢2,500, indicating an overrun of GH¢2,500." },
+            { q: "A critical spare part has a long supplier lead time. Which action best reduces the risk of a future shortage?", opts: ["Identify the lead time and plan procurement before the part is needed", "Wait until the machine stops", "Order an unapproved substitute", "Remove the part from the maintenance plan"], answer: 0, explanation: "Early procurement planning accounts for lead time and reduces avoidable downtime." },
+            { q: "Actual material cost is higher than estimated. What should the manager do before changing the budget?", opts: ["Assume theft occurred", "Ignore the difference", "Reduce inspection requirements", "Review quantities, prices, wastage and any scope changes"], answer: 3, explanation: "A variance investigation should establish the cause using records and evidence." },
+            { q: "Which cost is most likely to be a direct project cost?", opts: ["General corporate advertising", "Materials purchased specifically for the project", "Unrelated office decoration", "A different department's training"], answer: 1, explanation: "Project-specific materials are directly attributable to the project." },
+            { q: "A cheaper replacement component is proposed, but its rating is below the equipment specification. What is the appropriate decision?", opts: ["Accept it because it saves money", "Use it temporarily without approval", "Do not substitute unless technical and safety requirements are verified and approval is obtained", "Ask the storekeeper to make the final engineering decision"], answer: 2, explanation: "Cost savings cannot justify a component that fails technical or safety requirements." }
         ]
       }]
     },
@@ -639,9 +664,23 @@ const COURSE = {
       lessons: [{
         title: "Maintaining Quality and Managing Operational Risk",
         duration: "50 minutes",
-        html: `<p>Engineering outputs must meet defined requirements while protecting workers, customers, the public and the environment.</p>`,
+        html: `<p>Engineering outputs must meet defined requirements while protecting workers, customers, the public and the environment. Quality management checks that products and processes meet requirements. Safety management prevents injury and ill health. Risk management identifies uncertainty and selects controls to reduce its effects.</p><div class="callout"><b>Core principle:</b> Quality, safety and risk controls must be built into planning and execution, not added only after a problem occurs.</div>
+<h3>Learning objectives</h3><ul><li>Explain engineering quality and the difference between QA and QC.</li><li>Describe inspection, testing and quality systems.</li><li>Identify common engineering hazards.</li><li>Conduct a basic risk assessment.</li><li>Apply the hierarchy of controls.</li><li>Explain risk registers and improvement cycles.</li></ul>
+<h3>1. Understanding engineering quality</h3><p>Quality is the degree to which a product, service or process meets requirements and is fit for its intended purpose. Engineering quality includes performance, reliability, durability, accuracy, conformity, safety and maintainability. A pump may look sound but fail its quality requirements if it cannot deliver the specified flow or pressure.</p><table class="compare"><tr><th>Characteristic</th><th>Meaning</th></tr><tr><td>Reliability</td><td>Performs consistently without failure</td></tr><tr><td>Durability</td><td>Withstands use over time</td></tr><tr><td>Accuracy</td><td>Closeness to a required measurement or value</td></tr><tr><td>Conformity</td><td>Meets specified requirements</td></tr><tr><td>Maintainability</td><td>Can be inspected, repaired or serviced effectively</td></tr></table>
+<h3>2. Quality assurance and quality control</h3><p><b>Quality Assurance (QA)</b> is process-oriented and aims to prevent defects through procedures, training, supplier controls, audits and defined responsibilities. <b>Quality Control (QC)</b> checks materials, products or work outputs through inspection, measurement and testing to identify nonconformities.</p><table class="compare"><tr><th>Quality assurance</th><th>Quality control</th></tr><tr><td>Prevents defects through planned processes</td><td>Detects defects through checks and tests</td></tr><tr><td>Focuses on how work is performed</td><td>Focuses on whether outputs meet requirements</td></tr><tr><td>Procedures, training, audits</td><td>Inspection, measurement, testing</td></tr></table>
+<h3>3. Inspection, testing and quality systems</h3><p>Dimensional inspection measures length, diameter or thickness. Pressure testing evaluates a system under an approved test procedure. Electrical testing may check continuity and insulation resistance. Material testing evaluates properties such as tensile strength or hardness. Functional testing confirms that equipment performs its intended function.</p><p>A quality management system (QMS) defines policies, processes, responsibilities and records for consistent quality. ISO 9001 is a widely recognised quality management system standard. Organisations use a QMS to manage requirements, records, nonconformities, corrective action and improvement. A nonconformity is a failure to meet a specified requirement; it should be identified, controlled and appropriately resolved.</p>
+<h3>4. Understanding engineering hazards</h3><p>A <b>hazard</b> is something with the potential to cause harm. <b>Risk</b> considers the likelihood of harm and the severity of its consequences. Engineering hazards include exposed electrical conductors, rotating machinery, welding sparks and fumes, excessive noise, chemicals, work at height, manual handling and pressurised systems.</p><table class="compare"><tr><th>Hazard</th><th>Possible consequence</th></tr><tr><td>Exposed electrical conductors</td><td>Electric shock or electrocution</td></tr><tr><td>Unguarded moving machinery</td><td>Entanglement or crushing</td></tr><tr><td>Welding sparks and fumes</td><td>Burns, fire or respiratory harm</td></tr><tr><td>Excessive noise</td><td>Hearing damage</td></tr><tr><td>Working at height</td><td>Falls and serious injury</td></tr><tr><td>Heavy manual handling</td><td>Musculoskeletal injury</td></tr></table>
+<h3>5. Personal protective equipment</h3><p>Personal protective equipment (PPE) may include helmets, safety boots, gloves, goggles, face shields, hearing protection, respirators and protective clothing. Select PPE for the actual hazard, ensure correct fit and condition, and train workers in its use. PPE is not a substitute for eliminating hazards or applying stronger controls where practicable.</p>
+<h3>6. Basic risk assessment</h3><ol><li>Identify hazards in the task or workplace.</li><li>Identify who may be harmed and how.</li><li>Evaluate likelihood and severity using the organisation's approved method.</li><li>Select controls to eliminate or reduce the risk.</li><li>Record, communicate and review the assessment when conditions change.</li></ol><p>A simple illustrative method is <b>Risk Score = Likelihood × Severity</b>, using ratings from 1 to 5. A likelihood of 4 and severity of 5 gives a score of 20. The organisation must define its own rating bands and response requirements; this numerical example is not a universal regulatory scale.</p>
+<h3>7. Hierarchy of risk controls</h3><ol><li><b>Elimination:</b> remove the hazard completely.</li><li><b>Substitution:</b> replace it with a safer material or process.</li><li><b>Engineering controls:</b> isolate people from the hazard using guards, barriers, ventilation or interlocks.</li><li><b>Administrative controls:</b> use procedures, training, permits, signs and access restrictions.</li><li><b>PPE:</b> protect the worker with suitable equipment.</li></ol><p>Higher-level controls are generally more reliable because they depend less on individual behaviour.</p>
+<h3>8. Risk registers and risk response</h3><p>Engineering risks may be technical, financial, schedule-related, operational, environmental, supply-chain or safety-related. A risk register records the risk, possible effect, likelihood or priority, response, owner and review status.</p><table class="compare"><tr><th>Risk</th><th>Possible effect</th><th>Response / owner</th></tr><tr><td>Late material delivery</td><td>Project delay</td><td>Confirm delivery and identify approved alternatives / Procurement</td></tr><tr><td>Equipment failure</td><td>Production interruption</td><td>Preventive maintenance / Maintenance Engineer</td></tr><tr><td>Price increase</td><td>Budget overrun</td><td>Monitor quotations and commitments / Project Manager</td></tr><tr><td>Electrical fault</td><td>Injury or equipment damage</td><td>Inspection and authorised isolation / Electrical Supervisor</td></tr></table>
+<h3>9. Continuous quality and safety improvement</h3><p>The Plan–Do–Check–Act (PDCA) cycle supports improvement. <b>Plan:</b> define the issue and intended change. <b>Do:</b> implement the change. <b>Check:</b> measure results. <b>Act:</b> standardise an effective change or revise the approach. For example, if weld defects increase, review the process, revise the approved procedure where justified, train personnel, inspect results and update the standard method if performance improves.</p>`,
         quiz: [
-            { q: "A company introduces a documented welding procedure and trains all welders before production. This is primarily:", opts: ["Quality control", "A final product inspection", "Quality assurance", "A cost variance"], answer: 2, explanation: "A controlled procedure and training are preventive process measures, which are QA." }
+            { q: "A company introduces a documented welding procedure and trains all welders before production. This is primarily:", opts: ["Quality control", "A final product inspection", "Quality assurance", "A cost variance"], answer: 2, explanation: "A controlled procedure and training are preventive process measures, which are QA." },
+            { q: "A worker notices an exposed live electrical conductor. What is the priority?", opts: ["Keep people away and follow the site's electrical isolation and reporting procedure", "Cover it with ordinary tape and continue", "Wait until the next inspection", "Ask an untrained worker to move it"], answer: 0, explanation: "The immediate priority is to prevent exposure and use authorised electrical safety procedures." },
+            { q: "Which option follows the hierarchy of controls more effectively than relying only on PPE?", opts: ["Give workers another warning poster", "Tell workers to be more careful", "Issue additional gloves without changing the task", "Eliminate or engineer out the hazard where reasonably practicable"], answer: 3, explanation: "Elimination and engineering controls are higher in the hierarchy than PPE." },
+            { q: "A product fails its dimensional inspection. What should happen next?", opts: ["Ship it and wait for a complaint", "Record the non-conformity, assess it and determine corrective action", "Delete the inspection result", "Change the specification without approval"], answer: 1, explanation: "The failure should be documented and assessed against the approved requirements." },
+            { q: "Why should a risk register be reviewed after a major equipment change?", opts: ["Risk levels and required controls may have changed", "A risk register is only used at project start", "Equipment changes never affect safety", "It automatically cancels previous incidents"], answer: 0, explanation: "Changes to equipment can introduce new hazards or alter existing risks and controls." }
         ]
       }]
     },
@@ -650,9 +689,22 @@ const COURSE = {
       lessons: [{
         title: "Leading Engineering Teams and Coordinating Communication",
         duration: "40 minutes",
-        html: `<p>Engineering work is delivered by people with different technical skills and responsibilities. Engineering managers coordinate these people.</p>`,
+        html: `<p>Engineering work is delivered by people with different technical skills and responsibilities. Engineering managers coordinate these people, communicate requirements, resolve problems and align activities with project and operational objectives. Technical knowledge must be supported by leadership, teamwork and clear communication.</p><div class="callout"><b>Teamwork principle:</b> People need clear responsibilities, reliable information and a shared understanding of the technical and safety requirements.</div>
+<h3>Learning objectives</h3><ul><li>Explain the importance of engineering teamwork.</li><li>Identify common team roles and responsibilities.</li><li>Describe leadership styles and when they may be useful.</li><li>Use effective technical communication.</li><li>Resolve workplace disagreements professionally.</li><li>Apply a structured decision-making process.</li></ul>
+<h3>1. Engineering teams and coordination</h3><p>An engineering team brings together people with different expertise to achieve a shared objective. Team members may include project managers, mechanical, electrical, civil or chemical engineers, technicians, operators, safety officers, quality inspectors and procurement personnel. Teamwork combines skills, supports problem-solving, improves coordination and helps reduce errors.</p><p>Engineering activities are often interdependent. For example, electrical installation may depend on mechanical equipment being positioned and inspected first. Managers should identify these dependencies and coordinate handovers.</p>
+<h3>2. Roles and responsibilities</h3><table class="compare"><tr><th>Role</th><th>Typical responsibility</th></tr><tr><td>Engineering Manager</td><td>Oversees engineering activities and technical coordination</td></tr><tr><td>Project Manager</td><td>Coordinates scope, schedule, resources and delivery</td></tr><tr><td>Design Engineer</td><td>Develops designs and technical specifications</td></tr><tr><td>Technician</td><td>Supports installation, inspection and maintenance</td></tr><tr><td>Safety Officer</td><td>Monitors safety requirements and risk controls</td></tr><tr><td>Quality Inspector</td><td>Checks compliance with quality requirements</td></tr><tr><td>Procurement Officer</td><td>Coordinates purchasing of materials and services</td></tr></table><p>In small organisations, one person may perform several roles, but accountability and authority should remain clear.</p>
+<h3>3. Leadership styles</h3><p><b>Autocratic leadership:</b> the leader makes decisions and gives direction. It may be useful in urgent situations requiring immediate control, but overuse can reduce participation.</p><p><b>Democratic leadership:</b> the leader consults team members and encourages input. This can improve cooperation and use the team's technical knowledge.</p><p><b>Transformational leadership:</b> the leader motivates people through a shared vision, innovation and development.</p><p><b>Situational leadership:</b> the leader adjusts guidance and delegation according to the task, urgency and competence of team members. No single style suits every situation.</p>
+<h3>4. Engineering communication</h3><p>Communication exchanges instructions, technical information, decisions and feedback. Verbal communication includes briefings and meetings. Written communication includes reports, emails, work orders and specifications. Visual communication includes drawings, diagrams, process flow diagrams and safety signs. Digital communication includes shared documents, project systems and maintenance databases.</p><p>Important controlled records include technical specifications, drawings, standard operating procedures, inspection reports, maintenance records, risk assessments, permits and project progress reports. Use current approved versions and ensure information reaches the authorised people.</p>
+<h3>5. Effective coordination meetings</h3><p>A useful meeting has a clear purpose, agenda, relevant participants, accurate information, recorded decisions, assigned owners and due dates. A weekly project meeting may review progress, materials, equipment readiness, safety issues, budget status, schedule risks and actions. Meeting notes should record what was decided, who is responsible and when the action is due.</p>
+<h3>6. Conflict resolution</h3><p>Conflict may arise from competing priorities, unclear responsibilities, limited resources, technical disagreements or deadline pressure. Listen to the people involved, clarify facts and requirements, identify options, agree an action and document the decision. Use mediation or management escalation when necessary. Safety and technical requirements must not be bypassed to settle a disagreement quickly.</p>
+<h3>7. Engineering decision-making</h3><ol><li>Define the problem and decision required.</li><li>Gather relevant technical and operational information.</li><li>Develop realistic alternatives.</li><li>Evaluate performance, safety, quality, cost and lifecycle implications.</li><li>Select an option within the appropriate authority.</li><li>Implement, communicate and review the decision.</li></ol><p>When selecting an industrial pump, compare required flow and head, energy consumption, material compatibility, reliability, purchase price, maintenance needs and spare-parts availability. The lowest purchase price may not produce the lowest whole-life cost.</p>
+<h3>8. Professional ethics and responsibility</h3><p>Engineering leaders should protect health and safety, communicate technical information honestly, avoid falsifying records, work within their competence, disclose conflicts of interest, protect confidential information and follow applicable laws, standards and procedures. Do not approve work that fails critical safety or technical requirements simply to meet a deadline.</p>`,
         quiz: [
-            { q: "What is the main benefit of assigning clear responsibility for an action?", opts: ["It removes the need for follow-up", "It establishes ownership and makes follow-up possible", "It guarantees the action is already complete", "It prevents stakeholders from asking questions"], answer: 1, explanation: "Named ownership supports accountability, deadlines and status tracking." }
+            { q: "Two supervisors give conflicting instructions about isolated equipment. What should the technician do?", opts: ["Follow the most recent instruction automatically", "Restart the equipment to avoid delay", "Pause the work and verify the authorised release through the isolation procedure", "Ask another technician to guess"], answer: 2, explanation: "Safety-critical status must be verified through the authorised isolation process." },
+            { q: "Which information is most important in a shift handover for maintenance work?", opts: ["Outstanding tasks, equipment condition, hazards and isolation status", "Personal opinions about colleagues", "Only the names of workers on leave", "Unrelated purchasing plans"], answer: 0, explanation: "A handover must communicate operational status and safety-critical information." },
+            { q: "A team member identifies a design concern that may affect safety. What leadership response is best?", opts: ["Dismiss the concern because the schedule is tight", "Tell the worker not to raise it again", "Wait until the project is complete", "Listen, verify the technical issue and use the appropriate review and escalation process"], answer: 3, explanation: "Concerns should be examined and escalated through suitable technical and safety processes." },
+            { q: "What is the main benefit of assigning clear responsibility for an action?", opts: ["It removes the need for follow-up", "It establishes ownership and makes follow-up possible", "It guarantees the action is already complete", "It prevents stakeholders from asking questions"], answer: 1, explanation: "Named ownership supports accountability, deadlines and status tracking." },
+            { q: "A disagreement arises between procurement and engineering about a substitute component. What is the best way forward?", opts: ["Choose the lowest-priced option immediately", "Allow the disagreement to continue without a decision", "Compare the proposal against technical specifications, risk and approved authority", "Let the supplier approve its own substitution"], answer: 2, explanation: "The decision should be evidence-based and comply with technical requirements and approval controls." }
         ]
       }]
     },
@@ -661,9 +713,23 @@ const COURSE = {
       lessons: [{
         title: "Measuring Performance and Improving Engineering Processes",
         duration: "40 minutes",
-        html: `<p>Performance monitoring measures whether engineering activities achieve their objectives. Continuous improvement uses evidence to improve processes.</p>`,
+        html: `<p>Performance monitoring measures whether engineering activities achieve their objectives. Continuous improvement uses evidence to improve processes, systems and working methods. Managers may monitor production output, equipment downtime, energy use, defects, maintenance costs, safety performance and project progress.</p><div class="callout"><b>Improvement principle:</b> Measure performance, investigate gaps, act on verified causes and check whether the action produces a sustained improvement.</div>
+<h3>Learning objectives</h3><ul><li>Explain engineering performance monitoring.</li><li>Identify useful key performance indicators.</li><li>Calculate basic production and maintenance measures.</li><li>Interpret project performance information.</li><li>Explain engineering reports and root-cause analysis.</li><li>Apply continuous improvement and lean principles.</li></ul>
+<h3>1. Performance monitoring and KPIs</h3><p>Performance monitoring compares actual results with targets or baselines. A Key Performance Indicator (KPI) is a measurable value used to assess progress towards an objective. Define each KPI clearly, including its calculation, data source, reporting frequency and responsible person.</p><table class="compare"><tr><th>Area</th><th>Example KPI</th><th>Purpose</th></tr><tr><td>Production</td><td>Output per shift</td><td>Measures production quantity</td></tr><tr><td>Equipment</td><td>Downtime</td><td>Measures time unavailable</td></tr><tr><td>Maintenance</td><td>MTBF / MTTR</td><td>Measures reliability and repair time</td></tr><tr><td>Quality</td><td>Defect rate</td><td>Measures defective output</td></tr><tr><td>Cost</td><td>Cost variance</td><td>Compares budget and expenditure</td></tr><tr><td>Project</td><td>Schedule variance</td><td>Compares earned and planned progress</td></tr><tr><td>Energy</td><td>Energy per unit</td><td>Tracks energy intensity</td></tr></table>
+<h3>2. Production performance</h3><p><b>Production efficiency (%) = (Actual output ÷ Planned output) × 100.</b> If the target is 500 units and actual output is 450, efficiency = (450 ÷ 500) × 100 = <b>90%</b>. Investigate the shortfall: machine failure, material shortages, power interruptions, setup delays or staffing constraints may contribute. This simple target comparison is not the same as Overall Equipment Effectiveness (OEE).</p>
+<h3>3. Equipment reliability: MTBF and MTTR</h3><p><b>Mean Time Between Failures (MTBF) = Total operating time ÷ Number of failures.</b> If a machine operates for 200 hours and has 4 failures, MTBF = <b>50 operating hours</b>.</p><p><b>Mean Time To Repair (MTTR) = Total repair time ÷ Number of repairs.</b> If 4 repairs take 12 hours in total, MTTR = <b>3 hours</b>. A higher MTBF generally indicates longer operating periods between failures; a lower MTTR generally indicates faster restoration. Interpret both using consistent failure and operating-time definitions.</p>
+<h3>4. Overall Equipment Effectiveness (OEE)</h3><p>OEE combines availability, performance and quality: <b>OEE = Availability × Performance × Quality</b>. Express each factor as a decimal before multiplying.</p><p>Example: planned production time = 8 hours; operating time = 7 hours; actual output = 630 units; expected output during operating time = 700 units; good units = 600.</p><ul><li>Availability = 7 ÷ 8 = 87.5%.</li><li>Performance = 630 ÷ 700 = 90%.</li><li>Quality = 600 ÷ 630 = approximately 95.24%.</li></ul><p>OEE = 0.875 × 0.90 × 0.9524 = approximately <b>75%</b>. The factors help identify losses from downtime, reduced speed and defective output.</p>
+<h3>5. Project performance monitoring</h3><p>In earned value management, <b>Schedule Variance (SV) = Earned Value (EV) − Planned Value (PV)</b>. Earned Value is the budgeted value of work completed; Planned Value is the budgeted value of work scheduled. If EV is GH¢35,000 and PV is GH¢40,000, SV = <b>−GH¢5,000</b>. The negative result indicates less work has been completed than planned, measured in budgeted value; it is not a direct number of days delayed.</p>
+<h3>6. Engineering reports and records</h3><p>Production reports record output and downtime. Maintenance reports record equipment condition, failures and repairs. Quality reports record inspection results and defects. Safety reports record hazards, incidents and actions. Project reports record completed work, outstanding activities, schedule and cost status. A useful report states the period, planned result, actual result, variance, evidence, causes, corrective action, owner and deadline.</p>
+<h3>7. Root-cause analysis: Five Whys</h3><p>The Five Whys technique asks why a problem occurred repeatedly to move beyond symptoms. Example: a drive belt fails; it is excessively worn; it is misaligned; alignment checks are inconsistent; the maintenance procedure does not assign responsibility. A possible action is to revise the procedure, assign ownership and verify alignment. Use measurements and further engineering analysis where the problem is complex; the Five Whys alone does not prove causation.</p>
+<h3>8. Continuous improvement: PDCA</h3><p><b>Plan:</b> define the problem, evidence and intended change. <b>Do:</b> implement the change, preferably on a controlled scale where suitable. <b>Check:</b> compare measured results with the baseline. <b>Act:</b> standardise an effective change or revise the plan. For example, test a revised metal-cutting layout, measure material waste and standardise it if the results are consistently better.</p>
+<h3>9. Lean engineering and waste reduction</h3><p>Lean focuses on delivering value while reducing waste. Common waste includes overproduction, waiting, unnecessary transportation, excess inventory, unnecessary motion, overprocessing, defects and underused employee skills. Improvements may include better workflow, material handling, production planning, maintenance and employee involvement.</p><p>Performance data should lead to action. Confirm data quality, investigate causes, assess operational impact, assign corrective actions and monitor results. Digital tools such as spreadsheets, Computerised Maintenance Management Systems (CMMS), Enterprise Resource Planning (ERP) systems, project software, sensors and dashboards can support this work when their data is accurate and controlled.</p>`,
         quiz: [
-            { q: "A factory reports 18 defective units out of 600 inspected. What is the defect rate?", opts: ["3%", "18%", "6%", "30%"], answer: 0, explanation: "18 ÷ 600 × 100 = 3%." }
+            { q: "A factory reports 18 defective units out of 600 inspected. What is the defect rate?", opts: ["3%", "18%", "6%", "30%"], answer: 0, explanation: "18 ÷ 600 × 100 = 3%." },
+            { q: "A KPI shows that equipment availability has fallen. What does this result tell the manager?", opts: ["It proves the operator is responsible", "It means production targets should be deleted", "It identifies a performance gap that requires investigation", "It automatically identifies the root cause"], answer: 2, explanation: "A KPI indicates a gap; further evidence is needed to establish the cause." },
+            { q: "A team repeatedly restarts an overheating machine without investigating why it overheats. This response mainly addresses:", opts: ["The root cause", "The underlying design", "The maintenance system", "The immediate symptom"], answer: 3, explanation: "Restarting may temporarily restore operation but does not establish or remove the cause." },
+            { q: "After a process change, defect rates fall and remain lower over several review periods. What should the team do?", opts: ["Stop measuring performance permanently", "Document the effective method, update procedures and train relevant staff", "Remove all inspection records", "Assume the result will continue without controls"], answer: 1, explanation: "Successful changes should be standardised and monitored to sustain the improvement." },
+            { q: "Which feature makes a KPI useful?", opts: ["It has a clear definition, data source, calculation and reporting frequency", "It changes meaning every month", "It cannot be measured", "It is selected only because the number looks impressive"], answer: 0, explanation: "A consistent definition and reliable data make comparison and action possible." }
         ]
       }]
     }
@@ -784,13 +850,6 @@ function isModuleLocked(username, mi) {
   if (mi === 0) return false;
   const prev = getQuizResult(username, mi - 1);
   return !prev || !prev.passed;
-}
-function moduleLessonsDone(username, mi) {
-  const mod = COURSE.modules[mi];
-  if (!mod) return 0;
-  let n = 0;
-  mod.lessons.forEach((_, li) => { if (isLessonDone(username, mi, li)) n++; });
-  return n;
 }
 function courseProgressPct(username) {
   let total = 0, done = 0;
@@ -945,12 +1004,7 @@ const App = (() => {
           <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Engineering &amp; Technology</div>
           <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level</div>
           <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Engineering Management</span></h1>
-          <p style="max-width:720px;color:#666;">Develop practical skills in engineering planning, resource and cost control, quality, safety, teamwork and performance improvement.</p>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
-            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4 hours 10 minutes</span>
-            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">6 modules</span>
-            <span class="pill" style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Self-paced</span>
-          </div>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
           <div style="margin-top:26px;">
             <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
             <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
@@ -969,7 +1023,7 @@ const App = (() => {
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Welcome back</h2>
-          <p class="muted">Log in to continue your course.</p>
+          <p class="muted">Log in to continue Basics of Engineering Management.</p>
           <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
           <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
           <div class="error-msg" id="loginError"></div>
@@ -1033,6 +1087,17 @@ const App = (() => {
     err.textContent = 'Creating account...';
     const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
 
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+    
     if (error) { err.textContent = error.message; return; }
     if (data.session && data.user) {
       syncLocalUser(data.user);
@@ -1217,7 +1282,6 @@ const App = (() => {
 
   function toggleAccordion(i) {
     if (state.activeCourseModule === i && !state.activeAssessment) {
-      // Toggle accordion open/close visually if clicking current active module
       const modSections = document.querySelectorAll('.mod-section');
       if (modSections[i]) {
         modSections[i].classList.toggle('open');
@@ -1400,18 +1464,138 @@ const App = (() => {
     if (!u) { showLogin(); return; }
     state.user = u;
     state.screen = 'certificate';
-    const cert = generateCertificate(u.username);
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
         ${renderSidebarHTML('certificate')}
-        <main class="main-panel">
-          <h1>My Certificate</h1>
-          ${cert ? `<p>Certificate issued: <b>${cert.id}</b></p>` : `<p>Complete all modules to unlock your certificate.</p>`}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of engineering management, planning, and resource control.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
         </main>
       </div>
     `;
     renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Engineering_Management.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
   }
 
   async function showDiscussion() {
