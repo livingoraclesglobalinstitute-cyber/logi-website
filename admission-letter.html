@@ -38,12 +38,13 @@
   }
   button:hover { background: #6d3f3f; }
 
-  /* A4 Paper Simulation - STRICT ONE PAGE */
+  /* A4 Paper Simulation - STRICT ONE PAGE & NARROW MARGINS */
   .paper {
     width: 210mm;
     height: 297mm;
     margin: 0 auto;
-    padding: 15mm 20mm; 
+    /* NARROW MARGINS MATCHING KTU */
+    padding: 12mm 15mm; 
     background: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     position: relative;
@@ -68,7 +69,7 @@
     position: relative;
     z-index: 2;
     font-size: 11.5pt;
-    line-height: 1.35;
+    line-height: 1.3;
   }
 
   /* --- DOUBLE LINE ABOVE HEADER --- */
@@ -96,7 +97,7 @@
     text-align: center;
   }
   .header-center img {
-    height: 55px;
+    height: 50px;
     width: auto;
     margin-bottom: 2px;
   }
@@ -111,7 +112,7 @@
   
   .header-center p {
     margin: 0;
-    font-size: 9.5pt;
+    font-size: 9pt;
     font-weight: bold;
   }
   .header-right {
@@ -125,28 +126,28 @@
     border-top: 1px solid #003366;
     border-bottom: 1px solid #003366;
     height: 2px;
-    margin: 3px 0 15px 0;
+    margin: 3px 0 12px 0;
   }
 
   /* Date Container */
   .date-row {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   .date-line {
     font-size: 11.5pt;
   }
   
-  /* FIXED Recipient Block */
+  /* Recipient Block - Stacked left like KTU */
   .recipient {
     font-size: 11.5pt;
-    margin-bottom: 20px;
-    line-height: 1.5;
+    margin-bottom: 15px;
+    line-height: 1.3;
   }
   .recipient .location-info {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .recipient .salutation {
     display: block;
@@ -162,38 +163,38 @@
     font-weight: bold;
     text-decoration: underline;
     text-transform: uppercase;
-    margin: 20px 0;
+    margin: 15px 0;
     font-size: 11.5pt;
-    line-height: 1.4;
+    line-height: 1.3;
     text-align: center;
   }
 
   /* Body Text */
   .intro {
     text-align: justify;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
-  /* Numbered List */
+  /* Numbered List - Tightened spacing */
   ol.conditions {
     padding-left: 20px;
     text-align: justify;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   ol.conditions li {
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
   /* Closing & Signatures */
   .closing {
-    margin-top: 20px;
+    margin-top: 15px;
   }
   
   .signature-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: 30px;
+    margin-top: 20px;
   }
   
   .signature-block {
@@ -201,7 +202,7 @@
   }
   
   .signature-image {
-    height: 45px;
+    height: 40px;
     margin-bottom: 3px;
     display: block;
   }
@@ -232,8 +233,8 @@
     color: #555;
   }
   .qr-block img {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     margin-bottom: 4px;
   }
 
@@ -272,7 +273,7 @@
       height: 100%;
       box-shadow: none;
       margin: 0;
-      padding: 15mm 20mm;
+      padding: 12mm 15mm; /* Matches the on-screen narrow margins */
     }
     * {
       -webkit-print-color-adjust: exact !important;
@@ -344,11 +345,10 @@
       <div class="date-line" id="outDate">7 November 2026</div>
     </div>
 
-    <!-- FIXED Recipient Block -->
+    <!-- Recipient Block - Stacked left -->
     <div class="recipient">
       <span class="location-info">
-        <span id="outLocation">Wolayita, Ethiopia</span><br>
-        <span id="outPhone">+251 906 473 979</span>
+        <span id="outLocation">Wolayita, Ethiopia</span> &nbsp; <span id="outPhone">+251 906 473 979</span>
       </span>
       <span class="salutation">Dear <strong><span id="outName">Bereket Kasahun</span></strong></span>
       <span class="candidate-info"><strong>Candidate Number: <span id="outCandidate">APP-2026-6363</span></strong></span>
