@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Basics of Construction Safety">
+  <title>LOGI LMS · Basics of Construction Safety</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Basics of Construction Safety
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'construction-safety-101',
+  title: 'Basics of Construction Safety',
+  desc: 'This course introduces common construction-site hazards and the basic practices used to prevent injury and ill health. It covers planning, site organisation, personal protective equipment and high-risk activities.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Construction Safety Fundamentals",
+      lessons: [{
+        title: "Safety, Hazards and the Fatal Four",
+        duration: "45 minutes",
+        html: `<p>Construction is one of the highest-risk industries worldwide. Workers face falls, being struck by objects, electrocution and being caught in or between equipment. Understanding these risks is the foundation of a safety-conscious site.</p>
+<div class="callout"><b>Core principle:</b> Every accident is preventable. Every worker has the right to return home safely.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to explain why construction safety matters, describe the "Fatal Four" hazards, and outline the basic principles of safe site organisation.</p>
+<h3>1. Why construction safety matters</h3>
+<ul>
+  <li>Thousands of serious injuries and fatalities every year.</li>
+  <li>Many accidents happen in the first weeks of employment.</li>
+  <li>Safety failures cost lives, projects and reputations.</li>
+  <li>Legal and moral duties to protect all workers.</li>
+</ul>
+<h3>2. The Fatal Four</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 260" role="img" aria-label="The Fatal Four construction hazards">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">The Fatal Four construction hazards</text>
+      <g>
+        <rect x="20" y="60" width="140" height="150" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="90" y="85" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">1</text>
+        <text x="90" y="110" text-anchor="middle" font-weight="bold" fill="#e93680">Falls</text>
+        <text x="30" y="130" font-size="10" fill="#555">from height</text>
+        <text x="30" y="150" font-size="10" fill="#555">ladders, edges</text>
+        <text x="30" y="170" font-size="10" fill="#555">roofs, scaffolds</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="140" height="150" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="240" y="85" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">2</text>
+        <text x="240" y="110" text-anchor="middle" font-weight="bold" fill="#e93680">Struck-by</text>
+        <text x="180" y="130" font-size="10" fill="#555">falling objects</text>
+        <text x="180" y="150" font-size="10" fill="#555">moving vehicles</text>
+        <text x="180" y="170" font-size="10" fill="#555">crane loads</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="140" height="150" rx="8" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+        <text x="390" y="85" text-anchor="middle" font-size="20" font-weight="bold" fill="#2b6cb0">3</text>
+        <text x="390" y="110" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Electrocution</text>
+        <text x="330" y="130" font-size="10" fill="#555">overhead lines</text>
+        <text x="330" y="150" font-size="10" fill="#555">faulty tools</text>
+        <text x="330" y="170" font-size="10" fill="#555">wet conditions</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="150" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="545" y="85" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">4</text>
+        <text x="545" y="110" text-anchor="middle" font-weight="bold" fill="#e93680">Caught in/between</text>
+        <text x="480" y="130" font-size="10" fill="#555">machinery</text>
+        <text x="480" y="150" font-size="10" fill="#555">trench collapse</text>
+        <text x="480" y="170" font-size="10" fill="#555">pinch points</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">The Fatal Four cause the majority of construction fatalities.</div>
+</div>
+<h3>3. Safety principles</h3>
+<ul>
+  <li>Plan work to eliminate hazards before starting.</li>
+  <li>Provide suitable controls and training.</li>
+  <li>Ensure competent supervision.</li>
+  <li>Encourage reporting of hazards and near misses.</li>
+  <li>Stop work if conditions become unsafe.</li>
+  <li>Investigate and learn from every incident.</li>
+</ul>
+<h3>4. Site organisation</h3>
+<ul>
+  <li>Clear access and egress routes.</li>
+  <li>Separation of pedestrians and vehicles.</li>
+  <li>Designated storage for materials.</li>
+  <li>Welfare facilities (toilets, washing, rest areas).</li>
+  <li>First aid arrangements.</li>
+  <li>Emergency plans and assembly points.</li>
+</ul>
+<h3>5. Roles</h3>
+<table class="compare"><tr><th>Role</th><th>Responsibility</th></tr><tr><td>Client</td><td>Provides information; ensures suitable arrangements</td></tr><tr><td>Principal contractor</td><td>Manages the site; coordinates safety</td></tr><tr><td>Site manager</td><td>Day-to-day safety on site</td></tr><tr><td>Supervisor</td><td>Directs work safely</td></tr><tr><td>Worker</td><td>Follows controls; reports hazards</td></tr></table>
+<h3>6. Common failures</h3>
+<ul>
+  <li>Shortcuts under time pressure.</li>
+  <li>New workers without induction.</li>
+  <li>PPE not worn or unsuitable.</li>
+  <li>Unsafe equipment used.</li>
+  <li>Unreported near misses.</li>
+</ul>`,
+        quiz: [
+          { q: "Which is top fatality?", opts: ["Falls from height", "Struck by objects", "Electrical shocks", "Caught in between"], answer: 0, explanation: "Falls from height are the leading cause of construction fatalities." },
+          { q: "What are Fatal Four?", opts: ["Top four hazards", "Four safety rules", "Four PPE types", "Four emergency steps"], answer: 0, explanation: "The Fatal Four are falls, struck-by, electrocution, and caught in/between." },
+          { q: "Why report near misses?", opts: ["Prevent future accidents", "Fill the report", "Blame the worker", "Satisfy the audit"], answer: 0, explanation: "Near-miss reporting identifies hazards before real accidents occur." },
+          { q: "What should workers do?", opts: ["Stop unsafe work", "Ignore the risks", "Skip inductions", "Hide all injuries"], answer: 0, explanation: "Workers have the right and duty to stop unsafe work." },
+          { q: "Which area is unsafe?", opts: ["Blocked fire exit", "Clear walkways", "Marked storage zones", "Welfare facilities"], answer: 0, explanation: "Blocked exits prevent safe evacuation during an emergency." }
+        ]
+      }]
+    },
+    {
+      title: "Site Induction and PPE",
+      lessons: [{
+        title: "Getting Started Safely on Site",
+        duration: "50 minutes",
+        html: `<p>Every person entering a construction site must receive a site induction before starting work. PPE protects the individual from hazards that cannot be fully eliminated by other controls — but PPE is always the last line of defence.</p>
+<div class="callout"><b>Core principle:</b> Induction is not a formality. It is how a new person learns the specific hazards, rules and emergency arrangements of that site.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the contents of a site induction, list standard PPE items and explain when they are required.</p>
+<h3>1. Site induction contents</h3>
+<ul>
+  <li>Site layout, access and parking.</li>
+  <li>Site rules and prohibited areas.</li>
+  <li>Emergency arrangements and alarms.</li>
+  <li>First aid arrangements.</li>
+  <li>Hazards specific to the site.</li>
+  <li>PPE requirements.</li>
+  <li>Reporting procedures.</li>
+  <li>Welfare facilities.</li>
+</ul>
+<h3>2. Standard PPE</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 260" role="img" aria-label="Standard construction PPE">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Standard construction PPE</text>
+      <!-- Hard hat -->
+      <g>
+        <ellipse cx="80" cy="90" rx="45" ry="15" fill="#ffd800" stroke="#b89000"/>
+        <path d="M 40 90 Q 80 50 120 90" fill="#ffd800" stroke="#b89000"/>
+        <rect x="55" y="85" width="50" height="8" fill="#b89000"/>
+        <text x="80" y="140" text-anchor="middle" font-weight="bold" fill="#e93680">Hard hat</text>
+        <text x="80" y="155" text-anchor="middle" font-size="10" fill="#555">head protection</text>
+      </g>
+      <!-- Hi-vis -->
+      <g>
+        <polygon points="180,70 220,70 220,140 180,140" fill="#ff8a00" stroke="#c96a00"/>
+        <line x1="180" y1="90" x2="220" y2="90" stroke="#fff" stroke-width="4"/>
+        <line x1="180" y1="120" x2="220" y2="120" stroke="#fff" stroke-width="4"/>
+        <text x="200" y="165" text-anchor="middle" font-weight="bold" fill="#e93680">Hi-vis vest</text>
+        <text x="200" y="180" text-anchor="middle" font-size="10" fill="#555">visibility</text>
+      </g>
+      <!-- Boots -->
+      <g>
+        <rect x="280" y="90" width="40" height="50" fill="#7a3a1a" stroke="#4a1a0a"/>
+        <rect x="280" y="120" width="60" height="20" fill="#7a3a1a" stroke="#4a1a0a"/>
+        <text x="305" y="165" text-anchor="middle" font-weight="bold" fill="#e93680">Boots</text>
+        <text x="305" y="180" text-anchor="middle" font-size="10" fill="#555">foot protection</text>
+      </g>
+      <!-- Gloves -->
+      <g>
+        <path d="M 400 90 Q 410 70 420 90 L 420 130 L 400 130 Z" fill="#d0d0d0" stroke="#888"/>
+        <path d="M 420 90 Q 430 70 440 90 L 440 130 L 420 130 Z" fill="#d0d0d0" stroke="#888"/>
+        <text x="420" y="165" text-anchor="middle" font-weight="bold" fill="#e93680">Gloves</text>
+        <text x="420" y="180" text-anchor="middle" font-size="10" fill="#555">hand protection</text>
+      </g>
+      <!-- Goggles -->
+      <g>
+        <ellipse cx="530" cy="105" rx="35" ry="20" fill="#bfe3ff" stroke="#438bd5" stroke-width="2"/>
+        <line x1="495" y1="105" x2="565" y2="105" stroke="#438bd5" stroke-width="2"/>
+        <text x="530" y="165" text-anchor="middle" font-weight="bold" fill="#e93680">Goggles</text>
+        <text x="530" y="180" text-anchor="middle" font-size="10" fill="#555">eye protection</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Standard PPE on any construction site: hard hat, hi-vis, boots, gloves, goggles.</div>
+</div>
+<h3>3. When PPE is required</h3>
+<ul>
+  <li>Minimum on all construction sites — hard hat, hi-vis, safety boots.</li>
+  <li>Task-specific — goggles for cutting, gloves for handling, ear defenders for noise.</li>
+  <li>Respiratory protection for dust and fumes.</li>
+  <li>Fall protection (harness) for work at height.</li>
+</ul>
+<h3>4. PPE limitations</h3>
+<ul>
+  <li>Only protects the wearer.</li>
+  <li>Only effective if worn and maintained.</li>
+  <li>Can fail under extreme conditions.</li>
+  <li>Does not eliminate the hazard.</li>
+  <li>Relies on behaviour — must be enforced.</li>
+</ul>
+<h3>5. Maintaining PPE</h3>
+<ul>
+  <li>Inspect before each use.</li>
+  <li>Replace damaged items immediately.</li>
+  <li>Store correctly after use.</li>
+  <li>Follow manufacturer replacement schedules.</li>
+  <li>Do not modify PPE.</li>
+</ul>
+<h3>6. Common PPE failures</h3>
+<ul>
+  <li>Wrong size or fit.</li>
+  <li>Worn or damaged.</li>
+  <li>Not worn where required.</li>
+  <li>Not replaced after damage.</li>
+  <li>Used as substitute for engineering controls.</li>
+</ul>`,
+        quiz: [
+          { q: "Why do site induction?", opts: ["Learn specific hazards", "Fill the paperwork", "Meet the client", "Sign the contract"], answer: 0, explanation: "Site induction teaches the specific hazards, rules and emergency arrangements of that site." },
+          { q: "What is minimum PPE?", opts: ["Hard hat and boots", "Only the hi-vis vest", "Only safety gloves", "Only the goggles"], answer: 0, explanation: "Hard hat, hi-vis and safety boots are the minimum PPE on construction sites." },
+          { q: "When is PPE enough?", opts: ["As last resort", "Instead of guards", "As first control", "As only control"], answer: 0, explanation: "PPE is the last line of defence — it does not eliminate the hazard." },
+          { q: "What should PPE have?", opts: ["Correct size fit", "Only the colour", "Only the brand", "Only the certificate"], answer: 0, explanation: "PPE must fit correctly to provide effective protection." },
+          { q: "Why inspect PPE?", opts: ["Check for damage", "Show the client", "Fill the record", "Replace the audit"], answer: 0, explanation: "PPE should be inspected before each use for damage or wear." }
+        ]
+      }]
+    },
+    {
+      title: "Working at Height and Excavations",
+      lessons: [{
+        title: "Fall Prevention and Excavation Safety",
+        duration: "50 minutes",
+        html: `<p>Working at height and excavation work are two of the highest-risk activities in construction. Both require planning, competent people and correct controls before any work begins.</p>
+<div class="callout"><b>Core principle:</b> Work at height must be planned, supervised and carried out by competent people. Excavations must be assessed, supported and inspected every day.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the hierarchy of controls for working at height, list common excavation hazards, and explain the requirements for safe excavation work.</p>
+<h3>1. Working at height</h3>
+<p>Work at height includes any work where a person could fall a distance likely to cause injury. The hierarchy of controls:</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Hierarchy of controls for working at height">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Working at height — hierarchy of controls</text>
+      <g>
+        <rect x="30" y="60" width="140" height="120" rx="6" fill="#c2185b"/>
+        <text x="100" y="90" text-anchor="middle" font-weight="bold" fill="#fff" font-size="11">AVOID</text>
+        <text x="100" y="110" text-anchor="middle" font-size="10" fill="#fff">work at height</text>
+        <text x="100" y="130" text-anchor="middle" font-size="9" fill="#fff">where possible</text>
+      </g>
+      <g>
+        <rect x="185" y="60" width="140" height="120" rx="6" fill="#e93680"/>
+        <text x="255" y="90" text-anchor="middle" font-weight="bold" fill="#fff" font-size="11">PREVENT</text>
+        <text x="255" y="110" text-anchor="middle" font-size="10" fill="#fff">falls by</text>
+        <text x="255" y="130" text-anchor="middle" font-size="9" fill="#fff">collective measures</text>
+      </g>
+      <g>
+        <rect x="340" y="60" width="140" height="120" rx="6" fill="#ff6ba0"/>
+        <text x="410" y="90" text-anchor="middle" font-weight="bold" fill="#fff" font-size="11">MINIMISE</text>
+        <text x="410" y="110" text-anchor="middle" font-size="10" fill="#fff">distance and</text>
+        <text x="410" y="130" text-anchor="middle" font-size="9" fill="#fff">consequence</text>
+      </g>
+      <g>
+        <rect x="495" y="60" width="130" height="120" rx="6" fill="#ffcfe3"/>
+        <text x="560" y="90" text-anchor="middle" font-weight="bold" fill="#333" font-size="11">PPE + TRAINING</text>
+        <text x="560" y="110" text-anchor="middle" font-size="10" fill="#555">harness, lanyard</text>
+        <text x="560" y="130" text-anchor="middle" font-size="9" fill="#555">as last resort</text>
+      </g>
+      <text x="320" y="205" text-anchor="middle" font-size="10" fill="#777">Prefer collective measures (guardrails) over personal ones (harness)</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">The hierarchy of controls for working at height.</div>
+</div>
+<h3>2. Working at height controls</h3>
+<ul>
+  <li>Guardrails, toe-boards, mid-rails on all edges.</li>
+  <li>Covered openings — clearly marked and secured.</li>
+  <li>Scaffolding — erected by competent persons; inspected regularly.</li>
+  <li>Ladders — for short duration only; secured at top and bottom.</li>
+  <li>MEWPs and platforms — inspected and operated by trained people.</li>
+  <li>Fall arrest harnesses — only as last resort.</li>
+</ul>
+<h3>3. Excavation hazards</h3>
+<ul>
+  <li>Collapse of sides.</li>
+  <li>Falling materials into the trench.</li>
+  <li>Vehicles falling in.</li>
+  <li>Flooding from rain or groundwater.</li>
+  <li>Underground services (gas, water, electricity).</li>
+  <li>Hazardous atmospheres (gas build-up).</li>
+  <li>Access and egress difficulty.</li>
+</ul>
+<h3>4. Safe excavation controls</h3>
+<ul>
+  <li>Locate underground services before digging.</li>
+  <li>Support or batter excavation sides.</li>
+  <li>Provide safe access/egress (ladders, steps).</li>
+  <li>Edge protection (barriers, toe-boards).</li>
+  <li>Spoil stored away from the edge.</li>
+  <li>Daily inspections by a competent person.</li>
+  <li>Gas testing where required.</li>
+  <li>Emergency rescue equipment.</li>
+</ul>
+<h3>5. Confined spaces</h3>
+<p>Confined spaces such as deep trenches, tanks and pits can contain dangerous atmospheres. Entry requires:</p>
+<ul>
+  <li>Permit to work.</li>
+  <li>Gas testing before and during entry.</li>
+  <li>Ventilation.</li>
+  <li>Standby person outside.</li>
+  <li>Rescue equipment and trained rescuers.</li>
+</ul>
+<h3>6. Common failures</h3>
+<ul>
+  <li>Unsupported trench sides.</li>
+  <li>Spoil piled at the edge.</li>
+  <li>No edge protection.</li>
+  <li>Ladder not secured.</li>
+  <li>Underground services not located.</li>
+  <li>Excavations left open overnight without barriers.</li>
+</ul>`,
+        quiz: [
+          { q: "What is first control?", opts: ["Avoid work height", "Use the harness", "Rely on ladders", "Warn the workers"], answer: 0, explanation: "Avoiding work at height where possible is the first control." },
+          { q: "What protects edges?", opts: ["Guardrails and toe-boards", "Warning tape only", "Only a sign", "Only a helmet"], answer: 0, explanation: "Guardrails and toe-boards prevent falls from edges." },
+          { q: "What causes collapse?", opts: ["Unsupported trench sides", "Long ladders only", "Any hard hat", "Visible edge protection"], answer: 0, explanation: "Unsupported trench sides are a common cause of excavation collapse." },
+          { q: "Why locate services?", opts: ["Avoid striking cables", "Show the client", "Fill the drawings", "Replace the survey"], answer: 0, explanation: "Locating underground services prevents striking gas, water or electrical lines." },
+          { q: "When inspect trenches?", opts: ["Every day before work", "Once every month", "Only when raining", "Only after accidents"], answer: 0, explanation: "Excavations should be inspected by a competent person daily before work." }
+        ]
+      }]
+    },
+    {
+      title: "Electrical, Lifting and Equipment Hazards",
+      lessons: [{
+        title: "Electrical Safety, Lifting and Plant",
+        duration: "50 minutes",
+        html: `<p>Electrical, lifting and equipment-related hazards are among the most serious in construction. Electricity can kill instantly; lifting operations can drop loads on people; machinery can crush and cut. Each requires specific controls.</p>
+<div class="callout"><b>Core principle:</b> Isolate, inspect and never assume. Electrical equipment, lifting gear and plant must all be verified before use.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to identify electrical hazards and controls, describe the principles of safe lifting operations, and outline plant and equipment safety.</p>
+<h3>1. Electrical hazards</h3>
+<ul>
+  <li>Contact with overhead power lines.</li>
+  <li>Damaged cables and tools.</li>
+  <li>Wet conditions and water ingress.</li>
+  <li>Improperly earthed equipment.</li>
+  <li>Overloaded sockets and extensions.</li>
+  <li>Buried electrical services.</li>
+</ul>
+<h3>2. Electrical controls</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Electrical safety controls">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Key electrical safety controls</text>
+      <g>
+        <rect x="30" y="60" width="130" height="120" rx="6" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="95" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Isolate</text>
+        <text x="95" y="110" text-anchor="middle" font-size="10" fill="#555">lock-out tag-out</text>
+        <text x="95" y="130" text-anchor="middle" font-size="10" fill="#555">before work</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="130" height="120" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="235" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Inspect</text>
+        <text x="235" y="110" text-anchor="middle" font-size="10" fill="#555">cables, plugs, tools</text>
+        <text x="235" y="130" text-anchor="middle" font-size="10" fill="#555">every day</text>
+      </g>
+      <g>
+        <rect x="310" y="60" width="130" height="120" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="375" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Protect</text>
+        <text x="375" y="110" text-anchor="middle" font-size="10" fill="#555">RCDs, earthing</text>
+        <text x="375" y="130" text-anchor="middle" font-size="10" fill="#555">110V preferred</text>
+      </g>
+      <g>
+        <rect x="450" y="60" width="160" height="120" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="530" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Distance</text>
+        <text x="530" y="110" text-anchor="middle" font-size="10" fill="#555">from overhead lines</text>
+        <text x="530" y="130" text-anchor="middle" font-size="10" fill="#555">marked exclusion</text>
+      </g>
+      <text x="320" y="210" text-anchor="middle" font-size="10" fill="#777">Never work live — always isolate and verify dead before touching</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Electrical safety: isolate, inspect, protect, distance.</div>
+</div>
+<h3>3. Lifting operations</h3>
+<ul>
+  <li>Only trained and competent lift planners and operators.</li>
+  <li>Lifting plan for significant lifts.</li>
+  <li>Daily inspection of cranes, slings, shackles and hooks.</li>
+  <li>Never exceed the rated capacity (SWL).</li>
+  <li>Exclusion zones under loads.</li>
+  <li>Tag lines to control swinging loads.</li>
+  <li>Never lift people on the hook.</li>
+  <li>Banksman guides the operator when vision is limited.</li>
+</ul>
+<h3>4. Plant and equipment</h3>
+<ul>
+  <li>Operated by trained, authorised persons.</li>
+  <li>Pre-use checks by the operator.</li>
+  <li>Regular maintenance and inspection.</li>
+  <li>Segregation of plant from pedestrians.</li>
+  <li>Reversing alarms and mirrors operational.</li>
+  <li>Seat belts used in vehicles.</li>
+  <li>Guards in place on moving parts.</li>
+</ul>
+<h3>5. Hand and power tools</h3>
+<ul>
+  <li>Correct tool for the task.</li>
+  <li>Inspect before each use.</li>
+  <li>Use guards and safety devices.</li>
+  <li>Disconnect power before adjusting.</li>
+  <li>Store safely after use.</li>
+  <li>Never modify guards.</li>
+</ul>
+<h3>6. Common failures</h3>
+<ul>
+  <li>Working near live power lines.</li>
+  <li>Damaged electrical cables in use.</li>
+  <li>Lifting loads over workers.</li>
+  <li>Untrained operators on plant.</li>
+  <li>Overloaded slings or hooks.</li>
+  <li>Bypassed machine guards.</li>
+</ul>`,
+        quiz: [
+          { q: "What is first step?", opts: ["Isolate the power", "Call the manager", "Test with hands", "Try the switch"], answer: 0, explanation: "Electrical work begins with isolation — lock-out tag-out before touching." },
+          { q: "Why inspect cables?", opts: ["Spot any damage", "Check the colour", "Show the client", "Fill the records"], answer: 0, explanation: "Cable inspection identifies damage before it causes electric shock or fire." },
+          { q: "What does SWL mean?", opts: ["Safe working load", "Site work limit", "Steel weight load", "Structural work level"], answer: 0, explanation: "SWL (Safe Working Load) is the maximum load a lifting item can safely handle." },
+          { q: "Who operates plant?", opts: ["Trained authorised persons", "Anyone available", "Only the client", "Only visitors"], answer: 0, explanation: "Only trained, authorised persons may operate plant and machinery." },
+          { q: "Why exclusion zones?", opts: ["Keep people clear", "Reduce noise", "Save labour cost", "Replace the guards"], answer: 0, explanation: "Exclusion zones keep people clear of suspended loads and plant movements." }
+        ]
+      }]
+    },
+    {
+      title: "Emergency Preparedness and Reporting",
+      lessons: [{
+        title: "Emergencies, Incidents and Reporting",
+        duration: "45 minutes",
+        html: `<p>Even the safest sites experience emergencies. Being prepared saves lives. Reporting incidents — including near misses — drives learning and prevents recurrence.</p>
+<div class="callout"><b>Core principle:</b> The response to an emergency must be immediate and rehearsed. The response to an incident must be investigative, not punitive.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe emergency planning, explain first aid arrangements, and outline incident reporting and investigation.</p>
+<h3>1. Emergency planning</h3>
+<ul>
+  <li>Emergency plans displayed at key locations.</li>
+  <li>Assembly points marked and known.</li>
+  <li>Fire extinguishers positioned and checked.</li>
+  <li>Emergency lighting and exit signs.</li>
+  <li>First aid kits and trained first aiders.</li>
+  <li>Emergency contact numbers posted.</li>
+  <li>Regular drills and exercises.</li>
+</ul>
+<h3>2. Emergency flow</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Emergency response flow">
+    <defs>
+      <marker id="emg" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Emergency response flow</text>
+      <g>
+        <rect x="20" y="60" width="130" height="80" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="85" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Raise</text>
+        <text x="85" y="105" text-anchor="middle" font-size="10" fill="#555">the alarm</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="130" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="235" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Evacuate</text>
+        <text x="235" y="105" text-anchor="middle" font-size="10" fill="#555">to assembly</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="130" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="385" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Account</text>
+        <text x="385" y="105" text-anchor="middle" font-size="10" fill="#555">for everyone</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="140" height="80" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="540" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Brief emergency</text>
+        <text x="540" y="105" text-anchor="middle" font-size="10" fill="#555">services and debrief</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="152" y1="100" x2="168" y2="100" marker-end="url(#emg)"/>
+        <line x1="302" y1="100" x2="318" y2="100" marker-end="url(#emg)"/>
+        <line x1="452" y1="100" x2="468" y2="100" marker-end="url(#emg)"/>
+      </g>
+      <text x="320" y="175" text-anchor="middle" font-size="10" fill="#777">Every evacuation ends with a head count and a debrief</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Emergency response: raise, evacuate, account, brief and debrief.</div>
+</div>
+<h3>3. First aid</h3>
+<ul>
+  <li>Trained first aiders on site at all times.</li>
+  <li>First aid kits stocked and checked.</li>
+  <li>Eye wash stations where chemicals are used.</li>
+  <li>Trained rescuers for confined spaces and heights.</li>
+  <li>Emergency services contacted when needed.</li>
+</ul>
+<h3>4. Incident reporting</h3>
+<table class="compare"><tr><th>Type</th><th>Example</th></tr><tr><td>Fatal accident</td><td>Worker killed by falling load</td></tr><tr><td>Major injury</td><td>Fracture, amputation, hospitalisation</td></tr><tr><td>Lost-time injury</td><td>Absence over 7 days</td></tr><tr><td>Minor injury</td><td>First aid treatment</td></tr><tr><td>Dangerous occurrence</td><td>Scaffold collapse without injury</td></tr><tr><td>Near miss</td><td>Falling object misses worker</td></tr></table>
+<h3>5. Investigation</h3>
+<ul>
+  <li>Preserve the scene.</li>
+  <li>Gather evidence — witnesses, photos, documents.</li>
+  <li>Identify immediate and root causes.</li>
+  <li>Recommend corrective actions.</li>
+  <li>Verify effectiveness of actions.</li>
+  <li>Share lessons widely.</li>
+</ul>
+<h3>6. Common failures</h3>
+<ul>
+  <li>Emergencies not rehearsed.</li>
+  <li>Assembly points not known.</li>
+  <li>Incidents not reported promptly.</li>
+  <li>Investigation blamed individuals only.</li>
+  <li>Near misses ignored.</li>
+</ul>`,
+        quiz: [
+          { q: "What follows the alarm?", opts: ["Evacuate and assemble", "Finish the work", "Wait for the manager", "Lock the doors"], answer: 0, explanation: "Once the alarm sounds, occupants evacuate and assemble at the designated point." },
+          { q: "Why first aider on site?", opts: ["Provide immediate care", "Only for paperwork", "Replace the ambulance", "Show the client"], answer: 0, explanation: "Trained first aiders provide immediate care while emergency services are contacted." },
+          { q: "What is near miss?", opts: ["Event without injury", "Serious injury case", "Any fatal accident", "A complaint only"], answer: 0, explanation: "A near miss is an event that could have caused harm but did not." },
+          { q: "Why investigate incidents?", opts: ["Find the causes", "Assign all blame", "Close case fast", "Avoid the reports"], answer: 0, explanation: "Incident investigation finds root causes to prevent recurrence." },
+          { q: "What to do first?", opts: ["Preserve the scene", "Clean up all", "Leave the site", "Call the client"], answer: 0, explanation: "Preserving the scene ensures evidence is not lost before investigation." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Construction Safety</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Construction Safety</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Basics of Construction Safety.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Construction Safety.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Construction Safety</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering construction safety fundamentals, site induction and PPE, working at height and excavations, electrical, lifting and equipment hazards, and emergency preparedness and reporting.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Construction_Safety.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
