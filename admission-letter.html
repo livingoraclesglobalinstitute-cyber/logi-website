@@ -175,7 +175,7 @@
     margin-bottom: 10px;
   }
   ol.conditions li {
-    margin-bottom: 5px; /* Tightened for the 7 points */
+    margin-bottom: 5px; /* Tightened for the 6 points */
   }
 
   /* Closing & Signatures */
@@ -288,6 +288,10 @@
     <div class="field"><label>Mode of Study</label><input id="mode" value="online"></div>
     <div class="field full"><label>Programme Fee</label><input id="fee" value="USD 250"></div>
     <div class="field"><label>Fee Coverage</label><input id="coverage" value="training and certification examination"></div>
+    
+    <!-- MANUAL PAYMENT LINK INPUT -->
+    <div class="field full"><label>Payment Link (Required)</label><input id="paymentLink" value="https://www.logi.education/payment-link"></div>
+    
     <div class="field"><label>Location/Country</label><input id="location" value="Wolayita, Ethiopia"></div>
     <div class="field"><label>Phone Number</label><input id="phone" value="+251 906 473 979"></div>
     <div class="field full"><label>Date of Letter</label><input id="letterDate" value="7 November 2026"></div>
@@ -334,10 +338,11 @@
       <div class="date-line" id="outDate">7 November 2026</div>
     </div>
 
-    <!-- Recipient Block - Stacked left -->
+    <!-- Recipient Block - Stacked two lines -->
     <div class="recipient">
       <span class="location-info">
-        <span id="outLocation">Wolayita, Ethiopia</span> &nbsp; <span id="outPhone">+251 906 473 979</span>
+        <span id="outLocation">Wolayita, Ethiopia</span><br>
+        <span id="outPhone">+251 906 473 979</span>
       </span>
       <span class="salutation">Dear <strong><span id="outName">Bereket Kasahun</span></strong></span>
       <span class="candidate-info"><strong>Candidate Number: <span id="outCandidate">APP-2026-6363</span></strong></span>
@@ -353,15 +358,20 @@
       With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
     </div>
 
-    <!-- 7 Conditions (Consolidated) -->
+    <!-- 6 Conditions (Updated) -->
     <ol class="conditions">
       <li>This offer is based on the information provided in your application. LOGI reserves the right to verify the information and supporting documents submitted.</li>
       <li>Your admission and continued enrolment are subject to the accuracy of your application information and your compliance with the Institute's academic and administrative requirements.</li>
-      <li>The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's <span id="outCoverage">training and certification examination</span>. Any additional charges, if applicable, will be communicated to you before they are incurred.</li>
-      <li>To confirm your place, please follow the official payment instructions provided separately to LOGI. Quote your application number, <strong><span id="outAppNumber">APP-2026-6363</span></strong>, in all admission and payment correspondence. Do not make payment to an unofficial account or individual.</li>
+      
+      <!-- POINT 3: Removed the additional charges sentence -->
+      <li>The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's <span id="outCoverage">training and certification examination</span>.</li>
+      
+      <!-- POINT 4: Added Payment Link and 60% clause -->
+      <li><strong>Payment:</strong> To confirm your place, you are required to make an initial payment of at least 60% of the fees using this link: <a href="#" id="outPayLink">https://www.logi.education/payment-link</a>. The remaining balance must be settled at the end of the programme prior to receiving your certificate. Quote your application number, <strong><span id="outAppNumber">APP-2026-6363</span></strong>, in all correspondence.</li>
+      
       <li>The programme is delivered online. You are responsible for having suitable internet access and a device that enables you to participate in learning activities, complete required assessments, and meet the academic standards set for the programme. The certification examination is part of the programme, and eligibility for the award of the diploma is subject to meeting the Institute's completion and examination requirements.</li>
+      
       <li>Students are expected to maintain appropriate conduct, respect the Institute's academic integrity standards, and avoid plagiarism, misrepresentation or other forms of academic misconduct. Your admission is personal and may not be transferred to another individual.</li>
-      <li>LOGI reserves the right to update programme schedules or delivery arrangements where reasonably necessary. The Institute may also review or withdraw an admission offer where application information is materially false, required admission steps are not completed, or the student seriously breaches institutional regulations.</li>
     </ol>
 
     <!-- Closing -->
@@ -416,6 +426,12 @@
     document.getElementById('outLocation').innerText = location;
     document.getElementById('outPhone').innerText = phone;
     document.getElementById('outDate').innerText = date;
+
+    // Update the Payment Link (Both text and href)
+    const payLinkValue = document.getElementById('paymentLink').value;
+    const payLinkElement = document.getElementById('outPayLink');
+    payLinkElement.innerText = payLinkValue;
+    payLinkElement.href = payLinkValue;
   }
   
   // Initialize on page load
