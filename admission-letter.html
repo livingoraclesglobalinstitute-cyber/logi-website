@@ -44,7 +44,7 @@
     width: 210mm;
     height: 297mm;
     margin: 0 auto;
-    padding: 12mm 18mm; /* Tightened padding for one-page fit */
+    padding: 15mm 20mm; 
     background: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     position: relative;
@@ -68,47 +68,47 @@
   .content {
     position: relative;
     z-index: 2;
-    font-size: 11pt;
-    line-height: 1.3;
+    font-size: 11.5pt;
+    line-height: 1.35;
   }
 
-  /* --- EXACT KTU HEADER FORMAT --- */
+  /* --- HEADER FORMAT --- */
   .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 9pt;
+    font-size: 10pt;
     margin-bottom: 5px;
   }
   .header-left {
     width: 25%;
     text-align: left;
-    line-height: 1.2;
+    line-height: 1.3;
   }
   .header-center {
     width: 50%;
     text-align: center;
   }
   .header-center img {
-    height: 50px;
+    height: 55px;
     width: auto;
     margin-bottom: 2px;
   }
   .header-center h1 {
     margin: 0;
-    font-size: 12pt;
+    font-size: 13pt;
     font-weight: bold;
     text-transform: uppercase;
   }
   .header-center p {
     margin: 0;
-    font-size: 9pt;
+    font-size: 9.5pt;
     font-weight: bold;
   }
   .header-right {
     width: 25%;
     text-align: right;
-    line-height: 1.2;
+    line-height: 1.3;
   }
   
   /* Header Dividers */
@@ -119,32 +119,21 @@
     margin: 3px 0 15px 0;
   }
 
-  /* Date and Photo Container */
-  .date-photo-row {
+  /* Date Container */
+  .date-row {
     display: flex;
     justify-content: flex-end;
-    align-items: flex-start;
-    margin-bottom: 10px;
-    position: relative;
+    margin-bottom: 15px;
   }
   .date-line {
-    font-size: 11pt;
-    margin-right: 20px;
-    margin-top: 15px;
-  }
-  .student-photo {
-    width: 70px;
-    height: 80px;
-    border: 1px solid #000;
-    object-fit: cover;
-    background-color: #f0f0f0; /* Placeholder background */
+    font-size: 11.5pt;
   }
   
   /* Recipient Block */
   .recipient {
-    font-size: 11pt;
-    margin-bottom: 15px;
-    line-height: 1.3;
+    font-size: 11.5pt;
+    margin-bottom: 20px;
+    line-height: 1.4;
   }
   .recipient span {
     display: block;
@@ -154,37 +143,39 @@
   /* Subject Line */
   .subject-line {
     font-weight: bold;
+    text-decoration: underline;
     text-transform: uppercase;
-    margin: 15px 0;
-    font-size: 11pt;
+    margin: 20px 0;
+    font-size: 11.5pt;
+    line-height: 1.4;
   }
 
   /* Body Text */
   .intro {
     text-align: justify;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
-  /* Numbered List - Tightened */
+  /* Numbered List */
   ol.conditions {
     padding-left: 20px;
     text-align: justify;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   ol.conditions li {
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   /* Closing & Signatures */
   .closing {
-    margin-top: 15px;
+    margin-top: 20px;
   }
   
   .signature-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-top: 20px;
+    margin-top: 30px;
   }
   
   .signature-block {
@@ -193,25 +184,25 @@
   
   .signature-image {
     height: 45px;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     display: block;
   }
   
   .signature-name {
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 11pt;
+    font-size: 11.5pt;
   }
   
   .signature-title {
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 10pt;
+    font-size: 10.5pt;
     margin-top: 2px;
   }
   
   .signature-email {
-    font-size: 10pt;
+    font-size: 10.5pt;
     margin-top: 2px;
   }
 
@@ -219,12 +210,12 @@
   .qr-block {
     width: 35%;
     text-align: right;
-    font-size: 8pt;
+    font-size: 9pt;
     color: #555;
   }
   .qr-block img {
-    width: 65px;
-    height: 65px;
+    width: 70px;
+    height: 70px;
     margin-bottom: 4px;
   }
 
@@ -246,7 +237,7 @@
       height: 100%;
       box-shadow: none;
       margin: 0;
-      padding: 12mm 18mm;
+      padding: 15mm 20mm;
     }
   }
 </style>
@@ -281,12 +272,12 @@
   
   <div class="content">
     
-    <!-- Exact KTU Header Layout -->
+    <!-- Updated Header Layout -->
     <div class="header-top">
       <div class="header-left">
-        Registrar<br>
-        Tel: +233 322 496534/498380<br>
-        Fax: +233 322 22387
+        Admissions Office<br>
+        Tel: +233 241 456581<br>
+        Whatsapp: +233 241 456581
       </div>
       <div class="header-center">
         <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo"><br>
@@ -294,22 +285,20 @@
         <p>2026/2027 ACADEMIC YEAR</p>
       </div>
       <div class="header-right">
-        P.O.BOX 854<br>
-        <span id="outHeaderLocation">Wolayita, Ethiopia</span>
+        P.O.BOX FNT, 260<br>
+        Amakom, Ghana
       </div>
     </div>
 
     <!-- Divider Lines -->
     <div class="header-divider"></div>
 
-    <!-- Date and Photo Row -->
-    <div class="date-photo-row">
+    <!-- Date Row -->
+    <div class="date-row">
       <div class="date-line" id="outDate">7 November 2026</div>
-      <!-- You can replace the src below with a real photo URL if you have one -->
-      <img src="https://via.placeholder.com/70x80?text=Photo" alt="Student Photo" class="student-photo">
     </div>
 
-    <!-- Recipient Block exactly like KTU -->
+    <!-- Recipient Block -->
     <div class="recipient">
       <span id="outLocation">Wolayita, Ethiopia</span>
       <span id="outPhone">+251 906 473 979</span><br>
@@ -317,7 +306,7 @@
       <span><strong>Candidate Number: <span id="outCandidate">APP-2026-6363</span></strong></span>
     </div>
 
-    <!-- Subject -->
+    <!-- Underlined Subject Line -->
     <div class="subject-line">
       OFFER OF ADMISSION: <span id="outProgramme">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span>
     </div>
@@ -327,20 +316,16 @@
       With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
     </div>
 
-    <!-- Conditions List -->
+    <!-- Reduced to 8 Conditions -->
     <ol class="conditions">
       <li>This offer is based on the information provided in your application. LOGI reserves the right to verify the information and supporting documents submitted.</li>
       <li>Your admission and continued enrolment are subject to the accuracy of your application information and your compliance with the Institute's academic and administrative requirements.</li>
       <li>The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's <span id="outCoverage">training and certification examination</span>. Any additional charges, if applicable, will be communicated to you before they are incurred.</li>
       <li>To confirm your place, please follow the official payment instructions provided separately to LOGI. Quote your application number, <strong><span id="outAppNumber">APP-2026-6363</span></strong>, in all admission and payment correspondence. Do not make payment to an unofficial account or individual.</li>
-      <li>After the required payment and registration steps have been completed, LOGI will provide instructions for accessing the online learning platform and commencing your studies.</li>
-      <li>The programme is delivered online. You are responsible for having suitable internet access and a device that enables you to participate in learning activities and complete assessments.</li>
-      <li>You are expected to study the learning materials, complete the required learning activities and assessments, and meet the academic standards set for the programme.</li>
+      <li>The programme is delivered online. You are responsible for having suitable internet access and a device that enables you to participate in learning activities, complete required assessments, and meet the academic standards set for the programme.</li>
       <li>The certification examination is part of the programme. Eligibility for the award of the diploma is subject to meeting the Institute's completion, assessment and examination requirements.</li>
-      <li>Students are expected to maintain appropriate conduct, respect the Institute's academic integrity standards, and avoid plagiarism, misrepresentation or other forms of academic misconduct.</li>
-      <li>Your admission is personal and may not be transferred to another individual. You must notify LOGI promptly if any of the personal details supplied in your application need correction.</li>
-      <li>LOGI may update programme schedules, learning materials or delivery arrangements where reasonably necessary. Students will be informed of material changes through the official communication channels.</li>
-      <li>The Institute reserves the right to review or withdraw an admission offer where application information is materially false, required admission steps are not completed, or the student seriously breaches institutional regulations.</li>
+      <li>Students are expected to maintain appropriate conduct, respect the Institute's academic integrity standards, and avoid plagiarism, misrepresentation or other forms of academic misconduct. Your admission is personal and may not be transferred to another individual.</li>
+      <li>LOGI reserves the right to update programme schedules or delivery arrangements where reasonably necessary. The Institute may also review or withdraw an admission offer where application information is materially false, required admission steps are not completed, or the student seriously breaches institutional regulations.</li>
     </ol>
 
     <!-- Closing -->
@@ -348,7 +333,7 @@
       Please accept our congratulations on your admission. We look forward to supporting you as you develop practical knowledge and skills in project, quality and process management.
     </div>
 
-    <div class="closing" style="margin-top: 10px;">
+    <div class="closing" style="margin-top: 15px;">
       Yours faithfully,
     </div>
 
@@ -395,9 +380,6 @@
     document.getElementById('outLocation').innerText = location;
     document.getElementById('outPhone').innerText = phone;
     document.getElementById('outDate').innerText = date;
-    
-    // Update the top right header location
-    document.getElementById('outHeaderLocation').innerText = location;
   }
   
   // Initialize on page load
