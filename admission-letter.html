@@ -73,7 +73,7 @@
 
   /* --- COLORED HEADER SECTION --- */
   .header-box {
-    background-color: #f0f4f8; /* Very light blue/gray background */
+    background-color: #f0f4f8;
     border-top: 3px double #003366;
     border-bottom: 1px solid #003366;
     padding: 10px 0;
@@ -122,29 +122,29 @@
     line-height: 1.3;
   }
 
-  /* Date Container - Now Colored */
+  /* Date Container - Colored and Bold */
   .date-row {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
-    color: #003366; /* Added color */
+    color: #003366;
   }
   .date-line {
     font-size: 11.5pt;
     font-weight: bold;
   }
   
-  /* Recipient Block - Now Colored */
+  /* Recipient Block - Colored and Bold */
   .recipient {
     font-size: 11.5pt;
     margin-bottom: 15px;
     line-height: 1.3;
-    color: #003366; /* Added color */
+    color: #003366;
+    font-weight: bold; /* Makes all text inside bold */
   }
   .recipient .location-info {
     display: block;
     margin-bottom: 8px;
-    font-weight: bold;
   }
   .recipient .salutation {
     display: block;
@@ -204,22 +204,24 @@
     display: block;
   }
   
-  /* Signature Name - Removed All-Caps */
+  /* Signature Text - Italic, No All-Caps */
   .signature-name {
     font-weight: bold;
     font-size: 11.5pt;
+    font-style: italic;
   }
   
   .signature-title {
     font-weight: bold;
-    text-transform: uppercase;
     font-size: 10.5pt;
     margin-top: 2px;
+    font-style: italic;
   }
   
   .signature-email {
     font-size: 10.5pt;
     margin-top: 2px;
+    font-style: italic;
   }
 
   /* QR Code Section */
@@ -338,18 +340,18 @@
       </div>
     </div>
 
-    <!-- Date Row (Now Colored) -->
+    <!-- Date Row (Bold and Colored) -->
     <div class="date-row">
       <div class="date-line" id="outDate">7 November 2026</div>
     </div>
 
-    <!-- Recipient Block (Now Colored) -->
+    <!-- Recipient Block (Bold and Colored) -->
     <div class="recipient">
       <span class="location-info">
         <span id="outLocation">Wolayita, Ethiopia</span><br>
         <span id="outPhone">+251 906 473 979</span>
       </span>
-      <span class="salutation">Dear <strong><span id="outName">Bereket Kasahun</span></strong></span>
+      <span class="salutation">Dear <span id="outName">Bereket Kasahun</span></span>
       <span class="candidate-info">Candidate Number: <span id="outCandidate">APP-2026-6363</span></span>
     </div>
 
@@ -386,13 +388,12 @@
       Yours faithfully,
     </div>
 
-    <!-- Signature and QR Code Row -->
+    <!-- Signature and QR Code Row (Italicized) -->
     <div class="signature-section">
       <div class="signature-block">
         <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Registrar Signature" class="signature-image">
-        <!-- Changed Name to Prophet Ing. Stephen Adusei -->
         <div class="signature-name">Prophet Ing. Stephen Adusei</div>
-        <div class="signature-title">REGISTRAR</div>
+        <div class="signature-title">Registrar</div>
         <div class="signature-email">registrar@logi.education</div>
       </div>
       
@@ -431,13 +432,11 @@
     document.getElementById('outPhone').innerText = phone;
     document.getElementById('outDate').innerText = date;
     
-    // Update Payment Link
     const payLinkValue = document.getElementById('paymentLink').value;
     const payLinkElement = document.getElementById('outPayLink');
     payLinkElement.innerText = payLinkValue;
     payLinkElement.href = payLinkValue;
 
-    // Update Acceptance Link and Deadline
     const acceptLinkValue = document.getElementById('acceptanceLink').value;
     const acceptLinkElement = document.getElementById('outAcceptLink');
     acceptLinkElement.innerText = acceptLinkValue;
@@ -446,7 +445,6 @@
     document.getElementById('outDeadline').innerText = document.getElementById('acceptanceDeadline').value;
   }
   
-  // Initialize on page load
   updateLetter();
 </script>
 </body>
