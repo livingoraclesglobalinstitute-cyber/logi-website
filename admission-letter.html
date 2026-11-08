@@ -34,9 +34,9 @@
   .actions { text-align: center; margin-top: 15px; }
   button {
     padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;
-    font-weight: bold; color: #fff; background: #8B5353; font-size: 14px;
+    font-weight: bold; color: #fff; background: #ff4b93; font-size: 14px;
   }
-  button:hover { background: #6d3f3f; }
+  button:hover { background: #e93680; }
 
   /* A4 Paper Simulation - STRICT ONE PAGE */
   .paper {
@@ -44,7 +44,8 @@
     height: 297mm;
     margin: 0 auto;
     padding: 12mm 15mm; 
-    background: white;
+    /* MAIN BACKGROUND COLOUR (Lavender from website) */
+    background-color: #f3f0fa; 
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     position: relative;
     overflow: hidden;
@@ -71,11 +72,13 @@
     line-height: 1.3;
   }
 
-  /* --- COLORED HEADER SECTION --- */
+  /* --- HEADER SECTION --- */
   .header-box {
-    background-color: #f0f4f8;
-    border-top: 3px double #003366;
-    border-bottom: 1px solid #003366;
+    /* HEADER BACKGROUND COLOUR (Light Pink) */
+    background-color: #ffe9f1; 
+    /* Pink borders */
+    border-top: 3px double #ff4b93;
+    border-bottom: 1px solid #ff4b93;
     padding: 10px 0;
     margin-bottom: 15px;
   }
@@ -85,7 +88,8 @@
     justify-content: space-between;
     align-items: center;
     font-size: 10pt;
-    color: #003366;
+    /* Header text is pink */
+    color: #ff4b93; 
     padding: 0 5px;
   }
   .header-left {
@@ -109,6 +113,7 @@
     font-weight: bold;
     text-transform: uppercase;
     white-space: nowrap; 
+    color: #34343b; /* Dark text for the main institute name */
   }
   
   .header-center p {
@@ -122,24 +127,23 @@
     line-height: 1.3;
   }
 
-  /* Date Container - Colored and Bold */
+  /* --- DATE & RECIPIENT (STAYING DEEP BLUE) --- */
   .date-row {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
-    color: #003366;
+    color: #003366; /* DEEP BLUE */
   }
   .date-line {
     font-size: 11.5pt;
     font-weight: bold;
   }
   
-  /* Recipient Block - Colored and Bold */
   .recipient {
     font-size: 11.5pt;
     margin-bottom: 15px;
     line-height: 1.3;
-    color: #003366;
+    color: #003366; /* DEEP BLUE */
     font-weight: bold;
   }
   .recipient .location-info {
@@ -164,12 +168,14 @@
     font-size: 11.5pt;
     line-height: 1.3;
     text-align: center;
+    color: #000;
   }
 
   /* Body Text */
   .intro {
     text-align: justify;
     margin-bottom: 10px;
+    color: #000;
   }
 
   /* Numbered List */
@@ -177,6 +183,7 @@
     padding-left: 20px;
     text-align: justify;
     margin-bottom: 10px;
+    color: #000;
   }
   ol.conditions li {
     margin-bottom: 5px;
@@ -185,6 +192,7 @@
   /* Closing & Signatures */
   .closing {
     margin-top: 15px;
+    color: #000;
   }
   
   .signature-section {
@@ -204,11 +212,11 @@
     display: block;
   }
   
-  /* Signature Text - Italic, No All-Caps */
   .signature-name {
     font-weight: bold;
     font-size: 11.5pt;
     font-style: italic;
+    color: #000;
   }
   
   .signature-title {
@@ -216,12 +224,14 @@
     font-size: 10.5pt;
     margin-top: 2px;
     font-style: italic;
+    color: #000;
   }
   
   .signature-email {
     font-size: 10.5pt;
     margin-top: 2px;
     font-style: italic;
+    color: #000;
   }
 
   /* QR Code Section */
@@ -242,7 +252,7 @@
     width: 250px;
     margin: 20px auto;
     padding: 12px;
-    background-color: #28a745;
+    background-color: #ff4b93;
     color: white;
     text-align: center;
     font-size: 16px;
@@ -251,7 +261,7 @@
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
   }
-  .print-btn:hover { background-color: #218838; }
+  .print-btn:hover { background-color: #e93680; }
 
   /* Print Settings */
   @page {
@@ -272,6 +282,7 @@
       box-shadow: none;
       margin: 0;
       padding: 12mm 15mm; 
+      background-color: #f3f0fa !important; 
     }
     * {
       -webkit-print-color-adjust: exact !important;
@@ -307,7 +318,7 @@
   </div>
 </div>
 
-<!-- BIG GREEN PRINT BUTTON ON SCREEN -->
+<!-- BIG PRINT BUTTON ON SCREEN -->
 <div class="print-btn" onclick="window.print()">
   🖨️ Print / Save as PDF
 </div>
@@ -339,12 +350,12 @@
       </div>
     </div>
 
-    <!-- Date Row -->
+    <!-- Date Row (Deep Blue) -->
     <div class="date-row">
       <div class="date-line" id="outDate">7 November 2026</div>
     </div>
 
-    <!-- Recipient Block -->
+    <!-- Recipient Block (Deep Blue) -->
     <div class="recipient">
       <span class="location-info">
         <span id="outLocation">Wolayita, Ethiopia</span><br>
@@ -371,7 +382,6 @@
       
       <li>The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's <span id="outCoverage">training and certification examination</span>.</li>
       
-      <!-- POINT 4: Bolded critical instructions -->
       <li><strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="#" id="outPayLink">https://www.logi.education/payment-link</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong><span id="outAppNumber">APP-2026-6363</span></strong>, in all correspondence.</li>
       
       <li>The programme is delivered online. You are responsible for having suitable internet access and a device that enables you to participate in learning activities, complete required assessments, and meet the academic standards set for the programme.</li>
@@ -397,7 +407,6 @@
         <div class="signature-email">registrar@logi.education</div>
       </div>
       
-      <!-- Removed "Scan to verify" text -->
       <div class="qr-block">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.logi.education" alt="QR Code">
       </div>
