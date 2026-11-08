@@ -3,289 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOGI | Admission Letter</title>
+<title>LOGI | Admission Letter (Paid Diploma)</title>
 <style>
   /* Core Page Setup */
-  body {
-    margin: 0;
-    padding: 20px;
-    background-color: #d0d0d0;
-    font-family: "Times New Roman", Times, serif;
-    color: #000;
-  }
+  body { margin: 0; padding: 20px; background-color: #d0d0d0; font-family: "Times New Roman", Times, serif; color: #000; }
   
   /* Form Styling (Hidden during print) */
-  .controls {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 20px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    font-family: Arial, sans-serif;
-  }
+  .controls { width: 100%; max-width: 800px; margin: 0 auto 20px; padding: 20px; background: #fff; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); font-family: Arial, sans-serif; }
   .controls h2 { margin-top: 0; color: #8B5353; text-align: center; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field.full { grid-column: 1 / -1; }
   label { font-weight: bold; font-size: 12px; color: #333; }
-  input, select, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; }
+  input, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; }
   .actions { text-align: center; margin-top: 15px; }
-  button {
-    padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;
-    font-weight: bold; color: #fff; background: #ff4b93; font-size: 14px;
-  }
+  button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: #fff; background: #ff4b93; font-size: 14px; }
   button:hover { background: #e93680; }
 
   /* A4 Paper Simulation */
-  .paper {
-    width: 210mm;
-    height: 297mm;
-    margin: 0 auto;
-    padding: 0; 
-    background-color: #ffffff; 
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    position: relative;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
-
-  /* Faint Watermark */
-  .watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    opacity: 0.03; 
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* Content Layer */
-  .content {
-    position: relative;
-    z-index: 2;
-    font-size: 11.5pt;
-    line-height: 1.3;
-    padding: 10mm; 
-  }
+  .paper { width: 210mm; height: 297mm; margin: 0 auto; padding: 0; background-color: #ffffff; box-shadow: 0 0 15px rgba(0,0,0,0.3); position: relative; overflow: hidden; box-sizing: border-box; }
+  .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; opacity: 0.03; z-index: 1; pointer-events: none; }
+  .content { position: relative; z-index: 2; font-size: 11.5pt; line-height: 1.3; padding: 10mm; }
 
   /* --- HEADER SECTION --- */
-  .header-box {
-    background-color: #ffe9f1; 
-    border-top: 3px double #ff4b93;
-    border-bottom: 1px solid #ff4b93;
-    padding: 10px 0;
-    margin-bottom: 15px;
-  }
-
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 10pt;
-    color: #ff4b93; 
-    padding: 0 5px;
-  }
+  .header-box { background-color: #ffe9f1; border-top: 3px double #ff4b93; border-bottom: 1px solid #ff4b93; padding: 10px 0; margin-bottom: 15px; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; font-size: 10pt; color: #ff4b93; padding: 0 5px; }
   .header-left { width: 25%; text-align: left; line-height: 1.3; }
   .header-center { width: 50%; text-align: center; }
   .header-center img { height: 50px; width: auto; margin-bottom: 2px; }
-  .header-center h1 {
-    margin: 0; font-size: 11pt; font-weight: bold; text-transform: uppercase;
-    white-space: nowrap; color: #34343b; 
-  }
+  .header-center h1 { margin: 0; font-size: 11pt; font-weight: bold; text-transform: uppercase; white-space: nowrap; color: #34343b; }
   .header-center p { margin: 0; font-size: 9pt; font-weight: bold; }
   .header-right { width: 25%; text-align: right; line-height: 1.3; }
 
   /* --- DATE & RECIPIENT --- */
   .date-row { display: flex; justify-content: flex-end; margin-bottom: 10px; color: #003366; }
   .date-line { font-size: 11.5pt; font-weight: bold; }
-  
-  .recipient {
-    font-size: 11.5pt; margin-bottom: 15px; line-height: 1.3;
-    color: #003366; font-weight: bold;
-  }
+  .recipient { font-size: 11.5pt; margin-bottom: 15px; line-height: 1.3; color: #003366; font-weight: bold; }
   .recipient .location-info { display: block; margin-bottom: 8px; }
   .recipient .salutation { display: block; margin-bottom: 0px; }
   .recipient .candidate-info { display: block; margin-top: 0px; }
   
   /* Centered Subject Line */
-  .subject-line {
-    font-weight: bold; text-decoration: underline; text-transform: uppercase;
-    margin: 15px 0; font-size: 11.5pt; line-height: 1.3; text-align: center; color: #000;
-  }
-
-  /* Body Text */
+  .subject-line { font-weight: bold; text-decoration: underline; text-transform: uppercase; margin: 15px 0; font-size: 11.5pt; line-height: 1.3; text-align: center; color: #000; }
   .intro { text-align: justify; margin-bottom: 10px; color: #000; }
-
-  /* Numbered List */
   ol.conditions { padding-left: 20px; text-align: justify; margin-bottom: 10px; color: #000; }
   ol.conditions li { margin-bottom: 5px; }
-
-  /* Closing & Signatures */
   .closing { margin-top: 15px; color: #000; }
   
-  .signature-section {
-    display: flex; justify-content: space-between; align-items: flex-end; margin-top: 25px;
-  }
+  /* Signatures */
+  .signature-section { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 25px; }
   .signature-block { width: 60%; }
   .signature-image { height: 40px; margin-bottom: 3px; display: block; }
-  
   .signature-name { font-weight: bold; font-size: 11.5pt; font-style: italic; color: #000; }
   .signature-title { font-weight: bold; font-size: 10.5pt; margin-top: 2px; font-style: italic; color: #000; }
   .signature-email { font-size: 10.5pt; margin-top: 2px; font-style: italic; color: #000; }
-
-  /* QR Code Section */
-  .qr-block { width: 35%; text-align: right; font-size: 9pt; color: #555; }
+  .qr-block { width: 35%; text-align: right; }
   .qr-block img { width: 60px; height: 60px; }
 
-  /* Visible Print Button */
-  .print-btn {
-    display: block; width: 250px; margin: 20px auto; padding: 12px;
-    background-color: #ff4b93; color: white; text-align: center;
-    font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  }
+  /* Print Settings */
+  .print-btn { display: block; width: 250px; margin: 20px auto; padding: 12px; background-color: #ff4b93; color: white; text-align: center; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
   .print-btn:hover { background-color: #e93680; }
-
-  /* --- PRINT SETTINGS --- */
   @page { size: A4; margin: 0; }
-  
   @media print {
     body { background: none; padding: 0; margin: 0; }
     .controls, .print-btn { display: none !important; }
-    .paper {
-      width: 210mm; height: 297mm; box-shadow: none; margin: 0; padding: 0; 
-      background-color: #ffffff !important; 
-    }
+    .paper { width: 210mm; height: 297mm; box-shadow: none; margin: 0; padding: 0; background-color: #ffffff !important; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   }
 </style>
 </head>
 <body>
 
-<!-- GENERATOR FORM -->
 <div class="controls">
-  <h2>LOGI Admission Letter Generator</h2>
+  <h2>LOGI Admission Letter Generator (Paid Diploma)</h2>
   <div class="form-grid">
-    <div class="field"><label>Student Name</label><input id="studentName" value="Asfaw Welmedehin" oninput="updateLetter()"></div>
-    <div class="field"><label>Application Number</label><input id="candidateNumber" value="APP-2026-7572" oninput="updateLetter()"></div>
-    <div class="field full"><label>Programme</label><input id="programme" value="Certificate in Business Analysis & Process Improvement (CBAPI)" oninput="updateLetter()"></div>
+    <div class="field"><label>Student Name</label><input id="studentName" value="Bereket Kasahun" oninput="updateLetter()"></div>
+    <div class="field"><label>Application Number</label><input id="candidateNumber" value="APP-2026-6363" oninput="updateLetter()"></div>
+    <div class="field full"><label>Programme</label><input id="programme" value="Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)" oninput="updateLetter()"></div>
     <div class="field"><label>School</label><input id="school" value="School of Engineering & Technology" oninput="updateLetter()"></div>
     <div class="field"><label>Mode of Study</label><input id="mode" value="online" oninput="updateLetter()"></div>
-    
-    <!-- PAYMENT TYPE DROPDOWN -->
-    <div class="field full">
-      <label>Payment Type</label>
-      <select id="paymentType" onchange="toggleCustomFields()">
-        <option value="cert-fee">Free Tuition + $20 Certification Fee</option>
-        <option value="paid">Paid Diploma ($250)</option>
-        <option value="free">Completely Free (Ministry)</option>
-      </select>
-    </div>
-
-    <div class="field full" id="feeField">
-      <label>Programme Fee (Manual override)</label>
-      <input id="fee" value="USD 250" oninput="updateLetter()">
-    </div>
+    <div class="field full"><label>Programme Fee</label><input id="fee" value="USD 250" oninput="updateLetter()"></div>
     
     <div class="field full"><label>Payment Link (Required)</label><input id="paymentLink" value="https://www.logi.education/payment-link" oninput="updateLetter()"></div>
     <div class="field full"><label>Acceptance Link (Required)</label><input id="acceptanceLink" value="https://www.logi.education/acceptance" oninput="updateLetter()"></div>
     <div class="field full"><label>Acceptance Deadline</label><input id="acceptanceDeadline" value="20th November 2026" oninput="updateLetter()"></div>
     
-    <div class="field"><label>Location/Country</label><input id="location" value="Gurd Shola, Ethiopia" oninput="updateLetter()"></div>
-    <div class="field"><label>Phone Number</label><input id="phone" value="+251 949 558 627" oninput="updateLetter()"></div>
-    <div class="field full"><label>Date of Letter</label><input id="letterDate" value="9 November 2026" oninput="updateLetter()"></div>
+    <div class="field"><label>Location/Country</label><input id="location" value="Wolayita, Ethiopia" oninput="updateLetter()"></div>
+    <div class="field"><label>Phone Number</label><input id="phone" value="+251 906 473 979" oninput="updateLetter()"></div>
+    <div class="field full"><label>Date of Letter</label><input id="letterDate" value="7 November 2026" oninput="updateLetter()"></div>
   </div>
-  <div class="actions">
-    <button type="button" onclick="updateLetter()">Update Letter</button>
-  </div>
+  <div class="actions"><button type="button" onclick="updateLetter()">Update Letter</button></div>
 </div>
 
-<!-- BIG PRINT BUTTON ON SCREEN -->
-<div class="print-btn" onclick="window.print()">
-  🖨️ Print / Save as PDF
-</div>
+<div class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</div>
 
-<!-- A4 LETTER -->
 <div class="paper">
   <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Watermark" class="watermark">
   
   <div class="content">
-    
-    <!-- HEADER SECTION -->
     <div class="header-box">
       <div class="header-top">
-        <div class="header-left">
-          Admissions Office<br>
-          Tel: +233 241 456581<br>
-          Whatsapp: +233 241 456581
-        </div>
+        <div class="header-left">Admissions Office<br>Tel: +233 241 456581<br>Whatsapp: +233 241 456581</div>
         <div class="header-center">
           <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo"><br>
           <h1>LIVING ORACLES GLOBAL INSTITUTE</h1>
           <p>www.logi.education</p>
         </div>
-        <div class="header-right">
-          P.O.BOX FNT, 260<br>
-          Amakom, Ghana
-        </div>
+        <div class="header-right">P.O.BOX FNT, 260<br>Amakom, Ghana</div>
       </div>
     </div>
 
-    <!-- Date Row -->
-    <div class="date-row">
-      <div class="date-line" id="outDate">9 November 2026</div>
-    </div>
+    <div class="date-row"><div class="date-line" id="outDate">7 November 2026</div></div>
 
-    <!-- Recipient Block -->
     <div class="recipient">
-      <span class="location-info">
-        <span id="outLocation">Gurd Shola, Ethiopia</span><br>
-        <span id="outPhone">+251 949 558 627</span>
-      </span>
-      <span class="salutation">Dear <span id="outName">Asfaw Welmedehin</span></span>
-      <span class="candidate-info">Candidate Number: <span id="outCandidate">APP-2026-7572</span></span>
+      <span class="location-info"><span id="outLocation">Wolayita, Ethiopia</span><br><span id="outPhone">+251 906 473 979</span></span>
+      <span class="salutation">Dear <span id="outName">Bereket Kasahun</span></span>
+      <span class="candidate-info">Candidate Number: <span id="outCandidate">APP-2026-6363</span></span>
     </div>
 
-    <!-- Subject Line -->
-    <div class="subject-line">
-      OFFER OF ADMISSION: <span id="outProgramme">Certificate in Business Analysis & Process Improvement (CBAPI)</span>
-    </div>
+    <div class="subject-line">OFFER OF ADMISSION: <span id="outProgramme">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></div>
 
-    <!-- Introduction -->
     <div class="intro">
-      With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Certificate in Business Analysis & Process Improvement (CBAPI)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
+      With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
     </div>
 
-    <!-- 6 Conditions -->
     <ol class="conditions">
       <li>This offer is based on the information provided in your application. LOGI reserves the right to verify the information and supporting documents submitted.</li>
       <li>Your admission and continued enrolment are subject to the accuracy of your application information and your compliance with the Institute's academic and administrative requirements.</li>
       
-      <!-- DYNAMIC FEE POINT -->
-      <li id="point3">The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's training and certification examination.</li>
+      <li>The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's training and certification examination. A program report will be provided free of charge.</li>
       
-      <!-- DYNAMIC PAYMENT POINT -->
-      <li id="point4"><strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="#" id="outPayLink">https://www.logi.education/payment-link</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong><span id="outAppNumber">APP-2026-7572</span></strong>, in all correspondence.</li>
+      <li><strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="#" id="outPayLink">https://www.logi.education/payment-link</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong><span id="outAppNumber">APP-2026-6363</span></strong>, in all correspondence.</li>
       
       <li>The programme is delivered online. You are responsible for having suitable internet access and a device that enables you to participate in learning activities, complete required assessments, and meet the academic standards set for the programme.</li>
       
       <li><strong>Acceptance:</strong> Acceptance of our offer, terms and conditions outlined at the following link: <a href="#" id="outAcceptLink">https://www.logi.education/acceptance</a>. Timeline to submit the acceptance form is <strong><span id="outDeadline">20th November 2026</span></strong>. Students are expected to maintain appropriate conduct and respect the Institute's academic integrity standards.</li>
     </ol>
 
-    <!-- GENERALIZED CLOSING -->
     <div class="closing">
       Please accept our congratulations on your admission. We look forward to supporting you as you develop practical knowledge, academic excellence, and the skills needed to make a meaningful impact in your field of study.
     </div>
 
-    <div class="closing" style="margin-top: 15px;">
-      Yours faithfully,
-    </div>
+    <div class="closing" style="margin-top: 15px;">Yours faithfully,</div>
 
-    <!-- Signature and QR Code Row -->
     <div class="signature-section">
       <div class="signature-block">
         <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Registrar Signature" class="signature-image">
@@ -293,43 +153,25 @@
         <div class="signature-title">Registrar</div>
         <div class="signature-email">registrar@logi.education</div>
       </div>
-      
       <div class="qr-block">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.logi.education" alt="QR Code">
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-  // Toggle the manual fee input based on the dropdown
-  function toggleCustomFields() {
-    const type = document.getElementById('paymentType').value;
-    const feeField = document.getElementById('feeField');
-    
-    if (type === 'free') {
-      feeField.style.display = 'none'; 
-    } else {
-      feeField.style.display = 'flex';
-    }
-    updateLetter(); // Instantly update the letter when dropdown changes
-  }
-
   function updateLetter() {
     const name = document.getElementById('studentName').value;
     const candidate = document.getElementById('candidateNumber').value;
     const programme = document.getElementById('programme').value;
     const school = document.getElementById('school').value;
     const mode = document.getElementById('mode').value;
+    const fee = document.getElementById('fee').value;
     const location = document.getElementById('location').value;
     const phone = document.getElementById('phone').value;
     const date = document.getElementById('letterDate').value;
-    const paymentType = document.getElementById('paymentType').value;
-    const manualFee = document.getElementById('fee').value;
-    const payLinkValue = document.getElementById('paymentLink').value;
 
-    // Basic Info Updates
     document.getElementById('outName').innerText = name;
     document.getElementById('outCandidate').innerText = candidate;
     document.getElementById('outAppNumber').innerText = candidate;
@@ -337,44 +179,21 @@
     document.getElementById('outProgramme2').innerText = programme;
     document.getElementById('outSchool').innerText = school;
     document.getElementById('outMode').innerText = mode;
+    document.getElementById('outFee').innerText = fee;
     document.getElementById('outLocation').innerText = location;
     document.getElementById('outPhone').innerText = phone;
     document.getElementById('outDate').innerText = date;
+    
+    const payLinkValue = document.getElementById('paymentLink').value;
+    document.getElementById('outPayLink').innerText = payLinkValue;
+    document.getElementById('outPayLink').href = payLinkValue;
 
-    // Acceptance Link and Deadline
     const acceptLinkValue = document.getElementById('acceptanceLink').value;
-    const acceptLinkElement = document.getElementById('outAcceptLink');
-    acceptLinkElement.innerText = acceptLinkValue;
-    acceptLinkElement.href = acceptLinkValue;
+    document.getElementById('outAcceptLink').innerText = acceptLinkValue;
+    document.getElementById('outAcceptLink').href = acceptLinkValue;
+
     document.getElementById('outDeadline').innerText = document.getElementById('acceptanceDeadline').value;
-
-    // --- DYNAMIC FEE TEXT BASED ON DROPDOWN ---
-    const point3 = document.getElementById('point3');
-    const point4 = document.getElementById('point4');
-
-    if (paymentType === 'free') {
-      // COMPLETELY FREE (MINISTRY)
-      point3.innerHTML = `The programme is <strong>completely free</strong>, including training and certification. No tuition or certification fees apply. A program report will be provided free of charge.`;
-      point4.style.display = 'none'; // Hide payment point entirely
-    } 
-    else if (paymentType === 'cert-fee') {
-      // BUSINESS CERTIFICATE ($20 FEE - OPTIONAL)
-      point3.innerHTML = `There is no tuition charge for this programme. A <strong>$20.00 certification fee applies upon completion (Optional)</strong>. A program report will be provided free of charge.`;
-      point4.style.display = 'list-item';
-      // Injecting the link dynamically
-      point4.innerHTML = `<strong>Certification Payment:</strong> To receive your certificate at the end of the programme, you are required to pay the <strong>$20.00 certification fee</strong> using this link: <a href="${payLinkValue}" target="_blank">${payLinkValue}</a>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
-    } 
-    else {
-      // PAID DIPLOMA ($250)
-      point3.innerHTML = `The programme fee is <strong>${manualFee}</strong>. The fee covers the programme's training and certification examination. A program report will be provided free of charge.`;
-      point4.style.display = 'list-item';
-      // Injecting the link dynamically
-      point4.innerHTML = `<strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="${payLinkValue}" target="_blank">${payLinkValue}</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong>${candidate}</strong> in all correspondence.`;
-    }
   }
-  
-  // Initialize on page load
-  toggleCustomFields();
   updateLetter();
 </script>
 </body>
