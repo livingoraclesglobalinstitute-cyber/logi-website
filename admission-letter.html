@@ -38,13 +38,14 @@
   }
   button:hover { background: #e93680; }
 
-  /* A4 Paper Simulation - STRICT ONE PAGE */
+  /* A4 Paper Simulation */
   .paper {
     width: 210mm;
     height: 297mm;
     margin: 0 auto;
+    /* Padding moves the text inward, but background color fills the whole area */
     padding: 12mm 15mm; 
-    background-color: #f3f0fa; 
+    background-color: #f3f0fa; /* Lavender background */
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     position: relative;
     overflow: hidden;
@@ -88,197 +89,92 @@
     color: #ff4b93; 
     padding: 0 5px;
   }
-  .header-left {
-    width: 25%;
-    text-align: left;
-    line-height: 1.3;
-  }
-  .header-center {
-    width: 50%;
-    text-align: center;
-  }
-  .header-center img {
-    height: 50px;
-    width: auto;
-    margin-bottom: 2px;
-  }
-  
+  .header-left { width: 25%; text-align: left; line-height: 1.3; }
+  .header-center { width: 50%; text-align: center; }
+  .header-center img { height: 50px; width: auto; margin-bottom: 2px; }
   .header-center h1 {
-    margin: 0;
-    font-size: 11pt; 
-    font-weight: bold;
-    text-transform: uppercase;
-    white-space: nowrap; 
-    color: #34343b; 
+    margin: 0; font-size: 11pt; font-weight: bold; text-transform: uppercase;
+    white-space: nowrap; color: #34343b; 
   }
-  
-  .header-center p {
-    margin: 0;
-    font-size: 9pt;
-    font-weight: bold;
-  }
-  .header-right {
-    width: 25%;
-    text-align: right;
-    line-height: 1.3;
-  }
+  .header-center p { margin: 0; font-size: 9pt; font-weight: bold; }
+  .header-right { width: 25%; text-align: right; line-height: 1.3; }
 
   /* --- DATE & RECIPIENT --- */
-  .date-row {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-    color: #003366; 
-  }
-  .date-line {
-    font-size: 11.5pt;
-    font-weight: bold;
-  }
+  .date-row { display: flex; justify-content: flex-end; margin-bottom: 10px; color: #003366; }
+  .date-line { font-size: 11.5pt; font-weight: bold; }
   
   .recipient {
-    font-size: 11.5pt;
-    margin-bottom: 15px;
-    line-height: 1.3;
-    color: #003366; 
-    font-weight: bold;
+    font-size: 11.5pt; margin-bottom: 15px; line-height: 1.3;
+    color: #003366; font-weight: bold;
   }
-  .recipient .location-info {
-    display: block;
-    margin-bottom: 8px;
-  }
-  .recipient .salutation {
-    display: block;
-    margin-bottom: 0px;
-  }
-  .recipient .candidate-info {
-    display: block;
-    margin-top: 0px;
-  }
+  .recipient .location-info { display: block; margin-bottom: 8px; }
+  .recipient .salutation { display: block; margin-bottom: 0px; }
+  .recipient .candidate-info { display: block; margin-top: 0px; }
   
   /* Centered Subject Line */
   .subject-line {
-    font-weight: bold;
-    text-decoration: underline;
-    text-transform: uppercase;
-    margin: 15px 0;
-    font-size: 11.5pt;
-    line-height: 1.3;
-    text-align: center;
-    color: #000;
+    font-weight: bold; text-decoration: underline; text-transform: uppercase;
+    margin: 15px 0; font-size: 11.5pt; line-height: 1.3; text-align: center; color: #000;
   }
 
   /* Body Text */
-  .intro {
-    text-align: justify;
-    margin-bottom: 10px;
-    color: #000;
-  }
+  .intro { text-align: justify; margin-bottom: 10px; color: #000; }
 
   /* Numbered List */
-  ol.conditions {
-    padding-left: 20px;
-    text-align: justify;
-    margin-bottom: 10px;
-    color: #000;
-  }
-  ol.conditions li {
-    margin-bottom: 5px;
-  }
+  ol.conditions { padding-left: 20px; text-align: justify; margin-bottom: 10px; color: #000; }
+  ol.conditions li { margin-bottom: 5px; }
 
   /* Closing & Signatures */
-  .closing {
-    margin-top: 15px;
-    color: #000;
-  }
+  .closing { margin-top: 15px; color: #000; }
   
   .signature-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 25px;
+    display: flex; justify-content: space-between; align-items: flex-end; margin-top: 25px;
   }
+  .signature-block { width: 60%; }
+  .signature-image { height: 40px; margin-bottom: 3px; display: block; }
   
-  .signature-block {
-    width: 60%;
-  }
-  
-  .signature-image {
-    height: 40px;
-    margin-bottom: 3px;
-    display: block;
-  }
-  
-  .signature-name {
-    font-weight: bold;
-    font-size: 11.5pt;
-    font-style: italic;
-    color: #000;
-  }
-  
-  .signature-title {
-    font-weight: bold;
-    font-size: 10.5pt;
-    margin-top: 2px;
-    font-style: italic;
-    color: #000;
-  }
-  
-  .signature-email {
-    font-size: 10.5pt;
-    margin-top: 2px;
-    font-style: italic;
-    color: #000;
-  }
+  .signature-name { font-weight: bold; font-size: 11.5pt; font-style: italic; color: #000; }
+  .signature-title { font-weight: bold; font-size: 10.5pt; margin-top: 2px; font-style: italic; color: #000; }
+  .signature-email { font-size: 10.5pt; margin-top: 2px; font-style: italic; color: #000; }
 
   /* QR Code Section */
-  .qr-block {
-    width: 35%;
-    text-align: right;
-    font-size: 9pt;
-    color: #555;
-  }
-  .qr-block img {
-    width: 60px;
-    height: 60px;
-  }
+  .qr-block { width: 35%; text-align: right; font-size: 9pt; color: #555; }
+  .qr-block img { width: 60px; height: 60px; }
 
-  /* Visible Print Button (Hidden during actual print) */
+  /* Visible Print Button */
   .print-btn {
-    display: block;
-    width: 250px;
-    margin: 20px auto;
-    padding: 12px;
-    background-color: #ff4b93;
-    color: white;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
+    display: block; width: 250px; margin: 20px auto; padding: 12px;
+    background-color: #ff4b93; color: white; text-align: center;
+    font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
   }
   .print-btn:hover { background-color: #e93680; }
 
-  /* Print Settings */
+  /* --- CRITICAL PRINT SETTINGS FOR FULL BACKGROUND --- */
   @page {
     size: A4;
-    margin: 0;
+    margin: 0; /* Removes the default browser white margins */
   }
   @media print {
     body {
       background: none;
       padding: 0;
+      margin: 0;
     }
     .controls, .print-btn {
       display: none !important;
     }
     .paper {
-      width: 100%;
-      height: 100%;
+      /* Force the paper to be exactly A4 size and fill the page */
+      width: 210mm;
+      height: 297mm;
       box-shadow: none;
       margin: 0;
+      /* Add a little safety padding for printers that can't print to the absolute edge */
       padding: 12mm 15mm; 
       background-color: #f3f0fa !important; 
+      page-break-after: avoid;
+      page-break-inside: avoid;
     }
     * {
       -webkit-print-color-adjust: exact !important;
