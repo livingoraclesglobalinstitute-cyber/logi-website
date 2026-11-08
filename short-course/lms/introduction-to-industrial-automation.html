@@ -543,7 +543,10 @@
   </div>
 </header>
 
+<!-- Backdrop overlay for main navigation mobile drawer -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+
+<!-- Backdrop overlay for course content modules mobile drawer -->
 <div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
 
 <div id="app"></div>
@@ -594,9 +597,11 @@ const COURSE = {
         html: `<p>Industrial automation uses control systems and technology to operate industrial processes with minimal direct human intervention. It combines sensors, actuators, controllers, communication networks and software to improve consistency, safety, productivity and quality.</p>
 <div class="callout"><b>Core principle:</b> Automation should improve reliability, safety and efficiency — not simply replace people. Well-designed systems keep humans in control of decisions, safety and exceptions.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to define industrial automation, identify its benefits, recognise the main system components and explain where automation is applied.</p>
-<h3>1. What is industrial automation?</h3><p>Industrial automation applies control technology to monitor and regulate machines and processes. A system may measure temperature, pressure or position, decide whether action is needed and then operate a valve, motor or robot.</p>
+<h3>1. What is industrial automation?</h3><p>Industrial automation applies control technology to monitor and regulate machines and processes. A system may measure temperature, pressure or position, decide whether action is needed and then operate a valve, motor or robot. Automation can be fixed (dedicated to one task), programmable (reconfigurable) or flexible (adaptable to changing products).</p>
 <h3>2. Benefits of automation</h3><ul><li><b>Consistency:</b> repeated tasks are performed with less variation.</li><li><b>Productivity:</b> faster cycle times and continuous operation.</li><li><b>Safety:</b> people are removed from dangerous tasks.</li><li><b>Quality:</b> precise control reduces defects.</li><li><b>Data:</b> systems record performance for analysis and improvement.</li></ul>
-<h3>3. Main components</h3><table class="compare"><tr><th>Component</th><th>Role</th></tr><tr><td>Sensors</td><td>Measure physical conditions such as temperature, pressure, flow and position.</td></tr><tr><td>Actuators</td><td>Carry out actions — motors, valves, cylinders, relays.</td></tr><tr><td>Controllers</td><td>Process information and decide actions — PLCs, DCS, microcontrollers.</td></tr><tr><td>Communication</td><td>Exchange data between devices over industrial networks.</td></tr><tr><td>HMI</td><td>Interface for operators to view and control the process.</td></tr></table>`,
+<h3>3. Main components</h3><table class="compare"><tr><th>Component</th><th>Role</th></tr><tr><td>Sensors</td><td>Measure physical conditions such as temperature, pressure, flow and position.</td></tr><tr><td>Actuators</td><td>Carry out actions — motors, valves, cylinders, relays.</td></tr><tr><td>Controllers</td><td>Process information and decide actions — PLCs, DCS, microcontrollers.</td></tr><tr><td>Communication</td><td>Exchange data between devices over industrial networks.</td></tr><tr><td>HMI</td><td>Interface for operators to view and control the process.</td></tr></table>
+<h3>4. Where automation is used</h3><p>Automation is used in manufacturing assembly, food processing, water treatment, power generation, mining, pharmaceutical production, packaging, warehousing and building services.</p>
+<h3>5. Automation and safety</h3><p>Safety must be designed into automated systems. Hazards include moving machinery, stored energy, unexpected start-up and failure of control components. Safety controls, guarding, emergency stops and lockout procedures are essential.</p>`,
         quiz: [
           { q: "Which statement best defines industrial automation?", opts: ["Using only manual labour in factories", "Using control systems and technology to operate processes with reduced human intervention", "Replacing all workers immediately", "Designing products without testing"], answer: 1, explanation: "Automation applies control technology to monitor and regulate processes with minimal direct human involvement." },
           { q: "Which component measures physical conditions such as temperature or pressure?", opts: ["Actuator", "Sensor", "HMI", "Motor"], answer: 1, explanation: "Sensors measure physical variables; actuators carry out actions." },
@@ -612,12 +617,17 @@ const COURSE = {
         title: "Sensors, Actuators and Drive Systems",
         duration: "45 minutes",
         html: `<p>Automation depends on reliable sensing, accurate actuation and effective drives. Sensors detect conditions, actuators convert signals into physical action, and drives control motors and movement.</p>
-<h3>1. Sensor types</h3><table class="compare"><tr><th>Sensor</th><th>What it detects</th><th>Example use</th></tr><tr><td>Inductive proximity</td><td>Metal objects</td><td>Detecting a metal part on a conveyor</td></tr><tr><td>Capacitive proximity</td><td>Many materials, including liquids</td><td>Level detection</td></tr><tr><td>Photoelectric</td><td>Presence or absence via light</td><td>Counting products</td></tr><tr><td>Temperature (RTD/thermocouple)</td><td>Temperature</td><td>Process control</td></tr><tr><td>Pressure transducer</td><td>Pressure</td><td>Pump monitoring</td></tr></table>
+<h3>1. Sensor types</h3><table class="compare"><tr><th>Sensor</th><th>What it detects</th><th>Example use</th></tr><tr><td>Inductive proximity</td><td>Metal objects</td><td>Detecting a metal part on a conveyor</td></tr><tr><td>Capacitive proximity</td><td>Many materials, including liquids</td><td>Level detection</td></tr><tr><td>Photoelectric</td><td>Presence or absence via light</td><td>Counting products</td></tr><tr><td>Temperature (RTD/thermocouple)</td><td>Temperature</td><td>Process control</td></tr><tr><td>Pressure transducer</td><td>Pressure</td><td>Pump monitoring</td></tr><tr><td>Flow sensor</td><td>Flow rate</td><td>Piping systems</td></tr><tr><td>Limit switch</td><td>Mechanical position</td><td>End-of-travel detection</td></tr></table>
 <h3>2. Signal types</h3><p><b>Digital (discrete)</b> signals are ON/OFF — e.g., a switch closed or open. <b>Analog</b> signals vary continuously — e.g., 4–20 mA or 0–10 V representing pressure or temperature.</p>
-<h3>3. Actuators</h3><ul><li><b>Electric motors:</b> AC induction motors, DC motors, servo and stepper motors.</li><li><b>Pneumatic actuators:</b> cylinders and rotary actuators driven by compressed air.</li><li><b>Hydraulic actuators:</b> used where high force is needed.</li></ul>`,
+<h3>3. Actuators</h3><ul><li><b>Electric motors:</b> AC induction motors, DC motors, servo and stepper motors.</li><li><b>Pneumatic actuators:</b> cylinders and rotary actuators driven by compressed air.</li><li><b>Hydraulic actuators:</b> used where high force is needed.</li><li><b>Solenoid valves:</b> control flow direction in fluid systems.</li><li><b>Relays and contactors:</b> switch electrical loads.</li></ul>
+<h3>4. Motor drives</h3><p>Variable frequency drives (VFDs) control AC motor speed by adjusting frequency and voltage. Servo drives provide precise position and speed control for robotics and CNC applications. Stepper drives provide discrete movement with good positioning for lighter loads.</p>
+<h3>5. Sensor selection considerations</h3><ul><li>What physical quantity is measured and over what range?</li><li>Environment: dust, moisture, temperature, vibration.</li><li>Response time and accuracy required.</li><li>Signal type accepted by the controller.</li><li>Mounting, protection rating and maintenance access.</li></ul>`,
         quiz: [
           { q: "Which sensor is most suitable for detecting a metal part without touching it?", opts: ["Capacitive proximity sensor", "Inductive proximity sensor", "Limit switch", "Thermocouple"], answer: 1, explanation: "Inductive sensors detect metal objects at short range without contact." },
-          { q: "A 4–20 mA signal representing pressure is an example of:", opts: ["A digital signal", "A pneumatic signal", "An analog signal", "A mechanical linkage"], answer: 2, explanation: "Analog signals vary continuously and can represent variables like pressure." }
+          { q: "A 4–20 mA signal representing pressure is an example of:", opts: ["A digital signal", "A pneumatic signal", "An analog signal", "A mechanical linkage"], answer: 2, explanation: "Analog signals vary continuously and can represent variables like pressure." },
+          { q: "What does a VFD do?", opts: ["Measures flow", "Controls AC motor speed by adjusting frequency and voltage", "Cleans filters", "Provides emergency stop"], answer: 1, explanation: "A Variable Frequency Drive adjusts motor speed and torque." },
+          { q: "Which actuator type typically provides high force using incompressible fluid?", opts: ["Pneumatic cylinder", "Hydraulic actuator", "Stepper motor", "Solenoid valve"], answer: 1, explanation: "Hydraulic actuators use fluid to produce high force." },
+          { q: "Which is NOT an important sensor selection criterion?", opts: ["Environment conditions", "Signal type required by the controller", "Colour of the sensor", "Required accuracy and response time"], answer: 2, explanation: "Sensor colour is cosmetic; performance, environment and compatibility matter." }
         ]
       }]
     },
@@ -628,10 +638,18 @@ const COURSE = {
         duration: "50 minutes",
         html: `<p>Programmable Logic Controllers (PLCs) are industrial computers that read inputs, execute a stored control program and drive outputs. They are central to modern automation and enable safe, reliable and flexible control of machines and processes.</p>
 <div class="callout"><b>Key idea:</b> PLCs are designed for harsh industrial environments, with deterministic scan cycles and robust I/O interfacing.</div>
-<h3>1. PLC architecture</h3><ul><li><b>CPU:</b> executes the control program and manages memory.</li><li><b>Power supply:</b> provides stable internal voltage.</li><li><b>Input modules:</b> convert field signals to logic-level signals.</li><li><b>Output modules:</b> drive actuators and relays.</li></ul>`,
+<h3>1. PLC architecture</h3><ul><li><b>CPU:</b> executes the control program and manages memory.</li><li><b>Power supply:</b> provides stable internal voltage.</li><li><b>Input modules:</b> convert field signals to logic-level signals.</li><li><b>Output modules:</b> drive actuators and relays.</li><li><b>Communication:</b> connects to HMIs, SCADA and other devices.</li><li><b>Programming interface:</b> for developing and debugging logic.</li></ul>
+<h3>2. The scan cycle</h3><ol><li>Read inputs.</li><li>Execute the program.</li><li>Update outputs.</li><li>Process communication and diagnostics.</li></ol><p>The scan cycle repeats continuously, typically within milliseconds. Deterministic timing supports predictable control behaviour.</p>
+<h3>3. Programming languages (IEC 61131-3)</h3><table class="compare"><tr><th>Language</th><th>Style</th></tr><tr><td>Ladder Diagram (LD)</td><td>Relay-style graphical logic</td></tr><tr><td>Function Block Diagram (FBD)</td><td>Blocks wired together</td></tr><tr><td>Structured Text (ST)</td><td>High-level text language</td></tr><tr><td>Instruction List (IL)</td><td>Assembly-like instructions</td></tr><tr><td>Sequential Function Chart (SFC)</td><td>Step-based sequence control</td></tr></table>
+<h3>4. Other control architectures</h3><p><b>DCS (Distributed Control System):</b> common in process industries with many continuous control loops. <b>SCADA:</b> supervisory control and data acquisition for wide-area monitoring. <b>Microcontrollers:</b> used in smaller embedded applications. <b>PC-based control:</b> uses industrial PCs with soft PLCs.</p>
+<h3>5. Industrial networks</h3><p>Common networks include Ethernet/IP, PROFINET, Modbus TCP, PROFIBUS, EtherCAT and CANopen. Networks allow controllers, I/O and HMI devices to exchange data reliably.</p>
+<h3>6. PLC safety</h3><p>Standard PLCs are not safety controllers. Safety functions such as emergency stops and protective door interlocks should be implemented using certified safety systems (safety relays or safety PLCs) according to applicable standards.</p>`,
         quiz: [
           { q: "Which is the typical order of a PLC scan cycle?", opts: ["Update outputs → read inputs → execute program", "Read inputs → execute program → update outputs", "Execute program → read inputs → update outputs", "Read inputs → update outputs → execute program"], answer: 1, explanation: "The classic sequence is: read inputs, execute program, update outputs." },
-          { q: "What is the purpose of SCADA?", opts: ["Measuring temperature only", "Supervisory control and data acquisition across a wide system", "Replacing all sensors", "Providing mechanical drive"], answer: 1, explanation: "SCADA supervises and acquires data from large-scale systems." }
+          { q: "Which IEC 61131-3 language uses relay-style graphical logic?", opts: ["Structured Text", "Instruction List", "Ladder Diagram", "Sequential Function Chart"], answer: 2, explanation: "Ladder Diagram uses graphical contacts and coils similar to relay logic." },
+          { q: "What is the purpose of SCADA?", opts: ["Measuring temperature only", "Supervisory control and data acquisition across a wide system", "Replacing all sensors", "Providing mechanical drive"], answer: 1, explanation: "SCADA supervises and acquires data from large-scale systems." },
+          { q: "Which statement about PLCs and safety is correct?", opts: ["Standard PLCs can always be used for emergency stops", "Safety functions should use certified safety systems where required", "PLCs cannot be networked", "Safety has no relation to automation"], answer: 1, explanation: "Safety functions should be implemented with certified safety devices according to standards." },
+          { q: "Which is an industrial communication protocol commonly used with PLCs?", opts: ["HTTPS", "PROFINET", "SMTP", "FTP"], answer: 1, explanation: "PROFINET is a widely used industrial Ethernet protocol." }
         ]
       }]
     },
@@ -641,10 +659,18 @@ const COURSE = {
         title: "Industrial Robots, Programming and Safety",
         duration: "45 minutes",
         html: `<p>Industrial robots are programmable manipulators used for tasks such as welding, painting, assembly, material handling, packaging and inspection. They combine mechanical structure, drives, controllers, sensors and end-effectors.</p>
-<h3>1. Robot types</h3><table class="compare"><tr><th>Type</th><th>Description</th></tr><tr><td>Articulated</td><td>Multiple rotary joints, flexible and widely used</td></tr><tr><td>SCARA</td><td>Horizontal arm with vertical compliance; good for assembly</td></tr><tr><td>Delta</td><td>Parallel-link high-speed pick-and-place</td></tr><tr><td>Collaborative (cobot)</td><td>Designed to share space with humans using safety features</td></tr></table>`,
+<h3>1. Robot types</h3><table class="compare"><tr><th>Type</th><th>Description</th></tr><tr><td>Articulated</td><td>Multiple rotary joints, flexible and widely used</td></tr><tr><td>SCARA</td><td>Horizontal arm with vertical compliance; good for assembly</td></tr><tr><td>Delta</td><td>Parallel-link high-speed pick-and-place</td></tr><tr><td>Cartesian/Gantry</td><td>Linear axes for large work envelopes</td></tr><tr><td>Collaborative (cobot)</td><td>Designed to share space with humans using safety features</td></tr></table>
+<h3>2. Robot subsystems</h3><ul><li>Mechanical structure and joints.</li><li>Drives (servo motors, gearboxes, brakes).</li><li>Controller executing motion programs.</li><li>End-effector/tool (gripper, welding torch, etc.).</li><li>Sensors for feedback and safety.</li></ul>
+<h3>3. Programming methods</h3><p>Robots can be programmed by <b>teach pendant</b> (jogging to positions and recording), <b>offline software</b> (simulating and generating code) or <b>lead-through</b> (physically guiding the robot). Programs define poses, speeds and logic.</p>
+<h3>4. Applications</h3><ul><li>Arc and spot welding.</li><li>Painting and coating.</li><li>Assembly and screw driving.</li><li>Pick-and-place and palletising.</li><li>Inspection and metrology.</li><li>Machine tending.</li></ul>
+<h3>5. Robot safety</h3><p>Key measures include safety fences and interlocked gates, presence-sensing devices, speed and separation monitoring, reduced-force limits and emergency stops. Collaborative robots include built-in force and safety features, but a full risk assessment is still required.</p>
+<h3>6. Selecting a robot</h3><ul><li>Payload and reach required.</li><li>Repeatability and accuracy.</li><li>Cycle time and productivity.</li><li>Environment and protection rating.</li><li>Integration with existing systems.</li></ul>`,
         quiz: [
           { q: "Which robot type is commonly used for high-speed pick-and-place?", opts: ["Articulated arm", "Delta robot", "Gantry robot", "Cobot"], answer: 1, explanation: "Delta robots use parallel links for very fast pick-and-place." },
-          { q: "What is a cobot?", opts: ["A robot designed for high payloads only", "A collaborative robot designed to share space with humans", "A mechanical press", "A type of PLC"], answer: 1, explanation: "Cobots are designed for safe collaboration with people." }
+          { q: "What is a cobot?", opts: ["A robot designed for high payloads only", "A collaborative robot designed to share space with humans", "A mechanical press", "A type of PLC"], answer: 1, explanation: "Cobots are designed for safe collaboration with people." },
+          { q: "Which is NOT a typical robot application?", opts: ["Welding", "Pick-and-place", "Painting", "Employee payroll"], answer: 3, explanation: "Payroll is not a robot task." },
+          { q: "A teach pendant is used to:", opts: ["Test electrical insulation", "Program or manually jog a robot", "Replace a PLC", "Measure humidity"], answer: 1, explanation: "Teach pendants let operators jog the robot and record positions." },
+          { q: "What is essential before deploying a robot in a workspace?", opts: ["Only choosing the colour", "A full risk assessment and appropriate safety measures", "Removing all safeguards", "Ignoring cycle times"], answer: 1, explanation: "Risk assessment and safety measures protect people and equipment." }
         ]
       }]
     },
@@ -654,10 +680,18 @@ const COURSE = {
         title: "Monitoring Systems, KPIs and Automation Safety",
         duration: "45 minutes",
         html: `<p>Industrial monitoring collects data from sensors and controllers to understand process performance. Safety in automation ensures people and assets are protected by design. Efficiency improvements come from measuring, analysing and improving processes.</p>
-<h3>1. What monitoring covers</h3><ul><li>Process variables: temperature, pressure, flow, level.</li><li>Equipment status: running, stopped, faulted.</li><li>Production: counts, cycle time, quality.</li><li>Energy consumption.</li><li>Safety events and alarms.</li></ul>`,
+<h3>1. What monitoring covers</h3><ul><li>Process variables: temperature, pressure, flow, level.</li><li>Equipment status: running, stopped, faulted.</li><li>Production: counts, cycle time, quality.</li><li>Energy consumption.</li><li>Safety events and alarms.</li></ul>
+<h3>2. Technologies</h3><p><b>SCADA</b> provides supervisory oversight. <b>HMI</b> panels allow local interaction. <b>Historian</b> databases store time-series data. <b>IIoT</b> (Industrial Internet of Things) connects sensors and devices for analytics. <b>Edge</b> computing processes data locally for fast responses.</p>
+<h3>3. Useful KPIs</h3><table class="compare"><tr><th>KPI</th><th>Meaning</th></tr><tr><td>OEE</td><td>Availability × Performance × Quality</td></tr><tr><td>MTBF</td><td>Mean operating time between failures</td></tr><tr><td>MTTR</td><td>Mean time to restore</td></tr><tr><td>Energy per unit</td><td>Energy efficiency</td></tr><tr><td>Defect rate</td><td>Quality performance</td></tr></table>
+<h3>4. Automation safety</h3><p>Safety-related considerations include risk assessment, guarding, interlocks, emergency stops, safety relays or safety PLCs, safe torque-off, and safe maintenance procedures. Standards such as ISO 13849 and IEC 62061 provide guidance for safety-related control systems.</p>
+<h3>5. Efficiency improvements</h3><ul><li>Reduce downtime through preventive and predictive maintenance.</li><li>Optimise cycle times without compromising safety or quality.</li><li>Reduce energy use through better control strategies.</li><li>Minimise scrap and rework.</li><li>Use data to identify bottlenecks.</li></ul>
+<h3>6. Data and cyber considerations</h3><p>Connected systems require network segmentation, access control, backups and monitoring. Protect industrial control systems from unauthorised access; integrate IT and OT security policies.</p>`,
         quiz: [
           { q: "What does OEE combine?", opts: ["Cost, speed, quality", "Availability, performance, quality", "Safety, energy, cost", "Labour, material, equipment"], answer: 1, explanation: "OEE = Availability × Performance × Quality." },
-          { q: "A historian in an industrial system is used to:", opts: ["Clean sensors", "Store time-series data for analysis", "Replace PLCs", "Serve lunches"], answer: 1, explanation: "Historian databases store process data for trends and analysis." }
+          { q: "A historian in an industrial system is used to:", opts: ["Clean sensors", "Store time-series data for analysis", "Replace PLCs", "Serve lunches"], answer: 1, explanation: "Historian databases store process data for trends and analysis." },
+          { q: "Which standard provides guidance for safety-related control systems?", opts: ["ISO 9001", "ISO 13849", "ISO 14001", "ISO 22000"], answer: 1, explanation: "ISO 13849 covers safety-related parts of control systems." },
+          { q: "A useful way to reduce energy consumption in automation is:", opts: ["Run motors at full speed always", "Use better control strategies and monitor energy use", "Increase waste", "Disable all sensors"], answer: 1, explanation: "Energy monitoring and optimised control reduce consumption." },
+          { q: "Which practice improves OT security?", opts: ["Share passwords widely", "Segment networks and control access", "Disable all logging", "Connect all devices to the public internet"], answer: 1, explanation: "Network segmentation and access control improve security." }
         ]
       }]
     },
@@ -667,10 +701,21 @@ const COURSE = {
         title: "Industry 4.0, IIoT, Digital Twins and Smart Manufacturing",
         duration: "45 minutes",
         html: `<p>Industrial automation is evolving rapidly. Modern trends include Industry 4.0, the Industrial Internet of Things (IIoT), digital twins, artificial intelligence, collaborative robots and edge computing.</p>
-<h3>1. Industry 4.0</h3><p>Industry 4.0 refers to the integration of digital technologies into manufacturing: connected machines, real-time data, advanced analytics and flexible production.</p>`,
+<h3>1. Industry 4.0</h3><p>Industry 4.0 refers to the integration of digital technologies into manufacturing: connected machines, real-time data, advanced analytics and flexible production.</p>
+<h3>2. IIoT</h3><p>The IIoT connects industrial devices and sensors to networks and cloud platforms, enabling remote monitoring, predictive maintenance and data-driven decisions.</p>
+<h3>3. Digital twins</h3><p>A digital twin is a virtual model of a physical asset or process, fed with real data. It supports design, simulation, training, optimisation and fault diagnosis.</p>
+<h3>4. Artificial intelligence and machine learning</h3><p>AI/ML can detect anomalies, predict failures, optimise parameters and improve quality. Applications include predictive maintenance and vision-based inspection.</p>
+<h3>5. Collaborative robots and flexible automation</h3><p>Cobots and reconfigurable systems allow small-batch and mixed-product production without extensive retooling.</p>
+<h3>6. Edge computing</h3><p>Processing data near the source reduces latency and bandwidth use, and supports real-time control decisions.</p>
+<h3>7. 5G in industrial settings</h3><p>5G offers high bandwidth and low latency, enabling wireless control, AGVs and mobile robots. Industrial 5G requires careful security and reliability planning.</p>
+<h3>8. Sustainability</h3><p>Automation increasingly focuses on energy efficiency, reduced waste and circular economy principles. Monitoring and analytics support sustainability goals.</p>
+<h3>9. Practical considerations</h3><ul><li>Assess readiness: skills, infrastructure, cybersecurity.</li><li>Start with clear business objectives.</li><li>Pilot before scaling.</li><li>Plan for integration and data governance.</li><li>Invest in training and change management.</li></ul>`,
         quiz: [
           { q: "Industry 4.0 is best described as:", opts: ["Manual assembly lines", "Integration of digital technologies into manufacturing", "Removal of all automation", "Using only mechanical controls"], answer: 1, explanation: "Industry 4.0 integrates digital, connected and data-driven technologies." },
-          { q: "What is a digital twin?", opts: ["A physical copy of a machine", "A virtual model of a physical asset or process fed with real data", "A type of sensor", "A robot arm"], answer: 1, explanation: "Digital twins simulate physical assets and use real data for analysis." }
+          { q: "What is a digital twin?", opts: ["A physical copy of a machine", "A virtual model of a physical asset or process fed with real data", "A type of sensor", "A robot arm"], answer: 1, explanation: "Digital twins simulate physical assets and use real data for analysis." },
+          { q: "Which is a benefit of edge computing in automation?", opts: ["Higher latency", "Lower latency and reduced bandwidth needs by processing data locally", "Removing all sensors", "Replacing PLCs entirely"], answer: 1, explanation: "Edge computing processes data near the source for fast response." },
+          { q: "IIoT mainly enables:", opts: ["Isolated machines", "Connected devices and data-driven decisions", "Manual record keeping only", "Removal of safety systems"], answer: 1, explanation: "IIoT connects industrial devices for monitoring and analytics." },
+          { q: "A sensible first step before scaling an Industry 4.0 initiative is:", opts: ["Buy the most expensive system available", "Pilot with clear objectives and assess readiness", "Skip cybersecurity planning", "Avoid training staff"], answer: 1, explanation: "Piloting and readiness assessment reduce risk before full rollout." }
         ]
       }]
     }
@@ -1405,18 +1450,138 @@ const App = (() => {
     if (!u) { showLogin(); return; }
     state.user = u;
     state.screen = 'certificate';
-    const cert = generateCertificate(u.username);
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
         ${renderSidebarHTML('certificate')}
-        <main class="main-panel">
-          <h1>My Certificate</h1>
-          ${cert ? `<p>Certificate issued: <b>${cert.id}</b></p>` : `<p>Complete all modules to unlock your certificate.</p>`}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, introducing the fundamentals of industrial automation, sensors, actuators, PLCs, robotics and monitoring.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
         </main>
       </div>
     `;
     renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Industrial_Automation.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
   }
 
   async function showDiscussion() {
