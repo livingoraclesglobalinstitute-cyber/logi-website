@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You | LOGI</title>
+<style>
+  :root {
+    --pink: #ff4b93;
+    --pink-dark: #e93680;
+    --bg: #f4f5f8;
+    --ink: #34343b;
+    --text: #555;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--ink);
+  }
+
+  .card {
+    background: white;
+    width: 90%;
+    max-width: 550px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 50px 40px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* Illustration matching your image style */
+  .illustration {
+    width: 180px;
+    height: auto;
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    color: var(--pink);
+    font-size: 32px;
+    margin: 0 0 10px 0;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin: 0 0 25px 0;
+    font-weight: 600;
+  }
+
+  .redirect-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .redirect-text span {
+    color: var(--pink);
+    font-weight: bold;
+  }
+
+  .helper-text {
+    color: #888;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 35px;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: var(--pink);
+    color: white;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+
+  .btn:hover {
+    background-color: var(--pink-dark);
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Illustration Placeholder (Recreated to match your image) -->
+    <img src="https://img.freepik.com/free-vector/confirmed-concept-illustration_114360-541.jpg?w=740" alt="Success Illustration" class="illustration">
+
+    <h1>Thank you!</h1>
+    <h2>Your acceptance has been received</h2>
+
+    <p class="redirect-text">You are now being redirected in <span id="countdown">5</span> seconds</p>
+    <p class="helper-text">Click the button if you are not automatically redirected.</p>
+
+    <a href="https://www.logi.education" id="redirect-btn" class="btn">Return to Homepage</a>
+  </div>
+
+  <script>
+    // Countdown Timer Script
+    let timeLeft = 5;
+    const countdownElement = document.getElementById('countdown');
+    
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdownElement.textContent = timeLeft;
+      
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        // Redirects to your main website homepage
+        window.location.href = "https://www.logi.education"; 
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
