@@ -1304,6 +1304,8 @@ const App = (() => {
   async function renderAssessmentScreen() {
     const u = await currentUser();
     if (!u) return;
+    state.user = u; // ensure fresh state
+
     const mi = state.activeCourseModule;
     const mod = COURSE.modules[mi];
     const quiz = mod.lessons[0].quiz || [];
@@ -1311,6 +1313,12 @@ const App = (() => {
     const result = getQuizResult(username, mi);
     const passed = !!result?.passed;
     const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    // Dynamic next-button label
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1360,7 +1368,9 @@ const App = (() => {
               ${renderQuizUI(mi, quiz)}
               <div class="actions">
                 <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
-                <button class="btn ${passed?'':'btn-secondary'}" ${passed?'':'disabled style="opacity:.5;"'} onclick="App.continueAfterAssessment()">Next Module →</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
               </div>
             </article>
           </section>
@@ -1371,8 +1381,9 @@ const App = (() => {
   }
 
   function renderQuizUI(mi, quiz) {
+    // use fresh user from state, fall back to session
     const u = state.user;
-    const result = getQuizResult(u.username, mi);
+    const result = u ? getQuizResult(u.username, mi) : null;
     return `
       <div style="margin-top:16px;">
         ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
@@ -1410,31 +1421,77 @@ const App = (() => {
     if (!u) return;
     const quiz = COURSE.modules[mi].lessons[0].quiz;
     let score = 0;
+    let answeredAll = true;
+
     quiz.forEach((q, qi) => {
       const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
       const fb = document.getElementById(`fb_${mi}_${qi}`);
-      if (sel && parseInt(sel.value) === q.answer) {
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
         score++;
-        if(fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
-      } else if (fb) {
-        fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)';
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
       }
     });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
     saveQuizResult(u.username, mi, score, quiz.length);
     const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
     if (passed) {
       markLessonDone(u.username, mi, 0);
       if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      // Enable the "Next" button in place WITHOUT re-rendering the quiz
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
     }
-    document.getElementById('quizResult_' + mi).textContent = `Scored ${score}/${quiz.length}. ${passed ? 'Passed!' : 'Try again.'}`;
   }
 
   function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
   function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
   function continueAfterAssessment() {
     const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
     if (mi + 1 < COURSE.modules.length) {
       openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
     } else {
       showDashboard();
     }
@@ -1657,7 +1714,7 @@ const App = (() => {
     openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
     alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
     toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
-    toggleModuleMenu, closeModuleMenu, navigate
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
   };
 })();
 
