@@ -72,13 +72,20 @@
     line-height: 1.35;
   }
 
-  /* --- HEADER FORMAT --- */
+  /* --- DOUBLE LINE ABOVE HEADER --- */
+  .top-border-double {
+    border-top: 3px double #003366;
+    margin-bottom: 10px;
+  }
+
+  /* --- COLORED HEADER FORMAT --- */
   .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 10pt;
     margin-bottom: 5px;
+    color: #003366;
   }
   .header-left {
     width: 25%;
@@ -94,12 +101,16 @@
     width: auto;
     margin-bottom: 2px;
   }
+  
+  /* Reduced font size and set to nowrap to stay on one line */
   .header-center h1 {
     margin: 0;
-    font-size: 13pt;
+    font-size: 11pt; 
     font-weight: bold;
     text-transform: uppercase;
+    white-space: nowrap; 
   }
+  
   .header-center p {
     margin: 0;
     font-size: 9.5pt;
@@ -113,8 +124,8 @@
   
   /* Header Dividers */
   .header-divider {
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #003366;
+    border-bottom: 1px solid #003366;
     height: 2px;
     margin: 3px 0 15px 0;
   }
@@ -137,7 +148,7 @@
   }
   .recipient span {
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
   }
   
   /* Subject Line */
@@ -239,6 +250,10 @@
       margin: 0;
       padding: 15mm 20mm;
     }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
   }
 </style>
 </head>
@@ -261,7 +276,8 @@
   </div>
   <div class="actions">
     <button type="button" onclick="updateLetter()">Update Letter</button>
-    <button type="button" class="secondary" onclick="window.print()">Print / Save as PDF</button>
+    <!-- Changed to type="button" and added a specific print command -->
+    <button type="button" class="secondary" onclick="triggerPrint()">Print / Save as PDF</button>
   </div>
 </div>
 
@@ -272,7 +288,10 @@
   
   <div class="content">
     
-    <!-- Updated Header Layout -->
+    <!-- Double Line above Header -->
+    <div class="top-border-double"></div>
+
+    <!-- Colored Header Layout -->
     <div class="header-top">
       <div class="header-left">
         Admissions Office<br>
@@ -281,6 +300,7 @@
       </div>
       <div class="header-center">
         <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo"><br>
+        <!-- Font size reduced to 11pt to ensure it fits in one line -->
         <h1>LIVING ORACLES GLOBAL INSTITUTE</h1>
         <p>2026/2027 ACADEMIC YEAR</p>
       </div>
@@ -290,7 +310,7 @@
       </div>
     </div>
 
-    <!-- Divider Lines -->
+    <!-- Colored Divider Lines -->
     <div class="header-divider"></div>
 
     <!-- Date Row -->
@@ -298,7 +318,7 @@
       <div class="date-line" id="outDate">7 November 2026</div>
     </div>
 
-    <!-- Recipient Block -->
+    <!-- Fixed Recipient Block -->
     <div class="recipient">
       <span id="outLocation">Wolayita, Ethiopia</span>
       <span id="outPhone">+251 906 473 979</span><br>
@@ -316,7 +336,7 @@
       With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
     </div>
 
-    <!-- Reduced to 8 Conditions -->
+    <!-- 8 Conditions -->
     <ol class="conditions">
       <li>This offer is based on the information provided in your application. LOGI reserves the right to verify the information and supporting documents submitted.</li>
       <li>Your admission and continued enrolment are subject to the accuracy of your application information and your compliance with the Institute's academic and administrative requirements.</li>
@@ -382,6 +402,11 @@
     document.getElementById('outDate').innerText = date;
   }
   
+  // Dedicated function to trigger print safely
+  function triggerPrint() {
+    window.print();
+  }
+
   // Initialize on page load
   updateLetter();
 </script>
