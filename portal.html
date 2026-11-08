@@ -20,7 +20,6 @@
       --line: #e9e8ef;
       --white: #fff;
       --green: #207a4b;
-      --amber: #c68a12;
       --shadow: 0 2px 9px rgba(0,0,0,.07);
       --shadow-hover: 0 7px 18px rgba(0,0,0,.09);
     }
@@ -30,11 +29,7 @@
     button, input { font: inherit; }
 
     /* ---------- Topbar ---------- */
-    .topbar {
-      height: 64px; background: #fff; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 max(5%, calc((100% - 1180px)/2)); box-shadow: 0 2px 9px rgba(0,0,0,.07);
-      position: sticky; top: 0; z-index: 5;
-    }
+    .topbar { height: 64px; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 max(5%, calc((100% - 1180px)/2)); box-shadow: 0 2px 9px rgba(0,0,0,.07); position: sticky; top: 0; z-index: 5; }
     .brand { display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 800; letter-spacing: -1.5px; color: #555; }
     .brand span.brand-dot { color: var(--pink); }
     .brand .brand-sub { font-size: 13px; font-weight: 500; letter-spacing: 0; color: #8b7777; }
@@ -42,11 +37,7 @@
     .user-email { font-size: 13px; color: var(--muted); max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
     /* ---------- Buttons ---------- */
-    .btn {
-      border: 0; border-radius: 4px; background: var(--pink); color: #fff; padding: 10px 20px;
-      font-weight: 700; font-size: 13px; cursor: pointer; text-decoration: none; display: inline-flex;
-      align-items: center; justify-content: center; transition: background .15s;
-    }
+    .btn { border: 0; border-radius: 4px; background: var(--pink); color: #fff; padding: 10px 20px; font-weight: 700; font-size: 13px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: background .15s; }
     .btn:hover { background: var(--pink-dark); }
     .btn.secondary { background: #fff; color: var(--pink); border: 1px solid #ffd1e3; }
     .btn.secondary:hover { background: var(--pink); color: #fff; }
@@ -66,50 +57,28 @@
     .login-card .btn { width: 100%; padding: 13px; }
     .error-msg { color: red; font-size: 13px; margin-bottom: 10px; display: none; background: #fff5f8; padding: 10px; border-radius: 4px; border: 1px solid #f6c7da;}
     
-    /* ---------- PROFESSIONAL STAFF DASHBOARD ---------- */
+    /* ---------- STAFF DASHBOARD ---------- */
     .dashboard-header { margin-bottom: 30px; }
     .dashboard-header h1 { margin: 0 0 5px 0; color: var(--ink); font-size: 28px; }
     .dashboard-header p { margin: 0; color: var(--muted); font-size: 15px; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 40px; }
     
-    .staff-card { 
-      background: #fff; 
-      padding: 30px; 
-      border-radius: 8px; 
-      box-shadow: var(--shadow); 
-      border: 1px solid var(--line);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-    }
-    .staff-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-    }
+    .staff-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: var(--shadow); border: 1px solid var(--line); position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+    .staff-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
     
-    /* Colored top borders for each card */
     .staff-card.border-pink { border-top: 5px solid var(--pink); }
-    .staff-card.border-blue { border-top: 5px solid #4285F4; }
     .staff-card.border-dark { border-top: 5px solid #34343b; }
     .staff-card.border-green { border-top: 5px solid #28a745; }
+    .staff-card.border-blue { border-top: 5px solid #4285F4; }
+    .staff-card.border-paystack { border-top: 5px solid #00C3F7; }
 
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
+    .card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; font-weight: bold; }
     .bg-pink { background: #ffe9f1; color: var(--pink); }
-    .bg-blue { background: #e8f0fe; color: #4285F4; }
     .bg-dark { background: #f0f0f0; color: #34343b; }
     .bg-green { background: #e8f5ed; color: #28a745; }
+    .bg-blue { background: #e8f0fe; color: #4285F4; }
+    .bg-paystack { background: #e5f9ff; color: #00C3F7; }
 
     .staff-card h3 { margin: 0 0 10px 0; color: var(--ink); font-size: 18px; }
     .staff-card p { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 25px; flex-grow: 1;}
@@ -157,14 +126,7 @@
     </div>
   </header>
 
-  <main id="app">
-    <div class="login-shell">
-      <div class="login-card">
-        <h1>Loading portal…</h1>
-        <p>Please wait while we connect to LOGI.</p>
-      </div>
-    </div>
-  </main>
+  <main id="app"></main>
 
   <div class="footer">Living Oracles Global Institute · <strong>Faith. Excellence. Impact.</strong></div>
 
@@ -174,7 +136,6 @@
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-  // Any email listed here will see the Admissions Dashboard.
   const STAFF_EMAILS = ['registrar@logi.education', 'admin@logi.education']; 
 
   const app = document.getElementById('app');
@@ -249,19 +210,19 @@
       <div class="wrap">
         <div class="dashboard-header">
           <h1>Admissions Dashboard</h1>
-          <p>Manage student admissions, generate letters, and track acceptances.</p>
+          <p>Manage student admissions, generate letters, and copy payment links.</p>
         </div>
         
+        <!-- Section 1: Generate Letters -->
+        <h3 style="margin-bottom: 15px; color:var(--ink);">1. Generate Admission Letters</h3>
         <div class="grid">
-          <!-- Card 1: Paid Diploma Letter -->
           <div class="staff-card border-pink">
             <div class="card-icon bg-pink">💳</div>
-            <h3>Paid Diploma Letter ($250)</h3>
+            <h3>Paid Diploma ($250)</h3>
             <p>Generate an admission letter for Advanced Professional Diploma students. Includes the 60% initial payment instructions.</p>
             <a href="/paid-diploma.html" target="_blank" class="btn">Generate Paid Letter</a>
           </div>
 
-          <!-- Card 2: Free + $20 Cert Letter -->
           <div class="staff-card border-dark">
             <div class="card-icon bg-dark">🏷️</div>
             <h3>Free Tuition + $20 Cert</h3>
@@ -269,21 +230,35 @@
             <a href="/business-cert.html" target="_blank" class="btn" style="background:#34343b;">Generate Cert Letter</a>
           </div>
 
-          <!-- Card 3: Completely Free Letter -->
           <div class="staff-card border-green">
             <div class="card-icon bg-green">🕊️</div>
             <h3>Completely Free (Ministry)</h3>
             <p>Generate an admission letter for Ministry & Theology students. 100% free, no payment required.</p>
             <a href="/ministry-free.html" target="_blank" class="btn" style="background:#28a745;">Generate Free Letter</a>
           </div>
+        </div>
 
-          <!-- Card 4: Acceptance Form Link -->
+        <!-- Section 2: Payment & Links -->
+        <h3 style="margin-bottom: 15px; color:var(--ink); margin-top: 40px;">2. Copy Links for Generators</h3>
+        <div class="grid">
+          
+          <!-- Paystack General Payment Card -->
+          <div class="staff-card border-paystack">
+            <div class="card-icon bg-paystack">P</div>
+            <h3>Paystack: General Payment</h3>
+            <p>Copy this Paystack link and paste it into the "Payment Link" field in any generator. The student will type their exact amount ($250 or $20).</p>
+            <!-- Replace the link below with your actual General Paystack link -->
+            <button class="btn" style="background:#00C3F7;" onclick="copyText('https://paystack.shop/pay/logi-payments', 'psGeneralMsg')">Copy Paystack Link</button>
+            <span class="copy-success" id="psGeneralMsg">Copied!</span>
+          </div>
+
+          <!-- Acceptance Form Link Card -->
           <div class="staff-card border-blue">
             <div class="card-icon bg-blue">🔗</div>
             <h3>Acceptance Form Link</h3>
             <p>Copy this link and paste it into the "Acceptance Link" field in any of the letter generators.</p>
-            <button class="btn" style="background:#4285F4;" onclick="copyLink()">Copy Form Link</button>
-            <span class="copy-success" id="copySuccess">Copied!</span>
+            <button class="btn" style="background:#4285F4;" onclick="copyText('https://www.logi.education/acceptance_form.html', 'acceptMsg')">Copy Form Link</button>
+            <span class="copy-success" id="acceptMsg">Copied!</span>
           </div>
         </div>
       </div>
@@ -333,20 +308,18 @@
             </div>
           </article>
         </div>
-        
-        <p style="text-align:center; margin-top:40px; font-size:12px; color:var(--muted);">This is a preview of the student dashboard. Connect the Supabase tables to display real data.</p>
       </div>
     `;
   }
 
   // --- HELPERS ---
-  function copyLink() {
-    // Updated to your exact URL
-    const acceptanceUrl = "https://www.logi.education/admission-letter"; 
-    navigator.clipboard.writeText(acceptanceUrl).then(() => {
-      const successMsg = document.getElementById('copySuccess');
+  function copyText(textToCopy, messageElementId) {
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const successMsg = document.getElementById(messageElementId);
       successMsg.style.display = 'inline';
       setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+    }).catch(err => {
+      alert("Failed to copy. Please select and copy manually.");
     });
   }
 
