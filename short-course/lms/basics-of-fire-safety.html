@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Basics of Fire Safety">
+  <title>LOGI LMS · Basics of Fire Safety</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Basics of Fire Safety
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'fire-safety-101',
+  title: 'Basics of Fire Safety',
+  desc: 'Understand the fundamentals of fire prevention and response in workplaces and buildings. The course introduces fire behaviour, common hazards, prevention measures, alarms, evacuation and extinguisher awareness.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Fire Fundamentals",
+      lessons: [{
+        title: "Fire Triangle, Classes and Spread",
+        duration: "45 minutes",
+        html: `<p><b>Fire</b> is a chemical reaction between a fuel and oxygen that produces heat and light. Understanding how fire starts, spreads and is classified is the foundation of fire safety — because every prevention and response measure targets one of the conditions that allows fire to exist.</p>
+<div class="callout"><b>Core principle:</b> Remove any one side of the fire triangle and the fire cannot start or continue. Every fire safety control — prevention, detection, extinguishing — works by removing fuel, oxygen, heat or the chemical chain reaction.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to explain the fire triangle and tetrahedron, identify the classes of fire, and describe how fire spreads.</p>
+<h3>1. The fire triangle</h3>
+<div class="diagram">
+  <svg viewBox="0 0 480 340" role="img" aria-label="Fire triangle: fuel, oxygen, heat">
+    <g font-family="Arial" font-size="13">
+      <text x="240" y="25" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">The fire triangle</text>
+      <!-- Triangle sides -->
+      <g stroke="#c2185b" stroke-width="3" fill="#fff2f7">
+        <polygon points="240,60 60,290 420,290"/>
+      </g>
+      <!-- Nodes -->
+      <circle cx="240" cy="70" r="40" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+      <text x="240" y="68" text-anchor="middle" font-weight="bold" fill="#e93680">FUEL</text>
+      <text x="240" y="84" text-anchor="middle" font-size="10" fill="#555">anything that burns</text>
+
+      <circle cx="100" cy="290" r="40" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+      <text x="100" y="288" text-anchor="middle" font-weight="bold" fill="#2b6cb0">OXYGEN</text>
+      <text x="100" y="304" text-anchor="middle" font-size="10" fill="#555">~16% needed</text>
+
+      <circle cx="380" cy="290" r="40" fill="#ffd8b0" stroke="#d97706" stroke-width="2"/>
+      <text x="380" y="288" text-anchor="middle" font-weight="bold" fill="#b45309">HEAT</text>
+      <text x="380" y="304" text-anchor="middle" font-size="10" fill="#555">ignition energy</text>
+
+      <!-- Centre label -->
+      <text x="240" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2185b">Remove one side</text>
+      <text x="240" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2185b">and the fire stops</text>
+      <text x="240" y="255" text-anchor="middle" font-size="10" fill="#777">Fire tetrahedron adds the</text>
+      <text x="240" y="270" text-anchor="middle" font-size="10" fill="#777">chemical chain reaction</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">All three sides of the fire triangle are needed for combustion.</div>
+</div>
+<h3>2. Fire tetrahedron</h3>
+<p>Modern fire science adds a fourth element: the <b>chemical chain reaction</b> that sustains combustion. This is why some extinguishers (especially clean agents) work not by cooling or smothering but by interrupting the chemical reaction.</p>
+<h3>3. Classes of fire</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Fire classes and suitable extinguishers">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Fire classes and extinguisher types</text>
+      <!-- Class A -->
+      <rect x="20" y="50" width="110" height="130" rx="6" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+      <text x="75" y="75" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">A</text>
+      <text x="75" y="100" text-anchor="middle" font-size="10" fill="#333">solids</text>
+      <text x="75" y="116" text-anchor="middle" font-size="10" fill="#555">wood, paper</text>
+      <text x="75" y="132" text-anchor="middle" font-size="10" fill="#555">cloth, plastic</text>
+      <text x="75" y="155" text-anchor="middle" font-size="10" fill="#2e7d32" font-weight="bold">Water</text>
+      <!-- Class B -->
+      <rect x="140" y="50" width="110" height="130" rx="6" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+      <text x="195" y="75" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">B</text>
+      <text x="195" y="100" text-anchor="middle" font-size="10" fill="#333">flammable liquids</text>
+      <text x="195" y="116" text-anchor="middle" font-size="10" fill="#555">petrol, oil</text>
+      <text x="195" y="132" text-anchor="middle" font-size="10" fill="#555">solvents</text>
+      <text x="195" y="155" text-anchor="middle" font-size="10" fill="#2e7d32" font-weight="bold">Foam, CO₂</text>
+      <!-- Class C -->
+      <rect x="260" y="50" width="110" height="130" rx="6" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+      <text x="315" y="75" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">C</text>
+      <text x="315" y="100" text-anchor="middle" font-size="10" fill="#333">flammable gases</text>
+      <text x="315" y="116" text-anchor="middle" font-size="10" fill="#555">LPG, methane</text>
+      <text x="315" y="132" text-anchor="middle" font-size="10" fill="#555">propane</text>
+      <text x="315" y="155" text-anchor="middle" font-size="10" fill="#2e7d32" font-weight="bold">Dry powder</text>
+      <!-- Class D -->
+      <rect x="380" y="50" width="110" height="130" rx="6" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+      <text x="435" y="75" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">D</text>
+      <text x="435" y="100" text-anchor="middle" font-size="10" fill="#333">metal fires</text>
+      <text x="435" y="116" text-anchor="middle" font-size="10" fill="#555">magnesium</text>
+      <text x="435" y="132" text-anchor="middle" font-size="10" fill="#555">sodium</text>
+      <text x="435" y="155" text-anchor="middle" font-size="10" fill="#2e7d32" font-weight="bold">Special powder</text>
+      <!-- Class F -->
+      <rect x="500" y="50" width="120" height="130" rx="6" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+      <text x="560" y="75" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">F</text>
+      <text x="560" y="100" text-anchor="middle" font-size="10" fill="#333">cooking oils</text>
+      <text x="560" y="116" text-anchor="middle" font-size="10" fill="#555">fats, grease</text>
+      <text x="560" y="132" text-anchor="middle" font-size="10" fill="#555">in kitchens</text>
+      <text x="560" y="155" text-anchor="middle" font-size="10" fill="#2e7d32" font-weight="bold">Wet chemical</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Each fire class has an appropriate extinguisher type — never use water on electrical or cooking oil fires.</div>
+</div>
+<h3>4. Electrical fires</h3>
+<p>Electrical fires are not a separate class in all systems, but they require special handling: <b>isolate power first</b>. Water conducts electricity and must never be used on live electrical equipment. CO₂ is commonly used because it leaves no residue and does not conduct.</p>
+<h3>5. How fire spreads</h3>
+<ul>
+  <li><b>Conduction</b> — heat travels through solids (steel beams).</li>
+  <li><b>Convection</b> — hot gases rise and spread fire upward and along ceilings.</li>
+  <li><b>Radiation</b> — heat radiates in straight lines to nearby surfaces.</li>
+  <li><b>Direct contact</b> — flame touches fuel.</li>
+  <li><b>Flying embers</b> — sparks or burning debris carry fire.</li>
+</ul>
+<h3>6. Stages of fire</h3>
+<ol>
+  <li><b>Incipient</b> — small, easily extinguished.</li>
+  <li><b>Growth</b> — fire spreads, heat builds.</li>
+  <li><b>Fully developed</b> — whole compartment involved.</li>
+  <li><b>Decay</b> — fuel depletes.</li>
+</ol>
+<p>The earlier a fire is caught, the better the outcome. Detection time is critical.</p>`,
+        quiz: [
+          { q: "What three sides make fire?", opts: ["Fuel, oxygen, heat", "Fuel, water, sand", "Air, water, smoke", "Spark, wind, dust"], answer: 0, explanation: "The fire triangle consists of fuel, oxygen and heat." },
+          { q: "What extinguishes electrical fires?", opts: ["CO₂ gas only", "Water spray only", "Foam jets only", "Sand and oil"], answer: 0, explanation: "CO₂ is safe for electrical fires because it does not conduct electricity." },
+          { q: "Which fire is cooking oil?", opts: ["Class F fire", "Class A fire", "Class B fire", "Class D fire"], answer: 0, explanation: "Class F fires involve cooking oils and fats, common in kitchens." },
+          { q: "How does fire spread up?", opts: ["Rising by convection", "Falling by gravity", "Sinking by conduction", "Spreading by ice"], answer: 0, explanation: "Convection carries hot gases and fire upwards through a building." },
+          { q: "What makes fire tetrahedron?", opts: ["Chemical chain reaction", "Additional heat source", "More oxygen supply", "Extra fuel load"], answer: 0, explanation: "The tetrahedron adds the chemical chain reaction to the three sides of the triangle." }
+        ]
+      }]
+    },
+    {
+      title: "Common Fire Hazards",
+      lessons: [{
+        title: "Identifying Ignition Sources and Fuels",
+        duration: "50 minutes",
+        html: `<p>Most workplace fires result from a small number of recurring hazards — electrical faults, cooking equipment, heating, smoking materials and ignition of flammable substances. Recognising these hazards is the first step in preventing them.</p>
+<div class="callout"><b>Core principle:</b> Fire needs fuel and an ignition source to come into contact. Keeping them apart is the essence of prevention.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to identify common ignition sources, list typical fuels in workplaces, and recognise the hazards that cause most fires.</p>
+<h3>1. Ignition sources</h3>
+<ul>
+  <li><b>Electrical</b> — faulty wiring, overloaded sockets, damaged cables.</li>
+  <li><b>Heating</b> — heaters, radiators, hot surfaces.</li>
+  <li><b>Cooking</b> — hobs, ovens, fryers.</li>
+  <li><b>Smoking</b> — cigarettes, matches, lighters.</li>
+  <li><b>Hot work</b> — welding, grinding, cutting.</li>
+  <li><b>Friction</b> — machinery, conveyor belts.</li>
+  <li><b>Static electricity</b> — sparks from transfer of flammable liquids.</li>
+</ul>
+<h3>2. Where hazards concentrate</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 320" role="img" aria-label="Fire hazards across a workplace">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Typical fire hazard locations in a workplace</text>
+      <!-- Building outline -->
+      <rect x="40" y="60" width="560" height="220" fill="#fafafd" stroke="#777" stroke-width="2"/>
+      <!-- Rooms -->
+      <line x1="240" y1="60" x2="240" y2="280" stroke="#999"/>
+      <line x1="440" y1="60" x2="440" y2="280" stroke="#999"/>
+
+      <!-- Room 1: Kitchen -->
+      <text x="140" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Kitchen</text>
+      <rect x="80" y="120" width="60" height="40" fill="#ffd8b0" stroke="#d97706"/>
+      <text x="110" y="145" text-anchor="middle" font-size="9" fill="#b45309">cooker</text>
+      <rect x="160" y="120" width="60" height="40" fill="#ffd8b0" stroke="#d97706"/>
+      <text x="190" y="145" text-anchor="middle" font-size="9" fill="#b45309">fryer</text>
+      <text x="140" y="200" text-anchor="middle" font-size="10" fill="#c2185b">⚠ grease + heat</text>
+      <text x="140" y="215" text-anchor="middle" font-size="10" fill="#c2185b">⚠ smoke + extraction</text>
+
+      <!-- Room 2: Store -->
+      <text x="340" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Store</text>
+      <rect x="270" y="120" width="40" height="40" fill="#dcecff" stroke="#438bd5"/>
+      <text x="290" y="145" text-anchor="middle" font-size="9" fill="#2b6cb0">boxes</text>
+      <rect x="330" y="120" width="40" height="40" fill="#dcecff" stroke="#438bd5"/>
+      <text x="350" y="145" text-anchor="middle" font-size="9" fill="#2b6cb0">paper</text>
+      <rect x="390" y="120" width="40" height="40" fill="#dcecff" stroke="#438bd5"/>
+      <text x="410" y="145" text-anchor="middle" font-size="9" fill="#2b6cb0">cloth</text>
+      <text x="340" y="200" text-anchor="middle" font-size="10" fill="#c2185b">⚠ high fuel load</text>
+      <text x="340" y="215" text-anchor="middle" font-size="10" fill="#c2185b">⚠ blocked exits</text>
+
+      <!-- Room 3: Workshop -->
+      <text x="540" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Workshop</text>
+      <rect x="470" y="120" width="60" height="40" fill="#ffd8b0" stroke="#d97706"/>
+      <text x="500" y="145" text-anchor="middle" font-size="9" fill="#b45309">welding</text>
+      <rect x="540" y="120" width="60" height="40" fill="#ffd8b0" stroke="#d97706"/>
+      <text x="570" y="145" text-anchor="middle" font-size="9" fill="#b45309">grinder</text>
+      <text x="540" y="200" text-anchor="middle" font-size="10" fill="#c2185b">⚠ sparks + fuel</text>
+      <text x="540" y="215" text-anchor="middle" font-size="10" fill="#c2185b">⚠ gas cylinders</text>
+
+      <!-- Corridor -->
+      <rect x="40" y="250" width="560" height="20" fill="#fff2f7" stroke="#e93680" stroke-dasharray="4,3"/>
+      <text x="320" y="265" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">evacuation corridor</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Fire hazards vary by room — kitchens, stores and workshops each have specific risks.</div>
+</div>
+<h3>3. Common fuels</h3>
+<ul>
+  <li>Paper, cardboard, packaging.</li>
+  <li>Textiles, soft furnishings.</li>
+  <li>Plastics and foams.</li>
+  <li>Flammable liquids and solvents.</li>
+  <li>Cooking oils and fats.</li>
+  <li>Flammable gases (LPG, methane).</li>
+  <li>Dust — flour, wood, coal.</li>
+</ul>
+<h3>4. Dangerous combinations</h3>
+<table class="compare"><tr><th>Fuel</th><th>Ignition risk</th></tr><tr><td>Paper piled near a heater</td><td>Hot surface</td></tr><tr><td>Solvent vapour in a workshop</td><td>Grinding sparks</td></tr><tr><td>Dust accumulation</td><td>Any hot surface or spark</td></tr><tr><td>Overloaded extension lead</td><td>Electrical heating</td></tr></table>
+<h3>5. Contributing factors</h3>
+<ul>
+  <li>Poor housekeeping — clutter near ignition points.</li>
+  <li>Inadequate maintenance — faulty equipment.</li>
+  <li>Unsafe storage — flammable materials left out.</li>
+  <li>Blocked exits and fire doors propped open.</li>
+  <li>Smoking in prohibited areas.</li>
+  <li>Overloaded sockets and daisy chains.</li>
+</ul>
+<h3>6. Reporting hazards</h3>
+<p>Every worker should know how to report a fire hazard. Near-misses — a spark that could have ignited fuel, an overheating plug — are warning signs. Recording and acting on near-misses prevents real fires.</p>`,
+        quiz: [
+          { q: "Which is common ignition source?", opts: ["Faulty electrical wiring", "Clean dry surfaces", "Fresh air intake", "Proper ventilation"], answer: 0, explanation: "Faulty electrical wiring is a leading ignition source for workplace fires." },
+          { q: "Which fuel burns fast?", opts: ["Paper and packaging", "Steel and concrete", "Glass and ceramics", "Stone and bricks"], answer: 0, explanation: "Paper and packaging are common fuels that ignite and spread fire easily." },
+          { q: "Why is dust dangerous?", opts: ["It explodes if ignited", "It cools the fire", "It stops ignition", "It does nothing"], answer: 0, explanation: "Dust clouds (flour, wood, coal) can ignite and explode when disturbed." },
+          { q: "Which practice is unsafe?", opts: ["Blocking fire exits", "Good housekeeping", "Regular maintenance", "Smoke-free policy"], answer: 0, explanation: "Blocking fire exits prevents safe evacuation during a fire." },
+          { q: "Why report near misses?", opts: ["Prevents future real fires", "It is nice to know", "Fills the paperwork", "Replaces the audit"], answer: 0, explanation: "Near misses are warning signs — acting on them prevents real fires." }
+        ]
+      }]
+    },
+    {
+      title: "Prevention and Detection",
+      lessons: [{
+        title: "Prevention Controls and Fire Detection",
+        duration: "50 minutes",
+        html: `<p>Fire prevention removes one side of the fire triangle — usually by keeping fuel and ignition separated, or by controlling oxygen. Fire detection provides early warning so that occupants can escape and responders can act before the fire grows.</p>
+<div class="callout"><b>Core principle:</b> Prevention is cheaper than response. Every preventable fire that doesn't start is a life and asset saved.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the main prevention measures, distinguish detection systems from alarm systems, and explain the role of emergency lighting and signage.</p>
+<h3>1. Prevention measures</h3>
+<ul>
+  <li><b>Housekeeping</b> — keep fuel away from ignition sources.</li>
+  <li><b>Electrical safety</b> — PAT testing, no overloaded sockets.</li>
+  <li><b>Storage controls</b> — flammable liquids in approved cabinets.</li>
+  <li><b>Hot work permits</b> — formal control of welding and grinding.</li>
+  <li><b>No smoking policies</b> — designated areas only.</li>
+  <li><b>Maintenance</b> — equipment kept in good order.</li>
+  <li><b>Fire doors</b> — kept closed, not propped open.</li>
+  <li><b>Staff training</b> — everyone knows what to do.</li>
+</ul>
+<h3>2. Detection and alarm systems</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 300" role="img" aria-label="Fire detection and alarm system">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Fire detection and alarm system</text>
+
+      <!-- Detectors -->
+      <g>
+        <circle cx="80" cy="80" r="22" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="80" y="85" text-anchor="middle" font-size="9" fill="#e93680" font-weight="bold">SMOKE</text>
+        <text x="80" y="120" text-anchor="middle" font-size="10" fill="#555">ceiling detector</text>
+      </g>
+      <g>
+        <circle cx="180" cy="80" r="22" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="180" y="85" text-anchor="middle" font-size="9" fill="#e93680" font-weight="bold">HEAT</text>
+        <text x="180" y="120" text-anchor="middle" font-size="10" fill="#555">fixed temp</text>
+      </g>
+      <g>
+        <circle cx="280" cy="80" r="22" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="280" y="85" text-anchor="middle" font-size="9" fill="#e93680" font-weight="bold">FLAME</text>
+        <text x="280" y="120" text-anchor="middle" font-size="10" fill="#555">IR / UV</text>
+      </g>
+      <g>
+        <circle cx="380" cy="80" r="22" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="380" y="85" text-anchor="middle" font-size="9" fill="#e93680" font-weight="bold">GAS</text>
+        <text x="380" y="120" text-anchor="middle" font-size="10" fill="#555">CO / LPG</text>
+      </g>
+      <g>
+        <circle cx="480" cy="80" r="22" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="480" y="85" text-anchor="middle" font-size="9" fill="#e93680" font-weight="bold">MCP</text>
+        <text x="480" y="120" text-anchor="middle" font-size="10" fill="#555">call point</text>
+      </g>
+
+      <!-- Panel -->
+      <rect x="230" y="150" width="180" height="60" rx="6" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+      <text x="320" y="175" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Alarm Panel</text>
+      <text x="320" y="192" text-anchor="middle" font-size="10" fill="#555">control and indication</text>
+
+      <g stroke="#999" stroke-width="1.5" stroke-dasharray="4,3" fill="none">
+        <line x1="80" y1="102" x2="230" y2="170"/>
+        <line x1="180" y1="102" x2="240" y2="165"/>
+        <line x1="280" y1="102" x2="310" y2="150"/>
+        <line x1="380" y1="102" x2="390" y2="150"/>
+        <line x1="480" y1="102" x2="410" y2="170"/>
+      </g>
+
+      <!-- Outputs -->
+      <g>
+        <rect x="60" y="230" width="140" height="40" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="130" y="255" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">🔔 Sounders</text>
+      </g>
+      <g>
+        <rect x="220" y="230" width="140" height="40" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="290" y="255" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">💡 Flashing lights</text>
+      </g>
+      <g>
+        <rect x="380" y="230" width="200" height="40" rx="6" fill="#f0f7ff" stroke="#438bd5"/>
+        <text x="480" y="255" text-anchor="middle" font-size="10" fill="#2b6cb0" font-weight="bold">📞 Call to fire brigade</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Detectors and call points signal the alarm panel, which triggers sounders and calls for help.</div>
+</div>
+<h3>3. Types of detectors</h3>
+<table class="compare"><tr><th>Detector</th><th>Best for</th><th>Limitation</th></tr><tr><td>Smoke detector</td><td>General, escape routes</td><td>False alarms from dust and steam</td></tr><tr><td>Heat detector</td><td>Kitchens, garages</td><td>Slower response than smoke</td></tr><tr><td>Flame detector</td><td>Chemical, high risk</td><td>Can be blocked by obstructions</td></tr><tr><td>Gas detector</td><td>Gas hazards, CO</td><td>Detects specific gases</td></tr><tr><td>Beam detector</td><td>Large spaces</td><td>Limited to line-of-sight</td></tr></table>
+<h3>4. Alarm signals</h3>
+<ul>
+  <li><b>Audible</b> — bells, sounders, voice alarms.</li>
+  <li><b>Visual</b> — flashing beacons for deaf occupants or noisy environments.</li>
+  <li><b>Call points</b> — manual break-glass to raise the alarm.</li>
+  <li><b>Automatic transmission</b> — to monitoring centres.</li>
+</ul>
+<h3>5. Emergency lighting and signage</h3>
+<ul>
+  <li><b>Escape route lighting</b> — illuminates exit routes.</li>
+  <li><b>Open area lighting</b> — illuminates rooms during evacuation.</li>
+  <li><b>Exit signs</b> — clear directional signs to exits.</li>
+  <li><b>Photoluminescent strips</b> — glow in dark when power fails.</li>
+</ul>
+<h3>6. Common detection failures</h3>
+<ul>
+  <li>Blocked, covered or painted detectors.</li>
+  <li>Not tested on schedule.</li>
+  <li>Battery not replaced.</li>
+  <li>Alarm not audible in all areas.</li>
+  <li>Untested call points.</li>
+</ul>`,
+        quiz: [
+          { q: "What does smoke detector do?", opts: ["Detects smoke particles", "Detects heat rise", "Detects gases only", "Detects flames only"], answer: 0, explanation: "A smoke detector senses particles in the air indicating a fire." },
+          { q: "Where heat detectors suit?", opts: ["Kitchens and garages", "Clean office space", "Stairwell exits", "Narrow corridors"], answer: 0, explanation: "Heat detectors suit kitchens and garages where smoke detection would give false alarms." },
+          { q: "Why test detectors often?", opts: ["Confirm they work", "Increase their cost", "Make them newer", "Skip all alarms"], answer: 0, explanation: "Regular testing confirms detectors are functioning and detect fires correctly." },
+          { q: "What is escape lighting?", opts: ["Lights escape route", "Lights fine artworks", "Lights car park", "Lights office decor"], answer: 0, explanation: "Emergency escape lighting illuminates the route to safety during evacuation." },
+          { q: "Which is a prevention control?", opts: ["Hot work permits", "Sounders and bells", "Alarm panels only", "Exit signs only"], answer: 0, explanation: "Hot work permits prevent fires during welding and grinding activities." }
+        ]
+      }]
+    },
+    {
+      title: "Emergency Procedures and Evacuation",
+      lessons: [{
+        title: "Evacuation Planning and Safe Response",
+        duration: "50 minutes",
+        html: `<p>Even the best prevention can fail. When fire occurs, a prepared evacuation plan and clear procedures save lives. Every occupant must know what to do, where to go and how to get there — without hesitation.</p>
+<div class="callout"><b>Core principle:</b> Everyone gets out, everyone is accounted for, nobody goes back in. The priority is life safety, not property protection.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the parts of an evacuation plan, explain fire drill purposes, describe assembly points and recognise unsafe practices during an evacuation.</p>
+<h3>1. Emergency plan components</h3>
+<ul>
+  <li><b>Evacuation routes</b> — primary and alternative routes from every room.</li>
+  <li><b>Assembly points</b> — designated, safe meeting locations.</li>
+  <li><b>Roll call procedures</b> — counting occupants at the assembly point.</li>
+  <li><b>Fire wardens</b> — assigned roles for directing and checking areas.</li>
+  <li><b>Alarm signals</b> — what the alarm sounds and means.</li>
+  <li><b>Emergency contact numbers</b> — fire brigade, first aid.</li>
+  <li><b>Procedures for vulnerable persons</b> — disabled, visitors, contractors.</li>
+</ul>
+<h3>2. Evacuation flow</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 340" role="img" aria-label="Building evacuation flow to assembly point">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Evacuation flow diagram</text>
+
+      <!-- Building outline -->
+      <rect x="40" y="60" width="420" height="240" fill="#fafafd" stroke="#333" stroke-width="2"/>
+
+      <!-- Rooms -->
+      <line x1="180" y1="60" x2="180" y2="300" stroke="#999"/>
+      <line x1="320" y1="60" x2="320" y2="300" stroke="#999"/>
+      <line x1="40" y1="180" x2="460" y2="180" stroke="#999"/>
+
+      <!-- Fire origin -->
+      <g>
+        <circle cx="100" cy="120" r="18" fill="#ffd8b0" stroke="#d97706" stroke-width="2"/>
+        <text x="100" y="125" text-anchor="middle" font-size="10" fill="#c2185b" font-weight="bold">🔥</text>
+        <text x="100" y="150" text-anchor="middle" font-size="9" fill="#c2185b">fire origin</text>
+      </g>
+
+      <!-- Occupants arrows -->
+      <g stroke="#2b6cb0" stroke-width="2" fill="none" marker-end="url(#evac)">
+        <path d="M 140 120 L 240 120 L 240 220"/>
+        <path d="M 240 80 L 400 80 L 400 200"/>
+        <path d="M 100 200 L 240 200"/>
+        <path d="M 400 250 L 400 300"/>
+      </g>
+
+      <!-- Exit -->
+      <rect x="240" y="300" width="80" height="10" fill="#2e7d32"/>
+      <text x="280" y="325" text-anchor="middle" font-size="10" fill="#2e7d32" font-weight="bold">EXIT</text>
+
+      <!-- Assembly point -->
+      <circle cx="560" cy="180" r="45" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+      <text x="560" y="170" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Assembly</text>
+      <text x="560" y="188" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Point</text>
+      <text x="560" y="205" text-anchor="middle" font-size="9" fill="#555">outside building</text>
+
+      <!-- Route to assembly -->
+      <g stroke="#2e7d32" stroke-width="2" fill="none" marker-end="url(#evac)">
+        <path d="M 320 305 Q 420 305 500 220"/>
+      </g>
+
+      <defs>
+        <marker id="evac" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+          <polygon points="0,0 9,4.5 0,9" fill="#2b6cb0"/>
+        </marker>
+      </defs>
+    </g>
+  </svg>
+  <div class="diagram-cap">Occupants follow marked routes to the nearest exit and assemble outside.</div>
+</div>
+<h3>3. Fire drills</h3>
+<ul>
+  <li>Practice evacuation under realistic conditions.</li>
+  <li>Test alarm audibility and response.</li>
+  <li>Reveal delays, bottlenecks and confusion.</li>
+  <li>Identify staff who need additional support.</li>
+  <li>Verify wardens know their roles.</li>
+  <li>Record and improve after each drill.</li>
+</ul>
+<h3>4. On discovering a fire</h3>
+<ol>
+  <li>Raise the alarm immediately — do not try to fight a large fire.</li>
+  <li>Call the fire brigade (or have someone else call).</li>
+  <li>Evacuate via the nearest safe route.</li>
+  <li>Close doors behind you where safe (slows fire spread).</li>
+  <li>Go to the assembly point.</li>
+  <li>Do not re-enter for any reason.</li>
+</ol>
+<h3>5. Fire wardens</h3>
+<p>Wardens are trained to:</p>
+<ul>
+  <li>Sweep their area to ensure evacuation.</li>
+  <li>Assist vulnerable occupants.</li>
+  <li>Close fire doors.</li>
+  <li>Report to the assembly point coordinator.</li>
+  <li>Communicate with emergency services.</li>
+</ul>
+<h3>6. Unsafe behaviours</h3>
+<ul>
+  <li>Re-entering the building for belongings.</li>
+  <li>Using lifts during a fire.</li>
+  <li>Ignoring alarms — "it's probably a drill".</li>
+  <li>Blocking exits with vehicles or materials.</li>
+  <li>Delaying to collect personal items.</li>
+  <li>Not checking in at the assembly point.</li>
+</ul>`,
+        quiz: [
+          { q: "Why use fire drills?", opts: ["Test the response", "Fill paperwork", "Increase alarm cost", "Replace training"], answer: 0, explanation: "Fire drills test evacuation procedures and identify improvements." },
+          { q: "What do wardens do?", opts: ["Sweep their area", "Fight every fire", "Lock all doors", "Call for taxis"], answer: 0, explanation: "Fire wardens sweep their areas to ensure everyone has evacuated." },
+          { q: "What is assembly point?", opts: ["Safe outdoor meeting", "Inside storage room", "Nearby fire exit", "Basement car park"], answer: 0, explanation: "An assembly point is a designated safe outdoor location for evacuation." },
+          { q: "What should happen first?", opts: ["Raise the alarm", "Try to fight", "Gather belongings", "Call a meeting"], answer: 0, explanation: "Raising the alarm is the first action on discovering a fire." },
+          { q: "Why avoid lifts?", opts: ["Could stop suddenly", "They are too slow", "They use too much power", "They are only for goods"], answer: 0, explanation: "Lifts can fail or stop during a fire, trapping occupants — always use stairs." }
+        ]
+      }]
+    },
+    {
+      title: "Fire Extinguisher Awareness",
+      lessons: [{
+        title: "Extinguisher Types and Safe Use",
+        duration: "45 minutes",
+        html: `<p>Fire extinguishers are first-aid firefighting equipment intended for small, incipient fires — not for large or rapidly growing fires. Knowing which extinguisher to use, and when not to fight a fire, is a life-and-death decision.</p>
+<div class="callout"><b>Core principle:</b> Your first duty is to raise the alarm and evacuate. Extinguishers are for trained staff dealing with small, contained fires only — never for anyone trapped or in serious risk.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to distinguish extinguisher types by colour and use, apply the PASS technique, and recognise when not to attempt to fight a fire.</p>
+<h3>1. Colour codes</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 260" role="img" aria-label="Fire extinguisher colour codes">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Fire extinguisher colour codes</text>
+
+      <!-- Water -->
+      <g>
+        <rect x="30" y="60" width="90" height="160" rx="6" fill="#c2185b" stroke="#7a0d3a" stroke-width="2"/>
+        <rect x="30" y="140" width="90" height="80" fill="#c2185b"/>
+        <text x="75" y="95" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">A</text>
+        <text x="75" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">WATER</text>
+        <text x="75" y="200" text-anchor="middle" font-size="10" fill="#fff">red</text>
+        <text x="75" y="240" text-anchor="middle" font-size="10" fill="#555">solids only</text>
+      </g>
+
+      <!-- Foam -->
+      <g>
+        <rect x="150" y="60" width="90" height="160" rx="6" fill="#f5f5f5" stroke="#999" stroke-width="2"/>
+        <rect x="150" y="140" width="90" height="80" fill="#c2185b"/>
+        <text x="195" y="95" text-anchor="middle" font-size="20" font-weight="bold" fill="#c2185b">B</text>
+        <text x="195" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">FOAM</text>
+        <text x="195" y="200" text-anchor="middle" font-size="10" fill="#fff">cream</text>
+        <text x="195" y="240" text-anchor="middle" font-size="10" fill="#555">liquids + solids</text>
+      </g>
+
+      <!-- CO2 -->
+      <g>
+        <rect x="270" y="60" width="90" height="160" rx="6" fill="#c2185b" stroke="#7a0d3a" stroke-width="2"/>
+        <rect x="270" y="140" width="90" height="80" fill="#111"/>
+        <text x="315" y="95" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">CO₂</text>
+        <text x="315" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">CO₂ GAS</text>
+        <text x="315" y="200" text-anchor="middle" font-size="10" fill="#fff">black</text>
+        <text x="315" y="240" text-anchor="middle" font-size="10" fill="#555">electrical + liquid</text>
+      </g>
+
+      <!-- Dry powder -->
+      <g>
+        <rect x="390" y="60" width="90" height="160" rx="6" fill="#c2185b" stroke="#7a0d3a" stroke-width="2"/>
+        <rect x="390" y="140" width="90" height="80" fill="#2b6cb0"/>
+        <text x="435" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">ABC</text>
+        <text x="435" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">POWDER</text>
+        <text x="435" y="200" text-anchor="middle" font-size="10" fill="#fff">blue</text>
+        <text x="435" y="240" text-anchor="middle" font-size="10" fill="#555">most classes</text>
+      </g>
+
+      <!-- Wet chemical -->
+      <g>
+        <rect x="510" y="60" width="90" height="160" rx="6" fill="#c2185b" stroke="#7a0d3a" stroke-width="2"/>
+        <rect x="510" y="140" width="90" height="80" fill="#d97706"/>
+        <text x="555" y="95" text-anchor="middle" font-size="20" font-weight="bold" fill="#fff">F</text>
+        <text x="555" y="180" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">WET CHEM</text>
+        <text x="555" y="200" text-anchor="middle" font-size="10" fill="#fff">yellow</text>
+        <text x="555" y="240" text-anchor="middle" font-size="10" fill="#555">cooking oil</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Extinguishers are colour-coded — never mix water with electrical, oil or metal fires.</div>
+</div>
+<h3>2. When NOT to fight a fire</h3>
+<ul>
+  <li>The fire is larger than a small wastebasket.</li>
+  <li>The fire is spreading rapidly.</li>
+  <li>Smoke is thick or you cannot see an exit.</li>
+  <li>The fire is between you and your exit.</li>
+  <li>You are not trained or unsure what to use.</li>
+  <li>There are gas cylinders or chemicals involved.</li>
+  <li>Your escape could be blocked.</li>
+</ul>
+<p>In any of these cases: <b>evacuate and let the fire brigade handle it</b>.</p>
+<h3>3. The PASS technique</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="PASS technique for using extinguishers">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">PASS technique</text>
+
+      <!-- P -->
+      <g>
+        <circle cx="90" cy="90" r="35" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="90" y="105" text-anchor="middle" font-size="30" font-weight="bold" fill="#e93680">P</text>
+        <text x="90" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">PULL</text>
+        <text x="90" y="168" text-anchor="middle" font-size="10" fill="#555">the pin</text>
+      </g>
+      <!-- A -->
+      <g>
+        <circle cx="240" cy="90" r="35" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="240" y="105" text-anchor="middle" font-size="30" font-weight="bold" fill="#e93680">A</text>
+        <text x="240" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">AIM</text>
+        <text x="240" y="168" text-anchor="middle" font-size="10" fill="#555">at the base</text>
+      </g>
+      <!-- S -->
+      <g>
+        <circle cx="390" cy="90" r="35" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="390" y="105" text-anchor="middle" font-size="30" font-weight="bold" fill="#e93680">S</text>
+        <text x="390" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">SQUEEZE</text>
+        <text x="390" y="168" text-anchor="middle" font-size="10" fill="#555">the handle</text>
+      </g>
+      <!-- S -->
+      <g>
+        <circle cx="540" cy="90" r="35" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="540" y="105" text-anchor="middle" font-size="30" font-weight="bold" fill="#e93680">S</text>
+        <text x="540" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">SWEEP</text>
+        <text x="540" y="168" text-anchor="middle" font-size="10" fill="#555">side to side</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">PASS: Pull, Aim, Squeeze, Sweep.</div>
+</div>
+<h3>4. Extinguisher use rules</h3>
+<ul>
+  <li>Stand 2–3 metres from the fire.</li>
+  <li>Keep your back to an exit.</li>
+  <li>Only fight small, contained fires.</li>
+  <li>Never turn your back on a fire.</li>
+  <li>Do not use one type where another is required.</li>
+  <li>Report any use so the extinguisher is recharged.</li>
+</ul>
+<h3>5. Maintenance</h3>
+<ul>
+  <li>Annual professional service.</li>
+  <li>Monthly visual check (pin, gauge, seal).</li>
+  <li>Recharge after any use — even partial.</li>
+  <li>Replace damaged or expired units.</li>
+</ul>
+<h3>6. Common extinguisher mistakes</h3>
+<ul>
+  <li>Using water on electrical fires.</li>
+  <li>Using CO₂ on Class A fires — it does not cool sufficiently.</li>
+  <li>Aiming at flames instead of base of fire.</li>
+  <li>Letting the fire get too large before acting.</li>
+  <li>Using extinguishers not on the right class of fire.</li>
+</ul>`,
+        quiz: [
+          { q: "What water extinguisher fights?", opts: ["Class A fires", "Class C fires", "Class D fires", "Class F fires"], answer: 0, explanation: "Water extinguishers are for Class A (solid fuels like wood, paper and cloth)." },
+          { q: "What CO₂ extinguishes?", opts: ["Electrical and liquid", "Cooking oil fires", "Metal powder fires", "Wood paper only"], answer: 0, explanation: "CO₂ is suitable for electrical fires and flammable liquid fires, leaving no residue." },
+          { q: "What does PASS mean?", opts: ["Pull, Aim, Squeeze, Sweep", "Push, Alarm, Stop, Save", "Point, Ask, Shout, Smash", "Press, Aim, Spray, Stop"], answer: 0, explanation: "PASS is the technique: Pull the pin, Aim, Squeeze, Sweep." },
+          { q: "Which fire to abandon?", opts: ["Large spreading fire", "Small wastebasket fire", "Contained pan fire", "Fresh electrical spark"], answer: 0, explanation: "Fire that is large or rapidly spreading should not be fought — evacuate instead." },
+          { q: "Why report extinguisher use?", opts: ["Needs professional recharge", "Makes nice paperwork", "It costs the client", "To warn the neighbours"], answer: 0, explanation: "Any used extinguisher must be recharged — even if not fully discharged." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Fire Safety</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Fire Safety</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Basics of Fire Safety.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Fire Safety.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Fire Safety</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering the fire triangle, classes of fire, hazards, prevention, detection, evacuation and extinguisher awareness.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Fire_Safety.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
