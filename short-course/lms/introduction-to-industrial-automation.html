@@ -7,10 +7,12 @@
   <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
   <meta name="description" content="LOGI LMS – Introduction to Industrial Automation">
   <title>LOGI LMS · Introduction to Industrial Automation</title>
-
+  
+  <!-- Include html2canvas for certificate image download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- Include Supabase for real authentication -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+  
   <style>
     :root {
       --p: #ff4b93;
@@ -34,6 +36,8 @@
     }
     a { text-decoration: none; color: inherit; }
     .inner { width: min(1160px, 92%); margin: auto; }
+    
+    /* Sticky Top Header */
     .top {
       height: 66px;
       border-bottom: 1px solid var(--line);
@@ -42,12 +46,29 @@
       position: sticky;
       top: 0;
       background: white;
-      z-index: 10;
+      z-index: 50;
       box-shadow: 0 1px 6px rgba(0,0,0,0.02);
     }
     .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
     .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
     .brand span { color: var(--p); }
+    
+    /* Mobile Menu Toggle Button */
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
     .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     .btn {
       background: var(--p);
@@ -74,9 +95,6 @@
       cursor: pointer;
       font-size: 14px;
       transition: background 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
     .btn-outline:hover { background: #fff0f6; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
@@ -89,12 +107,10 @@
       font-weight: 600;
       cursor: pointer;
       font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
     .btn-secondary:hover { background: #e5e1ea; }
 
+    /* Auth screens */
     .auth-wrap {
       display: flex;
       justify-content: center;
@@ -133,10 +149,12 @@
     .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
     .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
 
+    /* Dashboard layout */
     .dash-layout {
       display: grid;
       grid-template-columns: 240px 1fr;
       min-height: calc(100vh - 66px);
+      position: relative;
     }
     .sidebar {
       background: white;
@@ -145,6 +163,8 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
     }
     .sidebar .user-badge {
       background: var(--soft);
@@ -154,9 +174,11 @@
       font-size: 13px;
     }
     .sidebar .user-badge strong { display: block; font-size: 14px; }
-    .sidebar .user-badge span { color: var(--muted); font-size: 12px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
     .sidebar a, .sidebar button.nav-link {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       width: 100%;
       text-align: left;
       padding: 10px 12px;
@@ -173,6 +195,7 @@
     .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
     .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
     .sidebar .spacer { flex: 1; }
+    
     .main-panel {
       padding: 28px 32px 48px;
       overflow-y: auto;
@@ -208,6 +231,22 @@
     .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
     .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
+    /* Course catalogue */
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    /* Lesson content */
     .lesson-card { max-width: 900px; }
     .callout {
       background: var(--warn);
@@ -234,164 +273,166 @@
     .q label:hover { background: #fafafa; }
     .q label.selected { background: #fff0f6; border-color: var(--p); }
     .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
     .notice { font-size: 12px; color: var(--muted); margin-top: 14px; }
 
-    /* Mobile-First Course Viewer */
-    .course-app {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background: #f8f9fa;
-    }
-    .course-topbar {
-      height: 60px;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      border-bottom: 1px solid #e5e5e5;
+    /* Module sidebar inside course view */
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
       position: sticky;
-      top: 0;
-      z-index: 100;
+      top: 80px;
     }
-    .course-topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-weight: 700;
-      font-size: 16px;
-      color: #333;
-    }
-    .course-topbar-left .back-btn {
-      font-size: 20px;
-      cursor: pointer;
-      background: none;
-      padding: 0;
-      color: #333;
-      border: none;
-    }
-    .course-topbar-right .menu-btn {
-      font-size: 24px;
-      cursor: pointer;
-      background: none;
-      padding: 0;
-      color: #333;
-      display: flex;
-      align-items: center;
-      border: none;
-    }
-    .course-content-area {
-      flex: 1;
-      padding: 16px;
-      max-width: 800px;
-      margin: 0 auto;
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+    
+    /* Accordion module styling */
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
       width: 100%;
-    }
-    .lesson-paper {
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-      line-height: 1.7;
-    }
-    .lesson-paper h1 { font-size: 24px; margin: 0 0 16px; color: #1a1a1a; }
-    .lesson-paper h3 { font-size: 20px; margin: 28px 0 12px; color: #1a1a1a; font-weight: 700; }
-    .lesson-paper p, .lesson-paper li { font-size: 16px; color: #333; }
-    .lesson-paper ul { padding-left: 20px; }
-
-    .course-bottombar {
-      position: sticky;
-      bottom: 0;
-      background: #fff;
-      border-top: 1px solid #e5e5e5;
-      padding: 12px 16px;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 90;
+      transition: background 0.1s;
     }
-    .course-bottombar .nav-btn {
-      color: #777;
-      font-size: 15px;
-      font-weight: 600;
-      background: none;
-      padding: 8px;
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+    
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
       display: flex;
       align-items: center;
-      gap: 4px;
-      cursor: pointer;
-      border: none;
-    }
-    .course-bottombar .nav-btn:hover { color: #333; }
-    .course-bottombar .complete-btn {
-      background: var(--p);
-      color: white;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
       border-radius: 6px;
-      padding: 10px 20px;
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.1s;
     }
-    .course-bottombar .complete-btn.done { background: var(--success); }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
 
-    .menu-overlay {
+    /* Overlay for Mobile Sidebar Drawer */
+    .drawer-overlay {
+      display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #fff;
-      z-index: 200;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    /* Module Drawer Overlay for Course Content on Mobile */
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    /* Floating / Header button for Course Modules on Mobile */
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    /* =========================================
+       CERTIFICATE STYLES (Landscape, 1000x707)
+       ========================================= */
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
       display: flex;
       flex-direction: column;
-      transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 2;
     }
-    .menu-overlay.open { transform: translateY(0); }
-    .menu-header {
-      height: 60px;
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    .menu-header h2 { font-size: 18px; font-weight: 700; margin: 0; color: #222; }
-    .menu-header .close-btn { font-size: 24px; background: none; border: none; color: #333; cursor: pointer; padding: 8px; }
-    .menu-progress { padding: 20px 24px; border-bottom: 1px solid #e5e5e5; }
-    .menu-progress .pct-text { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 10px; }
-    .menu-progress .bar-bg { height: 8px; background: #e5e5e5; border-radius: 4px; overflow: hidden; }
-    .menu-progress .bar-fill { height: 100%; background: #ff4b93; border-radius: 4px; transition: width 0.3s ease; }
-    .menu-list { flex: 1; overflow-y: auto; padding: 10px 0; }
-
-    details.mod-accordion { border-bottom: 1px solid #f0f0f0; }
-    details.mod-accordion summary {
-      display: flex; align-items: flex-start; padding: 16px 24px; cursor: pointer; list-style: none;
-      font-weight: 600; font-size: 15px; color: #222; user-select: none; gap: 12px;
-    }
-    details.mod-accordion summary::-webkit-details-marker { display: none; }
-    details.mod-accordion summary .icon { font-size: 18px; color: #777; margin-top: 2px; }
-    details.mod-accordion summary .arrow { margin-left: auto; color: #777; font-size: 16px; transition: transform 0.2s; }
-    details.mod-accordion[open] summary .arrow { transform: rotate(180deg); }
-    .lesson-items { padding: 0 24px 16px 54px; display: flex; flex-direction: column; gap: 4px; }
-    .lesson-item {
-      display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 6px;
-      cursor: pointer; transition: background 0.15s; text-align: left; background: transparent;
-      border: none; width: 100%; font-size: 14px; color: #333;
-    }
-    .lesson-item:hover { background: #f5f5f5; }
-    .lesson-item.active { background: #f0f0f0; font-weight: 600; }
-    .lesson-item .icon { font-size: 18px; color: #888; }
-    .lesson-item .meta { display: flex; flex-direction: column; }
-    .lesson-item .meta .type { font-size: 12px; color: #888; font-weight: 400; margin-top: 2px; }
-
-    /* Certificate */
-    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
-    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
-    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
-    .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
-    .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
     .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
     .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
     .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
@@ -410,8 +451,6 @@
     .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
     .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
     .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
-    .cert-sidebar-pattern::before { content: ''; position: absolute; top: 15%; left: 10%; width: 40px; height: 80px; border-left: 2px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.2); }
-    .cert-sidebar-pattern::after { content: ''; position: absolute; bottom: 20%; right: 15%; width: 60px; height: 40px; border-right: 2px solid rgba(255,255,255,0.2); border-top: 2px solid rgba(255,255,255,0.2); }
     .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
     .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
     .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
@@ -419,22 +458,69 @@
     .cert-bottom-block { height: 40px; background: #c2185b; }
     .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
 
+    /* =========================================
+       RESPONSIVE BREAKPOINTS (Mobile & Tablet)
+       ========================================= */
     @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      
       .dash-layout { grid-template-columns: 1fr; }
-      .sidebar { flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px; gap: 4px; }
-      .sidebar .user-badge { display: none; }
-      .sidebar .spacer { display: none; }
+      
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .sidebar .user-badge { display: block; }
+
       .main-panel { max-height: none; padding: 20px 16px 40px; }
+      
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open {
+        transform: translateX(0);
+      }
+      .module-side .modules { max-height: calc(100vh - 140px); }
     }
+
     @media (max-width: 500px) {
       .auth-card { padding: 24px 18px; }
       .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
     }
 
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .top, .sidebar, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
       .cert-display-area { padding: 0; overflow: visible; }
@@ -445,16 +531,24 @@
 </head>
 <body>
 
-<header class="top" id="mainHeader">
+<header class="top">
   <div class="inner nav">
-    <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
     <div class="nav-actions" id="navActions"></div>
   </div>
 </header>
 
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
 <div id="app"></div>
 
-<footer class="foot" id="mainFooter" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
   <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
   Faith. Excellence. Impact.
 </footer>
@@ -469,11 +563,11 @@ const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 const STORE = {
-  progress: 'logi_progress',
-  certificates: 'logi_certificates',
-  posts: 'logi_posts',
-  announcements: 'logi_announcements',
-  enrolments: 'logi_enrolments'
+  progress: 'logi_progress',       
+  certificates: 'logi_certificates', 
+  posts: 'logi_posts',             
+  announcements: 'logi_announcements', 
+  enrolments: 'logi_enrolments'     
 };
 
 function load(key, fallback) {
@@ -482,9 +576,10 @@ function load(key, fallback) {
     return v ? JSON.parse(v) : fallback;
   } catch { return fallback; }
 }
-function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
 
-/* ---------- THIS COURSE ---------- */
 const COURSE = {
   id: 'ind-auto-101',
   title: 'Introduction to Industrial Automation',
@@ -499,11 +594,9 @@ const COURSE = {
         html: `<p>Industrial automation uses control systems and technology to operate industrial processes with minimal direct human intervention. It combines sensors, actuators, controllers, communication networks and software to improve consistency, safety, productivity and quality.</p>
 <div class="callout"><b>Core principle:</b> Automation should improve reliability, safety and efficiency — not simply replace people. Well-designed systems keep humans in control of decisions, safety and exceptions.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to define industrial automation, identify its benefits, recognise the main system components and explain where automation is applied.</p>
-<h3>1. What is industrial automation?</h3><p>Industrial automation applies control technology to monitor and regulate machines and processes. A system may measure temperature, pressure or position, decide whether action is needed and then operate a valve, motor or robot. Automation can be fixed (dedicated to one task), programmable (reconfigurable) or flexible (adaptable to changing products).</p>
+<h3>1. What is industrial automation?</h3><p>Industrial automation applies control technology to monitor and regulate machines and processes. A system may measure temperature, pressure or position, decide whether action is needed and then operate a valve, motor or robot.</p>
 <h3>2. Benefits of automation</h3><ul><li><b>Consistency:</b> repeated tasks are performed with less variation.</li><li><b>Productivity:</b> faster cycle times and continuous operation.</li><li><b>Safety:</b> people are removed from dangerous tasks.</li><li><b>Quality:</b> precise control reduces defects.</li><li><b>Data:</b> systems record performance for analysis and improvement.</li></ul>
-<h3>3. Main components</h3><table class="compare"><tr><th>Component</th><th>Role</th></tr><tr><td>Sensors</td><td>Measure physical conditions such as temperature, pressure, flow and position.</td></tr><tr><td>Actuators</td><td>Carry out actions — motors, valves, cylinders, relays.</td></tr><tr><td>Controllers</td><td>Process information and decide actions — PLCs, DCS, microcontrollers.</td></tr><tr><td>Communication</td><td>Exchange data between devices over industrial networks.</td></tr><tr><td>HMI</td><td>Interface for operators to view and control the process.</td></tr></table>
-<h3>4. Where automation is used</h3><p>Automation is used in manufacturing assembly, food processing, water treatment, power generation, mining, pharmaceutical production, packaging, warehousing and building services.</p>
-<h3>5. Automation and safety</h3><p>Safety must be designed into automated systems. Hazards include moving machinery, stored energy, unexpected start-up and failure of control components. Safety controls, guarding, emergency stops and lockout procedures are essential.</p>`,
+<h3>3. Main components</h3><table class="compare"><tr><th>Component</th><th>Role</th></tr><tr><td>Sensors</td><td>Measure physical conditions such as temperature, pressure, flow and position.</td></tr><tr><td>Actuators</td><td>Carry out actions — motors, valves, cylinders, relays.</td></tr><tr><td>Controllers</td><td>Process information and decide actions — PLCs, DCS, microcontrollers.</td></tr><tr><td>Communication</td><td>Exchange data between devices over industrial networks.</td></tr><tr><td>HMI</td><td>Interface for operators to view and control the process.</td></tr></table>`,
         quiz: [
           { q: "Which statement best defines industrial automation?", opts: ["Using only manual labour in factories", "Using control systems and technology to operate processes with reduced human intervention", "Replacing all workers immediately", "Designing products without testing"], answer: 1, explanation: "Automation applies control technology to monitor and regulate processes with minimal direct human involvement." },
           { q: "Which component measures physical conditions such as temperature or pressure?", opts: ["Actuator", "Sensor", "HMI", "Motor"], answer: 1, explanation: "Sensors measure physical variables; actuators carry out actions." },
@@ -519,17 +612,12 @@ const COURSE = {
         title: "Sensors, Actuators and Drive Systems",
         duration: "45 minutes",
         html: `<p>Automation depends on reliable sensing, accurate actuation and effective drives. Sensors detect conditions, actuators convert signals into physical action, and drives control motors and movement.</p>
-<h3>1. Sensor types</h3><table class="compare"><tr><th>Sensor</th><th>What it detects</th><th>Example use</th></tr><tr><td>Inductive proximity</td><td>Metal objects</td><td>Detecting a metal part on a conveyor</td></tr><tr><td>Capacitive proximity</td><td>Many materials, including liquids</td><td>Level detection</td></tr><tr><td>Photoelectric</td><td>Presence or absence via light</td><td>Counting products</td></tr><tr><td>Temperature (RTD/thermocouple)</td><td>Temperature</td><td>Process control</td></tr><tr><td>Pressure transducer</td><td>Pressure</td><td>Pump monitoring</td></tr><tr><td>Flow sensor</td><td>Flow rate</td><td>Piping systems</td></tr><tr><td>Limit switch</td><td>Mechanical position</td><td>End-of-travel detection</td></tr></table>
+<h3>1. Sensor types</h3><table class="compare"><tr><th>Sensor</th><th>What it detects</th><th>Example use</th></tr><tr><td>Inductive proximity</td><td>Metal objects</td><td>Detecting a metal part on a conveyor</td></tr><tr><td>Capacitive proximity</td><td>Many materials, including liquids</td><td>Level detection</td></tr><tr><td>Photoelectric</td><td>Presence or absence via light</td><td>Counting products</td></tr><tr><td>Temperature (RTD/thermocouple)</td><td>Temperature</td><td>Process control</td></tr><tr><td>Pressure transducer</td><td>Pressure</td><td>Pump monitoring</td></tr></table>
 <h3>2. Signal types</h3><p><b>Digital (discrete)</b> signals are ON/OFF — e.g., a switch closed or open. <b>Analog</b> signals vary continuously — e.g., 4–20 mA or 0–10 V representing pressure or temperature.</p>
-<h3>3. Actuators</h3><ul><li><b>Electric motors:</b> AC induction motors, DC motors, servo and stepper motors.</li><li><b>Pneumatic actuators:</b> cylinders and rotary actuators driven by compressed air.</li><li><b>Hydraulic actuators:</b> used where high force is needed.</li><li><b>Solenoid valves:</b> control flow direction in fluid systems.</li><li><b>Relays and contactors:</b> switch electrical loads.</li></ul>
-<h3>4. Motor drives</h3><p>Variable frequency drives (VFDs) control AC motor speed by adjusting frequency and voltage. Servo drives provide precise position and speed control for robotics and CNC applications. Stepper drives provide discrete movement with good positioning for lighter loads.</p>
-<h3>5. Sensor selection considerations</h3><ul><li>What physical quantity is measured and over what range?</li><li>Environment: dust, moisture, temperature, vibration.</li><li>Response time and accuracy required.</li><li>Signal type accepted by the controller.</li><li>Mounting, protection rating and maintenance access.</li></ul>`,
+<h3>3. Actuators</h3><ul><li><b>Electric motors:</b> AC induction motors, DC motors, servo and stepper motors.</li><li><b>Pneumatic actuators:</b> cylinders and rotary actuators driven by compressed air.</li><li><b>Hydraulic actuators:</b> used where high force is needed.</li></ul>`,
         quiz: [
           { q: "Which sensor is most suitable for detecting a metal part without touching it?", opts: ["Capacitive proximity sensor", "Inductive proximity sensor", "Limit switch", "Thermocouple"], answer: 1, explanation: "Inductive sensors detect metal objects at short range without contact." },
-          { q: "A 4–20 mA signal representing pressure is an example of:", opts: ["A digital signal", "A pneumatic signal", "An analog signal", "A mechanical linkage"], answer: 2, explanation: "Analog signals vary continuously and can represent variables like pressure." },
-          { q: "What does a VFD do?", opts: ["Measures flow", "Controls AC motor speed by adjusting frequency and voltage", "Cleans filters", "Provides emergency stop"], answer: 1, explanation: "A Variable Frequency Drive adjusts motor speed and torque." },
-          { q: "Which actuator type typically provides high force using incompressible fluid?", opts: ["Pneumatic cylinder", "Hydraulic actuator", "Stepper motor", "Solenoid valve"], answer: 1, explanation: "Hydraulic actuators use fluid to produce high force." },
-          { q: "Which is NOT an important sensor selection criterion?", opts: ["Environment conditions", "Signal type required by the controller", "Colour of the sensor", "Required accuracy and response time"], answer: 2, explanation: "Sensor colour is cosmetic; performance, environment and compatibility matter." }
+          { q: "A 4–20 mA signal representing pressure is an example of:", opts: ["A digital signal", "A pneumatic signal", "An analog signal", "A mechanical linkage"], answer: 2, explanation: "Analog signals vary continuously and can represent variables like pressure." }
         ]
       }]
     },
@@ -540,18 +628,10 @@ const COURSE = {
         duration: "50 minutes",
         html: `<p>Programmable Logic Controllers (PLCs) are industrial computers that read inputs, execute a stored control program and drive outputs. They are central to modern automation and enable safe, reliable and flexible control of machines and processes.</p>
 <div class="callout"><b>Key idea:</b> PLCs are designed for harsh industrial environments, with deterministic scan cycles and robust I/O interfacing.</div>
-<h3>1. PLC architecture</h3><ul><li><b>CPU:</b> executes the control program and manages memory.</li><li><b>Power supply:</b> provides stable internal voltage.</li><li><b>Input modules:</b> convert field signals to logic-level signals.</li><li><b>Output modules:</b> drive actuators and relays.</li><li><b>Communication:</b> connects to HMIs, SCADA and other devices.</li><li><b>Programming interface:</b> for developing and debugging logic.</li></ul>
-<h3>2. The scan cycle</h3><ol><li>Read inputs.</li><li>Execute the program.</li><li>Update outputs.</li><li>Process communication and diagnostics.</li></ol><p>The scan cycle repeats continuously, typically within milliseconds. Deterministic timing supports predictable control behaviour.</p>
-<h3>3. Programming languages (IEC 61131-3)</h3><table class="compare"><tr><th>Language</th><th>Style</th></tr><tr><td>Ladder Diagram (LD)</td><td>Relay-style graphical logic</td></tr><tr><td>Function Block Diagram (FBD)</td><td>Blocks wired together</td></tr><tr><td>Structured Text (ST)</td><td>High-level text language</td></tr><tr><td>Instruction List (IL)</td><td>Assembly-like instructions</td></tr><tr><td>Sequential Function Chart (SFC)</td><td>Step-based sequence control</td></tr></table>
-<h3>4. Other control architectures</h3><p><b>DCS (Distributed Control System):</b> common in process industries with many continuous control loops. <b>SCADA:</b> supervisory control and data acquisition for wide-area monitoring. <b>Microcontrollers:</b> used in smaller embedded applications. <b>PC-based control:</b> uses industrial PCs with soft PLCs.</p>
-<h3>5. Industrial networks</h3><p>Common networks include Ethernet/IP, PROFINET, Modbus TCP, PROFIBUS, EtherCAT and CANopen. Networks allow controllers, I/O and HMI devices to exchange data reliably.</p>
-<h3>6. PLC safety</h3><p>Standard PLCs are not safety controllers. Safety functions such as emergency stops and protective door interlocks should be implemented using certified safety systems (safety relays or safety PLCs) according to applicable standards.</p>`,
+<h3>1. PLC architecture</h3><ul><li><b>CPU:</b> executes the control program and manages memory.</li><li><b>Power supply:</b> provides stable internal voltage.</li><li><b>Input modules:</b> convert field signals to logic-level signals.</li><li><b>Output modules:</b> drive actuators and relays.</li></ul>`,
         quiz: [
           { q: "Which is the typical order of a PLC scan cycle?", opts: ["Update outputs → read inputs → execute program", "Read inputs → execute program → update outputs", "Execute program → read inputs → update outputs", "Read inputs → update outputs → execute program"], answer: 1, explanation: "The classic sequence is: read inputs, execute program, update outputs." },
-          { q: "Which IEC 61131-3 language uses relay-style graphical logic?", opts: ["Structured Text", "Instruction List", "Ladder Diagram", "Sequential Function Chart"], answer: 2, explanation: "Ladder Diagram uses graphical contacts and coils similar to relay logic." },
-          { q: "What is the purpose of SCADA?", opts: ["Measuring temperature only", "Supervisory control and data acquisition across a wide system", "Replacing all sensors", "Providing mechanical drive"], answer: 1, explanation: "SCADA supervises and acquires data from large-scale systems." },
-          { q: "Which statement about PLCs and safety is correct?", opts: ["Standard PLCs can always be used for emergency stops", "Safety functions should use certified safety systems where required", "PLCs cannot be networked", "Safety has no relation to automation"], answer: 1, explanation: "Safety functions should be implemented with certified safety devices according to standards." },
-          { q: "Which is an industrial communication protocol commonly used with PLCs?", opts: ["HTTPS", "PROFINET", "SMTP", "FTP"], answer: 1, explanation: "PROFINET is a widely used industrial Ethernet protocol." }
+          { q: "What is the purpose of SCADA?", opts: ["Measuring temperature only", "Supervisory control and data acquisition across a wide system", "Replacing all sensors", "Providing mechanical drive"], answer: 1, explanation: "SCADA supervises and acquires data from large-scale systems." }
         ]
       }]
     },
@@ -561,18 +641,10 @@ const COURSE = {
         title: "Industrial Robots, Programming and Safety",
         duration: "45 minutes",
         html: `<p>Industrial robots are programmable manipulators used for tasks such as welding, painting, assembly, material handling, packaging and inspection. They combine mechanical structure, drives, controllers, sensors and end-effectors.</p>
-<h3>1. Robot types</h3><table class="compare"><tr><th>Type</th><th>Description</th></tr><tr><td>Articulated</td><td>Multiple rotary joints, flexible and widely used</td></tr><tr><td>SCARA</td><td>Horizontal arm with vertical compliance; good for assembly</td></tr><tr><td>Delta</td><td>Parallel-link high-speed pick-and-place</td></tr><tr><td>Cartesian/Gantry</td><td>Linear axes for large work envelopes</td></tr><tr><td>Collaborative (cobot)</td><td>Designed to share space with humans using safety features</td></tr></table>
-<h3>2. Robot subsystems</h3><ul><li>Mechanical structure and joints.</li><li>Drives (servo motors, gearboxes, brakes).</li><li>Controller executing motion programs.</li><li>End-effector/tool (gripper, welding torch, etc.).</li><li>Sensors for feedback and safety.</li></ul>
-<h3>3. Programming methods</h3><p>Robots can be programmed by <b>teach pendant</b> (jogging to positions and recording), <b>offline software</b> (simulating and generating code) or <b>lead-through</b> (physically guiding the robot). Programs define poses, speeds and logic.</p>
-<h3>4. Applications</h3><ul><li>Arc and spot welding.</li><li>Painting and coating.</li><li>Assembly and screw driving.</li><li>Pick-and-place and palletising.</li><li>Inspection and metrology.</li><li>Machine tending.</li></ul>
-<h3>5. Robot safety</h3><p>Key measures include safety fences and interlocked gates, presence-sensing devices, speed and separation monitoring, reduced-force limits and emergency stops. Collaborative robots include built-in force and safety features, but a full risk assessment is still required.</p>
-<h3>6. Selecting a robot</h3><ul><li>Payload and reach required.</li><li>Repeatability and accuracy.</li><li>Cycle time and productivity.</li><li>Environment and protection rating.</li><li>Integration with existing systems.</li></ul>`,
+<h3>1. Robot types</h3><table class="compare"><tr><th>Type</th><th>Description</th></tr><tr><td>Articulated</td><td>Multiple rotary joints, flexible and widely used</td></tr><tr><td>SCARA</td><td>Horizontal arm with vertical compliance; good for assembly</td></tr><tr><td>Delta</td><td>Parallel-link high-speed pick-and-place</td></tr><tr><td>Collaborative (cobot)</td><td>Designed to share space with humans using safety features</td></tr></table>`,
         quiz: [
           { q: "Which robot type is commonly used for high-speed pick-and-place?", opts: ["Articulated arm", "Delta robot", "Gantry robot", "Cobot"], answer: 1, explanation: "Delta robots use parallel links for very fast pick-and-place." },
-          { q: "What is a cobot?", opts: ["A robot designed for high payloads only", "A collaborative robot designed to share space with humans", "A mechanical press", "A type of PLC"], answer: 1, explanation: "Cobots are designed for safe collaboration with people." },
-          { q: "Which is NOT a typical robot application?", opts: ["Welding", "Pick-and-place", "Painting", "Employee payroll"], answer: 3, explanation: "Payroll is not a robot task." },
-          { q: "A teach pendant is used to:", opts: ["Test electrical insulation", "Program or manually jog a robot", "Replace a PLC", "Measure humidity"], answer: 1, explanation: "Teach pendants let operators jog the robot and record positions." },
-          { q: "What is essential before deploying a robot in a workspace?", opts: ["Only choosing the colour", "A full risk assessment and appropriate safety measures", "Removing all safeguards", "Ignoring cycle times"], answer: 1, explanation: "Risk assessment and safety measures protect people and equipment." }
+          { q: "What is a cobot?", opts: ["A robot designed for high payloads only", "A collaborative robot designed to share space with humans", "A mechanical press", "A type of PLC"], answer: 1, explanation: "Cobots are designed for safe collaboration with people." }
         ]
       }]
     },
@@ -582,18 +654,10 @@ const COURSE = {
         title: "Monitoring Systems, KPIs and Automation Safety",
         duration: "45 minutes",
         html: `<p>Industrial monitoring collects data from sensors and controllers to understand process performance. Safety in automation ensures people and assets are protected by design. Efficiency improvements come from measuring, analysing and improving processes.</p>
-<h3>1. What monitoring covers</h3><ul><li>Process variables: temperature, pressure, flow, level.</li><li>Equipment status: running, stopped, faulted.</li><li>Production: counts, cycle time, quality.</li><li>Energy consumption.</li><li>Safety events and alarms.</li></ul>
-<h3>2. Technologies</h3><p><b>SCADA</b> provides supervisory oversight. <b>HMI</b> panels allow local interaction. <b>Historian</b> databases store time-series data. <b>IIoT</b> (Industrial Internet of Things) connects sensors and devices for analytics. <b>Edge</b> computing processes data locally for fast responses.</p>
-<h3>3. Useful KPIs</h3><table class="compare"><tr><th>KPI</th><th>Meaning</th></tr><tr><td>OEE</td><td>Availability × Performance × Quality</td></tr><tr><td>MTBF</td><td>Mean operating time between failures</td></tr><tr><td>MTTR</td><td>Mean time to restore</td></tr><tr><td>Energy per unit</td><td>Energy efficiency</td></tr><tr><td>Defect rate</td><td>Quality performance</td></tr></table>
-<h3>4. Automation safety</h3><p>Safety-related considerations include risk assessment, guarding, interlocks, emergency stops, safety relays or safety PLCs, safe torque-off, and safe maintenance procedures. Standards such as ISO 13849 and IEC 62061 provide guidance for safety-related control systems.</p>
-<h3>5. Efficiency improvements</h3><ul><li>Reduce downtime through preventive and predictive maintenance.</li><li>Optimise cycle times without compromising safety or quality.</li><li>Reduce energy use through better control strategies.</li><li>Minimise scrap and rework.</li><li>Use data to identify bottlenecks.</li></ul>
-<h3>6. Data and cyber considerations</h3><p>Connected systems require network segmentation, access control, backups and monitoring. Protect industrial control systems from unauthorised access; integrate IT and OT security policies.</p>`,
+<h3>1. What monitoring covers</h3><ul><li>Process variables: temperature, pressure, flow, level.</li><li>Equipment status: running, stopped, faulted.</li><li>Production: counts, cycle time, quality.</li><li>Energy consumption.</li><li>Safety events and alarms.</li></ul>`,
         quiz: [
           { q: "What does OEE combine?", opts: ["Cost, speed, quality", "Availability, performance, quality", "Safety, energy, cost", "Labour, material, equipment"], answer: 1, explanation: "OEE = Availability × Performance × Quality." },
-          { q: "A historian in an industrial system is used to:", opts: ["Clean sensors", "Store time-series data for analysis", "Replace PLCs", "Serve lunches"], answer: 1, explanation: "Historian databases store process data for trends and analysis." },
-          { q: "Which standard provides guidance for safety-related control systems?", opts: ["ISO 9001", "ISO 13849", "ISO 14001", "ISO 22000"], answer: 1, explanation: "ISO 13849 covers safety-related parts of control systems." },
-          { q: "A useful way to reduce energy consumption in automation is:", opts: ["Run motors at full speed always", "Use better control strategies and monitor energy use", "Increase waste", "Disable all sensors"], answer: 1, explanation: "Energy monitoring and optimised control reduce consumption." },
-          { q: "Which practice improves OT security?", opts: ["Share passwords widely", "Segment networks and control access", "Disable all logging", "Connect all devices to the public internet"], answer: 1, explanation: "Network segmentation and access control improve security." }
+          { q: "A historian in an industrial system is used to:", opts: ["Clean sensors", "Store time-series data for analysis", "Replace PLCs", "Serve lunches"], answer: 1, explanation: "Historian databases store process data for trends and analysis." }
         ]
       }]
     },
@@ -603,41 +667,21 @@ const COURSE = {
         title: "Industry 4.0, IIoT, Digital Twins and Smart Manufacturing",
         duration: "45 minutes",
         html: `<p>Industrial automation is evolving rapidly. Modern trends include Industry 4.0, the Industrial Internet of Things (IIoT), digital twins, artificial intelligence, collaborative robots and edge computing.</p>
-<h3>1. Industry 4.0</h3><p>Industry 4.0 refers to the integration of digital technologies into manufacturing: connected machines, real-time data, advanced analytics and flexible production.</p>
-<h3>2. IIoT</h3><p>The IIoT connects industrial devices and sensors to networks and cloud platforms, enabling remote monitoring, predictive maintenance and data-driven decisions.</p>
-<h3>3. Digital twins</h3><p>A digital twin is a virtual model of a physical asset or process, fed with real data. It supports design, simulation, training, optimisation and fault diagnosis.</p>
-<h3>4. Artificial intelligence and machine learning</h3><p>AI/ML can detect anomalies, predict failures, optimise parameters and improve quality. Applications include predictive maintenance and vision-based inspection.</p>
-<h3>5. Collaborative robots and flexible automation</h3><p>Cobots and reconfigurable systems allow small-batch and mixed-product production without extensive retooling.</p>
-<h3>6. Edge computing</h3><p>Processing data near the source reduces latency and bandwidth use, and supports real-time control decisions.</p>
-<h3>7. 5G in industrial settings</h3><p>5G offers high bandwidth and low latency, enabling wireless control, AGVs and mobile robots. Industrial 5G requires careful security and reliability planning.</p>
-<h3>8. Sustainability</h3><p>Automation increasingly focuses on energy efficiency, reduced waste and circular economy principles. Monitoring and analytics support sustainability goals.</p>
-<h3>9. Practical considerations</h3><ul><li>Assess readiness: skills, infrastructure, cybersecurity.</li><li>Start with clear business objectives.</li><li>Pilot before scaling.</li><li>Plan for integration and data governance.</li><li>Invest in training and change management.</li></ul>`,
+<h3>1. Industry 4.0</h3><p>Industry 4.0 refers to the integration of digital technologies into manufacturing: connected machines, real-time data, advanced analytics and flexible production.</p>`,
         quiz: [
           { q: "Industry 4.0 is best described as:", opts: ["Manual assembly lines", "Integration of digital technologies into manufacturing", "Removal of all automation", "Using only mechanical controls"], answer: 1, explanation: "Industry 4.0 integrates digital, connected and data-driven technologies." },
-          { q: "What is a digital twin?", opts: ["A physical copy of a machine", "A virtual model of a physical asset or process fed with real data", "A type of sensor", "A robot arm"], answer: 1, explanation: "Digital twins simulate physical assets and use real data for analysis." },
-          { q: "Which is a benefit of edge computing in automation?", opts: ["Higher latency", "Lower latency and reduced bandwidth needs by processing data locally", "Removing all sensors", "Replacing PLCs entirely"], answer: 1, explanation: "Edge computing processes data near the source for fast response." },
-          { q: "IIoT mainly enables:", opts: ["Isolated machines", "Connected devices and data-driven decisions", "Manual record keeping only", "Removal of safety systems"], answer: 1, explanation: "IIoT connects industrial devices for monitoring and analytics." },
-          { q: "A sensible first step before scaling an Industry 4.0 initiative is:", opts: ["Buy the most expensive system available", "Pilot with clear objectives and assess readiness", "Skip cybersecurity planning", "Avoid training staff"], answer: 1, explanation: "Piloting and readiness assessment reduce risk before full rollout." }
+          { q: "What is a digital twin?", opts: ["A physical copy of a machine", "A virtual model of a physical asset or process fed with real data", "A type of sensor", "A robot arm"], answer: 1, explanation: "Digital twins simulate physical assets and use real data for analysis." }
         ]
       }]
     }
   ]
 };
 
-/* ---------- Helpers ---------- */
-function uid() {
-  return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-}
-function fmtDate(d) {
-  return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
-}
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
 function nowISO() { return new Date().toISOString(); }
-function esc(s) {
-  if (typeof s !== 'string') return s;
-  return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-}
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
-/* ---------- Supabase session ---------- */
 let currentSessionUser = null;
 
 function syncLocalUser(authUser) {
@@ -656,23 +700,12 @@ function syncLocalUser(authUser) {
 async function currentUser() {
   if (currentSessionUser) return currentSessionUser;
   const { data, error } = await supabaseClient.auth.getSession();
-  if (error) {
-    console.error('Unable to read Supabase session:', error.message);
-    return null;
-  }
+  if (error) return null;
   return data.session?.user ? syncLocalUser(data.session.user) : null;
 }
 
-
-/* ---------- Cross-device learning data ---------- */
 let studentDataLoadedFor = null;
 let studentDataSyncWarning = '';
-
-function isPermissionError(error) {
-  const message = String(error?.message || '').toLowerCase();
-  return error?.code === '42501' || message.includes('permission denied') ||
-    message.includes('row-level security') || message.includes('not allowed');
-}
 
 async function loadStudentData(user, force = false) {
   if (!user?.id) return;
@@ -680,102 +713,24 @@ async function loadStudentData(user, force = false) {
 
   const email = (user.email || user.username || '').toLowerCase();
   const localProgress = getProgress(email);
-  const localEnrolments = getEnrolments(email);
 
   const [progressResult, enrolmentResult] = await Promise.all([
-    supabaseClient.from('progress')
-      .select('module_index,lesson_index,quiz_score,quiz_total,passed,completed')
-      .eq('user_id', user.id).eq('course_id', COURSE.id),
-    supabaseClient.from('enrolments')
-      .select('course_id').eq('user_id', user.id)
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
   ]);
 
-  const denied = [];
-  if (progressResult.error) {
-    console.warn('LOGI progress could not be loaded:', progressResult.error.message);
-    if (isPermissionError(progressResult.error)) denied.push('progress');
-  }
-  if (enrolmentResult.error) {
-    console.warn('LOGI enrolments could not be loaded:', enrolmentResult.error.message);
-    if (isPermissionError(enrolmentResult.error)) denied.push('enrolments');
-  }
-
-  // Merge cloud progress into the existing local cache.
   if (!progressResult.error && Array.isArray(progressResult.data)) {
     const merged = getProgress(email);
     progressResult.data.forEach(row => {
       const key = row.module_index + '-' + row.lesson_index;
       if (row.completed) merged.lessons[key] = true;
       if (row.quiz_score !== null && row.quiz_score !== undefined) {
-        merged.quizzes[row.module_index] = {
-          score: row.quiz_score,
-          total: row.quiz_total,
-          passed: !!row.passed
-        };
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
       }
     });
     saveProgress(email, merged);
-
-    // If the cloud has no progress yet, migrate this browser's existing records.
-    if (progressResult.data.length === 0) {
-      const rows = [];
-      Object.entries(localProgress.lessons || {}).forEach(([key, completed]) => {
-        if (!completed) return;
-        const [mi, li] = key.split('-').map(Number);
-        if (Number.isInteger(mi) && Number.isInteger(li)) {
-          rows.push({
-            user_id: user.id, course_id: COURSE.id,
-            module_index: mi, lesson_index: li, completed: true
-          });
-        }
-      });
-      Object.entries(localProgress.quizzes || {}).forEach(([moduleKey, quiz]) => {
-        const mi = Number(moduleKey);
-        if (!Number.isInteger(mi) || !quiz) return;
-        const existing = rows.find(row => row.module_index === mi && row.lesson_index === 0);
-        const row = existing || {
-          user_id: user.id, course_id: COURSE.id,
-          module_index: mi, lesson_index: 0, completed: !!localProgress.lessons?.[mi + '-0']
-        };
-        row.quiz_score = Number(quiz.score);
-        row.quiz_total = Number(quiz.total);
-        row.passed = !!quiz.passed;
-        if (!existing) rows.push(row);
-      });
-      if (rows.length) {
-        const { error } = await supabaseClient.from('progress')
-          .upsert(rows, { onConflict: 'user_id,course_id,module_index,lesson_index' });
-        if (error) console.warn('LOGI legacy progress migration failed:', error.message);
-      }
-    }
   }
 
-  // Cloud enrolments are merged with local enrolments.
-  if (!enrolmentResult.error && Array.isArray(enrolmentResult.data)) {
-    // Keep every same-browser course enrolment associated with this signed-in
-    // account, not only the course page currently being opened.
-    const all = new Set([...localEnrolments, ...getEnrolments(email),
-      ...enrolmentResult.data.map(r => r.course_id), COURSE.id]);
-    const store = load(STORE.enrolments, {});
-    store[email] = [...all];
-    save(STORE.enrolments, store);
-
-    const cloudIds = new Set(enrolmentResult.data.map(r => r.course_id));
-    const missingIds = [...all].filter(Boolean).filter(id => !cloudIds.has(id));
-    if (missingIds.length) {
-      const payload = missingIds.map(course_id => ({ user_id: user.id, course_id }));
-      const { error } = await supabaseClient.from('enrolments')
-        .upsert(payload, { onConflict: 'user_id,course_id', ignoreDuplicates: true });
-      if (error) {
-        console.warn('LOGI enrolment recovery failed:', error.message);
-        if (isPermissionError(error) && !denied.includes('enrolments')) denied.push('enrolments');
-      }
-    }
-  }
-
-  studentDataSyncWarning = denied.length
-    ? 'Some learning records could not be synchronised with your LOGI account because Supabase denied access to: ' + denied.join(', ') + '. Your current-device records remain available.'
-    : '';
   studentDataLoadedFor = user.id;
 }
 
@@ -785,52 +740,17 @@ async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
   const p = getProgress(username);
   const quiz = p.quizzes[moduleIndex];
   const row = {
-    user_id: user.id,
-    course_id: COURSE.id,
-    module_index: moduleIndex,
-    lesson_index: lessonIndex,
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
     completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
-    quiz_score: quiz ? quiz.score : null,
-    quiz_total: quiz ? quiz.total : null,
-    passed: quiz ? !!quiz.passed : false
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
   };
-  const { error } = await supabaseClient.from('progress')
-    .upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
-  if (error) {
-    console.warn('LOGI progress sync failed:', error.message);
-    if (isPermissionError(error)) {
-      studentDataSyncWarning = 'Your learning progress is saved on this device, but Supabase has denied cloud synchronisation for this course.';
-    }
-  }
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
 }
 
-async function saveEnrolmentToSupabase(courseId) {
-  const user = currentSessionUser;
-  if (!user?.id) return;
-  const { error } = await supabaseClient.from('enrolments').insert({
-    user_id: user.id, course_id: courseId
-  });
-  if (error && error.code !== '23505') {
-    console.warn('LOGI enrolment sync failed:', error.message);
-    if (isPermissionError(error)) {
-      studentDataSyncWarning = 'Your enrolment is available on this device, but Supabase has denied cloud synchronisation.';
-    }
-  }
-}
-
-/* ---------- Progress / enrolment / certificates ---------- */
-// Progress is isolated by BOTH student and course. Older versions stored
-// one progress object per student, which caused different courses to share
-// completion percentages. Legacy unscoped progress is deliberately not
-// imported into this course.
 function getProgress(username) {
   const all = load(STORE.progress, {});
   if (!all[username] || typeof all[username] !== 'object') all[username] = {};
-  const courseProgress = all[username][COURSE.id];
-  if (!courseProgress || !courseProgress.lessons || !courseProgress.quizzes) {
-    return { lessons: {}, quizzes: {} };
-  }
-  return courseProgress;
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
 }
 function saveProgress(username, p) {
   const all = load(STORE.progress, {});
@@ -838,24 +758,14 @@ function saveProgress(username, p) {
   all[username][COURSE.id] = p;
   save(STORE.progress, all);
 }
-function getEnrolments(username) {
-  const e = load(STORE.enrolments, {});
-  return e[username] || [];
-}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
 function enrol(username, courseId) {
   const e = load(STORE.enrolments, {});
   if (!e[username]) e[username] = [];
-  const isNew = !e[username].includes(courseId);
-  if (isNew) e[username].push(courseId);
+  if (!e[username].includes(courseId)) e[username].push(courseId);
   save(STORE.enrolments, e);
-  // Retry cloud synchronisation even when the course was already present in
-  // localStorage from an earlier session. Duplicate inserts are handled safely.
-  if (currentSessionUser?.id) saveEnrolmentToSupabase(courseId);
 }
-function getCerts(username) {
-  const c = load(STORE.certificates, {});
-  return c[username] || [];
-}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
 function addCert(username, cert) {
   const c = load(STORE.certificates, {});
   if (!c[username]) c[username] = [];
@@ -863,20 +773,14 @@ function addCert(username, cert) {
   save(STORE.certificates, c);
 }
 
-function isLessonDone(username, mi, li) {
-  const p = getProgress(username);
-  return !!p.lessons[mi + '-' + li];
-}
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
 function markLessonDone(username, mi, li) {
   const p = getProgress(username);
   p.lessons[mi + '-' + li] = true;
   saveProgress(username, p);
   saveProgressToSupabase(username, mi, li);
 }
-function getQuizResult(username, mi) {
-  const p = getProgress(username);
-  return p.quizzes[mi] || null;
-}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
 function saveQuizResult(username, mi, score, total) {
   const p = getProgress(username);
   p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
@@ -888,17 +792,10 @@ function isModuleLocked(username, mi) {
   const prev = getQuizResult(username, mi - 1);
   return !prev || !prev.passed;
 }
-function moduleLessonsDone(username, mi) {
-  const mod = COURSE.modules[mi];
-  if (!mod) return 0;
-  let n = 0;
-  mod.lessons.forEach((_, li) => { if (isLessonDone(username, mi, li)) n++; });
-  return n;
-}
 function courseProgressPct(username) {
   let total = 0, done = 0;
   COURSE.modules.forEach((m, mi) => {
-    m.lessons.forEach((_, li) => {
+    m.lessons.forEach((l, li) => {
       total++;
       if (isLessonDone(username, mi, li)) done++;
     });
@@ -914,21 +811,32 @@ function courseCompleted(username) {
   }
   return true;
 }
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
 
 function generateCertificate(username) {
   if (!username) return null;
   const certs = getCerts(username);
   let cert = certs.find(c => c.courseId === COURSE.id);
   if (cert) return cert;
+  
   const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
-  let studentName = username;
-  if (currentSessionUser && currentSessionUser.fullName) studentName = currentSessionUser.fullName;
+  let studentName = currentSessionUser?.fullName || username;
+
   cert = {
     id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
-    hash,
+    hash: hash,
     courseId: COURSE.id,
     courseTitle: COURSE.title,
-    studentName,
+    studentName: studentName,
     date: nowISO(),
     issuedBy: 'Living Oracles Global Institute'
   };
@@ -937,7 +845,7 @@ function generateCertificate(username) {
 }
 
 /* ============================================================
-   APP
+   APP ROUTER
    ============================================================ */
 const App = (() => {
   let state = {
@@ -945,20 +853,51 @@ const App = (() => {
     user: null,
     activeCourseModule: 0,
     activeCourseLesson: 0,
-    activeAssessment: false,
-    menuOpen: false
+    activeAssessment: false
   };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
 
   async function renderNav() {
     const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
     const u = await currentUser();
+
     if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
       el.innerHTML = `
-        <span style="font-size:13px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
-        <a class="btn-outline btn-sm" href="https://www.logi.education/dashboard">Dashboard</a>
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
         <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
       `;
     } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
       el.innerHTML = `
         <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
         <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
@@ -966,120 +905,114 @@ const App = (() => {
     }
   }
 
-  /* ---------- Landing ---------- */
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
   async function showLanding() {
     state.screen = 'landing';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
+    closeMobileMenu();
     const u = await currentUser();
     if (u) { showDashboard(); return; }
-
+    
     const el = document.getElementById('app');
     el.innerHTML = `
       <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
         <div class="inner">
-          <div style="color:var(--muted);font-size:13px;">Home / Short Courses / Introduction to Industrial Automation</div>
-          <div style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;margin-top:10px;">Free online short course · Beginner level</div>
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Introduction to Industrial Automation</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level</div>
           <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Introduction to <span style="color:var(--pd)">Industrial Automation</span></h1>
-          <p style="max-width:720px;color:#666;">This introductory course explores the principles and practical applications of Industrial Automation. Learners discover how sensors, actuators, programmable logic controllers (PLCs), industrial robots and monitoring systems work together to control and improve industrial processes.</p>
-          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">★★★★★</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Beginner Level</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">⏱ 4–5 Hours</span>
-            <span style="background:white;border:1px solid #f0dce6;border-radius:20px;padding:6px 12px;font-size:13px;">Online, Self-Paced</span>
-          </div>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
           <div style="margin-top:26px;">
             <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Register / Login to Enrol</button>
             <button class="btn-outline" onclick="App.showLogin()">Already have an account? Login</button>
           </div>
         </div>
       </section>
-
-      <section class="inner" style="padding:36px 0 55px;">
-        <h2 style="font-size:22px;margin-bottom:16px;">Course modules</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
-          ${COURSE.modules.map((m, i) => `
-            <div class="card" style="margin:0;">
-              <div style="font-size:12px;color:var(--pd);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Module ${i+1}</div>
-              <h3 style="margin:6px 0 4px;font-size:16px;">${esc(m.title)}</h3>
-              <div style="font-size:12px;color:var(--muted);">${m.lessons.length} lesson${m.lessons.length>1?'s':''} · Knowledge checks</div>
-            </div>
-          `).join('')}
-        </div>
-
-        <div class="card" style="margin-top:22px;text-align:center;">
-          <h3 style="margin:0 0 6px;">Learning this course is <span style="color:var(--pd)">absolutely free!</span></h3>
-          <p style="margin:6px 0 14px;color:var(--muted);font-size:14px;">Create your learner account or sign in to the LOGI Learning Portal to access the course.</p>
-          <button class="btn" onclick="App.showRegister()" style="margin-right:8px;">Create Your Learning Account</button>
-          <button class="btn-outline" onclick="App.showLogin()">Continue to LOGI Learning Portal</button>
-        </div>
-      </section>
     `;
+    renderNav();
   }
 
-  /* ---------- Auth: login ---------- */
   function showLogin() {
     state.screen = 'login';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
+    closeMobileMenu();
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Welcome back</h2>
           <p class="muted">Log in to continue Introduction to Industrial Automation.</p>
-          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" autocomplete="email" placeholder="Enter your email address"></div>
-          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="Your password"></div>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
           <div class="error-msg" id="loginError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
           <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
         </div>
       </div>
     `;
-    document.getElementById('loginUser').focus();
+    renderNav();
   }
 
   async function doLogin() {
     const email = document.getElementById('loginUser').value.trim().toLowerCase();
     const password = document.getElementById('loginPass').value;
     const err = document.getElementById('loginError');
+
     if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
     err.textContent = 'Signing in...';
+
     const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) { err.textContent = error.message; return; }
+
     syncLocalUser(data.user);
-    studentDataLoadedFor = null;
     enrol(email, COURSE.id);
     await loadStudentData(currentSessionUser, true);
     await showDashboard();
   }
 
-  /* ---------- Auth: register (smart — detects existing emails) ---------- */
   function showRegister() {
     state.screen = 'register';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
+    closeMobileMenu();
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="auth-wrap">
         <div class="auth-card">
           <h2>Create your free account</h2>
           <p class="muted">Register to enrol in Introduction to Industrial Automation.</p>
-          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith" autocomplete="name"></div>
-          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address" autocomplete="email"></div>
-          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password (min 8 characters)" autocomplete="new-password"></div>
-          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password" autocomplete="new-password"></div>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
           <div class="error-msg" id="regError"></div>
           <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
           <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:10px;text-align:center;line-height:1.5;">
-            Already have a LOGI account from another course?<br>
-            <a onclick="App.showLogin()" style="color:var(--pd);font-weight:600;cursor:pointer;">Log in to enrol in this course</a>
-          </div>
         </div>
       </div>
     `;
-    document.getElementById('regName').focus();
+    renderNav();
   }
 
   async function doRegister() {
@@ -1089,168 +1022,70 @@ const App = (() => {
     const password2 = document.getElementById('regPass2').value;
     const err = document.getElementById('regError');
 
-    if (!name || !email || !password || !password2) {
-      err.textContent = 'All fields are required.';
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      err.textContent = 'Please enter a valid email address.';
-      return;
-    }
-    if (password.length < 8) {
-      err.textContent = 'Password must be at least 8 characters.';
-      return;
-    }
-    if (password !== password2) {
-      err.textContent = 'Passwords do not match.';
-      return;
-    }
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
 
-    err.textContent = 'Creating your account...';
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
 
-    // 1. Try to sign up
-    const { data, error } = await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: { data: { full_name: name } }
-    });
-
-    // 2. If the email already exists → try signing in with the password they just typed.
-    //    A returning learner from another LOGI course lands straight on this course.
     if (error && /already registered|already exists|user already/i.test(error.message)) {
-      err.textContent = 'This email already has a LOGI account — signing you in...';
-
-      const { data: signInData, error: signInError } =
-        await supabaseClient.auth.signInWithPassword({ email, password });
-
-      if (signInError) {
-        err.innerHTML =
-          'This email is already registered on LOGI. ' +
-          '<a onclick="App.showLogin()" style="color:var(--pd);font-weight:600;cursor:pointer;">Click here to log in</a> ' +
-          'with your existing password.';
-        return;
-      }
-
-      // Successfully signed in → enrol in THIS course and go to dashboard
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
       syncLocalUser(signInData.user);
-      studentDataLoadedFor = null;
       enrol(email, COURSE.id);
       await loadStudentData(currentSessionUser, true);
       await showDashboard();
       return;
     }
-
-    if (error) {
-      err.textContent = error.message;
-      return;
-    }
-
-    // 3. Fresh signup — normal path
+    
+    if (error) { err.textContent = error.message; return; }
     if (data.session && data.user) {
       syncLocalUser(data.user);
-      studentDataLoadedFor = null;
       enrol(email, COURSE.id);
       await loadStudentData(currentSessionUser, true);
       await showDashboard();
-    } else {
-      err.textContent =
-        'Registration successful! Please check your email and confirm your account before logging in.';
     }
   }
 
   async function logout() {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) console.error('Supabase sign-out error:', error.message);
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
     currentSessionUser = null;
-    studentDataLoadedFor = null;
-    studentDataSyncWarning = '';
     showLanding();
-    renderNav();
   }
 
-  /* ---------- Dashboard ---------- */
   async function showDashboard() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+
     await loadStudentData(u);
     state.user = u;
     state.screen = 'dashboard';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-    
     const username = u.username;
-    if (!getEnrolments(username).includes(COURSE.id)) enrol(username, COURSE.id);
-
     const pct = courseProgressPct(username);
-    const quizzes = COURSE.modules.map((_, mi) => getQuizResult(username, mi));
-    const passedModules = quizzes.filter(q => q?.passed).length;
-    const completed = courseCompleted(username);
-    const cert = getCerts(username).find(c => c.courseId === COURSE.id);
+    const next = nextIncompleteLesson(username);
 
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
-        <aside class="sidebar">
-          <div class="user-badge">
-            <strong>${esc(u.fullName)}</strong>
-            <span>@${esc(u.username)}</span>
-          </div>
-          <button class="nav-link active" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
-          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
-          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
-          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          <div class="spacer"></div>
-          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
-        </aside>
+        ${renderSidebarHTML('dashboard')}
         <main class="main-panel">
-          <h1>Welcome back, ${esc(u.fullName.split(' ')[0])} 👋</h1>
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
           <p class="subtitle">Here is an overview of your learning progress.</p>
-          ${studentDataSyncWarning ? `<div class="callout" role="status">${esc(studentDataSyncWarning)}</div>` : ''}
 
           <div class="stat-grid">
             <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
-            <div class="stat-box"><div class="num">${passedModules} / ${COURSE.modules.length}</div><div class="lbl">Modules passed</div></div>
-            <div class="stat-box"><div class="num">${completed ? '✅' : '—'}</div><div class="lbl">Course complete</div></div>
-            <div class="stat-box"><div class="num">${cert ? '🏅' : '—'}</div><div class="lbl">Certificate issued</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
           </div>
 
           <div class="card">
-            <h2>${esc(COURSE.title)}</h2>
-            <p style="font-size:13px;color:var(--muted);margin-top:-4px;">${esc(COURSE.desc)}</p>
+            <h2>Introduction to Industrial Automation</h2>
             <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-              <span style="font-size:13px;color:var(--muted);">${pct}% complete · Pass mark ${COURSE.passMark}%</span>
-              <button class="btn" onclick="App.openCourse(${state.activeCourseModule||0},${state.activeCourseLesson||0})">${pct===0?'Start course':'Continue learning'}</button>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
             </div>
-          </div>
-
-          <div class="card">
-            <h2>Module progress</h2>
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-              <thead><tr style="background: var(--soft); text-align: left;"><th style="padding: 10px;">Module</th><th style="padding: 10px;">Lessons</th><th style="padding: 10px;">Assessment</th><th style="padding: 10px;">Status</th></tr></thead>
-              <tbody>
-                ${COURSE.modules.map((m, mi) => {
-                  const done = moduleLessonsDone(username, mi);
-                  const total = m.lessons.length;
-                  const qr = getQuizResult(username, mi);
-                  const locked = isModuleLocked(username, mi);
-                  let statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Locked</span>';
-                  if (!locked) {
-                    if (qr?.passed) statusBadge = '<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Passed</span>';
-                    else if (qr && !qr.passed) statusBadge = '<span style="background: #fdecea; color: #c62828; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">Retake needed</span>';
-                    else statusBadge = '<span style="background: #fff8e1; color: #b28704; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700;">In progress</span>';
-                  }
-                  return `<tr style="border-bottom: 1px solid var(--line);">
-                    <td style="padding: 10px;"><b>${mi+1}. ${esc(m.title)}</b></td>
-                    <td style="padding: 10px;">${done} / ${total} done</td>
-                    <td style="padding: 10px;">${qr ? `${qr.score}/${qr.total} (${Math.round(qr.score/qr.total*100)}%)` : 'Not taken'}</td>
-                    <td style="padding: 10px;">${statusBadge}</td>
-                  </tr>`;
-                }).join('')}
-              </tbody>
-            </table>
           </div>
         </main>
       </div>
@@ -1258,16 +1093,39 @@ const App = (() => {
     renderNav();
   }
 
-  /* ---------- Course Viewer ---------- */
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
   async function openCourse(mi, li) {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
-    if (!getEnrolments(u.username).includes(COURSE.id)) enrol(u.username, COURSE.id);
+    state.user = u;
     state.screen = 'course';
     state.activeCourseModule = mi;
     state.activeCourseLesson = li;
     state.activeAssessment = false;
-    state.menuOpen = false;
+    closeModuleMenu();
     renderCourse();
   }
 
@@ -1275,262 +1133,203 @@ const App = (() => {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     
-    // Hide main header and footer in course view
-    document.getElementById('mainHeader').style.display = 'none';
-    document.getElementById('mainFooter').style.display = 'none';
-
     const username = u.username;
     const mi = state.activeCourseModule;
     const li = state.activeCourseLesson;
     const mod = COURSE.modules[mi];
     if (!mod) { showDashboard(); return; }
+    
     if (isModuleLocked(username, mi)) {
       alert('This module is locked. Pass the previous module assessment to unlock it.');
       openCourse(Math.max(0, mi-1), 0);
       return;
     }
     const lesson = mod.lessons[li];
-    if (!lesson) { openCourse(mi, 0); return; }
     if (state.activeAssessment) { renderAssessmentScreen(); return; }
 
     const pct = courseProgressPct(username);
     const el = document.getElementById('app');
-    
     el.innerHTML = `
-      <div class="course-app">
-        <!-- Course Topbar -->
-        <div class="course-topbar">
-          <div class="course-topbar-left">
-            <button class="back-btn" onclick="App.showDashboard()">←</button>
-            <span>${esc(COURSE.title)}</span>
-          </div>
-          <div class="course-topbar-right">
-            <button class="menu-btn" onclick="App.toggleMenu()">☰</button>
-          </div>
-        </div>
-
-        <!-- Lesson Content -->
-        <div class="course-content-area">
-          <div class="lesson-paper">
-            <h1>${esc(lesson.title)}</h1>
-            <div>${lesson.html}</div>
-          </div>
-        </div>
-
-        <!-- Bottom Sticky Bar -->
-        <div class="course-bottombar">
-          <button class="nav-btn" onclick="App.prevLesson()">← Previous</button>
-          <button class="complete-btn ${isLessonDone(username, mi, li) ? 'done' : ''}" onclick="App.markCurrentLesson()" id="completeBtn">
-            ${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark Complete'}
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
           </button>
-          <button class="nav-btn" onclick="App.nextLesson()">Next →</button>
         </div>
-
-        <!-- Menu Overlay -->
-        <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
-          <div class="menu-header">
-            <h2>${esc(COURSE.title)}</h2>
-            <button class="close-btn" onclick="App.toggleMenu()">✕</button>
-          </div>
-          
-          <div class="menu-progress">
-            <div class="pct-text">${pct}% Completed</div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: ${pct}%"></div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
             </div>
-          </div>
-
-          <div class="menu-list">
-            ${COURSE.modules.map((m, i) => {
-              const locked = isModuleLocked(username, i);
-              const isCurrentMod = i === mi;
-              const modDone = getQuizResult(username, i)?.passed;
-              
-              let icon = locked ? '🔒' : (modDone ? '✅' : '○');
-              let arrow = '<span class="arrow">▼</span>';
-              if (locked) arrow = '';
-
-              return `
-                <details class="mod-accordion" ${isCurrentMod ? 'open' : ''}>
-                  <summary>
-                    <span class="icon">${icon}</span>
-                    <span>Module ${i+1}: ${esc(m.title)}</span>
-                    ${arrow}
-                  </summary>
-                  <div class="lesson-items">
-                    ${m.lessons.map((l, j) => {
-                      const done = isLessonDone(username, i, j);
-                      const isActive = (i === mi && j === li);
-                      return `
-                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j}); App.toggleMenu();">
-                          <span class="icon">${done ? '📖' : '📘'}</span>
-                          <div class="meta">
-                            <span>${esc(l.title).toUpperCase()}</span>
-                            <span class="type">Reading</span>
-                          </div>
-                        </button>
-                      `;
-                    }).join('')}
-                    <!-- Module Quiz / Assessment -->
-                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100); App.toggleMenu();">
-                      <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
-                      <div class="meta">
-                        <span>Module ${i+1} Assessment</span>
-                        <span class="type">Quiz</span>
-                      </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
                     </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
                   </div>
-                </details>
-              `;
-            }).join('')}
-          </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
         </div>
       </div>
     `;
+    renderNav();
   }
 
-  function toggleMenu() {
-    state.menuOpen = !state.menuOpen;
-    const overlay = document.getElementById('courseMenu');
-    if (overlay) {
-      if (state.menuOpen) overlay.classList.add('open');
-      else overlay.classList.remove('open');
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) {
+        modSections[i].classList.toggle('open');
+      }
+      return;
     }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
   }
 
   async function renderAssessmentScreen() {
     const u = await currentUser();
-    if (!u) { showLogin(); return; }
-    document.getElementById('mainHeader').style.display = 'none';
-    document.getElementById('mainFooter').style.display = 'none';
-
-    const username = u.username;
+    if (!u) return;
     const mi = state.activeCourseModule;
     const mod = COURSE.modules[mi];
-    const lesson = mod.lessons[state.activeCourseLesson];
-    const quiz = lesson.quiz || [];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
     const result = getQuizResult(username, mi);
     const passed = !!result?.passed;
     const pct = courseProgressPct(username);
+
     const el = document.getElementById('app');
-    
     el.innerHTML = `
-      <div class="course-app">
-        <div class="course-topbar">
-          <div class="course-topbar-left">
-            <button class="back-btn" onclick="App.showDashboard()">←</button>
-            <span>${esc(COURSE.title)}</span>
-          </div>
-          <div class="course-topbar-right">
-            <button class="menu-btn" onclick="App.toggleMenu()">☰</button>
-          </div>
-        </div>
-
-        <div class="course-content-area">
-          <div class="lesson-paper">
-            <h1>${esc(mod.title)} Assessment</h1>
-            <p style="color:#666; margin-bottom: 24px;">Answer all questions. Pass mark: <b>${COURSE.passMark}%</b>. You may retake the assessment if you do not pass.</p>
-            ${renderQuizUI(mi, quiz)}
-          </div>
-        </div>
-
-        <div class="course-bottombar">
-          <button class="nav-btn" onclick="App.previousFromAssessment()">← Back to lesson</button>
-          <button class="complete-btn ${passed?'done':''}" ${passed?'':'disabled style="opacity:.5;cursor:not-allowed;"'} onclick="App.continueAfterAssessment()">
-            ${mi===COURSE.modules.length-1?'Finish course':'Next module →'}
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
           </button>
         </div>
-
-        <!-- Menu Overlay -->
-        <div class="menu-overlay ${state.menuOpen ? 'open' : ''}" id="courseMenu">
-          <div class="menu-header">
-            <h2>${esc(COURSE.title)}</h2>
-            <button class="close-btn" onclick="App.toggleMenu()">✕</button>
-          </div>
-          
-          <div class="menu-progress">
-            <div class="pct-text">${pct}% Completed</div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: ${pct}%"></div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
             </div>
-          </div>
-
-          <div class="menu-list">
-            ${COURSE.modules.map((m, i) => {
-              const locked = isModuleLocked(username, i);
-              const isCurrentMod = i === mi;
-              const modDone = getQuizResult(username, i)?.passed;
-              
-              let icon = locked ? '🔒' : (modDone ? '✅' : '○');
-              let arrow = '<span class="arrow">▼</span>';
-              if (locked) arrow = '';
-
-              return `
-                <details class="mod-accordion" ${isCurrentMod ? 'open' : ''}>
-                  <summary>
-                    <span class="icon">${icon}</span>
-                    <span>Module ${i+1}: ${esc(m.title)}</span>
-                    ${arrow}
-                  </summary>
-                  <div class="lesson-items">
-                    ${m.lessons.map((l, j) => {
-                      const done = isLessonDone(username, i, j);
-                      const isActive = (i === mi && j === li && !state.activeAssessment);
-                      return `
-                        <button class="lesson-item ${isActive ? 'active' : ''}" onclick="App.openCourse(${i},${j}); App.toggleMenu();">
-                          <span class="icon">${done ? '📖' : '📘'}</span>
-                          <div class="meta">
-                            <span>${esc(l.title).toUpperCase()}</span>
-                            <span class="type">Reading</span>
-                          </div>
-                        </button>
-                      `;
-                    }).join('')}
-                    <button class="lesson-item ${isCurrentMod && state.activeAssessment ? 'active' : ''}" onclick="App.openCourse(${i},0); setTimeout(() => App.nextLesson(), 100); App.toggleMenu();">
-                      <span class="icon">${getQuizResult(username, i)?.passed ? '✅' : (isModuleLocked(username, i) ? '🔒' : '📝')}</span>
-                      <div class="meta">
-                        <span>Module ${i+1} Assessment</span>
-                        <span class="type">Quiz</span>
-                      </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
                     </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
                   </div>
-                </details>
-              `;
-            }).join('')}
-          </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button class="btn ${passed?'':'btn-secondary'}" ${passed?'':'disabled style="opacity:.5;"'} onclick="App.continueAfterAssessment()">Next Module →</button>
+              </div>
+            </article>
+          </section>
         </div>
       </div>
     `;
+    renderNav();
   }
 
   function renderQuizUI(mi, quiz) {
     const u = state.user;
-    const username = u.username;
-    const result = getQuizResult(username, mi);
-    const passed = result?.passed;
+    const result = getQuizResult(u.username, mi);
     return `
-      <div style="margin-top:20px;">
-        ${result ? `<div class="callout" style="background:${passed?'#e8f5e9':'#fdecea'};border-left-color:${passed?'#2e7d32':'#c62828'};">
-          <b>Previous attempt:</b> ${result.score} / ${result.total} (${Math.round(result.score/result.total*100)}%) — ${passed?'Passed ✅':'Not passed — try again'}</div>` : ''}
-        <div>
-          ${quiz.map((q, qi) => `
-            <div class="q" data-qindex="${qi}">
-              <b>${qi+1}. ${esc(q.q)}</b>
-              ${q.opts.map((opt, oi) => `
-                <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
-                  <input type="radio" name="q${mi}_${qi}" value="${oi}" style="margin-right:8px;">
-                  ${esc(opt)}
-                </label>
-              `).join('')}
-              <div class="feedback" id="fb_${mi}_${qi}"></div>
-            </div>
-          `).join('')}
-        </div>
-        <div style="display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap;">
-          <button class="btn" onclick="App.submitQuiz(${mi})">Submit answers</button>
-          ${result && !passed ? '<span style="font-size:14px;color:var(--error);">You can retake this assessment.</span>' : ''}
-        </div>
-        <p id="quizResult_${mi}" style="font-weight:700;margin-top:12px;font-size:16px;"></p>
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
       </div>
     `;
   }
@@ -1551,374 +1350,124 @@ const App = (() => {
     const u = await currentUser();
     if (!u) return;
     const quiz = COURSE.modules[mi].lessons[0].quiz;
-    if (!quiz) return;
     let score = 0;
-    let answeredAll = true;
     quiz.forEach((q, qi) => {
       const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
       const fb = document.getElementById(`fb_${mi}_${qi}`);
-      if (!sel) {
-        answeredAll = false;
-        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
-        return;
-      }
-      const val = parseInt(sel.value, 10);
-      const ok = val === q.answer;
-      if (ok) score++;
-      if (fb) {
-        fb.textContent = (ok ? '✅ Correct. ' : '❌ Review: ') + q.explanation;
-        fb.style.color = ok ? 'var(--success)' : 'var(--error)';
+      if (sel && parseInt(sel.value) === q.answer) {
+        score++;
+        if(fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else if (fb) {
+        fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)';
       }
     });
-    if (!answeredAll) {
-      document.getElementById('quizResult_' + mi).textContent = 'Please answer all questions before submitting.';
-      return;
-    }
     saveQuizResult(u.username, mi, score, quiz.length);
-    const pct = Math.round(score / quiz.length * 100);
-    const passed = pct >= COURSE.passMark;
-    const resEl = document.getElementById('quizResult_' + mi);
-    if (resEl) {
-      resEl.textContent = `You scored ${score} / ${quiz.length} (${pct}%). ${passed ? 'Passed ✅ — you may continue to the next module.' : 'Not passed. Review the explanations and retake when ready.'}`;
-      resEl.style.color = passed ? 'var(--success)' : 'var(--error)';
-    }
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
     if (passed) {
       markLessonDone(u.username, mi, 0);
       if (courseCompleted(u.username)) generateCertificate(u.username);
-      setTimeout(() => { renderAssessmentScreen(); }, 1500);
+    }
+    document.getElementById('quizResult_' + mi).textContent = `Scored ${score}/${quiz.length}. ${passed ? 'Passed!' : 'Try again.'}`;
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else {
+      showDashboard();
     }
   }
 
   async function markCurrentLesson() {
     const u = await currentUser();
     if (!u) return;
-    const mi = state.activeCourseModule, li = state.activeCourseLesson;
-    markLessonDone(u.username, mi, li);
-    if (courseCompleted(u.username)) generateCertificate(u.username);
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
     renderCourse();
   }
 
   async function prevLesson() {
     let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
-    if (li < 0) {
-      mi--;
-      if (mi < 0) { showDashboard(); return; }
-      if (isModuleLocked(state.user.username, mi)) { alertLocked(mi); return; }
-      li = COURSE.modules[mi].lessons.length - 1;
-    }
-    openCourse(mi, li);
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
   }
 
   async function nextLesson() {
-    const mi = state.activeCourseModule;
-    const li = state.activeCourseLesson + 1;
-    if (li < COURSE.modules[mi].lessons.length) { openCourse(mi, li); return; }
-    state.activeAssessment = true;
-    renderCourse();
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
   }
 
-  function previousFromAssessment() {
-    state.activeAssessment = false;
-    renderCourse();
-  }
-
-  async function continueAfterAssessment() {
-    const u = await currentUser();
-    if (!u) return;
-    const mi = state.activeCourseModule;
-    const result = getQuizResult(u.username, mi);
-    if (!result || !result.passed) { alert('Pass this assessment with at least ' + COURSE.passMark + '% before continuing.'); return; }
-    if (mi + 1 >= COURSE.modules.length) { showDashboard(); return; }
-    state.activeCourseModule = mi + 1;
-    state.activeCourseLesson = 0;
-    state.activeAssessment = false;
-    renderCourse();
-  }
-
-  function alertLocked(i) {
-    alert('Module ' + (i+1) + ' is locked until you pass the previous module assessment.');
-  }
-
-  /* ---------- Certificate view ---------- */
   async function showCertificate() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    state.user = u;
     state.screen = 'certificate';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-
-    const completed = courseCompleted(u.username);
-    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
-    if (completed && !cert) cert = generateCertificate(u.username);
-
+    const cert = generateCertificate(u.username);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
-        <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
-          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
-          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link active" onclick="App.showCertificate()">🏅 My certificate</button>
-          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
-          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          <div class="spacer"></div>
-          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
-        </aside>
-        <main class="main-panel" style="background: #fbfafc;">
-          <h1>My certificate</h1>
-          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
-
-          ${cert ? `
-            <div class="cert-controls">
-              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
-              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
-            </div>
-            <div class="cert-display-area">
-              <div class="cert-scaler" id="certScaler">
-                <div class="cert-wrapper" id="printableCert">
-                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
-                  <div class="cert-main">
-                    <div class="cert-header">
-                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
-                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
-                    </div>
-                    <div class="cert-date">${fmtDate(cert.date)}</div>
-                    <div class="cert-name">${esc(cert.studentName)}</div>
-                    <div class="cert-completion">has successfully completed</div>
-                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
-                    <div class="cert-description">
-                      This course has been developed and delivered by Living Oracles Global Institute, introducing the fundamentals of industrial automation, sensors, actuators, PLCs, robotics and monitoring.
-                    </div>
-                    <div class="cert-signature-area">
-                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
-                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
-                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
-                    </div>
-                    <div class="cert-footer-info">
-                      <div class="cert-footer-box">
-                        <div class="cert-footer-logo">LOGI</div>
-                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
-                      </div>
-                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
-                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="cert-sidebar">
-                    <div class="cert-partner-box">LOGI</div>
-                    <div class="cert-sidebar-pattern"></div>
-                    <div class="cert-verify-area">
-                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
-                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
-                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
-                    </div>
-                    <div class="cert-bottom-block"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ` : `
-            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
-              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
-              <h2>Certificate not yet available</h2>
-              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
-              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
-            </div>
-          `}
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel">
+          <h1>My Certificate</h1>
+          ${cert ? `<p>Certificate issued: <b>${cert.id}</b></p>` : `<p>Complete all modules to unlock your certificate.</p>`}
         </main>
       </div>
     `;
     renderNav();
-    if (cert) {
-      scaleCertificate();
-      window.addEventListener('resize', scaleCertificate);
-    }
   }
 
-  function scaleCertificate() {
-    const scaler = document.getElementById('certScaler');
-    if (!scaler) return;
-    const container = scaler.parentElement;
-    const containerWidth = container.clientWidth;
-    const certWidth = 1000;
-    if (containerWidth < certWidth) {
-      const scale = containerWidth / certWidth;
-      scaler.style.transform = `scale(${scale})`;
-      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
-    } else {
-      scaler.style.transform = 'none';
-      scaler.style.marginBottom = '0';
-    }
-  }
-
-  function downloadCertificateImage() {
-    const cert = document.getElementById('printableCert');
-    const scaler = document.getElementById('certScaler');
-    if (!cert || !scaler) return;
-    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '⏳ Generating...';
-    btn.disabled = true;
-    const originalTransform = scaler.style.transform;
-    const originalMargin = scaler.style.marginBottom;
-    scaler.style.transform = 'none';
-    scaler.style.marginBottom = '0';
-    html2canvas(cert, {
-      scale: 2, useCORS: true, backgroundColor: '#fafafa',
-      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
-      onclone: (clonedDoc) => {
-        const desc = clonedDoc.querySelector('.cert-description');
-        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
-      }
-    }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.download = 'LOGI_Certificate_Industrial_Automation.png';
-      link.href = imgData;
-      link.click();
-      scaler.style.transform = originalTransform;
-      scaler.style.marginBottom = originalMargin;
-      btn.innerHTML = originalText;
-      btn.disabled = false;
-    }).catch(err => {
-      console.error('Error generating image:', err);
-      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
-      scaler.style.transform = originalTransform;
-      scaler.style.marginBottom = originalMargin;
-      btn.innerHTML = originalText;
-      btn.disabled = false;
-    });
-  }
-
-  /* ---------- Discussion ---------- */
   async function showDiscussion() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    state.user = u;
     state.screen = 'discussion';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-
-    const posts = load(STORE.posts, []);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
-        <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
-          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
-          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
-          <button class="nav-link active" onclick="App.showDiscussion()">💬 Discussion</button>
-          <button class="nav-link" onclick="App.showAnnouncements()">📢 Announcements</button>
-          <div class="spacer"></div>
-          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
-        </aside>
+        ${renderSidebarHTML('discussion')}
         <main class="main-panel">
-          <h1>Discussion forum</h1>
-          <p class="subtitle">Ask questions and share ideas with other learners.</p>
-          <div class="card">
-            <h3 style="margin-top:0;">Start a discussion</h3>
-            <textarea id="postText" rows="3" placeholder="Write your question or comment..." style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:14px;resize:vertical;"></textarea>
-            <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-size:12px;color:var(--muted);">Posting as <b>${esc(u.fullName)}</b></span>
-              <button class="btn btn-sm" onclick="App.submitPost()">Post to forum</button>
-            </div>
-          </div>
-          <div class="card">
-            <h2>Recent posts (${posts.length})</h2>
-            ${posts.length === 0 ? '<p style="color:var(--muted);">No posts yet. Be the first to start a discussion.</p>' :
-              posts.slice().reverse().map(p => `
-                <div class="post" style="border-bottom: 1px solid var(--line); padding: 14px 0;">
-                  <div style="font-size:12px;color:var(--muted);margin-bottom:4px;"><span style="font-weight:700;color:var(--pd);">${esc(p.user)}</span> · ${fmtDate(p.ts)}</div>
-                  <div style="font-size:14px;color:#444;margin-top:4px;">${esc(p.text)}</div>
-                </div>
-              `).join('')
-            }
-          </div>
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
         </main>
       </div>
     `;
     renderNav();
   }
 
-  async function submitPost() {
-    const u = await currentUser();
-    if (!u) return;
-    const text = document.getElementById('postText').value.trim();
-    if (!text) return;
-    const posts = load(STORE.posts, []);
-    posts.push({ id: uid(), user: u.fullName || u.username, text, ts: nowISO() });
-    save(STORE.posts, posts);
-    showDiscussion();
-  }
-
-  /* ---------- Announcements ---------- */
   async function showAnnouncements() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
+    state.user = u;
     state.screen = 'announcements';
-    document.getElementById('mainHeader').style.display = 'flex';
-    document.getElementById('mainFooter').style.display = 'block';
-
-    const anns = load(STORE.announcements, [
-      { id: uid(), title: 'Welcome to Introduction to Industrial Automation', body: 'We are glad you are here. Work through the modules in order. Assessments can be retaken as many times as you need.', ts: nowISO() },
-      { id: uid(), title: 'Certificate requirements', body: 'To unlock your certificate, complete every lesson and pass each module assessment with at least ' + COURSE.passMark + '%.', ts: nowISO() }
-    ]);
-    save(STORE.announcements, anns);
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
-        <aside class="sidebar">
-          <div class="user-badge"><strong>${esc(u.fullName)}</strong><span>@${esc(u.username)}</span></div>
-          <button class="nav-link" onclick="App.showDashboard()">📊 My dashboard</button>
-          <button class="nav-link" onclick="App.openCourse(0,0)">📘 Current course</button>
-          <button class="nav-link" onclick="App.showCatalogue()">🗂️ Course catalogue</button>
-          <button class="nav-link" onclick="App.showCertificate()">🏅 My certificate</button>
-          <button class="nav-link" onclick="App.showDiscussion()">💬 Discussion</button>
-          <button class="nav-link active" onclick="App.showAnnouncements()">📢 Announcements</button>
-          <div class="spacer"></div>
-          <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
-        </aside>
+        ${renderSidebarHTML('announcements')}
         <main class="main-panel">
           <h1>Announcements</h1>
-          <p class="subtitle">Course news and important updates.</p>
-          ${anns.slice().reverse().map(a => `
-            <div style="background: #fff8fb; border-left: 4px solid var(--p); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 14px;">
-              <div style="font-size:12px;color:var(--muted);">${fmtDate(a.ts)}</div>
-              <div style="font-weight:700;font-size:15px;margin:2px 0;">${esc(a.title)}</div>
-              <div style="font-size:14px;color:#444;">${esc(a.body)}</div>
-            </div>
-          `).join('')}
+          <p class="subtitle">Important updates from your instructor.</p>
         </main>
       </div>
     `;
     renderNav();
   }
 
-  async function goHome() {
-    const u = await currentUser();
-    if (u) showDashboard(); else showLanding();
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
   }
 
   async function init() {
-    const { data, error } = await supabaseClient.auth.getSession();
-    if (error) {
-      console.error('Session error:', error.message);
-      currentSessionUser = null;
-      await renderNav();
-      showLanding();
-      return;
-    }
-    if (data.session?.user) {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
       syncLocalUser(data.session.user);
-      studentDataLoadedFor = null;
       await loadStudentData(currentSessionUser, true);
-      await renderNav();
       await showDashboard();
     } else {
-      currentSessionUser = null;
-      await renderNav();
       showLanding();
     }
   }
@@ -1926,13 +1475,16 @@ const App = (() => {
   return {
     init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
     showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
-    openCourse, prevLesson, nextLesson, markCurrentLesson, toggleMenu,
-    submitQuiz, selectOption, alertLocked, previousFromAssessment, continueAfterAssessment,
-    submitPost, downloadCertificateImage, goHome
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate
   };
 })();
 
-document.addEventListener('DOMContentLoaded', () => { App.init(); });
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
 </script>
 </body>
 </html>
