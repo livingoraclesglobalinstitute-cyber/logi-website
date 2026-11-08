@@ -30,7 +30,7 @@
   .field { display: flex; flex-direction: column; gap: 4px; }
   .field.full { grid-column: 1 / -1; }
   label { font-weight: bold; font-size: 12px; color: #333; }
-  input, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; }
+  input, select, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; }
   .actions { text-align: center; margin-top: 15px; }
   button {
     padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;
@@ -43,9 +43,8 @@
     width: 210mm;
     height: 297mm;
     margin: 0 auto;
-    /* Removed inner padding so text goes to the edge */
     padding: 0; 
-    background-color: #ffffff; /* Pure white background */
+    background-color: #ffffff; 
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     position: relative;
     overflow: hidden;
@@ -70,7 +69,6 @@
     z-index: 2;
     font-size: 11.5pt;
     line-height: 1.3;
-    /* Add a little internal padding so text doesn't literally bleed off the page */
     padding: 10mm; 
   }
 
@@ -153,32 +151,16 @@
   .print-btn:hover { background-color: #e93680; }
 
   /* --- PRINT SETTINGS --- */
-  @page {
-    size: A4;
-    margin: 0; 
-  }
+  @page { size: A4; margin: 0; }
   
   @media print {
-    body {
-      background: none;
-      padding: 0;
-      margin: 0;
-    }
-    .controls, .print-btn {
-      display: none !important;
-    }
+    body { background: none; padding: 0; margin: 0; }
+    .controls, .print-btn { display: none !important; }
     .paper {
-      width: 210mm;
-      height: 297mm;
-      box-shadow: none;
-      margin: 0;
-      padding: 0; 
+      width: 210mm; height: 297mm; box-shadow: none; margin: 0; padding: 0; 
       background-color: #ffffff !important; 
     }
-    * {
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   }
 </style>
 </head>
@@ -188,21 +170,34 @@
 <div class="controls">
   <h2>LOGI Admission Letter Generator</h2>
   <div class="form-grid">
-    <div class="field"><label>Student Name</label><input id="studentName" value="Bereket Kasahun"></div>
-    <div class="field"><label>Application Number</label><input id="candidateNumber" value="APP-2026-6363"></div>
-    <div class="field full"><label>Programme</label><input id="programme" value="Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)"></div>
+    <div class="field"><label>Student Name</label><input id="studentName" value="Asfaw Welmedehin"></div>
+    <div class="field"><label>Application Number</label><input id="candidateNumber" value="APP-2026-7572"></div>
+    <div class="field full"><label>Programme</label><input id="programme" value="Certificate in Business Analysis & Process Improvement (CBAPI)"></div>
     <div class="field"><label>School</label><input id="school" value="School of Engineering & Technology"></div>
     <div class="field"><label>Mode of Study</label><input id="mode" value="online"></div>
-    <div class="field full"><label>Programme Fee</label><input id="fee" value="USD 250"></div>
-    <div class="field"><label>Fee Coverage</label><input id="coverage" value="training and certification examination"></div>
     
-    <div class="field full"><label>Payment Link (Required)</label><input id="paymentLink" value="https://www.logi.education/payment-link"></div>
+    <!-- NEW PAYMENT TYPE DROPDOWN -->
+    <div class="field full">
+      <label>Payment Type</label>
+      <select id="paymentType" onchange="toggleCustomFields()">
+        <option value="paid">Paid Diploma ($250)</option>
+        <option value="cert-fee">Free Tuition + $20 Certification Fee</option>
+        <option value="free">Completely Free (Ministry)</option>
+      </select>
+    </div>
+
+    <div class="field full" id="feeField">
+      <label>Programme Fee (Manual override)</label>
+      <input id="fee" value="USD 250">
+    </div>
+    
+    <div class="field full"><label>Payment Link (Required for Paid/Cert-Fee)</label><input id="paymentLink" value="https://www.logi.education/payment-link"></div>
     <div class="field full"><label>Acceptance Link (Required)</label><input id="acceptanceLink" value="https://www.logi.education/acceptance"></div>
     <div class="field full"><label>Acceptance Deadline</label><input id="acceptanceDeadline" value="20th November 2026"></div>
     
-    <div class="field"><label>Location/Country</label><input id="location" value="Wolayita, Ethiopia"></div>
-    <div class="field"><label>Phone Number</label><input id="phone" value="+251 906 473 979"></div>
-    <div class="field full"><label>Date of Letter</label><input id="letterDate" value="7 November 2026"></div>
+    <div class="field"><label>Location/Country</label><input id="location" value="Gurd Shola, Ethiopia"></div>
+    <div class="field"><label>Phone Number</label><input id="phone" value="+251 949 558 627"></div>
+    <div class="field full"><label>Date of Letter</label><input id="letterDate" value="9 November 2026"></div>
   </div>
   <div class="actions">
     <button type="button" onclick="updateLetter()">Update Letter</button>
@@ -216,12 +211,11 @@
 
 <!-- A4 LETTER -->
 <div class="paper">
-  <!-- Faint Watermark -->
   <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Watermark" class="watermark">
   
   <div class="content">
     
-    <!-- COLORED HEADER SECTION -->
+    <!-- HEADER SECTION -->
     <div class="header-box">
       <div class="header-top">
         <div class="header-left">
@@ -243,27 +237,27 @@
 
     <!-- Date Row -->
     <div class="date-row">
-      <div class="date-line" id="outDate">7 November 2026</div>
+      <div class="date-line" id="outDate">9 November 2026</div>
     </div>
 
     <!-- Recipient Block -->
     <div class="recipient">
       <span class="location-info">
-        <span id="outLocation">Wolayita, Ethiopia</span><br>
-        <span id="outPhone">+251 906 473 979</span>
+        <span id="outLocation">Gurd Shola, Ethiopia</span><br>
+        <span id="outPhone">+251 949 558 627</span>
       </span>
-      <span class="salutation">Dear <span id="outName">Bereket Kasahun</span></span>
-      <span class="candidate-info">Candidate Number: <span id="outCandidate">APP-2026-6363</span></span>
+      <span class="salutation">Dear <span id="outName">Asfaw Welmedehin</span></span>
+      <span class="candidate-info">Candidate Number: <span id="outCandidate">APP-2026-7572</span></span>
     </div>
 
-    <!-- Centered Subject Line -->
+    <!-- Subject Line -->
     <div class="subject-line">
-      OFFER OF ADMISSION: <span id="outProgramme">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span>
+      OFFER OF ADMISSION: <span id="outProgramme">Certificate in Business Analysis & Process Improvement (CBAPI)</span>
     </div>
 
     <!-- Introduction -->
     <div class="intro">
-      With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
+      With reference to your application, Living Oracles Global Institute (LOGI) is pleased to offer you admission to the <strong><span id="outProgramme2">Certificate in Business Analysis & Process Improvement (CBAPI)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
     </div>
 
     <!-- 6 Conditions -->
@@ -271,9 +265,11 @@
       <li>This offer is based on the information provided in your application. LOGI reserves the right to verify the information and supporting documents submitted.</li>
       <li>Your admission and continued enrolment are subject to the accuracy of your application information and your compliance with the Institute's academic and administrative requirements.</li>
       
-      <li>The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's <span id="outCoverage">training and certification examination</span>.</li>
+      <!-- DYNAMIC FEE POINT -->
+      <li id="point3">The programme fee is <strong><span id="outFee">USD 250</span></strong>. The fee covers the programme's training and certification examination.</li>
       
-      <li><strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="#" id="outPayLink">https://www.logi.education/payment-link</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong><span id="outAppNumber">APP-2026-6363</span></strong>, in all correspondence.</li>
+      <!-- DYNAMIC PAYMENT POINT -->
+      <li id="point4"><strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="#" id="outPayLink">https://www.logi.education/payment-link</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong><span id="outAppNumber">APP-2026-7572</span></strong>, in all correspondence.</li>
       
       <li>The programme is delivered online. You are responsible for having suitable internet access and a device that enables you to participate in learning activities, complete required assessments, and meet the academic standards set for the programme.</li>
       
@@ -307,18 +303,30 @@
 </div>
 
 <script>
+  // Toggle the manual fee input based on the dropdown
+  function toggleCustomFields() {
+    const type = document.getElementById('paymentType').value;
+    const feeField = document.getElementById('feeField');
+    
+    if (type === 'free') {
+      feeField.style.display = 'none'; // Hide manual fee for free programmes
+    } else {
+      feeField.style.display = 'flex';
+    }
+  }
+
   function updateLetter() {
     const name = document.getElementById('studentName').value;
     const candidate = document.getElementById('candidateNumber').value;
     const programme = document.getElementById('programme').value;
     const school = document.getElementById('school').value;
     const mode = document.getElementById('mode').value;
-    const fee = document.getElementById('fee').value;
-    const coverage = document.getElementById('coverage').value;
     const location = document.getElementById('location').value;
     const phone = document.getElementById('phone').value;
     const date = document.getElementById('letterDate').value;
+    const paymentType = document.getElementById('paymentType').value;
 
+    // Basic Info Updates
     document.getElementById('outName').innerText = name;
     document.getElementById('outCandidate').innerText = candidate;
     document.getElementById('outAppNumber').innerText = candidate;
@@ -326,12 +334,11 @@
     document.getElementById('outProgramme2').innerText = programme;
     document.getElementById('outSchool').innerText = school;
     document.getElementById('outMode').innerText = mode;
-    document.getElementById('outFee').innerText = fee;
-    document.getElementById('outCoverage').innerText = coverage;
     document.getElementById('outLocation').innerText = location;
     document.getElementById('outPhone').innerText = phone;
     document.getElementById('outDate').innerText = date;
-    
+
+    // Payment Links
     const payLinkValue = document.getElementById('paymentLink').value;
     const payLinkElement = document.getElementById('outPayLink');
     payLinkElement.innerText = payLinkValue;
@@ -343,8 +350,35 @@
     acceptLinkElement.href = acceptLinkValue;
 
     document.getElementById('outDeadline').innerText = document.getElementById('acceptanceDeadline').value;
+
+    // --- DYNAMIC FEE TEXT BASED ON DROPDOWN ---
+    const point3 = document.getElementById('point3');
+    const point4 = document.getElementById('point4');
+    const outFee = document.getElementById('outFee');
+    const manualFee = document.getElementById('fee').value;
+
+    if (paymentType === 'free') {
+      // MINISTRY (COMPLETELY FREE)
+      point3.innerHTML = `The programme is <strong>completely free</strong>, including training and certification. No tuition or certification fees apply.`;
+      point4.style.display = 'none'; // Hide payment point entirely
+
+    } else if (paymentType === 'cert-fee') {
+      // BUSINESS CERTIFICATE ($20 FEE)
+      point3.innerHTML = `There is no tuition charge for this programme. However, a <strong>$20.00 certification fee</strong> applies upon completion.`;
+      point4.style.display = 'list-item';
+      point4.innerHTML = `<strong>Certification Payment:</strong> To receive your certificate at the end of the programme, you are required to pay the $20.00 certification fee using this link: <a href="#" id="outPayLink2">${payLinkValue}</a>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
+
+    } else {
+      // PAID DIPLOMA ($250)
+      outFee.innerText = manualFee;
+      point3.innerHTML = `The programme fee is <strong>${manualFee}</strong>. The fee covers the programme's training and certification examination.`;
+      point4.style.display = 'list-item';
+      point4.innerHTML = `<strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="#" id="outPayLink3">${payLinkValue}</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
+    }
   }
   
+  // Initialize on page load
+  toggleCustomFields();
   updateLetter();
 </script>
 </body>
