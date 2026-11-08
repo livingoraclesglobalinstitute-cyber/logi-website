@@ -37,7 +37,6 @@
     font-weight: bold; color: #fff; background: #8B5353; font-size: 14px;
   }
   button:hover { background: #6d3f3f; }
-  button.secondary { background: #333; margin-left: 10px; }
 
   /* A4 Paper Simulation - STRICT ONE PAGE */
   .paper {
@@ -139,18 +138,26 @@
     font-size: 11.5pt;
   }
   
-  /* Recipient Block */
+  /* FIXED Recipient Block */
   .recipient {
     font-size: 11.5pt;
     margin-bottom: 20px;
-    line-height: 1.4;
+    line-height: 1.5;
   }
-  .recipient span {
+  .recipient .location-info {
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 10px;
+  }
+  .recipient .salutation {
+    display: block;
+    margin-bottom: 0px;
+  }
+  .recipient .candidate-info {
+    display: block;
+    margin-top: 0px;
   }
   
-  /* Subject Line - NOW CENTERED */
+  /* Centered Subject Line */
   .subject-line {
     font-weight: bold;
     text-decoration: underline;
@@ -158,7 +165,7 @@
     margin: 20px 0;
     font-size: 11.5pt;
     line-height: 1.4;
-    text-align: center; /* CENTERED */
+    text-align: center;
   }
 
   /* Body Text */
@@ -233,7 +240,7 @@
   /* Visible Print Button (Hidden during actual print) */
   .print-btn {
     display: block;
-    width: 200px;
+    width: 250px;
     margin: 20px auto;
     padding: 12px;
     background-color: #28a745;
@@ -258,7 +265,7 @@
       padding: 0;
     }
     .controls, .print-btn {
-      display: none !important; /* Hide form AND print button on paper */
+      display: none !important;
     }
     .paper {
       width: 100%;
@@ -337,12 +344,14 @@
       <div class="date-line" id="outDate">7 November 2026</div>
     </div>
 
-    <!-- Fixed Recipient Block -->
+    <!-- FIXED Recipient Block -->
     <div class="recipient">
-      <span id="outLocation">Wolayita, Ethiopia</span>
-      <span id="outPhone">+251 906 473 979</span><br>
-      <span>Dear <strong><span id="outName">Bereket Kasahun</span></strong></span>
-      <span><strong>Candidate Number: <span id="outCandidate">APP-2026-6363</span></strong></span>
+      <span class="location-info">
+        <span id="outLocation">Wolayita, Ethiopia</span><br>
+        <span id="outPhone">+251 906 473 979</span>
+      </span>
+      <span class="salutation">Dear <strong><span id="outName">Bereket Kasahun</span></strong></span>
+      <span class="candidate-info"><strong>Candidate Number: <span id="outCandidate">APP-2026-6363</span></strong></span>
     </div>
 
     <!-- Centered Subject Line -->
