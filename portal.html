@@ -71,7 +71,7 @@
     .dashboard-header h1 { margin: 0 0 5px 0; color: var(--ink); font-size: 28px; }
     .dashboard-header p { margin: 0; color: var(--muted); font-size: 15px; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
     
     .staff-card { 
       background: #fff; 
@@ -82,6 +82,8 @@
       position: relative;
       overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .staff-card:hover {
       transform: translateY(-4px);
@@ -92,6 +94,7 @@
     .staff-card.border-pink { border-top: 5px solid var(--pink); }
     .staff-card.border-blue { border-top: 5px solid #4285F4; }
     .staff-card.border-dark { border-top: 5px solid #34343b; }
+    .staff-card.border-green { border-top: 5px solid #28a745; }
 
     .card-icon {
       width: 48px;
@@ -106,9 +109,10 @@
     .bg-pink { background: #ffe9f1; color: var(--pink); }
     .bg-blue { background: #e8f0fe; color: #4285F4; }
     .bg-dark { background: #f0f0f0; color: #34343b; }
+    .bg-green { background: #e8f5ed; color: #28a745; }
 
     .staff-card h3 { margin: 0 0 10px 0; color: var(--ink); font-size: 18px; }
-    .staff-card p { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 25px; min-height: 45px;}
+    .staff-card p { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 25px; flex-grow: 1;}
     
     .copy-success { color: var(--green); font-size: 13px; font-weight: bold; margin-left: 10px; display: none; }
 
@@ -245,33 +249,41 @@
       <div class="wrap">
         <div class="dashboard-header">
           <h1>Admissions Dashboard</h1>
-          <p>Welcome back. Manage student admissions, generate letters, and track acceptances.</p>
+          <p>Manage student admissions, generate letters, and track acceptances.</p>
         </div>
         
         <div class="grid">
-          <!-- Card 1: Generate Letter -->
+          <!-- Card 1: Paid Diploma Letter -->
           <div class="staff-card border-pink">
-            <div class="card-icon bg-pink">📄</div>
-            <h3>Generate Admission Letter</h3>
-            <p>Fill in a student's details, generate their official offer letter, and save it as a PDF.</p>
-            <a href="https://www.logi.education/admission-letter" target="_blank" class="btn">Open Generator</a>
+            <div class="card-icon bg-pink">💳</div>
+            <h3>Paid Diploma Letter ($250)</h3>
+            <p>Generate an admission letter for Advanced Professional Diploma students. Includes the 60% initial payment instructions.</p>
+            <a href="/paid-diploma.html" target="_blank" class="btn">Generate Paid Letter</a>
           </div>
 
-          <!-- Card 2: Acceptance Form Link -->
+          <!-- Card 2: Free + $20 Cert Letter -->
           <div class="staff-card border-dark">
-            <div class="card-icon bg-dark">🔗</div>
-            <h3>Acceptance Form Link</h3>
-            <p>Copy this link and paste it into the "Acceptance Link" field in the letter generator.</p>
-            <button class="btn" style="background:#34343b;" onclick="copyLink()">Copy Form Link</button>
-            <span class="copy-success" id="copySuccess">Copied!</span>
+            <div class="card-icon bg-dark">🏷️</div>
+            <h3>Free Tuition + $20 Cert</h3>
+            <p>Generate an admission letter for Business Certificate students. Tuition is free, with an optional $20 certification fee.</p>
+            <a href="/business-cert.html" target="_blank" class="btn" style="background:#34343b;">Generate Cert Letter</a>
           </div>
 
-          <!-- Card 3: View Submissions -->
+          <!-- Card 3: Completely Free Letter -->
+          <div class="staff-card border-green">
+            <div class="card-icon bg-green">🕊️</div>
+            <h3>Completely Free (Ministry)</h3>
+            <p>Generate an admission letter for Ministry & Theology students. 100% free, no payment required.</p>
+            <a href="/ministry-free.html" target="_blank" class="btn" style="background:#28a745;">Generate Free Letter</a>
+          </div>
+
+          <!-- Card 4: Acceptance Form Link -->
           <div class="staff-card border-blue">
-            <div class="card-icon bg-blue">📬</div>
-            <h3>View Submissions</h3>
-            <p>Acceptance forms are sent directly to your inbox. Check your email to review responses.</p>
-            <a href="https://mail.google.com" target="_blank" class="btn" style="background:#4285F4;">Open Gmail</a>
+            <div class="card-icon bg-blue">🔗</div>
+            <h3>Acceptance Form Link</h3>
+            <p>Copy this link and paste it into the "Acceptance Link" field in any of the letter generators.</p>
+            <button class="btn" style="background:#4285F4;" onclick="copyLink()">Copy Form Link</button>
+            <span class="copy-success" id="copySuccess">Copied!</span>
           </div>
         </div>
       </div>
@@ -329,7 +341,8 @@
 
   // --- HELPERS ---
   function copyLink() {
-    const acceptanceUrl = "https://www.logi.education/acceptance_form.html";
+    // Updated to your exact URL
+    const acceptanceUrl = "https://www.logi.education/admission-letter"; 
     navigator.clipboard.writeText(acceptanceUrl).then(() => {
       const successMsg = document.getElementById('copySuccess');
       successMsg.style.display = 'inline';
