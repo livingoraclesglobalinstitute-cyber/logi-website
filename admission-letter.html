@@ -176,12 +176,12 @@
     <div class="field"><label>School</label><input id="school" value="School of Engineering & Technology"></div>
     <div class="field"><label>Mode of Study</label><input id="mode" value="online"></div>
     
-    <!-- NEW PAYMENT TYPE DROPDOWN -->
+    <!-- PAYMENT TYPE DROPDOWN -->
     <div class="field full">
       <label>Payment Type</label>
       <select id="paymentType" onchange="toggleCustomFields()">
-        <option value="paid">Paid Diploma ($250)</option>
         <option value="cert-fee">Free Tuition + $20 Certification Fee</option>
+        <option value="paid">Paid Diploma ($250)</option>
         <option value="free">Completely Free (Ministry)</option>
       </select>
     </div>
@@ -191,7 +191,7 @@
       <input id="fee" value="USD 250">
     </div>
     
-    <div class="field full"><label>Payment Link (Required for Paid/Cert-Fee)</label><input id="paymentLink" value="https://www.logi.education/payment-link"></div>
+    <div class="field full"><label>Payment Link (Required)</label><input id="paymentLink" value="https://www.logi.education/payment-link"></div>
     <div class="field full"><label>Acceptance Link (Required)</label><input id="acceptanceLink" value="https://www.logi.education/acceptance"></div>
     <div class="field full"><label>Acceptance Deadline</label><input id="acceptanceDeadline" value="20th November 2026"></div>
     
@@ -309,10 +309,11 @@
     const feeField = document.getElementById('feeField');
     
     if (type === 'free') {
-      feeField.style.display = 'none'; // Hide manual fee for free programmes
+      feeField.style.display = 'none'; 
     } else {
       feeField.style.display = 'flex';
     }
+    updateLetter(); // Instantly update the letter when dropdown changes
   }
 
   function updateLetter() {
@@ -325,6 +326,8 @@
     const phone = document.getElementById('phone').value;
     const date = document.getElementById('letterDate').value;
     const paymentType = document.getElementById('paymentType').value;
+    const manualFee = document.getElementById('fee').value;
+    const payLinkValue = document.getElementById('paymentLink').value;
 
     // Basic Info Updates
     document.getElementById('outName').innerText = name;
@@ -338,42 +341,35 @@
     document.getElementById('outPhone').innerText = phone;
     document.getElementById('outDate').innerText = date;
 
-    // Payment Links
-    const payLinkValue = document.getElementById('paymentLink').value;
-    const payLinkElement = document.getElementById('outPayLink');
-    payLinkElement.innerText = payLinkValue;
-    payLinkElement.href = payLinkValue;
-
+    // Acceptance Link and Deadline
     const acceptLinkValue = document.getElementById('acceptanceLink').value;
     const acceptLinkElement = document.getElementById('outAcceptLink');
     acceptLinkElement.innerText = acceptLinkValue;
     acceptLinkElement.href = acceptLinkValue;
-
     document.getElementById('outDeadline').innerText = document.getElementById('acceptanceDeadline').value;
 
     // --- DYNAMIC FEE TEXT BASED ON DROPDOWN ---
     const point3 = document.getElementById('point3');
     const point4 = document.getElementById('point4');
-    const outFee = document.getElementById('outFee');
-    const manualFee = document.getElementById('fee').value;
 
     if (paymentType === 'free') {
-      // MINISTRY (COMPLETELY FREE)
+      // COMPLETELY FREE (MINISTRY)
       point3.innerHTML = `The programme is <strong>completely free</strong>, including training and certification. No tuition or certification fees apply.`;
       point4.style.display = 'none'; // Hide payment point entirely
-
-    } else if (paymentType === 'cert-fee') {
+    } 
+    else if (paymentType === 'cert-fee') {
       // BUSINESS CERTIFICATE ($20 FEE)
       point3.innerHTML = `There is no tuition charge for this programme. However, a <strong>$20.00 certification fee</strong> applies upon completion.`;
       point4.style.display = 'list-item';
-      point4.innerHTML = `<strong>Certification Payment:</strong> To receive your certificate at the end of the programme, you are required to pay the $20.00 certification fee using this link: <a href="#" id="outPayLink2">${payLinkValue}</a>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
-
-    } else {
+      // Injecting the link dynamically
+      point4.innerHTML = `<strong>Certification Payment:</strong> To receive your certificate at the end of the programme, you are required to pay the $20.00 certification fee using this link: <a href="${payLinkValue}" target="_blank">${payLinkValue}</a>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
+    } 
+    else {
       // PAID DIPLOMA ($250)
-      outFee.innerText = manualFee;
       point3.innerHTML = `The programme fee is <strong>${manualFee}</strong>. The fee covers the programme's training and certification examination.`;
       point4.style.display = 'list-item';
-      point4.innerHTML = `<strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="#" id="outPayLink3">${payLinkValue}</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
+      // Injecting the link dynamically
+      point4.innerHTML = `<strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="${payLinkValue}" target="_blank">${payLinkValue}</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong>${candidate}</strong> in all correspondence.`;
     }
   }
   
