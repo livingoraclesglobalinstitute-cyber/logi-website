@@ -72,39 +72,30 @@
     line-height: 1.5;
   }
 
-  /* --- LETTERHEAD FORMAT (Exact KTU Style) --- */
-  .header-top {
+  /* --- EXACT KTU LETTERHEAD FORMAT --- */
+  .header-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
-  .logo-left {
-    width: 80px;
-    height: auto;
-  }
-  .address-right {
-    text-align: right;
+  .header-left {
     font-size: 12pt;
     line-height: 1.4;
   }
-  
-  /* Date and Subject */
-  .date-line {
-    margin-bottom: 25px;
+  .header-right {
     font-size: 12pt;
+    text-align: right;
   }
-
+  
   /* Recipient Block */
   .recipient {
     font-size: 12pt;
     margin-bottom: 25px;
     line-height: 1.4;
   }
-  .recipient-name {
-    font-weight: bold;
-  }
   
+  /* Subject Line */
   .subject-line {
     text-align: center;
     font-weight: bold;
@@ -161,6 +152,11 @@
   .signature-title {
     font-weight: bold;
     text-transform: uppercase;
+    font-size: 11pt;
+    margin-top: 2px;
+  }
+  
+  .signature-email {
     font-size: 11pt;
     margin-top: 2px;
   }
@@ -230,27 +226,20 @@
   
   <div class="content">
     
-    <!-- Header matching KTU Format -->
-    <div class="header-top">
-      <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo" class="logo-left">
-      <div class="address-right">
-        Living Oracles Global Institute<br>
-        Official Admissions Office<br>
-        www.logi.education<br>
-        admissions@logi.education
+    <!-- Header matching KTU Format exactly (No top logo, city/phone left, date right) -->
+    <div class="header-container">
+      <div class="header-left">
+        Wolayita, Ethiopia<br>
+        +251 906 473 979
       </div>
-    </div>
-
-    <!-- Date -->
-    <div class="date-line" id="outDate">
-      7 November 2026
+      <div class="header-right" id="outDate">
+        7 November 2026
+      </div>
     </div>
 
     <!-- Recipient -->
     <div class="recipient">
-      <span id="outLocation">Wolayita, Ethiopia</span><br>
-      <span id="outEmail">bekkast768@gmail.com</span><br><br>
-      Dear <span class="recipient-name" id="outName">BEREKET KASAHUN</span> Candidate Number: <span id="outCandidate">APP-2026-6363</span>
+      Dear <strong><span id="outName">BEREKET KASAHUN</span></strong> Candidate Number: <span id="outCandidate">APP-2026-6363</span>
     </div>
 
     <!-- Subject -->
@@ -260,7 +249,7 @@
 
     <!-- Introduction -->
     <div class="intro">
-      With reference to your application, I am pleased to offer you provisional admission to Living Oracles Global Institute to pursue a <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong>. Your admission is for <span id="outMode">online</span> study under the <span id="outSchool">School of Engineering & Technology</span>.
+      With reference to your application, I am pleased to offer you provisional admission to Living Oracles Global Institute to pursue a <span id="outDuration">programme</span> in <strong><span id="outProgramme2">Advanced Professional Diploma in Project, Quality & Process Management (APDPQPM)</span></strong> (online session) beginning at the current level. 
     </div>
 
     <!-- Conditions List -->
@@ -292,13 +281,13 @@
     <div class="signature-section">
       <div class="signature-block">
         <!-- Using the raw GitHub URL for the SVG signature -->
-        <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="President Signature" class="signature-image">
-        <div class="signature-name">PROPHET ING. STEPHEN ADUSEI</div>
-        <div class="signature-title">PRESIDENT</div>
+        <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Registrar Signature" class="signature-image">
+        <div class="signature-name">MR. STEPHEN ELIAN</div>
+        <div class="signature-title">REGISTRAR</div>
+        <div class="signature-email">registrar@logi.education</div>
       </div>
       
       <div class="qr-block">
-        <!-- Generates a QR code pointing to the LOGI website -->
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.logi.education" alt="QR Code">
         <br>Scan to verify
       </div>
@@ -334,6 +323,9 @@
     document.getElementById('outLocation').innerText = location;
     document.getElementById('outEmail').innerText = email;
     document.getElementById('outDate').innerText = date;
+    
+    // Dynamically update header left side based on location
+    document.querySelector('.header-left').innerHTML = location + '<br>+251 906 473 979';
   }
   
   // Initialize on page load
