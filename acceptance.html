@@ -29,7 +29,7 @@
     min-height: 100vh;
   }
 
-  /* Topbar */
+  /* Topbar (Matching your website) */
   .topbar {
     height: 64px;
     display: flex;
@@ -200,7 +200,7 @@
 </head>
 <body>
 
-<!-- Header -->
+<!-- Header matching your website -->
 <header class="topbar">
   <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
   <nav class="nav">
@@ -218,14 +218,15 @@
       <p>Living Oracles Global Institute</p>
     </div>
 
+    <!-- FormSubmit.co handles the email delivery -->
     <form action="https://formsubmit.co/registrar@logi.education" method="POST">
       
       <!-- FormSubmit Configuration -->
       <input type="hidden" name="_subject" value="New Admission Acceptance - LOGI">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
-      
-      <!-- REMOVED THE _next URL HERE SO IT DOES NOT REDIRECT TO A BROKEN PAGE -->
+      <!-- Where to redirect after submission (Change if needed) -->
+      <input type="hidden" name="_next" value="https://www.logi.education/thank-you">
 
       <div class="form-group">
         <label>Student Full Name</label>
@@ -259,7 +260,7 @@
   </div>
 </div>
 
-<!-- Footer -->
+<!-- Footer matching your website -->
 <footer class="footer">
   Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
 </footer>
