@@ -170,11 +170,11 @@
 <div class="controls">
   <h2>LOGI Admission Letter Generator</h2>
   <div class="form-grid">
-    <div class="field"><label>Student Name</label><input id="studentName" value="Asfaw Welmedehin"></div>
-    <div class="field"><label>Application Number</label><input id="candidateNumber" value="APP-2026-7572"></div>
-    <div class="field full"><label>Programme</label><input id="programme" value="Certificate in Business Analysis & Process Improvement (CBAPI)"></div>
-    <div class="field"><label>School</label><input id="school" value="School of Engineering & Technology"></div>
-    <div class="field"><label>Mode of Study</label><input id="mode" value="online"></div>
+    <div class="field"><label>Student Name</label><input id="studentName" value="Asfaw Welmedehin" oninput="updateLetter()"></div>
+    <div class="field"><label>Application Number</label><input id="candidateNumber" value="APP-2026-7572" oninput="updateLetter()"></div>
+    <div class="field full"><label>Programme</label><input id="programme" value="Certificate in Business Analysis & Process Improvement (CBAPI)" oninput="updateLetter()"></div>
+    <div class="field"><label>School</label><input id="school" value="School of Engineering & Technology" oninput="updateLetter()"></div>
+    <div class="field"><label>Mode of Study</label><input id="mode" value="online" oninput="updateLetter()"></div>
     
     <!-- PAYMENT TYPE DROPDOWN -->
     <div class="field full">
@@ -188,16 +188,16 @@
 
     <div class="field full" id="feeField">
       <label>Programme Fee (Manual override)</label>
-      <input id="fee" value="USD 250">
+      <input id="fee" value="USD 250" oninput="updateLetter()">
     </div>
     
-    <div class="field full"><label>Payment Link (Required)</label><input id="paymentLink" value="https://www.logi.education/payment-link"></div>
-    <div class="field full"><label>Acceptance Link (Required)</label><input id="acceptanceLink" value="https://www.logi.education/acceptance"></div>
-    <div class="field full"><label>Acceptance Deadline</label><input id="acceptanceDeadline" value="20th November 2026"></div>
+    <div class="field full"><label>Payment Link (Required)</label><input id="paymentLink" value="https://www.logi.education/payment-link" oninput="updateLetter()"></div>
+    <div class="field full"><label>Acceptance Link (Required)</label><input id="acceptanceLink" value="https://www.logi.education/acceptance" oninput="updateLetter()"></div>
+    <div class="field full"><label>Acceptance Deadline</label><input id="acceptanceDeadline" value="20th November 2026" oninput="updateLetter()"></div>
     
-    <div class="field"><label>Location/Country</label><input id="location" value="Gurd Shola, Ethiopia"></div>
-    <div class="field"><label>Phone Number</label><input id="phone" value="+251 949 558 627"></div>
-    <div class="field full"><label>Date of Letter</label><input id="letterDate" value="9 November 2026"></div>
+    <div class="field"><label>Location/Country</label><input id="location" value="Gurd Shola, Ethiopia" oninput="updateLetter()"></div>
+    <div class="field"><label>Phone Number</label><input id="phone" value="+251 949 558 627" oninput="updateLetter()"></div>
+    <div class="field full"><label>Date of Letter</label><input id="letterDate" value="9 November 2026" oninput="updateLetter()"></div>
   </div>
   <div class="actions">
     <button type="button" onclick="updateLetter()">Update Letter</button>
@@ -354,19 +354,19 @@
 
     if (paymentType === 'free') {
       // COMPLETELY FREE (MINISTRY)
-      point3.innerHTML = `The programme is <strong>completely free</strong>, including training and certification. No tuition or certification fees apply.`;
+      point3.innerHTML = `The programme is <strong>completely free</strong>, including training and certification. No tuition or certification fees apply. A program report will be provided free of charge.`;
       point4.style.display = 'none'; // Hide payment point entirely
     } 
     else if (paymentType === 'cert-fee') {
-      // BUSINESS CERTIFICATE ($20 FEE)
-      point3.innerHTML = `There is no tuition charge for this programme. However, a <strong>$20.00 certification fee</strong> applies upon completion.`;
+      // BUSINESS CERTIFICATE ($20 FEE - OPTIONAL)
+      point3.innerHTML = `There is no tuition charge for this programme. A <strong>$20.00 certification fee applies upon completion (Optional)</strong>. A program report will be provided free of charge.`;
       point4.style.display = 'list-item';
       // Injecting the link dynamically
-      point4.innerHTML = `<strong>Certification Payment:</strong> To receive your certificate at the end of the programme, you are required to pay the $20.00 certification fee using this link: <a href="${payLinkValue}" target="_blank">${payLinkValue}</a>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
+      point4.innerHTML = `<strong>Certification Payment:</strong> To receive your certificate at the end of the programme, you are required to pay the <strong>$20.00 certification fee</strong> using this link: <a href="${payLinkValue}" target="_blank">${payLinkValue}</a>. Quote your application number, <strong>${candidate}</strong>, in all correspondence.`;
     } 
     else {
       // PAID DIPLOMA ($250)
-      point3.innerHTML = `The programme fee is <strong>${manualFee}</strong>. The fee covers the programme's training and certification examination.`;
+      point3.innerHTML = `The programme fee is <strong>${manualFee}</strong>. The fee covers the programme's training and certification examination. A program report will be provided free of charge.`;
       point4.style.display = 'list-item';
       // Injecting the link dynamically
       point4.innerHTML = `<strong>Payment:</strong> To confirm your place, you are required to make an <strong>initial payment of at least 60%</strong> of the fees using this link: <a href="${payLinkValue}" target="_blank">${payLinkValue}</a>. The <strong>remaining balance must be settled at the end of the programme prior to receiving your certificate</strong>. Quote your application number, <strong>${candidate}</strong> in all correspondence.`;
