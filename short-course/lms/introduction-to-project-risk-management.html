@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Introduction to Project Risk Management">
+  <title>LOGI LMS · Introduction to Project Risk Management</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Introduction to Project Risk Management
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'risk-mgmt-101',
+  title: 'Introduction to Project Risk Management',
+  desc: 'Understand how project teams identify uncertainty, assess potential effects and plan responses. This course introduces practical risk registers and monitoring throughout a project lifecycle.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Project Risk Fundamentals",
+      lessons: [{
+        title: "Understanding Risk in Projects",
+        duration: "45 minutes",
+        html: `<p><b>Project risk</b> is an uncertain event or condition that, if it occurs, has a positive or negative effect on one or more project objectives. Risk management is the structured process of identifying, assessing, planning responses to and monitoring these uncertainties.</p>
+<div class="callout"><b>Core principle:</b> Risk is not the same as an issue. A risk has not happened yet — it may. An issue has already happened and must be managed now.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to define risk and risk management, distinguish risk from issue, identify the six project objectives risk can affect, and explain why risk management matters.</p>
+<h3>1. Risk vs. issue</h3>
+<table class="compare"><tr><th>Risk</th><th>Issue</th></tr><tr><td>Uncertain — may happen</td><td>Certain — has happened</td></tr><tr><td>Managed through response plans</td><td>Managed through issue resolution</td></tr><tr><td>Preventive or preparatory</td><td>Corrective or reactive</td></tr><tr><td>Held in risk register</td><td>Held in issue log</td></tr></table>
+<h3>2. Threats and opportunities</h3>
+<p>Risk includes both threats (negative effects) and opportunities (positive effects). Opportunity management is not just "good luck" — it is planned. Both threats and opportunities need identification, assessment and response.</p>
+<h3>3. The six objectives risk can affect</h3>
+<div class="diagram">
+  <svg viewBox="0 0 620 260" role="img" aria-label="Six project objectives that risk can affect">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Risk affects six project objectives</text>
+      <circle cx="310" cy="130" r="55" fill="#ff4b93"/>
+      <text x="310" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">Project</text>
+      <text x="310" y="143" text-anchor="middle" font-size="11" fill="#fff">risk</text>
+      <g fill="#fff" stroke="#e93680" stroke-width="2">
+        <circle cx="120" cy="80" r="34"/>
+        <circle cx="500" cy="80" r="34"/>
+        <circle cx="120" cy="180" r="34"/>
+        <circle cx="500" cy="180" r="34"/>
+        <circle cx="310" cy="30" r="34"/>
+        <circle cx="310" cy="230" r="34"/>
+      </g>
+      <g text-anchor="middle" font-weight="bold" fill="#333" font-size="11">
+        <text x="120" y="78">Time</text>
+        <text x="120" y="92" font-size="9" fill="#777">schedule</text>
+        <text x="500" y="78">Cost</text>
+        <text x="500" y="92" font-size="9" fill="#777">budget</text>
+        <text x="120" y="178">Scope</text>
+        <text x="120" y="192" font-size="9" fill="#777">deliverables</text>
+        <text x="500" y="178">Quality</text>
+        <text x="500" y="192" font-size="9" fill="#777">specs</text>
+        <text x="310" y="28">Benefits</text>
+        <text x="310" y="42" font-size="9" fill="#777">outcomes</text>
+        <text x="310" y="228">Risk</text>
+        <text x="310" y="242" font-size="9" fill="#777">secondary</text>
+      </g>
+      <g stroke="#e9e8ef" stroke-width="2">
+        <line x1="310" y1="130" x2="154" y2="80"/>
+        <line x1="310" y1="130" x2="466" y2="80"/>
+        <line x1="310" y1="130" x2="154" y2="180"/>
+        <line x1="310" y1="130" x2="466" y2="180"/>
+        <line x1="310" y1="130" x2="310" y2="64"/>
+        <line x1="310" y1="130" x2="310" y2="196"/>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Every risk affects at least one of the six project objectives.</div>
+</div>
+<h3>4. Why risk management matters</h3>
+<ul>
+  <li>Reduces surprises and crisis firefighting.</li>
+  <li>Enables better decisions earlier.</li>
+  <li>Allocates contingency where it is needed.</li>
+  <li>Improves stakeholder confidence.</li>
+  <li>Creates opportunities deliberately, not accidentally.</li>
+</ul>
+<h3>5. The risk management process</h3>
+<div class="diagram">
+  <svg viewBox="0 0 620 120" role="img" aria-label="Five-step risk management process">
+    <defs>
+      <marker id="prc" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <g>
+        <rect x="10" y="40" width="110" height="60" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="65" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">Identify</text>
+        <text x="65" y="83" text-anchor="middle" font-size="10" fill="#555">find the risks</text>
+      </g>
+      <g>
+        <rect x="130" y="40" width="110" height="60" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="185" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">Assess</text>
+        <text x="185" y="83" text-anchor="middle" font-size="10" fill="#555">likelihood, impact</text>
+      </g>
+      <g>
+        <rect x="250" y="40" width="110" height="60" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="305" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">Prioritise</text>
+        <text x="305" y="83" text-anchor="middle" font-size="10" fill="#555">rank by severity</text>
+      </g>
+      <g>
+        <rect x="370" y="40" width="110" height="60" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="425" y="65" text-anchor="middle" font-weight="bold" fill="#e93680">Respond</text>
+        <text x="425" y="83" text-anchor="middle" font-size="10" fill="#555">plan action</text>
+      </g>
+      <g>
+        <rect x="490" y="40" width="120" height="60" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="550" y="65" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Monitor</text>
+        <text x="550" y="83" text-anchor="middle" font-size="10" fill="#555">track and review</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="120" y1="70" x2="128" y2="70" marker-end="url(#prc)"/>
+        <line x1="240" y1="70" x2="248" y2="70" marker-end="url(#prc)"/>
+        <line x1="360" y1="70" x2="368" y2="70" marker-end="url(#prc)"/>
+        <line x1="480" y1="70" x2="488" y2="70" marker-end="url(#prc)"/>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">The risk management process runs continuously throughout the project.</div>
+</div>
+<h3>6. Common risk misconceptions</h3>
+<ul>
+  <li>"Risk management is only done at the start" — it is continuous.</li>
+  <li>"Risk = danger only" — risk also includes opportunity.</li>
+  <li>"All risks must be eliminated" — some are accepted or transferred.</li>
+  <li>"A risk register is enough" — it must be reviewed and used.</li>
+</ul>`,
+        quiz: [
+          { q: "How does risk differ from an issue?", opts: ["Risk is uncertain future event", "Risk is already past event", "Risk is same as issue", "Risk is only positive event"], answer: 0, explanation: "Risk is an uncertain future event; an issue has already occurred." },
+          { q: "What do risks include besides threats?", opts: ["Positive opportunities too", "Only negative threats", "Only financial losses", "Only schedule delays"], answer: 0, explanation: "Risk includes both threats (negative) and opportunities (positive) that could affect objectives." },
+          { q: "How many objectives risk affects?", opts: ["Six key objectives", "Three main objectives", "Five standard objectives", "Four basic objectives"], answer: 0, explanation: "Risk can affect six project objectives: time, cost, scope, quality, benefits and risk itself." },
+          { q: "Which is first risk process step?", opts: ["Identify potential risks", "Plan the responses", "Assess every impact", "Monitor the register"], answer: 0, explanation: "Risk identification is the first step in the risk management process." },
+          { q: "What does continuous risk mean?", opts: ["Ongoing throughout project", "Done once at start", "Only at project close", "Only when triggered"], answer: 0, explanation: "Risk management is continuous — risks are reviewed and updated throughout the project." }
+        ]
+      }]
+    },
+    {
+      title: "Identifying Project Risks",
+      lessons: [{
+        title: "Techniques for Finding Risks Early",
+        duration: "50 minutes",
+        html: `<p>Risk identification is a creative, structured process to surface threats and opportunities before they become issues. Good identification is broad first, then sharp: generate many candidates, then refine and prioritise. The goal is to find risks <i>before</i> they surprise the project.</p>
+<div class="callout"><b>Core principle:</b> A risk that has not been identified cannot be managed. Broad identification at the start saves costly surprises later.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to use common identification techniques, write clear risk statements, and describe the sources of risk in projects.</p>
+<h3>1. Sources of project risk</h3>
+<table class="compare"><tr><th>Category</th><th>Example</th></tr><tr><td>Technical</td><td>New technology untested at scale</td></tr><tr><td>Schedule</td><td>Supplier delivery delays</td></tr><tr><td>Cost</td><td>Currency fluctuations</td></tr><tr><td>Quality</td><td>Defect rate above target</td></tr><tr><td>Resource</td><td>Key staff unavailable</td></tr><tr><td>External</td><td>Regulatory changes</td></tr><tr><td>Organisational</td><td>Competing priorities</td></tr><tr><td>Stakeholder</td><td>Conflicting requirements</td></tr></table>
+<h3>2. Common identification techniques</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 300" role="img" aria-label="Risk identification techniques">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Risk identification techniques</text>
+      <g>
+        <rect x="20" y="50" width="190" height="90" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="115" y="75" text-anchor="middle" font-weight="bold" fill="#e93680">Brainstorming</text>
+        <text x="115" y="95" text-anchor="middle" font-size="10" fill="#555">team generates ideas</text>
+        <text x="115" y="112" text-anchor="middle" font-size="10" fill="#555">prompts by category</text>
+      </g>
+      <g>
+        <rect x="225" y="50" width="190" height="90" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="320" y="75" text-anchor="middle" font-weight="bold" fill="#e93680">Checklists</text>
+        <text x="320" y="95" text-anchor="middle" font-size="10" fill="#555">common risk prompts</text>
+        <text x="320" y="112" text-anchor="middle" font-size="10" fill="#555">industry standard lists</text>
+      </g>
+      <g>
+        <rect x="430" y="50" width="190" height="90" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="525" y="75" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Interviews</text>
+        <text x="525" y="95" text-anchor="middle" font-size="10" fill="#555">experts and stakeholders</text>
+        <text x="525" y="112" text-anchor="middle" font-size="10" fill="#555">past experience shared</text>
+      </g>
+      <g>
+        <rect x="20" y="160" width="190" height="90" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="115" y="185" text-anchor="middle" font-weight="bold" fill="#e93680">SWOT analysis</text>
+        <text x="115" y="205" text-anchor="middle" font-size="10" fill="#555">strengths, weaknesses</text>
+        <text x="115" y="222" text-anchor="middle" font-size="10" fill="#555">opportunities, threats</text>
+      </g>
+      <g>
+        <rect x="225" y="160" width="190" height="90" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="320" y="185" text-anchor="middle" font-weight="bold" fill="#e93680">Assumption log</text>
+        <text x="320" y="205" text-anchor="middle" font-size="10" fill="#555">list assumptions made</text>
+        <text x="320" y="222" text-anchor="middle" font-size="10" fill="#555">turn into candidate risks</text>
+      </g>
+      <g>
+        <rect x="430" y="160" width="190" height="90" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="525" y="185" text-anchor="middle" font-weight="bold" fill="#e93680">Documentation review</text>
+        <text x="525" y="205" text-anchor="middle" font-size="10" fill="#555">review specs and plans</text>
+        <text x="525" y="222" text-anchor="middle" font-size="10" fill="#555">identify what could fail</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Use several techniques together — each surfaces risks the others miss.</div>
+</div>
+<h3>3. Writing a clear risk statement</h3>
+<p>A good risk statement has three parts:</p>
+<ul>
+  <li><b>Cause</b> — the situation or event that could trigger the risk.</li>
+  <li><b>Event</b> — the uncertain occurrence (what might happen).</li>
+  <li><b>Effect</b> — the impact on project objectives if the event occurs.</li>
+</ul>
+<p><b>Example:</b> "Because <i>the supplier has not worked with this alloy before</i> [cause], <i>delivery may slip by four weeks</i> [event], <i>delaying site installation and adding cost</i> [effect]."</p>
+<h3>4. Prompt structures</h3>
+<p>To prompt broad thinking, use structures such as:</p>
+<ul>
+  <li><b>Cause-effect</b> — "what would cause X, and what would that affect?"</li>
+  <li><b>6M</b> — Man, Machine, Method, Material, Measurement, Environment.</li>
+  <li><b>PDCA</b> — Plan, Do, Check, Act — what could go wrong at each stage?</li>
+  <li><b>Risk workshops</b> — multi-stakeholder sessions with structured prompts.</li>
+</ul>
+<h3>5. Common identification failures</h3>
+<ul>
+  <li>Only identifying obvious risks — missing subtle or cross-functional ones.</li>
+  <li>Not involving end users or operators.</li>
+  <li>Not considering opportunities.</li>
+  <li>Writing vague statements ("issues may arise").</li>
+  <li>Not recording assumptions that become risk seeds.</li>
+</ul>`,
+        quiz: [
+          { q: "Why broad risk identification?", opts: ["Finds unseen risks", "Removes all risk", "Avoids all planning", "Replaces the register"], answer: 0, explanation: "Broad identification surfaces risks that narrower approaches miss." },
+          { q: "What is good risk statement?", opts: ["Cause, event, effect", "Owner, date, cost", "Colour, size, weight", "Team, budget, scope"], answer: 0, explanation: "A clear risk statement includes the cause, the uncertain event and the effect on objectives." },
+          { q: "What does SWOT stand for?", opts: ["Strengths, weaknesses, opportunities, threats", "Scope, work, outputs, tasks", "Strategy, workflow, operations, testing", "Schedule, work, objectives, time"], answer: 0, explanation: "SWOT analyses strengths, weaknesses, opportunities and threats." },
+          { q: "Why use assumption log?", opts: ["Turns assumptions into risks", "Ignores hidden assumptions", "Removes all uncertainty", "Avoids team involvement"], answer: 0, explanation: "Assumptions, if they fail, become risks — the log helps surface them." },
+          { q: "What does 6M prompt cover?", opts: ["Man, machine, method, material", "Money, mind, motion, meaning", "Meet, manage, monitor, model", "Market, measure, maintain, modify"], answer: 0, explanation: "The 6M prompt covers Man, Machine, Method, Material, Measurement, Environment." }
+        ]
+      }]
+    },
+    {
+      title: "Assessing Likelihood and Impact",
+      lessons: [{
+        title: "Qualitative and Quantitative Risk Assessment",
+        duration: "50 minutes",
+        html: `<p>Risk assessment determines which risks deserve the most attention. <b>Likelihood</b> is the chance a risk event will occur. <b>Impact</b> is the effect it would have on objectives if it does. Together they determine the risk's <b>severity</b> — its priority for response.</p>
+<div class="callout"><b>Core principle:</b> Not all risks need detailed treatment. Assessment separates the few that need action from the many that need monitoring.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to build and use a probability-impact matrix, explain qualitative vs. quantitative assessment, and calculate expected monetary value (EMV).</p>
+<h3>1. Qualitative assessment</h3>
+<p>Qualitative assessment ranks risks using descriptive scales — for example, likelihood from Very Low to Very High, impact from Very Low to Very High. It is fast and requires no numerical data, but ranks risks by relative priority rather than precise value.</p>
+<h3>2. The probability-impact matrix</h3>
+<div class="diagram">
+  <svg viewBox="0 0 620 340" role="img" aria-label="Probability-impact matrix">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Probability-impact matrix</text>
+      <!-- Axes labels -->
+      <text x="310" y="45" text-anchor="middle" font-size="10" fill="#555">Impact →</text>
+      <text x="20" y="200" text-anchor="middle" font-size="10" fill="#555" transform="rotate(-90 20 200)">Probability →</text>
+      <!-- 3x3 grid -->
+      <!-- Row 1 (High prob) -->
+      <rect x="60" y="60" width="120" height="70" fill="#ffe0ee" stroke="#fff"/>
+      <text x="120" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#e93680">Medium</text>
+
+      <rect x="180" y="60" width="120" height="70" fill="#ffaad0" stroke="#fff"/>
+      <text x="240" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#c2185b">High</text>
+
+      <rect x="300" y="60" width="120" height="70" fill="#ff4b93" stroke="#fff"/>
+      <text x="360" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Critical</text>
+
+      <rect x="420" y="60" width="120" height="70" fill="#c2185b" stroke="#fff"/>
+      <text x="480" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Critical</text>
+
+      <!-- Row 2 (Medium prob) -->
+      <rect x="60" y="130" width="120" height="70" fill="#fff2f7" stroke="#fff"/>
+      <text x="120" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#e93680">Low</text>
+
+      <rect x="180" y="130" width="120" height="70" fill="#ffe0ee" stroke="#fff"/>
+      <text x="240" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#e93680">Medium</text>
+
+      <rect x="300" y="130" width="120" height="70" fill="#ffaad0" stroke="#fff"/>
+      <text x="360" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#c2185b">High</text>
+
+      <rect x="420" y="130" width="120" height="70" fill="#ff4b93" stroke="#fff"/>
+      <text x="480" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Critical</text>
+
+      <!-- Row 3 (Low prob) -->
+      <rect x="60" y="200" width="120" height="70" fill="#f5f5f8" stroke="#fff"/>
+      <text x="120" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#777">Trivial</text>
+
+      <rect x="180" y="200" width="120" height="70" fill="#fff2f7" stroke="#fff"/>
+      <text x="240" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#e93680">Low</text>
+
+      <rect x="300" y="200" width="120" height="70" fill="#ffe0ee" stroke="#fff"/>
+      <text x="360" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#e93680">Medium</text>
+
+      <rect x="420" y="200" width="120" height="70" fill="#ffaad0" stroke="#fff"/>
+      <text x="480" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#c2185b">High</text>
+
+      <!-- Axis labels -->
+      <text x="120" y="295" text-anchor="middle" font-size="10" fill="#777">Low</text>
+      <text x="240" y="295" text-anchor="middle" font-size="10" fill="#777">Medium</text>
+      <text x="360" y="295" text-anchor="middle" font-size="10" fill="#777">High</text>
+      <text x="480" y="295" text-anchor="middle" font-size="10" fill="#777">Very High</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Risks in the top-right (high probability, high impact) need priority response.</div>
+</div>
+<h3>3. Quantitative assessment</h3>
+<p>Quantitative assessment assigns numerical values — typically currency amounts or durations — to the impact of risks. It supports more precise decisions but requires more data and analysis.</p>
+<p><b>Expected Monetary Value (EMV)</b> = Probability × Impact.<br>
+Example: 30% chance of a GH¢50,000 loss → EMV = 0.30 × 50,000 = <b>GH¢15,000</b>. This is the "expected" cost of the risk, useful for contingency calculations.</p>
+<h3>4. Risk score and severity</h3>
+<p>A simple scoring method is <b>Risk Score = Likelihood × Impact</b>, each on a 1–5 scale. Score of 20–25 is critical; 12–16 is high; 5–9 is medium; 1–4 is low. Score determines priority but does not replace judgement — context matters.</p>
+<h3>5. Grouping and escalation</h3>
+<p>For large projects, risks are grouped and escalated to the appropriate management level. Low-severity risks stay with the team; medium with the project manager; high with the sponsor or board. Escalation should be explicit and fast.</p>
+<h3>6. Common assessment mistakes</h3>
+<ul>
+  <li>Using a scale that is not calibrated (what does "high" actually mean?).</li>
+  <li>Ignoring cumulative effect of many small risks.</li>
+  <li>Anchoring on first estimates without challenge.</li>
+  <li>Not reassessing as the project progresses.</li>
+</ul>`,
+        quiz: [
+          { q: "What does risk severity combine?", opts: ["Likelihood and impact", "Cost and duration", "Team and budget", "Scope and quality"], answer: 0, explanation: "Risk severity combines how likely the event is with how much impact it would have." },
+          { q: "What does EMV calculate here?", opts: ["Probability times impact", "Team size times cost", "Duration times scope", "Budget plus risk"], answer: 0, explanation: "Expected Monetary Value (EMV) = Probability × Impact, in monetary terms." },
+          { q: "Which risk needs priority?", opts: ["High probability, high impact", "Low probability, low impact", "Low probability, low cost", "Any risk with no owner"], answer: 0, explanation: "High-probability, high-impact risks sit in the critical zone and need urgent action." },
+          { q: "What is qualitative assessment?", opts: ["Ranks risks descriptively", "Calculates exact currency", "Replaces all planning", "Ignores all judgement"], answer: 0, explanation: "Qualitative assessment ranks risks using descriptive scales like High/Medium/Low." },
+          { q: "Why calibrate risk scales?", opts: ["Ensures consistent judgement", "Removes all uncertainty", "Avoids team input", "Skips the matrix"], answer: 0, explanation: "Calibrated scales ensure different assessors apply the same meaning to High, Medium, Low." }
+        ]
+      }]
+    },
+    {
+      title: "Planning Risk Responses",
+      lessons: [{
+        title: "Response Strategies for Threats and Opportunities",
+        duration: "50 minutes",
+        html: `<p>Once risks are assessed, the project plans <b>responses</b> — deliberate actions to reduce threats or exploit opportunities. Each risk should have an assigned <b>owner</b>, a chosen <b>strategy</b>, a defined <b>action</b> and a <b>trigger</b> that signals it is time to act.</p>
+<div class="callout"><b>Core principle:</b> Every significant risk should have a named owner. "The team will handle it" is not a response.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the response strategies for threats and for opportunities, assign owners, and recognise the role of triggers and contingency.</p>
+<h3>1. Strategies for threats</h3>
+<table class="compare"><tr><th>Strategy</th><th>Meaning</th><th>Example</th></tr><tr><td>Avoid</td><td>Eliminate the risk</td><td>Change scope to remove uncertain technology</td></tr><tr><td>Transfer</td><td>Shift to a third party</td><td>Insurance, fixed-price contract</td></tr><tr><td>Mitigate</td><td>Reduce likelihood or impact</td><td>Add testing, backup supplier</td></tr><tr><td>Accept</td><td>Acknowledge with no action (active/passive)</td><td>Monitor, hold contingency</td></tr><tr><td>Escalate</td><td>Raise to higher authority</td><td>Risk beyond project tolerance</td></tr></table>
+<h3>2. Strategies for opportunities</h3>
+<table class="compare"><tr><th>Strategy</th><th>Meaning</th><th>Example</th></tr><tr><td>Exploit</td><td>Ensure the opportunity is captured</td><td>Assign best team to fast-track</td></tr><tr><td>Enhance</td><td>Increase likelihood or impact</td><td>Add early customer engagement</td></tr><tr><td>Share</td><td>Partner to capture together</td><td>Joint venture with a partner</td></tr><tr><td>Accept</td><td>Take advantage if it arises</td><td>Monitor for the opportunity</td></tr><tr><td>Escalate</td><td>Raise beyond project authority</td><td>Organisation-wide opportunity</td></tr></table>
+<h3>3. Response components</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Components of a risk response">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">A complete risk response has six parts</text>
+      <g>
+        <rect x="20" y="60" width="190" height="70" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="115" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Strategy</text>
+        <text x="115" y="105" text-anchor="middle" font-size="10" fill="#555">avoid, mitigate, etc.</text>
+      </g>
+      <g>
+        <rect x="225" y="60" width="190" height="70" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="320" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Action</text>
+        <text x="320" y="105" text-anchor="middle" font-size="10" fill="#555">what will be done</text>
+      </g>
+      <g>
+        <rect x="430" y="60" width="190" height="70" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="525" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Owner</text>
+        <text x="525" y="105" text-anchor="middle" font-size="10" fill="#555">who is accountable</text>
+      </g>
+      <g>
+        <rect x="20" y="150" width="190" height="70" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="115" y="175" text-anchor="middle" font-weight="bold" fill="#e93680">Trigger</text>
+        <text x="115" y="195" text-anchor="middle" font-size="10" fill="#555">signal to act</text>
+      </g>
+      <g>
+        <rect x="225" y="150" width="190" height="70" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="320" y="175" text-anchor="middle" font-weight="bold" fill="#e93680">Contingency</text>
+        <text x="320" y="195" text-anchor="middle" font-size="10" fill="#555">reserve if needed</text>
+      </g>
+      <g>
+        <rect x="430" y="150" width="190" height="70" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="525" y="175" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Review date</text>
+        <text x="525" y="195" text-anchor="middle" font-size="10" fill="#555">when to reassess</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Every risk response documents strategy, action, owner, trigger, contingency and review date.</div>
+</div>
+<h3>4. Triggers</h3>
+<p>A trigger is a signal — a specific condition or threshold — that tells the team it is time to act. Examples: "if supplier misses the delivery date by more than five days", "if defect rate exceeds 2% for two days". Without triggers, responses wait passively instead of activating on time.</p>
+<h3>5. Contingency</h3>
+<p>Contingency is time, budget or resource reserved to cover known risks. It should be sized based on EMV and calibrated against the risk profile. A contingency that is never used is fine; one that is insufficient at the worst moment is not.</p>
+<h3>6. Common response mistakes</h3>
+<ul>
+  <li>Every risk "mitigated" — no other strategy used.</li>
+  <li>No named owner.</li>
+  <li>No triggers — responses sit idle.</li>
+  <li>Contingency not tied to actual risk profile.</li>
+  <li>Risks accepted informally without documentation.</li>
+</ul>`,
+        quiz: [
+          { q: "Which response eliminates risk?", opts: ["Strategy to avoid", "Strategy to transfer", "Strategy to accept", "Strategy to escalate"], answer: 0, explanation: "Avoidance eliminates the risk by changing the plan to remove its source." },
+          { q: "What does transfer strategy mean?", opts: ["Shifts risk to third", "Eliminates all risk", "Ignores all risk", "Increases the risk"], answer: 0, explanation: "Transfer shifts the risk to a third party, e.g. through insurance or fixed-price contracts." },
+          { q: "What does a trigger signal?", opts: ["Time to act", "Risk is gone", "Owner changed", "Budget returned"], answer: 0, explanation: "A trigger is a defined condition that signals the team should activate the response." },
+          { q: "What does contingency reserve?", opts: ["Time, cost, resources", "Team, tools, training", "Risks, issues, changes", "Notes, forms, registers"], answer: 0, explanation: "Contingency reserves time, budget or resources to cover known risks." },
+          { q: "What opportunity strategy enhances?", opts: ["Increases likelihood impact", "Eliminates the risk", "Avoids any action", "Cancels the project"], answer: 0, explanation: "Enhance increases the likelihood or impact of an opportunity being captured." }
+        ]
+      }]
+    },
+    {
+      title: "Risk Registers and Monitoring",
+      lessons: [{
+        title: "Maintaining the Register and Reviewing Risks",
+        duration: "45 minutes",
+        html: `<p>The <b>risk register</b> is the living record of every identified risk: its cause, event, effect, probability, impact, score, response, owner, trigger, status and review date. It is the primary tool for tracking and communicating project risk.</p>
+<div class="callout"><b>Core principle:</b> A risk register that is not reviewed is not a register — it is a document. Monitoring and review are what keep risk management useful.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the structure of a risk register, explain the review cycle, and recognise the role of risk reporting in project governance.</p>
+<h3>1. Typical register columns</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 260" role="img" aria-label="Sample risk register">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Risk register — sample rows</text>
+      <!-- Header -->
+      <rect x="20" y="50" width="600" height="30" fill="#ffe0ee" stroke="#e93680"/>
+      <text x="65" y="70" text-anchor="middle" font-weight="bold" fill="#e93680">ID</text>
+      <text x="135" y="70" text-anchor="middle" font-weight="bold" fill="#e93680">Description</text>
+      <text x="270" y="70" text-anchor="middle" font-weight="bold" fill="#e93680">L</text>
+      <text x="305" y="70" text-anchor="middle" font-weight="bold" fill="#e93680">I</text>
+      <text x="345" y="70" text-anchor="middle" font-weight="bold" fill="#e93680">Score</text>
+      <text x="420" y="70" text-anchor="middle" font-weight="bold" fill="#e93680">Response</text>
+      <text x="530" y="70" text-anchor="middle" font-weight="bold" fill="#e93680">Owner</text>
+
+      <!-- Row 1 -->
+      <rect x="20" y="80" width="600" height="35" fill="#fff" stroke="#ddd"/>
+      <text x="65" y="102" text-anchor="middle">R-01</text>
+      <text x="135" y="102" text-anchor="middle" font-size="10">Supplier delay</text>
+      <text x="270" y="102" text-anchor="middle">4</text>
+      <text x="305" y="102" text-anchor="middle">5</text>
+      <text x="345" y="102" text-anchor="middle" fill="#e93680" font-weight="bold">20</text>
+      <text x="420" y="102" text-anchor="middle" font-size="10">Mitigate</text>
+      <text x="530" y="102" text-anchor="middle" font-size="10">PM</text>
+
+      <!-- Row 2 -->
+      <rect x="20" y="115" width="600" height="35" fill="#fff" stroke="#ddd"/>
+      <text x="65" y="137" text-anchor="middle">R-02</text>
+      <text x="135" y="137" text-anchor="middle" font-size="10">Skill shortage</text>
+      <text x="270" y="137" text-anchor="middle">3</text>
+      <text x="305" y="137" text-anchor="middle">4</text>
+      <text x="345" y="137" text-anchor="middle" fill="#e93680" font-weight="bold">12</text>
+      <text x="420" y="137" text-anchor="middle" font-size="10">Enhance</text>
+      <text x="530" y="137" text-anchor="middle" font-size="10">HR Lead</text>
+
+      <!-- Row 3 -->
+      <rect x="20" y="150" width="600" height="35" fill="#fff" stroke="#ddd"/>
+      <text x="65" y="172" text-anchor="middle">R-03</text>
+      <text x="135" y="172" text-anchor="middle" font-size="10">Currency change</text>
+      <text x="270" y="172" text-anchor="middle">2</text>
+      <text x="305" y="172" text-anchor="middle">3</text>
+      <text x="345" y="172" text-anchor="middle" fill="#e93680" font-weight="bold">6</text>
+      <text x="420" y="172" text-anchor="middle" font-size="10">Accept</text>
+      <text x="530" y="172" text-anchor="middle" font-size="10">Finance</text>
+
+      <!-- Row 4 -->
+      <rect x="20" y="185" width="600" height="35" fill="#fff" stroke="#ddd"/>
+      <text x="65" y="207" text-anchor="middle">R-04</text>
+      <text x="135" y="207" text-anchor="middle" font-size="10">Design change</text>
+      <text x="270" y="207" text-anchor="middle">3</text>
+      <text x="305" y="207" text-anchor="middle">5</text>
+      <text x="345" y="207" text-anchor="middle" fill="#e93680" font-weight="bold">15</text>
+      <text x="420" y="207" text-anchor="middle" font-size="10">Avoid</text>
+      <text x="530" y="207" text-anchor="middle" font-size="10">Designer</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">The register tracks risk descriptions, scores, responses and owners in one place.</div>
+</div>
+<h3>2. Review cycle</h3>
+<ul>
+  <li><b>Weekly</b> — team reviews top risks at stand-ups.</li>
+  <li><b>Monthly</b> — project manager reviews full register, escalates as needed.</li>
+  <li><b>At each stage boundary</b> — significant reassessment of risk profile.</li>
+  <li><b>On trigger events</b> — as soon as a trigger condition is met.</li>
+  <li><b>On major changes</b> — scope, schedule, resource or external changes.</li>
+</ul>
+<h3>3. Risk status changes</h3>
+<table class="compare"><tr><th>Status</th><th>Meaning</th></tr><tr><td>Open — active</td><td>Currently a risk, response in place</td></tr><tr><td>Open — watch</td><td>Monitored, no action yet</td></tr><tr><td>Triggered</td><td>Event has occurred (or is imminent) — response activated</td></tr><tr><td>Closed</td><td>No longer a risk (occurred or passed)</td></tr><tr><td>Converted to issue</td><td>Risk has occurred and is now managed as an issue</td></tr></table>
+<h3>4. Risk reporting</h3>
+<p>Risk information is reported to governance in a form that supports decisions — not the full register, but the top risks, trends and any requiring decision. Reports usually include: current top risks, changes since last report, emerging risks, risks closed, and recommended actions.</p>
+<h3>5. Common register mistakes</h3>
+<ul>
+  <li>A register built once at project start and never updated.</li>
+  <li>No owner assigned to each risk.</li>
+  <li>Risks with no response plan.</li>
+  <li>Register used only by the project manager, not the team.</li>
+  <li>Risks closed without documenting the outcome.</li>
+</ul>`,
+        quiz: [
+          { q: "What is the risk register?", opts: ["Living record of risks", "Final project report", "List of team roles", "Budget tracking form"], answer: 0, explanation: "The risk register is the living record of all identified risks, their assessment and responses." },
+          { q: "How often should register be reviewed?", opts: ["Throughout the project", "Once at the start", "Only at project close", "Only when triggered"], answer: 0, explanation: "The register must be reviewed throughout the project as conditions change." },
+          { q: "What does triggered status mean?", opts: ["Risk event has occurred", "Risk has been deleted", "Owner has been changed", "Budget has increased"], answer: 0, explanation: "Triggered means the risk event has occurred or is imminent, activating the response plan." },
+          { q: "What does risk report include?", opts: ["Top risks and trends", "Every register row", "Team salaries only", "Annual accounts only"], answer: 0, explanation: "Reports typically highlight top risks, trends and items needing decision, not every row." },
+          { q: "What should each risk have?", opts: ["An owner and plan", "Only a number", "Only a description", "Only a review date"], answer: 0, explanation: "Each risk should have a named owner and a documented response plan." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Project Risk Management</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Introduction to <span style="color:var(--pd)">Project Risk Management</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Introduction to Project Risk Management.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Introduction to Project Risk Management.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Introduction to Project Risk Management</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering risk identification, likelihood and impact assessment, response strategies, risk registers and monitoring throughout the project lifecycle.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Risk_Management.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
