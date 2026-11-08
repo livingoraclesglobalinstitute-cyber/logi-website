@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Basics of Buildings and Construction Works">
+  <title>LOGI LMS · Basics of Buildings and Construction Works</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Basics of Buildings and Construction Works
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'buildings-101',
+  title: 'Basics of Buildings and Construction Works',
+  desc: 'This course provides a beginner-friendly overview of building projects, construction stages, key participants, common materials and basic site processes.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Introduction to Building Construction",
+      lessons: [{
+        title: "What Construction Is and How Projects Flow",
+        duration: "45 minutes",
+        html: `<p><b>Building construction</b> is the process of assembling materials and components into a functional structure that meets design, safety and regulatory requirements. It is a project — with a start, an end and a defined deliverable — not an ongoing operation.</p>
+<div class="callout"><b>Core principle:</b> A building is not "built" at one moment. It is built through a sequence of coordinated stages, each of which must complete before the next can proceed safely and correctly.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to define construction, describe the main stages of a building project, distinguish construction from design, and recognise the phases where cost and quality are "locked in".</p>
+<h3>1. What makes a construction project</h3>
+<ul>
+  <li>Fixed location (unlike manufacturing).</li>
+  <li>Unique design and scope.</li>
+  <li>Weather and site dependence.</li>
+  <li>Multi-party involvement.</li>
+  <li>Significant safety and regulatory obligations.</li>
+  <li>Long duration relative to most products.</li>
+</ul>
+<h3>2. Construction project stages</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Construction project stages">
+    <defs>
+      <marker id="stg" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">A building project moves through stages</text>
+      <g>
+        <rect x="10" y="55" width="110" height="70" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="65" y="80" text-anchor="middle" font-weight="bold" fill="#e93680">1. Brief</text>
+        <text x="65" y="100" text-anchor="middle" font-size="10" fill="#555">needs and budget</text>
+      </g>
+      <g>
+        <rect x="130" y="55" width="110" height="70" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="185" y="80" text-anchor="middle" font-weight="bold" fill="#e93680">2. Design</text>
+        <text x="185" y="100" text-anchor="middle" font-size="10" fill="#555">drawings and specs</text>
+      </g>
+      <g>
+        <rect x="250" y="55" width="110" height="70" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="305" y="80" text-anchor="middle" font-weight="bold" fill="#e93680">3. Tender</text>
+        <text x="305" y="100" text-anchor="middle" font-size="10" fill="#555">award contracts</text>
+      </g>
+      <g>
+        <rect x="370" y="55" width="110" height="70" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="425" y="80" text-anchor="middle" font-weight="bold" fill="#e93680">4. Build</text>
+        <text x="425" y="100" text-anchor="middle" font-size="10" fill="#555">on site delivery</text>
+      </g>
+      <g>
+        <rect x="490" y="55" width="130" height="70" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="555" y="80" text-anchor="middle" font-weight="bold" fill="#2b6cb0">5. Handover</text>
+        <text x="555" y="100" text-anchor="middle" font-size="10" fill="#555">commission, close</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="122" y1="90" x2="128" y2="90" marker-end="url(#stg)"/>
+        <line x1="242" y1="90" x2="248" y2="90" marker-end="url(#stg)"/>
+        <line x1="362" y1="90" x2="368" y2="90" marker-end="url(#stg)"/>
+        <line x1="482" y1="90" x2="488" y2="90" marker-end="url(#stg)"/>
+      </g>
+      <text x="320" y="175" text-anchor="middle" font-size="10" fill="#777">Cost and quality are largely locked in during Brief and Design</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Early stages (brief, design) determine most of the project's cost and quality.</div>
+</div>
+<h3>3. Construction vs. design</h3>
+<table class="compare"><tr><th>Design</th><th>Construction</th></tr><tr><td>Produces drawings and specs</td><td>Produces the built asset</td></tr><tr><td>Architect, engineers</td><td>Contractor, site team</td></tr><tr><td>Paper and models</td><td>Materials and labour</td></tr><tr><td>Iterative, creative</td><td>Sequential, controlled</td></tr></table>
+<h3>4. Where cost is locked in</h3>
+<p>Studies repeatedly show that most of a building's whole-life cost is determined by early design decisions — not by later site efficiency. Once concrete is poured and steel is fixed, cost is largely committed. This is why early collaboration matters.</p>
+<h3>5. Types of construction</h3>
+<ul>
+  <li><b>Residential</b> — houses, apartments.</li>
+  <li><b>Commercial</b> — offices, retail.</li>
+  <li><b>Industrial</b> — factories, warehouses.</li>
+  <li><b>Infrastructure</b> — roads, bridges, waterworks.</li>
+  <li><b>Institutional</b> — schools, hospitals.</li>
+</ul>
+<h3>6. What beginners should understand</h3>
+<ul>
+  <li>Construction is a project, not an ongoing process.</li>
+  <li>Design and construction are different disciplines that must coordinate.</li>
+  <li>Safety and quality depend on the whole team — not just the contractor.</li>
+  <li>Site documentation is a critical asset, not optional paperwork.</li>
+</ul>`,
+        quiz: [
+          { q: "What is building construction?", opts: ["Assembly into built asset", "Designing drawings only", "Selling buildings later", "Maintaining finished assets"], answer: 0, explanation: "Construction is the process of assembling materials and components into a built asset." },
+          { q: "When is most cost locked?", opts: ["In design stages", "In final handover", "In maintenance period", "After occupation"], answer: 0, explanation: "Most of a building's cost is determined during brief and design, not on site." },
+          { q: "What stage follows design?", opts: ["Tender and award", "Handover to client", "Maintenance planning", "Demolition notice"], answer: 0, explanation: "After design, the project typically moves to tender and contract award." },
+          { q: "What is fixed for each project?", opts: ["Location and design", "Team and time only", "Cost and weather only", "Nothing at all"], answer: 0, explanation: "Every construction project has a fixed location and a unique design." },
+          { q: "What matters most early?", opts: ["Brief and design", "Site cleaning only", "Final inspection only", "Furniture selection"], answer: 0, explanation: "Early brief and design decisions lock in cost, quality and feasibility." }
+        ]
+      }]
+    },
+    {
+      title: "Construction Drawings and Site Roles",
+      lessons: [{
+        title: "Reading Drawings and Understanding Site Roles",
+        duration: "50 minutes",
+        html: `<p>Construction is a team sport coordinated through <b>drawings and specifications</b>. Every drawing type carries specific information, and every role on site has defined responsibilities. Knowing what to look for and who does what prevents costly errors.</p>
+<div class="callout"><b>Core principle:</b> Site work follows drawings — not memory or verbal instructions. The drawing set is the contract for what the building should be.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to recognise common drawing types, describe the main site roles, and understand the flow of information between designer and contractor.</p>
+<h3>1. Common drawing types</h3>
+<table class="compare"><tr><th>Drawing</th><th>What it shows</th></tr><tr><td>Architectural</td><td>Layout, rooms, doors, finishes</td></tr><tr><td>Structural</td><td>Foundations, beams, columns, slabs</td></tr><tr><td>Mechanical (M)</td><td>HVAC and ventilation</td></tr><tr><td>Electrical (E)</td><td>Power, lighting, data</td></tr><tr><td>Plumbing (P)</td><td>Water supply, drainage</td></tr><tr><td>Site plan</td><td>Boundaries, access, orientation</td></tr><tr><td>Details</td><td>Enlarged views of junctions and fixings</td></tr><tr><td>Schedules</td><td>Tables of doors, windows, finishes</td></tr></table>
+<h3>2. Drawing scales and views</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Plan, elevation and section views">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Three primary views</text>
+      <!-- Plan -->
+      <g>
+        <rect x="30" y="60" width="160" height="120" fill="#fff" stroke="#333" stroke-width="2"/>
+        <line x1="30" y1="120" x2="190" y2="120" stroke="#333"/>
+        <line x1="110" y1="60" x2="110" y2="120" stroke="#333"/>
+        <text x="110" y="195" text-anchor="middle" font-weight="bold" fill="#e93680">Plan view</text>
+        <text x="110" y="210" text-anchor="middle" font-size="10" fill="#777">from above</text>
+      </g>
+      <!-- Elevation -->
+      <g>
+        <rect x="240" y="80" width="160" height="100" fill="#fff" stroke="#333" stroke-width="2"/>
+        <polygon points="240,80 320,50 400,80" fill="#fff" stroke="#333" stroke-width="2"/>
+        <rect x="290" y="130" width="20" height="30" fill="#fff" stroke="#333"/>
+        <rect x="335" y="130" width="20" height="30" fill="#fff" stroke="#333"/>
+        <text x="320" y="195" text-anchor="middle" font-weight="bold" fill="#e93680">Elevation</text>
+        <text x="320" y="210" text-anchor="middle" font-size="10" fill="#777">from side or front</text>
+      </g>
+      <!-- Section -->
+      <g>
+        <rect x="450" y="80" width="160" height="100" fill="#fff" stroke="#333" stroke-width="2"/>
+        <line x1="450" y1="130" x2="610" y2="130" stroke="#333" stroke-dasharray="4,3"/>
+        <rect x="500" y="130" width="20" height="50" fill="#ffe0ee" stroke="#333"/>
+        <rect x="545" y="130" width="20" height="50" fill="#ffe0ee" stroke="#333"/>
+        <text x="530" y="195" text-anchor="middle" font-weight="bold" fill="#e93680">Section</text>
+        <text x="530" y="210" text-anchor="middle" font-size="10" fill="#777">cut-through view</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Plan (from above), elevation (from outside), and section (cut through) work together.</div>
+</div>
+<h3>3. Key site roles</h3>
+<table class="compare"><tr><th>Role</th><th>Responsibility</th></tr><tr><td>Client / Employer</td><td>Commissions the project, funds it, receives the asset</td></tr><tr><td>Architect</td><td>Designs the building, leads the design team, inspects work</td></tr><tr><td>Structural Engineer</td><td>Designs foundations and structural frame</td></tr><tr><td>Services Engineer</td><td>Designs mechanical, electrical, plumbing systems</td></tr><tr><td>Contractor</td><td>Builds the project; manages site resources</td></tr><tr><td>Subcontractors</td><td>Specialist trades (steel, electrical, tiling)</td></tr><tr><td>Site Manager</td><td>Controls daily site operations</td></tr><tr><td>Foreman</td><td>Leads a specific crew</td></tr><tr><td>Clerk of Works</td><td>Independent inspection on behalf of client</td></tr><tr><td>Quantity Surveyor</td><td>Cost planning and valuation</td></tr><tr><td>Health &amp; Safety Officer</td><td>Site safety compliance</td></tr></table>
+<h3>4. Information flow</h3>
+<p>Designers produce drawings; contractors interpret and build; site managers control sequence and quality; the client's representative inspects to ensure conformance. Delays or changes flow back to designers for re-issue. Clear, current drawings are essential — building to a superseded drawing is a common source of defects and disputes.</p>
+<h3>5. Common errors on site</h3>
+<ul>
+  <li>Building from an outdated drawing revision.</li>
+  <li>Assuming details from another project apply here.</li>
+  <li>Not checking structural vs. architectural alignment.</li>
+  <li>Verbal instructions not confirmed in writing.</li>
+  <li>Ignoring specification requirements for materials.</li>
+</ul>`,
+        quiz: [
+          { q: "Which drawing shows beams?", opts: ["The structural drawing", "The finish schedule", "The site boundary plan", "The landscape drawing"], answer: 0, explanation: "Structural drawings show foundations, beams, columns and slabs." },
+          { q: "What does a plan show?", opts: ["Layout from above", "Section cut through", "Height of building", "Material specification"], answer: 0, explanation: "A plan is a view from above, showing layout and dimensions." },
+          { q: "What does contractor do?", opts: ["Builds the project", "Designs the layout", "Approves the budget", "Audits the design"], answer: 0, explanation: "The contractor builds the project and manages site resources." },
+          { q: "What is a section view?", opts: ["Cut-through inside view", "View from above", "View from outside", "Overall site layout"], answer: 0, explanation: "A section view cuts through the building to show internal structure." },
+          { q: "Who inspects on client behalf?", opts: ["The Clerk of Works", "The main contractor", "The labour team", "The finance officer"], answer: 0, explanation: "The Clerk of Works independently inspects work on behalf of the client." }
+        ]
+      }]
+    },
+    {
+      title: "Site Preparation and Foundations",
+      lessons: [{
+        title: "Setting Out, Excavation and Foundation Types",
+        duration: "50 minutes",
+        html: `<p>Foundations are the part of the building in contact with the ground that transfer loads safely to the soil. Before foundations can be built, the site must be prepared, set out and excavated — and the ground conditions understood.</p>
+<div class="callout"><b>Core principle:</b> A building is only as strong as what it stands on. Foundation design depends on soil conditions, load, water table and building type — not on habit.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe site preparation activities, explain setting out, list common foundation types, and understand why ground investigation matters.</p>
+<h3>1. Site preparation activities</h3>
+<ul>
+  <li>Site clearance — vegetation, debris, existing structures.</li>
+  <li>Setting out — marking the building's position and levels.</li>
+  <li>Excavation — removing soil to the required depth.</li>
+  <li>Dewatering — managing groundwater.</li>
+  <li>Ground investigation — soil testing (boreholes, trial pits).</li>
+</ul>
+<h3>2. Setting out</h3>
+<p>Setting out establishes the exact position, dimensions and levels of the building. It uses profiles, string lines, theodolites and laser levels. Errors here propagate — a wrongly set-out building is difficult and costly to correct later.</p>
+<h3>3. Foundation types</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 320" role="img" aria-label="Four foundation types">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Common foundation types</text>
+
+      <!-- Strip foundation -->
+      <g>
+        <rect x="30" y="50" width="130" height="100" fill="#f5f0e6"/>
+        <rect x="60" y="80" width="70" height="40" fill="#c8b8a0" stroke="#5a4a38" stroke-width="2"/>
+        <rect x="70" y="120" width="50" height="20" fill="#8a7a68"/>
+        <text x="95" y="175" text-anchor="middle" font-weight="bold" fill="#e93680">Strip</text>
+        <text x="95" y="190" text-anchor="middle" font-size="10" fill="#777">load-bearing walls</text>
+        <text x="95" y="205" text-anchor="middle" font-size="10" fill="#777">shallow depth</text>
+      </g>
+
+      <!-- Pad foundation -->
+      <g>
+        <rect x="180" y="50" width="130" height="100" fill="#f5f0e6"/>
+        <rect x="225" y="80" width="40" height="40" fill="#c8b8a0" stroke="#5a4a38" stroke-width="2"/>
+        <rect x="200" y="120" width="90" height="20" fill="#8a7a68"/>
+        <text x="245" y="175" text-anchor="middle" font-weight="bold" fill="#e93680">Pad</text>
+        <text x="245" y="190" text-anchor="middle" font-size="10" fill="#777">isolated columns</text>
+        <text x="245" y="205" text-anchor="middle" font-size="10" fill="#777">concentrated load</text>
+      </g>
+
+      <!-- Raft foundation -->
+      <g>
+        <rect x="330" y="50" width="130" height="100" fill="#f5f0e6"/>
+        <rect x="345" y="100" width="100" height="30" fill="#c8b8a0" stroke="#5a4a38" stroke-width="2"/>
+        <rect x="360" y="80" width="20" height="20" fill="#8a7a68"/>
+        <rect x="410" y="80" width="20" height="20" fill="#8a7a68"/>
+        <text x="395" y="175" text-anchor="middle" font-weight="bold" fill="#e93680">Raft</text>
+        <text x="395" y="190" text-anchor="middle" font-size="10" fill="#777">whole footprint</text>
+        <text x="395" y="205" text-anchor="middle" font-size="10" fill="#777">weak ground</text>
+      </g>
+
+      <!-- Pile foundation -->
+      <g>
+        <rect x="480" y="50" width="130" height="100" fill="#f5f0e6"/>
+        <rect x="500" y="80" width="100" height="20" fill="#c8b8a0" stroke="#5a4a38" stroke-width="2"/>
+        <rect x="510" y="100" width="10" height="100" fill="#8a7a68"/>
+        <rect x="550" y="100" width="10" height="100" fill="#8a7a68"/>
+        <rect x="590" y="100" width="0" height="100" fill="#8a7a68"/>
+        <text x="545" y="175" text-anchor="middle" font-weight="bold" fill="#e93680">Pile</text>
+        <text x="545" y="190" text-anchor="middle" font-size="10" fill="#777">deep load transfer</text>
+        <text x="545" y="205" text-anchor="middle" font-size="10" fill="#777">soft upper soil</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Strip, pad, raft and pile foundations — each suits a different load and soil condition.</div>
+</div>
+<h3>4. Choosing a foundation</h3>
+<ul>
+  <li><b>Strip</b> — low-rise, load-bearing walls, stable ground.</li>
+  <li><b>Pad</b> — isolated columns, frame structure.</li>
+  <li><b>Raft</b> — weak soil, high water table, or widespread load.</li>
+  <li><b>Pile</b> — soft upper soil with firm strata below; heavy loads.</li>
+</ul>
+<p>The choice is a design decision based on investigation — not a site preference.</p>
+<h3>5. Concrete work basics</h3>
+<ul>
+  <li>Formwork shapes wet concrete until it cures.</li>
+  <li>Reinforcement provides tensile strength.</li>
+  <li>Concrete must be mixed to specification, placed, compacted and cured.</li>
+  <li>Testing (slump, cubes) confirms quality.</li>
+</ul>
+<h3>6. Common foundation errors</h3>
+<ul>
+  <li>Ignoring ground conditions during design.</li>
+  <li>Excavating too deep or too shallow.</li>
+  <li>Poor concrete cover over reinforcement.</li>
+  <li>Inadequate curing.</li>
+  <li>Poor setting-out causing misalignment.</li>
+</ul>`,
+        quiz: [
+          { q: "What transfers building loads?", opts: ["Foundations safely to ground", "Finishes to surfaces", "Roofs to walls", "Doors to frames"], answer: 0, explanation: "Foundations transfer building loads safely to the ground." },
+          { q: "What does setting out do?", opts: ["Marks exact position", "Paints the outer walls", "Landscapes the plot", "Delivers construction materials"], answer: 0, explanation: "Setting out marks the exact position, dimensions and levels of the building." },
+          { q: "Which foundation suits raft?", opts: ["Weak widespread ground", "Load-bearing brick walls", "Isolated steel columns", "Very firm upper soil"], answer: 0, explanation: "Raft foundations spread load across the footprint and suit weak or variable ground." },
+          { q: "What do piles do?", opts: ["Transfer load deeply", "Decorate the surface", "Frame internal doors", "Stop water entering"], answer: 0, explanation: "Piles transfer loads to firm strata deep below the surface." },
+          { q: "Why is ground investigation?", opts: ["Informs foundation design", "Improves the building style", "Replaces the drawings", "Determines paint colours"], answer: 0, explanation: "Ground investigation (boreholes, trial pits) informs foundation design." }
+        ]
+      }]
+    },
+    {
+      title: "Structural and Finishing Works",
+      lessons: [{
+        title: "Frames, Walls, Roofs and Finishes",
+        duration: "50 minutes",
+        html: `<p>Above the foundation, the building is assembled from structural elements (frame or load-bearing walls) and finished with layers that provide weather protection, thermal comfort, acoustics and appearance. Each layer has a role — none is purely cosmetic.</p>
+<div class="callout"><b>Core principle:</b> Structure carries load; finishes protect and perform. Both matter. Poor finishes expose the structure to damp; poor structure endangers finishes and occupants.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe structural systems, list the main finishing trades, and understand why sequence and protection are crucial.</p>
+<h3>1. Structural systems</h3>
+<table class="compare"><tr><th>System</th><th>Description</th><th>Typical use</th></tr><tr><td>Load-bearing walls</td><td>Walls carry floor and roof loads</td><td>Low-rise masonry</td></tr><tr><td>Frame</td><td>Columns and beams carry load</td><td>Multi-storey, industrial</td></tr><tr><td>Concrete frame</td><td>In-situ or precast concrete</td><td>Commercial, residential</td></tr><tr><td>Steel frame</td><td>Fabricated steel members</td><td>Tall, industrial, long-span</td></tr><tr><td>Timber frame</td><td>Engineered timber</td><td>Residential, low-rise</td></tr></table>
+<h3>2. Structural elements</h3>
+<div class="diagram">
+  <svg viewBox="0 0 620 280" role="img" aria-label="Structural elements in a frame building">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Structural elements — frame building</text>
+      <!-- Foundation line -->
+      <rect x="60" y="230" width="500" height="20" fill="#c8b8a0" stroke="#5a4a38"/>
+      <text x="310" y="270" text-anchor="middle" fill="#5a4a38" font-size="10">foundation</text>
+
+      <!-- Columns -->
+      <rect x="100" y="100" width="20" height="130" fill="#8a7a68" stroke="#5a4a38"/>
+      <rect x="500" y="100" width="20" height="130" fill="#8a7a68" stroke="#5a4a38"/>
+      <rect x="290" y="100" width="20" height="130" fill="#8a7a68" stroke="#5a4a38"/>
+      <text x="110" y="95" text-anchor="middle" fill="#333" font-size="10">column</text>
+
+      <!-- Beam -->
+      <rect x="100" y="100" width="420" height="20" fill="#c8b8a0" stroke="#5a4a38"/>
+      <text x="310" y="92" text-anchor="middle" fill="#333" font-size="10">beam</text>
+
+      <!-- Slab / floor -->
+      <rect x="100" y="120" width="420" height="15" fill="#e0d5c0" stroke="#5a4a38"/>
+      <text x="310" y="150" text-anchor="middle" fill="#333" font-size="10">slab / floor</text>
+
+      <!-- Wall panel -->
+      <rect x="100" y="140" width="60" height="90" fill="#f5e8d0" stroke="#5a4a38" stroke-dasharray="4,3"/>
+      <text x="130" y="190" text-anchor="middle" font-size="9" fill="#333">wall panel</text>
+
+      <!-- Window -->
+      <rect x="250" y="150" width="100" height="60" fill="#bfe3ff" stroke="#5a4a38"/>
+      <line x1="300" y1="150" x2="300" y2="210" stroke="#5a4a38"/>
+      <text x="300" y="140" text-anchor="middle" fill="#333" font-size="10">window</text>
+
+      <!-- Roof -->
+      <polygon points="80,100 520,100 400,55 200,55" fill="#c8b8a0" stroke="#5a4a38"/>
+      <text x="310" y="50" text-anchor="middle" fill="#333" font-size="10">roof</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Columns, beams, slabs, walls and roof work together to resist gravity and lateral loads.</div>
+</div>
+<h3>3. Envelope and finishing layers</h3>
+<ul>
+  <li><b>Roofing</b> — weather protection.</li>
+  <li><b>External walls</b> — structure, insulation, weather resistance.</li>
+  <li><b>Windows and doors</b> — light, ventilation, access.</li>
+  <li><b>Internal partitions</b> — space division and acoustics.</li>
+  <li><b>Floor finishes</b> — durability, appearance, safety.</li>
+  <li><b>Wall finishes</b> — plaster, paint, tiles.</li>
+  <li><b>Ceilings</b> — services concealment, acoustics.</li>
+</ul>
+<h3>4. Finish trades</h3>
+<ul>
+  <li>Bricklaying and blockwork.</li>
+  <li>Carpentry and joinery.</li>
+  <li>Plastering and dry lining.</li>
+  <li>Tiling and flooring.</li>
+  <li>Painting and decorating.</li>
+  <li>Glazing and curtain walling.</li>
+  <li>Roofing and waterproofing.</li>
+</ul>
+<h3>5. Sequence and protection</h3>
+<p>Finishes depend on the structure being complete, dry and protected. Wrong sequence creates defects:</p>
+<ul>
+  <li>Plastering before roof is watertight — plaster gets wet, fails.</li>
+  <li>Tiling before substrate is stable — tiles crack.</li>
+  <li>Painting before plaster has cured — paint bubbles and peels.</li>
+  <li>Occupying before finishes are complete — damage to finished surfaces.</li>
+</ul>
+<h3>6. Common finishing problems</h3>
+<ul>
+  <li>Poor workmanship — visible unevenness, joint gaps.</li>
+  <li>Wrong materials or mixing.</li>
+  <li>Inadequate drying before next coat.</li>
+  <li>Not protecting finished work from site traffic.</li>
+  <li>No snagging process before handover.</li>
+</ul>`,
+        quiz: [
+          { q: "What does frame carry?", opts: ["Loads via columns", "Loads via paint", "Loads via glazing", "Loads via floor tiles"], answer: 0, explanation: "In a framed building, columns and beams carry loads rather than the walls." },
+          { q: "What does a beam do?", opts: ["Spans between supports", "Sits below the foundation", "Covers the wall surface", "Holds the door handle"], answer: 0, explanation: "Beams span between supports to carry loads and transfer them to columns." },
+          { q: "Why plaster after roof?", opts: ["Keeps plaster dry", "Plaster lasts longer", "Saves on scaffolding", "Walls look straighter"], answer: 0, explanation: "Plaster must be applied once the roof is watertight so it does not get wet and fail." },
+          { q: "What is envelope role?", opts: ["Weather and thermal", "Structure and loading", "Foundation and piling", "Setting out and levels"], answer: 0, explanation: "The building envelope provides weather protection, thermal comfort and separation." },
+          { q: "What does snagging check?", opts: ["Finish defects before handover", "Foundation strength", "Setting-out accuracy", "Roof pitch angle"], answer: 0, explanation: "Snagging is the process of identifying and fixing defects before handover." }
+        ]
+      }]
+    },
+    {
+      title: "Building Services, Quality and Safety",
+      lessons: [{
+        title: "MEP Services, Quality Control and Site Safety",
+        duration: "45 minutes",
+        html: `<p>Building services — mechanical, electrical and plumbing (MEP) — bring a building to life. Quality control ensures the finished building meets its specification. Site safety protects everyone who works on or visits the project.</p>
+<div class="callout"><b>Core principle:</b> Services, quality and safety are not "extra" — they are what separates a building from a shelter. A building that leaks, malfunctions or is unsafe has failed, no matter how it looks.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe common building services, explain the basics of quality control on site, and recognise the core elements of construction site safety.</p>
+<h3>1. Building services (MEP)</h3>
+<table class="compare"><tr><th>Category</th><th>Typical elements</th></tr><tr><td>Mechanical (M)</td><td>HVAC, ventilation, cooling, heating</td></tr><tr><td>Electrical (E)</td><td>Power distribution, lighting, data, fire alarm</td></tr><tr><td>Plumbing (P)</td><td>Water supply, drainage, sanitary</td></tr><tr><td>Fire protection</td><td>Sprinklers, hydrants, smoke control</td></tr><tr><td>Lifts and escalators</td><td>Vertical transport</td></tr><tr><td>Security and IT</td><td>CCTV, access control, structured cabling</td></tr></table>
+<h3>2. Coordinating services</h3>
+<div class="diagram">
+  <svg viewBox="0 0 620 220" role="img" aria-label="Service coordination in ceiling void">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Service coordination above a ceiling</text>
+      <!-- Ceiling -->
+      <rect x="20" y="170" width="580" height="15" fill="#c8b8a0" stroke="#5a4a38"/>
+      <text x="310" y="200" text-anchor="middle" font-size="10" fill="#333">ceiling line</text>
+
+      <!-- Slab -->
+      <rect x="20" y="50" width="580" height="15" fill="#d0c5b0" stroke="#5a4a38"/>
+      <text x="310" y="45" text-anchor="middle" font-size="10" fill="#333">slab above</text>
+
+      <!-- Duct -->
+      <rect x="60" y="90" width="200" height="40" fill="#bfe3ff" stroke="#2b6cb0"/>
+      <text x="160" y="115" text-anchor="middle" font-size="10" fill="#2b6cb0" font-weight="bold">HVAC duct</text>
+
+      <!-- Cable tray -->
+      <rect x="300" y="100" width="180" height="15" fill="#ffe0ee" stroke="#e93680"/>
+      <text x="390" y="112" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">cable tray</text>
+
+      <!-- Pipe -->
+      <circle cx="530" cy="105" r="15" fill="#f0e8ff" stroke="#8a3a8a" stroke-width="2"/>
+      <text x="530" y="150" text-anchor="middle" font-size="10" fill="#8a3a8a" font-weight="bold">pipe</text>
+
+      <!-- Collision warning -->
+      <text x="310" y="155" text-anchor="middle" font-size="10" fill="#c2185b">coordination avoids clashes before installation</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Services must be coordinated in 3D to avoid clashes — coordination is planned, not discovered on site.</div>
+</div>
+<p>Services run in ceilings, walls and floors. Before installation, designers coordinate routes in 3D models to avoid clashes with structure and each other. Site teams install in sequence — often before finishes.</p>
+<h3>3. Quality control on site</h3>
+<ul>
+  <li><b>Inspections</b> at defined hold points.</li>
+  <li><b>Testing</b> — concrete cubes, pressure tests, electrical tests.</li>
+  <li><b>Records</b> — inspection sheets, test certificates, as-builts.</li>
+  <li><b>Non-conformance handling</b> — record, assess, correct.</li>
+  <li><b>Snagging</b> — defect identification before handover.</li>
+</ul>
+<h3>4. Site safety basics</h3>
+<ul>
+  <li><b>PPE</b> — helmet, boots, hi-vis, gloves, eye protection.</li>
+  <li><b>Induction</b> — all workers receive safety induction.</li>
+  <li><b>Method statements</b> — planned safe method for risky tasks.</li>
+  <li><b>Permits to work</b> — for hot work, confined space, height.</li>
+  <li><b>Scaffolding</b> — erected and inspected by competent persons.</li>
+  <li><b>Excavation safety</b> — shoring, barriers, access.</li>
+  <li><b>Site tidiness</b> — housekeeping prevents slips and trips.</li>
+  <li><b>Emergency procedures</b> — alarms, first aid, evacuation.</li>
+</ul>
+<h3>5. The "Fatal Four" hazards</h3>
+<table class="compare"><tr><th>Hazard</th><th>Typical control</th></tr><tr><td>Falls from height</td><td>Guardrails, harnesses, scaffolds</td></tr><tr><td>Struck by objects</td><td>Exclusion zones, hard hats</td></tr><tr><td>Electrocution</td><td>Isolation, permits, RCDs</td></tr><tr><td>Caught in/between</td><td>Guarding, separation, training</td></tr></table>
+<h3>6. Common failures</h3>
+<ul>
+  <li>Missing inspection records — impossible to prove conformity.</li>
+  <li>Services installed after finishes — damage and rework.</li>
+  <li>Safety inductions skipped under time pressure.</li>
+  <li>Inadequate fire stopping around penetrations.</li>
+  <li>Handover without as-built documentation.</li>
+</ul>`,
+        quiz: [
+          { q: "What does MEP refer to?", opts: ["Mechanical, electrical, plumbing", "Material, envelope, plaster", "Mortar, earth, paint", "Manual, electrical, plumbing"], answer: 0, explanation: "MEP covers Mechanical, Electrical and Plumbing services in buildings." },
+          { q: "Why coordinate services?", opts: ["Avoid clashes early", "Choose paint colours", "Reduce drawing count", "Simplify site tidiness"], answer: 0, explanation: "Coordination avoids clashes between services and structure before installation." },
+          { q: "What does snagging mean?", opts: ["Identify finish defects", "Install final fittings", "Approve budget changes", "Remove scaffolding"], answer: 0, explanation: "Snagging identifies and resolves finish defects before handover." },
+          { q: "Which is fatal hazard?", opts: ["Falling from height", "Late deliveries", "Missing meetings", "Slow inspections"], answer: 0, explanation: "Falls from height are one of the 'Fatal Four' construction hazards." },
+          { q: "Why method statement?", opts: ["Plans a safe method", "Replaces the drawings", "Removes safety induction", "Approves design changes"], answer: 0, explanation: "Method statements describe the safe, planned method for high-risk tasks." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Buildings and Construction</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Buildings &amp; Construction</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Basics of Buildings and Construction Works.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Buildings and Construction Works.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Buildings and Construction Works</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering construction stages, drawings and site roles, foundations, structural and finishing works, building services, quality control and site safety.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Buildings_Construction.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
