@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4b93">
+  <meta name="description" content="Unified Portal for Living Oracles Global Institute.">
+  <title>Portal Login | Living Oracles Global Institute</title>
+  
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --pink: #ff4b93;
+      --pink-dark: #e93680;
+      --lav: #f3f0fa;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --white: #fff;
+      --green: #207a4b;
+      --amber: #c68a12;
+      --shadow: 0 2px 9px rgba(0,0,0,.07);
+      --shadow-hover: 0 7px 18px rgba(0,0,0,.09);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #f5f5f8; line-height: 1.5; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    /* ---------- Topbar ---------- */
+    .topbar {
+      height: 64px; background: #fff; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 max(5%, calc((100% - 1180px)/2)); box-shadow: 0 2px 9px rgba(0,0,0,.07);
+      position: sticky; top: 0; z-index: 5;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 28px; font-weight: 800; letter-spacing: -1.5px; color: #555; }
+    .brand span.brand-dot { color: var(--pink); }
+    .brand .brand-sub { font-size: 13px; font-weight: 500; letter-spacing: 0; color: #8b7777; }
+    .top-actions { display: flex; align-items: center; gap: 12px; }
+    .user-email { font-size: 13px; color: var(--muted); max-width: 230px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      border: 0; border-radius: 4px; background: var(--pink); color: #fff; padding: 10px 20px;
+      font-weight: 700; font-size: 13px; cursor: pointer; text-decoration: none; display: inline-flex;
+      align-items: center; justify-content: center; transition: background .15s;
+    }
+    .btn:hover { background: var(--pink-dark); }
+    .btn.secondary { background: #fff; color: var(--pink); border: 1px solid #ffd1e3; }
+    .btn.secondary:hover { background: var(--pink); color: #fff; }
+
+    /* ---------- Layout ---------- */
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 34px 5% 60px; }
+
+    /* ---------- Login Screen ---------- */
+    .login-shell { min-height: calc(100vh - 64px); display: grid; place-items: center; padding: 28px; background: linear-gradient(110deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%); }
+    .login-card { width: min(100%, 430px); background: #fff; border: 1px solid var(--line); border-radius: 5px; padding: 30px; box-shadow: 0 12px 35px rgba(255,75,147,.08); }
+    .login-card h1 { margin: 0 0 8px; font-size: 26px; }
+    .login-card p { color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .field { margin: 18px 0; }
+    .field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 7px; }
+    .field input { width: 100%; padding: 12px; border: 1px solid #e9e8ef; border-radius: 4px; outline: none; }
+    .field input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,75,147,.15); }
+    .login-card .btn { width: 100%; padding: 13px; }
+    .error-msg { color: red; font-size: 13px; margin-bottom: 10px; display: none; background: #fff5f8; padding: 10px; border-radius: 4px; border: 1px solid #f6c7da;}
+    
+    /* ---------- STAFF DASHBOARD ---------- */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+    .staff-card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: var(--shadow); border-top: 4px solid var(--pink); }
+    .staff-card h3 { margin-top: 0; color: var(--ink); }
+    .staff-card p { color: var(--muted); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+    .copy-success { color: var(--green); font-size: 13px; font-weight: bold; margin-left: 10px; display: none; }
+
+    /* ---------- STUDENT DASHBOARD ---------- */
+    .welcome { background: linear-gradient(110deg,#f8f2fb 0%,#fff 56%,#ffe9f1 100%); border-radius: 6px; padding: 28px 30px; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 26px; position: relative; overflow: hidden; }
+    .welcome:after { content: "LOGI"; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); font-size: 90px; font-weight: 900; letter-spacing: -6px; color: #f7d9e7; text-shadow: 3px 3px 0 #fff; pointer-events: none; line-height: 1; }
+    .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; color: var(--pink); font-weight: 800; }
+    .welcome h1 { font-size: clamp(26px,4vw,36px); margin: 8px 0; line-height: 1.15; }
+    .welcome p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 14px; position: relative; z-index: 1; max-width: 620px; }
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 24px 0 30px; }
+    .stat { background: #fff; border: 1px solid var(--line); border-radius: 5px; padding: 20px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .stat:before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,#f4c52d,var(--pink)); }
+    .stat .num { font-size: 30px; font-weight: 850; color: var(--ink); }
+    .stat .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 15px; border-bottom: 1px solid #dedee5; padding-bottom: 11px; margin: 28px 0 14px; position: relative; }
+    .section-head:after { content: ""; position: absolute; bottom: -1px; left: 0; width: 190px; height: 2px; background: linear-gradient(90deg,#f4c52d,var(--pink)); }
+    .section-head h2 { font-size: 22px; font-weight: 600; margin: 0; }
+    .highlight { background: var(--pink); color: #fff; padding: 1px 5px; }
+    .empty { background: #fff; border: 1px dashed #f2d3e1; border-radius: 5px; padding: 28px; text-align: center; color: var(--muted); line-height: 1.6; }
+    
+    .course-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+    .course { background: #fff; border: 1px solid var(--line); border-radius: 5px; padding: 22px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 220px; }
+    .course h3 { font-size: 18px; line-height: 1.35; margin: 0 0 8px; font-weight: 600; }
+    .progress-meta { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--muted); margin: 20px 0 8px; }
+    .bar { height: 8px; background: #f0eaee; border-radius: 20px; overflow: hidden; }
+    .bar span { height: 100%; display: block; background: linear-gradient(90deg,var(--pink),#ff9cc1); border-radius: 20px; }
+
+    /* Footer */
+    .footer { background: #292832; color: #eee; text-align: center; padding: 24px 5%; font-size: 12px; }
+    .footer strong { color: var(--pink); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      LOGI<span class="brand-dot">.</span>
+      <span class="brand-sub">| Unified Portal</span>
+    </div>
+    <div class="top-actions">
+      <span class="user-email" id="userEmail"></span>
+      <button class="btn secondary" id="logoutBtn" style="display:none" onclick="logout()">Log out</button>
+    </div>
+  </header>
+
+  <main id="app">
+    <div class="login-shell">
+      <div class="login-card">
+        <h1>Loading portal…</h1>
+        <p>Please wait while we connect to LOGI.</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="footer">Living Oracles Global Institute · <strong>Faith. Excellence. Impact.</strong></div>
+
+<script>
+  // --- CONFIGURATION ---
+  const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+  // *** CHANGE THIS TO YOUR STAFF EMAILS ***
+  // Any email listed here will see the Admissions Dashboard. All others see the Student Dashboard.
+  const STAFF_EMAILS = ['registrar@logi.education', 'admin@logi.education']; 
+
+  const app = document.getElementById('app');
+
+  // --- LOGIN SCREEN ---
+  function showLogin(message = '') {
+    document.getElementById('logoutBtn').style.display = 'none';
+    document.getElementById('userEmail').textContent = '';
+    
+    app.innerHTML = `
+      <div class="login-shell">
+        <form class="login-card" id="loginForm">
+          <div class="eyebrow">Living Oracles Global Institute</div>
+          <h1>Sign in to your portal</h1>
+          <p>Enter your credentials to access your dashboard.</p>
+          
+          <div class="error-msg" id="errorMsg" style="${message ? 'display:block' : 'display:none'}">${message}</div>
+          
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="btn" type="submit" id="loginBtn">Sign in</button>
+          
+          <div style="text-align:center; margin-top:15px; font-size:13px; color:var(--muted);">
+            Students: <a href="#" style="color:var(--pink);font-weight:bold;">Create an account</a> (if you don't have one).
+          </div>
+        </form>
+      </div>`;
+
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const errorMsg = document.getElementById('errorMsg');
+      
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+      errorMsg.style.display = 'none';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
+        return;
+      }
+
+      // Route the user based on their email after successful login
+      routeUser(email);
+    });
+  }
+
+  // --- ROUTING LOGIC ---
+  function routeUser(email) {
+    document.getElementById('logoutBtn').style.display = 'inline-flex';
+    document.getElementById('userEmail').textContent = email;
+
+    if (STAFF_EMAILS.includes(email.toLowerCase())) {
+      loadStaffDashboard();
+    } else {
+      loadStudentDashboard();
+    }
+  }
+
+  // --- STAFF DASHBOARD ---
+  function loadStaffDashboard() {
+    app.innerHTML = `
+      <div class="wrap">
+        <h1 style="margin-top:0;">Admissions Dashboard</h1>
+        <p style="color:var(--muted); margin-bottom:30px;">Welcome back. Use the tools below to manage student admissions.</p>
+        
+        <div class="grid">
+          <!-- Card 1: Generate Letter -->
+          <div class="staff-card">
+            <h3>📄 Generate Admission Letter</h3>
+            <p>Open the admission letter generator to fill in a student's details and save their official offer letter as a PDF.</p>
+            <a href="admission_letter.html" target="_blank" class="btn">Open Generator</a>
+          </div>
+
+          <!-- Card 2: Acceptance Form Link -->
+          <div class="staff-card">
+            <h3>✅ Acceptance Form Link</h3>
+            <p>Copy this link and paste it into the "Acceptance Link" field in the letter generator before saving the PDF.</p>
+            <button class="btn secondary" onclick="copyLink()" style="background:#34343b; color:white;">Copy Form Link</button>
+            <span class="copy-success" id="copySuccess">Copied!</span>
+          </div>
+
+          <!-- Card 3: View Submissions -->
+          <div class="staff-card">
+            <h3>📬 View Submissions</h3>
+            <p>Acceptance submissions are sent directly to your inbox. Check your email to review student responses.</p>
+            <a href="https://mail.google.com" target="_blank" class="btn" style="background:#4285F4;">Open Gmail</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // --- STUDENT DASHBOARD ---
+  async function loadStudentDashboard() {
+    app.innerHTML = '<div class="wrap"><div class="empty">Loading your LOGI learning records…</div></div>';
+    
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    const firstName = user.user_metadata?.full_name ? user.user_metadata.full_name.split(' ')[0] : 'Student';
+
+    // (Note: I included the structure of the student dashboard here, but kept the database fetching simple for this combined view)
+    app.innerHTML = `
+      <div class="wrap">
+        <section class="welcome">
+          <div>
+            <div class="eyebrow">Your learning space</div>
+            <h1>Welcome back, ${firstName}.</h1>
+            <p>Your LOGI course enrolments, learning progress and certificates in one place.</p>
+          </div>
+        </section>
+
+        <section class="stats">
+          <div class="stat"><div class="num">1</div><div class="label">My courses</div></div>
+          <div class="stat"><div class="num">1</div><div class="label">In progress</div></div>
+          <div class="stat"><div class="num">0</div><div class="label">Completed</div></div>
+        </section>
+
+        <div class="section-head">
+          <h2>My <span class="highlight">courses</span></h2>
+        </div>
+        
+        <div class="course-grid">
+          <article class="course">
+            <div class="course-top">
+              <div>
+                <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">ind-auto-101</div>
+                <h3>Introduction to Industrial Automation</h3>
+              </div>
+              <span style="background:#fff4d8;color:#c68a12;font-size:10px;font-weight:800;padding:5px 10px;border-radius:20px;text-transform:uppercase;">In Progress</span>
+            </div>
+            <div class="progress-meta"><span>50% complete</span><span>50%</span></div>
+            <div class="bar"><span style="width:50%"></span></div>
+            <div style="margin-top:20px;">
+               <a href="#" class="btn">Continue learning</a>
+            </div>
+          </article>
+        </div>
+        
+        <p style="text-align:center; margin-top:40px; font-size:12px; color:var(--muted);">This is a preview of the student dashboard. Connect the Supabase tables to display real data.</p>
+      </div>
+    `;
+  }
+
+  // --- HELPERS ---
+  function copyLink() {
+    const acceptanceUrl = "https://www.logi.education/acceptance_form.html";
+    navigator.clipboard.writeText(acceptanceUrl).then(() => {
+      const successMsg = document.getElementById('copySuccess');
+      successMsg.style.display = 'inline';
+      setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+    });
+  }
+
+  async function logout() {
+    await supabaseClient.auth.signOut();
+    showLogin('You have been signed out.');
+  }
+
+  // --- INITIALIZATION ---
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT') showLogin();
+    if (event === 'SIGNED_IN' && session) routeUser(session.user.email);
+  });
+
+  (async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      routeUser(session.user.email);
+    } else {
+      showLogin();
+    }
+  })();
+</script>
+</body>
+</html>
