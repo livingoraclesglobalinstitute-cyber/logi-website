@@ -617,12 +617,39 @@ const FALLBACK_COURSES = [
   { id: 'solar-pv-101', title: 'Introduction to Solar Photovoltaic Technology', category: 'Energy, Oil & Gas Technologies', description: 'Introduction to solar photovoltaic technology.', course_url: 'https://www.logi.education/short-course/lms/solar-photovoltaic-technology', catalogue_url: 'https://www.logi.education/short-course/solar-photovoltaic-technology', total_lessons: 6, image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80' },
   { id: 'oil-gas-101', title: 'Basics of Oil & Gas – Reserves, Risk & Value', category: 'Energy, Oil & Gas Technologies', description: 'Learn the basics of oil and gas reserves, risk and value.', course_url: 'https://www.logi.education/short-course/lms/oil-gas-reserves-risk-value', catalogue_url: 'https://www.logi.education/short-course/oil-gas-reserves-risk-value', total_lessons: 6, image: 'https://images.unsplash.com/photo-1473341304170-971805e6e2e5?w=600&q=80' },
   { id: 'data-analytics-101', title: 'Introduction to Data Analytics', category: 'More Professional Essentials', description: 'Introduction to data analytics.', course_url: 'https://www.logi.education/short-course/lms/data-analytics', catalogue_url: 'https://www.logi.education/short-course/data-analytics', total_lessons: 6, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80' },
-  { id: 'cybersecurity-fundamentals-101', title: 'Cybersecurity Fundamentals', category: 'More Professional Essentials', description: 'Learn cybersecurity fundamentals.', course_url: 'https://www.logi.education/short-course/lms/cybersecurity-fundamentals', catalogue_url: 'https://www.logi.education/short-course/cybersecurity-fundamentals', total_lessons: 6, image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80' }
+  { id: 'cybersecurity-fundamentals-101', title: 'Cybersecurity Fundamentals', category: 'More Professional Essentials', description: 'Learn cybersecurity fundamentals.', course_url: 'https://www.logi.education/short-course/lms/cybersecurity-fundamentals', catalogue_url: 'https://www.logi.education/short-course/cybersecurity-fundamentals', total_lessons: 6, image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80' },
+  
+  // --- ADDED MISSING COURSES FROM SCREENSHOT ---
+  { id: 'rca-101', title: 'Root Cause Analysis 101', category: 'Quality & Process Improvement', description: 'Learn the fundamentals of Root Cause Analysis.', course_url: 'https://www.logi.education/short-course/lms/root-cause-analysis', catalogue_url: 'https://www.logi.education/short-course/root-cause-analysis', total_lessons: 5, image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80' },
+  { id: 'iso-9001-101', title: 'Introduction to ISO 9001', category: 'Quality & Process Improvement', description: 'Introduction to Quality Management Systems.', course_url: 'https://www.logi.education/short-course/lms/introduction-to-quality-management-systems-iso-9001', catalogue_url: 'https://www.logi.education/short-course/quality-management-systems-iso-9001', total_lessons: 5, image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80' },
+  { id: 'prince2-101', title: 'PRINCE2 Project Management 101', category: 'Project & Engineering Management', description: 'Introduction to PRINCE2 project management methodology.', course_url: 'https://www.logi.education/short-course/lms/prince2-project-management', catalogue_url: 'https://www.logi.education/short-course/prince2-project-management', total_lessons: 3, image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80' },
+  { id: 'agile-101', title: 'Agile Project Management 101', category: 'Project & Engineering Management', description: 'Introduction to Agile project management.', course_url: 'https://www.logi.education/short-course/lms/agile-project-management', catalogue_url: 'https://www.logi.education/short-course/agile-project-management', total_lessons: 5, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80' },
+  { id: 'risk-mgmt-101', title: 'Risk Management 101', category: 'Project & Engineering Management', description: 'Introduction to project risk management principles.', course_url: 'https://www.logi.education/short-course/lms/project-risk-management', catalogue_url: 'https://www.logi.education/short-course/project-risk-management', total_lessons: 1, image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80' },
+  { id: 'buildings-101', title: 'Buildings and Construction Works 101', category: 'Construction & Civil Engineering', description: 'Learn the basics of buildings and construction works.', course_url: 'https://www.logi.education/short-course/lms/buildings-construction-works', catalogue_url: 'https://www.logi.education/short-course/buildings-construction-works', total_lessons: 5, image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' },
+  { id: 'cost-estimation-101', title: 'Construction Cost Estimation 101', category: 'Construction & Civil Engineering', description: 'Learn the basics of construction cost estimation.', course_url: 'https://www.logi.education/short-course/lms/construction-cost-estimation', catalogue_url: 'https://www.logi.education/short-course/construction-cost-estimation', total_lessons: 5, image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80' },
+  { id: 'concrete-101', title: 'Concrete Technology 101', category: 'Construction & Civil Engineering', description: 'Learn the basics of concrete technology.', course_url: 'https://www.logi.education/short-course/lms/concrete-technology', catalogue_url: 'https://www.logi.education/short-course/concrete-technology', total_lessons: 5, image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80' }
 ];
 
 const app = document.getElementById('app');
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const titleFromId = id => String(id || 'Unknown course').split(/[-_]/).filter(Boolean).map(x => x.charAt(0).toUpperCase()+x.slice(1)).join(' ');
+
+// Improved title generator that handles acronyms and formatting better
+const titleFromId = id => {
+  if (!id) return 'Unknown course';
+  return String(id)
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map(word => {
+      const lower = word.toLowerCase();
+      // Keep known acronyms uppercase
+      if (['rca', 'iso', 'bim', 'prince2', 'agile', 'qms', 'ohs', 'lms'].includes(lower)) {
+        return word.toUpperCase();
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+};
+
 function readLocalStore(key, fallback={}) {
   try { return JSON.parse(localStorage.getItem(key) || 'null') || fallback; }
   catch { return fallback; }
@@ -858,8 +885,27 @@ async function loadDashboard() {
     .filter(([,p])=>p && (Object.keys(p.lessons||{}).length || Object.keys(p.quizzes||{}).length))
     .map(([id])=>id);
   const relevantIds=[...new Set([...enrolledIds,...localProgressIds,...progressRows.map(r=>r.course_id),...certificates.map(c=>c.course_id)])];
-  const courseById=new Map(catalogue.map(course=>[course.id,course]));
-  const enrolledCourses=relevantIds.map(id=>courseById.get(id) || {id,title:titleFromId(id),description:'Course details are not yet available in the LOGI catalogue.',course_url:'',total_lessons:null});
+  
+  // IMPROVED FALLBACK LOGIC HERE
+  const courseById = new Map(catalogue.map(course => [course.id, course]));
+  const enrolledCourses = relevantIds.map(id => {
+      // 1. Try to find it in the live fetched catalogue
+      if (courseById.has(id)) return courseById.get(id);
+      
+      // 2. Try to find it in the FALLBACK list (just in case)
+      const fallbackMatch = FALLBACK_COURSES.find(c => c.id === id);
+      if (fallbackMatch) return fallbackMatch;
+
+      // 3. If all else fails, generate a nicer title
+      return { 
+          id, 
+          title: titleFromId(id), 
+          description: 'We are currently syncing the details for this course.', 
+          course_url: '', 
+          total_lessons: null 
+      };
+  });
+
   const courseRecords=enrolledCourses.map(course=>({
     ...course,
     progress:progressForCourse(progressRows,course.id,course.total_lessons,localCourseProgress[course.id]||{}),
