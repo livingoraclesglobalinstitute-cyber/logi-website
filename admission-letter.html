@@ -276,8 +276,7 @@
   </div>
   <div class="actions">
     <button type="button" onclick="updateLetter()">Update Letter</button>
-    <!-- Changed to type="button" and added a specific print command -->
-    <button type="button" class="secondary" onclick="triggerPrint()">Print / Save as PDF</button>
+    <button type="button" class="secondary" onclick="window.print(); return false;">Print / Save as PDF</button>
   </div>
 </div>
 
@@ -300,7 +299,6 @@
       </div>
       <div class="header-center">
         <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo"><br>
-        <!-- Font size reduced to 11pt to ensure it fits in one line -->
         <h1>LIVING ORACLES GLOBAL INSTITUTE</h1>
         <p>2026/2027 ACADEMIC YEAR</p>
       </div>
@@ -402,13 +400,16 @@
     document.getElementById('outDate').innerText = date;
   }
   
-  // Dedicated function to trigger print safely
-  function triggerPrint() {
-    window.print();
-  }
-
   // Initialize on page load
   updateLetter();
+
+  // Keyboard shortcut listener for Ctrl+P (or Cmd+P on Mac)
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+      e.preventDefault(); // Stop browser default just in case
+      window.print();     // Trigger print
+    }
+  });
 </script>
 </body>
 </html>
