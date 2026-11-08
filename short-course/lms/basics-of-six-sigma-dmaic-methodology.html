@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Basics of Six Sigma: DMAIC Methodology">
+  <title>LOGI LMS · Basics of Six Sigma – DMAIC Methodology</title>
+  
+  <!-- Include html2canvas for certificate image download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- Include Supabase for real authentication -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+    
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+    
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+    
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    /* Diagrams */
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+    
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+    
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      
+      .dash-layout { grid-template-columns: 1fr; }
+      
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Basics of Six Sigma: DMAIC Methodology
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',       
+  certificates: 'logi_certificates', 
+  posts: 'logi_posts',             
+  announcements: 'logi_announcements', 
+  enrolments: 'logi_enrolments'     
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'six-sigma-dmaic-101',
+  title: 'Basics of Six Sigma – DMAIC Methodology',
+  desc: 'This course explains the DMAIC improvement cycle—Define, Measure, Analyse, Improve and Control—and how it can be used to investigate process problems and improve performance.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Six Sigma and DMAIC Overview",
+      lessons: [{
+        title: "Understanding Six Sigma and the DMAIC Cycle",
+        duration: "45 minutes",
+        html: `<p><b>Six Sigma</b> is a data-driven methodology for reducing variation and eliminating defects in processes. Its central problem-solving framework is <b>DMAIC</b>: Define, Measure, Analyse, Improve and Control. DMAIC provides a disciplined structure that moves a team from a vague complaint to a sustained, verified improvement.</p>
+<div class="callout"><b>Core principle:</b> DMAIC replaces guesswork with evidence. Each phase must be completed and reviewed before the next begins — otherwise solutions are built on assumptions rather than facts.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to explain the purpose of Six Sigma, describe the five DMAIC phases and their key outputs, and recognise when DMAIC is the right approach.</p>
+<h3>1. Why variation matters</h3><p>Customers experience the average of a process <i>and</i> its variation. A process that delivers an average of 10 days but sometimes takes 30 is unreliable even if the average looks acceptable. Six Sigma targets the spread as well as the mean.</p>
+<h3>2. The five phases and their outputs</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 260" role="img" aria-label="DMAIC five phases with outputs">
+    <defs>
+      <marker id="dmarr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+        <polygon points="0,0 10,5 0,10" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <!-- Five boxes -->
+      <g>
+        <rect x="10" y="80" width="112" height="100" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="66" y="105" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">D</text>
+        <text x="66" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Define</text>
+        <text x="66" y="145" text-anchor="middle" font-size="10" fill="#777">Problem, goal,</text>
+        <text x="66" y="158" text-anchor="middle" font-size="10" fill="#777">scope, CTQs</text>
+      </g>
+      <g>
+        <rect x="134" y="80" width="112" height="100" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="190" y="105" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">M</text>
+        <text x="190" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Measure</text>
+        <text x="190" y="145" text-anchor="middle" font-size="10" fill="#777">Baseline data,</text>
+        <text x="190" y="158" text-anchor="middle" font-size="10" fill="#777">capability</text>
+      </g>
+      <g>
+        <rect x="258" y="80" width="112" height="100" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="314" y="105" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">A</text>
+        <text x="314" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Analyse</text>
+        <text x="314" y="145" text-anchor="middle" font-size="10" fill="#777">Verified root</text>
+        <text x="314" y="158" text-anchor="middle" font-size="10" fill="#777">causes</text>
+      </g>
+      <g>
+        <rect x="382" y="80" width="112" height="100" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="438" y="105" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">I</text>
+        <text x="438" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Improve</text>
+        <text x="438" y="145" text-anchor="middle" font-size="10" fill="#777">Tested solutions,</text>
+        <text x="438" y="158" text-anchor="middle" font-size="10" fill="#777">new baseline</text>
+      </g>
+      <g>
+        <rect x="506" y="80" width="112" height="100" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="562" y="105" text-anchor="middle" font-size="20" font-weight="bold" fill="#e93680">C</text>
+        <text x="562" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Control</text>
+        <text x="562" y="145" text-anchor="middle" font-size="10" fill="#777">Control plan,</text>
+        <text x="562" y="158" text-anchor="middle" font-size="10" fill="#777">monitoring</text>
+      </g>
+      <!-- Arrows -->
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="122" y1="130" x2="132" y2="130" marker-end="url(#dmarr)"/>
+        <line x1="246" y1="130" x2="256" y2="130" marker-end="url(#dmarr)"/>
+        <line x1="370" y1="130" x2="380" y2="130" marker-end="url(#dmarr)"/>
+        <line x1="494" y1="130" x2="504" y2="130" marker-end="url(#dmarr)"/>
+      </g>
+      <text x="320" y="35" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">The DMAIC Improvement Cycle</text>
+      <text x="320" y="215" text-anchor="middle" font-size="11" fill="#777">Each phase produces a deliverable that the next phase depends on</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">DMAIC phases and their key outputs.</div>
+</div>
+<table class="compare"><tr><th>Phase</th><th>Key question</th><th>Typical tools</th></tr><tr><td>Define</td><td>What problem are we solving, for whom, and by when?</td><td>Project charter, SIPOC, VOC, CTQ tree</td></tr><tr><td>Measure</td><td>How is the process performing today?</td><td>Process maps, data collection plan, MSA, capability analysis</td></tr><tr><td>Analyse</td><td>What are the verified root causes?</td><td>Fishbone, Pareto, hypothesis tests, regression, FMEA</td></tr><tr><td>Improve</td><td>Which solutions remove the root causes?</td><td>DOE, pilot, solution selection matrix</td></tr><tr><td>Control</td><td>How do we hold the gain?</td><td>Control charts, standard work, poka-yoke, control plan</td></tr></table>
+<h3>3. When to use DMAIC</h3><ul><li>The process exists and is producing unacceptable results.</li><li>The problem is chronic rather than a one-off incident.</li><li>Data can be collected to characterise the problem.</li><li>Root cause is not obvious and investigation is justified.</li></ul>
+<h3>4. When DMAIC may not be the best fit</h3><p>For a brand-new product or process, a design methodology (DMADV or DFSS) is more appropriate. For a simple, obvious problem, a quick kaizen event may resolve it faster. DMAIC is a heavy tool; use it where the cost of the problem justifies the rigour.</p>
+<h3>5. Six Sigma belts</h3><table class="compare"><tr><th>Belt</th><th>Typical role</th></tr><tr><td>Champion</td><td>Senior sponsor who removes organisational barriers</td></tr><tr><td>Master Black Belt</td><td>Trains and mentors belts; owns methodology</td></tr><tr><td>Black Belt</td><td>Leads complex projects full-time</td></tr><tr><td>Green Belt</td><td>Leads projects alongside their normal role</td></tr><tr><td>Yellow Belt</td><td>Participates in projects; uses basic tools</td></tr></table>`,
+        quiz: [
+          { q: "What does the 'M' in DMAIC stand for?", opts: ["Manage", "Measure", "Monitor", "Model"], answer: 1, explanation: "DMAIC = Define, Measure, Analyse, Improve, Control." },
+          { q: "Which phase produces the project charter and CTQs?", opts: ["Define", "Measure", "Analyse", "Improve"], answer: 0, explanation: "The Define phase establishes the problem, goal, scope and CTQs." },
+          { q: "Which problem is the best candidate for DMAIC?", opts: ["A brand-new product launch", "A chronic defect rate with unknown cause", "A one-off power cut", "A trivial typo on a form"], answer: 1, explanation: "DMAIC suits chronic, data-rich problems where the root cause is not obvious." },
+          { q: "What is the main purpose of the Control phase?", opts: ["Collect baseline data", "Brainstorm root causes", "Sustain the improvement", "Design the experiment"], answer: 2, explanation: "The Control phase holds the gain through standard work, monitoring and response plans." },
+          { q: "Which methodology is preferred for designing a new process?", opts: ["DMAIC", "DMADV", "5S", "Kaizen"], answer: 1, explanation: "DMADV (Design for Six Sigma) is used when creating a new process or product." }
+        ]
+      }]
+    },
+    {
+      title: "Define the Problem",
+      lessons: [{
+        title: "Writing a Clear Problem Statement and Project Charter",
+        duration: "45 minutes",
+        html: `<p>The Define phase establishes what the project will solve, why it matters and how success will be measured. A weak Define phase produces scope creep, unclear goals and solutions in search of a problem. A strong Define phase produces alignment and a clear target.</p>
+<div class="callout"><b>Test of a good problem statement:</b> It is specific, measurable, time-bound and free of a presumed solution. "Defect rate on line 3 is 6.2% versus a target of 1%, costing GH¢40,000 per month" is a problem. "We need a new machine" is a solution looking for a problem.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to write a measurable problem statement, define scope and boundaries, build a SIPOC, translate customer needs into CTQs and complete a project charter.</p>
+<h3>1. Problem statement — the four tests</h3>
+<table class="compare"><tr><th>Test</th><th>Weak example</th><th>Strong example</th></tr><tr><td>Specific</td><td>Quality is bad</td><td>Defect rate on line 3 is 6.2%</td></tr><tr><td>Measurable</td><td>Customers are unhappy</td><td>Complaints up from 20 to 85 per month</td></tr><tr><td>Time-bound</td><td>Sometime this year</td><td>Measured over Q1 2024</td></tr><tr><td>No solution bias</td><td>We need a new machine</td><td>Cycle time exceeds target by 18%</td></tr></table>
+<h3>2. Scope and boundaries</h3><p>Scope defines what is in and out. Boundaries prevent the project from drifting. State the process start and stop points, the sites and lines involved, and — importantly — what is excluded.</p>
+<p><b>In scope:</b> Line 3 filling station, 06:00–22:00 shift, Q1 2024.<br><b>Out of scope:</b> Packaging line, warehouse, supplier incoming inspection.</p>
+<h3>3. SIPOC — Suppliers, Inputs, Process, Outputs, Customers</h3>
+<p>SIPOC gives a high-level view of the process before measurement begins. It helps define boundaries and identify stakeholders.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="SIPOC example for bottle filling line">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">SIPOC — Bottle Filling Line</text>
+      <!-- Five columns -->
+      <g>
+        <rect x="10" y="40" width="112" height="150" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="66" y="62" text-anchor="middle" font-weight="bold" fill="#e93680">Suppliers</text>
+        <text x="66" y="88" text-anchor="middle" font-size="10" fill="#555">Bottle supplier</text>
+        <text x="66" y="104" text-anchor="middle" font-size="10" fill="#555">Cap supplier</text>
+        <text x="66" y="120" text-anchor="middle" font-size="10" fill="#555">Liquid supplier</text>
+        <text x="66" y="136" text-anchor="middle" font-size="10" fill="#555">Maintenance</text>
+      </g>
+      <g>
+        <rect x="134" y="40" width="112" height="150" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="190" y="62" text-anchor="middle" font-weight="bold" fill="#e93680">Inputs</text>
+        <text x="190" y="88" text-anchor="middle" font-size="10" fill="#555">Empty bottles</text>
+        <text x="190" y="104" text-anchor="middle" font-size="10" fill="#555">Caps</text>
+        <text x="190" y="120" text-anchor="middle" font-size="10" fill="#555">Liquid (approved)</text>
+        <text x="190" y="136" text-anchor="middle" font-size="10" fill="#555">Specifications</text>
+      </g>
+      <g>
+        <rect x="258" y="30" width="124" height="170" rx="6" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="320" y="55" text-anchor="middle" font-weight="bold" fill="#e93680">Process</text>
+        <text x="320" y="80" text-anchor="middle" font-size="10" fill="#555">1. Bottle unscramble</text>
+        <text x="320" y="96" text-anchor="middle" font-size="10" fill="#555">2. Fill</text>
+        <text x="320" y="112" text-anchor="middle" font-size="10" fill="#555">3. Cap</text>
+        <text x="320" y="128" text-anchor="middle" font-size="10" fill="#555">4. Label</text>
+        <text x="320" y="144" text-anchor="middle" font-size="10" fill="#555">5. Inspect</text>
+        <text x="320" y="160" text-anchor="middle" font-size="10" fill="#555">6. Release</text>
+      </g>
+      <g>
+        <rect x="394" y="40" width="112" height="150" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="450" y="62" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Outputs</text>
+        <text x="450" y="88" text-anchor="middle" font-size="10" fill="#555">Filled bottles</text>
+        <text x="450" y="104" text-anchor="middle" font-size="10" fill="#555">Rejects</text>
+        <text x="450" y="120" text-anchor="middle" font-size="10" fill="#555">Batch record</text>
+        <text x="450" y="136" text-anchor="middle" font-size="10" fill="#555">Cycle time data</text>
+      </g>
+      <g>
+        <rect x="518" y="40" width="112" height="150" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="574" y="62" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Customers</text>
+        <text x="574" y="88" text-anchor="middle" font-size="10" fill="#555">Distribution</text>
+        <text x="574" y="104" text-anchor="middle" font-size="10" fill="#555">Retail</text>
+        <text x="574" y="120" text-anchor="middle" font-size="10" fill="#555">Consumers</text>
+        <text x="574" y="136" text-anchor="middle" font-size="10" fill="#555">Regulator</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">A SIPOC example for a bottle filling line — process boundaries are clear.</div>
+</div>
+<h3>4. Voice of the Customer (VOC) and CTQs</h3>
+<p>Customer needs must be translated into measurable requirements called <b>Critical-to-Quality</b> characteristics (CTQs). A VOC statement like "I don't want leaks" becomes a CTQ like "Cap torque 15–20 in-lb; 0 leaks per 1,000 bottles."</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="CTQ tree from VOC to measurable specification">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">CTQ Tree — from need to measurable spec</text>
+      <!-- Level 1 -->
+      <rect x="20" y="80" width="140" height="60" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+      <text x="90" y="105" text-anchor="middle" font-weight="bold" fill="#e93680">Need (VOC)</text>
+      <text x="90" y="123" text-anchor="middle" font-size="10" fill="#555">"No leaks"</text>
+      <!-- Level 2 -->
+      <rect x="200" y="80" width="140" height="60" rx="6" fill="#fff2f7" stroke="#e93680"/>
+      <text x="270" y="105" text-anchor="middle" font-weight="bold" fill="#e93680">Driver</text>
+      <text x="270" y="123" text-anchor="middle" font-size="10" fill="#555">Cap properly applied</text>
+      <!-- Level 3 -->
+      <rect x="380" y="50" width="220" height="45" rx="6" fill="#dcecff" stroke="#438bd5"/>
+      <text x="490" y="70" text-anchor="middle" font-size="10" font-weight="bold" fill="#2b6cb0">CTQ 1: Cap torque 15–20 in-lb</text>
+      <text x="490" y="86" text-anchor="middle" font-size="9" fill="#555">measured every 30 min</text>
+
+      <rect x="380" y="105" width="220" height="45" rx="6" fill="#dcecff" stroke="#438bd5"/>
+      <text x="490" y="125" text-anchor="middle" font-size="10" font-weight="bold" fill="#2b6cb0">CTQ 2: Cap alignment flush</text>
+      <text x="490" y="141" text-anchor="middle" font-size="9" fill="#555">visual + torque test</text>
+
+      <rect x="380" y="160" width="220" height="45" rx="6" fill="#dcecff" stroke="#438bd5"/>
+      <text x="490" y="180" text-anchor="middle" font-size="10" font-weight="bold" fill="#2b6cb0">CTQ 3: 0 leaks per 1,000</text>
+      <text x="490" y="196" text-anchor="middle" font-size="9" fill="#555">audit every shift</text>
+
+      <!-- Connectors -->
+      <g stroke="#777" stroke-width="1.5" fill="none">
+        <line x1="160" y1="110" x2="198" y2="110"/>
+        <line x1="340" y1="95" x2="380" y2="72"/>
+        <line x1="340" y1="110" x2="380" y2="127"/>
+        <line x1="340" y1="125" x2="380" y2="182"/>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Each VOC statement decomposes into drivers and measurable CTQs.</div>
+</div>
+<h3>5. The project charter</h3>
+<table class="compare"><tr><th>Element</th><th>Example content</th></tr><tr><td>Problem statement</td><td>Defect rate on line 3 is 6.2% (target ≤1%)</td></tr><tr><td>Goal statement</td><td>Reduce defect rate to ≤1% by 30 June 2024</td></tr><tr><td>Business case</td><td>GH¢40,000/month scrap and rework cost</td></tr><tr><td>Scope</td><td>Line 3 filling station, Q1 2024</td></tr><tr><td>Team</td><td>Champion, Black Belt, line lead, quality engineer</td></tr><tr><td>Milestones</td><td>Define (wk1), Measure (wk3), Analyse (wk6), Improve (wk10), Control (wk14)</td></tr></table>
+<h3>6. Common Define phase failures</h3><ul><li>A solution disguised as a problem statement.</li><li>Scope so wide it cannot be measured or completed.</li><li>No baseline data — the improvement cannot be proven.</li><li>No sponsor — the project stalls when it meets resistance.</li></ul>`,
+        quiz: [
+          { q: "Which of these is the strongest problem statement?", opts: ["Quality needs to improve", "Line 3 defect rate is 6.2% vs target 1%", "We must buy a new machine", "Customers are unhappy"], answer: 1, explanation: "A strong problem statement is specific, measurable, time-bound and free of solution bias." },
+          { q: "What does the 'C' in CTQ stand for?", opts: ["Control", "Cause", "Critical", "Cycle"], answer: 2, explanation: "CTQ stands for Critical to Quality." },
+          { q: "What is the main purpose of a SIPOC?", opts: ["Assign team roles", "Define high-level process boundaries and inputs", "Calculate sigma level", "Design experiments"], answer: 1, explanation: "SIPOC defines process boundaries, suppliers, inputs, outputs and customers at a high level." },
+          { q: "Which is a common Define phase failure?", opts: ["A clear measurable baseline", "A problem statement that presumes the solution", "An identified sponsor", "A stated business case"], answer: 1, explanation: "Presuming the solution in the problem statement biases the entire project." },
+          { q: "Which two elements are most essential in a project charter?", opts: ["Marketing plan and HR budget", "Problem statement and goal statement", "Machine specifications and purchase orders", "Meeting minutes and catering"], answer: 1, explanation: "The problem and goal define what success looks like." }
+        ]
+      }]
+    },
+    {
+      title: "Measure Process Performance",
+      lessons: [{
+        title: "Collecting Baseline Data and Measuring Capability",
+        duration: "50 minutes",
+        html: `<p>The Measure phase answers a simple question: <b>how is the process performing today?</b> Without a reliable baseline, improvement claims cannot be verified. The goal is trustworthy data — not perfect data — on the key process metrics that matter to the CTQs defined in the Define phase.</p>
+<div class="callout"><b>Garbage in, garbage out.</b> If the measurement system is unreliable, every later statistic is suspect. Always validate the measurement system before collecting large volumes of data.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to design a data collection plan, explain MSA and why it matters, compute baseline metrics such as DPMO and sigma level, and interpret Cp and Cpk capability indices.</p>
+<h3>1. Data collection planning</h3>
+<table class="compare"><tr><th>Item</th><th>Example for line 3 defects</th></tr><tr><td>What data</td><td>Defect type, timestamp, shift, machine ID</td></tr><tr><td>Source</td><td>End-of-line inspection + reject log</td></tr><tr><td>Who</td><td>Quality inspector, verified by line lead</td></tr><tr><td>How</td><td>Standard inspection sheet, calibrated gauge</td></tr><tr><td>When</td><td>Every bottle on shift A/B/C, Q1 2024</td></tr><tr><td>Sample size</td><td>Minimum 100 defect events per type</td></tr></table>
+<h3>2. Measurement System Analysis (MSA)</h3>
+<p>MSA checks whether the measurement system is trustworthy. The most common study is <b>GR&amp;R</b> — Gauge Repeatability and Reproducibility — which separates variation caused by the gauge itself (repeatability) from variation caused by operators (reproducibility). Typical rule: measurement variation should be less than 10% of process tolerance; over 30% is unacceptable.</p>
+<h3>3. Types of data</h3>
+<ul><li><b>Continuous</b> (variables) — measurable values: length, weight, torque, cycle time.</li><li><b>Discrete</b> (attributes) — pass/fail, defect count, category.</li></ul>
+<p>The data type determines which capability metrics and control charts are valid. Computing sigma level requires defect counts and opportunities; Cp/Cpk requires continuous data with a specification.</p>
+<h3>4. Process baseline metrics</h3>
+<p><b>DPMO (Defects Per Million Opportunities)</b> normalises defect rate for the number of opportunities per unit:</p>
+<p style="text-align:center;"><b>DPMO = (Total defects ÷ (Units × Opportunities per unit)) × 1,000,000</b></p>
+<p>Example: 620 defects on 10,000 bottles with 1 opportunity each → DPMO = (620 ÷ 10,000) × 1,000,000 = <b>62,000</b>, corresponding to roughly 3.0 sigma.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Sigma level and DPMO relationship">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Sigma level vs DPMO (higher is better)</text>
+      <!-- Axis -->
+      <line x1="60" y1="180" x2="600" y2="180" stroke="#999"/>
+      <line x1="60" y1="40" x2="60" y2="180" stroke="#999"/>
+      <text x="40" y="185" font-size="10" fill="#555">0</text>
+      <text x="40" y="135" font-size="10" fill="#555">250k</text>
+      <text x="40" y="85" font-size="10" fill="#555">500k</text>
+      <text x="40" y="45" font-size="10" fill="#555">1M</text>
+      <!-- Bars -->
+      <g>
+        <rect x="90" y="60" width="60" height="120" fill="#ffaad0"/>
+        <text x="120" y="198" text-anchor="middle" font-size="10" fill="#333">2σ</text>
+        <text x="120" y="55" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">308k</text>
+
+        <rect x="180" y="95" width="60" height="85" fill="#ff8ab7"/>
+        <text x="210" y="198" text-anchor="middle" font-size="10" fill="#333">3σ</text>
+        <text x="210" y="90" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">67k</text>
+
+        <rect x="270" y="135" width="60" height="45" fill="#ff6ba0"/>
+        <text x="300" y="198" text-anchor="middle" font-size="10" fill="#333">4σ</text>
+        <text x="300" y="130" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">6.2k</text>
+
+        <rect x="360" y="160" width="60" height="20" fill="#ff4b93"/>
+        <text x="390" y="198" text-anchor="middle" font-size="10" fill="#333">5σ</text>
+        <text x="390" y="155" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">233</text>
+
+        <rect x="450" y="172" width="60" height="8" fill="#c2185b"/>
+        <text x="480" y="198" text-anchor="middle" font-size="10" fill="#333">6σ</text>
+        <text x="480" y="167" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">3.4</text>
+      </g>
+      <text x="320" y="215" text-anchor="middle" font-size="10" fill="#777">3.4 DPMO ≈ 6 sigma (world-class)</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Six Sigma targets 3.4 defects per million opportunities.</div>
+</div>
+<h3>5. Capability indices — Cp and Cpk</h3>
+<p>For continuous data with a specification, capability compares process spread to the tolerance.</p>
+<ul>
+  <li><b>Cp</b> = (USL − LSL) ÷ 6σ — spread capability, ignores centring.</li>
+  <li><b>Cpk</b> = min((USL − mean), (mean − LSL)) ÷ 3σ — spread <i>and</i> centring.</li>
+</ul>
+<p>Interpretation: Cpk ≥ 1.33 is typically considered capable; Cpk = 1.0 is marginal; Cpk &lt; 1 means the process produces defects. If Cp is high but Cpk is low, the process is capable but off-centre — a centring fix, not a spread reduction.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 200" role="img" aria-label="Process capability with specification limits">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Process capability vs specification limits</text>
+      <!-- Axis -->
+      <line x1="40" y1="160" x2="600" y2="160" stroke="#999"/>
+      <!-- Spec limits -->
+      <line x1="150" y1="60" x2="150" y2="170" stroke="#e93680" stroke-width="2"/>
+      <text x="150" y="50" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">LSL</text>
+      <line x1="490" y1="60" x2="490" y2="170" stroke="#e93680" stroke-width="2"/>
+      <text x="490" y="50" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">USL</text>
+      <!-- Normal curve -->
+      <path d="M 170 160 Q 250 40 320 40 Q 390 40 470 160 Z" fill="rgba(255,75,147,0.25)" stroke="#e93680" stroke-width="1.5"/>
+      <!-- Centered line -->
+      <line x1="320" y1="40" x2="320" y2="160" stroke="#333" stroke-dasharray="4,3"/>
+      <text x="320" y="35" text-anchor="middle" font-size="10" fill="#333">mean</text>
+      <text x="320" y="190" text-anchor="middle" font-size="10" fill="#555">Process curve fits well inside specification → high Cpk</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Cpk compares the process spread and its centre to the specification limits.</div>
+</div>
+<h3>6. Common Measure phase pitfalls</h3><ul><li>Collecting data before validating the measurement system.</li><li>Using only "good" days or short windows — biased baseline.</li><li>Confusing defects per unit with defects per opportunity.</li><li>Missing data — check whether missingness is random or systematic.</li></ul>`,
+        quiz: [
+          { q: "Which tool verifies that the measurement system is trustworthy?", opts: ["SIPOC", "MSA / GR&R", "FMEA", "Pareto"], answer: 1, explanation: "Measurement System Analysis, typically GR&R, separates gauge and operator variation." },
+          { q: "A process has 620 defects on 10,000 bottles with 1 opportunity per unit. DPMO is approximately:", opts: ["62", "620", "62,000", "620,000"], answer: 2, explanation: "620 ÷ 10,000 × 1,000,000 = 62,000." },
+          { q: "Cpk differs from Cp because it accounts for:", opts: ["Sample size", "Process centring", "Measurement error", "Attribute data"], answer: 1, explanation: "Cpk considers both spread and how centred the process is within specification." },
+          { q: "Which is a valid rule of thumb for a GR&R study?", opts: ["GR&R > 30% is acceptable", "GR&R < 10% is generally acceptable", "GR&R does not affect capability", "GR&R should equal Cpk"], answer: 1, explanation: "Measurement variation under 10% of tolerance is generally acceptable; over 30% is not." },
+          { q: "Which is the best practice for a baseline dataset?", opts: ["Choose the best-performing week", "Collect from all shifts over a representative period", "Use only manual records", "Collect a single sample"], answer: 1, explanation: "Baseline must reflect true process performance across shifts and conditions." }
+        ]
+      }]
+    },
+    {
+      title: "Analyse Root Causes",
+      lessons: [{
+        title: "Verifying Root Causes with Data and Tools",
+        duration: "50 minutes",
+        html: `<p>The Analyse phase moves from symptoms to verified causes. A <b>symptom</b> is what you see — a defect, a delay, a complaint. A <b>root cause</b> is the underlying condition that, if removed, eliminates the symptom. Teams that skip verification jump to solutions and often "solve" the wrong problem.</p>
+<div class="callout"><b>Test of a root cause:</b> If you remove or change it, does the symptom disappear or reduce significantly? If you cannot show that with data, you have a hypothesis — not a verified cause.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to use the fishbone diagram to generate cause hypotheses, use Pareto analysis to prioritise, use the 5 Whys to drill down, and design a verification that separates real causes from correlations.</p>
+<h3>1. Generate — Fishbone (Ishikawa) diagram</h3>
+<p>The fishbone organises potential causes into categories: Man, Machine, Method, Material, Measurement, Environment. It is a <b>generation</b> tool — it widens the search before narrowing it.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 300" role="img" aria-label="Fishbone diagram with example causes for cap leaks">
+    <g font-family="Arial" font-size="11">
+      <line x1="60" y1="150" x2="540" y2="150" stroke="#333" stroke-width="2.5"/>
+      <polygon points="540,150 600,130 600,170" fill="#e93680"/>
+      <text x="570" y="154" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Cap leak</text>
+      <g stroke="#438bd5" stroke-width="2">
+        <line x1="150" y1="150" x2="210" y2="70"/>
+        <line x1="270" y1="150" x2="330" y2="70"/>
+        <line x1="390" y1="150" x2="450" y2="70"/>
+        <line x1="150" y1="150" x2="210" y2="230"/>
+        <line x1="270" y1="150" x2="330" y2="230"/>
+        <line x1="390" y1="150" x2="450" y2="230"/>
+      </g>
+      <text x="210" y="55" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Man</text>
+      <text x="210" y="75" text-anchor="middle" font-size="10" fill="#555">Training gap</text>
+      <text x="210" y="90" text-anchor="middle" font-size="10" fill="#555">Fatigue</text>
+
+      <text x="330" y="55" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Method</text>
+      <text x="330" y="75" text-anchor="middle" font-size="10" fill="#555">Torque spec unclear</text>
+      <text x="330" y="90" text-anchor="middle" font-size="10" fill="#555">No SOP update</text>
+
+      <text x="450" y="55" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Machine</text>
+      <text x="450" y="75" text-anchor="middle" font-size="10" fill="#555">Torque drift</text>
+      <text x="450" y="90" text-anchor="middle" font-size="10" fill="#555">Cap feeder jam</text>
+
+      <text x="210" y="248" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Material</text>
+      <text x="210" y="265" text-anchor="middle" font-size="10" fill="#555">Cap thread defect</text>
+      <text x="210" y="280" text-anchor="middle" font-size="10" fill="#555">Bottle lip damage</text>
+
+      <text x="330" y="248" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Measurement</text>
+      <text x="330" y="265" text-anchor="middle" font-size="10" fill="#555">Torque gauge drift</text>
+      <text x="330" y="280" text-anchor="middle" font-size="10" fill="#555">Sampling gap</text>
+
+      <text x="450" y="248" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Environment</text>
+      <text x="450" y="265" text-anchor="middle" font-size="10" fill="#555">Humidity → cap</text>
+      <text x="450" y="280" text-anchor="middle" font-size="10" fill="#555">Vibration</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Fishbone for a cap-leak problem — many hypotheses, none yet verified.</div>
+</div>
+<h3>2. Prioritise — Pareto analysis</h3>
+<p>The Pareto principle: roughly 80% of problems come from 20% of causes. A Pareto chart ranks defect types by frequency so the team attacks the biggest slice first.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Pareto chart of defect types">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Pareto — defect types on line 3</text>
+      <line x1="70" y1="200" x2="600" y2="200" stroke="#999"/>
+      <line x1="70" y1="30" x2="70" y2="200" stroke="#999"/>
+      <g>
+        <rect x="90" y="50" width="70" height="150" fill="#ff4b93"/>
+        <text x="125" y="215" text-anchor="middle" font-size="10" fill="#333">Torque</text>
+        <text x="125" y="45" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">42%</text>
+
+        <rect x="180" y="90" width="70" height="110" fill="#ff6ba0"/>
+        <text x="215" y="215" text-anchor="middle" font-size="10" fill="#333">Thread</text>
+        <text x="215" y="85" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">31%</text>
+
+        <rect x="270" y="140" width="70" height="60" fill="#ff8ab7"/>
+        <text x="305" y="215" text-anchor="middle" font-size="10" fill="#333">Lip</text>
+        <text x="305" y="135" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">17%</text>
+
+        <rect x="360" y="170" width="70" height="30" fill="#ffaad0"/>
+        <text x="395" y="215" text-anchor="middle" font-size="10" fill="#333">Align</text>
+        <text x="395" y="165" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">7%</text>
+
+        <rect x="450" y="185" width="70" height="15" fill="#ffcfe3"/>
+        <text x="485" y="215" text-anchor="middle" font-size="10" fill="#333">Other</text>
+        <text x="485" y="180" text-anchor="middle" font-size="10" fill="#e93680" font-weight="bold">3%</text>
+      </g>
+      <polyline points="160,50 250,90 340,140 430,170 520,185" fill="none" stroke="#333" stroke-width="1.5"/>
+      <g fill="#333">
+        <circle cx="160" cy="50" r="3"/>
+        <circle cx="250" cy="90" r="3"/>
+        <circle cx="340" cy="140" r="3"/>
+        <circle cx="430" cy="170" r="3"/>
+        <circle cx="520" cy="185" r="3"/>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Torque and thread issues cause 73% of defects — investigate those first.</div>
+</div>
+<h3>3. Drill down — 5 Whys</h3>
+<p>Ask "why" repeatedly to move from a symptom to a controllable cause. Example for torque drift:</p>
+<ol>
+  <li>Why do bottles leak? → The cap is under-torqued.</li>
+  <li>Why is it under-torqued? → The torque head drifts after 4 hours.</li>
+  <li>Why does it drift? → The torque sensor calibration is 14 months old (spec: 6 months).</li>
+  <li>Why is it overdue? → No trigger in the CMMS for calibration.</li>
+  <li>Why is there no trigger? → Calibration triggers were not migrated when the CMMS was upgraded.</li>
+</ol>
+<p>Root cause: a missing CMMS calibration trigger — an actionable, controllable fix.</p>
+<h3>4. Verify — confirm the cause is real</h3>
+<p>Hypotheses must be tested. Useful verification methods:</p>
+<ul>
+  <li><b>Stratification</b> — compare defects by shift, machine, supplier, operator.</li>
+  <li><b>Correlation / regression</b> — does torque drift correlate with time since calibration?</li>
+  <li><b>Hypothesis tests</b> — is the mean cycle time of shift A significantly different from shift B?</li>
+  <li><b>Controlled trial</b> — recalibrate one head and compare its defects to a control head.</li>
+</ul>
+<h3>5. FMEA — prioritising failure modes</h3>
+<p>Failure Mode and Effects Analysis scores each potential failure by <b>Severity (S)</b>, <b>Occurrence (O)</b> and <b>Detection (D)</b> on 1–10 scales. The Risk Priority Number is <b>RPN = S × O × D</b>. High-RPN items get improvement priority.</p>
+<div class="diagram">
+  <svg viewBox="0 0 620 200" role="img" aria-label="FMEA RPN example">
+    <g font-family="Arial" font-size="11">
+      <text x="310" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">FMEA — RPN = Severity × Occurrence × Detection</text>
+      <!-- Table -->
+      <rect x="20" y="40" width="580" height="30" fill="#fff2f7" stroke="#e93680"/>
+      <text x="70" y="60" text-anchor="middle" font-weight="bold" fill="#e93680">Failure mode</text>
+      <text x="280" y="60" text-anchor="middle" font-weight="bold" fill="#e93680">S</text>
+      <text x="360" y="60" text-anchor="middle" font-weight="bold" fill="#e93680">O</text>
+      <text x="440" y="60" text-anchor="middle" font-weight="bold" fill="#e93680">D</text>
+      <text x="540" y="60" text-anchor="middle" font-weight="bold" fill="#e93680">RPN</text>
+
+      <rect x="20" y="70" width="580" height="30" fill="#fff" stroke="#ddd"/>
+      <text x="70" y="90" text-anchor="middle" fill="#333">Cap under-torqued</text>
+      <text x="280" y="90" text-anchor="middle" fill="#333">8</text>
+      <text x="360" y="90" text-anchor="middle" fill="#333">6</text>
+      <text x="440" y="90" text-anchor="middle" fill="#333">4</text>
+      <text x="540" y="90" text-anchor="middle" fill="#e93680" font-weight="bold">192</text>
+
+      <rect x="20" y="100" width="580" height="30" fill="#fff" stroke="#ddd"/>
+      <text x="70" y="120" text-anchor="middle" fill="#333">Cap thread defect</text>
+      <text x="280" y="120" text-anchor="middle" fill="#333">7</text>
+      <text x="360" y="120" text-anchor="middle" fill="#333">5</text>
+      <text x="440" y="120" text-anchor="middle" fill="#333">3</text>
+      <text x="540" y="120" text-anchor="middle" fill="#e93680" font-weight="bold">105</text>
+
+      <rect x="20" y="130" width="580" height="30" fill="#fff" stroke="#ddd"/>
+      <text x="70" y="150" text-anchor="middle" fill="#333">Cap misaligned</text>
+      <text x="280" y="150" text-anchor="middle" fill="#333">6</text>
+      <text x="360" y="150" text-anchor="middle" fill="#333">4</text>
+      <text x="440" y="150" text-anchor="middle" fill="#333">2</text>
+      <text x="540" y="150" text-anchor="middle" fill="#e93680" font-weight="bold">48</text>
+
+      <text x="310" y="185" text-anchor="middle" font-size="10" fill="#777">Highest RPN gets improvement priority</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Under-torquing has the highest RPN — address it first.</div>
+</div>
+<h3>6. Common Analyse phase pitfalls</h3><ul><li>Confusing correlation with causation.</li><li>Accepting the loudest opinion as the cause.</li><li>Ignoring the measurement system.</li><li>Stopping at the symptom level.</li></ul>`,
+        quiz: [
+          { q: "What is the purpose of a fishbone diagram?", opts: ["Rank defects by frequency", "Generate cause hypotheses by category", "Verify a hypothesis statistically", "Calculate sigma level"], answer: 1, explanation: "Fishbone generates and organises potential causes; it does not verify them." },
+          { q: "Pareto analysis is used to:", opts: ["Measure process capability", "Prioritise the biggest causes", "Calculate Cpk", "Design experiments"], answer: 1, explanation: "Pareto highlights the vital few causes that drive most of the problem." },
+          { q: "How is RPN computed in FMEA?", opts: ["S + O + D", "S × O × D", "S ÷ O", "O − D"], answer: 1, explanation: "RPN = Severity × Occurrence × Detection." },
+          { q: "Which statement is true about correlation?", opts: ["It proves causation", "It may be coincidental and must be verified", "It is only valid for attribute data", "It replaces hypothesis testing"], answer: 1, explanation: "Correlation is not causation; it is a clue that needs controlled verification." },
+          { q: "A team discovers torque drift correlates with time since calibration. The next best step is:", opts: ["Declare victory", "Check the CMMS calibration trigger and test recalibration", "Increase production speed", "Ignore the finding"], answer: 1, explanation: "The correlation suggests a testable root cause that should be verified with a controlled change." }
+        ]
+      }]
+    },
+    {
+      title: "Improve and Control the Process",
+      lessons: [{
+        title: "Selecting Solutions and Holding the Gain",
+        duration: "50 minutes",
+        html: `<p>The Improve and Control phases convert verified root causes into sustained improvement. Improve selects and pilots solutions. Control institutionalises the improvement so it does not erode over time.</p>
+<div class="callout"><b>Principle:</b> Every improvement is a change — and every change introduces new risks. A control plan explicitly names the owner, the response and the reversion route so the process stays on track.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to apply a solution selection matrix, design a pilot, use a control chart to monitor the new process, and write a control plan with an explicit response plan.</p>
+<h3>1. Improve — solution selection matrix</h3>
+<p>Solutions must be evaluated on cost, impact on the verified root cause, feasibility and risk — not just cost. A simple weighted matrix is often enough.</p>
+<table class="compare"><tr><th>Criterion (weight)</th><th>Solution A: recalibrate &amp; add CMMS trigger</th><th>Solution B: buy new torque head</th></tr><tr><td>Impact on root cause (40%)</td><td>5</td><td>4</td></tr><tr><td>Cost (20%)</td><td>5</td><td>1</td></tr><tr><td>Speed of implementation (20%)</td><td>5</td><td>2</td></tr><tr><td>Risk / side effects (20%)</td><td>4</td><td>3</td></tr><tr><td><b>Weighted score</b></td><td><b>4.8</b></td><td><b>2.8</b></td></tr></table>
+<h3>2. Pilot before full rollout</h3>
+<p>Run the solution on one line or one shift first. Define success criteria, measurement approach, duration and stop conditions <i>before</i> starting. Compare pilot performance to the baseline using the same measures.</p>
+<h3>3. Design of Experiments (DOE) — optional advanced step</h3>
+<p>When multiple factors interact, DOE varies several inputs at once and reveals interactions a one-at-a-time experiment misses. For many problems, a simple pilot or before/after comparison is sufficient — DOE is reserved for the highest-impact cases.</p>
+<h3>4. Control — statistical process control</h3>
+<p>A control chart distinguishes common-cause variation (inherent) from special-cause variation (unusual events). The centre line and control limits come from the stable process itself; they are not specification limits.</p>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Control chart with a special-cause signal">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Control chart — one point outside the upper limit</text>
+      <line x1="70" y1="180" x2="600" y2="180" stroke="#999"/>
+      <line x1="70" y1="30" x2="70" y2="180" stroke="#999"/>
+      <line x1="70" y1="55" x2="600" y2="55" stroke="#e93680" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="605" y="58" font-size="10" fill="#e93680">UCL</text>
+      <line x1="70" y1="105" x2="600" y2="105" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="605" y="108" font-size="10" fill="#2e7d32">CL</text>
+      <line x1="70" y1="155" x2="600" y2="155" stroke="#e93680" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="605" y="158" font-size="10" fill="#e93680">LCL</text>
+      <polyline points="100,110 150,102 200,108 250,100 300,112 350,45 400,105 450,110 500,102 550,108" fill="none" stroke="#ff4b93" stroke-width="1.5"/>
+      <g fill="#ff4b93">
+        <circle cx="100" cy="110" r="4"/>
+        <circle cx="150" cy="102" r="4"/>
+        <circle cx="200" cy="108" r="4"/>
+        <circle cx="250" cy="100" r="4"/>
+        <circle cx="300" cy="112" r="4"/>
+        <circle cx="350" cy="45" r="6" fill="#c2185b"/>
+        <circle cx="400" cy="105" r="4"/>
+        <circle cx="450" cy="110" r="4"/>
+        <circle cx="500" cy="102" r="4"/>
+        <circle cx="550" cy="108" r="4"/>
+      </g>
+      <text x="350" y="30" text-anchor="middle" font-size="10" fill="#c2185b" font-weight="bold">Special cause — investigate</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">One point above the upper control limit signals special-cause variation requiring investigation.</div>
+</div>
+<h3>5. Standard work and poka-yoke</h3>
+<ul>
+  <li><b>Standard work</b> documents the new method: steps, settings, timing, quality checks. It is the baseline for training and further improvement.</li>
+  <li><b>Poka-yoke</b> (mistake-proofing) makes the error physically impossible or immediately visible — a cap feeder that only accepts correctly oriented caps, or a torque head that refuses to cycle below a setpoint.</li>
+</ul>
+<h3>6. The control plan</h3>
+<table class="compare"><tr><th>Element</th><th>Example</th></tr><tr><td>What to monitor</td><td>Cap torque; defect rate; gauge calibration</td></tr><tr><td>Frequency</td><td>Torque every 30 min; defect count hourly; calibration per CMMS</td></tr><tr><td>Method</td><td>Calibrated torque tester; reject log; CMMS trigger</td></tr><tr><td>Owner</td><td>Line lead (torque); QA supervisor (defects); Maintenance (calibration)</td></tr><tr><td>Reaction plan</td><td>If torque &lt; 15 in-lb → stop line; recheck gauge; notify maintenance</td></tr><tr><td>Review</td><td>Monthly review of trends; quarterly audit</td></tr></table>
+<div class="diagram">
+  <svg viewBox="0 0 640 200" role="img" aria-label="Control plan reaction loop">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Control loop — measure, compare, react</text>
+      <rect x="30" y="80" width="130" height="60" rx="8" fill="#fff2f7" stroke="#e93680"/>
+      <text x="95" y="105" text-anchor="middle" font-weight="bold" fill="#e93680">Measure</text>
+      <text x="95" y="123" text-anchor="middle" font-size="10" fill="#555">torque test</text>
+
+      <rect x="200" y="80" width="140" height="60" rx="8" fill="#fff2f7" stroke="#e93680"/>
+      <text x="270" y="105" text-anchor="middle" font-weight="bold" fill="#e93680">Compare to spec</text>
+      <text x="270" y="123" text-anchor="middle" font-size="10" fill="#555">15–20 in-lb</text>
+
+      <rect x="380" y="80" width="120" height="60" rx="8" fill="#dcecff" stroke="#438bd5"/>
+      <text x="440" y="105" text-anchor="middle" font-weight="bold" fill="#2b6cb0">In spec?</text>
+      <text x="440" y="123" text-anchor="middle" font-size="10" fill="#555">yes / no</text>
+
+      <rect x="530" y="80" width="100" height="60" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+      <text x="580" y="105" text-anchor="middle" font-weight="bold" fill="#e93680">React</text>
+      <text x="580" y="123" text-anchor="middle" font-size="10" fill="#555">stop &amp; notify</text>
+
+      <g stroke="#777" stroke-width="1.5" fill="none" marker-end="url(#cp)">
+        <line x1="160" y1="110" x2="198" y2="110"/>
+        <line x1="340" y1="110" x2="378" y2="110"/>
+        <line x1="500" y1="110" x2="528" y2="110"/>
+      </g>
+      <defs>
+        <marker id="cp" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <polygon points="0,0 8,4 0,8" fill="#777"/>
+        </marker>
+      </defs>
+      <text x="320" y="180" text-anchor="middle" font-size="10" fill="#777">If out of spec, react immediately — do not adjust the chart, adjust the process</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">The control loop must react within the defined timeframe.</div>
+</div>
+<h3>7. Handover and closure</h3>
+<p>A DMAIC project closes when the process owner signs the control plan, training is complete, results are verified against the baseline, and lessons are documented. The improvement now belongs to the business, not to the project team.</p>
+<h3>8. Common Improve/Control pitfalls</h3><ul><li>Implementing a solution without pilot testing.</li><li>Confusing control limits with specification limits.</li><li>No owner for reaction and calibration.</li><li>Removing the control plan once results improve.</li></ul>`,
+        quiz: [
+          { q: "What is the purpose of a pilot?", opts: ["To skip baseline measurement", "To test a solution on a limited scale before full rollout", "To replace the control plan", "To compute Cpk"], answer: 1, explanation: "A pilot tests the solution on a small scale with defined success criteria." },
+          { q: "On a control chart, points outside the control limits signal:", opts: ["Common-cause variation", "Special-cause variation", "A specification change", "Measurement error only"], answer: 1, explanation: "Points outside the limits suggest special causes requiring investigation." },
+          { q: "Which is a valid reaction plan in a control plan?", opts: ["Continue production and review next month", "Stop the line, recheck the gauge, notify maintenance", "Change the control limits", "Delete the outlying data"], answer: 1, explanation: "Reaction plans specify concrete containment and notification actions." },
+          { q: "What does poka-yoke mean?", opts: ["Continuous improvement", "Mistake-proofing", "Statistical test", "Control chart"], answer: 1, explanation: "Poka-yoke devices make errors impossible or immediately visible." },
+          { q: "When can a DMAIC project be formally closed?", opts: ["When the team likes the solution", "When the control plan is signed and results are verified", "When the budget is spent", "When the first measurement is taken"], answer: 1, explanation: "Closure requires verified results, a signed control plan and handover to the process owner." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+  
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+    
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Basics of Six Sigma – DMAIC</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Six Sigma – DMAIC</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Basics of Six Sigma – DMAIC.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Six Sigma – DMAIC.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+    
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Six Sigma – DMAIC</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+    
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering the DMAIC improvement cycle, problem definition, process measurement, root cause analysis, solution selection and control planning.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Six_Sigma_DMAIC.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
