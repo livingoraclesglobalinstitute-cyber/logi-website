@@ -122,25 +122,29 @@
     line-height: 1.3;
   }
 
-  /* Date Container */
+  /* Date Container - Now Colored */
   .date-row {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
+    color: #003366; /* Added color */
   }
   .date-line {
     font-size: 11.5pt;
+    font-weight: bold;
   }
   
-  /* Recipient Block - Stacked left */
+  /* Recipient Block - Now Colored */
   .recipient {
     font-size: 11.5pt;
     margin-bottom: 15px;
     line-height: 1.3;
+    color: #003366; /* Added color */
   }
   .recipient .location-info {
     display: block;
     margin-bottom: 8px;
+    font-weight: bold;
   }
   .recipient .salutation {
     display: block;
@@ -200,9 +204,9 @@
     display: block;
   }
   
+  /* Signature Name - Removed All-Caps */
   .signature-name {
     font-weight: bold;
-    text-transform: uppercase;
     font-size: 11.5pt;
   }
   
@@ -289,7 +293,6 @@
     <div class="field full"><label>Programme Fee</label><input id="fee" value="USD 250"></div>
     <div class="field"><label>Fee Coverage</label><input id="coverage" value="training and certification examination"></div>
     
-    <!-- MANUAL INPUTS FOR LINKS AND DEADLINES -->
     <div class="field full"><label>Payment Link (Required)</label><input id="paymentLink" value="https://www.logi.education/payment-link"></div>
     <div class="field full"><label>Acceptance Link (Required)</label><input id="acceptanceLink" value="https://www.logi.education/acceptance"></div>
     <div class="field full"><label>Acceptance Deadline</label><input id="acceptanceDeadline" value="20th November 2026"></div>
@@ -335,19 +338,18 @@
       </div>
     </div>
 
-    <!-- Date Row -->
+    <!-- Date Row (Now Colored) -->
     <div class="date-row">
       <div class="date-line" id="outDate">7 November 2026</div>
     </div>
 
-    <!-- Recipient Block - Stacked two lines -->
+    <!-- Recipient Block (Now Colored) -->
     <div class="recipient">
       <span class="location-info">
         <span id="outLocation">Wolayita, Ethiopia</span><br>
         <span id="outPhone">+251 906 473 979</span>
       </span>
       <span class="salutation">Dear <strong><span id="outName">Bereket Kasahun</span></strong></span>
-      <!-- Unbolded Candidate Number -->
       <span class="candidate-info">Candidate Number: <span id="outCandidate">APP-2026-6363</span></span>
     </div>
 
@@ -370,10 +372,8 @@
       
       <li><strong>Payment:</strong> To confirm your place, you are required to make an initial payment of at least 60% of the fees using this link: <a href="#" id="outPayLink">https://www.logi.education/payment-link</a>. The remaining balance must be settled at the end of the programme prior to receiving your certificate. Quote your application number, <span id="outAppNumber">APP-2026-6363</span>, in all correspondence.</li>
       
-      <!-- Removed the certificate sentence from point 5 -->
       <li>The programme is delivered online. You are responsible for having suitable internet access and a device that enables you to participate in learning activities, complete required assessments, and meet the academic standards set for the programme.</li>
       
-      <!-- ADDED POINT 6 FOR ACCEPTANCE -->
       <li><strong>Acceptance:</strong> Acceptance of our offer, terms and conditions outlined at the following link: <a href="#" id="outAcceptLink">https://www.logi.education/acceptance</a>. Timeline to submit the acceptance form is <strong><span id="outDeadline">20th November 2026</span></strong>. Students are expected to maintain appropriate conduct and respect the Institute's academic integrity standards.</li>
     </ol>
 
@@ -390,7 +390,8 @@
     <div class="signature-section">
       <div class="signature-block">
         <img src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Registrar Signature" class="signature-image">
-        <div class="signature-name">MR. STEPHEN ELIAN</div>
+        <!-- Changed Name to Prophet Ing. Stephen Adusei -->
+        <div class="signature-name">Prophet Ing. Stephen Adusei</div>
         <div class="signature-title">REGISTRAR</div>
         <div class="signature-email">registrar@logi.education</div>
       </div>
