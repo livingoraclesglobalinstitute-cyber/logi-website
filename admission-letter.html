@@ -43,9 +43,9 @@
     width: 210mm;
     height: 297mm;
     margin: 0 auto;
-    /* Padding moves the text inward, but background color fills the whole area */
-    padding: 12mm 15mm; 
-    background-color: #f3f0fa; /* Lavender background */
+    /* Removed inner padding so text goes to the edge */
+    padding: 0; 
+    background-color: #ffffff; /* Pure white background */
     box-shadow: 0 0 15px rgba(0,0,0,0.3);
     position: relative;
     overflow: hidden;
@@ -70,6 +70,8 @@
     z-index: 2;
     font-size: 11.5pt;
     line-height: 1.3;
+    /* Add a little internal padding so text doesn't literally bleed off the page */
+    padding: 10mm; 
   }
 
   /* --- HEADER SECTION --- */
@@ -150,11 +152,12 @@
   }
   .print-btn:hover { background-color: #e93680; }
 
-  /* --- CRITICAL PRINT SETTINGS FOR FULL BACKGROUND --- */
+  /* --- PRINT SETTINGS --- */
   @page {
     size: A4;
-    margin: 0; /* Removes the default browser white margins */
+    margin: 0; 
   }
+  
   @media print {
     body {
       background: none;
@@ -165,16 +168,12 @@
       display: none !important;
     }
     .paper {
-      /* Force the paper to be exactly A4 size and fill the page */
       width: 210mm;
       height: 297mm;
       box-shadow: none;
       margin: 0;
-      /* Add a little safety padding for printers that can't print to the absolute edge */
-      padding: 12mm 15mm; 
-      background-color: #f3f0fa !important; 
-      page-break-after: avoid;
-      page-break-inside: avoid;
+      padding: 0; 
+      background-color: #ffffff !important; 
     }
     * {
       -webkit-print-color-adjust: exact !important;
