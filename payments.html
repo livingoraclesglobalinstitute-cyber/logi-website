@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Payments — Living Oracles Global Institute</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Make secure payments to Living Oracles Global Institute via Guaranty Trust Bank or Mobile Money." />
+    <meta property="og:title" content="Payments — Living Oracles Global Institute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/payments" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Make secure payments to LOGI via bank transfer or mobile money." />
+    <meta property="og:site_name" content="Living Oracles Global Institute" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Institutional Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- FontAwesome Core -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   ROOT VARIABLES – MATCHING INDEX.HTML    */
+        /* ========================================== */
+        :root {
+            --pink: #ff4b93;
+            --pink-dark: #e93680;
+            --lav: #f3f0fa;
+            --ink: #34343b;
+            --muted: #777780;
+            --line: #e9e8ef;
+            --white: #fff;
+            --light-grey: #f5f5f8;
+            --pink-tint: #fff6fa;
+            --pink-soft: #ffd1e3;
+            --gold: #c68a12;
+            --font-main: Arial, Helvetica, sans-serif;
+        }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                            */
+        /* ========================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-main);
+            color: var(--ink);
+            background: #ffffff;
+            line-height: 1.5;
+            padding-top: 64px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ========================================== */
+        /*   TOPBAR – EXACT MATCH TO INDEX.HTML      */
+        /* ========================================== */
+        .topbar {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 max(5%, calc((100% - 1180px)/2));
+            box-shadow: 0 2px 9px #00000012;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--pink);
+        }
+
+        .nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+
+        .nav a:hover:not(.button) {
+            color: var(--pink);
+        }
+
+        .nav .button {
+            background: var(--pink);
+            color: #fff;
+            padding: 9px 24px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav .button:hover {
+            background: var(--pink-dark);
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                height: 54px;
+                padding: 0 5%;
+            }
+            .logo {
+                font-size: 24px;
+            }
+            .nav {
+                gap: 10px;
+            }
+            .nav a:first-child {
+                display: none;
+            }
+            .nav .button {
+                font-size: 11px;
+                padding: 8px 14px;
+            }
+        }
+
+        /* ========================================== */
+        /*   HERO – LIGHT GRADIENT, MATCHING INDEX   */
+        /* ========================================== */
+        .page-hero {
+            background: linear-gradient(110deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%);
+            padding: 48px 5% 56px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero-inner {
+            max-width: 1180px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            min-height: 185px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--pink);
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb span {
+            color: #777;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--pink);
+        }
+
+        .page-hero h1 {
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.1;
+            margin: 0 0 12px;
+        }
+
+        .page-hero h1 span {
+            color: var(--pink);
+        }
+
+        .page-hero p {
+            max-width: 610px;
+            font-size: 14px;
+            color: #65656d;
+            margin: 0 0 18px;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--pink);
+            color: white;
+            padding: 9px 19px;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .pill:hover {
+            background: var(--pink-dark);
+        }
+
+        .hero-mark {
+            font-size: clamp(55px, 9vw, 100px);
+            font-weight: 900;
+            letter-spacing: -7px;
+            color: #f7d9e7;
+            text-shadow: 3px 3px 0 #fff;
+        }
+
+        @media (max-width: 650px) {
+            .page-hero {
+                padding: 22px 5% 30px;
+            }
+            .page-hero-inner {
+                min-height: 165px;
+            }
+            .page-hero p {
+                font-size: 12px;
+                max-width: 440px;
+            }
+            .hero-mark {
+                font-size: 48px;
+                letter-spacing: -4px;
+            }
+        }
+
+        /* ========================================== */
+        /*   SECTION BACKGROUNDS (light grey / tint) */
+        /* ========================================== */
+        .section-bg {
+            padding: 48px 5% 56px;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-bg.grey {
+            background: var(--light-grey);
+        }
+
+        .section-bg.tint {
+            background: var(--pink-tint);
+        }
+
+        .section-bg .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .section-heading .label {
+            display: inline-block;
+            margin-bottom: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--pink);
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 18px;
+            font-size: clamp(28px, 4vw, 36px);
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+        }
+
+        .section-heading p {
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .section-bg {
+                padding: 32px 5% 40px;
+            }
+            .section-heading h2 {
+                font-size: 26px;
+            }
+            .section-heading p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-bg {
+                padding: 24px 5% 32px;
+            }
+            .section-heading h2 {
+                font-size: 22px;
+            }
+            .section-heading p {
+                font-size: 13px;
+            }
+        }
+
+        /* ========================================== */
+        /*   PAYMENT METHODS GRID                    */
+        /* ========================================== */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .payment-card {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            box-shadow: 0 2px 12px #0000000a;
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .payment-card:hover {
+            border-color: var(--pink-soft);
+            box-shadow: 0 6px 24px #00000012;
+        }
+
+        .payment-card .payment-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--line);
+            background: var(--pink-tint);
+        }
+
+        .payment-card .payment-header i {
+            font-size: 1.4rem;
+            color: var(--pink);
+        }
+
+        .payment-card .payment-header h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        .payment-card .payment-body {
+            padding: 24px;
+        }
+
+        .payment-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--line);
+            font-size: 0.9rem;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .payment-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .payment-detail-row .label {
+            color: var(--muted);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .payment-detail-row .value {
+            color: var(--ink);
+            font-weight: 700;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .payment-detail-row .value.highlight {
+            color: var(--pink);
+            font-size: 1rem;
+        }
+
+        .alt-methods {
+            margin-top: 20px;
+            background: var(--light-grey);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 16px;
+        }
+        
+        .alt-methods h4 {
+            font-size: 0.85rem;
+            color: var(--ink);
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .alt-methods h4 i {
+            color: var(--pink);
+            font-size: 1rem;
+        }
+
+        .method-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .method-tag {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--ink);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .method-tag:hover {
+            border-color: var(--pink-soft);
+            background: var(--pink-tint);
+            color: var(--pink);
+        }
+
+        .payment-note {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: var(--pink-tint);
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.6;
+            border-left: 3px solid var(--pink);
+        }
+
+        .payment-note i {
+            color: var(--pink);
+            margin-right: 6px;
+        }
+
+        .payment-note a {
+            color: var(--pink);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--pink-tint);
+            color: var(--pink);
+            border: 1px solid var(--pink-soft);
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .copy-btn:hover {
+            background: var(--pink);
+            color: #fff;
+            border-color: var(--pink);
+        }
+
+        .copy-btn i {
+            font-size: 0.65rem;
+        }
+
+        @media (max-width: 700px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+            .payment-card .payment-header {
+                padding: 16px 18px;
+            }
+            .payment-card .payment-body {
+                padding: 18px;
+            }
+        }
+
+        /* ========================================== */
+        /*   PAYMENT STEPS                           */
+        /* ========================================== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 28px 22px;
+            text-align: center;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px #0000000a;
+        }
+
+        .step-card:hover {
+            border-color: var(--pink-soft);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px #00000012;
+        }
+
+        .step-card .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--pink);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-bottom: 14px;
+        }
+
+        .step-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .step-card p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================== */
+        /*   CONTACT STRIP                           */
+        /* ========================================== */
+        .contact-strip {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 28px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 12px #0000000a;
+        }
+
+        .contact-strip .strip-text h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .contact-strip .strip-text p {
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        .contact-strip .strip-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-pink {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--pink);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-pink:hover {
+            background: var(--pink-dark);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            color: var(--pink);
+            border: 1px solid var(--pink-soft);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--pink-tint);
+            border-color: var(--pink);
+        }
+
+        @media (max-width: 600px) {
+            .contact-strip {
+                padding: 20px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* ========================================== */
+        /*   FLOATING CHAT                           */
+        /* ========================================== */
+        .floating-chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .floating-chat-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--pink);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 75, 147, 0.35);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+        }
+
+        .floating-chat-link:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 22px rgba(255, 75, 147, 0.45);
+            background: var(--pink-dark);
+        }
+
+        .floating-chat-link i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 480px) {
+            .floating-chat-link {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+            .floating-chat-link span {
+                display: none;
+            }
+            .floating-chat-link i {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ========================================== */
+        /*   FOOTER – MATCHING INDEX                 */
+        /* ========================================== */
+        .footer {
+            background: #292832;
+            color: #eee;
+            text-align: center;
+            padding: 24px 5%;
+            font-size: 12px;
+        }
+
+        .footer strong {
+            color: var(--pink);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!--   HEADER – EXACT MATCH TO INDEX.HTML      -->
+    <!-- ========================================== -->
+    <header class="topbar">
+        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+        <nav class="nav">
+            <a href="https://www.logi.education">Home</a>
+            <a href="https://www.logi.education/our-program">Programmes</a>
+            <a class="button" href="index.html">Explore Courses</a>
+        </nav>
+    </header>
+
+    <!-- ========================================== -->
+    <!--   PAGE HERO                               -->
+    <!-- ========================================== -->
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div>
+                <div class="breadcrumb">
+                    <a href="https://www.logi.education">Home</a> / <span>Payments</span>
+                </div>
+                <h1>Make a <span>Payment</span></h1>
+                <p>Pay your fees securely via our Guaranty Trust Bank accounts or Mobile Money. Use the exact details below and send proof of payment to our finance team.</p>
+                <a class="pill" href="#payment-methods">View payment methods</a>
+            </div>
+            <div aria-label="LOGI" class="hero-mark">LOGI</div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   PAYMENT METHODS                         -->
+    <!-- ========================================== -->
+    <section class="section-bg" id="payment-methods">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">Payment Methods</span>
+                <h2>Bank Transfer & Mobile Money</h2>
+                <p>Choose your preferred payment method. All payments are processed securely and confirmed by our finance team.</p>
+            </div>
+
+            <div class="payment-grid">
+                <!-- Bank Transfer (GTBank) -->
+                <div class="payment-card">
+                    <div class="payment-header">
+                        <i class="fas fa-university"></i>
+                        <h3>Guaranty Trust Bank (GTBank)</h3>
+                    </div>
+                    <div class="payment-body">
+                        <div class="payment-detail-row">
+                            <span class="label">Account Name</span>
+                            <span class="value">Stephen Adusei</span>
+                        </div>
+                        <div class="payment-detail-row">
+                            <span class="label">Branch</span>
+                            <span class="value">Techiman Branch</span>
+                        </div>
+                        <div class="payment-detail-row">
+                            <span class="label">GHS Account</span>
+                            <span class="value">
+                                1551001034281
+                                <button class="copy-btn" onclick="copyText('1551001034281')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </span>
+                        </div>
+                        <div class="payment-detail-row">
+                            <span class="label">EUR Account</span>
+                            <span class="value">
+                                3551004000082
+                                <button class="copy-btn" onclick="copyText('3551004000082')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </span>
+                        </div>
+                        <div class="payment-detail-row">
+                            <span class="label">GBP Account</span>
+                            <span class="value">
+                                3551003000134
+                                <button class="copy-btn" onclick="copyText('3551003000134')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </span>
+                        </div>
+
+                        <div class="payment-note">
+                            <i class="fas fa-info-circle"></i>
+                            After making a bank transfer, please email your proof of payment to
+                            <a href="mailto:finance@logi.education">finance@logi.education</a>
+                            with your full name and programme.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Money & Alternative Methods -->
+                <div class="payment-card">
+                    <div class="payment-header">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile Money & Online Apps</h3>
+                    </div>
+                    <div class="payment-body">
+                        <div class="payment-detail-row">
+                            <span class="label">Network</span>
+                            <span class="value">MTN Mobile Money</span>
+                        </div>
+                        <div class="payment-detail-row">
+                            <span class="label">Account Name</span>
+                            <span class="value">Susana Adjei</span>
+                        </div>
+                        <div class="payment-detail-row">
+                            <span class="label">Mobile Number</span>
+                            <span class="value highlight">
+                                0552657683
+                                <button class="copy-btn" onclick="copyText('0552657683')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </span>
+                        </div>
+                        <div class="payment-detail-row">
+                            <span class="label">Reference</span>
+                            <span class="value">Your Full Name + Programme</span>
+                        </div>
+
+                        <!-- Alternative Methods Section -->
+                        <div class="alt-methods">
+                            <h4><i class="fas fa-globe"></i> Other ways to pay via MoMo</h4>
+                            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 10px;">You can use these online platforms to send funds directly to the MTN MoMo number above:</p>
+                            <div class="method-tags">
+                                <span class="method-tag"><i class="fas fa-paper-plane" style="color: #0070ba;"></i> PayPal</span>
+                                <span class="method-tag"><i class="fas fa-bolt" style="color: #f7b125;"></i> Grey</span>
+                                <span class="method-tag"><i class="fas fa-credit-card" style="color: #09a5db;"></i> Paystack</span>
+                                <span class="method-tag"><i class="fas fa-layer-group" style="color: #f5a623;"></i> Flutterwave</span>
+                                <span class="method-tag"><i class="fas fa-exchange-alt" style="color: #3b5998;"></i> Chipper Cash</span>
+                                <span class="method-tag"><i class="fas fa-wallet" style="color: #f39c12;"></i> Wise / Remitly</span>
+                            </div>
+                        </div>
+
+                        <div class="payment-note">
+                            <i class="fas fa-info-circle"></i>
+                            After sending mobile money, please email your proof of payment to
+                            <a href="mailto:finance@logi.education">finance@logi.education</a>
+                            with your full name and programme.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   HOW TO PAY – STEPS                      -->
+    <!-- ========================================== -->
+    <section class="section-bg grey">
+        <div class="container">
+            <div class="section-heading">
+                <span class="label">How It Works</span>
+                <h2>Three Simple Steps</h2>
+                <p>Making a payment is quick and easy. Follow these steps to complete your payment.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Choose Your Method</h3>
+                    <p>Select either bank transfer (using the correct currency account) or mobile money/online app.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Send Your Payment</h3>
+                    <p>Complete the transfer using your full name and programme as the reference.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Send Proof of Payment</h3>
+                    <p>Email your receipt or screenshot to <a href="mailto:finance@logi.education" style="color: var(--pink); font-weight: 600;">finance@logi.education</a> so we can confirm your payment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   CONTACT STRIP                           -->
+    <!-- ========================================== -->
+    <section class="section-bg tint">
+        <div class="container">
+            <div class="contact-strip">
+                <div class="strip-text">
+                    <h3>Need help with your payment?</h3>
+                    <p>Our finance team is here to assist you with any payment questions or issues.</p>
+                </div>
+                <div class="strip-actions">
+                    <a href="contact.html" class="btn-pink">
+                        <i class="fas fa-envelope"></i> Contact Finance
+                    </a>
+                    <a href="https://wa.me/233552657683" target="_blank" rel="noopener noreferrer" class="btn-outline">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   FOOTER – MATCHING INDEX                 -->
+    <!-- ========================================== -->
+    <footer class="footer">
+        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+    </footer>
+
+    <!-- ========================================== -->
+    <!--   FLOATING CHAT                           -->
+    <!-- ========================================== -->
+    <div class="floating-chat-container">
+        <a class="floating-chat-link" href="https://wa.me/233552657683" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat with us on WhatsApp</span>
+        </a>
+    </div>
+
+    <!-- ========================================== -->
+    <!--   JAVASCRIPT                              -->
+    <!-- ========================================== -->
+    <script>
+        // Copy to clipboard helper
+        function copyText(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showToast('Copied: ' + text);
+                }).catch(function() {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            var temp = document.createElement('textarea');
+            temp.value = text;
+            temp.style.position = 'fixed';
+            temp.style.opacity = '0';
+            document.body.appendChild(temp);
+            temp.select();
+            try {
+                document.execCommand('copy');
+                showToast('Copied: ' + text);
+            } catch (err) {
+                showToast('Could not copy. Please copy manually: ' + text);
+            }
+            document.body.removeChild(temp);
+        }
+
+        function showToast(msg) {
+            var toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '80px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.background = '#34343b';
+            toast.style.color = '#fff';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '6px';
+            toast.style.fontSize = '13px';
+            toast.style.zIndex = '10000';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.25s ease';
+            document.body.appendChild(toast);
+            requestAnimationFrame(function() { toast.style.opacity = '1'; });
+            setTimeout(function() {
+                toast.style.opacity = '0';
+                setTimeout(function() { document.body.removeChild(toast); }, 300);
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
