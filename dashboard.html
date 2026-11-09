@@ -1143,7 +1143,7 @@ async function loadDashboard() {
     ${courseRecords.length?`<div class="course-grid">${courseRecords.map(c=>renderCourse(c,c.progress,c.certificate)).join('')}</div>`:`<div class="empty"><h3>No enrolled courses found</h3><p>Your enrolled courses will appear here after your LOGI enrolment has been recorded in your account.</p></div>`}
     ${courseRecords.some(c=>c.progress.percent===null)?'<div class="notice info">A percentage is shown only when the course catalogue contains a valid lesson total. For other courses, the dashboard displays the completed lesson count to avoid reporting inaccurate progress.</div>':''}
     
-    <div class="section-head"><h2>Explore <span class="highlight">available free short courses  courses</span></h2><span>${availableCourses.length} published course${availableCourses.length===1?'':'s'}</span></div>
+    <div class="section-head"><h2>Explore <span class="highlight">available free short courses</span></h2><span>${availableCourses.length} published course${availableCourses.length===1?'':'s'}</span></div>
     ${availableCourses.length ? renderGroupedCatalogue(availableCourses) : `<div class="empty">You are viewing all currently published courses available in the LOGI catalogue.</div>`}
   </div>`;
 }
