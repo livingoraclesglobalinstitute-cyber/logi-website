@@ -637,7 +637,7 @@ const FALLBACK_COURSES = [
     title: 'Basics of Root Cause Analysis', 
     category: 'Quality & Process Improvement', 
     description: 'Learn the fundamentals of Root Cause Analysis.', 
-    course_url: 'https://www.logi.education/short-course/lms/basics-of-root-cause-analysis', 
+    course_url: 'https://www.logi.education/short-course/root-cause-analysis', 
     catalogue_url: 'https://www.logi.education/short-course/root-cause-analysis.html', 
     total_lessons: 5, 
     image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80' 
@@ -743,7 +743,7 @@ const FALLBACK_COURSES = [
     image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80' 
   },
   { 
-    id: 'iso-45001-ohs-101', 
+    id: 'iso-45001-101', 
     title: 'Introduction to ISO 45001 Occupational Health and Safety', 
     category: 'Health, Safety & Environment', 
     description: 'Introduction to ISO 45001 Occupational Health and Safety.', 
@@ -753,7 +753,7 @@ const FALLBACK_COURSES = [
     image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80' 
   },
   { 
-    id: 'hazard-risk-assessment-101', 
+    id: 'hazard-risk-101', 
     title: 'Basics of Hazard Identification and Risk Assessment', 
     category: 'Health, Safety & Environment', 
     description: 'Learn hazard identification and risk assessment.', 
@@ -803,7 +803,7 @@ const FALLBACK_COURSES = [
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80' 
   },
   { 
-    id: 'cybersecurity-fundamentals-101', 
+    id: 'cybersecurity-101', 
     title: 'Cybersecurity Fundamentals', 
     category: 'More Professional Essentials', 
     description: 'Learn cybersecurity fundamentals.', 
@@ -813,7 +813,7 @@ const FALLBACK_COURSES = [
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80' 
   },
   { 
-    id: 'manufacturing-processes-101', 
+    id: 'manufacturing-101', 
     title: 'Basics of Manufacturing Processes', 
     category: 'Engineering & Technology', 
     description: 'Explore the fundamentals of manufacturing processes.', 
@@ -833,7 +833,7 @@ const FALLBACK_COURSES = [
     image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=80' 
   },
   { 
-    id: 'industrial-maintenance-management-101', 
+    id: 'maintenance-mgmt-101', 
     title: 'Basics of Industrial Maintenance Management', 
     category: 'Engineering & Technology', 
     description: 'Learn the basics of industrial maintenance management.', 
@@ -841,6 +841,16 @@ const FALLBACK_COURSES = [
     catalogue_url: 'https://www.logi.education/short-course/industrial-maintenance-management.html', 
     total_lessons: 6, 
     image: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&q=80' 
+  },
+  { 
+    id: 'business-analysis-101', 
+    title: 'Business Analysis & Process Improvement', 
+    category: 'Business & Management', 
+    description: 'Learn the fundamentals of business analysis and process improvement.', 
+    course_url: 'https://enrol.logi.education', 
+    catalogue_url: 'https://enrol.logi.education', 
+    total_lessons: 6, 
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80' 
   }
 ];
 
@@ -1143,7 +1153,7 @@ async function loadDashboard() {
     ${courseRecords.length?`<div class="course-grid">${courseRecords.map(c=>renderCourse(c,c.progress,c.certificate)).join('')}</div>`:`<div class="empty"><h3>No enrolled courses found</h3><p>Your enrolled courses will appear here after your LOGI enrolment has been recorded in your account.</p></div>`}
     ${courseRecords.some(c=>c.progress.percent===null)?'<div class="notice info">A percentage is shown only when the course catalogue contains a valid lesson total. For other courses, the dashboard displays the completed lesson count to avoid reporting inaccurate progress.</div>':''}
     
-    <div class="section-head"><h2>Explore <span class="highlight">available free short courses</span></h2><span>${availableCourses.length} published course${availableCourses.length===1?'':'s'}</span></div>
+    <div class="section-head"><h2>Explore <span class="highlight">available courses</span></h2><span>${availableCourses.length} published course${availableCourses.length===1?'':'s'}</span></div>
     ${availableCourses.length ? renderGroupedCatalogue(availableCourses) : `<div class="empty">You are viewing all currently published courses available in the LOGI catalogue.</div>`}
   </div>`;
 }
