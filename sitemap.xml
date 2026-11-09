@@ -1,288 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-    <!-- HOMEPAGE -->
-    <url>
-        <loc>https://www.logi.education/</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
+  <!-- Homepage -->
+  <url><loc>https://www.logi.education/</loc></url>
 
-    <!-- ABOUT LOGI -->
-    <url>
-        <loc>https://www.logi.education/about</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/statement-of-faith</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-difference</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/founders-message</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/institutional-integrity</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-partners</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
+  <!-- Core pages -->
+  <url><loc>https://www.logi.education/about</loc></url>
+  <url><loc>https://www.logi.education/contact</loc></url>
+  <url><loc>https://www.logi.education/fees</loc></url>
+  <url><loc>https://www.logi.education/financial-aid</loc></url>
+  <url><loc>https://www.logi.education/how-to-learn</loc></url>
+  <url><loc>https://www.logi.education/our-difference</loc></url>
+  <url><loc>https://www.logi.education/our-partners</loc></url>
+  <url><loc>https://www.logi.education/partner-affiliation</loc></url>
+  <url><loc>https://www.logi.education/internship-opportunities</loc></url>
+  <url><loc>https://www.logi.education/founder</loc></url>
+  <url><loc>https://www.logi.education/organizational-structure</loc></url>
+  <url><loc>https://www.logi.education/statement-of-faith</loc></url>
+  <url><loc>https://www.logi.education/institutional-integrity</loc></url>
+  <url><loc>https://www.logi.education/main-registration-form</loc></url>
+  <url><loc>https://www.logi.education/agent-form</loc></url>
 
-    <!-- ADMISSIONS -->
-    <url>
-        <loc>https://www.logi.education/main-registration-form</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/financial-aid</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/contact</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
+  <!-- Short courses -->
+  <url><loc>https://www.logi.education/short-course</loc></url>
+  <url><loc>https://www.logi.education/short-course/introduction-to-industrial-automation</loc></url>
+  <url><loc>https://www.logi.education/short-course/engineering-management</loc></url>
+  <url><loc>https://www.logi.education/short-course/lean-six-sigma</loc></url>
+  <url><loc>https://www.logi.education/short-course/manufacturing-processes</loc></url>
+  <url><loc>https://www.logi.education/short-course/industrial-instrumentation</loc></url>
+  <url><loc>https://www.logi.education/short-course/industrial-maintenance-management</loc></url>
+  <url><loc>https://www.logi.education/short-course/six-sigma-dmaic</loc></url>
+  <url><loc>https://www.logi.education/short-course/quality-management-systems-iso-9001</loc></url>
+  <url><loc>https://www.logi.education/short-course/root-cause-analysis</loc></url>
+  <url><loc>https://www.logi.education/short-course/prince2-project-management</loc></url>
+  <url><loc>https://www.logi.education/short-course/project-planning-scheduling</loc></url>
+  <url><loc>https://www.logi.education/short-course/agile-project-management</loc></url>
+  <url><loc>https://www.logi.education/short-course/project-risk-management</loc></url>
+  <url><loc>https://www.logi.education/short-course/buildings-construction-works</loc></url>
+  <url><loc>https://www.logi.education/short-course/construction-cost-estimation</loc></url>
+  <url><loc>https://www.logi.education/short-course/building-information-modelling-bim</loc></url>
+  <url><loc>https://www.logi.education/short-course/concrete-technology</loc></url>
+  <url><loc>https://www.logi.education/short-course/fire-safety</loc></url>
+  <url><loc>https://www.logi.education/short-course/iso-45001-occupational-health-safety</loc></url>
+  <url><loc>https://www.logi.education/short-course/hazard-identification-risk-assessment</loc></url>
+  <url><loc>https://www.logi.education/short-course/construction-safety</loc></url>
+  <url><loc>https://www.logi.education/short-course/solar-photovoltaic-technology</loc></url>
+  <url><loc>https://www.logi.education/short-course/oil-gas-reserves-risk-value</loc></url>
+  <url><loc>https://www.logi.education/short-course/data-analytics</loc></url>
+  <url><loc>https://www.logi.education/short-course/cybersecurity-fundamentals</loc></url>
 
-    <!-- PROGRAMME CATALOGUE -->
-    <url>
-        <loc>https://www.logi.education/our-program/</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
+  <!-- Full programmes -->
+  <url><loc>https://www.logi.education/our-program</loc></url>
+  <url><loc>https://www.logi.education/our-program/advanced-professional-diploma-business-administration.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/advanced-professional-diploma-ministry.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/advanced-professional-diploma-project-quality-and-process-management.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-biblical-studies.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-business-administration.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-business-analysis-and-process-improvement.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-children-and-family-ministry.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-christian-ministry.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-church-leadership-and-administration.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-crisis-and-trauma-care.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-disability-ministry.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-human-services.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-intercultural-studies.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-leadership-and-management.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-ministry-to-women.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-missions-and-evangelism.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-nextgen-ministry.html</loc></url>
+  <url><loc>https://www.logi.education/our-program/certificate-organizational-leadership.html</loc></url>
 
-    <!-- SCHOOL OF BUSINESS & LEADERSHIP -->
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-business-administration.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-leadership-and-management.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-organizational-leadership.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/advanced-professional-diploma-business-administration.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
+  <!-- Content / resources -->
+  <url><loc>https://www.logi.education/blog</loc></url>
+  <url><loc>https://www.logi.education/devotionals</loc></url>
+  <url><loc>https://www.logi.education/know-christ</loc></url>
+  <url><loc>https://www.logi.education/online-library</loc></url>
+  <url><loc>https://www.logi.education/academic-calender</loc></url>
+  <url><loc>https://www.logi.education/handbook</loc></url>
+  <url><loc>https://www.logi.education/grading-rubric</loc></url>
+  <url><loc>https://www.logi.education/technology-requirements</loc></url>
 
-    <!-- SCHOOL OF MINISTRY & THEOLOGY -->
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-christian-ministry.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-church-leadership-and-administration.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-missions-and-evangelism.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/advanced-professional-diploma-ministry.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-biblical-studies.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-children-and-family-ministry.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-crisis-and-trauma-care.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-disability-ministry.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-human-services.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-intercultural-studies.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-ministry-to-women.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-nextgen-ministry.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
+  <!-- Student / portal -->
+  <url><loc>https://www.logi.education/portal</loc></url>
+  <url><loc>https://www.logi.education/student</loc></url>
+  <url><loc>https://www.logi.education/dashboard</loc></url>
+  <url><loc>https://www.logi.education/payments</loc></url>
+  <url><loc>https://www.logi.education/verify-certificate</loc></url>
+  <url><loc>https://www.logi.education/faq-helpdesk</loc></url>
 
-    <!-- SCHOOL OF ENGINEERING & TECHNOLOGY -->
-    <url>
-        <loc>https://www.logi.education/our-program/certificate-business-analysis-and-process-improvement.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/our-program/advanced-professional-diploma-project-quality-and-process-management.html</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- SHORT COURSES -->
-    <url>
-        <loc>https://www.logi.education/short-course/</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- BLOG -->
-    <url>
-        <loc>https://www.logi.education/blog</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- DEVOTIONALS -->
-    <url>
-        <loc>https://www.logi.education/devotionals</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- CHRISTIAN THEOLOGY ARTICLES -->
-    <url>
-        <loc>https://www.logi.education/Christianity/ResurrectionoftheDead</loc>
-        <lastmod>2026-09-11</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/Christianity/UnlockingYourDivinePurpose</loc>
-        <lastmod>2026-09-11</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/Christianity/WalkinginSpiritualAuthority</loc>
-        <lastmod>2026-09-11</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/the-painful-birth</loc>
-        <lastmod>2026-09-24</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- RESOURCES -->
-    <url>
-        <loc>https://www.logi.education/faq-helpdesk</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/how-to-learn</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/technology-requirements</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/partner-affiliation</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- LEGAL -->
-    <url>
-        <loc>https://www.logi.education/privacy-policy</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/disclaimer</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://www.logi.education/terms-conditions</loc>
-        <lastmod>2026-11-01</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.6</priority>
-    </url>
+  <!-- Legal -->
+  <url><loc>https://www.logi.education/privacy-policy</loc></url>
+  <url><loc>https://www.logi.education/terms-conditions</loc></url>
+  <url><loc>https://www.logi.education/disclaimer</loc></url>
+  <url><loc>https://www.logi.education/cookie-settings</loc></url>
 
 </urlset>
