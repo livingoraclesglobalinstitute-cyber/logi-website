@@ -4,266 +4,164 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Accept your offer of admission to Living Oracles Global Institute (LOGI).">
-<title>Accept Admission Offer | LOGI – Living Oracles Global Institute</title>
+<title>Accept Admission Offer | LOGI</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
-    --pink: #ff4b93;
-    --pink-dark: #e93680;
-    --lav: #f3f0fa;
-    --ink: #34343b;
-    --muted: #777780;
-    --line: #e9e8ef;
-    --white: #fff;
+    --pink: #ff4b93; --pink-dark: #e93680; --lav: #f3f0fa; --ink: #34343b;
+    --muted: #777780; --line: #e9e8ef; --white: #fff;
   }
-  
   * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--lav); line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
   
-  body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--ink);
-    background: var(--lav);
-    line-height: 1.5;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  /* Topbar (Matching your website) */
-  .topbar {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 max(5%, calc((100% - 1180px) / 2));
-    box-shadow: 0 2px 9px #00000012;
-    background: #fff;
-  }
-  .logo {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    color: #555;
-    text-decoration: none;
-  }
+  /* Topbar */
+  .topbar { height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(5%, calc((100% - 1180px) / 2)); box-shadow: 0 2px 9px #00000012; background: #fff; }
+  .logo { font-size: 28px; font-weight: 800; letter-spacing: -1.5px; color: #555; text-decoration: none; }
   .logo span { color: var(--pink); }
-  .nav {
-    display: flex;
-    gap: 22px;
-    align-items: center;
-    font-size: 13px;
-  }
-  .nav a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .nav .button {
-    background: var(--pink);
-    color: #fff;
-    padding: 9px 24px;
-    border-radius: 4px;
-    font-weight: bold;
-  }
+  .nav { display: flex; gap: 22px; align-items: center; font-size: 13px; }
+  .nav a { color: inherit; text-decoration: none; }
 
   /* Form Container */
-  .form-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-  }
-
-  .form-container {
-    background: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    max-width: 550px;
-    width: 100%;
-    border-top: 5px solid var(--pink);
-    position: relative;
-  }
-
-  /* Header Section */
-  .form-header {
-    text-align: center;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 25px;
-    margin-bottom: 25px;
-  }
-  .form-header img {
-    height: 70px;
-    margin-bottom: 15px;
-  }
-  .form-header h2 {
-    color: var(--ink);
-    margin: 0;
-    font-size: 24px;
-    font-weight: 800;
-  }
-  .form-header h2 span {
-    color: var(--pink);
-  }
-  .form-header p {
-    margin: 5px 0 0;
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  /* Form Fields */
-  .form-group {
-    margin-bottom: 20px;
-  }
-  label {
-    display: block;
-    font-weight: bold;
-    color: var(--ink);
-    margin-bottom: 6px;
-    font-size: 13px;
-  }
-  input[type="text"], input[type="email"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
-    color: var(--ink);
-    transition: 0.2s;
-  }
-  input:focus {
-    outline: none;
-    border-color: var(--pink);
-    box-shadow: 0 0 0 3px rgba(255, 75, 147, 0.1);
-  }
-
-  /* Checkbox */
-  .checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    font-size: 13px;
-    line-height: 1.5;
-    background-color: var(--lav);
-    padding: 18px;
-    border-radius: 4px;
-    border: 1px solid var(--line);
-  }
-  .checkbox-group input[type="checkbox"] {
-    margin-top: 4px;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: var(--pink);
-  }
-  .checkbox-group label {
-    font-weight: normal;
-    margin: 0;
-    cursor: pointer;
-    color: var(--muted);
-  }
-
-  /* Submit Button */
-  button {
-    width: 100%;
-    padding: 14px;
-    background-color: var(--pink);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: Arial, sans-serif;
-    transition: background 0.3s;
-  }
-  button:hover {
-    background-color: var(--pink-dark);
-  }
-
-  /* Footer */
-  .footer {
-    background: #292832;
-    color: #eee;
-    text-align: center;
-    padding: 24px 5%;
-    font-size: 12px;
-  }
-  .footer strong {
-    color: var(--pink);
-  }
+  .form-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 20px; }
+  .form-container { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 550px; width: 100%; border-top: 5px solid var(--pink); }
+  .form-header { text-align: center; border-bottom: 1px solid var(--line); padding-bottom: 25px; margin-bottom: 25px; }
+  .form-header img { height: 70px; margin-bottom: 15px; }
+  .form-header h2 { color: var(--ink); margin: 0; font-size: 24px; font-weight: 800; }
+  .form-header h2 span { color: var(--pink); }
+  
+  /* Fields */
+  .form-group { margin-bottom: 20px; }
+  label { display: block; font-weight: bold; color: var(--ink); margin-bottom: 6px; font-size: 13px; }
+  input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 4px; box-sizing: border-box; font-size: 15px; color: var(--ink); }
+  input:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255, 75, 147, 0.1); }
+  
+  /* Checkbox & Button */
+  .checkbox-group { display: flex; align-items: flex-start; gap: 12px; margin-top: 25px; margin-bottom: 25px; font-size: 13px; background-color: var(--lav); padding: 18px; border-radius: 4px; border: 1px solid var(--line); }
+  .checkbox-group input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--pink); }
+  button { width: 100%; padding: 14px; background-color: var(--pink); color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+  button:hover { background-color: var(--pink-dark); }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  
+  /* Status Message */
+  #statusMessage { display: none; padding: 15px; border-radius: 4px; margin-bottom: 20px; font-weight: bold; text-align: center; }
+  .success { background: #e8f5ed; color: #207a4b; border: 1px solid #a3d9b8; }
+  .error { background: #ffe9e9; color: #c0392b; border: 1px solid #f5c6cb; }
 </style>
 </head>
 <body>
 
-<!-- Header matching your website -->
 <header class="topbar">
   <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
-  <nav class="nav">
-    <a href="https://www.logi.education">Home</a>
-    <a href="https://www.logi.education/our-program">Programmes</a>
-  </nav>
 </header>
 
-<!-- Form Section -->
 <div class="form-wrapper">
   <div class="form-container">
     <div class="form-header">
       <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo">
       <h2>Official Offer <span>Acceptance</span></h2>
-      <p>Living Oracles Global Institute</p>
     </div>
 
-    <!-- FormSubmit.co handles the email delivery -->
-    <form action="https://formsubmit.co/registrar@logi.education" method="POST">
-      
-      <!-- FormSubmit Configuration -->
-      <input type="hidden" name="_subject" value="New Admission Acceptance - LOGI">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <!-- Where to redirect after submission (Change if needed) -->
-      <input type="hidden" name="_next" value="https://www.logi.education/thank-you">
+    <div id="statusMessage"></div>
 
+    <form id="acceptanceForm">
       <div class="form-group">
         <label>Student Full Name</label>
-        <input type="text" name="Student Name" required placeholder="e.g. Bereket Kasahun">
+        <input type="text" id="fullName" required placeholder="e.g. Akua Boatemaa">
       </div>
-
       <div class="form-group">
-        <label>Application / Candidate Number</label>
-        <input type="text" name="Application Number" required placeholder="e.g. APP-2026-6363">
+        <label>Application Number</label>
+        <input type="text" id="appNumber" required placeholder="e.g. APP-2026-0301">
       </div>
-
-      <div class="form-group">
-        <label>Student Email Address</label>
-        <input type="email" name="Email" required placeholder="e.g. student@email.com">
-      </div>
-
       <div class="form-group">
         <label>Programme Admitted To</label>
-        <input type="text" name="Programme" required placeholder="Type your programme name exactly as it appears on your letter">
+        <input type="text" id="programme" required placeholder="Type your programme name exactly">
+      </div>
+      <div class="form-group">
+        <label>Email Address (This will be your login)</label>
+        <input type="email" id="email" required placeholder="e.g. student@email.com">
+      </div>
+      
+      <!-- NEW PASSWORD FIELD -->
+      <div class="form-group">
+        <label>Create a Portal Password (min 8 characters)</label>
+        <input type="password" id="password" required placeholder="Create a secure password" minlength="8">
       </div>
 
       <div class="checkbox-group">
-        <input type="checkbox" name="Terms Accepted" value="Yes" required id="terms">
-        <label for="terms">
-          I hereby accept the offer of admission to Living Oracles Global Institute (LOGI) and agree to the terms and conditions outlined in my admission letter.
-        </label>
+        <input type="checkbox" id="terms" required>
+        <label for="terms">I accept the offer of admission to LOGI and agree to the terms and conditions in my admission letter.</label>
       </div>
 
-      <button type="submit">Accept Offer & Submit</button>
+      <button type="submit" id="submitBtn">Accept Offer & Create Account</button>
     </form>
   </div>
 </div>
 
-<!-- Footer matching your website -->
-<footer class="footer">
-  Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
-</footer>
+<script>
+  // --- SUPABASE CONFIGURATION ---
+  const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
+  document.getElementById('acceptanceForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const btn = document.getElementById('submitBtn');
+    const statusDiv = document.getElementById('statusMessage');
+    
+    const fullName = document.getElementById('fullName').value;
+    const appNumber = document.getElementById('appNumber').value;
+    const programme = document.getElementById('programme').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Processing...';
+    statusDiv.style.display = 'none';
+
+    // 1. Create the user account in Supabase
+    const { data: authData, error: authError } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: fullName,
+          application_number: appNumber,
+          programme: programme
+        }
+      }
+    });
+
+    if (authError) {
+      statusDiv.textContent = "Error creating account: " + authError.message;
+      statusDiv.className = "error";
+      statusDiv.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Accept Offer & Create Account';
+      return;
+    }
+
+    // 2. Optionally send the data to FormSubmit so you get an email notification
+    // (We do this silently in the background)
+    fetch("https://formsubmit.co/ajax/registrar@logi.education", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: "New Student Accepted Offer - LOGI",
+        "Student Name": fullName,
+        "Application Number": appNumber,
+        "Programme": programme,
+        "Email": email
+      })
+    });
+
+    // 3. Show Success
+    statusDiv.innerHTML = "🎉 <strong>Success!</strong> Your acceptance is confirmed and your portal account has been created.<br><br>You can now log in to the portal.";
+    statusDiv.className = "success";
+    statusDiv.style.display = 'block';
+    btn.style.display = 'none';
+    document.getElementById('acceptanceForm').reset();
+  });
+</script>
 </body>
 </html>
