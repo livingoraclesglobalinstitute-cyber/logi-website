@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Basics of Manufacturing Processes">
+  <title>LOGI LMS · Basics of Manufacturing Processes</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Basics of Manufacturing Processes
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'manufacturing-101',
+  title: 'Basics of Manufacturing Processes',
+  desc: 'Explore how raw materials are transformed into finished products. This course introduces common manufacturing methods, production systems, materials, process selection and the importance of quality and safety.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Overview of Manufacturing",
+      lessons: [{
+        title: "What Manufacturing Is and How Value Is Added",
+        duration: "45 minutes",
+        html: `<p><b>Manufacturing</b> is the process of transforming raw materials into finished products through mechanical, chemical or physical operations. It adds value at every step — from raw material extraction through to a product in the customer's hands.</p>
+<div class="callout"><b>Core principle:</b> Manufacturing is not just "making things". It is the systematic conversion of material, energy and information into products that meet requirements at acceptable cost.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to define manufacturing, describe the manufacturing value chain, and distinguish between the main categories of manufacturing processes.</p>
+<h3>1. The manufacturing value chain</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Manufacturing value chain">
+    <defs>
+      <marker id="mfgA" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Manufacturing value chain</text>
+      <g>
+        <rect x="20" y="60" width="110" height="80" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="75" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Raw</text>
+        <text x="75" y="105" text-anchor="middle" font-size="10" fill="#555">material</text>
+      </g>
+      <g>
+        <rect x="150" y="60" width="110" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="205" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Design</text>
+        <text x="205" y="105" text-anchor="middle" font-size="10" fill="#555">and planning</text>
+      </g>
+      <g>
+        <rect x="280" y="60" width="110" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="335" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Process</text>
+        <text x="335" y="105" text-anchor="middle" font-size="10" fill="#555">and assembly</text>
+      </g>
+      <g>
+        <rect x="410" y="60" width="110" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="465" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Quality</text>
+        <text x="465" y="105" text-anchor="middle" font-size="10" fill="#555">and testing</text>
+      </g>
+      <g>
+        <rect x="540" y="60" width="90" height="80" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="585" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Deliver</text>
+        <text x="585" y="105" text-anchor="middle" font-size="10" fill="#555">to customer</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="132" y1="100" x2="148" y2="100" marker-end="url(#mfgA)"/>
+        <line x1="262" y1="100" x2="278" y2="100" marker-end="url(#mfgA)"/>
+        <line x1="392" y1="100" x2="408" y2="100" marker-end="url(#mfgA)"/>
+        <line x1="522" y1="100" x2="538" y2="100" marker-end="url(#mfgA)"/>
+      </g>
+      <text x="320" y="180" text-anchor="middle" font-size="10" fill="#777">Each stage adds value; each transition has quality and cost implications</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Manufacturing adds value through the chain from raw material to customer.</div>
+</div>
+<h3>2. Categories of manufacturing processes</h3>
+<table class="compare"><tr><th>Category</th><th>Examples</th></tr><tr><td>Casting</td><td>Sand casting, die casting</td></tr><tr><td>Forming</td><td>Forging, rolling, extrusion</td></tr><tr><td>Machining</td><td>Turning, milling, drilling</td></tr><tr><td>Joining</td><td>Welding, bolting, adhesive</td></tr><tr><td>Additive</td><td>3D printing, SLA, FDM</td></tr><tr><td>Surface</td><td>Coating, plating, painting</td></tr></table>
+<h3>3. Types of production systems</h3>
+<ul>
+  <li><b>Job shop</b> — low volume, high variety; customised.</li>
+  <li><b>Batch production</b> — medium volume, repeated batches.</li>
+  <li><b>Mass production</b> — high volume, standardised.</li>
+  <li><b>Continuous production</b> — 24/7 flow, e.g., oil refining.</li>
+</ul>
+<h3>4. Value added concepts</h3>
+<ul>
+  <li>Raw materials have low value.</li>
+  <li>Processing adds function, form and finish.</li>
+  <li>Assembly combines components into higher value.</li>
+  <li>Quality and reliability command higher price.</li>
+</ul>
+<h3>5. Manufacturing metrics</h3>
+<ul>
+  <li>Throughput — units produced per unit time.</li>
+  <li>Yield — percentage of good units.</li>
+  <li>Cycle time — time per unit.</li>
+  <li>Cost per unit.</li>
+  <li>On-time delivery.</li>
+</ul>`,
+        quiz: [
+          { q: "What is manufacturing?", opts: ["Turning materials into products", "Only selling finished goods", "Only storing materials", "Only paying wages"], answer: 0, explanation: "Manufacturing is the transformation of raw materials into finished products." },
+          { q: "Which category casting?", opts: ["Pouring liquid material", "Cutting into pieces", "Joining by welding", "Layering with heat"], answer: 0, explanation: "Casting involves pouring liquid material into a mould to form a shape." },
+          { q: "What does job shop do?", opts: ["Custom low volume", "High-volume standard goods", "Continuous oil refining", "Only the design"], answer: 0, explanation: "A job shop handles low-volume, high-variety customised work." },
+          { q: "What is yield?", opts: ["Percentage good units", "Total production cost", "Number of machines", "Number of workers"], answer: 0, explanation: "Yield is the percentage of good units produced from all units attempted." },
+          { q: "Why value is added?", opts: ["Through processing steps", "By only storing goods", "By moving warehouses", "By ignoring quality"], answer: 0, explanation: "Value is added through processing, assembly and quality improvements." }
+        ]
+      }]
+    },
+    {
+      title: "Engineering Materials",
+      lessons: [{
+        title: "Metals, Polymers, Ceramics and Composites",
+        duration: "50 minutes",
+        html: `<p>Every manufactured product depends on the right materials. Materials determine properties like strength, weight, conductivity, corrosion resistance and cost. Understanding the main material families guides process selection.</p>
+<div class="callout"><b>Core principle:</b> The right material for the wrong process is a failure. Materials and processes must be selected together.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to identify the four main material families, describe key properties of each, and match materials to typical manufacturing processes.</p>
+<h3>1. The four material families</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Four material families">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Four material families</text>
+      <g>
+        <rect x="20" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="90" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Metals</text>
+        <text x="90" y="110" text-anchor="middle" font-size="10" fill="#555">steel, aluminium</text>
+        <text x="90" y="130" text-anchor="middle" font-size="10" fill="#555">conductive, strong</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="140" height="120" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="240" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Polymers</text>
+        <text x="240" y="110" text-anchor="middle" font-size="10" fill="#555">plastics, rubbers</text>
+        <text x="240" y="130" text-anchor="middle" font-size="10" fill="#555">light, formable</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="390" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Ceramics</text>
+        <text x="390" y="110" text-anchor="middle" font-size="10" fill="#555">glass, alumina</text>
+        <text x="390" y="130" text-anchor="middle" font-size="10" fill="#555">hard, brittle</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="120" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Composites</text>
+        <text x="545" y="110" text-anchor="middle" font-size="10" fill="#555">CFRP, GFRP</text>
+        <text x="545" y="130" text-anchor="middle" font-size="10" fill="#555">strong and light</text>
+      </g>
+      <text x="320" y="210" text-anchor="middle" font-size="10" fill="#777">Each family has distinct properties and process requirements</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Metals, polymers, ceramics and composites — each with distinct manufacturing implications.</div>
+</div>
+<h3>2. Metals</h3>
+<ul>
+  <li>Ferrous — steel, cast iron.</li>
+  <li>Non-ferrous — aluminium, copper, titanium.</li>
+  <li>Good strength and conductivity.</li>
+  <li>Machinable, weldable, formable.</li>
+  <li>Prone to corrosion — surface protection needed.</li>
+</ul>
+<h3>3. Polymers</h3>
+<ul>
+  <li>Thermoplastics — soften on heating (PE, PP, ABS).</li>
+  <li>Thermosets — cure permanently (epoxy, phenolic).</li>
+  <li>Elastomers — rubber-like, flexible.</li>
+  <li>Lightweight, corrosion resistant, insulating.</li>
+  <li>Processed by injection moulding, extrusion, blow moulding.</li>
+</ul>
+<h3>4. Ceramics</h3>
+<ul>
+  <li>High hardness, wear resistance.</li>
+  <li>Brittle — poor tensile strength.</li>
+  <li>Thermal and electrical insulators.</li>
+  <li>Processed by pressing, sintering, casting.</li>
+</ul>
+<h3>5. Composites</h3>
+<ul>
+  <li>Fibre reinforced (carbon, glass) in a matrix (resin).</li>
+  <li>High strength-to-weight ratio.</li>
+  <li>Challenging to machine and repair.</li>
+  <li>Processed by layup, resin transfer, autoclave curing.</li>
+</ul>
+<h3>6. Material selection criteria</h3>
+<ul>
+  <li>Mechanical properties — strength, hardness, toughness.</li>
+  <li>Physical properties — density, conductivity, thermal.</li>
+  <li>Chemical properties — corrosion resistance.</li>
+  <li>Cost — raw material and processing.</li>
+  <li>Availability and supply chain.</li>
+  <li>Recyclability and environmental impact.</li>
+</ul>`,
+        quiz: [
+          { q: "Which family steel?", opts: ["The metals family", "The polymers family", "The ceramics family", "The composite family"], answer: 0, explanation: "Steel belongs to the metals family, specifically ferrous metals." },
+          { q: "Which is polymer?", opts: ["Plastics and rubbers", "Iron and aluminium", "Glass and alumina", "Carbon fibre epoxy"], answer: 0, explanation: "Polymers include plastics and rubbers made from long-chain molecules." },
+          { q: "What is thermoset?", opts: ["Cures permanently", "Softens when heated", "Rubber-like elastic", "Always recyclable"], answer: 0, explanation: "Thermosets cure permanently and cannot be remelted." },
+          { q: "Which family brittle?", opts: ["The ceramics family", "The polymers family", "The metals family", "The composite family"], answer: 0, explanation: "Ceramics are hard but brittle and have poor tensile strength." },
+          { q: "Why match material?", opts: ["With suitable process", "With cheaper labour", "With marketing team", "With office layout"], answer: 0, explanation: "Materials must be matched with suitable manufacturing processes." }
+        ]
+      }]
+    },
+    {
+      title: "Casting, Forming and Machining",
+      lessons: [{
+        title: "Shaping Materials by Casting, Forming and Machining",
+        duration: "50 minutes",
+        html: `<p>Casting, forming and machining are three foundational approaches to shaping materials. Each has distinct capabilities, costs and suitable applications.</p>
+<div class="callout"><b>Core principle:</b> Casting creates shape from liquid; forming reshapes solid material; machining removes material. Each has unique strengths and limitations.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to distinguish casting, forming and machining, describe common methods in each, and match them to appropriate applications.</p>
+<h3>1. Casting</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Sand casting process">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Sand casting process</text>
+      <!-- Mold halves -->
+      <rect x="100" y="60" width="440" height="40" fill="#c8b8a0" stroke="#5a4a38" stroke-width="2"/>
+      <rect x="100" y="100" width="440" height="40" fill="#c8b8a0" stroke="#5a4a38" stroke-width="2"/>
+      <!-- Cavity -->
+      <path d="M 220 80 Q 320 40 420 80 L 420 100 Q 320 130 220 100 Z" fill="#333"/>
+      <!-- Pouring -->
+      <polygon points="280,0 340,0 320,60" fill="#ffd800" stroke="#b89000"/>
+      <text x="310" y="30" text-anchor="middle" font-size="10" fill="#333">pour</text>
+      <text x="320" y="165" text-anchor="middle" font-weight="bold" fill="#e93680">cavity shape = final part</text>
+      <text x="320" y="190" text-anchor="middle" font-size="10" fill="#777">Two halves; after cooling, the mold is broken open</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Sand casting pours liquid metal into a mould shaped like the final part.</div>
+</div>
+<ul>
+  <li><b>Sand casting</b> — versatile, low cost, rough finish.</li>
+  <li><b>Die casting</b> — high volume, precise, non-ferrous.</li>
+  <li><b>Investment casting</b> — precise, complex, expensive.</li>
+  <li>Best for complex shapes, hollow sections, large parts.</li>
+</ul>
+<h3>2. Forming</h3>
+<ul>
+  <li><b>Forging</b> — hammering or pressing hot/cold metal.</li>
+  <li><b>Rolling</b> — passing metal through rollers to reduce thickness.</li>
+  <li><b>Extrusion</b> — pushing material through a die.</li>
+  <li><b>Drawing</b> — pulling through a die to reduce section.</li>
+  <li>Produces stronger grain structures; good for structural parts.</li>
+</ul>
+<h3>3. Machining</h3>
+<ul>
+  <li><b>Turning</b> — rotating workpiece against a cutting tool.</li>
+  <li><b>Milling</b> — rotating cutter removes material from workpiece.</li>
+  <li><b>Drilling</b> — creating holes with a rotating bit.</li>
+  <li><b>Grinding</b> — fine surface finishing with abrasive wheels.</li>
+  <li>High precision; suitable for finished features.</li>
+</ul>
+<h3>4. Comparison</h3>
+<table class="compare"><tr><th>Process</th><th>Cost at volume</th><th>Precision</th></tr><tr><td>Casting</td><td>Low at volume</td><td>Medium</td></tr><tr><td>Forming</td><td>Low at volume</td><td>Medium</td></tr><tr><td>Machining</td><td>High per unit</td><td>Very high</td></tr></table>
+<h3>5. Common selection criteria</h3>
+<ul>
+  <li>Batch size and rate.</li>
+  <li>Required precision and finish.</li>
+  <li>Material properties.</li>
+  <li>Tooling cost.</li>
+  <li>Available equipment and skills.</li>
+</ul>`,
+        quiz: [
+          { q: "Which creates from liquid?", opts: ["Casting liquid process", "Machining processes", "Forming processes", "Only grinding processes"], answer: 0, explanation: "Casting produces shapes by pouring liquid material into a mould." },
+          { q: "Which reshapes solid?", opts: ["Forming solid material", "Machining solid material", "Casting liquid materials", "Sintering powders only"], answer: 0, explanation: "Forming reshapes solid material by force or pressure without melting." },
+          { q: "Which removes material?", opts: ["Machining removes layers", "Casting fills the cavity", "Forming squeezes solid", "Joining fuses parts"], answer: 0, explanation: "Machining removes material to create shapes and features." },
+          { q: "What is forging?", opts: ["Pressing hot metal", "Cutting with saw", "Pouring liquid metal", "Fusing two parts"], answer: 0, explanation: "Forging reshapes hot or cold metal by hammering or pressing." },
+          { q: "Which is more precise?", opts: ["Machining very precise", "Casting rough output", "Forming rough output", "All are identical"], answer: 0, explanation: "Machining produces highly precise parts with tight tolerances." }
+        ]
+      }]
+    },
+    {
+      title: "Joining and Additive Processes",
+      lessons: [{
+        title: "Welding, Fastening and 3D Printing",
+        duration: "50 minutes",
+        html: `<p>Joining connects components into assemblies; additive processes build parts layer by layer. Both are essential to modern manufacturing, each with unique capabilities and limitations.</p>
+<div class="callout"><b>Core principle:</b> Every joint is a potential failure point. Joints must be designed and inspected accordingly.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the main joining processes, explain how additive manufacturing works, and identify appropriate applications for each.</p>
+<h3>1. Joining processes</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Joining processes comparison">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Common joining processes</text>
+      <g>
+        <rect x="20" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="90" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Welding</text>
+        <text x="90" y="110" text-anchor="middle" font-size="10" fill="#555">fuses materials</text>
+        <text x="90" y="130" text-anchor="middle" font-size="10" fill="#555">permanent joint</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="140" height="120" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="240" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Brazing</text>
+        <text x="240" y="110" text-anchor="middle" font-size="10" fill="#555">filler melts</text>
+        <text x="240" y="130" text-anchor="middle" font-size="10" fill="#555">lower temp</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="390" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Adhesive</text>
+        <text x="390" y="110" text-anchor="middle" font-size="10" fill="#555">bonding agent</text>
+        <text x="390" y="130" text-anchor="middle" font-size="10" fill="#555">multi-material</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="120" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Mechanical</text>
+        <text x="545" y="110" text-anchor="middle" font-size="10" fill="#555">bolts, rivets</text>
+        <text x="545" y="130" text-anchor="middle" font-size="10" fill="#555">disassemble</text>
+      </g>
+      <text x="320" y="210" text-anchor="middle" font-size="10" fill="#777">Choose based on materials, load, cost and service</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Welding, brazing, adhesives and mechanical fasteners — each suited to different needs.</div>
+</div>
+<h3>2. Welding</h3>
+<ul>
+  <li>Fuses materials by heat or pressure.</li>
+  <li>Common types: MIG, TIG, arc, spot, laser.</li>
+  <li>Permanent, high-strength joints.</li>
+  <li>Requires skilled labour and inspection.</li>
+  <li>Distortion and residual stress are common issues.</li>
+</ul>
+<h3>3. Brazing and soldering</h3>
+<ul>
+  <li>Filler metal melts but base material does not.</li>
+  <li>Lower temperatures than welding.</li>
+  <li>Soldering for electronics; brazing for structural joints.</li>
+  <li>Can join dissimilar metals.</li>
+</ul>
+<h3>4. Adhesive bonding</h3>
+<ul>
+  <li>Joins similar or dissimilar materials.</li>
+  <li>Distributes stress — good fatigue properties.</li>
+  <li>Limited by temperature and humidity.</li>
+  <li>Surface preparation is critical.</li>
+</ul>
+<h3>5. Mechanical fastening</h3>
+<ul>
+  <li>Bolts, screws, rivets, clips.</li>
+  <li>Can be disassembled (bolts) or permanent (rivets).</li>
+  <li>Easy to inspect and replace.</li>
+  <li>Prone to loosening under vibration.</li>
+</ul>
+<h3>6. Additive manufacturing</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Additive manufacturing layering">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Additive manufacturing — layer by layer</text>
+      <!-- Nozzle -->
+      <polygon points="290,40 350,40 320,80" fill="#333"/>
+      <text x="320" y="30" text-anchor="middle" font-size="10" fill="#333">nozzle</text>
+      <!-- Layers -->
+      <rect x="220" y="190" width="200" height="10" fill="#ff4b93" stroke="#7a0d3a"/>
+      <rect x="220" y="180" width="200" height="10" fill="#ff6ba0" stroke="#7a0d3a"/>
+      <rect x="220" y="170" width="200" height="10" fill="#ff8ab7" stroke="#7a0d3a"/>
+      <rect x="220" y="160" width="200" height="10" fill="#ffaad0" stroke="#7a0d3a"/>
+      <rect x="220" y="150" width="200" height="10" fill="#ffcfe3" stroke="#7a0d3a"/>
+      <text x="320" y="215" text-anchor="middle" font-size="10" fill="#777">Each layer is deposited and bonded to the previous</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Additive manufacturing builds parts by stacking thin layers.</div>
+</div>
+<ul>
+  <li>FDM — filament extrusion (thermoplastics).</li>
+  <li>SLA — resin cured by light.</li>
+  <li>SLS — powder fused by laser.</li>
+  <li>SLM — metal powder fused by laser.</li>
+  <li>Good for prototypes, complex geometries, small batches.</li>
+  <li>Slower than traditional processes for high volume.</li>
+</ul>`,
+        quiz: [
+          { q: "What does welding do?", opts: ["Fuses the materials", "Only bolts the parts", "Only glues together", "Only etches surface"], answer: 0, explanation: "Welding fuses materials using heat or pressure to form a permanent joint." },
+          { q: "Which is brazing?", opts: ["Filler melts only", "Base metal melts", "Only bolts used", "Cold press only"], answer: 0, explanation: "Brazing melts the filler but not the base material, at lower temperatures than welding." },
+          { q: "Why mechanical used?", opts: ["Can be disassembled", "Cannot be inspected", "Melts at low heat", "Always permanent fix"], answer: 0, explanation: "Mechanical fasteners like bolts can be disassembled for repair or replacement." },
+          { q: "What is FDM?", opts: ["Filament deposition modelling", "Fast drawing machine", "Fine detail method", "Fixed die model"], answer: 0, explanation: "FDM (Fused Deposition Modelling) extrudes filament to build layers." },
+          { q: "Why additive slow?", opts: ["One layer at time", "Only tiny parts", "Only non-metal parts", "Only one supplier"], answer: 0, explanation: "Additive manufacturing is slower because it builds parts one layer at a time." }
+        ]
+      }]
+    },
+    {
+      title: "Production Quality and Safety",
+      lessons: [{
+        title: "Quality Control and Safe Operations",
+        duration: "45 minutes",
+        html: `<p>Manufacturing must deliver quality consistently and safely. Quality control confirms requirements are met; safety protects the people who make it happen. Both are continuous, not one-off events.</p>
+<div class="callout"><b>Core principle:</b> Quality cannot be inspected into a product — it must be built in. Safety cannot be added later — it must be designed and practiced.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe common quality control methods, explain the role of measurement and inspection, and outline core safety practices in manufacturing.</p>
+<h3>1. Quality control</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Quality control in production">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Quality control across production</text>
+      <g>
+        <rect x="20" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="90" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Incoming</text>
+        <text x="90" y="110" text-anchor="middle" font-size="10" fill="#555">check materials</text>
+        <text x="90" y="130" text-anchor="middle" font-size="10" fill="#555">from suppliers</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="140" height="120" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="240" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">In-process</text>
+        <text x="240" y="110" text-anchor="middle" font-size="10" fill="#555">checks during</text>
+        <text x="240" y="130" text-anchor="middle" font-size="10" fill="#555">production</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="390" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Final</text>
+        <text x="390" y="110" text-anchor="middle" font-size="10" fill="#555">inspect finished</text>
+        <text x="390" y="130" text-anchor="middle" font-size="10" fill="#555">goods</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="120" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Feedback</text>
+        <text x="545" y="110" text-anchor="middle" font-size="10" fill="#555">learn and</text>
+        <text x="545" y="130" text-anchor="middle" font-size="10" fill="#555">improve</text>
+      </g>
+      <text x="320" y="210" text-anchor="middle" font-size="10" fill="#777">Quality checks at each stage; findings feed back for improvement</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Quality is controlled at incoming, in-process and final stages, with feedback.</div>
+</div>
+<ul>
+  <li>Incoming inspection — materials and components.</li>
+  <li>In-process inspection — during production.</li>
+  <li>Final inspection — before shipment.</li>
+  <li>Statistical process control (SPC).</li>
+  <li>Non-destructive testing (NDT).</li>
+  <li>Root cause analysis of defects.</li>
+</ul>
+<h3>2. Measurement and inspection</h3>
+<ul>
+  <li>Calibrated instruments — callipers, micrometers, gauges.</li>
+  <li>CMM — coordinate measuring machines.</li>
+  <li>Visual inspection for surface defects.</li>
+  <li>Ultrasonic, X-ray, magnetic particle for internal defects.</li>
+  <li>Test pieces — tensile, hardness, impact.</li>
+</ul>
+<h3>3. Safety in manufacturing</h3>
+<ul>
+  <li>Machine guards and interlocks.</li>
+  <li>Emergency stops accessible.</li>
+  <li>Lock-out tag-out for maintenance.</li>
+  <li>PPE — eye protection, hearing protection, gloves.</li>
+  <li>Ventilation for fumes, dust and vapours.</li>
+  <li>Safe handling of hot, sharp and heavy materials.</li>
+  <li>Clear aisles and housekeeping.</li>
+  <li>Training and competence.</li>
+</ul>
+<h3>4. Common hazards</h3>
+<table class="compare"><tr><th>Hazard</th><th>Control</th></tr><tr><td>Rotating machinery</td><td>Guards and interlocks</td></tr><tr><td>Hot surfaces</td><td>Insulation, warning signs</td></tr><tr><td>Welding fumes</td><td>Local exhaust ventilation</td></tr><tr><td>Sharp edges</td><td>Gloves, deburring</td></tr><tr><td>Heavy lifting</td><td>Hoists, team lifting</td></tr><tr><td>Noise</td><td>Ear defenders, enclosures</td></tr></table>
+<h3>5. Common failures</h3>
+<ul>
+  <li>Skipping inspection under time pressure.</li>
+  <li>Bypassed machine guards.</li>
+  <li>Uncalibrated measurement instruments.</li>
+  <li>No documentation of quality checks.</li>
+  <li>Ignoring near misses.</li>
+</ul>`,
+        quiz: [
+          { q: "What is quality control?", opts: ["Checks meet requirements", "Removes all defects", "Increases the cost", "Simplifies the process"], answer: 0, explanation: "Quality control confirms that products meet specified requirements." },
+          { q: "What is in-process?", opts: ["Checks during production", "Check after shipping", "Only supplier check", "Only final check"], answer: 0, explanation: "In-process inspection occurs during production to catch defects early." },
+          { q: "What is SPC?", opts: ["Statistical process control", "Simple product count", "Special process chart", "Standard production cycle"], answer: 0, explanation: "Statistical Process Control (SPC) monitors process stability statistically." },
+          { q: "Why lock-out tag-out?", opts: ["Safe maintenance work", "Fill the paperwork", "Replace inspections", "Speed up machines"], answer: 0, explanation: "Lock-out tag-out isolates energy sources for safe maintenance work." },
+          { q: "Which PPE essential?", opts: ["Goggles for grinding", "Only formal shoes", "Only office attire", "No protection needed"], answer: 0, explanation: "Eye protection is essential for grinding and other high-risk operations." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Manufacturing Processes</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Manufacturing Processes</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Basics of Manufacturing Processes.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Manufacturing Processes.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Manufacturing Processes</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering manufacturing value chains, engineering materials, casting, forming, machining, joining, additive manufacturing, production systems, quality control and safety.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Manufacturing.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
