@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Basics of Industrial Maintenance Management">
+  <title>LOGI LMS · Basics of Industrial Maintenance Management</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Basics of Industrial Maintenance Management
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'maintenance-mgmt-101',
+  title: 'Basics of Industrial Maintenance Management',
+  desc: 'Learn the foundations of maintaining industrial equipment and facilities. The course introduces maintenance strategies, work planning, equipment reliability, records and safe maintenance practices.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Introduction to Maintenance Management",
+      lessons: [{
+        title: "What Maintenance Is and Why It Matters",
+        duration: "45 minutes",
+        html: `<p><b>Maintenance</b> is the combination of technical and management activities intended to keep equipment and facilities in a state in which they can perform their required functions. Without effective maintenance, equipment degrades, safety is compromised and production is lost.</p>
+<div class="callout"><b>Core principle:</b> Maintenance is not a cost — it is an investment. Good maintenance extends asset life, improves safety and reduces unexpected downtime.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to define maintenance management, describe the main maintenance objectives and identify the types of costs associated with poor maintenance.</p>
+<h3>1. What maintenance does</h3>
+<ul>
+  <li>Keeps equipment capable of performing its function.</li>
+  <li>Reduces unexpected failures and downtime.</li>
+  <li>Improves safety and environmental performance.</li>
+  <li>Extends asset life and preserves value.</li>
+  <li>Supports quality and consistency of output.</li>
+  <li>Controls maintenance cost and resource use.</li>
+</ul>
+<h3>2. The maintenance function</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Maintenance management function">
+    <defs>
+      <marker id="mmA" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Maintenance management activities</text>
+      <g>
+        <rect x="20" y="60" width="130" height="80" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="85" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Plan</text>
+        <text x="85" y="105" text-anchor="middle" font-size="10" fill="#555">schedule work</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="130" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="235" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Execute</text>
+        <text x="235" y="105" text-anchor="middle" font-size="10" fill="#555">perform work</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="130" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="385" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Record</text>
+        <text x="385" y="105" text-anchor="middle" font-size="10" fill="#555">log every task</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="80" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Improve</text>
+        <text x="545" y="105" text-anchor="middle" font-size="10" fill="#555">analyse trends</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="152" y1="100" x2="168" y2="100" marker-end="url(#mmA)"/>
+        <line x1="302" y1="100" x2="318" y2="100" marker-end="url(#mmA)"/>
+        <line x1="452" y1="100" x2="468" y2="100" marker-end="url(#mmA)"/>
+      </g>
+      <text x="320" y="180" text-anchor="middle" font-size="10" fill="#777">Planning, execution, records and improvement form the maintenance cycle</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Plan, execute, record, improve — the maintenance management cycle.</div>
+</div>
+<h3>3. Types of maintenance cost</h3>
+<ul>
+  <li><b>Direct</b> — labour, spare parts, tools, contractors.</li>
+  <li><b>Indirect</b> — lost production, overtime, expedited parts.</li>
+  <li><b>Hidden</b> — customer dissatisfaction, delayed deliveries, safety incidents.</li>
+  <li><b>Lifecycle</b> — cost over the whole life of the asset.</li>
+</ul>
+<h3>4. Consequences of poor maintenance</h3>
+<ul>
+  <li>Unexpected breakdowns and downtime.</li>
+  <li>Reduced equipment life.</li>
+  <li>Safety incidents and environmental releases.</li>
+  <li>Higher emergency repair cost.</li>
+  <li>Lost production and revenue.</li>
+  <li>Poor quality output.</li>
+</ul>
+<h3>5. Objectives of maintenance management</h3>
+<ul>
+  <li>Maximise availability.</li>
+  <li>Minimise cost of ownership.</li>
+  <li>Extend asset life.</li>
+  <li>Ensure safety and compliance.</li>
+  <li>Improve reliability.</li>
+  <li>Provide data for decisions.</li>
+</ul>`,
+        quiz: [
+          { q: "What does maintenance?", opts: ["Keeps equipment working", "Sells the equipment", "Designs equipment only", "Buys replacement parts"], answer: 0, explanation: "Maintenance keeps equipment in a state to perform its required function." },
+          { q: "What is downtime?", opts: ["Production lost time", "Only paid leave", "Planned upgrade time", "Only training hours"], answer: 0, explanation: "Downtime is lost production time due to equipment failure or repair." },
+          { q: "Why plan maintenance?", opts: ["Reduce downtime costs", "Fill all schedules", "Increase spare stock", "Remove spare parts"], answer: 0, explanation: "Properly planned maintenance reduces costly unplanned downtime." },
+          { q: "What is direct cost?", opts: ["Labour and parts", "Lost production sales", "Customer complaints only", "Insurance premiums only"], answer: 0, explanation: "Direct maintenance cost includes labour, spare parts, tools and contractors." },
+          { q: "Why maintenance matters?", opts: ["Safety and reliability", "Only saving money", "Only pleasing auditors", "Only adding paperwork"], answer: 0, explanation: "Maintenance matters for safety, reliability, quality and asset life." }
+        ]
+      }]
+    },
+    {
+      title: "Maintenance Strategies",
+      lessons: [{
+        title: "Reactive, Preventive and Predictive Maintenance",
+        duration: "50 minutes",
+        html: `<p>Maintenance strategy is the deliberate choice of how to maintain equipment. Each strategy has strengths and limitations — the right mix depends on the equipment's criticality, failure patterns and cost.</p>
+<div class="callout"><b>Core principle:</b> No single strategy is best for every asset. Best practice uses the right mix of reactive, preventive and predictive maintenance according to asset criticality.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to distinguish the three main maintenance strategies, explain when each applies, and describe how they combine.</p>
+<h3>1. The three main strategies</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Maintenance strategy comparison">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Three maintenance strategies</text>
+      <g>
+        <rect x="20" y="60" width="190" height="130" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="115" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Reactive</text>
+        <text x="115" y="105" text-anchor="middle" font-size="10" fill="#555">run to failure</text>
+        <text x="115" y="125" text-anchor="middle" font-size="10" fill="#555">fix after break</text>
+        <text x="115" y="150" text-anchor="middle" font-size="10" fill="#c2185b">low cost for non-critical</text>
+      </g>
+      <g>
+        <rect x="225" y="60" width="190" height="130" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+        <text x="320" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Preventive</text>
+        <text x="320" y="105" text-anchor="middle" font-size="10" fill="#555">time-based service</text>
+        <text x="320" y="125" text-anchor="middle" font-size="10" fill="#555">scheduled tasks</text>
+        <text x="320" y="150" text-anchor="middle" font-size="10" fill="#c2185b">good for known wear</text>
+      </g>
+      <g>
+        <rect x="430" y="60" width="190" height="130" rx="8" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+        <text x="525" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Predictive</text>
+        <text x="525" y="105" text-anchor="middle" font-size="10" fill="#555">condition-based</text>
+        <text x="525" y="125" text-anchor="middle" font-size="10" fill="#555">on-demand service</text>
+        <text x="525" y="150" text-anchor="middle" font-size="10" fill="#2b6cb0">high accuracy, higher cost</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Reactive, preventive and predictive — different strategies for different needs.</div>
+</div>
+<h3>2. Reactive maintenance</h3>
+<ul>
+  <li>Repair when equipment fails.</li>
+  <li>Lowest upfront cost.</li>
+  <li>Suitable for low-value, non-critical items.</li>
+  <li>High risk for critical equipment — unexpected downtime.</li>
+  <li>Can cause collateral damage.</li>
+</ul>
+<h3>3. Preventive maintenance (PM)</h3>
+<ul>
+  <li>Scheduled servicing at fixed intervals.</li>
+  <li>Time-based, use-based or calendar-based.</li>
+  <li>Replaces parts before likely failure.</li>
+  <li>Reduces unexpected breakdowns.</li>
+  <li>Can be wasteful if done too often.</li>
+</ul>
+<h3>4. Predictive maintenance (PdM)</h3>
+<ul>
+  <li>Monitors condition and predicts failure.</li>
+  <li>Uses vibration, thermography, oil analysis, ultrasound, performance data.</li>
+  <li>Services at the right time — not too early, not too late.</li>
+  <li>Higher upfront investment in sensors and analytics.</li>
+  <li>Excellent for critical, high-value equipment.</li>
+</ul>
+<h3>5. Other strategies</h3>
+<ul>
+  <li><b>Condition-based</b> — maintenance when a condition threshold is reached.</li>
+  <li><b>Reliability-centred</b> (RCM) — analysis-based selection of maintenance tasks.</li>
+  <li><b>Total productive maintenance</b> (TPM) — operator involvement and autonomous maintenance.</li>
+  <li><b>Design-out</b> — redesign to eliminate the failure mode entirely.</li>
+</ul>
+<h3>6. Choosing a strategy</h3>
+<table class="compare"><tr><th>Asset type</th><th>Typical strategy</th></tr><tr><td>Critical equipment</td><td>Predictive and preventive</td></tr><tr><td>Standard equipment</td><td>Preventive</td></tr><tr><td>Non-critical items</td><td>Reactive</td></tr><tr><td>Hidden failures</td><td>Failure-finding tasks</td></tr></table>`,
+        quiz: [
+          { q: "What is reactive?", opts: ["Fix after breakdown", "Service on schedule", "Monitor for prediction", "Only planned overhaul"], answer: 0, explanation: "Reactive maintenance repairs equipment after failure occurs." },
+          { q: "What is preventive?", opts: ["Scheduled maintenance task", "Fix after failure", "Only predictive sensors", "Only operator rounds"], answer: 0, explanation: "Preventive maintenance is performed on a schedule before failure." },
+          { q: "What is predictive?", opts: ["Condition based service", "Only time-based work", "Only reactive repairs", "Only overhaul shutdowns"], answer: 0, explanation: "Predictive maintenance uses condition monitoring to predict failure." },
+          { q: "Which asset predictive?", opts: ["Critical high-cost", "Only small items", "Only office chairs", "Only spare stock"], answer: 0, explanation: "Predictive is best for critical, high-value equipment where downtime is costly." },
+          { q: "What does RCM do?", opts: ["Selects best tasks", "Replaces all parts", "Removes all failures", "Only runs weekly"], answer: 0, explanation: "Reliability-Centred Maintenance selects tasks based on analysis of failure modes." }
+        ]
+      }]
+    },
+    {
+      title: "Work Orders and Planning",
+      lessons: [{
+        title: "Planning, Scheduling and Executing Work",
+        duration: "50 minutes",
+        html: `<p>A <b>work order</b> is the formal authorisation and record of a maintenance task. Good planning and scheduling ensure the right work is done at the right time with the right resources — reducing downtime and cost.</p>
+<div class="callout"><b>Core principle:</b> Unplanned work costs more, takes longer and is less safe. Planning is not bureaucracy — it is efficiency.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the components of a work order, explain the planning and scheduling process, and identify common causes of poor planning.</p>
+<h3>1. What a work order contains</h3>
+<ul>
+  <li>Task description and scope.</li>
+  <li>Asset or location identification.</li>
+  <li>Priority and required timing.</li>
+  <li>Required labour, skills and tools.</li>
+  <li>Required spare parts and materials.</li>
+  <li>Safety requirements and permits.</li>
+  <li>Record of completion and hours used.</li>
+</ul>
+<h3>2. The planning cycle</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Work order planning cycle">
+    <defs>
+      <marker id="woA" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Planning and scheduling cycle</text>
+      <g>
+        <rect x="20" y="60" width="120" height="80" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="80" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Identify</text>
+        <text x="80" y="105" text-anchor="middle" font-size="10" fill="#555">the work</text>
+      </g>
+      <g>
+        <rect x="160" y="60" width="120" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="220" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Plan</text>
+        <text x="220" y="105" text-anchor="middle" font-size="10" fill="#555">resources, steps</text>
+      </g>
+      <g>
+        <rect x="300" y="60" width="120" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="360" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Schedule</text>
+        <text x="360" y="105" text-anchor="middle" font-size="10" fill="#555">time, priority</text>
+      </g>
+      <g>
+        <rect x="440" y="60" width="130" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="505" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Execute</text>
+        <text x="505" y="105" text-anchor="middle" font-size="10" fill="#555">perform work</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="142" y1="100" x2="158" y2="100" marker-end="url(#woA)"/>
+        <line x1="282" y1="100" x2="298" y2="100" marker-end="url(#woA)"/>
+        <line x1="422" y1="100" x2="438" y2="100" marker-end="url(#woA)"/>
+      </g>
+      <text x="320" y="180" text-anchor="middle" font-size="10" fill="#777">Each completed work order feeds back for planning improvement</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Identify → Plan → Schedule → Execute with feedback.</div>
+</div>
+<h3>3. Planning vs. scheduling</h3>
+<table class="compare"><tr><th>Planning</th><th>Scheduling</th></tr><tr><td>What must be done</td><td>When it will be done</td></tr><tr><td>Steps and resources</td><td>Timing and sequence</td></tr><tr><td>Prepared in advance</td><td>Assigned to calendar</td></tr><tr><td>Focus on method</td><td>Focus on coordination</td></tr></table>
+<h3>4. Prioritisation</h3>
+<ul>
+  <li>Critical — immediate safety or production impact.</li>
+  <li>High — production limiting or compliance issue.</li>
+  <li>Medium — required by plan or reliability need.</li>
+  <li>Low — routine or discretionary.</li>
+</ul>
+<h3>5. Backlog management</h3>
+<ul>
+  <li>Not everything can be done at once.</li>
+  <li>Manage the backlog by priority and resource.</li>
+  <li>Track age of open work orders.</li>
+  <li>Review backlog weekly.</li>
+  <li>Avoid letting critical work fall behind.</li>
+</ul>
+<h3>6. Common planning failures</h3>
+<ul>
+  <li>Doing work without a work order.</li>
+  <li>Insufficient planning — wrong parts, wrong tools.</li>
+  <li>Ignoring backlog growth.</li>
+  <li>No feedback from completed work.</li>
+  <li>Poor communication between operations and maintenance.</li>
+</ul>`,
+        quiz: [
+          { q: "What is work order?", opts: ["Formal task record", "Only a schedule", "Only a spare part", "Only a budget line"], answer: 0, explanation: "A work order formally authorises and records a maintenance task." },
+          { q: "What is planning?", opts: ["Defining work steps", "Only choosing the day", "Only buying parts", "Only hiring people"], answer: 0, explanation: "Planning defines what steps, resources and skills are needed." },
+          { q: "What is scheduling?", opts: ["Assigning the time", "Only planning steps", "Only procuring parts", "Only training staff"], answer: 0, explanation: "Scheduling assigns maintenance tasks to specific times and resources." },
+          { q: "Why manage backlog?", opts: ["Prioritise limited resources", "Fill all paperwork", "Add all work orders", "Extend all deadlines"], answer: 0, explanation: "Backlog management ensures limited resources go to the highest priority work." },
+          { q: "Which failure common?", opts: ["Work without orders", "Verifying parts", "Logging completed work", "Reviewing priorities"], answer: 0, explanation: "Doing work without a work order loses records and accountability." }
+        ]
+      }]
+    },
+    {
+      title: "Equipment Reliability and Records",
+      lessons: [{
+        title: "Failure Patterns, KPIs and Maintenance Records",
+        duration: "50 minutes",
+        html: `<p><b>Reliability</b> is the probability that equipment will perform its required function for a specified period. Maintenance exists to improve reliability, and reliability improvement depends on accurate records and meaningful performance measures.</p>
+<div class="callout"><b>Core principle:</b> Without records, there is no learning. Without learning, the same failures repeat.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe common failure patterns, define key reliability metrics, and explain the importance of maintenance records.</p>
+<h3>1. Failure patterns</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Common failure patterns">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Common failure patterns (age vs. failure rate)</text>
+      <!-- Curve A (bathtub) -->
+      <path d="M 40 70 Q 100 130 160 150 Q 220 160 320 160 Q 420 160 480 150 Q 560 130 600 70" fill="none" stroke="#e93680" stroke-width="2"/>
+      <text x="80" y="60" font-size="10" fill="#e93680">early</text>
+      <text x="320" y="185" text-anchor="middle" font-size="10" fill="#e93680">useful life</text>
+      <text x="565" y="60" font-size="10" fill="#e93680">wear-out</text>
+      <line x1="40" y1="180" x2="600" y2="180" stroke="#999"/>
+      <text x="320" y="215" text-anchor="middle" font-size="10" fill="#555">time</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">The classic bathtub curve: high early failures, low in useful life, rising wear-out.</div>
+</div>
+<ul>
+  <li>Bathtub curve — early failures, useful life, wear-out.</li>
+  <li>Constant failure rate — random failures.</li>
+  <li>Age-related wear-out — predictable.</li>
+  <li>Many failures are not age-related — preventive tasks may not help.</li>
+  <li>Understanding patterns guides strategy.</li>
+</ul>
+<h3>2. Reliability metrics</h3>
+<ul>
+  <li><b>MTBF</b> — Mean Time Between Failures.</li>
+  <li><b>MTTR</b> — Mean Time To Repair.</li>
+  <li><b>Availability</b> — uptime ÷ (uptime + downtime).</li>
+  <li><b>OEE</b> — Availability × Performance × Quality.</li>
+  <li><b>PM compliance</b> — % of planned tasks completed on time.</li>
+  <li><b>Schedule compliance</b> — % of planned work delivered.</li>
+</ul>
+<h3>3. Maintenance records</h3>
+<ul>
+  <li>Equipment registers and asset data.</li>
+  <li>Work order history.</li>
+  <li>Spare parts consumed.</li>
+  <li>Failure causes and corrective actions.</li>
+  <li>Inspections and tests.</li>
+  <li>Manuals and drawings.</li>
+</ul>
+<h3>4. Computerised maintenance system (CMMS)</h3>
+<ul>
+  <li>Manages work orders electronically.</li>
+  <li>Tracks assets and history.</li>
+  <li>Plans and schedules PM tasks.</li>
+  <li>Monitors inventory of spare parts.</li>
+  <li>Generates reports and KPIs.</li>
+  <li>Provides data for reliability improvement.</li>
+</ul>
+<h3>5. Improving reliability</h3>
+<ul>
+  <li>Analyse failure history to find patterns.</li>
+  <li>Perform root cause analysis for repeated failures.</li>
+  <li>Implement corrective actions and verify.</li>
+  <li>Update PM tasks based on findings.</li>
+  <li>Share lessons across teams.</li>
+  <li>Invest in predictive monitoring for critical assets.</li>
+</ul>
+<h3>6. Common record failures</h3>
+<ul>
+  <li>Incomplete work orders.</li>
+  <li>No failure code recorded.</li>
+  <li>Missing spare parts usage.</li>
+  <li>Data not used for improvement.</li>
+  <li>Paper records lost.</li>
+</ul>`,
+        quiz: [
+          { q: "What is MTBF?", opts: ["Mean time between failures", "Maintenance task backup file", "Master time base frame", "Mixed type base format"], answer: 0, explanation: "MTBF is the average operating time between failures of repairable equipment." },
+          { q: "What is MTTR?", opts: ["Mean time to repair", "Maintenance tool tracking record", "Master testing tool report", "Mixed time tracking register"], answer: 0, explanation: "MTTR is the average time needed to restore equipment after failure." },
+          { q: "What is availability?", opts: ["Uptime over total", "Only speed of repair", "Only defects rate", "Only labour hours"], answer: 0, explanation: "Availability is the ratio of uptime to total time (uptime plus downtime)." },
+          { q: "Why keep records?", opts: ["Analyse failure data", "Fill file cabinets", "Satisfy the auditors", "Delay maintenance work"], answer: 0, explanation: "Records enable analysis, learning and reliability improvement." },
+          { q: "What is CMMS?", opts: ["Maintenance management software", "Machine cleaning manual schedule", "Cost management analysis report", "Colour code specification file"], answer: 0, explanation: "A CMMS is software for managing maintenance work orders, assets and records." }
+        ]
+      }]
+    },
+    {
+      title: "Maintenance Safety and Performance",
+      lessons: [{
+        title: "Safe Maintenance Practices and Performance",
+        duration: "45 minutes",
+        html: `<p>Maintenance work is among the highest-risk activities in industry. Safe practice protects the technicians, the equipment and the surrounding people and environment. Performance measurement ensures both safety and productivity improve over time.</p>
+<div class="callout"><b>Core principle:</b> No maintenance task is worth an injury. Isolation, permits and PPE are not optional — they are the difference between going home and not.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe core maintenance safety practices, explain lock-out tag-out, and identify metrics for safe maintenance performance.</p>
+<h3>1. Maintenance hazards</h3>
+<ul>
+  <li>Stored energy — electrical, pneumatic, hydraulic, mechanical.</li>
+  <li>Unexpected start-up.</li>
+  <li>Hot surfaces and processes.</li>
+  <li>Chemical exposure.</li>
+  <li>Working at height.</li>
+  <li>Confined spaces.</li>
+  <li>Manual handling of heavy parts.</li>
+  <li>Sharp edges and pressure systems.</li>
+</ul>
+<h3>2. Lock-out tag-out (LOTO)</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Lock-out tag-out procedure">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Lock-out tag-out procedure</text>
+      <g>
+        <rect x="20" y="60" width="120" height="100" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="80" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">1. Notify</text>
+        <text x="80" y="105" text-anchor="middle" font-size="10" fill="#555">inform affected</text>
+      </g>
+      <g>
+        <rect x="150" y="60" width="120" height="100" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="210" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">2. Shut down</text>
+        <text x="210" y="105" text-anchor="middle" font-size="10" fill="#555">stop equipment</text>
+      </g>
+      <g>
+        <rect x="280" y="60" width="120" height="100" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="340" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">3. Isolate</text>
+        <text x="340" y="105" text-anchor="middle" font-size="10" fill="#555">switch off energy</text>
+      </g>
+      <g>
+        <rect x="410" y="60" width="120" height="100" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="470" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">4. Lock tag</text>
+        <text x="470" y="105" text-anchor="middle" font-size="10" fill="#555">apply lock tag</text>
+      </g>
+      <g>
+        <rect x="540" y="60" width="90" height="100" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="585" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">5. Verify</text>
+        <text x="585" y="105" text-anchor="middle" font-size="10" fill="#555">test zero energy</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Five-step LOTO: notify, shut down, isolate, lock tag, verify.</div>
+</div>
+<h3>3. Safe work practices</h3>
+<ul>
+  <li>Work permits for high-risk tasks.</li>
+  <li>Gas testing before entry into confined spaces.</li>
+  <li>PPE — gloves, eye protection, helmets, boots.</li>
+  <li>Isolation and depressurisation before opening.</li>
+  <li>Safety harness for work at height.</li>
+  <li>Tool inspection before use.</li>
+  <li>Clear communication during complex tasks.</li>
+</ul>
+<h3>4. Performance metrics</h3>
+<table class="compare"><tr><th>Metric</th><th>Meaning</th></tr><tr><td>Safety incidents</td><td>Recordable injuries per period</td></tr><tr><td>Near-miss reports</td><td>Leading indicator of safety</td></tr><tr><td>PM compliance</td><td>% of planned tasks completed</td></tr><tr><td>Schedule compliance</td><td>% of planned work done</td></tr><tr><td>Availability</td><td>% uptime</td></tr><tr><td>MTBF / MTTR</td><td>Reliability and restoration time</td></tr><tr><td>Maintenance cost / unit</td><td>Cost efficiency</td></tr></table>
+<h3>5. Building safe maintenance culture</h3>
+<ul>
+  <li>Leadership commitment to safety.</li>
+  <li>Training and competence verification.</li>
+  <li>Reporting hazards without blame.</li>
+  <li>Learning from incidents.</li>
+  <li>Designing safety into maintenance tasks.</li>
+  <li>Stopping work when unsafe.</li>
+</ul>
+<h3>6. Common safety failures</h3>
+<ul>
+  <li>Skipping isolation to save time.</li>
+  <li>Working under suspended loads.</li>
+  <li>Bypassing guards for convenience.</li>
+  <li>No gas test before confined space entry.</li>
+  <li>Untrained workers on high-risk tasks.</li>
+</ul>`,
+        quiz: [
+          { q: "What is LOTO?", opts: ["Lock-out tag-out", "Long-term overhaul task", "Low temperature only", "Load out testing order"], answer: 0, explanation: "Lock-out tag-out isolates energy sources before maintenance work." },
+          { q: "Why isolate energy?", opts: ["Prevent unexpected start", "Improve the paintwork", "Reduce equipment weight", "Simplify the work order"], answer: 0, explanation: "Isolation prevents unexpected start-up and release of stored energy." },
+          { q: "What is a metric?", opts: ["PM compliance rate", "Only the office layout", "Only coffee breaks", "Only staff names"], answer: 0, explanation: "PM compliance is a key metric for how often planned tasks are completed." },
+          { q: "Why permits to work?", opts: ["High-risk tasks", "Only office tasks", "Only weekend tasks", "Only small jobs"], answer: 0, explanation: "Permits to work control high-risk tasks and ensure precautions are in place." },
+          { q: "Which failure common?", opts: ["Skipping isolation", "Using full LOTO", "Checking gas tests", "Reporting near misses"], answer: 0, explanation: "Skipping isolation to save time is a common and dangerous failure." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Industrial Maintenance Management</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Basics of <span style="color:var(--pd)">Industrial Maintenance Management</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Basics of Industrial Maintenance Management.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Basics of Industrial Maintenance Management.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Basics of Industrial Maintenance Management</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering maintenance fundamentals, maintenance strategies, work order planning, equipment reliability and records, maintenance safety and performance.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Maintenance_Management.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
