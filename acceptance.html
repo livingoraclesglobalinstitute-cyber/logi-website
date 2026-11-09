@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Accept your offer of admission to Living Oracles Global Institute (LOGI).">
 <title>Accept Admission Offer | LOGI</title>
+
+<!-- FAVICON ADDED HERE -->
+<link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+<link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
@@ -66,11 +71,11 @@
     <form id="acceptanceForm">
       <div class="form-group">
         <label>Student Full Name</label>
-        <input type="text" id="fullName" required placeholder="e.g. Akua Boatemaa">
+        <input type="text" id="fullName" required placeholder="e.g. Alírio Vuangi">
       </div>
       <div class="form-group">
         <label>Application Number</label>
-        <input type="text" id="appNumber" required placeholder="e.g. APP-2026-0301">
+        <input type="text" id="appNumber" required placeholder="e.g. APP-2026-5894">
       </div>
       <div class="form-group">
         <label>Programme Admitted To</label>
@@ -141,8 +146,7 @@
       return;
     }
 
-    // 2. Optionally send the data to FormSubmit so you get an email notification
-    // (We do this silently in the background)
+    // 2. Send email notification to Admin (You)
     fetch("https://formsubmit.co/ajax/registrar@logi.education", {
       method: "POST",
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -155,7 +159,7 @@
       })
     });
 
-    // 3. Show Success
+    // 3. Show Success Message
     statusDiv.innerHTML = "🎉 <strong>Success!</strong> Your acceptance is confirmed and your portal account has been created.<br><br>You can now log in to the portal.";
     statusDiv.className = "success";
     statusDiv.style.display = 'block';
