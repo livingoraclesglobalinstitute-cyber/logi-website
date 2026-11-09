@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <meta name="description" content="LOGI LMS – Introduction to Data Analytics">
+  <title>LOGI LMS · Introduction to Data Analytics</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: #fbfafc;
+    }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
+
+    .top {
+      height: 66px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
+
+    .mobile-nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 10px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: var(--pd); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary {
+      background: #f0edf3;
+      color: var(--ink);
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 66px);
+      padding: 40px 16px;
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+      font-size: 14px;
+      background: white;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 2px solid var(--p);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 66px);
+      position: relative;
+    }
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--line);
+      padding: 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 40;
+      transition: transform 0.25s ease-in-out;
+    }
+    .sidebar .user-badge {
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: transparent;
+      border: 0;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+      overflow-y: auto;
+      max-height: calc(100vh - 66px);
+      background: #fbfafc;
+    }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .stat-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .course-tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .course-tile h3 { margin: 0; font-size: 17px; }
+    .course-tile .meta { font-size: 12px; color: var(--muted); }
+    .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
+
+    .lesson-card { max-width: 900px; }
+    .callout {
+      background: var(--warn);
+      border-left: 4px solid #438bd5;
+      padding: 14px 17px;
+      margin: 18px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+
+    .diagram {
+      margin: 20px 0;
+      padding: 16px;
+      background: #fafafd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label {
+      display: block;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.1s;
+    }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 9px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header {
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      padding: 12px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.1s;
+    }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list {
+      padding: 4px 0 8px 10px;
+      display: none;
+    }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      text-align: left;
+      background: white;
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 35;
+    }
+    .drawer-overlay.open { display: block; }
+
+    .module-overlay {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 45;
+    }
+    .module-overlay.open { display: block; }
+
+    .mobile-module-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 1.5px solid var(--p);
+      color: var(--pd);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 0;
+    }
+    .cert-scaler {
+      transform-origin: top center;
+      width: 1000px;
+      height: 707px;
+    }
+    .cert-wrapper {
+      background: #fafafa;
+      width: 1000px;
+      height: 707px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      position: relative;
+      overflow: hidden;
+      color: var(--ink);
+    }
+    .cert-watermark {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cert-main {
+      padding: 40px 60px 30px 60px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar {
+        position: fixed;
+        top: 66px;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
+        transform: translateX(-100%);
+        overflow-y: auto;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar .user-badge { display: block; }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side {
+        position: fixed;
+        top: 66px;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: white;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+        z-index: 50;
+        transform: translateX(100%);
+        transition: transform 0.25s ease-in-out;
+      }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 24px 18px; }
+      .main-panel h1 { font-size: 22px; }
+      .brand { font-size: 18px; }
+      .nav-actions { gap: 6px; }
+      .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
+    </div>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
+
+<div id="app"></div>
+
+<footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Introduction to Data Analytics
+   ============================================================ */
+
+const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const STORE = {
+  progress: 'logi_progress',
+  certificates: 'logi_certificates',
+  posts: 'logi_posts',
+  announcements: 'logi_announcements',
+  enrolments: 'logi_enrolments'
+};
+
+function load(key, fallback) {
+  try {
+    const v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch { return fallback; }
+}
+function save(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+const COURSE = {
+  id: 'data-analytics-101',
+  title: 'Introduction to Data Analytics',
+  desc: 'Learn how data can be collected, prepared, explored and communicated to support decisions. The course introduces basic analytical thinking and common visualisation approaches.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Introduction to Data Analytics",
+      lessons: [{
+        title: "What Data Analytics Is and Why It Matters",
+        duration: "45 minutes",
+        html: `<p><b>Data analytics</b> is the process of inspecting, cleaning, transforming and interpreting data to support decisions. It is not just spreadsheets and charts — it is a structured way of thinking about evidence, uncertainty and communication.</p>
+<div class="callout"><b>Core principle:</b> Analytics answers questions with evidence. Good analytics does not just produce numbers — it produces insight that changes what people do.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to define data analytics, distinguish its main types, describe the analytics process, and recognise where analytics is applied.</p>
+<h3>1. What analytics is not</h3>
+<ul>
+  <li>It is not just building charts.</li>
+  <li>It is not the same as statistics (though it uses it).</li>
+  <li>It is not a single software tool.</li>
+  <li>It is not only for large companies.</li>
+</ul>
+<h3>2. The four types of analytics</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Four types of analytics">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Four types of analytics</text>
+      <g>
+        <rect x="20" y="60" width="140" height="120" rx="8" fill="#f5f5f8" stroke="#999"/>
+        <text x="90" y="85" text-anchor="middle" font-weight="bold" fill="#333">Descriptive</text>
+        <text x="90" y="110" text-anchor="middle" font-size="10" fill="#555">what happened</text>
+        <text x="90" y="130" text-anchor="middle" font-size="10" fill="#555">dashboards</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="140" height="120" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="240" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Diagnostic</text>
+        <text x="240" y="110" text-anchor="middle" font-size="10" fill="#555">why it happened</text>
+        <text x="240" y="130" text-anchor="middle" font-size="10" fill="#555">root cause</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="390" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Predictive</text>
+        <text x="390" y="110" text-anchor="middle" font-size="10" fill="#555">what will happen</text>
+        <text x="390" y="130" text-anchor="middle" font-size="10" fill="#555">forecasting</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="120" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Prescriptive</text>
+        <text x="545" y="110" text-anchor="middle" font-size="10" fill="#555">what should happen</text>
+        <text x="545" y="130" text-anchor="middle" font-size="10" fill="#555">optimisation</text>
+      </g>
+      <text x="320" y="210" text-anchor="middle" font-size="10" fill="#777">Complexity increases from descriptive to prescriptive</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Descriptive (what happened) → Diagnostic (why) → Predictive (what next) → Prescriptive (what to do).</div>
+</div>
+<h3>3. The analytics process</h3>
+<ul>
+  <li>Define the question.</li>
+  <li>Collect and prepare data.</li>
+  <li>Explore and analyse.</li>
+  <li>Interpret findings.</li>
+  <li>Communicate insight.</li>
+  <li>Act and review.</li>
+</ul>
+<h3>4. Where analytics is used</h3>
+<ul>
+  <li>Business — sales, finance, operations.</li>
+  <li>Healthcare — patient outcomes, operations.</li>
+  <li>Government — policy, public services.</li>
+  <li>Engineering — quality, reliability, safety.</li>
+  <li>Non-profits — programme effectiveness.</li>
+</ul>
+<h3>5. Key questions analytics answers</h3>
+<table class="compare"><tr><th>Question</th><th>Type</th></tr><tr><td>What happened last month?</td><td>Descriptive</td></tr><tr><td>Why did sales drop?</td><td>Diagnostic</td></tr><tr><td>What will next quarter bring?</td><td>Predictive</td></tr><tr><td>What should we change?</td><td>Prescriptive</td></tr></table>
+<h3>6. Common misconceptions</h3>
+<ul>
+  <li>"More data is always better."</li>
+  <li>"Correlation implies cause."</li>
+  <li>"Analytics replaces judgement."</li>
+  <li>"Only analysts need analytics skills."</li>
+</ul>`,
+        quiz: [
+          { q: "What is analytics?", opts: ["Turning data into insight", "Only building spreadsheets", "Only making charts", "Only computer coding"], answer: 0, explanation: "Analytics is the process of turning data into insight to support decisions." },
+          { q: "Which describes past?", opts: ["Descriptive analytics type", "Predictive analytics type", "Prescriptive analytics type", "Diagnostic analytics type"], answer: 0, explanation: "Descriptive analytics summarises what happened in the past." },
+          { q: "Which predicts future?", opts: ["Predictive analytics model", "Descriptive analytics chart", "Diagnostic analytics root", "Prescriptive analytics rule"], answer: 0, explanation: "Predictive analytics forecasts what is likely to happen." },
+          { q: "Why define question?", opts: ["Focuses the analysis", "Fills the paperwork", "Avoids using data", "Simplifies all charts"], answer: 0, explanation: "A clear question focuses the analysis on what matters." },
+          { q: "Which is common myth?", opts: ["Correlation implies causation", "Data needs preparing", "Charts need labels", "Questions should be specific"], answer: 0, explanation: "Correlation does not imply causation — a classic analytics myth." }
+        ]
+      }]
+    },
+    {
+      title: "Data Types and Quality",
+      lessons: [{
+        title: "Types of Data and Dimensions of Quality",
+        duration: "50 minutes",
+        html: `<p>Not all data is the same. Understanding data types guides how data is stored, cleaned, analysed and visualised. Data quality determines whether analysis produces insight or noise.</p>
+<div class="callout"><b>Core principle:</b> Garbage in, garbage out. Even the most advanced analytics fails if the underlying data is poor.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to distinguish quantitative from qualitative data, identify data levels of measurement, and evaluate data quality across common dimensions.</p>
+<h3>1. Quantitative vs. qualitative</h3>
+<table class="compare"><tr><th>Type</th><th>Examples</th></tr><tr><td>Quantitative</td><td>Numbers — age, income, temperature</td></tr><tr><td>Qualitative</td><td>Categories — colour, city, product type</td></tr></table>
+<h3>2. Levels of measurement</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Levels of measurement">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Levels of measurement</text>
+      <g>
+        <rect x="20" y="60" width="140" height="120" rx="8" fill="#f5f5f8" stroke="#999"/>
+        <text x="90" y="85" text-anchor="middle" font-weight="bold" fill="#333">Nominal</text>
+        <text x="90" y="110" text-anchor="middle" font-size="10" fill="#555">categories only</text>
+        <text x="90" y="130" text-anchor="middle" font-size="10" fill="#555">no order</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="140" height="120" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="240" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Ordinal</text>
+        <text x="240" y="110" text-anchor="middle" font-size="10" fill="#555">ranked order</text>
+        <text x="240" y="130" text-anchor="middle" font-size="10" fill="#555">uneven gaps</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="140" height="120" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="390" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Interval</text>
+        <text x="390" y="110" text-anchor="middle" font-size="10" fill="#555">equal gaps</text>
+        <text x="390" y="130" text-anchor="middle" font-size="10" fill="#555">no true zero</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="120" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Ratio</text>
+        <text x="545" y="110" text-anchor="middle" font-size="10" fill="#555">equal gaps</text>
+        <text x="545" y="130" text-anchor="middle" font-size="10" fill="#555">true zero</text>
+      </g>
+      <text x="320" y="210" text-anchor="middle" font-size="10" fill="#777">Each level allows more analysis than the one before</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Nominal → Ordinal → Interval → Ratio: increasing analytical capability.</div>
+</div>
+<h3>3. Data quality dimensions</h3>
+<ul>
+  <li><b>Accuracy</b> — does it reflect reality?</li>
+  <li><b>Completeness</b> — are all records present?</li>
+  <li><b>Consistency</b> — is it the same across sources?</li>
+  <li><b>Timeliness</b> — is it current enough?</li>
+  <li><b>Validity</b> — does it follow rules?</li>
+  <li><b>Uniqueness</b> — no unwanted duplicates.</li>
+</ul>
+<h3>4. Common quality problems</h3>
+<ul>
+  <li>Missing values.</li>
+  <li>Duplicates.</li>
+  <li>Inconsistent formats (dates, units).</li>
+  <li>Outliers from input error.</li>
+  <li>Bias in collection.</li>
+  <li>Stale data.</li>
+</ul>
+<h3>5. Why quality matters</h3>
+<p>Poor quality leads to incorrect analysis, wrong decisions and lost trust. Cleaning is often the most time-consuming step in analytics — and the most important.</p>
+<h3>6. Handling quality issues</h3>
+<ul>
+  <li>Document the issue.</li>
+  <li>Correct at source where possible.</li>
+  <li>Apply systematic cleaning rules.</li>
+  <li>Retain the raw data.</li>
+  <li>Log all changes.</li>
+</ul>`,
+        quiz: [
+          { q: "What is quantitative?", opts: ["Measured in numbers", "Categories without order", "Labels without values", "Colours and names"], answer: 0, explanation: "Quantitative data is measured in numbers (age, income, temperature)." },
+          { q: "What is nominal data?", opts: ["Categories with no order", "Ranked ordered values", "Equal gaps no zero", "Equal gaps true zero"], answer: 0, explanation: "Nominal data has categories without any inherent order." },
+          { q: "What is true zero?", opts: ["Ratio measurement level", "Interval measurement level", "Ordinal measurement level", "Nominal measurement level"], answer: 0, explanation: "Ratio data has a true zero, allowing meaningful ratios between values." },
+          { q: "What is completeness?", opts: ["All records present", "Values are correct", "Format is consistent", "Data is unique"], answer: 0, explanation: "Completeness means all required records are present with no missing data." },
+          { q: "Why is quality key?", opts: ["Prevents wrong decisions", "Fills the paperwork", "Makes charts prettier", "Simplifies all rules"], answer: 0, explanation: "Poor data quality leads to wrong analysis and poor decisions." }
+        ]
+      }]
+    },
+    {
+      title: "Preparing and Organising Data",
+      lessons: [{
+        title: "Cleaning, Structuring and Documenting Data",
+        duration: "50 minutes",
+        html: `<p>Raw data is rarely ready for analysis. Preparation transforms raw data into a clean, structured, documented dataset that can be trusted and reused. This is often the most time-consuming — and most important — step in analytics.</p>
+<div class="callout"><b>Core principle:</b> Cleaning is not just fixing errors — it is making the data's meaning explicit. Every step should be documented so others can understand and reproduce what you did.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe common cleaning steps, distinguish wide from long format, and outline a documented data preparation workflow.</p>
+<h3>1. Common cleaning steps</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 240" role="img" aria-label="Data preparation pipeline">
+    <defs>
+      <marker id="dp" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+        <polygon points="0,0 9,4.5 0,9" fill="#e93680"/>
+      </marker>
+    </defs>
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Data preparation pipeline</text>
+      <g>
+        <rect x="20" y="60" width="100" height="80" rx="6" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="70" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Import</text>
+        <text x="70" y="105" text-anchor="middle" font-size="9" fill="#555">raw data</text>
+      </g>
+      <g>
+        <rect x="130" y="60" width="100" height="80" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="180" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Clean</text>
+        <text x="180" y="105" text-anchor="middle" font-size="9" fill="#555">fix errors</text>
+      </g>
+      <g>
+        <rect x="240" y="60" width="100" height="80" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="290" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Transform</text>
+        <text x="290" y="105" text-anchor="middle" font-size="9" fill="#555">standardise</text>
+      </g>
+      <g>
+        <rect x="350" y="60" width="100" height="80" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="400" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Structure</text>
+        <text x="400" y="105" text-anchor="middle" font-size="9" fill="#555">shape data</text>
+      </g>
+      <g>
+        <rect x="460" y="60" width="160" height="80" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="540" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Document</text>
+        <text x="540" y="105" text-anchor="middle" font-size="9" fill="#555">log the steps</text>
+      </g>
+      <g stroke="#e93680" stroke-width="2" fill="none">
+        <line x1="122" y1="100" x2="128" y2="100" marker-end="url(#dp)"/>
+        <line x1="232" y1="100" x2="238" y2="100" marker-end="url(#dp)"/>
+        <line x1="342" y1="100" x2="348" y2="100" marker-end="url(#dp)"/>
+        <line x1="452" y1="100" x2="458" y2="100" marker-end="url(#dp)"/>
+      </g>
+      <text x="320" y="180" text-anchor="middle" font-size="10" fill="#777">Every step is documented so it can be reproduced and reviewed</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Data preparation: import, clean, transform, structure, document.</div>
+</div>
+<h3>2. Common cleaning operations</h3>
+<ul>
+  <li>Remove duplicates.</li>
+  <li>Handle missing values (drop, fill, flag).</li>
+  <li>Standardise formats (dates, units, text).</li>
+  <li>Fix inconsistent spellings and codes.</li>
+  <li>Flag outliers for review.</li>
+  <li>Split or combine columns.</li>
+</ul>
+<h3>3. Wide vs. long format</h3>
+<table class="compare"><tr><th>Format</th><th>Structure</th></tr><tr><td>Wide</td><td>Each row = subject; each column = variable</td></tr><tr><td>Long</td><td>Each row = observation; variables as columns</td></tr></table>
+<p>Long format is often better for charts and grouped summaries; wide is easier to read.</p>
+<h3>4. Documentation</h3>
+<ul>
+  <li>Record every change made.</li>
+  <li>Keep the raw data untouched.</li>
+  <li>Version the dataset.</li>
+  <li>Describe column meanings.</li>
+  <li>Note assumptions.</li>
+</ul>
+<h3>5. Reproducibility</h3>
+<p>Good preparation can be reproduced by someone else. This means:</p>
+<ul>
+  <li>Scripts or clearly documented steps.</li>
+  <li>Stored versions of files.</li>
+  <li>Dates of data extraction.</li>
+  <li>Names of who prepared it.</li>
+</ul>
+<h3>6. Common preparation mistakes</h3>
+<ul>
+  <li>Deleting data that could have been recovered.</li>
+  <li>Overwriting the raw file.</li>
+  <li>Changing values without documentation.</li>
+  <li>Ignoring systematic bias (missing not random).</li>
+  <li>Mixing up column meanings.</li>
+</ul>`,
+        quiz: [
+          { q: "What does cleaning do?", opts: ["Fix data errors", "Remove all columns", "Change the question", "Skip documentation"], answer: 0, explanation: "Cleaning fixes errors, duplicates and inconsistencies in data." },
+          { q: "What is wide format?", opts: ["One row per subject", "One row per measure", "Long list of records", "Two row per observation"], answer: 0, explanation: "Wide format has one row per subject with multiple variables as columns." },
+          { q: "Why keep raw data?", opts: ["Allow re-checking", "Save storage space", "Avoid log entries", "Skip documentation"], answer: 0, explanation: "Keeping raw data allows re-checking and reproducibility of the process." },
+          { q: "Why document steps?", opts: ["Enable reproduction", "Fill the audit", "Avoid all cleaning", "Replace all metrics"], answer: 0, explanation: "Documenting steps enables reproduction and review by others." },
+          { q: "What is a common error?", opts: ["Overwriting raw file", "Logging every step", "Checking duplicates", "Flagging outliers"], answer: 0, explanation: "Overwriting the raw file loses the ability to re-check or correct mistakes." }
+        ]
+      }]
+    },
+    {
+      title: "Descriptive Analysis and Visualisation",
+      lessons: [{
+        title: "Summarising Data and Choosing the Right Chart",
+        duration: "50 minutes",
+        html: `<p>Descriptive analysis summarises data to reveal patterns, trends and outliers. Visualisation makes those patterns visible and communicable. Together they answer the question "what is in the data?"</p>
+<div class="callout"><b>Core principle:</b> The right chart depends on the question. A chart that hides the answer wastes the analyst's work.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to compute and interpret core summary statistics, select appropriate charts, and recognise misleading visualisations.</p>
+<h3>1. Summary statistics</h3>
+<ul>
+  <li><b>Mean</b> — average.</li>
+  <li><b>Median</b> — middle value.</li>
+  <li><b>Mode</b> — most frequent.</li>
+  <li><b>Range</b> — max minus min.</li>
+  <li><b>Standard deviation</b> — spread around the mean.</li>
+  <li><b>Percentiles</b> — value below which a % falls.</li>
+</ul>
+<h3>2. When to use mean or median</h3>
+<table class="compare"><tr><th>Situation</th><th>Best measure</th></tr><tr><td>Symmetric data</td><td>Mean</td></tr><tr><td>Skewed data</td><td>Median</td></tr><tr><td>Income distribution</td><td>Median</td></tr></table>
+<h3>3. Choosing the right chart</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 260" role="img" aria-label="Chart selection by data question">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Choosing the right chart</text>
+      <g>
+        <rect x="20" y="60" width="140" height="120" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="90" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Bar chart</text>
+        <text x="90" y="110" text-anchor="middle" font-size="10" fill="#555">compare categories</text>
+        <text x="90" y="130" text-anchor="middle" font-size="10" fill="#555">sales by region</text>
+      </g>
+      <g>
+        <rect x="170" y="60" width="140" height="120" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="240" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Line chart</text>
+        <text x="240" y="110" text-anchor="middle" font-size="10" fill="#555">trend over time</text>
+        <text x="240" y="130" text-anchor="middle" font-size="10" fill="#555">monthly revenue</text>
+      </g>
+      <g>
+        <rect x="320" y="60" width="140" height="120" rx="6" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="390" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Pie chart</text>
+        <text x="390" y="110" text-anchor="middle" font-size="10" fill="#555">parts of whole</text>
+        <text x="390" y="130" text-anchor="middle" font-size="10" fill="#555">market share</text>
+      </g>
+      <g>
+        <rect x="470" y="60" width="150" height="120" rx="6" fill="#dcecff" stroke="#438bd5"/>
+        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Scatter plot</text>
+        <text x="545" y="110" text-anchor="middle" font-size="10" fill="#555">relationship between</text>
+        <text x="545" y="130" text-anchor="middle" font-size="10" fill="#555">two numeric values</text>
+      </g>
+      <g>
+        <rect x="20" y="190" width="140" height="55" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="90" y="215" text-anchor="middle" font-weight="bold" fill="#e93680">Histogram</text>
+        <text x="90" y="235" text-anchor="middle" font-size="10" fill="#555">distribution shape</text>
+      </g>
+      <g>
+        <rect x="170" y="190" width="140" height="55" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="240" y="215" text-anchor="middle" font-weight="bold" fill="#e93680">Box plot</text>
+        <text x="240" y="235" text-anchor="middle" font-size="10" fill="#555">spread and outliers</text>
+      </g>
+      <g>
+        <rect x="320" y="190" width="140" height="55" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="390" y="215" text-anchor="middle" font-weight="bold" fill="#e93680">Heatmap</text>
+        <text x="390" y="235" text-anchor="middle" font-size="10" fill="#555">density pattern</text>
+      </g>
+      <g>
+        <rect x="470" y="190" width="150" height="55" rx="6" fill="#fff2f7" stroke="#e93680"/>
+        <text x="545" y="215" text-anchor="middle" font-weight="bold" fill="#e93680">Stacked bar</text>
+        <text x="545" y="235" text-anchor="middle" font-size="10" fill="#555">composition trend</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Each chart type answers a different analytical question.</div>
+</div>
+<h3>4. Principles of good charts</h3>
+<ul>
+  <li>Clear title describing the finding.</li>
+  <li>Labelled axes with units.</li>
+  <li>Appropriate scale (start at zero for bars).</li>
+  <li>Limited colour — used for meaning, not decoration.</li>
+  <li>Sorted categories where helpful.</li>
+  <li>No chart junk.</li>
+</ul>
+<h3>5. Misleading charts</h3>
+<ul>
+  <li>Truncated y-axis exaggerating differences.</li>
+  <li>Wrong chart for the data.</li>
+  <li>3D effects distorting comparison.</li>
+  <li>Pie charts with too many slices.</li>
+  <li>Missing labels and units.</li>
+  <li>Cherry-picked start date.</li>
+</ul>
+<h3>6. Exploratory vs. explanatory charts</h3>
+<ul>
+  <li><b>Exploratory</b> — for the analyst's eyes; find patterns.</li>
+  <li><b>Explanatory</b> — for the audience; communicate one message.</li>
+  <li>Exploratory is messy; explanatory is refined.</li>
+</ul>`,
+        quiz: [
+          { q: "Which summarises centre?", opts: ["Mean of values", "Range of values", "Number of rows", "Shape of data"], answer: 0, explanation: "The mean is a measure of the centre of the data." },
+          { q: "Which chart trend?", opts: ["Line chart over", "Pie chart categories", "Bar chart comparison", "Histogram of values"], answer: 0, explanation: "Line charts show trends over time." },
+          { q: "Which chart parts?", opts: ["Pie chart slices", "Line chart trends", "Scatter plot relationships", "Histogram distributions"], answer: 0, explanation: "Pie charts show parts of a whole as slices." },
+          { q: "Which shows spread?", opts: ["Histogram chart type", "Pie chart type", "Line chart type", "Bar chart type"], answer: 0, explanation: "Histograms show the distribution and spread of numerical data." },
+          { q: "Which misleads?", opts: ["Truncated y-axis", "Clear axis labels", "Simple colours", "Sorted categories"], answer: 0, explanation: "A truncated y-axis exaggerates differences and misleads the reader." }
+        ]
+      }]
+    },
+    {
+      title: "Interpreting and Communicating Insights",
+      lessons: [{
+        title: "From Analysis to Action",
+        duration: "45 minutes",
+        html: `<p>Insight is only valuable when it is understood and acted on. Interpreting findings means moving from numbers to meaning; communicating means making that meaning clear to decision-makers.</p>
+<div class="callout"><b>Core principle:</b> An insight that does not change a decision is interesting, not useful. The analyst's job is not to present data — it is to inform action.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to interpret results carefully, structure a clear analytical message, and avoid common communication mistakes.</p>
+<h3>1. Interpreting carefully</h3>
+<ul>
+  <li>Distinguish correlation from causation.</li>
+  <li>Consider alternative explanations.</li>
+  <li>Check assumptions.</li>
+  <li>Evaluate uncertainty and confidence.</li>
+  <li>Recognise sampling bias.</li>
+  <li>Acknowledge what the data cannot show.</li>
+</ul>
+<h3>2. Structuring the message</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 260" role="img" aria-label="Structuring an analytical message">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Structuring an analytical message</text>
+      <g>
+        <rect x="20" y="60" width="120" height="150" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+        <text x="80" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="12">1</text>
+        <text x="80" y="110" text-anchor="middle" font-weight="bold" fill="#e93680">Question</text>
+        <text x="80" y="130" text-anchor="middle" font-size="10" fill="#555">what was asked</text>
+        <text x="80" y="150" text-anchor="middle" font-size="10" fill="#555">decision to</text>
+        <text x="80" y="165" text-anchor="middle" font-size="10" fill="#555">be informed</text>
+      </g>
+      <g>
+        <rect x="150" y="60" width="120" height="150" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="210" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="12">2</text>
+        <text x="210" y="110" text-anchor="middle" font-weight="bold" fill="#e93680">Finding</text>
+        <text x="210" y="130" text-anchor="middle" font-size="10" fill="#555">the headline</text>
+        <text x="210" y="150" text-anchor="middle" font-size="10" fill="#555">insight</text>
+      </g>
+      <g>
+        <rect x="280" y="60" width="120" height="150" rx="8" fill="#fff2f7" stroke="#e93680"/>
+        <text x="340" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="12">3</text>
+        <text x="340" y="110" text-anchor="middle" font-weight="bold" fill="#e93680">Evidence</text>
+        <text x="340" y="130" text-anchor="middle" font-size="10" fill="#555">supporting chart</text>
+        <text x="340" y="150" text-anchor="middle" font-size="10" fill="#555">and data</text>
+      </g>
+      <g>
+        <rect x="410" y="60" width="130" height="150" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+        <text x="475" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="12">4</text>
+        <text x="475" y="110" text-anchor="middle" font-weight="bold" fill="#e93680">Action</text>
+        <text x="475" y="130" text-anchor="middle" font-size="10" fill="#555">what to do</text>
+        <text x="475" y="150" text-anchor="middle" font-size="10" fill="#555">and why</text>
+      </g>
+      <g>
+        <rect x="550" y="60" width="70" height="150" rx="8" fill="#dcecff" stroke="#438bd5"/>
+        <text x="585" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0" font-size="12">5</text>
+        <text x="585" y="110" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Next</text>
+        <text x="585" y="130" text-anchor="middle" font-size="10" fill="#555">measure</text>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Question → Finding → Evidence → Action → Next measure.</div>
+</div>
+<h3>3. Communication principles</h3>
+<ul>
+  <li>Lead with the finding, not the process.</li>
+  <li>One message per chart or slide.</li>
+  <li>Plain language — no jargon.</li>
+  <li>Context matters — compare to what?</li>
+  <li>Honest about uncertainty.</li>
+  <li>Actionable recommendations.</li>
+</ul>
+<h3>4. Tailoring to the audience</h3>
+<table class="compare"><tr><th>Audience</th><th>Focus</th></tr><tr><td>Executives</td><td>Headline finding, implications, decisions needed</td></tr><tr><td>Operational managers</td><td>Detail, causes, specific actions</td></tr><tr><td>Technical peers</td><td>Methods, assumptions, data quality</td></tr><tr><td>External stakeholders</td><td>Simple, contextualised, defensible</td></tr></table>
+<h3>5. Common communication mistakes</h3>
+<ul>
+  <li>Too many charts, no message.</li>
+  <li>Burying the finding in the appendix.</li>
+  <li>Jargon and unexplained metrics.</li>
+  <li>Overclaiming certainty.</li>
+  <li>No recommended action.</li>
+  <li>Ignoring limitations.</li>
+</ul>
+<h3>6. From analysis to action</h3>
+<ul>
+  <li>Translate findings into decisions.</li>
+  <li>Assign responsibility for action.</li>
+  <li>Define how success will be measured.</li>
+  <li>Schedule a follow-up review.</li>
+  <li>Document the outcome.</li>
+</ul>`,
+        quiz: [
+          { q: "Why caution matters?", opts: ["Correlation not causation", "Numbers never lie", "Data has no limits", "Findings always certain"], answer: 0, explanation: "Correlation does not imply causation — interpretation must consider alternatives." },
+          { q: "What should lead?", opts: ["Headline finding first", "Long methodology first", "Only data appendix", "Full code listing"], answer: 0, explanation: "Communication should lead with the headline finding, not the process." },
+          { q: "Why is context important?", opts: ["Gives the meaning", "Hides the values", "Simplifies the data", "Skips the evidence"], answer: 0, explanation: "Context — comparisons to relevant baselines — gives meaning to findings." },
+          { q: "What should follow action?", opts: ["Measure and review", "Archive the report", "Delete the data", "Stop analysis work"], answer: 0, explanation: "Actions should be followed by measuring and reviewing the outcome." },
+          { q: "Which misleads audience?", opts: ["Too many charts", "One clear message", "Labelled axes", "Honest about limits"], answer: 0, explanation: "Too many charts without a clear message confuses rather than informs." }
+        ]
+      }]
+    }
+  ]
+};
+
+function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
+function nowISO() { return new Date().toISOString(); }
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+let currentSessionUser = null;
+
+function syncLocalUser(authUser) {
+  if (!authUser) { currentSessionUser = null; return null; }
+  const email = (authUser.email || '').toLowerCase();
+  currentSessionUser = {
+    id: authUser.id,
+    username: email,
+    email,
+    fullName: authUser.user_metadata?.full_name || email,
+    role: 'student'
+  };
+  return currentSessionUser;
+}
+
+async function currentUser() {
+  if (currentSessionUser) return currentSessionUser;
+  const { data, error } = await supabaseClient.auth.getSession();
+  if (error) return null;
+  return data.session?.user ? syncLocalUser(data.session.user) : null;
+}
+
+let studentDataLoadedFor = null;
+
+async function loadStudentData(user, force = false) {
+  if (!user?.id) return;
+  if (!force && studentDataLoadedFor === user.id) return;
+
+  const email = (user.email || user.username || '').toLowerCase();
+
+  const [progressResult, enrolmentResult] = await Promise.all([
+    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
+    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
+  ]);
+
+  if (!progressResult.error && Array.isArray(progressResult.data)) {
+    const merged = getProgress(email);
+    progressResult.data.forEach(row => {
+      const key = row.module_index + '-' + row.lesson_index;
+      if (row.completed) merged.lessons[key] = true;
+      if (row.quiz_score !== null && row.quiz_score !== undefined) {
+        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
+      }
+    });
+    saveProgress(email, merged);
+  }
+
+  studentDataLoadedFor = user.id;
+}
+
+async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
+  const user = currentSessionUser;
+  if (!user?.id) return;
+  const p = getProgress(username);
+  const quiz = p.quizzes[moduleIndex];
+  const row = {
+    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
+    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
+    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
+  };
+  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
+}
+
+function getProgress(username) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
+}
+function saveProgress(username, p) {
+  const all = load(STORE.progress, {});
+  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
+  all[username][COURSE.id] = p;
+  save(STORE.progress, all);
+}
+function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
+function enrol(username, courseId) {
+  const e = load(STORE.enrolments, {});
+  if (!e[username]) e[username] = [];
+  if (!e[username].includes(courseId)) e[username].push(courseId);
+  save(STORE.enrolments, e);
+}
+function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
+function addCert(username, cert) {
+  const c = load(STORE.certificates, {});
+  if (!c[username]) c[username] = [];
+  c[username].push(cert);
+  save(STORE.certificates, c);
+}
+
+function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
+function markLessonDone(username, mi, li) {
+  const p = getProgress(username);
+  p.lessons[mi + '-' + li] = true;
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, li);
+}
+function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
+function saveQuizResult(username, mi, score, total) {
+  const p = getProgress(username);
+  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
+  saveProgress(username, p);
+  saveProgressToSupabase(username, mi, 0);
+}
+function isModuleLocked(username, mi) {
+  if (mi === 0) return false;
+  const prev = getQuizResult(username, mi - 1);
+  return !prev || !prev.passed;
+}
+function courseProgressPct(username) {
+  let total = 0, done = 0;
+  COURSE.modules.forEach((m, mi) => {
+    m.lessons.forEach((l, li) => {
+      total++;
+      if (isLessonDone(username, mi, li)) done++;
+    });
+  });
+  return total ? Math.round(done / total * 100) : 0;
+}
+function courseCompleted(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (!getQuizResult(username, mi)?.passed) return false;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return false;
+    }
+  }
+  return true;
+}
+function nextIncompleteLesson(username) {
+  for (let mi = 0; mi < COURSE.modules.length; mi++) {
+    if (isModuleLocked(username, mi)) break;
+    for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
+      if (!isLessonDone(username, mi, li)) return { mi, li };
+    }
+    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+  }
+  return { mi: 0, li: 0 };
+}
+
+function generateCertificate(username) {
+  if (!username) return null;
+  const certs = getCerts(username);
+  let cert = certs.find(c => c.courseId === COURSE.id);
+  if (cert) return cert;
+
+  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
+  let studentName = currentSessionUser?.fullName || username;
+
+  cert = {
+    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
+    hash: hash,
+    courseId: COURSE.id,
+    courseTitle: COURSE.title,
+    studentName: studentName,
+    date: nowISO(),
+    issuedBy: 'Living Oracles Global Institute'
+  };
+  addCert(username, cert);
+  return cert;
+}
+
+const App = (() => {
+  let state = {
+    screen: 'landing',
+    user: null,
+    activeCourseModule: 0,
+    activeCourseLesson: 0,
+    activeAssessment: false
+  };
+
+  function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('drawerOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  function toggleModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+  }
+
+  function closeModuleMenu() {
+    const modSide = document.querySelector('.module-side');
+    const overlay = document.getElementById('moduleOverlay');
+    if (modSide) modSide.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
+
+  async function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = await currentUser();
+
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `
+        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
+      `;
+    }
+  }
+
+  function renderSidebarHTML(activeScreen) {
+    const u = state.user || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge">
+          <strong>${esc(u.fullName || 'Learner')}</strong>
+          <span>@${esc(u.username || '')}</span>
+        </div>
+        <button class="nav-link ${activeScreen==='dashboard'?'active':''}" onclick="App.navigate('showDashboard')">📊 <span>My dashboard</span></button>
+        <button class="nav-link ${activeScreen==='course'?'active':''}" onclick="App.navigate('openCourse', 0, 0)">📘 <span>Current course</span></button>
+        <button class="nav-link ${activeScreen==='catalogue'?'active':''}" onclick="App.navigate('showCatalogue')">🗂️ <span>Course catalogue</span></button>
+        <button class="nav-link ${activeScreen==='certificate'?'active':''}" onclick="App.navigate('showCertificate')">🏅 <span>My certificate</span></button>
+        <button class="nav-link ${activeScreen==='discussion'?'active':''}" onclick="App.navigate('showDiscussion')">💬 <span>Discussion</span></button>
+        <button class="nav-link ${activeScreen==='announcements'?'active':''}" onclick="App.navigate('showAnnouncements')">📢 <span>Announcements</span></button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ <span>Log out</span></button>
+      </aside>
+    `;
+  }
+
+  function navigate(action, ...args) {
+    closeMobileMenu();
+    if (typeof App[action] === 'function') {
+      App[action](...args);
+    }
+  }
+
+  async function showLanding() {
+    state.screen = 'landing';
+    closeMobileMenu();
+    const u = await currentUser();
+    if (u) { showDashboard(); return; }
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+        <div class="inner">
+          <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Data Analytics</div>
+          <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Beginner level · 4–5 hours</div>
+          <h1 style="font-size:clamp(30px,4vw,44px);line-height:1.15;margin:8px 0;">Introduction to <span style="color:var(--pd)">Data Analytics</span></h1>
+          <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
+          <div style="margin-top:26px;">
+            <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
+            <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
+          </div>
+        </div>
+      </section>
+    `;
+    renderNav();
+  }
+
+  function showLogin() {
+    state.screen = 'login';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Introduction to Data Analytics.</p>
+          <div class="field"><label for="loginUser">Email address</label><input id="loginUser" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="Your password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim().toLowerCase();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+
+    if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
+    err.textContent = 'Signing in...';
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if (error) { err.textContent = error.message; return; }
+
+    syncLocalUser(data.user);
+    enrol(email, COURSE.id);
+    await loadStudentData(currentSessionUser, true);
+    await showDashboard();
+  }
+
+  function showRegister() {
+    state.screen = 'register';
+    closeMobileMenu();
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Introduction to Data Analytics.</p>
+          <div class="field"><label for="regName">Full name</label><input id="regName" placeholder="e.g. Jane Smith"></div>
+          <div class="field"><label for="regEmail">Email address</label><input id="regEmail" type="email" placeholder="Enter your email address"></div>
+          <div class="field"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Choose a password"></div>
+          <div class="field"><label for="regPass2">Confirm password</label><input id="regPass2" type="password" placeholder="Re-enter password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const err = document.getElementById('regError');
+
+    if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
+    if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
+
+    err.textContent = 'Creating account...';
+    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
+
+    if (error && /already registered|already exists|user already/i.test(error.message)) {
+      err.textContent = 'Account exists. Signing you in...';
+      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
+      syncLocalUser(signInData.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+      return;
+    }
+
+    if (error) { err.textContent = error.message; return; }
+    if (data.session && data.user) {
+      syncLocalUser(data.user);
+      enrol(email, COURSE.id);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    }
+  }
+
+  async function logout() {
+    closeMobileMenu();
+    await supabaseClient.auth.signOut();
+    currentSessionUser = null;
+    showLanding();
+  }
+
+  async function showDashboard() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    await loadStudentData(u);
+    state.user = u;
+    state.screen = 'dashboard';
+    const username = u.username;
+    const pct = courseProgressPct(username);
+    const next = nextIncompleteLesson(username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.username).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+
+          <div class="card">
+            <h2>Introduction to Data Analytics</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'course';
+    state.activeCourseModule = mi;
+    state.activeCourseLesson = li;
+    state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.passed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.passed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    saveQuizResult(u.username, mi, score, quiz.length);
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    if (passed) {
+      markLessonDone(u.username, mi, 0);
+      if (courseCompleted(u.username)) generateCertificate(u.username);
+
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
+    if (completed && !cert) cert = generateCertificate(u.username);
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering analytics fundamentals, data types and quality, data preparation, descriptive analysis and visualisation, and interpreting and communicating insights.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
+
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Data_Analytics.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function showAnnouncements() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
+  }
+
+  async function init() {
+    const { data } = await supabaseClient.auth.getSession();
+    if (data?.session?.user) {
+      syncLocalUser(data.session.user);
+      await loadStudentData(currentSessionUser, true);
+      await showDashboard();
+    } else {
+      showLanding();
+    }
+  }
+
+  return {
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+</script>
+</body>
+</html>
