@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internship Interview Questionnaire | LOGI</title>
+<style>
+  :root {
+    --pink: #ff4b93; --pink-dark: #e93680; --lav: #f3f0fa;
+    --ink: #34343b; --muted: #777780; --line: #e9e8ef;
+    --green: #2e9e5b; --amber: #e0a300; --red: #d9453d; --white: #fff;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--ink); background:var(--lav); line-height:1.5; font-size:14px; }
+
+  .topbar { height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 max(5%,calc((100% - 1180px)/2)); box-shadow:0 2px 9px #00000012; background:#fff; }
+  .logo { font-size:28px; font-weight:800; letter-spacing:-1.5px; color:#555; text-decoration:none; }
+  .logo span { color:var(--pink); }
+  .nav { display:flex; gap:22px; align-items:center; font-size:13px; }
+  .nav a { color:inherit; text-decoration:none; }
+
+  .form-wrapper { flex:1; display:flex; justify-content:center; align-items:flex-start; padding:40px 20px; }
+  .form-container { background:#fff; padding:40px; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.05); max-width:640px; width:100%; border-top:5px solid var(--pink); }
+
+  .form-header { text-align:center; border-bottom:1px solid var(--line); padding-bottom:25px; margin-bottom:25px; }
+  .form-header img { height:70px; margin-bottom:15px; }
+  .form-header h2 { color:var(--ink); margin:0; font-size:24px; font-weight:800; }
+  .form-header h2 span { color:var(--pink); }
+  .form-header p { margin:5px 0 0; color:var(--muted); font-size:14px; }
+
+  .steps { display:flex; align-items:center; justify-content:space-between; margin:0 0 28px; padding:0; list-style:none; counter-reset:step; }
+  .steps li { flex:1; text-align:center; font-size:11.5px; font-weight:bold; color:var(--muted); position:relative; padding-top:34px; }
+  .steps li::before { counter-increment:step; content:counter(step); position:absolute; top:0; left:50%; transform:translateX(-50%); width:28px; height:28px; line-height:28px; border-radius:50%; background:var(--lav); border:2px solid var(--line); color:var(--muted); font-size:13px; transition:0.25s; }
+  .steps li::after { content:""; position:absolute; top:14px; left:calc(50% + 20px); width:calc(100% - 40px); height:2px; background:var(--line); }
+  .steps li:last-child::after { display:none; }
+  .steps li.active { color:var(--pink); }
+  .steps li.active::before { background:var(--pink); border-color:var(--pink); color:#fff; }
+  .steps li.done::before { background:var(--green); border-color:var(--green); color:#fff; }
+  .steps li.done::after { background:var(--green); }
+
+  .form-group { margin-bottom:20px; }
+  .row { display:flex; gap:16px; }
+  .row .form-group { flex:1; }
+  label { display:block; font-weight:bold; color:var(--ink); margin-bottom:6px; font-size:13px; }
+  input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea {
+    width:100%; padding:12px; border:1px solid var(--line); border-radius:4px; box-sizing:border-box;
+    font-size:15px; font-family:Arial,sans-serif; color:var(--ink); background:#fff; transition:0.2s;
+  }
+  textarea { resize:vertical; min-height:100px; }
+  input:focus,select:focus,textarea:focus { outline:none; border-color:var(--pink); box-shadow:0 0 0 3px rgba(255,75,147,0.1); }
+
+  .section-title { font-size:14px; font-weight:800; color:var(--ink); margin:0 0 14px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+  .section-title:not(:first-child) { margin-top:28px; }
+
+  .checkbox-group { display:flex; align-items:flex-start; gap:12px; margin-bottom:18px; font-size:13px; line-height:1.5; background:var(--lav); padding:18px; border-radius:4px; border:1px solid var(--line); }
+  .checkbox-group input[type="checkbox"] { margin-top:4px; width:18px; height:18px; flex-shrink:0; cursor:pointer; accent-color:var(--pink); }
+  .checkbox-group label { font-weight:normal; margin:0; cursor:pointer; color:var(--muted); }
+
+  .button-row { display:flex; gap:12px; margin-top:28px; }
+  button { flex:1; padding:14px; background:var(--pink); color:#fff; border:none; border-radius:4px; font-size:16px; font-weight:bold; cursor:pointer; font-family:Arial,sans-serif; transition:background 0.3s; }
+  button:hover { background:var(--pink-dark); }
+  button.secondary { background:#fff; color:var(--ink); border:1px solid var(--line); flex:0 0 120px; }
+  button.secondary:hover { background:var(--lav); }
+  button:disabled { opacity:0.55; cursor:not-allowed; }
+
+  .error { display:none; color:var(--red); font-size:12px; margin-top:5px; }
+  .form-group.invalid input,.form-group.invalid select,.form-group.invalid textarea { border-color:var(--red); }
+  .form-group.invalid .error { display:block; }
+
+  .step-page { display:none; }
+  .step-page.active { display:block; animation:fade 0.25s ease; }
+  @keyframes fade { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+
+  /* ===== SUCCESS / PENDING SCREEN ===== */
+  .success { display:none; text-align:left; padding:10px 0; }
+  .success.show { display:block; animation:fade 0.35s ease; }
+
+  .success-banner {
+    text-align:center; padding:28px 20px; border-radius:8px;
+    background:linear-gradient(135deg,#fff7fb,#f3f0fa);
+    border:1px solid #ffd8e8; margin-bottom:28px;
+  }
+  .success-banner .tick {
+    width:64px; height:64px; line-height:64px; border-radius:50%;
+    background:var(--green); color:#fff; font-size:32px; margin:0 auto 14px;
+    box-shadow:0 0 0 8px rgba(46,158,91,0.1);
+  }
+  .success-banner h3 { margin:0 0 6px; font-size:22px; color:var(--ink); }
+  .success-banner p { margin:0; color:var(--muted); font-size:14px; }
+
+  .ref-box {
+    background:var(--lav); border:1px dashed var(--pink); border-radius:6px;
+    padding:16px 20px; margin-bottom:28px; text-align:center;
+  }
+  .ref-box .label { font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .ref-box .value { font-size:22px; font-weight:800; color:var(--pink); letter-spacing:1px; font-family:monospace; }
+  .ref-box .note { font-size:11.5px; color:var(--muted); margin-top:6px; }
+
+  /* Timeline */
+  .timeline { list-style:none; margin:0 0 28px; padding:0; position:relative; }
+  .timeline li {
+    position:relative; padding:0 0 26px 46px; font-size:13.5px;
+  }
+  .timeline li:last-child { padding-bottom:0; }
+  .timeline li::before {
+    content:""; position:absolute; left:11px; top:20px; bottom:0;
+    width:2px; background:var(--line);
+  }
+  .timeline li:last-child::before { display:none; }
+  .timeline .dot {
+    position:absolute; left:0; top:2px; width:24px; height:24px; border-radius:50%;
+    background:#fff; border:2px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold; color:var(--muted); z-index:1;
+  }
+  .timeline li.done .dot { background:var(--green); border-color:var(--green); color:#fff; }
+  .timeline li.active .dot { background:var(--pink); border-color:var(--pink); color:#fff; box-shadow:0 0 0 4px rgba(255,75,147,0.15); }
+  .timeline li.done .dot::after { content:"✓"; }
+  .timeline li.active .dot::after { content:"●"; font-size:9px; }
+  .timeline .t-title { font-weight:800; font-size:13.5px; color:var(--ink); margin-bottom:2px; }
+  .timeline li.active .t-title { color:var(--pink); }
+  .timeline .t-desc { font-size:12.5px; color:var(--muted); }
+
+  .status-pill {
+    display:inline-block; padding:3px 12px; border-radius:20px;
+    font-size:11px; font-weight:bold; letter-spacing:0.4px;
+    background:#fff3cd; color:#8a6d00; margin-left:6px; vertical-align:middle;
+  }
+
+  .info-note {
+    background:#fff7fb; border:1px solid #ffd8e8; border-left:4px solid var(--pink);
+    border-radius:4px; padding:14px 18px; font-size:13px; color:#6b5a63; margin-bottom:22px;
+  }
+  .info-note strong { color:var(--ink); }
+
+  .next-list { font-size:13.5px; margin:0 0 28px; padding-left:20px; }
+  .next-list li { margin-bottom:7px; }
+
+  .footer { background:#292832; color:#eee; text-align:center; padding:24px 5%; font-size:12px; }
+  .footer strong { color:var(--pink); }
+
+  @media (max-width:520px) {
+    .form-container { padding:26px 20px; }
+    .row { flex-direction:column; gap:0; }
+    .button-row { flex-direction:column-reverse; }
+    button.secondary { flex:1; }
+    .steps li { font-size:10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+  <nav class="nav">
+    <a href="https://www.logi.education">Home</a>
+    <a href="https://www.logi.education/our-program">Programmes</a>
+    <a href="https://www.logi.education/internship-opportunities">Internships</a>
+  </nav>
+</header>
+
+<div class="form-wrapper">
+  <div class="form-container">
+
+    <!-- ============================================================ -->
+    <!-- FORM VIEW                                                     -->
+    <!-- ============================================================ -->
+    <div id="formView">
+
+      <div class="form-header">
+        <img src="https://i.imgur.com/kkE49KM.png" alt="LOGI Logo">
+        <h2>Internship Interview <span>Questionnaire</span></h2>
+        <p>Living Oracles Global Institute</p>
+      </div>
+
+      <ol class="steps" id="steps">
+        <li class="active">Your Details</li>
+        <li>Technical &amp; Practical</li>
+        <li>Attitude &amp; Declaration</li>
+      </ol>
+
+      <form id="interviewForm" novalidate>
+        <input type="hidden" id="refCode" name="Reference Code" value="">
+        <input type="hidden" name="_subject" value="New Internship Interview Questionnaire - LOGI">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+
+        <!-- ========== PAGE 1 ========== -->
+        <div class="step-page active" data-page="1">
+          <p class="section-title">Personal Details</p>
+          <div class="row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="First Name" required placeholder="e.g. Louis">
+              <span class="error">Please enter your first name.</span>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="Last Name" required placeholder="e.g. Agyekum">
+              <span class="error">Please enter your last name.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="otherNames">Other Names (optional)</label>
+            <input type="text" id="otherNames" name="Other Names" placeholder="e.g. Owereko Yaw">
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="Email" required placeholder="e.g. candidate@email.com">
+              <span class="error">Please enter a valid email address.</span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="Phone" required placeholder="e.g. +233 24 000 0000">
+              <span class="error">Please enter your phone number.</span>
+            </div>
+          </div>
+
+          <p class="section-title">Academic Information</p>
+          <div class="form-group">
+            <label for="institution">Educational Institution</label>
+            <input type="text" id="institution" name="Institution" required placeholder="e.g. University of Ghana">
+            <span class="error">Please enter your institution.</span>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label for="programme">Programme of Study</label>
+              <input type="text" id="programme" name="Programme of Study" required placeholder="e.g. BSc Information Technology">
+              <span class="error">Please enter your programme.</span>
+            </div>
+            <div class="form-group">
+              <label for="level">Academic Level</label>
+              <select id="level" name="Academic Level" required>
+                <option value="" disabled selected>Select</option>
+                <option>Level 100</option><option>Level 200</option>
+                <option>Level 300</option><option>Level 400</option>
+                <option>HND</option><option>Completed / Recent Graduate</option>
+              </select>
+              <span class="error">Please select your level.</span>
+            </div>
+          </div>
+
+          <p class="section-title">Position Applied For</p>
+          <div class="form-group">
+            <label for="position">Internship Position</label>
+            <select id="position" name="Position Applied For" required>
+              <option value="" disabled selected>Select position</option>
+              <option>Information Technology &amp; Digital Operations Intern</option>
+              <option>Business Administration &amp; Data Management Intern</option>
+            </select>
+            <span class="error">Please select the position you applied for.</span>
+          </div>
+
+          <p class="section-title">Section 1: Personal Background &amp; Motivation</p>
+          <div class="form-group">
+            <label for="q1">1. Please introduce yourself and tell us about your academic and professional background.</label>
+            <textarea id="q1" name="Q1 – Introduction &amp; Background" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q2">2. Why are you interested in undertaking an internship at Living Oracles Global Institute (LOGI)?</label>
+            <textarea id="q2" name="Q2 – Interest in LOGI" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q3">3. What do you understand about LOGI and its educational activities?</label>
+            <textarea id="q3" name="Q3 – Understanding of LOGI" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q4">4. What do you hope to achieve professionally through this three-month internship?</label>
+            <textarea id="q4" name="Q4 – Professional Goals" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q5">5. Why have you chosen this particular internship area?</label>
+            <textarea id="q5" name="Q5 – Choice of Internship Area" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+
+          <div class="button-row">
+            <button type="button" data-next="2">Continue →</button>
+          </div>
+        </div>
+
+        <!-- ========== PAGE 2 ========== -->
+        <div class="step-page" data-page="2">
+          <p class="section-title">Section 2: Technical Knowledge &amp; Experience</p>
+          <div class="form-group">
+            <label for="q6">6. Tell us about your previous technical or professional experience. What were your main responsibilities?</label>
+            <textarea id="q6" name="Q6 – Previous Experience" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q7">7. Describe a project you have worked on. What was the project, your specific contribution and the tools or technologies you used?</label>
+            <textarea id="q7" name="Q7 – Project Experience" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q8">8. What technical skills, tools or software do you have experience with?</label>
+            <textarea id="q8" name="Q8 – Technical Skills" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q9">9. How would you apply your skills to support LOGI's operations?</label>
+            <textarea id="q9" name="Q9 – Applying Skills" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+
+          <p class="section-title">Section 3: Problem-Solving &amp; Practical Situations</p>
+          <div class="form-group">
+            <label for="q10">10. Describe a situation where you identified and solved a problem. What steps did you take?</label>
+            <textarea id="q10" name="Q10 – Problem-Solving Example" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q11">11. How would you handle a task or situation that you have never encountered before?</label>
+            <textarea id="q11" name="Q11 – Handling Unfamiliar Situations" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q12">12. How would you protect confidential information and institutional records?</label>
+            <textarea id="q12" name="Q12 – Confidentiality" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q13">13. If you encountered a problem you could not solve independently, what would you do?</label>
+            <textarea id="q13" name="Q13 – Seeking Help" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+
+          <p class="section-title">Practical Assessment</p>
+          <div class="form-group">
+            <label for="practical">14. Based on the practical assessment brief you received, briefly describe how you approached the task and what you produced.</label>
+            <textarea id="practical" name="Practical Assessment Response" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+
+          <div class="button-row">
+            <button type="button" class="secondary" data-back="1">← Back</button>
+            <button type="button" data-next="3">Continue →</button>
+          </div>
+        </div>
+
+        <!-- ========== PAGE 3 ========== -->
+        <div class="step-page" data-page="3">
+          <p class="section-title">Section 4: Work Attitude &amp; Commitment</p>
+          <div class="form-group">
+            <label for="q15">15. How would you manage your academic or personal responsibilities alongside your internship duties?</label>
+            <textarea id="q15" name="Q15 – Managing Responsibilities" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q16">16. Are you comfortable working remotely and submitting weekly progress reports?</label>
+            <textarea id="q16" name="Q16 – Remote Work" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q17">17. How do you respond to corrections or feedback from a supervisor?</label>
+            <textarea id="q17" name="Q17 – Feedback" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q18">18. What specific contribution do you believe you can make to LOGI during your three-month internship?</label>
+            <textarea id="q18" name="Q18 – Contribution to LOGI" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+
+          <p class="section-title">Section 5: General Questions</p>
+          <div class="form-group">
+            <label for="q19">19. What do you understand by professionalism in a remote working environment?</label>
+            <textarea id="q19" name="Q19 – Remote Professionalism" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q20">20. How many hours per week can you realistically commit to this internship?</label>
+            <input type="text" id="q20" name="Q20 – Weekly Commitment" required placeholder="e.g. 30 hours per week">
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q21">21. Are you available for scheduled online meetings and supervision?</label>
+            <textarea id="q21" name="Q21 – Availability" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q22">22. Can you work with deadlines and submit weekly reports?</label>
+            <textarea id="q22" name="Q22 – Deadlines &amp; Reports" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q23">23. Are you willing to sign an internship agreement and confidentiality undertaking?</label>
+            <select id="q23" name="Q23 – Agreement &amp; Confidentiality" required>
+              <option value="" disabled selected>Select</option><option>Yes</option><option>No</option>
+            </select>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q24">24. Do you have a reliable internet connection and access to a computer?</label>
+            <select id="q24" name="Q24 – Internet &amp; Equipment" required>
+              <option value="" disabled selected>Select</option><option>Yes</option><option>No</option>
+            </select>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q25">25. What are your expectations regarding supervision, mentorship and professional development?</label>
+            <textarea id="q25" name="Q25 – Expectations" required></textarea>
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q26">26. If selected, when can you commence the internship?</label>
+            <input type="text" id="q26" name="Q26 – Start Date" required placeholder="e.g. Immediately / 1 December 2026">
+            <span class="error">Please answer this question.</span>
+          </div>
+          <div class="form-group">
+            <label for="q27">27. Do you have any questions for the LOGI Internship Coordination Team?</label>
+            <textarea id="q27" name="Q27 – Candidate Questions"></textarea>
+          </div>
+
+          <p class="section-title">Declaration</p>
+          <div class="checkbox-group">
+            <input type="checkbox" id="declaration" name="Declaration" value="Yes" required>
+            <label for="declaration">I confirm that the information provided in this questionnaire is true and complete to the best of my knowledge, and I understand that it will be used as part of the LOGI internship selection process.</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="dataConsent" name="Data Consent" value="Yes" required>
+            <label for="dataConsent">I consent to LOGI processing my personal data for the purposes of this internship application and selection process.</label>
+          </div>
+
+          <div class="button-row">
+            <button type="button" class="secondary" data-back="2">← Back</button>
+            <button type="submit" id="submitBtn">Submit Questionnaire</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PENDING / STATUS VIEW (shown after submit)                    -->
+    <!-- ============================================================ -->
+    <div class="success" id="successScreen">
+
+      <div class="success-banner">
+        <div class="tick">✓</div>
+        <h3>Questionnaire Received</h3>
+        <p>Thank you — your responses have been successfully submitted to LOGI.</p>
+      </div>
+
+      <div class="ref-box">
+        <div class="label">Your Reference Number</div>
+        <div class="value" id="refDisplay">—</div>
+        <div class="note">Save this reference number. You may be asked for it during correspondence with LOGI.</div>
+      </div>
+
+      <p class="section-title">Submission Status</p>
+
+      <ul class="timeline">
+        <li class="done">
+          <span class="dot"></span>
+          <div class="t-title">Submitted</div>
+          <div class="t-desc">Your questionnaire was received by the Internship Coordination Team.</div>
+        </li>
+        <li class="active">
+          <span class="dot"></span>
+          <div class="t-title">Pending Review <span class="status-pill">Pending</span></div>
+          <div class="t-desc">Your responses are queued for review. The team will assess your answers, technical knowledge and practical assessment.</div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div class="t-title">Under Review</div>
+          <div class="t-desc">Your file is being scored against LOGI's evaluation criteria (education, experience, technical knowledge, problem-solving, communication and professionalism).</div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div class="t-title">Decision Issued</div>
+          <div class="t-desc">You will receive an outcome by email — recommended, recommended with conditions, further assessment required, or not recommended at this stage.</div>
+        </li>
+      </ul>
+
+      <div class="info-note">
+        <strong>What happens next?</strong><br>
+        The Internship Coordination Team reviews submissions in the order they are received. You do not need to resubmit. Please check the email address you provided for updates.
+      </div>
+
+      <p class="section-title">Important Information</p>
+      <ul class="next-list">
+        <li>Keep your reference number for any follow-up communication.</li>
+        <li>Do not submit the questionnaire more than once — duplicates may delay your review.</li>
+        <li>If you need to correct something, email the Internship Coordination Team with your reference number.</li>
+        <li>Only shortlisted candidates will be contacted for the next stage.</li>
+      </ul>
+
+      <div style="text-align:center; padding-top:10px;">
+        <a href="https://www.logi.education" style="display:inline-block; background:var(--pink); color:#fff; padding:12px 32px; border-radius:4px; text-decoration:none; font-weight:bold; font-size:14px;">Return to LOGI</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+</footer>
+
+<script>
+(function () {
+  var form      = document.getElementById('interviewForm');
+  var pages     = document.querySelectorAll('.step-page');
+  var stepItems = document.querySelectorAll('#steps li');
+  var submitBtn = document.getElementById('submitBtn');
+  var current   = 1;
+
+  function makeRef() {
+    var d = new Date();
+    var ymd = '' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+    var rand = Math.random().toString(36).substring(2, 6).toUpperCase();
+    return 'LOGI-INT-' + ymd + '-' + rand;
+  }
+
+  function validatePage(n) {
+    var page = document.querySelector('.step-page[data-page="' + n + '"]');
+    var valid = true;
+    page.querySelectorAll('input[required], select[required], textarea[required]').forEach(function (el) {
+      var group = el.closest('.form-group') || el.closest('.checkbox-group');
+      var ok = true;
+      if (el.type === 'checkbox') ok = el.checked;
+      else if (el.type === 'email') ok = el.value.trim() !== '' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      else ok = el.value.trim() !== '';
+      if (!ok) valid = false;
+      if (group) group.classList.toggle('invalid', !ok);
+    });
+    return valid;
+  }
+
+  function showPage(n) {
+    pages.forEach(function (p) { p.classList.toggle('active', p.dataset.page === String(n)); });
+    stepItems.forEach(function (li, i) {
+      li.classList.toggle('active', i + 1 === n);
+      li.classList.toggle('done', i + 1 < n);
+    });
+    current = n;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('[data-next]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (validatePage(current)) showPage(Number(btn.dataset.next));
+      else {
+        var bad = document.querySelector('.step-page.active .form-group.invalid input,' +
+                                        '.step-page.active .form-group.invalid select,' +
+                                        '.step-page.active .form-group.invalid textarea');
+        if (bad) bad.focus();
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-back]').forEach(function (btn) {
+    btn.addEventListener('click', function () { showPage(Number(btn.dataset.back)); });
+  });
+
+  form.addEventListener('input', function (e) {
+    var g = e.target.closest('.form-group');
+    if (g) g.classList.remove('invalid');
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var allValid = true;
+    [1, 2, 3].forEach(function (n) { if (!validatePage(n)) allValid = false; });
+
+    if (!allValid) {
+      for (var n = 1; n <= 3; n++) {
+        if (document.querySelector('.step-page[data-page="' + n + '"] .invalid')) { showPage(n); break; }
+      }
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+
+    var ref = makeRef();
+    document.getElementById('refCode').value = ref;
+
+    /* --- Collect all fields, including the reference --- */
+    var data = new FormData(form);
+
+    /* --- Send to FormSubmit (email to LOGI) ---
+       Replace with your real endpoint before going live. */
+    var ENDPOINT = 'https://formsubmit.co/registrar@logi.education';
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .catch(function () { /* ignore network error and still show status */ })
+    .finally(function () {
+      /* --- Swap to pending/status view --- */
+      document.getElementById('formView').style.display = 'none';
+      document.getElementById('refDisplay').textContent = ref;
+      document.getElementById('successScreen').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
