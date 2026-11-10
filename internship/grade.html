@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internal Grading | LOGI Internship</title>
+<style>
+  :root {
+    --pink:#ff4b93; --pink-dark:#e93680; --lav:#f3f0fa; --ink:#34343b;
+    --muted:#777780; --line:#e9e8ef; --green:#2e9e5b; --amber:#e0a300; --red:#d9453d;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--lav);line-height:1.5;font-size:14px;}
+  .topbar{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 max(5%,calc((100% - 1180px)/2));box-shadow:0 2px 9px #00000012;background:#fff;}
+  .logo{font-size:28px;font-weight:800;letter-spacing:-1.5px;color:#555;text-decoration:none;}
+  .logo span{color:var(--pink);}
+  .nav{display:flex;gap:22px;align-items:center;font-size:13px;}
+  .nav a{color:inherit;text-decoration:none;}
+
+  .wrapper{max-width:760px;margin:0 auto;padding:40px 20px 80px;}
+  .card{background:#fff;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,0.06);border-top:5px solid var(--pink);padding:40px 44px;}
+  .card-header{text-align:center;padding-bottom:20px;border-bottom:2px solid var(--line);margin-bottom:26px;}
+  .card-header .inst{font-size:15px;font-weight:800;margin:0 0 4px;}
+  .card-header h1{font-size:22px;font-weight:800;color:var(--pink);margin:0 0 4px;}
+  .card-header p{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin:0;}
+
+  h3.section{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--pink);margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-weight:bold;font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px;}
+  .field input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:4px;font-family:Arial,sans-serif;font-size:13.5px;}
+  .field input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,75,147,0.1);}
+
+  table.score{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;}
+  table.score th,table.score td{border:1px solid var(--line);padding:10px 12px;}
+  table.score th{background:var(--ink);color:#fff;font-size:11.5px;text-transform:uppercase;letter-spacing:0.4px;text-align:left;}
+  table.score th.num,table.score td.num{text-align:center;width:100px;}
+  table.score tbody tr:nth-child(even) td{background:#fbfaff;}
+  table.score td.score-input{text-align:center;}
+  table.score input[type="number"]{width:64px;padding:6px;border:1px solid var(--line);border-radius:3px;text-align:center;font-family:Arial,sans-serif;font-size:13px;}
+  table.score input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,75,147,0.1);}
+  table.score tfoot td{background:var(--lav)!important;font-weight:bold;font-size:14px;}
+  table.score tfoot td.total-value{text-align:center;font-size:18px;color:var(--pink);}
+
+  .band-card{padding:20px;border-radius:6px;margin:18px 0;text-align:center;border:1px solid var(--line);background:var(--lav);}
+  .band-card .band-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px;}
+  .band-card .band-value{font-size:19px;font-weight:800;margin-bottom:4px;}
+  .band-card .band-desc{font-size:12.5px;color:var(--muted);}
+
+  .decision-row{display:flex;align-items:center;gap:10px;padding:9px 0;font-size:13.5px;}
+  .decision-row input[type="checkbox"]{width:17px;height:17px;accent-color:var(--pink);cursor:pointer;}
+
+  .field textarea{width:100%;min-height:90px;padding:10px 12px;border:1px solid var(--line);border-radius:4px;font-family:Arial,sans-serif;font-size:13.5px;resize:vertical;}
+  .field textarea:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,75,147,0.1);}
+
+  .actions{display:flex;gap:12px;margin-top:28px;}
+  .actions button{flex:1;padding:13px;background:var(--pink);color:#fff;border:none;border-radius:4px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;cursor:pointer;transition:background 0.25s;}
+  .actions button:hover{background:var(--pink-dark);}
+  .actions button.secondary{flex:0 0 150px;background:#fff;color:var(--ink);border:1px solid var(--line);}
+  .actions button.secondary:hover{background:var(--lav);}
+
+  .copy-status{font-size:12px;color:var(--green);text-align:center;margin-top:10px;min-height:18px;}
+
+  .footer{background:#292832;color:#eee;text-align:center;padding:24px 5%;font-size:12px;}
+  .footer strong{color:var(--pink);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+  <nav class="nav"><a href="https://www.logi.education">Home</a></nav>
+</header>
+
+<div class="wrapper">
+  <div class="card">
+    <div class="card-header">
+      <p class="inst">LIVING ORACLES GLOBAL INSTITUTE (LOGI)</p>
+      <h1>Internal Grading &amp; Decision</h1>
+      <p>Internship Coordination Team – Confidential</p>
+    </div>
+
+    <h3 class="section">Candidate</h3>
+    <div class="field">
+      <label for="ref">Reference Number</label>
+      <input type="text" id="ref" placeholder="e.g. LOGI-INT-20261110-A7K2">
+    </div>
+    <div class="field">
+      <label for="candName">Candidate's Full Name</label>
+      <input type="text" id="candName" placeholder="e.g. Louis Agyekum">
+    </div>
+    <div class="field">
+      <label for="candPos">Position Applied For</label>
+      <input type="text" id="candPos" placeholder="e.g. IT &amp; Digital Operations Intern">
+    </div>
+
+    <h3 class="section">Evaluation Scorecard</h3>
+    <table class="score" id="scorecard">
+      <thead>
+        <tr><th>Evaluation Criteria</th><th class="num">Max</th><th class="num">Score</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Educational Background</td><td class="num">10</td><td class="score-input"><input type="number" min="0" max="10" data-max="10"></td></tr>
+        <tr><td>Relevant Experience</td><td class="num">10</td><td class="score-input"><input type="number" min="0" max="10" data-max="10"></td></tr>
+        <tr><td>Technical Knowledge</td><td class="num">20</td><td class="score-input"><input type="number" min="0" max="20" data-max="20"></td></tr>
+        <tr><td>Problem-Solving Ability</td><td class="num">15</td><td class="score-input"><input type="number" min="0" max="15" data-max="15"></td></tr>
+        <tr><td>Practical Assessment</td><td class="num">20</td><td class="score-input"><input type="number" min="0" max="20" data-max="20"></td></tr>
+        <tr><td>Communication Skills</td><td class="num">10</td><td class="score-input"><input type="number" min="0" max="10" data-max="10"></td></tr>
+        <tr><td>Professionalism and Attitude</td><td class="num">10</td><td class="score-input"><input type="number" min="0" max="10" data-max="10"></td></tr>
+        <tr><td>Availability and Commitment</td><td class="num">5</td><td class="score-input"><input type="number" min="0" max="5" data-max="5"></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td>TOTAL</td><td class="num">100</td><td class="total-value" id="total">0</td></tr>
+      </tfoot>
+    </table>
+
+    <div class="band-card" id="bandCard">
+      <div class="band-label">Recommendation Band</div>
+      <div class="band-value" id="bandValue">—</div>
+      <div class="band-desc" id="bandDesc">Enter scores above to see the recommendation.</div>
+    </div>
+
+    <h3 class="section">Final Decision</h3>
+    <label class="decision-row"><input type="checkbox" id="dec1"> Recommended</label>
+    <label class="decision-row"><input type="checkbox" id="dec2"> Recommended with Conditions</label>
+    <label class="decision-row"><input type="checkbox" id="dec3"> Further Assessment Required</label>
+    <label class="decision-row"><input type="checkbox" id="dec4"> Not Recommended at this stage</label>
+
+    <h3 class="section">Comments</h3>
+    <div class="field">
+      <textarea id="comments" placeholder="Enter interviewer's / grader's comments..."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="grader">Grader's Name</label>
+      <input type="text" id="grader" placeholder="e.g. Internship Coordinator">
+    </div>
+
+    <div class="actions">
+      <button type="button" class="secondary" id="copyBtn">Copy Decision</button>
+      <button type="button" id="saveBtn">Save Grading Record</button>
+    </div>
+    <div class="copy-status" id="copyStatus"></div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+</footer>
+
+<script>
+(function(){
+  var inputs = document.querySelectorAll('#scorecard input[type="number"]');
+  var totalEl = document.getElementById('total');
+  var bandValue = document.getElementById('bandValue');
+  var bandDesc = document.getElementById('bandDesc');
+  var bandCard = document.getElementById('bandCard');
+
+  function bandFor(total) {
+    if (total >= 80) return { label: 'Highly Recommended', color: '#2e9e5b', desc: '80–100 — Highly Recommended' };
+    if (total >= 70) return { label: 'Recommended', color: '#2e9e5b', desc: '70–79 — Recommended' };
+    if (total >= 60) return { label: 'Consider with Additional Supervision', color: '#e0a300', desc: '60–69 — Consider with additional supervision' };
+    return { label: 'Not Recommended at this Stage', color: '#d9453d', desc: 'Below 60 — Not recommended at this stage' };
+  }
+
+  function recalc() {
+    var sum = 0;
+    inputs.forEach(function(inp){
+      var max = Number(inp.dataset.max) || 100;
+      var v = inp.value === '' ? 0 : Number(inp.value);
+      if (isNaN(v) || v < 0) v = 0;
+      if (v > max) { v = max; inp.value = max; }
+      sum += v;
+    });
+    totalEl.textContent = sum;
+    var band = bandFor(sum);
+    bandValue.textContent = band.label;
+    bandValue.style.color = band.color;
+    bandDesc.textContent = band.desc;
+    bandCard.style.borderColor = band.color;
+    bandCard.style.background = band.color + '10';
+  }
+
+  inputs.forEach(function(i){
+    i.addEventListener('input', recalc);
+    i.addEventListener('change', recalc);
+  });
+
+  recalc();
+
+  document.getElementById('saveBtn').addEventListener('click', function(){
+    var record = {
+      reference: document.getElementById('ref').value,
+      candidate: document.getElementById('candName').value,
+      position: document.getElementById('candPos').value,
+      total: totalEl.textContent,
+      band: bandValue.textContent,
+      decision: [
+        document.getElementById('dec1').checked ? 'Recommended' : null,
+        document.getElementById('dec2').checked ? 'Recommended with Conditions' : null,
+        document.getElementById('dec3').checked ? 'Further Assessment Required' : null,
+        document.getElementById('dec4').checked ? 'Not Recommended' : null
+      ].filter(Boolean).join(', '),
+      comments: document.getElementById('comments').value,
+      grader: document.getElementById('grader').value,
+      date: new Date().toISOString()
+    };
+
+    // Download as JSON file (replace with API POST when backend is ready)
+    var blob = new Blob([JSON.stringify(record, null, 2)], {type: 'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (record.reference || 'grading') + '.json';
+    a.click();
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var text = 'LOGI Internship Grading\n' +
+      'Reference: ' + (document.getElementById('ref').value || '—') + '\n' +
+      'Candidate: ' + (document.getElementById('candName').value || '—') + '\n' +
+      'Position: ' + (document.getElementById('candPos').value || '—') + '\n' +
+      'Total: ' + totalEl.textContent + '/100\n' +
+      'Band: ' + bandValue.textContent + '\n' +
+      'Comments: ' + (document.getElementById('comments').value || '—');
+    navigator.clipboard.writeText(text).then(function(){
+      var s = document.getElementById('copyStatus');
+      s.textContent = 'Grading summary copied to clipboard.';
+      setTimeout(function(){ s.textContent = ''; }, 2500);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
