@@ -1,1120 +1,1070 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport" />
-    <title>LIVING ORACLES GLOBAL INSTITUTE: Our Partners</title>
-
-    <!-- Meta Tags -->
-    <meta content="Living Oracles Global Institute, Christian partners, Ministry partners, Church partnerships, ADUSEI Foundation, The Living Oracles of God, Faith" name="description" />
-    <meta content="https://www.logi.education/p/our-partners.html" property="og:url" />
-    <meta content="Our Partners" property="og:title" />
-    <meta content="Living Oracles Global Institute, Christian partners, Ministry partners, Church partnerships, ADUSEI Foundation, The Living Oracles of God, Faith" property="og:description" />
-
-    <!-- Institutional Favicon -->
-    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
-    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
-
-    <!-- Open Graph Tags for Google Business Profile -->
-    <meta content="Living Oracles Global Institute" property="og:title" />
-    <meta content="website" property="og:type" />
-    <meta content="https://logi.education" property="og:url" />
-    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
-    <meta content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." property="og:description" />
-    <meta content="summary_large_image" name="twitter:card" />
-
-    <!-- FontAwesome Core for UI Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
-
-    <style>
-        /* ========================================== */
-        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
-        /* ========================================== */
-        .top-bar {
-            background: #1a1a2e;
-            color: #ffffff;
-            padding: 6px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.7rem;
-            flex-wrap: wrap;
-            gap: 6px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .top-bar::before,
-        .top-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            background: linear-gradient(180deg, 
-                #c9a86c 0%, #c9a86c 20%,
-                #8B5353 20%, #8B5353 40%,
-                #1a7a3a 40%, #1a7a3a 60%,
-                #c9a86c 60%, #c9a86c 80%,
-                #8B5353 80%, #8B5353 100%
-            );
-            opacity: 0.5;
-        }
-
-        .top-bar::before {
-            left: 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .top-bar::after {
-            right: 0;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .top-bar .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .contact-info a,
-        .top-bar .contact-info span {
-            color: #d4d0c8;
-            text-decoration: none;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s;
-        }
-
-        .top-bar .contact-info a:hover {
-            color: #c9a86c;
-        }
-
-        .top-bar .contact-info i {
-            font-size: 0.65rem;
-            color: #c9a86c;
-        }
-
-        .top-bar .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .social-icons a {
-            color: #8a8680;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .top-bar .social-icons a:hover {
-            color: #c9a86c;
-        }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 4px 0;
-            }
-            .top-bar::before,
-            .top-bar::after {
-                width: 25px;
-            }
-            .top-bar .contact-info {
-                padding: 0 35px;
-                gap: 8px;
-            }
-            .top-bar .social-icons {
-                padding: 0 35px;
-            }
-            .top-bar .contact-info a,
-            .top-bar .contact-info span {
-                font-size: 0.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-bar::before,
-            .top-bar::after {
-                width: 18px;
-            }
-            .top-bar .contact-info {
-                padding: 0 25px;
-                gap: 6px;
-                font-size: 0.55rem;
-            }
-            .top-bar .social-icons {
-                padding: 0 25px;
-                gap: 8px;
-            }
-            .top-bar .social-icons a {
-                font-size: 0.65rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   HEADER - FIXED FULL WIDTH WHITE         */
-        /* ========================================== */
-        .main-header {
-            background: #ffffff;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 38px;
-            left: 0;
-            width: 100%;
-            z-index: 9998;
-            border-bottom: 1px solid #e8e3dc;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            width: 40px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .logo .logo-text {
-            color: #1a1a2e;
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .logo .logo-text span {
-            display: block;
-            font-weight: 300;
-            font-size: 0.45rem;
-            opacity: 0.6;
-            letter-spacing: 1.5px;
-        }
-
-        @media (max-width: 768px) {
-            .main-header {
-                top: 34px;
-                padding: 6px 4%;
-            }
-            .logo img {
-                width: 32px;
-            }
-            .logo .logo-text {
-                font-size: 0.65rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.4rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-header {
-                top: 30px;
-                padding: 4px 3%;
-            }
-            .logo img {
-                width: 28px;
-            }
-            .logo .logo-text {
-                font-size: 0.55rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.35rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   MOBILE HAMBURGER MENU BUTTON             */
-        /* ========================================== */
-        .menu-btn {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            color: #1a1a2e;
-            font-size: 13px;
-            padding: 5px 10px;
-            border-radius: 30px;
-            background: rgba(26, 26, 46, 0.06);
-            border: 1px solid rgba(26, 26, 46, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .menu-btn:hover {
-            background: rgba(26, 26, 46, 0.12);
-        }
-
-        .menu-btn i {
-            font-size: 16px;
-        }
-
-        /* ========================================== */
-        /*   DESKTOP NAVIGATION - DARK TEXT          */
-        /* ========================================== */
-        .navigation-menu-bar {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            position: static !important;
-            width: auto !important;
-            height: auto !important;
-            display: block !important;
-            overflow: visible !important;
-        }
-
-        .navigation-menu-bar ul {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            list-style: none !important;
-            gap: 0.2rem !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-end !important;
-        }
-
-        .navigation-menu-bar ul li {
-            position: relative;
-        }
-
-        .navigation-menu-bar ul li a {
-            color: #1a1a2e !important;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .navigation-menu-bar ul li a:hover {
-            color: #8B5353 !important;
-            background: rgba(139, 83, 83, 0.06);
-        }
-
-        .navigation-menu-bar ul li .submenu {
-            display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            padding: 0.4rem 0;
-            margin-top: 6px;
-            z-index: 1100;
-            animation: fadeInDropdown 0.25s ease;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 0px !important;
-            min-width: 200px;
-            width: max-content !important;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
-            display: flex !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li {
-            width: 100%;
-        }
-
-        .navigation-menu-bar ul li .submenu li a {
-            color: #1e3c4f !important;
-            font-size: 0.78rem;
-            padding: 8px 16px;
-            width: 100%;
-            border-radius: 0;
-            font-weight: 500;
-            display: block !important;
-            white-space: nowrap !important;
-            text-shadow: none !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li a:hover {
-            background: rgba(139, 83, 83, 0.08) !important;
-            color: #8B5353 !important;
-        }
-
-        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-            font-size: 0.5rem;
-            transition: transform 0.25s ease;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
-            transform: rotate(180deg);
-        }
-
-        @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========================================== */
-        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-        /* ========================================== */
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                min-height: 100vh !important;
-                overflow-y: auto !important;
-                background: #ffffff !important;
-                display: block !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                align-items: stretch !important;
-                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
-                z-index: 10000 !important;
-                padding: 70px 1.2rem 1.5rem 1.2rem !important;
-                box-shadow: none !important;
-                transform: translateX(100%) !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-
-            .navigation-menu-bar.mobile-open {
-                transform: translateX(0) !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-            }
-
-            .navigation-menu-bar ul {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0 !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                flex: 1 !important;
-            }
-
-            .navigation-menu-bar ul li {
-                border-bottom: 1px solid #f0ede6 !important;
-                list-style: none !important;
-            }
-
-            .navigation-menu-bar ul li a {
-                color: #1a1a2e !important;
-                font-weight: 500 !important;
-                padding: 0.7rem 0.5rem !important;
-                justify-content: flex-start !important;
-                border-radius: 0 !important;
-                white-space: normal !important;
-                text-shadow: none !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 10px !important;
-                font-size: 0.95rem !important;
-            }
-
-            .navigation-menu-bar ul li a i {
-                font-size: 1.1rem !important;
-                color: #c9a86c !important;
-                width: 24px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li a:hover {
-                background: rgba(139, 83, 83, 0.06) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a {
-                justify-content: space-between !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-                color: #8B5353 !important;
-                font-size: 0.65rem !important;
-                margin-left: auto !important;
-            }
-
-            .navigation-menu-bar ul li .submenu {
-                position: static !important;
-                transform: none !important;
-                background: #f8f6f2 !important;
-                border-radius: 0 !important;
-                display: none !important;
-                flex-direction: column !important;
-                gap: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border-left: 3px solid #c9a86c !important;
-                width: 100% !important;
-                box-shadow: none !important;
-                min-width: auto !important;
-                animation: none !important;
-            }
-
-            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li {
-                border-bottom: none !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a {
-                color: #1a1a2e !important;
-                font-weight: 400 !important;
-                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                justify-content: flex-start !important;
-                gap: 10px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a i {
-                font-size: 0.85rem !important;
-                color: #c9a86c !important;
-                width: 20px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a:hover {
-                background: rgba(139, 83, 83, 0.08) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-                border-left: 3px solid #8B5353 !important;
-                margin-left: 1rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
-                padding-left: 3rem !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer {
-                margin-top: auto !important;
-                padding-top: 1rem !important;
-                padding-bottom: 0.5rem !important;
-                border-top: 1px solid #f0ede6 !important;
-                display: flex !important;
-                justify-content: center !important;
-                gap: 1.2rem !important;
-                flex-shrink: 0 !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a {
-                color: #8a8680 !important;
-                font-size: 1.1rem !important;
-                transition: color 0.25s ease !important;
-                text-decoration: none !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a:hover {
-                color: #c9a86c !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navigation-menu-bar {
-                padding: 60px 1rem 1.5rem 1rem !important;
-            }
-            .navigation-menu-bar ul li a {
-                font-size: 0.85rem !important;
-                padding: 0.6rem 0.4rem !important;
-            }
-            .navigation-menu-bar ul li .submenu li a {
-                font-size: 0.78rem !important;
-                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
-        /* ========================================== */
-        .institutional-footer {
-            background: #1a1a2e;
-            color: #d4d0c8;
-            padding: 2.5rem 5% 1.2rem;
-            margin-top: 0;
-            border-top: none;
-            font-size: 0.85rem;
-            width: 100%;
-        }
-
-        .footer-grid-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .footer-column h2 {
-            color: #ffffff !important;
-            font-size: 0.8rem !important;
-            margin-bottom: 0.6rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-        }
-
-        .footer-column p,
-        .footer-column address {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.7;
-            font-style: normal;
-            margin-bottom: 4px;
-        }
-
-        .footer-column a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-            display: inline-block;
-        }
-
-        .footer-column a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 0.2rem !important;
-            list-style: none !important;
-        }
-
-        .footer-column ul li a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-        }
-
-        .footer-column ul li a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column .footer-address-line {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .footer-column .footer-address-line i {
-            color: #c9a86c;
-            font-size: 0.75rem;
-            margin-top: 4px;
-            width: 16px;
-        }
-
-        .footer-column .footer-address-line span {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.6;
-        }
-
-        .footer-bottom-bar {
-            max-width: 1200px;
-            margin: 1.2rem auto 0;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .footer-copyright {
-            font-size: 0.7rem;
-            font-weight: 400;
-            color: #8a8680;
-        }
-
-        .footer-subscription-container h3 {
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.2rem;
-        }
-
-        .footer-subscription-container p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .subscription-form {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .subscription-form input[type="email"] {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            padding: 5px 8px;
-            color: #ffffff;
-            font-size: 0.75rem;
-            flex-grow: 1;
-            outline: none;
-            transition: border-color 0.3s;
-            min-width: 100px;
-        }
-
-        .subscription-form input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .subscription-form input[type="email"]:focus {
-            border-color: #ffffff;
-        }
-
-        .subscription-form button {
-            background: #ffffff;
-            color: #8B5353;
-            border: none;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
-        }
-
-        .subscription-form button:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-1px);
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.2rem;
-            }
-            .institutional-footer { font-size: 0.75rem; }
-            .footer-column h2 { font-size: 0.7rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.72rem !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .footer-bottom-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .institutional-footer { 
-                font-size: 0.7rem;
-                padding: 1.5rem 4% 1rem;
-            }
-            .footer-column h2 { font-size: 0.6rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.65rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FLOATING CHAT                            */
-        /* ========================================== */
-        .floating-chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .floating-chat-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #25d366;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .floating-chat-link:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background: #20ba5a;
-        }
-
-        .floating-chat-link i {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 480px) {
-            .floating-chat-link {
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-            .floating-chat-link span {
-                display: none;
-            }
-            .floating-chat-link i {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ========================================== */
-        /*          GLOBAL THEME ROOT RESETS          */
-        /* ========================================== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        html,
-        body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-        }
-
-        body {
-            background-color: #fcfdfe;
-            color: #334155;
-            line-height: 1.5;
-            padding-top: 80px;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container-wrapper {
-            max-width: 100% !important;
-            margin: 0 auto;
-            padding: 0 !important;
-            width: 100% !important;
-        }
-
-        /* ========================================== */
-        /*   OUR PARTNERS PAGE STYLES                 */
-        /* ========================================== */
-        .logi-partners-section {
-            padding: 60px 4% !important;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-            color: #444 !important;
-            background: transparent !important;
-            box-sizing: border-box !important;
-            text-align: left !important;
-        }
-
-        .logi-partners-header {
-            text-align: left !important;
-            margin: 0 auto 40px auto !important;
-        }
-
-        .logi-partners-header h2 {
-            color: #8B5353 !important;
-            font-size: 36px !important;
-            font-weight: bold !important;
-            margin: 0 0 10px 0 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 2px !important;
-            text-align: left !important;
-        }
-
-        .logi-partners-intro p {
-            font-size: 14px !important;
-            line-height: 1.6 !important;
-            color: #555 !important;
-            margin: 0 0 15px 0 !important;
-            text-align: left !important;
-        }
-
-        .logi-partners-intro p:last-child {
-            margin-bottom: 0 !important;
-        }
-
-        .logi-partners-subheading {
-            text-align: left !important;
-            margin-bottom: 30px !important;
-        }
-
-        .logi-partners-subheading h3 {
-            color: #8B5353 !important;
-            font-size: 26px !important;
-            font-weight: bold !important;
-            margin: 0 !important;
-            text-align: left !important;
-        }
-
-        .logi-partners-grid {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            justify-content: space-between !important;
-            gap: 30px !important;
-            margin: 0 auto 40px auto !important;
-        }
-
-        .logi-partner-card {
-            flex: 1 1 50% !important;
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            gap: 20px !important;
-            background: transparent !important;
-            box-sizing: border-box !important;
-            padding: 0 !important;
-        }
-
-        .logi-partner-text {
-            text-align: left !important;
-        }
-
-        .logi-partner-text h4 {
-            color: #8B5353 !important;
-            font-size: 20px !important;
-            margin: 0 0 10px 0 !important;
-            font-weight: bold !important;
-            text-align: left !important;
-        }
-
-        .logi-partner-text p {
-            font-size: 14px !important;
-            line-height: 1.7 !important;
-            color: #555 !important;
-            margin: 0 0 10px 0 !important;
-            text-align: left !important;
-        }
-
-        .logi-partner-text p:last-child {
-            margin-bottom: 0 !important;
-        }
-
-        .logi-future-partners-container {
-            margin: 0 auto !important;
-        }
-
-        .logi-future-partners-card {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            gap: 20px !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-            background: transparent !important;
-        }
-
-        .logi-partner-text p.logi-future-emphasis {
-            font-size: 14px !important;
-            font-weight: bold !important;
-            color: #8B5353 !important;
-        }
-
-        .logi-partner-icon {
-            width: 48px !important;
-            height: 48px !important;
-            flex-shrink: 0 !important;
-            background: transparent !important;
-            color: #8B5353 !important;
-        }
-
-        .logi-partner-icon svg {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        @media (max-width: 991px) {
-            .logi-partners-header h2 {
-                font-size: 30px !important;
-            }
-            .logi-partner-text h4 {
-                font-size: 18px !important;
-            }
-            .logi-partner-text p,
-            .logi-partners-intro p {
-                font-size: 14px !important;
-            }
-        }
-
-        @media (max-width: 650px) {
-            .logi-partners-section {
-                padding: 30px 16px !important;
-            }
-            .logi-partners-header h2 {
-                font-size: 24px !important;
-            }
-            .logi-partners-grid {
-                flex-direction: column !important;
-                gap: 30px !important;
-            }
-            .logi-partner-card,
-            .logi-future-partners-card {
-                flex: 1 1 100% !important;
-                flex-direction: row !important;
-                align-items: flex-start !important;
-                text-align: left !important;
-                gap: 15px !important;
-            }
-        }
-    </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta name="description" content="Partner with Living Oracles Global Institute (LOGI). Explore educational, corporate, technology, ministry and development partnership opportunities."/>
+<meta name="keywords" content="LOGI partners, educational partnerships, corporate partnerships, institutional collaboration, Living Oracles Global Institute"/>
+
+<title>Our Partners | LOGI – Living Oracles Global Institute</title>
+
+<link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png"/>
+
+<style>
+:root{
+--pink:#ff4b93;
+--pink-dark:#e93680;
+--lav:#f3f0fa;
+--ink:#34343b;
+--muted:#777780;
+--line:#e9e8ef;
+--white:#fff;
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+color:var(--ink);
+background:#fff;
+line-height:1.5;
+}
+
+a{color:inherit;text-decoration:none}
+
+/* NAVIGATION */
+
+.topbar{
+height:64px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 max(5%,calc((100% - 1180px)/2));
+box-shadow:0 2px 9px #00000012;
+background:#fff;
+position:relative;
+z-index:10;
+}
+
+.logo{
+font-size:28px;
+font-weight:800;
+letter-spacing:-1.5px;
+color:#555;
+}
+
+.logo span{color:var(--pink)}
+
+.nav{
+display:flex;
+gap:22px;
+align-items:center;
+font-size:13px;
+}
+
+.nav .button{
+background:var(--pink);
+color:#fff;
+padding:9px 24px;
+border-radius:4px;
+transition:.2s;
+}
+
+.nav .button:hover{background:var(--pink-dark)}
+
+/* HERO */
+
+.hero{
+background:linear-gradient(110deg,#f8f2fb 0%,#fff 56%,#ffe9f1 100%);
+padding:28px 5% 34px;
+}
+
+.hero-inner{
+max-width:1180px;
+margin:auto;
+min-height:185px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:25px;
+}
+
+.breadcrumb{
+font-size:12px;
+color:var(--pink);
+margin-bottom:18px;
+}
+
+.breadcrumb span{color:#777}
+
+.hero h1{
+font-size:clamp(30px,4vw,43px);
+line-height:1.1;
+margin:0 0 12px;
+}
+
+.hero h1 span{color:var(--pink)}
+
+.hero p{
+max-width:640px;
+font-size:14px;
+color:#65656d;
+margin:0 0 18px;
+}
+
+.pill{
+display:inline-block;
+background:var(--pink);
+color:white;
+padding:9px 19px;
+border-radius:4px;
+font-size:12px;
+transition:.2s;
+}
+
+.pill:hover{background:var(--pink-dark)}
+
+.hero-mark{
+font-size:clamp(55px,9vw,100px);
+font-weight:900;
+letter-spacing:-7px;
+color:#f7d9e7;
+text-shadow:3px 3px 0 #fff;
+}
+
+/* GENERAL */
+
+.inner{
+width:min(1180px,90%);
+margin:auto;
+}
+
+.section{
+padding:35px 0 40px;
+}
+
+.section.grey{background:#f5f5f8}
+
+.section.tint{background:#fff6fa}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:end;
+gap:15px;
+border-bottom:1px solid #dedee5;
+padding-bottom:11px;
+margin-bottom:20px;
+position:relative;
+}
+
+.section-head:after{
+content:"";
+position:absolute;
+bottom:-1px;
+left:0;
+width:190px;
+height:2px;
+background:linear-gradient(90deg,#f4c52d,var(--pink));
+}
+
+.section-head h2{
+font-size:22px;
+font-weight:600;
+margin:0;
+}
+
+.highlight{
+background:var(--pink);
+color:#fff;
+padding:1px 5px;
+}
+
+.section-intro{
+font-size:13px;
+color:#777;
+margin:-7px 0 20px;
+max-width:800px;
+}
+
+/* INTRODUCTION */
+
+.intro-grid{
+display:grid;
+grid-template-columns:1.5fr 1fr;
+gap:25px;
+align-items:center;
+}
+
+.intro-text p{
+font-size:13px;
+color:#686872;
+margin:0 0 13px;
+}
+
+.intro-box{
+background:linear-gradient(135deg,#fff0f6,#f3f0fa);
+border:1px solid #f4dce8;
+padding:25px;
+border-radius:5px;
+text-align:center;
+}
+
+.intro-box .icon{
+font-size:35px;
+margin-bottom:8px;
+}
+
+.intro-box h3{
+font-size:17px;
+margin:0 0 8px;
+}
+
+.intro-box p{
+font-size:12px;
+color:#777;
+margin:0;
+}
+
+/* PARTNERSHIP CARDS */
+
+.partner-grid{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:17px;
+}
+
+.partner-card{
+background:#fff;
+border:1px solid var(--line);
+border-radius:5px;
+padding:20px 17px;
+box-shadow:0 2px 6px #00000008;
+transition:.2s;
+display:flex;
+flex-direction:column;
+min-width:0;
+}
+
+.partner-card:hover{
+transform:translateY(-3px);
+box-shadow:0 7px 18px #00000012;
+border-color:#f7c7db;
+}
+
+.partner-icon{
+width:43px;
+height:43px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#fff0f6;
+border-radius:5px;
+font-size:21px;
+margin-bottom:13px;
+}
+
+.partner-card h3{
+font-size:15px;
+margin:0 0 9px;
+font-weight:600;
+}
+
+.partner-card p{
+font-size:12px;
+color:#777780;
+margin:0;
+flex:1;
+}
+
+.card-label{
+display:inline-block;
+font-size:9px;
+color:var(--pink);
+background:#fff0f6;
+padding:5px 9px;
+border-radius:20px;
+margin-top:13px;
+width:fit-content;
+}
+
+/* BENEFITS */
+
+.benefit-grid{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:15px;
+}
+
+.benefit{
+background:#fff;
+border:1px solid var(--line);
+padding:19px 14px;
+text-align:center;
+border-radius:5px;
+}
+
+.benefit-icon{
+font-size:25px;
+margin-bottom:9px;
+}
+
+.benefit h3{
+font-size:13px;
+margin:0 0 7px;
+}
+
+.benefit p{
+font-size:11px;
+color:#85858e;
+margin:0;
+}
+
+/* PARTNERSHIP PROCESS */
+
+.process-grid{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:15px;
+}
+
+.process-card{
+background:#fff;
+border:1px solid var(--line);
+border-radius:5px;
+padding:18px 14px;
+position:relative;
+}
+
+.step{
+width:29px;
+height:29px;
+background:var(--pink);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-size:12px;
+font-weight:bold;
+margin-bottom:12px;
+}
+
+.process-card h3{
+font-size:13px;
+margin:0 0 7px;
+}
+
+.process-card p{
+font-size:11px;
+color:#85858e;
+margin:0;
+}
+
+/* CTA */
+
+.cta-section{
+padding:40px 5%;
+background:linear-gradient(110deg,#f8f2fb,#ffe9f1);
+}
+
+.cta-box{
+max-width:900px;
+margin:auto;
+text-align:center;
+}
+
+.cta-box h2{
+font-size:26px;
+margin:0 0 12px;
+}
+
+.cta-box h2 span{color:var(--pink)}
+
+.cta-box p{
+font-size:13px;
+color:#707079;
+max-width:650px;
+margin:0 auto 20px;
+}
+
+.cta-buttons{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.cta-primary{
+display:inline-block;
+background:var(--pink);
+color:#fff;
+padding:11px 23px;
+font-size:12px;
+border-radius:4px;
+}
+
+.cta-primary:hover{background:var(--pink-dark)}
+
+.cta-secondary{
+display:inline-block;
+background:#fff;
+color:var(--pink);
+border:1px solid #ffd1e3;
+padding:10px 23px;
+font-size:12px;
+border-radius:4px;
+}
+
+/* PARTNERSHIP NOTE */
+
+.note{
+background:#fff;
+border-left:3px solid var(--pink);
+padding:15px 18px;
+font-size:11px;
+color:#777;
+margin-top:20px;
+}
+
+/* FOOTER */
+
+.footer{
+background:#292832;
+color:#eee;
+text-align:center;
+padding:24px 5%;
+font-size:12px;
+}
+
+.footer strong{color:var(--pink)}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.partner-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.benefit-grid,
+.process-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.hero-mark{font-size:70px}
+
+}
+
+@media(max-width:650px){
+
+.topbar{
+height:54px;
+padding:0 5%;
+}
+
+.logo{font-size:24px}
+
+.nav{gap:10px}
+
+.nav a:first-child{display:none}
+
+.nav .button{
+font-size:11px;
+padding:8px 14px;
+}
+
+.hero{padding:22px 5%}
+
+.hero-inner{min-height:165px}
+
+.hero-mark{
+font-size:48px;
+letter-spacing:-4px;
+}
+
+.hero p{
+font-size:12px;
+max-width:440px;
+}
+
+.section{padding:25px 0}
+
+.section-head h2{font-size:17px}
+
+.section-intro{font-size:11px}
+
+.intro-grid{
+grid-template-columns:1fr;
+gap:17px;
+}
+
+.partner-grid{
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:10px;
+}
+
+.partner-card{padding:13px 10px}
+
+.partner-icon{
+width:35px;
+height:35px;
+font-size:18px;
+}
+
+.partner-card h3{font-size:12px}
+
+.partner-card p{font-size:10px}
+
+.card-label{font-size:8px}
+
+.benefit-grid,
+.process-grid{gap:10px}
+
+.benefit{padding:14px 9px}
+
+.benefit h3{font-size:11px}
+
+.benefit p{font-size:9px}
+
+.process-card{padding:13px 10px}
+
+.process-card h3{font-size:11px}
+
+.process-card p{font-size:9px}
+
+.cta-box h2{font-size:21px}
+
+.cta-box p{font-size:11px}
+
+}
+
+</style>
 </head>
+
 <body>
 
-    <!-- ========================================== -->
-    <!--   HEADER PLACEHOLDER                       -->
-    <!-- ========================================== -->
-    <div id="header-placeholder"></div>
+<!-- NAVIGATION -->
 
-    <!-- ========================================== -->
-    <!--       PAGE CONTENT - OUR PARTNERS          -->
-    <!-- ========================================== -->
-    <main class="container-wrapper">
+<header class="topbar">
 
-        <!-- === SECTION: OUR PARTNERS === -->
-        <section class="logi-partners-section">
+<a class="logo" href="https://www.logi.education">
+LOGI<span>.</span>
+</a>
 
-            <!-- Header & Introduction -->
-            <div class="logi-partners-header">
-                <h2>Our Partners</h2>
-                <div class="logi-partners-intro">
-                    <p>Living Oracles Global Institute values strategic partnerships that advance quality education, Christian leadership development, community transformation, and Kingdom impact. We believe that collaboration strengthens our mission of equipping Christ-centered leaders to serve God and humanity with excellence.</p>
-                    <p>As we continue to grow, we are building partnerships with churches, ministries, nonprofit organizations, educational institutions, and community development organizations that share our vision and values.</p>
-                </div>
-            </div>
+<nav class="nav">
+<a href="https://www.logi.education">Home</a>
+<a href="https://www.logi.education/our-programs">Programmes</a>
+<a class="button" href="#become-partner">Become a Partner</a>
+</nav>
 
-            <!-- Faith Partners Subtitle -->
-            <div class="logi-partners-subheading">
-                <h3>Our Faith Partners</h3>
-            </div>
+</header>
 
-            <!-- 2-Column Row for Current Partners -->
-            <div class="logi-partners-grid">
 
-                <!-- Partner 1: The Living Oracles of God -->
-                <div class="logi-partner-card">
-                    <div class="logi-partner-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                        </svg>
-                    </div>
-                    <div class="logi-partner-text">
-                        <h4>The Living Oracles of God</h4>
-                        <p>Serves as one of our foundational ministry partners, providing spiritual guidance, leadership development, biblical teaching, and ministry support. This partnership includes guest lectures, pastoral mentorship for our students, and collaborative community outreach programs. Through this partnership, we are committed to raising disciples and leaders who demonstrate Christ-like character and biblical excellence.</p>
-                    </div>
-                </div>
+<!-- HERO -->
 
-                <!-- Partner 2: ADUSEI Foundation -->
-                <div class="logi-partner-card">
-                    <div class="logi-partner-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 1 0 7.75"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <div class="logi-partner-text">
-                        <h4>ADUSEI Foundation</h4>
-                        <p>Partners with Living Oracles Global Institute in promoting education, leadership development, community empowerment, and humanitarian initiatives. This partnership includes joint scholarship programs for underprivileged students and collaborative community development projects. Together, we seek to create opportunities that positively impact individuals, families, and communities through education, mentorship, and compassionate service.</p>
-                    </div>
-                </div>
+<section class="hero">
 
-            </div>
+<div class="hero-inner">
 
-            <!-- Future Partnerships Callout Block -->
-            <div class="logi-future-partners-container">
-                <div class="logi-future-partners-card">
-                    <div class="logi-partner-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M22 16c2 0 3-1 3-3V9c0-2-1-3-3-3s-3 1-3 3v4c0 2 1 3 3 3z"></path>
-                        </svg>
-                    </div>
-                    <div class="logi-partner-text">
-                        <h4>Future Partnerships</h4>
-                        <p>Living Oracles Global Institute welcomes collaboration with churches, universities, ministries, businesses, nonprofit organizations, and international partners who share our commitment to Christian education, leadership development, research, innovation, and community transformation.</p>
+<div>
 
-                        <p>These partnerships represent areas of mutual mission, prayer, resource-sharing, and referral relationships. Unless expressly stated in a formal articulation agreement, these partnerships do not imply academic accreditation, credit transfer, or endorsement of LOGI's certificates by partner institutions. Students are encouraged to confirm directly with any partner institution regarding recognition of LOGI programs for further study or employment.</p>
+<div class="breadcrumb">
+<a href="https://www.logi.education">Home</a> /
+<span>Our Partners</span>
+</div>
 
-                        <p class="logi-future-emphasis">Together, we are building a global network committed to equipping leaders, transforming lives, and advancing God's Kingdom through education and service.</p>
-                    </div>
-                </div>
-            </div>
+<h1>Our <span>Partners</span></h1>
 
-        </section>
+<p>
+Building meaningful relationships that expand educational opportunities,
+strengthen institutions, develop professional skills and create lasting
+global impact.
+</p>
 
-    </main>
+<a class="pill" href="#partnership-areas">
+Explore Partnership Opportunities
+</a>
 
-    <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
-    <!-- ========================================== -->
-    <div id="footer-placeholder"></div>
+</div>
 
-    <!-- ========================================== -->
-    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
-    <!-- ========================================== -->
-    <script src="load.js"></script>
+<div class="hero-mark" aria-label="LOGI">LOGI</div>
+
+</div>
+
+</section>
+
+
+<main>
+
+
+<!-- INTRODUCTION -->
+
+<section class="section">
+
+<div class="inner">
+
+<div class="section-head">
+<h2>Partnerships for <span class="highlight">Global Impact</span></h2>
+</div>
+
+<div class="intro-grid">
+
+<div class="intro-text">
+
+<p>
+At Living Oracles Global Institute (LOGI), we believe that meaningful
+partnerships are essential to expanding access to education, strengthening
+professional development and creating opportunities for individuals and
+communities.
+</p>
+
+<p>
+We welcome collaboration with educational institutions, businesses,
+professional organisations, churches, ministries, technology companies,
+non-governmental organisations and development partners who share our
+commitment to education, leadership, innovation and community transformation.
+</p>
+
+<p>
+Through strategic collaboration, we aim to connect knowledge, expertise,
+resources and opportunities to deliver meaningful and sustainable outcomes.
+</p>
+
+</div>
+
+<div class="intro-box">
+
+<div class="icon">🤝</div>
+
+<h3>Stronger Together</h3>
+
+<p>
+Working together to make quality education accessible, develop capable
+leaders and create opportunities for a better future.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PARTNERSHIP AREAS -->
+
+<section class="section grey" id="partnership-areas">
+
+<div class="inner">
+
+<div class="section-head">
+
+<h2>Our Partnership <span class="highlight">Areas</span></h2>
+
+</div>
+
+<p class="section-intro">
+We welcome organisations and institutions interested in contributing
+to educational development, professional advancement and community impact.
+</p>
+
+<div class="partner-grid">
+
+
+<article class="partner-card">
+
+<div class="partner-icon">🎓</div>
+
+<h3>Educational Partnerships</h3>
+
+<p>
+Collaboration with universities, colleges, schools and training institutions
+to promote knowledge exchange, programme development, academic engagement
+and lifelong learning.
+</p>
+
+<span class="card-label">Education &amp; Training</span>
+
+</article>
+
+
+<article class="partner-card">
+
+<div class="partner-icon">🏢</div>
+
+<h3>Corporate &amp; Industry Partnerships</h3>
+
+<p>
+Working with companies and industry professionals to connect education
+with the workplace through practical learning, professional development,
+industry engagement and career opportunities.
+</p>
+
+<span class="card-label">Business &amp; Industry</span>
+
+</article>
+
+
+<article class="partner-card">
+
+<div class="partner-icon">💻</div>
+
+<h3>Technology &amp; Innovation Partnerships</h3>
+
+<p>
+Collaborating with technology companies, digital learning providers
+and innovation organisations to advance online education, digital
+transformation and technology skills.
+</p>
+
+<span class="card-label">Technology &amp; Innovation</span>
+
+</article>
+
+
+<article class="partner-card">
+
+<div class="partner-icon">⛪</div>
+
+<h3>Ministry &amp; Faith-Based Partnerships</h3>
+
+<p>
+Working with churches, ministries and Christian organisations to strengthen
+theological education, ministry leadership, discipleship and community
+development.
+</p>
+
+<span class="card-label">Ministry &amp; Leadership</span>
+
+</article>
+
+
+<article class="partner-card">
+
+<div class="partner-icon">🌍</div>
+
+<h3>NGO &amp; Development Partnerships</h3>
+
+<p>
+Collaborating with non-governmental organisations, foundations and
+development agencies to support educational access, scholarships,
+community empowerment and sustainable development.
+</p>
+
+<span class="card-label">Development &amp; Impact</span>
+
+</article>
+
+
+<article class="partner-card">
+
+<div class="partner-icon">📜</div>
+
+<h3>Professional &amp; Certification Partnerships</h3>
+
+<p>
+Building relationships with professional bodies, certification
+organisations and industry associations to promote professional standards,
+skills development and career advancement.
+</p>
+
+<span class="card-label">Professional Development</span>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BENEFITS -->
+
+<section class="section">
+
+<div class="inner">
+
+<div class="section-head">
+
+<h2>Opportunities Through <span class="highlight">Partnership</span></h2>
+
+</div>
+
+<p class="section-intro">
+Depending on the nature of the collaboration, our partnerships may
+create opportunities in the following areas.
+</p>
+
+<div class="benefit-grid">
+
+
+<div class="benefit">
+
+<div class="benefit-icon">📚</div>
+
+<h3>Joint Programmes</h3>
+
+<p>
+Collaborative educational and professional development programmes.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">💼</div>
+
+<h3>Internships &amp; Experience</h3>
+
+<p>
+Workplace exposure, internships and practical learning opportunities.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">🎯</div>
+
+<h3>Capacity Building</h3>
+
+<p>
+Training initiatives that strengthen knowledge, skills and leadership.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">🔬</div>
+
+<h3>Research Collaboration</h3>
+
+<p>
+Knowledge exchange, research and collaborative development initiatives.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">🎓</div>
+
+<h3>Scholarship Support</h3>
+
+<p>
+Initiatives that expand access to educational opportunities.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">🎤</div>
+
+<h3>Events &amp; Workshops</h3>
+
+<p>
+Joint seminars, conferences, workshops and knowledge-sharing events.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">🌐</div>
+
+<h3>Digital Learning</h3>
+
+<p>
+Technology-driven education and innovative learning solutions.
+</p>
+
+</div>
+
+
+<div class="benefit">
+
+<div class="benefit-icon">🤝</div>
+
+<h3>Community Projects</h3>
+
+<p>
+Collaborative initiatives that support communities and sustainable development.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PARTNERSHIP PROCESS -->
+
+<section class="section grey">
+
+<div class="inner">
+
+<div class="section-head">
+
+<h2>How to Become a <span class="highlight">Partner</span></h2>
+
+</div>
+
+<p class="section-intro">
+We aim to make the partnership process straightforward, transparent
+and focused on shared objectives.
+</p>
+
+<div class="process-grid">
+
+
+<div class="process-card">
+
+<div class="step">1</div>
+
+<h3>Express Interest</h3>
+
+<p>
+Contact LOGI and introduce your organisation and its areas of interest.
+</p>
+
+</div>
+
+
+<div class="process-card">
+
+<div class="step">2</div>
+
+<h3>Explore Opportunities</h3>
+
+<p>
+Discuss shared objectives, possible collaboration areas and expectations.
+</p>
+
+</div>
+
+
+<div class="process-card">
+
+<div class="step">3</div>
+
+<h3>Develop an Agreement</h3>
+
+<p>
+Establish the scope, responsibilities and terms of the proposed partnership.
+</p>
+
+</div>
+
+
+<div class="process-card">
+
+<div class="step">4</div>
+
+<h3>Collaborate &amp; Grow</h3>
+
+<p>
+Implement agreed activities and work towards measurable shared outcomes.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BECOME A PARTNER -->
+
+<section class="cta-section" id="become-partner">
+
+<div class="cta-box">
+
+<h2>Let's Build Something <span>Meaningful Together.</span></h2>
+
+<p>
+Are you an educational institution, company, professional organisation,
+church, ministry, NGO or development agency interested in working with LOGI?
+We would be pleased to explore opportunities for collaboration.
+</p>
+
+<div class="cta-buttons">
+
+<a class="cta-primary"
+href="https://www.logi.education/contact-us">
+Start a Partnership Conversation
+</a>
+
+<a class="cta-secondary"
+href="mailto:tabaka.mochipela@logi.education?subject=LOGI%20Partnership%20Enquiry">
+Send an Email
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NOTE -->
+
+<section class="section">
+
+<div class="inner">
+
+<div class="note">
+
+<strong>Our Commitment:</strong>
+LOGI seeks to establish partnerships based on mutual respect,
+shared objectives, transparency and a commitment to meaningful outcomes.
+All partnership arrangements are subject to discussion, institutional
+review and mutual agreement. The publication of an organisation's name
+or logo as an official partner requires appropriate authorisation.
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+Living Oracles Global Institute (LOGI) ·
+<strong>Faith. Excellence. Impact.</strong>
+
+</footer>
+
 
 </body>
 </html>
+```
