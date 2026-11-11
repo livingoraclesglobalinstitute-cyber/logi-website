@@ -1,4 +1,3 @@
-// functions/api/progress.js
 export async function onRequestPost(context) {
   try {
     const { request, env } = context;
@@ -8,11 +7,9 @@ export async function onRequestPost(context) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
-    // Decode token to get user ID
     const user = JSON.parse(atob(token));
     const userId = user.id;
 
-    // Save or update progress in D1
     await env.DB.prepare(`
       INSERT INTO progress (user_id, module_id, lesson_id, completed, quiz_score, quiz_total)
       VALUES (?, ?, ?, ?, ?, ?)
