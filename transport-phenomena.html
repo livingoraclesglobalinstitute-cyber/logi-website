@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Transport Phenomena | LOGI</title>
+  <style>
+    :root {
+      --pink: #ff4b93; --pink-dark: #e93680; --lavender: #f1f0fb;
+      --ink: #34343b; --muted: #777780; --line: #ececf1; --white: #fff;
+      --shadow: 0 3px 14px rgba(30, 30, 50, .09); --success: #2e7d32; --error: #b33;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #fff; font-family: Arial, Helvetica, sans-serif; line-height: 1.55; }
+    a { color: inherit; text-decoration: none; }
+    .site-header { height: 66px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(5vw, 20px); background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.13); }
+    .brand { font-size: 27px; font-weight: 800; letter-spacing: -1.5px; color: #55545c; }
+    .brand span { color: var(--pink); }
+    .header-actions { display: flex; align-items: center; gap: 22px; }
+    .btn-outline { display: inline-block; padding: 8px 20px; border: 1.5px solid var(--pink); border-radius: 4px; color: var(--pink); font-size: 14px; font-weight: bold; }
+    
+    .hero { background: var(--lavender); padding: 34px max(6.5vw, 22px) 42px; }
+    h1 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 38px); line-height: 1.2; }
+    .course-meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 14px; }
+    
+    .content-wrap { width: min(900px, 90%); margin: 40px auto; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 30px; box-shadow: var(--shadow); margin-bottom: 30px; }
+    .card h2 { margin-top: 0; }
+    
+    .diagram { background: #fafafd; padding: 20px; border-radius: 8px; text-align: center; margin: 25px 0; border: 1px solid var(--line); }
+    
+    /* Quiz */
+    .q { margin-bottom: 25px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+    .q p { font-weight: bold; margin: 0 0 12px; font-size: 15px; }
+    .q label { display: block; border: 1px solid var(--line); padding: 12px; margin-bottom: 8px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: 0.2s; }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--pink); font-weight: bold; }
+    .q input[type="radio"] { display: none; }
+    
+    .submit-btn { width: 100%; border: 0; padding: 14px; background: var(--pink); color: white; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; }
+    .submit-btn:hover { background: var(--pink-dark); }
+    
+    .result-box { background: #f0f7ff; border: 1px solid #cce3ff; padding: 20px; border-radius: 8px; margin-top: 20px; display: none; text-align: center; }
+    .result-box h3 { margin: 0 0 10px; color: #005bb5; }
+    
+    @media(max-width: 700px) { .site-header { padding: 0 18px; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="dashboard.html">LOGI<span>.</span></a>
+  <div class="header-actions">
+    <a class="btn-outline" href="dashboard.html">← Back to Dashboard</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div style="font-size: 13px; font-weight: bold; color: var(--pink); text-transform: uppercase; margin-bottom: 8px;">Engineering & Technology</div>
+  <h1>Advanced Transport Phenomena</h1>
+  <div class="course-meta">
+    <span>Beginner Level</span><span>|</span><span>1 Hour</span><span>|</span><span>Online, Self-Paced</span>
+  </div>
+</section>
+
+<main class="content-wrap">
+  <article class="card">
+    <h2>Module 1: Fundamentals</h2>
+    <p><b>Transport phenomena</b> is a branch of chemical engineering that studies how three fundamental quantities move from one location to another: <b>momentum</b>, <b>energy (heat)</b>, and <b>mass</b>.</p>
+    
+    <div class="diagram">
+      <svg viewBox="0 0 680 220" width="100%">
+        <g font-family="Arial" font-size="11">
+          <rect x="20" y="60" width="200" height="120" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+          <text x="120" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="13">Momentum Transfer</text>
+          <text x="120" y="105" text-anchor="middle" font-size="10" fill="#555">Driving force: Velocity gradient</text>
+          <text x="120" y="140" text-anchor="middle" font-size="10" fill="#c2185b">Newton's Law of Viscosity</text>
+          
+          <rect x="240" y="60" width="200" height="120" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+          <text x="340" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="13">Heat Transfer</text>
+          <text x="340" y="105" text-anchor="middle" font-size="10" fill="#555">Driving force: Temperature gradient</text>
+          <text x="340" y="140" text-anchor="middle" font-size="10" fill="#c2185b">Fourier's Law</text>
+          
+          <rect x="460" y="60" width="200" height="120" rx="8" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+          <text x="560" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0" font-size="13">Mass Transfer</text>
+          <text x="560" y="105" text-anchor="middle" font-size="10" fill="#555">Driving force: Concentration gradient</text>
+          <text x="560" y="140" text-anchor="middle" font-size="10" fill="#2b6cb0">Fick's Law</text>
+        </g>
+      </svg>
+    </div>
+
+    <h3>1. Momentum Transfer</h3>
+    <p>Momentum transfer deals with the movement of momentum within fluids. When a fluid flows through a pipe, different layers move at different velocities, producing internal friction known as <b>viscosity</b>. <br><b>Newton's Law of Viscosity:</b> τ = μ (du/dy)</p>
+
+    <h3>2. Heat Transfer</h3>
+    <p>Heat transfer is the movement of thermal energy from a region of higher temperature to a lower temperature. <br><b>Fourier's Law:</b> q = -kA (dT/dx)</p>
+
+    <h3>3. Mass Transfer</h3>
+    <p>Mass transfer involves the movement of chemical species due to concentration differences. <br><b>Fick's First Law:</b> J<sub>A</sub> = -D<sub>AB</sub> (dC<sub>A</sub>/dx)</p>
+  </article>
+
+  <article class="card">
+    <h2>Module 1 Assessment</h2>
+    <p style="color:var(--muted); font-size:14px;">Answer all questions and submit to save your progress.</p>
+    
+    <div id="quizContainer"></div>
+    <button class="submit-btn" onclick="submitQuiz()" id="submitBtn">Submit Answers</button>
+    
+    <div class="result-box" id="resultBox">
+      <h3 id="resultTitle">Quiz Completed!</h3>
+      <p id="resultText"></p>
+      <a href="dashboard.html" style="display:inline-block; margin-top:15px; padding:10px 20px; background:#005bb5; color:white; text-decoration:none; border-radius:5px; font-weight:bold;">Return to Dashboard</a>
+    </div>
+  </article>
+</main>
+
+<script>
+const quizData = [
+  { q: "Which of the following represents momentum transport?", opts: ["Diffusion", "Fluid flow", "Thermal radiation", "Evaporation"], answer: 1 },
+  { q: "The driving force for heat conduction is:", opts: ["Pressure difference", "Concentration difference", "Temperature gradient", "Velocity gradient"], answer: 2 },
+  { q: "Which law describes molecular diffusion?", opts: ["Newton's Law of Viscosity", "Fourier's Law", "Fick's Law", "Stefan–Boltzmann Law"], answer: 2 },
+  { q: "A fluid has viscosity 0.002 Pa·s and velocity gradient 100 s⁻¹. Calculate shear stress.", opts: ["0.2 Pa", "0.02 Pa", "2 Pa", "0.002 Pa"], answer: 0 }
+];
+
+let userAnswers = {};
+
+function renderQuiz() {
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = quizData.map((q, qi) => `
+    <div class="q">
+      <p>${qi+1}. ${q.q}</p>
+      ${q.opts.map((opt, oi) => `
+        <label id="lbl_${qi}_${oi}" onclick="selectOpt(${qi}, ${oi})">
+          <input type="radio" name="q_${qi}" value="${oi}"> ${opt}
+        </label>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function selectOpt(qi, oi) {
+  quizData[qi].opts.forEach((_, index) => {
+    document.getElementById(`lbl_${qi}_${index}`).classList.remove('selected');
+  });
+  document.getElementById(`lbl_${qi}_${oi}`).classList.add('selected');
+  userAnswers[qi] = oi;
+}
+
+async function submitQuiz() {
+  const userStr = localStorage.getItem('logi_user');
+  if (!userStr) {
+    alert('Please log in from the Dashboard to save your score.');
+    window.location.href = 'dashboard.html';
+    return;
+  }
+  const user = JSON.parse(userStr);
+
+  if (Object.keys(userAnswers).length < quizData.length) {
+    alert('Please answer all questions before submitting.');
+    return;
+  }
+
+  let score = 0;
+  quizData.forEach((q, qi) => {
+    if (userAnswers[qi] === q.answer) score++;
+  });
+
+  document.getElementById('submitBtn').style.display = 'none';
+  
+  try {
+    const res = await fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: user.token,
+        moduleId: 'module_1',
+        lessonId: 'lesson_1',
+        completed: true,
+        quizScore: score,
+        quizTotal: quizData.length
+      })
+    });
+    
+    if (!res.ok) throw new Error('Failed to save to database');
+
+    document.getElementById('resultBox').style.display = 'block';
+    document.getElementById('resultTitle').textContent = '🎉 Course Completed!';
+    document.getElementById('resultText').innerHTML = `You scored <b>${score}/${quizData.length}</b>. Your progress has been saved to the dashboard.`;
+
+  } catch (err) {
+    alert('Error saving progress: ' + err.message);
+    document.getElementById('submitBtn').style.display = 'block';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', renderQuiz);
+</script>
+</body>
+</html>
