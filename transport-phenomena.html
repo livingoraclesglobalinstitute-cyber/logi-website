@@ -99,10 +99,10 @@
     .q label { display: block; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px; cursor: pointer; font-size: 15px; background: white; transition: 0.2s; }
     .q label:hover { background: #f9f9f9; }
     .q label.selected { background: #e3f2fd; border-color: #2196f3; font-weight: 500; }
+    .q label.correct { border-color: var(--success); background: #e8f5e9; }
     .q input[type="radio"] { display: none; }
     .submit-quiz-btn { background: var(--p); color: white; border: 0; padding: 12px 25px; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 20px; }
     .submit-quiz-btn:hover { background: var(--pd); }
-    .submit-quiz-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* Bottom Navigation */
     .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); }
@@ -441,8 +441,27 @@ function renderGrades() {
 }
 
 // ==========================================
-// READER & NAVIGATION
+// VIEW NAVIGATION
 // ==========================================
+
+function showOutline() {
+  document.getElementById('reader-view').style.display = 'none';
+  document.getElementById('grades-view').classList.remove('active');
+  document.getElementById('sidebar-menu').classList.remove('active');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+  document.getElementById('outline-view').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function showGrades() {
+  document.getElementById('reader-view').style.display = 'none';
+  document.getElementById('outline-view').style.display = 'none';
+  document.getElementById('sidebar-menu').classList.remove('active');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+  document.getElementById('grades-view').classList.add('active');
+  renderGrades();
+  window.scrollTo(0, 0);
+}
 
 function openReader(mi, ai) {
   currentModuleIndex = mi;
@@ -480,7 +499,7 @@ function openReader(mi, ai) {
         </div>
         <div style="margin-top: 20px;">
           ${act.quiz.map((q, qi) => `
-            <div class="q" style="opacity: 0.8;">
+            <div class="q" style="opacity: 0.9;">
               <p>${qi+1}. ${q.q}</p>
               ${q.opts.map((opt, oi) => `
                 <label style="cursor: default; ${oi === q.answer ? 'border-color: var(--success); background: #e8f5e9;' : ''}">
@@ -620,4 +639,48 @@ async function submitQuiz() {
   
   // 1. Save Locally First
   quizScores[act.id] = { score: score, total: quiz.length };
-  completedActivities[act
+  completedActivities[act.id] = true;
+  saveState();
+
+  // 2. Try to save to Cloudflare if logged in
+  const userStr = localStorage.getItem('logi_user');
+  if (userStr) {
+    const token = JSON.parse(userStr).token;
+    try {
+      await fetch('/api/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: token,
+          moduleId: 'module_' + (currentModuleIndex + 1),
+          lessonId: 'quiz_' + (currentActivityIndex + 1),
+          completed: true,
+          quizScore: score,
+          quizTotal: quiz.length
+        })
+      });
+    } catch(e) { console.log('Cloudflare sync failed', e); }
+  }
+  
+  // 3. Update UI
+  showToast('Quiz score saved!');
+  openReader(currentModuleIndex, currentActivityIndex); // Reload to show review mode
+}
+
+// Sidebar Controls
+function openSidebar() {
+  document.getElementById('sidebar-menu').classList.add('active');
+  document.getElementById('sidebar-overlay').classList.add('active');
+}
+function closeSidebar() {
+  document.getElementById('sidebar-menu').classList.remove('active');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+}
+
+// Start
+document.addEventListener('DOMContentLoaded', () => {
+  renderCourseOutline();
+});
+</script>
+</body>
+</html>
