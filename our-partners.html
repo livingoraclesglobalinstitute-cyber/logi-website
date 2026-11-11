@@ -10,16 +10,21 @@
 <title>Our Partners | LOGI – Living Oracles Global Institute</title>
 
 <link rel="icon" href="https://i.imgur.com/kkE49KM.png" type="image/png"/>
+<!-- FontAwesome for Professional Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 
 <style>
 :root{
 --pink:#ff4b93;
 --pink-dark:#e93680;
+--pink-soft:#ffd1e3;
+--pink-tint:#fff6fa;
 --lav:#f3f0fa;
 --ink:#34343b;
 --muted:#777780;
 --line:#e9e8ef;
 --white:#fff;
+--grey-bg:#f5f5f8;
 }
 
 *{box-sizing:border-box}
@@ -37,7 +42,6 @@ line-height:1.5;
 a{color:inherit;text-decoration:none}
 
 /* NAVIGATION */
-
 .topbar{
 height:64px;
 display:flex;
@@ -77,13 +81,22 @@ transition:.2s;
 .nav .button:hover{background:var(--pink-dark)}
 
 /* HERO */
-
 .hero{
-background:linear-gradient(110deg,#f8f2fb 0%,#fff 56%,#ffe9f1 100%);
-padding:28px 5% 34px;
+position:relative;
+padding:80px 5% 90px;
+background:url('https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(110deg, rgba(248, 242, 251, 0.95) 0%, rgba(255, 255, 255, 0.85) 56%, rgba(255, 233, 241, 0.9) 100%);
 }
 
 .hero-inner{
+position:relative;
+z-index:1;
 max-width:1180px;
 margin:auto;
 min-height:185px;
@@ -97,36 +110,45 @@ gap:25px;
 font-size:12px;
 color:var(--pink);
 margin-bottom:18px;
+font-weight:600;
 }
 
 .breadcrumb span{color:#777}
 
 .hero h1{
-font-size:clamp(30px,4vw,43px);
+font-size:clamp(32px,4vw,48px);
 line-height:1.1;
 margin:0 0 12px;
+letter-spacing:-1px;
 }
 
 .hero h1 span{color:var(--pink)}
 
 .hero p{
 max-width:640px;
-font-size:14px;
-color:#65656d;
-margin:0 0 18px;
+font-size:15px;
+color:#555;
+margin:0 0 24px;
+line-height:1.6;
 }
 
 .pill{
 display:inline-block;
 background:var(--pink);
 color:white;
-padding:9px 19px;
+padding:12px 24px;
 border-radius:4px;
-font-size:12px;
+font-size:13px;
+font-weight:700;
 transition:.2s;
+box-shadow:0 4px 12px rgba(255, 75, 147, 0.3);
 }
 
-.pill:hover{background:var(--pink-dark)}
+.pill:hover{
+background:var(--pink-dark);
+transform:translateY(-2px);
+box-shadow:0 6px 16px rgba(255, 75, 147, 0.4);
+}
 
 .hero-mark{
 font-size:clamp(55px,9vw,100px);
@@ -137,19 +159,16 @@ text-shadow:3px 3px 0 #fff;
 }
 
 /* GENERAL */
-
 .inner{
 width:min(1180px,90%);
 margin:auto;
 }
 
 .section{
-padding:35px 0 40px;
+padding:60px 0;
 }
 
-.section.grey{background:#f5f5f8}
-
-.section.tint{background:#fff6fa}
+.section.grey{background:var(--grey-bg)}
 
 .section-head{
 display:flex;
@@ -157,8 +176,8 @@ justify-content:space-between;
 align-items:end;
 gap:15px;
 border-bottom:1px solid #dedee5;
-padding-bottom:11px;
-margin-bottom:20px;
+padding-bottom:15px;
+margin-bottom:25px;
 position:relative;
 }
 
@@ -167,209 +186,309 @@ content:"";
 position:absolute;
 bottom:-1px;
 left:0;
-width:190px;
-height:2px;
+width:120px;
+height:3px;
+border-radius:2px;
 background:linear-gradient(90deg,#f4c52d,var(--pink));
 }
 
 .section-head h2{
-font-size:22px;
-font-weight:600;
+font-size:24px;
+font-weight:700;
 margin:0;
+letter-spacing:-0.5px;
 }
 
 .highlight{
 background:var(--pink);
 color:#fff;
-padding:1px 5px;
+padding:2px 8px;
+border-radius:3px;
 }
 
 .section-intro{
-font-size:13px;
-color:#777;
-margin:-7px 0 20px;
+font-size:14px;
+color:#666;
+margin:-10px 0 30px;
 max-width:800px;
+line-height:1.6;
 }
 
 /* INTRODUCTION */
-
 .intro-grid{
 display:grid;
-grid-template-columns:1.5fr 1fr;
-gap:25px;
+grid-template-columns:1fr 1fr;
+gap:40px;
 align-items:center;
 }
 
 .intro-text p{
-font-size:13px;
-color:#686872;
-margin:0 0 13px;
+font-size:14px;
+color:#555;
+margin:0 0 16px;
+line-height:1.7;
 }
 
-.intro-box{
-background:linear-gradient(135deg,#fff0f6,#f3f0fa);
-border:1px solid #f4dce8;
-padding:25px;
-border-radius:5px;
-text-align:center;
-}
-
-.intro-box .icon{
-font-size:35px;
-margin-bottom:8px;
-}
-
-.intro-box h3{
-font-size:17px;
-margin:0 0 8px;
-}
-
-.intro-box p{
-font-size:12px;
-color:#777;
-margin:0;
-}
-
-/* PARTNERSHIP CARDS */
-
-.partner-grid{
-display:grid;
-grid-template-columns:repeat(3,minmax(0,1fr));
-gap:17px;
-}
-
-.partner-card{
-background:#fff;
-border:1px solid var(--line);
-border-radius:5px;
-padding:20px 17px;
-box-shadow:0 2px 6px #00000008;
-transition:.2s;
-display:flex;
-flex-direction:column;
-min-width:0;
-}
-
-.partner-card:hover{
-transform:translateY(-3px);
-box-shadow:0 7px 18px #00000012;
-border-color:#f7c7db;
-}
-
-.partner-icon{
-width:43px;
-height:43px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#fff0f6;
-border-radius:5px;
-font-size:21px;
-margin-bottom:13px;
-}
-
-.partner-card h3{
-font-size:15px;
-margin:0 0 9px;
-font-weight:600;
-}
-
-.partner-card p{
-font-size:12px;
-color:#777780;
-margin:0;
-flex:1;
-}
-
-.card-label{
-display:inline-block;
-font-size:9px;
-color:var(--pink);
-background:#fff0f6;
-padding:5px 9px;
-border-radius:20px;
-margin-top:13px;
-width:fit-content;
-}
-
-/* BENEFITS */
-
-.benefit-grid{
-display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
-gap:15px;
-}
-
-.benefit{
-background:#fff;
-border:1px solid var(--line);
-padding:19px 14px;
-text-align:center;
-border-radius:5px;
-}
-
-.benefit-icon{
-font-size:25px;
-margin-bottom:9px;
-}
-
-.benefit h3{
-font-size:13px;
-margin:0 0 7px;
-}
-
-.benefit p{
-font-size:11px;
-color:#85858e;
-margin:0;
-}
-
-/* PARTNERSHIP PROCESS */
-
-.process-grid{
-display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
-gap:15px;
-}
-
-.process-card{
-background:#fff;
-border:1px solid var(--line);
-border-radius:5px;
-padding:18px 14px;
+.intro-image-wrapper{
 position:relative;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 20px 40px rgba(0,0,0,0.08);
 }
 
-.step{
-width:29px;
-height:29px;
-background:var(--pink);
-color:#fff;
+.intro-image-wrapper img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+aspect-ratio:4/3;
+transition:transform 0.5s ease;
+}
+
+.intro-image-wrapper:hover img{
+transform:scale(1.05);
+}
+
+.floating-stat{
+position:absolute;
+bottom:-20px;
+left:-20px;
+background:#fff;
+padding:20px 25px;
+border-radius:8px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 display:flex;
 align-items:center;
-justify-content:center;
-border-radius:50%;
-font-size:12px;
-font-weight:bold;
-margin-bottom:12px;
+gap:15px;
+border-left:4px solid var(--pink);
 }
 
-.process-card h3{
-font-size:13px;
-margin:0 0 7px;
+.floating-stat i{
+font-size:2rem;
+color:var(--pink);
 }
 
-.process-card p{
-font-size:11px;
-color:#85858e;
+.floating-stat h4{
 margin:0;
+font-size:1.2rem;
+font-weight:800;
+color:var(--ink);
+}
+
+.floating-stat p{
+margin:0;
+font-size:0.8rem;
+color:var(--muted);
+}
+
+/* ========================================== */
+/*   ACCORDION (DROPDOWN) STYLES              */
+/* ========================================== */
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.accordion-item {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: var(--pink-soft);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    background: #fff;
+    transition: background 0.2s;
+    user-select: none;
+}
+
+.accordion-header:hover {
+    background: var(--pink-tint);
+}
+
+.accordion-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.accordion-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--pink-tint);
+    color: var(--pink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: .3s;
+}
+
+.accordion-item.active .accordion-icon {
+    background: var(--pink);
+    color: #fff;
+}
+
+.accordion-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    transition: color 0.2s;
+}
+
+.accordion-header:hover h3 {
+    color: var(--pink);
+}
+
+.accordion-chevron {
+    color: var(--muted);
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-chevron {
+    transform: rotate(180deg);
+    color: var(--pink);
+}
+
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease;
+    padding: 0 24px;
+    background: #fafafa;
+    border-top: 1px solid transparent;
+}
+
+.accordion-item.active .accordion-body {
+    max-height: 1000px; /* High enough to fit content */
+    padding: 24px;
+    border-top: 1px solid var(--line);
+}
+
+/* Inner Content Styles inside Accordions */
+.partner-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.partner-content p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.partner-content .card-label {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--pink);
+    background: var(--pink-tint);
+    padding: 6px 12px;
+    border-radius: 20px;
+    width: fit-content;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.benefit-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+}
+
+.benefit-item i {
+    color: var(--pink);
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.benefit-item h4 {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.benefit-item p {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.process-step {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.process-step:last-child {
+    margin-bottom: 0;
+}
+
+.process-step-number {
+    width: 30px;
+    height: 30px;
+    background: var(--pink);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.process-step-content h4 {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.process-step-content p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
 }
 
 /* CTA */
-
 .cta-section{
-padding:40px 5%;
+padding:60px 5%;
 background:linear-gradient(110deg,#f8f2fb,#ffe9f1);
+border-top:1px solid var(--line);
+border-bottom:1px solid var(--line);
 }
 
 .cta-box{
@@ -379,690 +498,535 @@ text-align:center;
 }
 
 .cta-box h2{
-font-size:26px;
-margin:0 0 12px;
+font-size:clamp(24px, 4vw, 32px);
+margin:0 0 16px;
+font-weight:700;
+letter-spacing:-0.5px;
 }
 
 .cta-box h2 span{color:var(--pink)}
 
 .cta-box p{
-font-size:13px;
-color:#707079;
+font-size:14px;
+color:#555;
 max-width:650px;
-margin:0 auto 20px;
+margin:0 auto 25px;
+line-height:1.6;
 }
 
 .cta-buttons{
 display:flex;
 justify-content:center;
-gap:12px;
+gap:15px;
 flex-wrap:wrap;
 }
 
 .cta-primary{
-display:inline-block;
+display:inline-flex;
+align-items:center;
+gap:8px;
 background:var(--pink);
 color:#fff;
-padding:11px 23px;
-font-size:12px;
+padding:14px 28px;
+font-size:14px;
+font-weight:700;
 border-radius:4px;
+transition:.2s;
+box-shadow:0 4px 12px rgba(255, 75, 147, 0.3);
 }
 
-.cta-primary:hover{background:var(--pink-dark)}
+.cta-primary:hover{
+background:var(--pink-dark);
+transform:translateY(-2px);
+}
 
 .cta-secondary{
-display:inline-block;
+display:inline-flex;
+align-items:center;
+gap:8px;
 background:#fff;
 color:var(--pink);
-border:1px solid #ffd1e3;
-padding:10px 23px;
-font-size:12px;
+border:1px solid var(--pink-soft);
+padding:14px 28px;
+font-size:14px;
+font-weight:700;
 border-radius:4px;
+transition:.2s;
 }
 
-/* PARTNERSHIP NOTE */
+.cta-secondary:hover{
+background:var(--pink-tint);
+border-color:var(--pink);
+}
 
+/* NOTE */
 .note{
 background:#fff;
-border-left:3px solid var(--pink);
-padding:15px 18px;
-font-size:11px;
-color:#777;
+border-left:4px solid var(--pink);
+padding:20px 24px;
+font-size:12px;
+color:var(--muted);
 margin-top:20px;
+border-radius:0 8px 8px 0;
+box-shadow:0 2px 10px rgba(0,0,0,0.02);
+line-height: 1.7;
 }
 
-/* FOOTER */
+.note strong{color:var(--ink)}
 
+/* FOOTER */
 .footer{
 background:#292832;
 color:#eee;
 text-align:center;
-padding:24px 5%;
-font-size:12px;
+padding:30px 5%;
+font-size:13px;
 }
 
 .footer strong{color:var(--pink)}
 
 /* RESPONSIVE */
-
 @media(max-width:900px){
-
-.partner-grid{
-grid-template-columns:repeat(2,minmax(0,1fr));
-}
-
-.benefit-grid,
-.process-grid{
-grid-template-columns:repeat(2,minmax(0,1fr));
-}
-
 .hero-mark{font-size:70px}
-
+.intro-grid{
+grid-template-columns:1fr;
+gap:30px;
+}
+.floating-stat{
+left:20px;
+bottom:20px;
+}
+.benefit-list{
+grid-template-columns:1fr;
+}
 }
 
 @media(max-width:650px){
-
-.topbar{
-height:54px;
-padding:0 5%;
-}
-
+.topbar{height:54px;padding:0 5%;}
 .logo{font-size:24px}
-
 .nav{gap:10px}
-
 .nav a:first-child{display:none}
-
-.nav .button{
-font-size:11px;
-padding:8px 14px;
-}
-
-.hero{padding:22px 5%}
-
+.nav .button{font-size:11px;padding:8px 14px;}
+.hero{padding:40px 5%}
 .hero-inner{min-height:165px}
-
-.hero-mark{
-font-size:48px;
-letter-spacing:-4px;
+.hero-mark{display:none;}
+.hero p{font-size:13px;max-width:440px;}
+.section{padding:40px 0}
+.section-head h2{font-size:20px}
+.section-intro{font-size:12px}
+.cta-box h2{font-size:22px}
+.cta-buttons{flex-direction:column;}
+.cta-primary, .cta-secondary{width:100%;justify-content:center;}
+.floating-stat{
+position:relative;
+bottom:0;
+left:0;
+margin-top:-20px;
+width:90%;
+margin-left:auto;
+margin-right:auto;
 }
-
-.hero p{
-font-size:12px;
-max-width:440px;
+.accordion-header {
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
 }
-
-.section{padding:25px 0}
-
-.section-head h2{font-size:17px}
-
-.section-intro{font-size:11px}
-
-.intro-grid{
-grid-template-columns:1fr;
-gap:17px;
+.accordion-header-left {
+    width: 100%;
 }
-
-.partner-grid{
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:10px;
+.accordion-chevron {
+    align-self: flex-end;
+    position: absolute;
+    right: 20px;
+    top: 25px;
 }
-
-.partner-card{padding:13px 10px}
-
-.partner-icon{
-width:35px;
-height:35px;
-font-size:18px;
+.accordion-body {
+    padding: 0 15px;
 }
-
-.partner-card h3{font-size:12px}
-
-.partner-card p{font-size:10px}
-
-.card-label{font-size:8px}
-
-.benefit-grid,
-.process-grid{gap:10px}
-
-.benefit{padding:14px 9px}
-
-.benefit h3{font-size:11px}
-
-.benefit p{font-size:9px}
-
-.process-card{padding:13px 10px}
-
-.process-card h3{font-size:11px}
-
-.process-card p{font-size:9px}
-
-.cta-box h2{font-size:21px}
-
-.cta-box p{font-size:11px}
-
+.accordion-item.active .accordion-body {
+    padding: 15px;
 }
-
+}
 </style>
 </head>
 
 <body>
 
 <!-- NAVIGATION -->
-
 <header class="topbar">
-
 <a class="logo" href="https://www.logi.education">
 LOGI<span>.</span>
 </a>
-
 <nav class="nav">
 <a href="https://www.logi.education">Home</a>
 <a href="https://www.logi.education/our-programs">Programmes</a>
 <a class="button" href="#become-partner">Become a Partner</a>
 </nav>
-
 </header>
 
 
 <!-- HERO -->
-
 <section class="hero">
-
 <div class="hero-inner">
-
 <div>
-
 <div class="breadcrumb">
-<a href="https://www.logi.education">Home</a> /
-<span>Our Partners</span>
+<a href="https://www.logi.education">Home</a> / <span>Our Partners</span>
 </div>
-
 <h1>Our <span>Partners</span></h1>
-
 <p>
 Building meaningful relationships that expand educational opportunities,
 strengthen institutions, develop professional skills and create lasting
 global impact.
 </p>
-
 <a class="pill" href="#partnership-areas">
 Explore Partnership Opportunities
 </a>
-
 </div>
-
 <div class="hero-mark" aria-label="LOGI">LOGI</div>
-
 </div>
-
 </section>
 
 
 <main>
 
-
-<!-- INTRODUCTION -->
-
+<!-- INTRODUCTION (Kept Open) -->
 <section class="section">
-
 <div class="inner">
-
 <div class="section-head">
 <h2>Partnerships for <span class="highlight">Global Impact</span></h2>
 </div>
 
 <div class="intro-grid">
-
 <div class="intro-text">
-
 <p>
 At Living Oracles Global Institute (LOGI), we believe that meaningful
 partnerships are essential to expanding access to education, strengthening
 professional development and creating opportunities for individuals and
 communities.
 </p>
-
 <p>
 We welcome collaboration with educational institutions, businesses,
 professional organisations, churches, ministries, technology companies,
 non-governmental organisations and development partners who share our
 commitment to education, leadership, innovation and community transformation.
 </p>
-
 <p>
 Through strategic collaboration, we aim to connect knowledge, expertise,
 resources and opportunities to deliver meaningful and sustainable outcomes.
 </p>
-
 </div>
 
-<div class="intro-box">
-
-<div class="icon">🤝</div>
-
-<h3>Stronger Together</h3>
-
-<p>
-Working together to make quality education accessible, develop capable
-leaders and create opportunities for a better future.
-</p>
-
+<div class="intro-image-wrapper">
+<img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Team collaborating at LOGI" />
+<div class="floating-stat">
+<i class="fas fa-handshake"></i>
+<div>
+<h4>Stronger Together</h4>
+<p>Building a better future</p>
 </div>
-
 </div>
-
 </div>
-
+</div>
+</div>
 </section>
 
 
-<!-- PARTNERSHIP AREAS -->
-
+<!-- COMPACT SECTIONS (Accordion Dropdowns) -->
 <section class="section grey" id="partnership-areas">
-
 <div class="inner">
-
 <div class="section-head">
-
-<h2>Our Partnership <span class="highlight">Areas</span></h2>
-
+<h2>Explore Collaboration <span class="highlight">Options</span></h2>
 </div>
-
 <p class="section-intro">
-We welcome organisations and institutions interested in contributing
-to educational development, professional advancement and community impact.
+Click on any area below to expand and see more details about how we can work together.
 </p>
 
-<div class="partner-grid">
+<div class="accordion-container">
 
+    <!-- AREA 1 -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Educational Partnerships</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="partner-content">
+                <p>Collaboration with universities, colleges, schools and training institutions to promote knowledge exchange, programme development, academic engagement and lifelong learning.</p>
+                <span class="card-label">Education &amp; Training</span>
+            </div>
+        </div>
+    </div>
 
-<article class="partner-card">
+    <!-- AREA 2 -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-building"></i></div>
+                <h3>Corporate &amp; Industry Partnerships</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="partner-content">
+                <p>Working with companies and industry professionals to connect education with the workplace through practical learning, professional development, industry engagement and career opportunities.</p>
+                <span class="card-label">Business &amp; Industry</span>
+            </div>
+        </div>
+    </div>
 
-<div class="partner-icon">🎓</div>
+    <!-- AREA 3 -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Technology &amp; Innovation Partnerships</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="partner-content">
+                <p>Collaborating with technology companies, digital learning providers and innovation organisations to advance online education, digital transformation and technology skills.</p>
+                <span class="card-label">Technology &amp; Innovation</span>
+            </div>
+        </div>
+    </div>
 
-<h3>Educational Partnerships</h3>
+    <!-- AREA 4 -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-church"></i></div>
+                <h3>Ministry &amp; Faith-Based Partnerships</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="partner-content">
+                <p>Working with churches, ministries and Christian organisations to strengthen theological education, ministry leadership, discipleship and community development.</p>
+                <span class="card-label">Ministry &amp; Leadership</span>
+            </div>
+        </div>
+    </div>
 
-<p>
-Collaboration with universities, colleges, schools and training institutions
-to promote knowledge exchange, programme development, academic engagement
-and lifelong learning.
-</p>
+    <!-- AREA 5 -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-globe-africa"></i></div>
+                <h3>NGO &amp; Development Partnerships</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="partner-content">
+                <p>Collaborating with non-governmental organisations, foundations and development agencies to support educational access, scholarships, community empowerment and sustainable development.</p>
+                <span class="card-label">Development &amp; Impact</span>
+            </div>
+        </div>
+    </div>
 
-<span class="card-label">Education &amp; Training</span>
+    <!-- AREA 6 -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-certificate"></i></div>
+                <h3>Professional &amp; Certification Partnerships</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="partner-content">
+                <p>Building relationships with professional bodies, certification organisations and industry associations to promote professional standards, skills development and career advancement.</p>
+                <span class="card-label">Professional Development</span>
+            </div>
+        </div>
+    </div>
 
-</article>
+    <!-- BENEFITS ACCORDION -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-star"></i></div>
+                <h3>Opportunities Through Partnership</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <i class="fas fa-book-open"></i>
+                    <div>
+                        <h4>Joint Programmes</h4>
+                        <p>Collaborative educational and professional development programmes.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-briefcase"></i>
+                    <div>
+                        <h4>Internships &amp; Experience</h4>
+                        <p>Workplace exposure, internships and practical learning opportunities.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-bullseye"></i>
+                    <div>
+                        <h4>Capacity Building</h4>
+                        <p>Training initiatives that strengthen knowledge, skills and leadership.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-microscope"></i>
+                    <div>
+                        <h4>Research Collaboration</h4>
+                        <p>Knowledge exchange, research and collaborative development initiatives.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-award"></i>
+                    <div>
+                        <h4>Scholarship Support</h4>
+                        <p>Initiatives that expand access to educational opportunities.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-microphone-alt"></i>
+                    <div>
+                        <h4>Events &amp; Workshops</h4>
+                        <p>Joint seminars, conferences, workshops and knowledge-sharing events.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-network-wired"></i>
+                    <div>
+                        <h4>Digital Learning</h4>
+                        <p>Technology-driven education and innovative learning solutions.</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-hands-helping"></i>
+                    <div>
+                        <h4>Community Projects</h4>
+                        <p>Collaborative initiatives that support communities and sustainable development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-<article class="partner-card">
-
-<div class="partner-icon">🏢</div>
-
-<h3>Corporate &amp; Industry Partnerships</h3>
-
-<p>
-Working with companies and industry professionals to connect education
-with the workplace through practical learning, professional development,
-industry engagement and career opportunities.
-</p>
-
-<span class="card-label">Business &amp; Industry</span>
-
-</article>
-
-
-<article class="partner-card">
-
-<div class="partner-icon">💻</div>
-
-<h3>Technology &amp; Innovation Partnerships</h3>
-
-<p>
-Collaborating with technology companies, digital learning providers
-and innovation organisations to advance online education, digital
-transformation and technology skills.
-</p>
-
-<span class="card-label">Technology &amp; Innovation</span>
-
-</article>
-
-
-<article class="partner-card">
-
-<div class="partner-icon">⛪</div>
-
-<h3>Ministry &amp; Faith-Based Partnerships</h3>
-
-<p>
-Working with churches, ministries and Christian organisations to strengthen
-theological education, ministry leadership, discipleship and community
-development.
-</p>
-
-<span class="card-label">Ministry &amp; Leadership</span>
-
-</article>
-
-
-<article class="partner-card">
-
-<div class="partner-icon">🌍</div>
-
-<h3>NGO &amp; Development Partnerships</h3>
-
-<p>
-Collaborating with non-governmental organisations, foundations and
-development agencies to support educational access, scholarships,
-community empowerment and sustainable development.
-</p>
-
-<span class="card-label">Development &amp; Impact</span>
-
-</article>
-
-
-<article class="partner-card">
-
-<div class="partner-icon">📜</div>
-
-<h3>Professional &amp; Certification Partnerships</h3>
-
-<p>
-Building relationships with professional bodies, certification
-organisations and industry associations to promote professional standards,
-skills development and career advancement.
-</p>
-
-<span class="card-label">Professional Development</span>
-
-</article>
-
+    <!-- PROCESS ACCORDION -->
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <div class="accordion-header-left">
+                <div class="accordion-icon"><i class="fas fa-route"></i></div>
+                <h3>How to Become a Partner</h3>
+            </div>
+            <i class="fas fa-chevron-down accordion-chevron"></i>
+        </div>
+        <div class="accordion-body">
+            <div class="process-step">
+                <div class="process-step-number">1</div>
+                <div class="process-step-content">
+                    <h4>Express Interest</h4>
+                    <p>Contact LOGI and introduce your organisation and its areas of interest.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">2</div>
+                <div class="process-step-content">
+                    <h4>Explore Opportunities</h4>
+                    <p>Discuss shared objectives, possible collaboration areas and expectations.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">3</div>
+                <div class="process-step-content">
+                    <h4>Develop an Agreement</h4>
+                    <p>Establish the scope, responsibilities and terms of the proposed partnership.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">4</div>
+                <div class="process-step-content">
+                    <h4>Collaborate &amp; Grow</h4>
+                    <p>Implement agreed activities and work towards measurable shared outcomes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
-
 </div>
-
 </section>
 
 
-<!-- BENEFITS -->
-
-<section class="section">
-
-<div class="inner">
-
-<div class="section-head">
-
-<h2>Opportunities Through <span class="highlight">Partnership</span></h2>
-
-</div>
-
-<p class="section-intro">
-Depending on the nature of the collaboration, our partnerships may
-create opportunities in the following areas.
-</p>
-
-<div class="benefit-grid">
-
-
-<div class="benefit">
-
-<div class="benefit-icon">📚</div>
-
-<h3>Joint Programmes</h3>
-
-<p>
-Collaborative educational and professional development programmes.
-</p>
-
-</div>
-
-
-<div class="benefit">
-
-<div class="benefit-icon">💼</div>
-
-<h3>Internships &amp; Experience</h3>
-
-<p>
-Workplace exposure, internships and practical learning opportunities.
-</p>
-
-</div>
-
-
-<div class="benefit">
-
-<div class="benefit-icon">🎯</div>
-
-<h3>Capacity Building</h3>
-
-<p>
-Training initiatives that strengthen knowledge, skills and leadership.
-</p>
-
-</div>
-
-
-<div class="benefit">
-
-<div class="benefit-icon">🔬</div>
-
-<h3>Research Collaboration</h3>
-
-<p>
-Knowledge exchange, research and collaborative development initiatives.
-</p>
-
-</div>
-
-
-<div class="benefit">
-
-<div class="benefit-icon">🎓</div>
-
-<h3>Scholarship Support</h3>
-
-<p>
-Initiatives that expand access to educational opportunities.
-</p>
-
-</div>
-
-
-<div class="benefit">
-
-<div class="benefit-icon">🎤</div>
-
-<h3>Events &amp; Workshops</h3>
-
-<p>
-Joint seminars, conferences, workshops and knowledge-sharing events.
-</p>
-
-</div>
-
-
-<div class="benefit">
-
-<div class="benefit-icon">🌐</div>
-
-<h3>Digital Learning</h3>
-
-<p>
-Technology-driven education and innovative learning solutions.
-</p>
-
-</div>
-
-
-<div class="benefit">
-
-<div class="benefit-icon">🤝</div>
-
-<h3>Community Projects</h3>
-
-<p>
-Collaborative initiatives that support communities and sustainable development.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- PARTNERSHIP PROCESS -->
-
-<section class="section grey">
-
-<div class="inner">
-
-<div class="section-head">
-
-<h2>How to Become a <span class="highlight">Partner</span></h2>
-
-</div>
-
-<p class="section-intro">
-We aim to make the partnership process straightforward, transparent
-and focused on shared objectives.
-</p>
-
-<div class="process-grid">
-
-
-<div class="process-card">
-
-<div class="step">1</div>
-
-<h3>Express Interest</h3>
-
-<p>
-Contact LOGI and introduce your organisation and its areas of interest.
-</p>
-
-</div>
-
-
-<div class="process-card">
-
-<div class="step">2</div>
-
-<h3>Explore Opportunities</h3>
-
-<p>
-Discuss shared objectives, possible collaboration areas and expectations.
-</p>
-
-</div>
-
-
-<div class="process-card">
-
-<div class="step">3</div>
-
-<h3>Develop an Agreement</h3>
-
-<p>
-Establish the scope, responsibilities and terms of the proposed partnership.
-</p>
-
-</div>
-
-
-<div class="process-card">
-
-<div class="step">4</div>
-
-<h3>Collaborate &amp; Grow</h3>
-
-<p>
-Implement agreed activities and work towards measurable shared outcomes.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- BECOME A PARTNER -->
-
+<!-- BECOME A PARTNER (Kept Open) -->
 <section class="cta-section" id="become-partner">
-
 <div class="cta-box">
-
 <h2>Let's Build Something <span>Meaningful Together.</span></h2>
-
 <p>
 Are you an educational institution, company, professional organisation,
 church, ministry, NGO or development agency interested in working with LOGI?
 We would be pleased to explore opportunities for collaboration.
 </p>
-
 <div class="cta-buttons">
-
-<a class="cta-primary"
-href="https://www.logi.education/contact">
-Start a Partnership Conversation
+<a class="cta-primary" href="https://www.logi.education/contact">
+<i class="fas fa-comments"></i> Start a Conversation
 </a>
-
-<a class="cta-secondary"
-href="mailto:partnerships@logi.education?subject=LOGI%20Partnership%20Enquiry">
-Send an Email
+<a class="cta-secondary" href="mailto:partnerships@logi.education?subject=LOGI%20Partnership%20Enquiry">
+<i class="fas fa-envelope"></i> Send an Email
 </a>
-
 </div>
-
 </div>
-
 </section>
 
 
 <!-- NOTE -->
-
 <section class="section">
-
 <div class="inner">
-
 <div class="note">
-
 <strong>Our Commitment:</strong>
 LOGI seeks to establish partnerships based on mutual respect,
 shared objectives, transparency and a commitment to meaningful outcomes.
 All partnership arrangements are subject to discussion, institutional
 review and mutual agreement. The publication of an organisation's name
 or logo as an official partner requires appropriate authorisation.
-
 </div>
-
 </div>
-
 </section>
-
 
 </main>
 
-
 <!-- FOOTER -->
-
 <footer class="footer">
-
-Living Oracles Global Institute (LOGI) ·
-<strong>Faith. Excellence. Impact.</strong>
-
+Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
 </footer>
 
+<!-- JAVASCRIPT FOR ACCORDION -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const item = this.parentElement;
+            
+            // Close other items (optional - remove this block if you want multiple open)
+            document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+
+            // Toggle current item
+            item.classList.toggle('active');
+        });
+    });
+});
+</script>
 
 </body>
 </html>
