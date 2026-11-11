@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="html" lang="en-US">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
@@ -18,1474 +18,1022 @@
     <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
     <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
 
-    <!-- Open Graph Tags -->
-    <meta content="Living Oracles Global Institute" property="og:title" />
-    <meta content="website" property="og:type" />
-    <meta content="https://logi.education" property="og:url" />
-    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
-    <meta content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." property="og:description" />
-    <meta content="summary_large_image" name="twitter:card" />
-
     <!-- FontAwesome Core -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
     <style>
+        :root{
+        --pink:#ff4b93;
+        --pink-dark:#e93680;
+        --pink-soft:#ffd1e3;
+        --pink-tint:#fff6fa;
+        --lav:#f3f0fa;
+        --ink:#34343b;
+        --muted:#777780;
+        --line:#e9e8ef;
+        --white:#fff;
+        --grey-bg:#f5f5f8;
+        }
+
+        *{box-sizing:border-box}
+
+        html{scroll-behavior:smooth}
+
+        body{
+        margin:0;
+        font-family:Arial,Helvetica,sans-serif;
+        color:var(--ink);
+        background:#fff;
+        line-height:1.5;
+        }
+
+        a{color:inherit;text-decoration:none}
+
+        /* NAVIGATION */
+        .topbar{
+        height:64px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:0 max(5%,calc((100% - 1180px)/2));
+        box-shadow:0 2px 9px #00000012;
+        background:#fff;
+        position:relative;
+        z-index:10;
+        }
+
+        .logo{
+        font-size:28px;
+        font-weight:800;
+        letter-spacing:-1.5px;
+        color:#555;
+        }
+
+        .logo span{color:var(--pink)}
+
+        .nav{
+        display:flex;
+        gap:22px;
+        align-items:center;
+        font-size:13px;
+        }
+
+        .nav .button{
+        background:var(--pink);
+        color:#fff;
+        padding:9px 24px;
+        border-radius:4px;
+        transition:.2s;
+        }
+
+        .nav .button:hover{background:var(--pink-dark)}
+
+        /* HERO */
+        .hero{
+        position:relative;
+        padding:80px 5% 90px;
+        background:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        .hero::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        background:linear-gradient(110deg, rgba(248, 242, 251, 0.95) 0%, rgba(255, 255, 255, 0.85) 56%, rgba(255, 233, 241, 0.9) 100%);
+        }
+
+        .hero-inner{
+        position:relative;
+        z-index:1;
+        max-width:1180px;
+        margin:auto;
+        min-height:185px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:25px;
+        }
+
+        .breadcrumb{
+        font-size:12px;
+        color:var(--pink);
+        margin-bottom:18px;
+        font-weight:600;
+        }
+
+        .breadcrumb span{color:#777}
+
+        .hero h1{
+        font-size:clamp(32px,4vw,48px);
+        line-height:1.1;
+        margin:0 0 12px;
+        letter-spacing:-1px;
+        }
+
+        .hero h1 span{color:var(--pink)}
+
+        .hero p{
+        max-width:640px;
+        font-size:15px;
+        color:#555;
+        margin:0 0 24px;
+        line-height:1.6;
+        }
+
+        .pill{
+        display:inline-block;
+        background:var(--pink);
+        color:white;
+        padding:12px 24px;
+        border-radius:4px;
+        font-size:13px;
+        font-weight:700;
+        transition:.2s;
+        box-shadow:0 4px 12px rgba(255, 75, 147, 0.3);
+        }
+
+        .pill:hover{
+        background:var(--pink-dark);
+        transform:translateY(-2px);
+        box-shadow:0 6px 16px rgba(255, 75, 147, 0.4);
+        }
+
+        .hero-mark{
+        font-size:clamp(55px,9vw,100px);
+        font-weight:900;
+        letter-spacing:-7px;
+        color:#f7d9e7;
+        text-shadow:3px 3px 0 #fff;
+        }
+
+        /* GENERAL */
+        .inner{
+        width:min(1180px,90%);
+        margin:auto;
+        }
+
+        .section{
+        padding:60px 0;
+        }
+
+        .section.grey{background:var(--grey-bg)}
+
+        .section-head{
+        display:flex;
+        justify-content:space-between;
+        align-items:end;
+        gap:15px;
+        border-bottom:1px solid #dedee5;
+        padding-bottom:15px;
+        margin-bottom:25px;
+        position:relative;
+        }
+
+        .section-head:after{
+        content:"";
+        position:absolute;
+        bottom:-1px;
+        left:0;
+        width:120px;
+        height:3px;
+        border-radius:2px;
+        background:linear-gradient(90deg,#f4c52d,var(--pink));
+        }
+
+        .section-head h2{
+        font-size:24px;
+        font-weight:700;
+        margin:0;
+        letter-spacing:-0.5px;
+        }
+
+        .highlight{
+        background:var(--pink);
+        color:#fff;
+        padding:2px 8px;
+        border-radius:3px;
+        }
+
+        .section-intro{
+        font-size:14px;
+        color:#666;
+        margin:-10px 0 30px;
+        max-width:800px;
+        line-height:1.6;
+        }
+
+        /* INTRODUCTION */
+        .intro-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:40px;
+        align-items:center;
+        }
+
+        .intro-text p{
+        font-size:14px;
+        color:#555;
+        margin:0 0 16px;
+        line-height:1.7;
+        }
+
+        .intro-image-wrapper{
+        position:relative;
+        border-radius:12px;
+        overflow:hidden;
+        box-shadow:0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .intro-image-wrapper img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+        aspect-ratio:4/3;
+        transition:transform 0.5s ease;
+        }
+
+        .intro-image-wrapper:hover img{
+        transform:scale(1.05);
+        }
+
+        .floating-stat{
+        position:absolute;
+        bottom:-20px;
+        left:-20px;
+        background:#fff;
+        padding:20px 25px;
+        border-radius:8px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.1);
+        display:flex;
+        align-items:center;
+        gap:15px;
+        border-left:4px solid var(--pink);
+        }
+
+        .floating-stat i{
+        font-size:2rem;
+        color:var(--pink);
+        }
+
+        .floating-stat h4{
+        margin:0;
+        font-size:1.2rem;
+        font-weight:800;
+        color:var(--ink);
+        }
+
+        .floating-stat p{
+        margin:0;
+        font-size:0.8rem;
+        color:var(--muted);
+        }
+
         /* ========================================== */
-        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /*   ACCORDION (DROPDOWN) STYLES              */
         /* ========================================== */
-        .top-bar {
-            background: #1a1a2e;
-            color: #ffffff;
-            padding: 6px 0;
+        .accordion-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.7rem;
-            flex-wrap: wrap;
-            gap: 6px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            flex-direction: column;
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .top-bar::before,
-        .top-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            background: linear-gradient(180deg, 
-                #c9a86c 0%, #c9a86c 20%,
-                #8B5353 20%, #8B5353 40%,
-                #1a7a3a 40%, #1a7a3a 60%,
-                #c9a86c 60%, #c9a86c 80%,
-                #8B5353 80%, #8B5353 100%
-            );
-            opacity: 0.5;
-        }
-
-        .top-bar::before {
-            left: 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .top-bar::after {
-            right: 0;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .top-bar .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .contact-info a,
-        .top-bar .contact-info span {
-            color: #d4d0c8;
-            text-decoration: none;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s;
-        }
-
-        .top-bar .contact-info a:hover {
-            color: #c9a86c;
-        }
-
-        .top-bar .contact-info i {
-            font-size: 0.65rem;
-            color: #c9a86c;
-        }
-
-        .top-bar .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .social-icons a {
-            color: #8a8680;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .top-bar .social-icons a:hover {
-            color: #c9a86c;
-        }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 4px 0;
-            }
-            .top-bar::before,
-            .top-bar::after {
-                width: 25px;
-            }
-            .top-bar .contact-info {
-                padding: 0 35px;
-                gap: 8px;
-            }
-            .top-bar .social-icons {
-                padding: 0 35px;
-            }
-            .top-bar .contact-info a,
-            .top-bar .contact-info span {
-                font-size: 0.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-bar::before,
-            .top-bar::after {
-                width: 18px;
-            }
-            .top-bar .contact-info {
-                padding: 0 25px;
-                gap: 6px;
-                font-size: 0.55rem;
-            }
-            .top-bar .social-icons {
-                padding: 0 25px;
-                gap: 8px;
-            }
-            .top-bar .social-icons a {
-                font-size: 0.65rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   HEADER - FIXED FULL WIDTH WHITE         */
-        /* ========================================== */
-        .main-header {
-            background: #ffffff;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 38px;
-            left: 0;
-            width: 100%;
-            z-index: 9998;
-            border-bottom: 1px solid #e8e3dc;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            width: 40px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .logo .logo-text {
-            color: #1a1a2e;
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .logo .logo-text span {
-            display: block;
-            font-weight: 300;
-            font-size: 0.45rem;
-            opacity: 0.6;
-            letter-spacing: 1.5px;
-        }
-
-        @media (max-width: 768px) {
-            .main-header {
-                top: 34px;
-                padding: 6px 4%;
-            }
-            .logo img {
-                width: 32px;
-            }
-            .logo .logo-text {
-                font-size: 0.65rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.4rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-header {
-                top: 30px;
-                padding: 4px 3%;
-            }
-            .logo img {
-                width: 28px;
-            }
-            .logo .logo-text {
-                font-size: 0.55rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.35rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   MOBILE HAMBURGER MENU BUTTON             */
-        /* ========================================== */
-        .menu-btn {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            color: #1a1a2e;
-            font-size: 13px;
-            padding: 5px 10px;
-            border-radius: 30px;
-            background: rgba(26, 26, 46, 0.06);
-            border: 1px solid rgba(26, 26, 46, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .menu-btn:hover {
-            background: rgba(26, 26, 46, 0.12);
-        }
-
-        .menu-btn i {
-            font-size: 16px;
-        }
-
-        /* ========================================== */
-        /*   DESKTOP NAVIGATION - DARK TEXT          */
-        /* ========================================== */
-        .navigation-menu-bar {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            position: static !important;
-            width: auto !important;
-            height: auto !important;
-            display: block !important;
-            overflow: visible !important;
-        }
-
-        .navigation-menu-bar ul {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            list-style: none !important;
-            gap: 0.2rem !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-end !important;
-        }
-
-        .navigation-menu-bar ul li {
-            position: relative;
-        }
-
-        .navigation-menu-bar ul li a {
-            color: #1a1a2e !important;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .navigation-menu-bar ul li a:hover {
-            color: #8B5353 !important;
-            background: rgba(139, 83, 83, 0.06);
-        }
-
-        .navigation-menu-bar ul li .submenu {
-            display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
+        .accordion-item {
+            background: #fff;
+            border: 1px solid var(--line);
             border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            padding: 0.4rem 0;
-            margin-top: 6px;
-            z-index: 1100;
-            animation: fadeInDropdown 0.25s ease;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 0px !important;
-            min-width: 200px;
-            width: max-content !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
-            display: flex !important;
+        .accordion-item:hover {
+            border-color: var(--pink-soft);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
         }
 
-        .navigation-menu-bar ul li .submenu li {
-            width: 100%;
-        }
-
-        .navigation-menu-bar ul li .submenu li a {
-            color: #1e3c4f !important;
-            font-size: 0.78rem;
-            padding: 8px 16px;
-            width: 100%;
-            border-radius: 0;
-            font-weight: 500;
-            display: block !important;
-            white-space: nowrap !important;
-            text-shadow: none !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li a:hover {
-            background: rgba(139, 83, 83, 0.08) !important;
-            color: #8B5353 !important;
-        }
-
-        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-            font-size: 0.5rem;
-            transition: transform 0.25s ease;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
-            transform: rotate(180deg);
-        }
-
-        @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========================================== */
-        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-        /* ========================================== */
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                min-height: 100vh !important;
-                overflow-y: auto !important;
-                background: #ffffff !important;
-                display: block !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                align-items: stretch !important;
-                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
-                z-index: 10000 !important;
-                padding: 70px 1.2rem 1.5rem 1.2rem !important;
-                box-shadow: none !important;
-                transform: translateX(100%) !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-
-            .navigation-menu-bar.mobile-open {
-                transform: translateX(0) !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-            }
-
-            .navigation-menu-bar ul {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0 !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                flex: 1 !important;
-            }
-
-            .navigation-menu-bar ul li {
-                border-bottom: 1px solid #f0ede6 !important;
-                list-style: none !important;
-            }
-
-            .navigation-menu-bar ul li a {
-                color: #1a1a2e !important;
-                font-weight: 500 !important;
-                padding: 0.7rem 0.5rem !important;
-                justify-content: flex-start !important;
-                border-radius: 0 !important;
-                white-space: normal !important;
-                text-shadow: none !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 10px !important;
-                font-size: 0.95rem !important;
-            }
-
-            .navigation-menu-bar ul li a i {
-                font-size: 1.1rem !important;
-                color: #c9a86c !important;
-                width: 24px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li a:hover {
-                background: rgba(139, 83, 83, 0.06) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a {
-                justify-content: space-between !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-                color: #8B5353 !important;
-                font-size: 0.65rem !important;
-                margin-left: auto !important;
-            }
-
-            .navigation-menu-bar ul li .submenu {
-                position: static !important;
-                transform: none !important;
-                background: #f8f6f2 !important;
-                border-radius: 0 !important;
-                display: none !important;
-                flex-direction: column !important;
-                gap: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border-left: 3px solid #c9a86c !important;
-                width: 100% !important;
-                box-shadow: none !important;
-                min-width: auto !important;
-                animation: none !important;
-            }
-
-            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li {
-                border-bottom: none !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a {
-                color: #1a1a2e !important;
-                font-weight: 400 !important;
-                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                justify-content: flex-start !important;
-                gap: 10px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a i {
-                font-size: 0.85rem !important;
-                color: #c9a86c !important;
-                width: 20px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a:hover {
-                background: rgba(139, 83, 83, 0.08) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-                border-left: 3px solid #8B5353 !important;
-                margin-left: 1rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
-                padding-left: 3rem !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer {
-                margin-top: auto !important;
-                padding-top: 1rem !important;
-                padding-bottom: 0.5rem !important;
-                border-top: 1px solid #f0ede6 !important;
-                display: flex !important;
-                justify-content: center !important;
-                gap: 1.2rem !important;
-                flex-shrink: 0 !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a {
-                color: #8a8680 !important;
-                font-size: 1.1rem !important;
-                transition: color 0.25s ease !important;
-                text-decoration: none !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a:hover {
-                color: #c9a86c !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navigation-menu-bar {
-                padding: 60px 1rem 1.5rem 1rem !important;
-            }
-            .navigation-menu-bar ul li a {
-                font-size: 0.85rem !important;
-                padding: 0.6rem 0.4rem !important;
-            }
-            .navigation-menu-bar ul li .submenu li a {
-                font-size: 0.78rem !important;
-                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
-        /* ========================================== */
-        .institutional-footer {
-            background: #1a1a2e;
-            color: #d4d0c8;
-            padding: 2.5rem 5% 1.2rem;
-            margin-top: 0;
-            border-top: none;
-            font-size: 0.85rem;
-            width: 100%;
-        }
-
-        .footer-grid-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .footer-column h2 {
-            color: #ffffff !important;
-            font-size: 0.8rem !important;
-            margin-bottom: 0.6rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-        }
-
-        .footer-column p,
-        .footer-column address {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.7;
-            font-style: normal;
-            margin-bottom: 4px;
-        }
-
-        .footer-column a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-            display: inline-block;
-        }
-
-        .footer-column a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 0.2rem !important;
-            list-style: none !important;
-        }
-
-        .footer-column ul li a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-        }
-
-        .footer-column ul li a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column .footer-address-line {
+        .accordion-header {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .footer-column .footer-address-line i {
-            color: #c9a86c;
-            font-size: 0.75rem;
-            margin-top: 4px;
-            width: 16px;
-        }
-
-        .footer-column .footer-address-line span {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.6;
-        }
-
-        .footer-bottom-bar {
-            max-width: 1200px;
-            margin: 1.2rem auto 0;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .footer-copyright {
-            font-size: 0.7rem;
-            font-weight: 400;
-            color: #8a8680;
-        }
-
-        .footer-subscription-container h3 {
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.2rem;
-        }
-
-        .footer-subscription-container p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .subscription-form {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .subscription-form input[type="email"] {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            padding: 5px 8px;
-            color: #ffffff;
-            font-size: 0.75rem;
-            flex-grow: 1;
-            outline: none;
-            transition: border-color 0.3s;
-            min-width: 100px;
-        }
-
-        .subscription-form input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .subscription-form input[type="email"]:focus {
-            border-color: #ffffff;
-        }
-
-        .subscription-form button {
-            background: #ffffff;
-            color: #8B5353;
-            border: none;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 4px;
+            padding: 20px 24px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
+            background: #fff;
+            transition: background 0.2s;
+            user-select: none;
         }
 
-        .subscription-form button:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-1px);
+        .accordion-header:hover {
+            background: var(--pink-tint);
         }
 
-        @media (max-width: 900px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.2rem;
-            }
-            .institutional-footer { font-size: 0.75rem; }
-            .footer-column h2 { font-size: 0.7rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.72rem !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .footer-bottom-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .institutional-footer { 
-                font-size: 0.7rem;
-                padding: 1.5rem 4% 1rem;
-            }
-            .footer-column h2 { font-size: 0.6rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.65rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FLOATING CHAT                            */
-        /* ========================================== */
-        .floating-chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .floating-chat-link {
+        .accordion-header-left {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: #25d366;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
+            gap: 15px;
         }
 
-        .floating-chat-link:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background: #20ba5a;
-        }
-
-        .floating-chat-link i {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 480px) {
-            .floating-chat-link {
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-            .floating-chat-link span {
-                display: none;
-            }
-            .floating-chat-link i {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ========================================== */
-        /*          GLOBAL THEME ROOT RESETS          */
-        /* ========================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        html,
-        body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.8;
-            color: #333;
-            background: #ffffff;
-            padding-top: 80px;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ========================================== */
-        /*   HERO SECTION — PROGRAM FEES              */
-        /*   Image: Money / payment / finance theme   */
-        /* ========================================== */
-        .fees-hero-section {
-            position: relative;
-            width: 100%;
-            height: 320px;
-            background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        .accordion-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--pink-tint);
+            color: var(--pink);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: .3s;
+        }
+
+        .accordion-item.active .accordion-icon {
+            background: var(--pink);
+            color: #fff;
+        }
+
+        .accordion-header h3 {
             margin: 0;
-            padding: 0;
-            background-color: #1a1a2e;
-        }
-
-        /* Dark overlay for text readability */
-        .fees-hero-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(26, 26, 46, 0.6);
-            z-index: 1;
-        }
-
-        .fees-hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #ffffff;
-            padding: 0 20px;
-        }
-
-        .fees-hero-content h1 {
-            font-size: 46px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin: 0;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
-            line-height: 1.2;
-        }
-
-        .fees-hero-content .fees-hero-subtitle {
-            font-size: 15px;
-            font-weight: 400;
-            color: #ffffff;
-            margin-top: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
-        }
-
-        .fees-hero-content .fees-hero-line {
-            width: 100px;
-            height: 3px;
-            background: #ffffff;
-            margin: 20px auto 0;
-            border-radius: 3px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .fees-hero-section { height: 250px; }
-            .fees-hero-content h1 { font-size: 30px; }
-            .fees-hero-content .fees-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
-        }
-
-        @media (max-width: 480px) {
-            .fees-hero-section { height: 210px; }
-            .fees-hero-content h1 { font-size: 24px; }
-            .fees-hero-content .fees-hero-subtitle { font-size: 10px; }
-        }
-
-        /* ========================================== */
-        /*   PROGRAM FEES PAGE STYLES                 */
-        /* ========================================== */
-
-        /* ===== PAGE HEADER - Simple Title ===== */
-        .page-header {
-            padding: 40px 0 10px;
-            text-align: center;
-        }
-        .page-header h1 {
-            color: #8b5353;
-            font-size: 38px;
-            font-weight: 700;
-            font-family: 'Georgia', serif;
-        }
-        .page-header .underline {
-            width: 80px;
-            height: 3px;
-            background: #8b5353;
-            margin: 8px auto 0;
-        }
-
-        /* ===== INTRO ===== */
-        .intro-section {
-            padding: 30px 0 20px;
-        }
-        .intro-section h2 {
-            font-size: 28px;
-            color: #8b5353;
-            font-family: 'Georgia', serif;
-            margin-bottom: 12px;
-            padding: 0 20px;
-        }
-        .intro-section p {
             font-size: 17px;
-            color: #555;
-            line-height: 1.9;
-            padding: 0 20px;
+            font-weight: 700;
+            color: var(--ink);
+            transition: color 0.2s;
         }
 
-        /* ===== FEE TABLES ===== */
-        .fees-section {
-            padding: 20px 0 60px;
-        }
-        .fees-section .section-title {
-            font-size: 24px;
-            color: #8b5353;
-            font-family: 'Georgia', serif;
-            margin: 40px 0 18px;
-            padding: 0 20px 10px 20px;
-            border-bottom: 3px solid #8b5353;
-            display: inline-block;
-        }
-        .fees-section .section-title:first-of-type {
-            margin-top: 0;
+        .accordion-header:hover h3 {
+            color: var(--pink);
         }
 
+        .accordion-chevron {
+            color: var(--muted);
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-chevron {
+            transform: rotate(180deg);
+            color: var(--pink);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease;
+            padding: 0 24px;
+            background: #fafafa;
+            border-top: 1px solid transparent;
+        }
+
+        .accordion-item.active .accordion-body {
+            max-height: 3000px; 
+            padding: 24px;
+            border-top: 1px solid var(--line);
+        }
+
+        /* ===== FEE TABLES INSIDE ACCORDION ===== */
         .fee-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 15px;
+            font-size: 14px;
             margin-bottom: 10px;
+            background: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--line);
         }
         .fee-table thead th {
-            background: #8b5353;
+            background: var(--ink);
             color: #ffffff;
             padding: 14px 18px;
             text-align: left;
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-        .fee-table thead th:first-child {
-            width: 60px;
-            text-align: center;
-        }
-        .fee-table thead th:nth-child(2) {
-            width: 45%;
-        }
-        .fee-table thead th:nth-child(3) {
-            width: 18%;
-        }
-        .fee-table thead th:nth-child(4) {
-            width: 32%;
-        }
+        .fee-table thead th:first-child { width: 60px; text-align: center; }
+        .fee-table thead th:nth-child(2) { width: 45%; }
+        .fee-table thead th:nth-child(3) { width: 18%; }
+        .fee-table thead th:nth-child(4) { width: 32%; }
 
         .fee-table tbody td {
             padding: 14px 18px;
-            border-bottom: 1px solid #e8e3dd;
+            border-bottom: 1px solid var(--line);
             vertical-align: top;
         }
         .fee-table tbody td:first-child {
             text-align: center;
             font-weight: 600;
-            color: #8b5353;
+            color: var(--pink);
         }
-        .fee-table tbody tr:hover {
-            background: #faf6f0;
-        }
-        .fee-table tbody tr:last-child td {
-            border-bottom: 2px solid #8b5353;
-        }
+        .fee-table tbody tr:hover { background: var(--pink-tint); }
+        .fee-table tbody tr:last-child td { border-bottom: none; }
 
         .fee-amount {
             font-weight: 700;
-            color: #8b5353;
+            color: var(--ink);
             font-size: 1.05em;
         }
-        .fee-amount.free {
-            color: #059669;
-        }
-        .fee-amount.scholarship {
-            color: #7C3AED;
-        }
+        .fee-amount.free { color: #059669; }
+        .fee-amount.scholarship { color: #7C3AED; }
 
         .fee-comment {
-            color: #666;
-            font-size: 0.92em;
+            color: var(--muted);
+            font-size: 0.9em;
             line-height: 1.5;
         }
-        .program-school {
-            display: inline-block;
-            font-size: 0.75em;
-            background: #f0ebe5;
-            color: #8b5353;
-            padding: 1px 10px;
-            border-radius: 12px;
-            margin-top: 2px;
-        }
 
-        /* ===== OTHER FEES INTRO TEXT ===== */
         .other-fees-intro {
-            color: #666;
+            color: var(--muted);
             margin-bottom: 16px;
-            font-size: 15px;
-            padding: 0 20px;
+            font-size: 13px;
         }
 
-        /* ===== NOTES - Clean, no background, no border ===== */
+        /* ===== NOTES ===== */
         .notes-section {
-            margin: 30px 0 20px;
-            padding: 0 20px;
+            max-width: 1000px;
+            margin: 30px auto 10px;
         }
         .notes-section h4 {
-            color: #8b5353;
-            font-size: 17px;
-            margin-bottom: 10px;
-            font-family: 'Georgia', serif;
+            color: var(--ink);
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .notes-section h4 i { color: var(--pink); }
         .notes-section ul {
             list-style: none;
             padding: 0;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 20px;
         }
         .notes-section ul li {
-            padding: 4px 0;
-            color: #555;
-            font-size: 15px;
-            border-bottom: 1px solid #f0ebe5;
+            padding: 8px 0;
+            color: var(--muted);
+            font-size: 13px;
+            border-bottom: 1px solid var(--grey-bg);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
-        .notes-section ul li:last-child {
-            border-bottom: none;
-        }
+        .notes-section ul li:last-child { border-bottom: none; }
         .notes-section ul li::before {
-            content: "• ";
-            color: #8b5353;
-            font-weight: 700;
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--pink);
+            font-size: 10px;
+            margin-top: 4px;
         }
         .notes-section a {
-            color: #8b5353;
+            color: var(--pink);
             font-weight: 600;
-            text-decoration: none;
-        }
-        .notes-section a:hover {
             text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .notes-section a:hover { color: var(--pink-dark); }
+
+        /* CTA */
+        .cta-section{
+        padding:60px 5%;
+        background:linear-gradient(110deg,#f8f2fb,#ffe9f1);
+        border-top:1px solid var(--line);
+        border-bottom:1px solid var(--line);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .fee-table {
-                font-size: 14px;
-            }
-            .fee-table thead th,
-            .fee-table tbody td {
-                padding: 10px 12px;
-            }
-            .fee-table thead th:nth-child(2) {
-                width: 40%;
-            }
-            .page-header h1 {
-                font-size: 28px;
-            }
-            .intro-section h2 {
-                font-size: 22px;
-                padding: 0 15px;
-            }
-            .intro-section p {
-                padding: 0 15px;
-            }
-            .fees-section .section-title {
-                padding: 0 15px 10px 15px;
-            }
-            .other-fees-intro {
-                padding: 0 15px;
-            }
-            .notes-section {
-                padding: 0 15px;
-            }
-            /* Stack table on mobile */
-            .fee-table thead {
-                display: none;
-            }
-            .fee-table tbody tr {
-                display: block;
-                border: 1px solid #e8e3dd;
-                border-radius: 8px;
-                margin-bottom: 12px;
-                padding: 12px 14px;
-            }
-            .fee-table tbody td {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-                padding: 6px 0;
-                border-bottom: 1px solid #f0ebe5;
-            }
-            .fee-table tbody td:last-child {
-                border-bottom: none;
-            }
-            .fee-table tbody td:first-child {
-                justify-content: center;
-            }
-            .fee-table tbody td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: #8b5353;
-                margin-right: 15px;
-                flex-shrink: 0;
-            }
-            .fee-table tbody td:first-child::before {
-                display: none;
-            }
+        .cta-box{
+        max-width:900px;
+        margin:auto;
+        text-align:center;
         }
-        @media (max-width: 480px) {
-            .fee-table tbody td {
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-            .fee-table tbody td::before {
-                width: 100%;
-                margin-right: 0;
-            }
-            .intro-section h2 {
-                padding: 0 10px;
-            }
-            .intro-section p {
-                padding: 0 10px;
-            }
-            .fees-section .section-title {
-                padding: 0 10px 10px 10px;
-            }
-            .other-fees-intro {
-                padding: 0 10px;
-            }
-            .notes-section {
-                padding: 0 10px;
-            }
+
+        .cta-box h2{
+        font-size:clamp(24px, 4vw, 32px);
+        margin:0 0 16px;
+        font-weight:700;
+        letter-spacing:-0.5px;
+        }
+
+        .cta-box h2 span{color:var(--pink)}
+
+        .cta-box p{
+        font-size:14px;
+        color:#555;
+        max-width:650px;
+        margin:0 auto 25px;
+        line-height:1.6;
+        }
+
+        .cta-buttons{
+        display:flex;
+        justify-content:center;
+        gap:15px;
+        flex-wrap:wrap;
+        }
+
+        .cta-primary{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        background:var(--pink);
+        color:#fff;
+        padding:14px 28px;
+        font-size:14px;
+        font-weight:700;
+        border-radius:4px;
+        transition:.2s;
+        box-shadow:0 4px 12px rgba(255, 75, 147, 0.3);
+        }
+
+        .cta-primary:hover{
+        background:var(--pink-dark);
+        transform:translateY(-2px);
+        }
+
+        .cta-secondary{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        background:#fff;
+        color:var(--pink);
+        border:1px solid var(--pink-soft);
+        padding:14px 28px;
+        font-size:14px;
+        font-weight:700;
+        border-radius:4px;
+        transition:.2s;
+        }
+
+        .cta-secondary:hover{
+        background:var(--pink-tint);
+        border-color:var(--pink);
+        }
+
+        /* FOOTER */
+        .footer{
+        background:#292832;
+        color:#eee;
+        text-align:center;
+        padding:30px 5%;
+        font-size:13px;
+        }
+
+        .footer strong{color:var(--pink)}
+
+        /* RESPONSIVE */
+        @media(max-width:900px){
+        .hero-mark{font-size:70px}
+        .intro-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+        }
+        .floating-stat{
+        left:20px;
+        bottom:20px;
+        }
+        }
+
+        @media(max-width:650px){
+        .topbar{height:54px;padding:0 5%;}
+        .logo{font-size:24px}
+        .nav{gap:10px}
+        .nav a:first-child{display:none}
+        .nav .button{font-size:11px;padding:8px 14px;}
+        .hero{padding:40px 5%}
+        .hero-inner{min-height:165px}
+        .hero-mark{display:none;}
+        .hero p{font-size:13px;max-width:440px;}
+        .section{padding:40px 0}
+        .section-head h2{font-size:20px}
+        .section-intro{font-size:12px}
+        .cta-box h2{font-size:22px}
+        .cta-buttons{flex-direction:column;}
+        .cta-primary, .cta-secondary{width:100%;justify-content:center;}
+        .floating-stat{
+        position:relative;
+        bottom:0;
+        left:0;
+        margin-top:-20px;
+        width:90%;
+        margin-left:auto;
+        margin-right:auto;
+        }
+        
+        /* Mobile Accordion & Table */
+        .accordion-header {
+            padding: 15px;
+        }
+        .accordion-header h3 { font-size: 15px; }
+        .accordion-body {
+            padding: 0 15px;
+        }
+        .accordion-item.active .accordion-body {
+            padding: 15px;
+        }
+        
+        .fee-table thead { display: none; }
+        .fee-table tbody tr {
+            display: block;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            margin-bottom: 12px;
+            padding: 10px;
+        }
+        .fee-table tbody td {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0ebe5;
+        }
+        .fee-table tbody td:last-child { border-bottom: none; }
+        .fee-table tbody td:first-child { justify-content: center; }
+        .fee-table tbody td::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: var(--ink);
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .fee-table tbody td:first-child::before { display: none; }
         }
     </style>
-
 </head>
+
 <body>
 
-    <!-- ========================================== -->
-    <!--   HEADER PLACEHOLDER                       -->
-    <!-- ========================================== -->
-    <div id="header-placeholder"></div>
+    <!-- NAVIGATION -->
+    <header class="topbar">
+        <a class="logo" href="https://www.logi.education">
+            LOGI<span>.</span>
+        </a>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="our-partners.html">Partners</a>
+            <a class="button" href="#fees">View Fees</a>
+        </nav>
+    </header>
 
-    <!-- ========================================== -->
-    <!--   HERO SECTION — PROGRAM FEES              -->
-    <!--   (Money / payment themed image)           -->
-    <!-- ========================================== -->
-    <section class="fees-hero-section">
-        <div class="fees-hero-content">
-            <h1>Program Fees</h1>
-            <div class="fees-hero-line"></div>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / <span>Program Fees</span>
+                </div>
+                <h1>Program <span>Fees</span></h1>
+                <p>Living Oracles Global Institute is committed to providing excellent and accessible education. Ministry programmes are completely free, including certification.</p>
+                <a class="pill" href="#fees">
+                    View Fee Breakdown
+                </a>
+            </div>
+            <div class="hero-mark" aria-label="LOGI">LOGI</div>
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!--   MAIN CONTENT                             -->
-    <!-- ========================================== -->
-
-    <!-- ===== MAIN CONTENT ===== -->
+    <!-- MAIN CONTENT -->
     <main>
 
-        <!-- INTRO -->
-        <section class="container intro-section">
-            <h2>Affordable, Christ-Centered Education</h2>
-            <p>Living Oracles Global Institute is committed to providing excellent and accessible education. Ministry programmes are completely free, including certification. Selected Business certificate programmes have no tuition charge, with a $20 certification fee. Advanced Professional Diploma fees are listed below and include training and the certification examination where stated.</p>
+        <!-- INTRODUCTION -->
+        <section class="section">
+            <div class="inner">
+                <div class="section-head">
+                    <h2>Affordable, <span class="highlight">Christ-Centered Education</span></h2>
+                </div>
+
+                <div class="intro-grid">
+                    <div class="intro-text">
+                        <p>Living Oracles Global Institute is committed to providing excellent and accessible education. Ministry programmes are completely free, including certification.</p>
+                        <p>Selected Business certificate programmes have no tuition charge, with a $20 certification fee. Advanced Professional Diploma fees are listed below and include training and the certification examination where stated.</p>
+                    </div>
+
+                    <div class="intro-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80" alt="Students at LOGI" />
+                        <div class="floating-stat">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <div>
+                                <h4>Financial Aid</h4>
+                                <p>Scholarships available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- ===== PROGRAM FEES ===== -->
-        <section class="container fees-section">
+        <!-- FEES SECTION (Accordions) -->
+        <section class="section grey" id="fees">
+            <div class="inner">
+                <div class="section-head">
+                    <h2>Fee <span class="highlight">Breakdown</span></h2>
+                </div>
+                <p class="section-intro">
+                    Click on any category below to expand and view the specific program fees and requirements.
+                </p>
 
-            <h3 class="section-title">📘 Program Tuition</h3>
+                <div class="accordion-container">
 
-            <table class="fee-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Program</th>
-                        <th>Cost</th>
-                        <th>Comments</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- School of Business & Leadership -->
-                    <tr>
-                        <td data-label="#">1</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Business Administration</strong>
-                            <span class="program-school">School of Business &amp; Leadership</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
-                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">2</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Leadership &amp; Management</strong>
-                            <span class="program-school">School of Business &amp; Leadership</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
-                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">3</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Organizational Leadership</strong>
-                            <span class="program-school">School of Business &amp; Leadership</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
-                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">4</td>
-                        <td data-label="Program">
-                            <strong>Advanced Professional Diploma in Business Administration</strong>
-                            <span class="program-school">School of Business &amp; Leadership</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount">$250.00</span></td>
-                        <td data-label="Comments" class="fee-comment">Cost covers both training and certification examination.</td>
-                    </tr>
+                    <!-- ACCORDION 1: BUSINESS -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-left">
+                                <div class="accordion-icon"><i class="fas fa-briefcase"></i></div>
+                                <h3>School of Business & Leadership</h3>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <table class="fee-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Program</th>
+                                        <th>Cost</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="#">1</td>
+                                        <td data-label="Program"><strong>Certificate in Business Administration</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
+                                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">2</td>
+                                        <td data-label="Program"><strong>Certificate in Leadership &amp; Management</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
+                                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">3</td>
+                                        <td data-label="Program"><strong>Certificate in Organizational Leadership</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
+                                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">4</td>
+                                        <td data-label="Program"><strong>Advanced Professional Diploma in Business Administration</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount">$250.00</span></td>
+                                        <td data-label="Comments" class="fee-comment">Cost covers both training and certification examination.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                    <!-- School of Ministry & Theology -->
-                    <tr>
-                        <td data-label="#">5</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Christian Ministry</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">6</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Church Leadership &amp; Administration</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">7</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Missions &amp; Evangelism</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">8</td>
-                        <td data-label="Program">
-                            <strong>Advanced Professional Diploma in Ministry</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount">$250.00</span></td>
-                        <td data-label="Comments" class="fee-comment">Cost covers both training and certification examination.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">9</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Biblical Studies</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">10</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Children &amp; Family Ministry</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">11</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Crisis &amp; Trauma Care</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">12</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Disability Ministry</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">13</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Human Services</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">14</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Intercultural Studies</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">15</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Ministry to Women</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">16</td>
-                        <td data-label="Program">
-                            <strong>Certificate in NextGen Ministry</strong>
-                            <span class="program-school">School of Ministry &amp; Theology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
-                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
-                    </tr>
+                    <!-- ACCORDION 2: MINISTRY -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-left">
+                                <div class="accordion-icon"><i class="fas fa-church"></i></div>
+                                <h3>School of Ministry & Theology</h3>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <table class="fee-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Program</th>
+                                        <th>Cost</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="#">1</td>
+                                        <td data-label="Program"><strong>Certificate in Christian Ministry</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">2</td>
+                                        <td data-label="Program"><strong>Certificate in Church Leadership &amp; Administration</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">3</td>
+                                        <td data-label="Program"><strong>Certificate in Missions &amp; Evangelism</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">4</td>
+                                        <td data-label="Program"><strong>Advanced Professional Diploma in Ministry</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount">$250.00</span></td>
+                                        <td data-label="Comments" class="fee-comment">Cost covers both training and certification examination.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">5</td>
+                                        <td data-label="Program"><strong>Certificate in Biblical Studies</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">6</td>
+                                        <td data-label="Program"><strong>Certificate in Children &amp; Family Ministry</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">7</td>
+                                        <td data-label="Program"><strong>Certificate in Crisis &amp; Trauma Care</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">8</td>
+                                        <td data-label="Program"><strong>Certificate in Disability Ministry</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">9</td>
+                                        <td data-label="Program"><strong>Certificate in Human Services</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">10</td>
+                                        <td data-label="Program"><strong>Certificate in Intercultural Studies</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">11</td>
+                                        <td data-label="Program"><strong>Certificate in Ministry to Women</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">12</td>
+                                        <td data-label="Program"><strong>Certificate in NextGen Ministry</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free</span></td>
+                                        <td data-label="Comments" class="fee-comment">Completely free, including training and certification.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                    <!-- School of Engineering & Technology -->
-                    <tr>
-                        <td data-label="#">17</td>
-                        <td data-label="Program">
-                            <strong>Certificate in Business Analysis &amp; Process Improvement</strong>
-                            <span class="program-school">School of Engineering &amp; Technology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
-                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">18</td>
-                        <td data-label="Program">
-                            <strong>Advanced Professional Diploma in Project, Quality &amp; Process Management</strong>
-                            <span class="program-school">School of Engineering &amp; Technology</span>
-                        </td>
-                        <td data-label="Cost"><span class="fee-amount">$250.00</span></td>
-                        <td data-label="Comments" class="fee-comment">Cost covers both training and certification examination.</td>
-                    </tr>
-                </tbody>
-            </table>
+                    <!-- ACCORDION 3: ENGINEERING -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-left">
+                                <div class="accordion-icon"><i class="fas fa-cogs"></i></div>
+                                <h3>School of Engineering & Technology</h3>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <table class="fee-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Program</th>
+                                        <th>Cost</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="#">1</td>
+                                        <td data-label="Program"><strong>Certificate in Business Analysis &amp; Process Improvement</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount free">Free tuition</span></td>
+                                        <td data-label="Comments" class="fee-comment">Training is free; a $20 certification fee applies.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">2</td>
+                                        <td data-label="Program"><strong>Advanced Professional Diploma in Project, Quality &amp; Process Management</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount">$250.00</span></td>
+                                        <td data-label="Comments" class="fee-comment">Cost covers both training and certification examination.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-            <!-- ===== OTHER FEES ===== -->
-            <h3 class="section-title">📋 Other Fees</h3>
+                    <!-- ACCORDION 4: OTHER FEES -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-header-left">
+                                <div class="accordion-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                                <h3>Other Fees (Certification & Transcripts)</h3>
+                            </div>
+                            <i class="fas fa-chevron-down accordion-chevron"></i>
+                        </div>
+                        <div class="accordion-body">
+                            <p class="other-fees-intro">The following charges apply only to certification and requests for official academic records. No application fee is charged.</p>
+                            <table class="fee-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Description</th>
+                                        <th>Cost</th>
+                                        <th>Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="#">1</td>
+                                        <td data-label="Description"><strong>Certificate Fee</strong><br><span style="font-size:0.85em;color:#666;">School of Business &amp; Leadership Certificates</span></td>
+                                        <td data-label="Cost"><span class="fee-amount">$20.00</span></td>
+                                        <td data-label="Comments" class="fee-comment">Certification fee for eligible Business certificate programmes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">2</td>
+                                        <td data-label="Description"><strong>Certificate Fee</strong><br><span style="font-size:0.85em;color:#666;">Certificate in Business Analysis &amp; Process Improvement</span></td>
+                                        <td data-label="Cost"><span class="fee-amount">$20.00</span></td>
+                                        <td data-label="Comments" class="fee-comment">Certification fee for eligible Business certificate programmes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">3</td>
+                                        <td data-label="Description"><strong>Advanced Diploma Transcript Fee</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount">$30.00</span></td>
+                                        <td data-label="Comments" class="fee-comment">Fee for official advanced diploma program transcript.</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="#">4</td>
+                                        <td data-label="Description"><strong>Certificate Transcript Fee</strong></td>
+                                        <td data-label="Cost"><span class="fee-amount">$20.00</span></td>
+                                        <td data-label="Comments" class="fee-comment">Fee for official certificate program transcript.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-            <p class="other-fees-intro">The following charges apply only to certification and requests for official academic records. No application fee is charged.</p>
+                </div>
 
-            <table class="fee-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Description</th>
-                        <th>Cost</th>
-                        <th>Comments</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-label="#">1</td>
-                        <td data-label="Description"><strong>Certificate Fee</strong><br><span style="font-size:0.85em;color:#666;">School of Business &amp; Leadership Certificates</span></td>
-                        <td data-label="Cost"><span class="fee-amount">$20.00</span></td>
-                        <td data-label="Comments" class="fee-comment">Certification fee for eligible Business certificate programmes.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">2</td>
-                        <td data-label="Description"><strong>Certificate Fee</strong><br><span style="font-size:0.85em;color:#666;">Certificate in Business Analysis &amp; Process Improvement</span></td>
-                        <td data-label="Cost"><span class="fee-amount">$20.00</span></td>
-                        <td data-label="Comments" class="fee-comment">Certification fee for eligible Business certificate programmes.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">3</td>
-                        <td data-label="Description"><strong>Advanced Diploma Transcript Fee</strong></td>
-                        <td data-label="Cost"><span class="fee-amount">$30.00</span></td>
-                        <td data-label="Comments" class="fee-comment">Fee for official advanced diploma program transcript.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="#">4</td>
-                        <td data-label="Description"><strong>Certificate Transcript Fee</strong></td>
-                        <td data-label="Cost"><span class="fee-amount">$20.00</span></td>
-                        <td data-label="Comments" class="fee-comment">Fee for official certificate program transcript.</td>
-                    </tr>
-                </tbody>
-            </table>
+                <!-- NOTES -->
+                <div class="notes-section">
+                    <h4><i class="fas fa-info-circle"></i> Important Notes</h4>
+                    <ul>
+                        <li>All fees are in <strong>US Dollars (USD)</strong>.</li>
+                        <li>All Ministry programmes are completely free, including training and certification.</li>
+                        <li>Selected Business certificate programmes have no tuition charge; a <strong>$20 certification fee</strong> applies.</li>
+                        <li>No application fee is charged.</li>
+                        <li>Transcript fees apply only when an official transcript is requested.</li>
+                        <li>For more information about financial aid, please visit our <a href="https://logi.education/financial-aid/">Financial Aid page</a>.</li>
+                    </ul>
+                </div>
 
-            <!-- ===== NOTES - Clean, no background, no border ===== -->
-            <div class="notes-section">
-                <h4>📌 Important Notes</h4>
-                <ul>
-                    <li>All fees are in <strong>US Dollars (USD)</strong>.</li>
-                    <li>All Ministry programmes are completely free, including training and certification.</li>
-                    <li>Selected Business certificate programmes have no tuition charge; a <strong>$20 certification fee</strong> applies.</li>
-                    <li>No application fee is charged.</li>
-                    <li>Transcript fees apply only when an official transcript is requested.</li>
-                    <li>For more information about financial aid, please visit our <a href="https://logi.education/financial-aid/">Financial Aid page</a>.</li>
-                </ul>
             </div>
+        </section>
 
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="cta-box">
+                <h2>Ready to Start Your <span>Journey?</span></h2>
+                <p>Join a community of learners dedicated to faith, excellence, and impact. Apply today and take the next step in your educational journey.</p>
+                <div class="cta-buttons">
+                    <a class="cta-primary" href="contact.html">
+                        <i class="fas fa-paper-plane"></i> Apply Now
+                    </a>
+                    <a class="cta-secondary" href="contact.html">
+                        <i class="fas fa-envelope"></i> Contact Admissions
+                    </a>
+                </div>
+            </div>
         </section>
 
     </main>
 
-    <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
-    <!-- ========================================== -->
-    <div id="footer-placeholder"></div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+    </footer>
 
-    <!-- ========================================== -->
-    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
-    <!-- ========================================== -->
-    <script src="load.js"></script>
+    <!-- JAVASCRIPT FOR ACCORDION -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const item = this.parentElement;
+                    
+                    // Close other items
+                    document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
