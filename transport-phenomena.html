@@ -3,114 +3,200 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
-  <meta name="description" content="LOGI LMS – Advanced Transport Phenomena">
   <title>LOGI LMS · Advanced Transport Phenomena</title>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  
   <style>
     :root {
-      --p: #ff4b93; --pd: #e93680; --ink: #34343b; --muted: #777780; --line: #e9e8ef; --soft: #f5f5f8;
-      --bg: #ffffff; --success: #2e7d32; --error: #b33; --warn: #f0f7ff; --radius: 10px;
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --bg: #f5f6f8;
+      --white: #ffffff;
+      --success: #2e7d32;
+      --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 8px;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; font: 15px/1.65 Arial, sans-serif; color: var(--ink); background: #fbfafc; }
-    a { text-decoration: none; color: inherit; }
-    .inner { width: min(1160px, 92%); margin: auto; }
-    .top { height: 66px; border-bottom: 1px solid var(--line); display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 1px 6px rgba(0,0,0,0.02); }
-    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; text-decoration: none; color: var(--ink); }
-    .brand span { color: var(--p); }
-    .btn { background: var(--p); color: white; border: 0; border-radius: 24px; padding: 10px 18px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn:hover { background: var(--pd); }
-    .btn-outline { background: transparent; color: var(--pd); border: 1.5px solid var(--p); border-radius: 24px; padding: 9px 16px; font-weight: bold; cursor: pointer; font-size: 14px; }
-    .btn-outline:hover { background: #fff0f6; }
-    .btn-secondary { background: #f0edf3; color: var(--ink); border: 0; border-radius: 24px; padding: 9px 15px; font-weight: 600; cursor: pointer; font-size: 14px; }
-    .btn-secondary:hover { background: #e5e1ea; }
-    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; margin-top: 20px; }
-    .module-side { background: white; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: sticky; top: 80px; }
-    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
-    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
-    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
-    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
-    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
-    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
-    .mod-section:last-child { border-bottom: none; }
-    .mod-header { width: 100%; text-align: left; background: white; border: 0; padding: 12px 10px; border-radius: 6px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 13px; display: flex; justify-content: space-between; align-items: center; transition: background 0.1s; }
-    .mod-header:hover { background: #fff3f8; color: var(--pd); }
-    .mod-lessons-list { padding: 4px 0 8px 10px; display: none; }
-    .mod-section.open .mod-lessons-list { display: block; }
-    .lesson-item-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: white; border: 0; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #555; cursor: pointer; transition: background 0.1s; }
-    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
-    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
-    .lesson-item-btn.done { color: var(--success); }
-    .card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-    .lesson-card { max-width: 900px; }
-    .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 14px 17px; margin: 18px 0; border-radius: 0 6px 6px 0; }
-    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    body { margin: 0; font: 15px/1.6 'Segoe UI', Arial, sans-serif; color: var(--ink); background: var(--bg); display: flex; flex-direction: column; min-height: 100vh; }
+    a { text-decoration: none; color: var(--ink); }
+    
+    /* Top Navbar */
+    .top-nav { background: #5a3d42; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; position: sticky; top: 0; z-index: 100; }
+    .top-nav .links { display: flex; gap: 20px; }
+    .top-nav .links a { color: #f0f0f0; }
+    .top-nav .links a:hover { color: white; text-decoration: underline; }
+
+    /* Mobile Menu Button (Hidden on Desktop) */
+    .mobile-menu-btn { display: none; background: var(--p); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 15px; align-items: center; gap: 8px; font-size: 14px; }
+    
+    /* Layout */
+    .layout { display: flex; flex: 1; position: relative; }
+    
+    /* Sidebar */
+    .sidebar { width: 320px; background: var(--white); border-right: 1px solid var(--line); display: none; flex-direction: column; height: calc(100vh - 50px); position: sticky; top: 50px; overflow-y: auto; z-index: 90; }
+    .sidebar.active { display: flex; }
+    .sidebar-header { padding: 20px; border-bottom: 1px solid var(--line); background: #fafafa; display: flex; justify-content: space-between; align-items: center; }
+    .sidebar-header h3 { margin: 0; font-size: 16px; color: #222; }
+    .close-sidebar-btn { display: none; background: none; border: none; font-size: 20px; cursor: pointer; color: #555; }
+    
+    .side-module { border-bottom: 1px solid var(--line); }
+    .side-module-header { padding: 12px 20px; font-weight: 600; font-size: 14px; background: #fdfdfd; cursor: pointer; display: flex; justify-content: space-between; }
+    .side-module-header:hover { background: #f5f5f5; }
+    .side-activities { display: none; }
+    .side-module.open .side-activities { display: block; }
+    .side-activity { padding: 10px 20px 10px 30px; font-size: 13px; color: #0056b3; cursor: pointer; border-bottom: 1px solid #f9f9f9; display: flex; align-items: center; gap: 8px; }
+    .side-activity:hover { background: #f0f7ff; }
+    .side-activity.active { background: #e3f2fd; font-weight: bold; border-left: 4px solid #2196f3; padding-left: 26px; }
+    .side-activity.done { color: var(--success); }
+
+    /* Sidebar Overlay for Mobile */
+    .sidebar-overlay { display: none; position: fixed; top: 50px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 85; }
+    .sidebar-overlay.active { display: block; }
+
+    /* Main Content Area */
+    .main-area { flex: 1; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; }
+    
+    /* Outline View */
+    .container { max-width: 900px; margin: 0 auto; width: 100%; }
+    .course-title { font-size: 26px; font-weight: 600; margin-bottom: 20px; color: #222; }
+    .module-card { background: var(--white); border: 1px solid #e0e0e0; border-radius: var(--radius); margin-bottom: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .module-header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #fdfdfd; border-bottom: 1px solid transparent; transition: background 0.2s; }
+    .module-header:hover { background: #f5f5f5; }
+    .module-header.open { border-bottom-color: #e0e0e0; }
+    .module-title-wrap { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 16px; }
+    .chevron { font-size: 18px; color: #555; transition: transform 0.3s; }
+    .module-header.open .chevron { transform: rotate(0deg); }
+    .module-header:not(.open) .chevron { transform: rotate(-90deg); }
+    .activities { display: none; padding: 10px 20px 20px 20px; }
+    .module-header.open + .activities { display: block; }
+    .activity { display: flex; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f0f0f0; gap: 15px; }
+    .activity:last-child { border-bottom: none; }
+    .activity-icon { font-size: 20px; color: var(--p); margin-top: 2px; }
+    .activity-content { flex: 1; }
+    .activity-title { font-weight: 500; color: #0056b3; cursor: pointer; }
+    .activity-title:hover { text-decoration: underline; }
+    .activity-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .badge-done { background: #e8f5e9; color: var(--success); padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; display: none; }
+    .badge-done.show { display: inline-block; }
+
+    /* Reader View */
+    #reader-view { display: none; max-width: 900px; margin: 0 auto; width: 100%; background: var(--white); border-radius: var(--radius); box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 40px; flex-direction: column; min-height: 80vh; }
+    #reader-view.active { display: flex; }
+    .reader-title { font-size: 28px; margin-top: 0; margin-bottom: 10px; color: #222; }
+    .reader-meta { font-size: 13px; color: var(--muted); margin-bottom: 30px; border-bottom: 1px solid var(--line); padding-bottom: 15px; }
+    
+    .lesson-content { font-size: 16px; line-height: 1.8; color: #333; flex: 1; }
+    .lesson-content h3 { color: #111; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+    .lesson-content p { margin-bottom: 16px; }
+    .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 15px 20px; margin: 20px 0; border-radius: 0 6px 6px 0; }
+    .compare { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 12px; text-align: left; font-size: 15px; }
     .compare th { background: #fff3f8; }
-    .q { border-top: 1px solid var(--line); padding: 14px 0; }
-    .q label { display: block; border: 1px solid var(--line); padding: 8px 12px; margin: 6px 0; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background 0.1s; }
-    .q label:hover { background: #fafafa; }
-    .q label.selected { background: #fff0f6; border-color: var(--p); }
-    .feedback { font-size: 13px; margin-top: 6px; }
-    .actions { display: flex; justify-content: space-between; gap: 9px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 24px; }
-    .mobile-module-toggle { display: none; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--p); color: var(--pd); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
-    .module-overlay { display: none; position: fixed; top: 66px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 45; }
-    .module-overlay.open { display: block; }
-    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
-    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
-    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
-    .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
-    .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
-    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
-    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
-    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
-    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
-    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
-    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
-    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
-    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; }
-    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
-    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
-    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
-    .cert-signer-title { font-size: 12px; color: var(--muted); }
-    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
-    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
-    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
-    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
-    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
-    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
-    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
-    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
-    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
-    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
-    .cert-bottom-block { height: 40px; background: #c2185b; }
-    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
-    @media (max-width: 900px) {
-      .course-layout { grid-template-columns: 1fr; }
-      .mobile-module-toggle { display: inline-flex; }
-      .module-side { position: fixed; top: 66px; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: white; z-index: 50; transform: translateX(100%); transition: transform 0.25s; box-shadow: -4px 0 16px rgba(0,0,0,0.15); }
-      .module-side.open { transform: translateX(0); }
+    .diagram { background: #fafafd; padding: 20px; border-radius: 8px; text-align: center; margin: 25px 0; border: 1px solid var(--line); }
+
+    /* Quiz UI */
+    .q { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; }
+    .q p { font-weight: 600; margin: 0 0 12px; font-size: 16px; }
+    .q label { display: block; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px; cursor: pointer; font-size: 15px; background: white; transition: 0.2s; }
+    .q label:hover { background: #f9f9f9; }
+    .q label.selected { background: #e3f2fd; border-color: #2196f3; font-weight: 500; }
+    .q input[type="radio"] { display: none; }
+    .submit-quiz-btn { background: var(--p); color: white; border: 0; padding: 12px 25px; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 20px; }
+    .submit-quiz-btn:hover { background: var(--pd); }
+
+    /* Bottom Navigation */
+    .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .nav-btn { padding: 12px 24px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; font-size: 15px; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+    .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-prev { background: #eee; color: #333; }
+    .btn-prev:hover:not(:disabled) { background: #ddd; }
+    .btn-next { background: var(--p); color: white; }
+    .btn-next:hover:not(:disabled) { background: var(--pd); }
+    .btn-done { background: #e8f5e9; color: var(--success); border: 1px solid #c8e6c9; }
+    .btn-done.done { background: var(--success); color: white; }
+
+    /* Mobile Responsive */
+    @media (max-width: 800px) {
+      .mobile-menu-btn { display: inline-flex; }
+      .main-area { padding: 15px; }
+      #reader-view { padding: 20px; }
+      
+      /* Sidebar becomes a drawer */
+      .sidebar { position: fixed; top: 50px; left: 0; bottom: 0; height: auto; transform: translateX(-100%); transition: transform 0.3s; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+      .sidebar.active { transform: translateX(0); display: flex; }
+      .close-sidebar-btn { display: block; }
     }
+
+    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--success); color: white; padding: 12px 20px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: none; z-index: 100; font-size: 14px; }
   </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="inner nav">
-    <a class="brand" href="dashboard.html">LOGI<span>.</span></a>
-    <div id="navActions">
-      <a href="dashboard.html" class="btn-outline" style="font-size:13px;">← Back to Dashboard</a>
-    </div>
+<div class="top-nav">
+  <div style="font-weight: bold; font-size: 16px;">LOGI LMS</div>
+  <div class="links">
+    <a href="#" onclick="goHome()">Course Outline</a>
+    <a href="#">Grades</a>
   </div>
-</header>
+</div>
 
-<div class="module-overlay" id="moduleOverlay" onclick="closeModuleMenu()"></div>
+<div class="layout">
+  
+  <!-- Sidebar Overlay (Mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
-<div id="app"></div>
+  <!-- SIDEBAR MENU (Appears in Reader View) -->
+  <aside class="sidebar" id="sidebar-menu">
+    <div class="sidebar-header">
+      <h3>Course Menu</h3>
+      <button class="close-sidebar-btn" onclick="closeSidebar()">✕</button>
+    </div>
+    <div id="sidebar-content"></div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="main-area">
+    
+    <!-- OUTLINE VIEW -->
+    <div id="outline-view" class="container">
+      <h1 class="course-title">Advanced Transport Phenomena</h1>
+      <div class="module-card">
+        <div class="module-header open" onclick="toggleModule(this)">
+          <div class="module-title-wrap"><span class="chevron">▼</span> General</div>
+        </div>
+        <div class="activities">
+          <div class="activity">
+            <div class="activity-icon">📢</div>
+            <div class="activity-content"><div class="activity-title">Announcements</div></div>
+          </div>
+        </div>
+      </div>
+      <div id="course-modules"></div>
+    </div>
+
+    <!-- READER VIEW -->
+    <div id="reader-view">
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn" onclick="openSidebar()">☰ Course Menu</button>
+      
+      <h1 class="reader-title" id="reader-title"></h1>
+      <div class="reader-meta" id="reader-meta"></div>
+      <div class="lesson-content" id="reader-body"></div>
+      
+      <!-- Bottom Navigation -->
+      <div class="nav-bar">
+        <button class="nav-btn btn-prev" id="btn-prev" onclick="navPrev()">← Previous</button>
+        <button class="nav-btn btn-done" id="btn-done" onclick="toggleMarkDone()">Mark as Complete</button>
+        <button class="nav-btn btn-next" id="btn-next" onclick="navNext()">Next →</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast" class="toast">Saved!</div>
 
 <script>
 /* ============================================================
@@ -118,404 +204,400 @@
    ============================================================ */
 const COURSE = {
   id: 'transport-phenomena-101',
-  title: 'Advanced Transport Phenomena',
-  passMark: 50,
   modules: [
     {
-      title: "Introduction to Transport Phenomena",
-      lessons: [{
-        title: "Fundamentals of Momentum, Heat, and Mass",
-        duration: "45 minutes",
-        html: `<p>Transport phenomena is the study of how momentum, energy, and mass move from one location to another. It is the foundational science for chemical engineering.</p>
-        <div class="callout"><b>Core principle:</b> Transport phenomena provides the scientific foundation for designing reactors, separators, and heat exchangers.</div>
-        <h3>Learning Outcomes</h3>
-        <ul><li>Define the three fundamental transport processes.</li><li>Identify the driving force for each process.</li><li>Recognize the core governing law for each process.</li></ul>
-        <h3>1. The Three Pillars</h3>
-        <table class="compare"><tr><th>Process</th><th>Driving Force</th><th>Governing Law</th></tr><tr><td>Momentum</td><td>Velocity gradient</td><td>Newton's Law: τ = μ(du/dy)</td></tr><tr><td>Heat</td><td>Temperature gradient</td><td>Fourier's Law: q = -kA(dT/dx)</td></tr><tr><td>Mass</td><td>Concentration gradient</td><td>Fick's Law: J = -D(dC/dx)</td></tr></table>
-        <h3>2. Industrial Importance</h3>
-        <p>Designing a chemical reactor requires understanding how reactants flow (momentum), how heat is removed (energy), and how products are separated (mass).</p>`,
-        quiz: [
-          { q: "Which process is driven by a velocity gradient?", opts: ["Mass transfer", "Heat transfer", "Momentum transfer", "Chemical reaction"], answer: 2, explanation: "Momentum transfer is driven by differences in velocity." },
-          { q: "The driving force for heat conduction is:", opts: ["Pressure difference", "Concentration difference", "Temperature gradient", "Velocity gradient"], answer: 2, explanation: "Fourier's law states heat flows due to a temperature gradient." },
-          { q: "Which law describes molecular diffusion?", opts: ["Newton's Law", "Fourier's Law", "Fick's Law", "Stefan-Boltzmann Law"], answer: 2, explanation: "Fick's law governs mass transfer due to concentration gradients." },
-          { q: "In a chemical reactor, what primarily governs the flow of reactants?", opts: ["Fick's Law", "Momentum transfer (fluid dynamics)", "Radiation", "Thermodynamics"], answer: 1, explanation: "Fluid flow is governed by momentum transfer." },
-          { q: "Transport phenomena is fundamental to which field?", opts: ["Civil engineering only", "Chemical engineering", "Electrical engineering", "Software engineering"], answer: 1, explanation: "Chemical engineering relies heavily on transport phenomena for process design." }
-        ]
-      }]
+      title: "Week 1: Introduction to Transport Phenomena",
+      activities: [
+        { 
+          id: 'm1-l1', 
+          title: 'Fundamentals of Momentum, Heat, and Mass', 
+          type: 'lesson', 
+          duration: '45 mins',
+          html: `
+            <p><b>Transport phenomena</b> is a branch of chemical engineering that studies how three fundamental quantities move from one location to another: <b>momentum</b>, <b>energy (heat)</b>, and <b>mass</b>.</p>
+            <div class="callout"><b>Core principle:</b> Transport phenomena provides the scientific foundation for designing, analysing, and improving chemical engineering processes.</div>
+            <h3>1. The Three Fundamental Transport Processes</h3>
+            <div class="diagram">
+              <svg viewBox="0 0 680 220" width="100%">
+                <g font-family="Arial" font-size="11">
+                  <rect x="20" y="60" width="200" height="120" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
+                  <text x="120" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="13">Momentum Transfer</text>
+                  <text x="120" y="105" text-anchor="middle" font-size="10" fill="#555">Driving force: Velocity gradient</text>
+                  <text x="120" y="145" text-anchor="middle" font-size="10" fill="#c2185b">Newton's Law</text>
+                  
+                  <rect x="240" y="60" width="200" height="120" rx="8" fill="#fff2f7" stroke="#e93680" stroke-width="2"/>
+                  <text x="340" y="85" text-anchor="middle" font-weight="bold" fill="#e93680" font-size="13">Heat Transfer</text>
+                  <text x="340" y="105" text-anchor="middle" font-size="10" fill="#555">Driving force: Temperature gradient</text>
+                  <text x="340" y="145" text-anchor="middle" font-size="10" fill="#c2185b">Fourier's Law</text>
+                  
+                  <rect x="460" y="60" width="200" height="120" rx="8" fill="#dcecff" stroke="#438bd5" stroke-width="2"/>
+                  <text x="560" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0" font-size="13">Mass Transfer</text>
+                  <text x="560" y="105" text-anchor="middle" font-size="10" fill="#555">Driving force: Concentration gradient</text>
+                  <text x="560" y="145" text-anchor="middle" font-size="10" fill="#2b6cb0">Fick's Law</text>
+                </g>
+              </svg>
+            </div>
+            <h3>2. Momentum Transfer</h3>
+            <p>Deals with the movement of momentum within fluids. When a fluid flows through a pipe, different layers move at different velocities, producing internal friction known as <b>viscosity</b>. <br><b>Newton's Law of Viscosity:</b> τ = μ (du/dy)</p>
+            <h3>3. Heat Transfer</h3>
+            <p>Movement of thermal energy from high to low temperature. <br><b>Fourier's Law:</b> q = -kA (dT/dx)</p>
+            <h3>4. Mass Transfer</h3>
+            <p>Movement of chemical species due to concentration differences. <br><b>Fick's First Law:</b> J<sub>A</sub> = -D<sub>AB</sub> (dC<sub>A</sub>/dx)</p>
+          `
+        },
+        { 
+          id: 'm1-q1', 
+          title: 'Week 1 Quiz', 
+          type: 'quiz', 
+          quiz: [
+            { q: "Which process is driven by a velocity gradient?", opts: ["Mass transfer", "Heat transfer", "Momentum transfer", "Chemical reaction"], answer: 2 },
+            { q: "The driving force for heat conduction is:", opts: ["Pressure difference", "Concentration difference", "Temperature gradient", "Velocity gradient"], answer: 2 },
+            { q: "Which law describes molecular diffusion?", opts: ["Newton's Law", "Fourier's Law", "Fick's Law", "Stefan-Boltzmann Law"], answer: 2 }
+          ]
+        }
+      ]
     },
     {
-      title: "Momentum Transfer & Fluid Mechanics",
-      lessons: [{
-        title: "Newton's Law of Viscosity and Fluid Flow",
-        duration: "45 minutes",
-        html: `<p>Momentum transfer deals with the movement of momentum within fluids. When a fluid flows through a pipe, different layers move at different velocities, producing internal friction known as viscosity.</p>
-        <div class="callout"><b>Newton's Law of Viscosity:</b> τ = μ (du/dy)</div>
-        <h3>Learning Outcomes</h3>
-        <ul><li>Calculate shear stress in a fluid.</li><li>Understand Newtonian vs. non-Newtonian fluids.</li><li>Apply the concept of viscosity.</li></ul>
-        <h3>1. Understanding Viscosity</h3>
-        <p>Viscosity (μ) is a measure of a fluid's resistance to flow. Honey has high viscosity; water has low viscosity.</p>
-        <h3>2. Worked Example</h3>
-        <p>Water flows between two parallel plates. Dynamic viscosity = 0.001 Pa·s, velocity difference = 2 m/s, distance between plates = 0.01 m.</p>
-        <p><b>Step 1:</b> τ = μ (Δu/Δy)</p>
-        <p><b>Step 2:</b> τ = 0.001 × (2/0.01) = 0.2 Pa</p>`,
-        quiz: [
-          { q: "What does viscosity measure?", opts: ["A fluid's resistance to flow", "A fluid's temperature", "A fluid's density", "A fluid's pressure"], answer: 0, explanation: "Viscosity is internal friction resisting flow." },
-          { q: "In Newton's law of viscosity, what does 'du/dy' represent?", opts: ["Pressure gradient", "Velocity gradient", "Temperature gradient", "Concentration gradient"], answer: 1, explanation: "du/dy is the rate of change of velocity with distance." },
-          { q: "If a fluid has viscosity of 0.01 Pa·s and velocity gradient of 50 s⁻¹, what is the shear stress?", opts: ["0.5 Pa", "5 Pa", "0.05 Pa", "50 Pa"], answer: 0, explanation: "τ = 0.01 × 50 = 0.5 Pa." },
-          { q: "Which of the following fluids has the highest viscosity at room temperature?", opts: ["Water", "Air", "Honey", "Alcohol"], answer: 2, explanation: "Honey is highly viscous compared to water and air." },
-          { q: "A fluid that does not follow Newton's law of viscosity is called:", opts: ["Ideal fluid", "Newtonian fluid", "Non-Newtonian fluid", "Perfect gas"], answer: 2, explanation: "Non-Newtonian fluids have a varying viscosity depending on shear rate." }
-        ]
-      }]
-    },
-    {
-      title: "Heat Transfer Fundamentals",
-      lessons: [{
-        title: "Conduction, Convection, and Radiation",
-        duration: "50 minutes",
-        html: `<p>Heat transfer is the movement of thermal energy from a region of higher temperature to a region of lower temperature.</p>
-        <div class="callout"><b>Fourier's Law (Conduction):</b> q = -kA(dT/dx)</div>
-        <h3>Learning Outcomes</h3>
-        <ul><li>Differentiate between conduction, convection, and radiation.</li><li>Apply Fourier's Law to calculate heat transfer rates.</li><li>Understand thermal conductivity.</li></ul>
-        <h3>1. Conduction</h3>
-        <p>Occurs through molecular interactions within a material. Governed by Fourier's Law, where <b>k</b> is thermal conductivity.</p>
-        <h3>2. Convection</h3>
-        <p>Heat transfer between a surface and a moving fluid. Governed by Newton's Law of Cooling: q = hA(Ts - T∞).</p>
-        <h3>3. Radiation</h3>
-        <p>Transfer of energy through electromagnetic waves. Governed by the Stefan-Boltzmann Law: q = εσA(Ts⁴ - Tsur⁴).</p>`,
-        quiz: [
-          { q: "Which mode of heat transfer requires a medium (matter) to occur?", opts: ["Radiation", "Conduction and Convection", "Radiation and Convection", "None of the above"], answer: 1, explanation: "Radiation can travel through a vacuum, but conduction and convection require matter." },
-          { q: "In Fourier's law (q = -kA dT/dx), what does 'k' represent?", opts: ["Heat transfer rate", "Thermal conductivity", "Specific heat", "Viscosity"], answer: 1, explanation: "k is the material's thermal conductivity." },
-          { q: "Heat transfer between a solid surface and a moving fluid is called:", opts: ["Conduction", "Radiation", "Convection", "Evaporation"], answer: 2, explanation: "Convection involves fluid motion." },
-          { q: "The negative sign in Fourier's Law indicates:", opts: ["Heat flows from cold to hot", "Heat flows in the direction of decreasing temperature", "The material is a conductor", "The temperature is absolute"], answer: 1, explanation: "Heat naturally flows from higher to lower temperatures." },
-          { q: "Which law governs thermal radiation?", opts: ["Newton's Law of Cooling", "Fourier's Law", "Fick's Law", "Stefan-Boltzmann Law"], answer: 3, explanation: "The Stefan-Boltzmann law relates radiation to absolute temperature." }
-        ]
-      }]
-    },
-    {
-      title: "Mass Transfer & Diffusion",
-      lessons: [{
-        title: "Fick's Law and Molecular Diffusion",
-        duration: "45 minutes",
-        html: `<p>Mass transfer involves the movement of chemical species from one location to another, commonly due to concentration differences.</p>
-        <div class="callout"><b>Fick's First Law:</b> J = -D(dC/dx)</div>
-        <h3>Learning Outcomes</h3>
-        <ul><li>Apply Fick's Law to calculate diffusion flux.</li><li>Understand the diffusion coefficient (D).</li><li>Identify industrial applications of mass transfer.</li></ul>
-        <h3>1. Molecular Diffusion</h3>
-        <p>Diffusion occurs due to random molecular motion, moving species from high concentration to low concentration.</p>
-        <h3>2. Worked Example</h3>
-        <p>Diffusion coefficient = 2×10⁻⁹ m²/s, concentration difference = 10 mol/m³, distance = 0.01 m.</p>
-        <p><b>Step 1:</b> J = -D (ΔC/Δx)</p>
-        <p><b>Step 2:</b> J = -2×10⁻⁹ × (10/0.01) = -2×10⁻⁶ mol/m²·s</p>
-        <h3>3. Industrial Applications</h3>
-        <ul><li>Distillation</li><li>Gas absorption</li><li>Liquid-liquid extraction</li></ul>`,
-        quiz: [
-          { q: "Fick's Law describes mass transfer driven by:", opts: ["Temperature gradient", "Velocity gradient", "Concentration gradient", "Pressure gradient"], answer: 2, explanation: "Species diffuse from high to low concentration." },
-          { q: "In Fick's law (J = -D dC/dx), what does 'D' represent?", opts: ["Diffusion coefficient", "Density", "Diameter", "Drag force"], answer: 0, explanation: "D is the diffusion coefficient (diffusivity)." },
-          { q: "Which process is an application of mass transfer?", opts: ["Distillation", "Heat exchange", "Fluid pumping", "Combustion"], answer: 0, explanation: "Distillation separates components based on mass transfer." },
-          { q: "Diffusion moves chemical species from:", opts: ["Low to high concentration", "High to low concentration", "Hot to cold", "Low to high pressure"], answer: 1, explanation: "Molecular diffusion moves species down a concentration gradient." },
-          { q: "Which of the following has the highest diffusion coefficient typically?", opts: ["Solids", "Liquids", "Gases", "Crystals"], answer: 2, explanation: "Diffusion is fastest in gases because molecules move more freely." }
-        ]
-      }]
-    },
-    {
-      title: "Transport in Chemical Reactors",
-      lessons: [{
-        title: "Combining Momentum, Heat, and Mass Transfer",
-        duration: "50 minutes",
-        html: `<p>In industrial chemical reactors, momentum, heat, and mass transfer occur simultaneously. Engineers must design systems that balance all three.</p>
-        <div class="callout"><b>Design Principle:</b> Reactor performance depends on how well reactants mix, how effectively heat is removed, and how quickly products are separated.</div>
-        <h3>Learning Outcomes</h3>
-        <ul><li>Understand how the three transport processes interact in reactors.</li><li>Identify design challenges.</li><li>Analyze reactor conditions.</li></ul>
-        <h3>1. Simultaneous Transport</h3>
-        <p>Fluid enters the reactor (momentum), heat is supplied or removed (energy), and reactants diffuse to the catalyst (mass).</p>
-        <h3>2. Design Challenges</h3>
-        <ul><li>Hot spots due to poor heat transfer.</li><li>Mass transfer limitations in catalytic reactions.</li><li>Pressure drop due to momentum loss.</li></ul>`,
-        quiz: [
-          { q: "Why must chemical engineers understand transport phenomena before designing a reactor?", opts: ["To make the reactor look good", "Because all three processes occur simultaneously and affect performance", "Only to calculate costs", "Because it is required by law"], answer: 1, explanation: "Reactor performance depends on combined momentum, heat, and mass transfer." },
-          { q: "What happens if heat transfer is poor in an exothermic reactor?", opts: ["The reaction stops instantly", "Hot spots and potential runaway reactions occur", "Pressure drops", "Mass transfer increases"], answer: 1, explanation: "Poor heat removal leads to dangerous temperature spikes." },
-          { q: "In a catalytic reactor, reactants must diffuse to the catalyst surface. This is governed by:", opts: ["Momentum transfer", "Mass transfer", "Radiation", "Thermodynamics"], answer: 1, explanation: "Diffusion to the catalyst surface is a mass transfer process." },
-          { q: "What causes a pressure drop in a reactor?", opts: ["Mass transfer", "Momentum loss due to fluid friction", "Heat transfer", "Chemical equilibrium"], answer: 1, explanation: "Friction as fluid flows causes a loss of momentum, seen as pressure drop." },
-          { q: "Which transport process governs the mixing of reactants?", opts: ["Mass transfer", "Heat transfer", "Momentum transfer (fluid dynamics)", "Nuclear transfer"], answer: 2, explanation: "Mixing is a fluid dynamics (momentum) process." }
-        ]
-      }]
-    },
-    {
-      title: "Performance and Optimization",
-      lessons: [{
-        title: "Improving Transport Efficiency",
-        duration: "45 minutes",
-        html: `<p>Optimization in transport phenomena involves minimizing energy losses, maximizing heat transfer rates, and improving mass separation efficiency.</p>
-        <div class="callout"><b>Optimization Goal:</b> Achieve the desired transport rate with the minimum energy and equipment cost.</div>
-        <h3>Learning Outcomes</h3>
-        <ul><li>Identify ways to improve heat transfer efficiency.</li><li>Understand the trade-off between pressure drop and flow rate.</li><li>Analyze mass transfer enhancements.</li></ul>
-        <h3>1. Heat Transfer Optimization</h3>
-        <p>Using fins, increasing surface area, or improving convection coefficients.</p>
-        <h3>2. Momentum Optimization</h3>
-        <p>Balancing pressure drop against pumping costs and flow rate.</p>
-        <h3>3. Mass Transfer Optimization</h3>
-        <p>Increasing interfacial area in distillation columns or using catalysts with higher surface area.</p>`,
-        quiz: [
-          { q: "What is a common way to increase heat transfer rate?", opts: ["Decrease surface area", "Use insulation", "Increase surface area (e.g., with fins)", "Reduce temperature difference"], answer: 2, explanation: "Fins increase surface area and thus heat transfer." },
-          { q: "In fluid flow, a higher flow rate generally results in:", opts: ["Lower pressure drop", "Higher pressure drop", "No change in pressure", "Lower pumping cost"], answer: 1, explanation: "Higher flow increases friction, leading to greater pressure drop." },
-          { q: "In distillation, improving mass transfer efficiency is often achieved by:", opts: ["Increasing the column diameter", "Increasing interfacial area between liquid and vapor", "Reducing the number of trays", "Lowering the temperature"], answer: 1, explanation: "More interfacial area allows better contact and mass transfer." },
-          { q: "Optimizing a transport process usually involves:", opts: ["Ignoring cost", "Maximizing rate at any cost", "Balancing transport rate with energy and capital costs", "Only focusing on one process"], answer: 2, explanation: "Optimization balances performance with economic constraints." },
-          { q: "Which of the following reduces the energy cost of pumping a fluid?", opts: ["Increasing pipe roughness", "Decreasing pipe diameter", "Smoothing the internal pipe surface", "Increasing flow rate"], answer: 2, explanation: "Smooth pipes reduce friction and pressure drop." }
-        ]
-      }]
+      title: "Week 2: Momentum Transfer & Fluid Mechanics",
+      activities: [
+        { 
+          id: 'm2-l1', 
+          title: 'Newton\'s Law of Viscosity and Fluid Flow', 
+          type: 'lesson', 
+          duration: '45 mins',
+          html: `
+            <p>Momentum transfer deals with the movement of momentum within fluids. When a fluid flows through a pipe, different layers move at different velocities, producing internal friction known as <b>viscosity</b>.</p>
+            <div class="callout"><b>Core Principle:</b> Newton's Law of Viscosity states that the shear stress between adjacent fluid layers is proportional to the velocity gradient.</div>
+            <h3>1. Newton's Law of Viscosity</h3>
+            <p>τ = μ (du/dy)</p>
+            <p>Where: τ = Shear stress (Pa), μ = Dynamic viscosity (Pa·s), du/dy = Velocity gradient (s⁻¹).</p>
+            <h3>2. Worked Example</h3>
+            <p>Water flows between two parallel plates. μ = 0.001 Pa·s, Δu = 2 m/s, Δy = 0.01 m.</p>
+            <p><b>Step 1:</b> τ = μ (Δu/Δy)<br><b>Step 2:</b> τ = 0.001 × (2 / 0.01)<br><b>Step 3:</b> τ = 0.001 × 200 = <b>0.2 Pa</b></p>
+          `
+        },
+        { 
+          id: 'm2-q1', 
+          title: 'Week 2 Quiz', 
+          type: 'quiz', 
+          quiz: [
+            { q: "What does viscosity measure?", opts: ["A fluid's resistance to flow", "A fluid's temperature", "A fluid's density", "A fluid's pressure"], answer: 0 },
+            { q: "In Newton's law of viscosity, what does 'du/dy' represent?", opts: ["Pressure gradient", "Velocity gradient", "Temperature gradient", "Concentration gradient"], answer: 1 },
+            { q: "If a fluid has viscosity of 0.01 Pa·s and velocity gradient of 50 s⁻¹, what is the shear stress?", opts: ["0.5 Pa", "5 Pa", "0.05 Pa", "50 Pa"], answer: 0 }
+          ]
+        }
+      ]
     }
   ]
 };
 
 /* ============================================================
-   APP LOGIC (CLOUDFLARE INTEGRATION)
+   APP LOGIC
    ============================================================ */
-let state = { mi: 0, li: 0, assessment: false };
-let localProgress = {}; 
+let currentModuleIndex = 0;
+let currentActivityIndex = 0;
+let completedActivities = {}; 
 
-function getToken() {
-  const userStr = localStorage.getItem('logi_user');
-  if (!userStr) {
-    alert('Please log in from the Dashboard.');
-    window.location.href = 'dashboard.html';
-    return null;
-  }
-  return JSON.parse(userStr).token;
+// Flatten all activities for easy Next/Prev navigation
+let flatActivities = [];
+COURSE.modules.forEach((mod, mi) => {
+  mod.activities.forEach((act, ai) => {
+    flatActivities.push({ ...act, mi, ai });
+  });
+});
+
+function toggleModule(headerElement) {
+  headerElement.classList.toggle('open');
 }
 
-function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-
-function toggleModuleMenu() {
-  document.querySelector('.module-side').classList.toggle('open');
-  document.getElementById('moduleOverlay').classList.toggle('open');
-}
-function closeModuleMenu() {
-  document.querySelector('.module-side').classList.remove('open');
-  document.getElementById('moduleOverlay').classList.remove('open');
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = isError ? 'var(--error)' : 'var(--success)';
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
 }
 
-function toggleAccordion(i) {
-  const sections = document.querySelectorAll('.mod-section');
-  if (state.mi === i && !state.assessment) {
-    sections[i].classList.toggle('open');
-    return;
-  }
-  state.mi = i;
-  state.li = 0;
-  state.assessment = false;
-  renderCourse();
-}
+// Render the initial Course Outline
+function renderCourseOutline() {
+  const container = document.getElementById('course-modules');
+  let html = '';
 
-function openAssessment(i) {
-  state.mi = i;
-  state.assessment = true;
-  closeModuleMenu();
-  renderAssessmentScreen();
-}
+  COURSE.modules.forEach((mod, mi) => {
+    html += `
+      <div class="module-card">
+        <div class="module-header open" onclick="toggleModule(this)">
+          <div class="module-title-wrap"><span class="chevron">▼</span> ${mod.title}</div>
+        </div>
+        <div class="activities">
+    `;
 
-function markDone(mi, li) {
-  localProgress[`${mi}-${li}`] = true;
-  renderCourse();
-}
-
-function renderCourse() {
-  const mi = state.mi, li = state.li;
-  const mod = COURSE.modules[mi];
-  if (!mod) return;
-  if (state.assessment) { renderAssessmentScreen(); return; }
-
-  const lesson = mod.lessons[li];
-  const pct = Object.keys(localProgress).length > 0 ? 50 : 0; 
-
-  document.getElementById('app').innerHTML = `
-    <div class="inner" style="padding:16px 0 48px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <button class="mobile-module-toggle" onclick="toggleModuleMenu()">📚 Course Content</button>
-      </div>
-      <div class="course-layout">
-        <aside class="module-side">
-          <div class="sidehead">
-            <h2>Course content</h2>
-            <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+    mod.activities.forEach((act, ai) => {
+      const isDone = completedActivities[act.id];
+      html += `
+        <div class="activity">
+          <div class="activity-icon">${act.type === 'quiz' ? '📝' : '📖'}</div>
+          <div class="activity-content">
+            <div class="activity-title" onclick="openReader(${mi}, ${ai})">${act.title}</div>
+            <div class="activity-desc">${act.type === 'quiz' ? 'Quiz' : 'Lesson'} · ${act.duration || '10 mins'}</div>
           </div>
-          <div class="modules">
-            ${COURSE.modules.map((m, i) => `
-              <div class="mod-section ${i === mi ? 'open' : ''}">
-                <button class="mod-header" onclick="toggleAccordion(${i})">
-                  <span>Module ${i+1}: ${esc(m.title)}</span>
-                  <span>${i === mi ? '▲' : '▼'}</span>
-                </button>
-                <div class="mod-lessons-list">
-                  ${m.lessons.map((l, j) => {
-                    const done = localProgress[`${i}-${j}`];
-                    return `
-                      <button class="lesson-item-btn ${i === mi && j === li && !state.assessment ? 'active' : ''} ${done ? 'done' : ''}" onclick="state.mi=${i};state.li=${j};state.assessment=false;renderCourse()">
-                        <span>${done ? '✓' : '📖'}</span><span style="flex:1;">${esc(l.title)}</span>
-                      </button>
-                    `;
-                  }).join('')}
-                  <button class="lesson-item-btn ${i === mi && state.assessment ? 'active' : ''}" onclick="openAssessment(${i})">
-                    <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
-                  </button>
-                </div>
-              </div>
-            `).join('')}
+          <div class="activity-actions">
+             <span class="badge-done ${isDone ? 'show' : ''}">✓ Done</span>
           </div>
-        </aside>
-
-        <section class="content">
-          <article class="card lesson-card">
-            <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
-            <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
-            <div>${lesson.html}</div>
-            <div class="actions">
-              <button class="btn-secondary" onclick="if(state.li>0){state.li--;renderCourse()}">← Previous</button>
-              <div style="display:flex;gap:8px;">
-                <button class="btn" onclick="markDone(${mi},${li})">${localProgress[`${mi}-${li}`] ? 'Completed ✓' : 'Mark complete'}</button>
-                <button class="btn-secondary" onclick="state.assessment=true;renderCourse()">Next →</button>
-              </div>
-            </div>
-          </article>
-        </section>
-      </div>
-    </div>
-  `;
-}
-
-function selectOption(qi, oi) {
-  const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
-  wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
-  wrap.querySelector(`label[data-opt="${oi}"]`).classList.add('selected');
-  wrap.querySelector(`input[value="${oi}"]`).checked = true;
-}
-
-async function submitQuiz(mi) {
-  const token = getToken();
-  if (!token) return;
-
-  const quiz = COURSE.modules[mi].lessons[0].quiz;
-  let score = 0;
-  let answeredAll = true;
-
-  quiz.forEach((q, qi) => {
-    const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
-    const fb = document.getElementById(`fb_${mi}_${qi}`);
-    if (!sel) { answeredAll = false; if (fb) { fb.textContent = 'Select an answer.'; fb.style.color = 'var(--error)'; } return; }
-    
-    if (parseInt(sel.value) === q.answer) {
-      score++;
-      if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
-    } else {
-      if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
-    }
+        </div>
+      `;
+    });
+    html += `</div></div>`;
   });
 
-  const resultEl = document.getElementById('quizResult_' + mi);
+  container.innerHTML = html;
+}
+
+// Render the Sidebar Menu
+function renderSidebar() {
+  const sideContainer = document.getElementById('sidebar-content');
+  let html = '';
+  
+  COURSE.modules.forEach((mod, mi) => {
+    const isCurrentMod = currentModuleIndex === mi;
+    html += `
+      <div class="side-module ${isCurrentMod ? 'open' : ''}">
+        <div class="side-module-header" onclick="toggleModule(this)">
+          <span>${mod.title}</span>
+          <span>${isCurrentMod ? '▼' : '▶'}</span>
+        </div>
+        <div class="side-activities">
+    `;
+    
+    mod.activities.forEach((act, ai) => {
+      const isActive = (mi === currentModuleIndex && ai === currentActivityIndex);
+      const isDone = completedActivities[act.id];
+      html += `
+        <div class="side-activity ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}" onclick="openReader(${mi}, ${ai})">
+          ${isDone ? '✓' : (act.type === 'quiz' ? '📝' : '📖')} ${act.title}
+        </div>
+      `;
+    });
+    
+    html += `</div></div>`;
+  });
+  
+  sideContainer.innerHTML = html;
+}
+
+// Open a Lesson or Quiz in the Full Page Reader
+function openReader(mi, ai) {
+  currentModuleIndex = mi;
+  currentActivityIndex = ai;
+  
+  const mod = COURSE.modules[mi];
+  const act = mod.activities[ai];
+  
+  // Update UI state
+  document.getElementById('outline-view').style.display = 'none';
+  document.getElementById('reader-view').style.display = 'flex';
+  document.getElementById('sidebar-menu').classList.add('active');
+  window.scrollTo(0, 0);
+  
+  // Set Header
+  document.getElementById('reader-title').textContent = act.title;
+  document.getElementById('reader-meta').innerHTML = `${mod.title} · ${act.type === 'quiz' ? 'Quiz' : act.duration}`;
+  
+  // Render Body
+  const body = document.getElementById('reader-body');
+  if (act.type === 'lesson') {
+    body.innerHTML = act.html;
+  } else {
+    body.innerHTML = `
+      <div id="quiz-wrapper">
+        ${act.quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <p>${qi+1}. ${q.q}</p>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="selectQuizOption(${qi}, ${oi})">
+                <input type="radio" name="q${qi}" value="${oi}"> ${opt}
+              </label>
+            `).join('')}
+          </div>
+        `).join('')}
+        <button class="submit-quiz-btn" onclick="submitQuiz()">Submit Answers</button>
+        <p id="quiz-result" style="font-weight:bold; margin-top:15px; font-size:16px;"></p>
+      </div>
+    `;
+  }
+  
+  updateNavButtons();
+  renderSidebar();
+  
+  // Close mobile sidebar if open
+  closeSidebar();
+}
+
+// Update Bottom Navigation (Prev, Done, Next)
+function updateNavButtons() {
+  const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
+  const act = flatActivities[currentIndex];
+  const isDone = completedActivities[act.id];
+  
+  // Prev Button
+  document.getElementById('btn-prev').disabled = (currentIndex === 0);
+  
+  // Done Button
+  const btnDone = document.getElementById('btn-done');
+  if (act.type === 'quiz') {
+    // Hide "Mark as Complete" for quizzes. They are completed by submitting.
+    btnDone.style.display = 'none';
+  } else {
+    btnDone.style.display = 'block';
+    if (isDone) {
+      btnDone.textContent = '✓ Completed';
+      btnDone.classList.add('done');
+    } else {
+      btnDone.textContent = 'Mark as Complete';
+      btnDone.classList.remove('done');
+    }
+  }
+  
+  // Next Button (Disabled if current is not done)
+  const btnNext = document.getElementById('btn-next');
+  if (currentIndex >= flatActivities.length - 1) {
+    btnNext.textContent = 'Finish Course';
+    btnNext.disabled = !isDone;
+  } else {
+    btnNext.textContent = 'Next →';
+    btnNext.disabled = !isDone;
+  }
+}
+
+// Navigation Logic
+function navPrev() {
+  const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
+  if (currentIndex > 0) {
+    const prev = flatActivities[currentIndex - 1];
+    openReader(prev.mi, prev.ai);
+  }
+}
+
+function navNext() {
+  const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
+  if (currentIndex < flatActivities.length - 1) {
+    const next = flatActivities[currentIndex + 1];
+    openReader(next.mi, next.ai);
+  } else {
+    goHome();
+    showToast('Course Completed! 🎉');
+  }
+}
+
+// Mark Current Activity as Done (Lessons Only)
+function toggleMarkDone() {
+  const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
+  const act = flatActivities[currentIndex];
+  
+  if (completedActivities[act.id]) return; 
+  
+  completedActivities[act.id] = true;
+  showToast('Lesson marked as complete!');
+  
+  updateNavButtons();
+  renderSidebar();
+  renderCourseOutline(); 
+}
+
+// Quiz Logic
+function selectQuizOption(qi, oi) {
+  const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+  wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+  const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+  lbl.classList.add('selected');
+  lbl.querySelector('input').checked = true;
+}
+
+async function submitQuiz() {
+  const userStr = localStorage.getItem('logi_user');
+  if (!userStr) {
+    showToast('Log in to save your score.', true);
+    return;
+  }
+  const token = JSON.parse(userStr).token;
+  
+  const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
+  const act = flatActivities[currentIndex];
+  const quiz = act.quiz;
+  
+  let score = 0;
+  let answeredAll = true;
+  
+  quiz.forEach((q, qi) => {
+    const sel = document.querySelector(`input[name="q${qi}"]:checked`);
+    if (!sel) { answeredAll = false; return; }
+    if (parseInt(sel.value) === q.answer) score++;
+  });
+  
+  const resultEl = document.getElementById('quiz-result');
   if (!answeredAll) {
     resultEl.textContent = 'Please answer all questions.';
     resultEl.style.color = 'var(--error)';
     return;
   }
-
+  
   resultEl.textContent = 'Saving to database...';
   resultEl.style.color = 'var(--muted)';
-
+  
   try {
     const res = await fetch('/api/progress', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         token: token,
-        moduleId: 'module_' + (mi + 1),
-        lessonId: 'lesson_1',
+        moduleId: 'module_' + (currentModuleIndex + 1),
+        lessonId: 'quiz_' + (currentActivityIndex + 1),
         completed: true,
         quizScore: score,
         quizTotal: quiz.length
       })
     });
     
-    if (!res.ok) throw new Error('Failed to save to D1');
-
-    localProgress[`${mi}-0`] = true;
-    resultEl.textContent = `Scored ${score}/${quiz.length}. Saved! ✅`;
+    if (!res.ok) throw new Error('Failed to save');
+    
+    resultEl.textContent = `You scored ${score}/${quiz.length}. Saved! ✅`;
     resultEl.style.color = 'var(--success)';
     
-    const nextBtn = document.getElementById('nextBtn_' + mi);
-    if (nextBtn) {
-      nextBtn.disabled = false;
-      nextBtn.classList.remove('btn-secondary');
-      nextBtn.classList.add('btn');
-      nextBtn.style.opacity = '1';
-    }
+    // Auto-mark quiz as done
+    completedActivities[act.id] = true;
+    updateNavButtons();
+    renderSidebar();
+    renderCourseOutline();
+    showToast('Quiz score saved!');
+    
   } catch (e) {
     resultEl.textContent = `Error: ` + e.message;
     resultEl.style.color = 'var(--error)';
   }
 }
 
-function renderAssessmentScreen() {
-  const mi = state.mi;
-  const quiz = COURSE.modules[mi].lessons[0].quiz;
+// Sidebar Controls
+function openSidebar() {
+  document.getElementById('sidebar-menu').classList.add('active');
+  document.getElementById('sidebar-overlay').classList.add('active');
+}
+function closeSidebar() {
+  document.getElementById('sidebar-menu').classList.remove('active');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+}
 
-  document.getElementById('app').innerHTML = `
-    <div class="inner" style="padding:16px 0 48px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-        <button class="mobile-module-toggle" onclick="toggleModuleMenu()">📚 Course Content</button>
-      </div>
-      <div class="course-layout">
-        <aside class="module-side">
-          <div class="sidehead"><h2>Course content</h2></div>
-          <div class="modules">
-            ${COURSE.modules.map((m, i) => `
-              <div class="mod-section ${i === mi ? 'open' : ''}">
-                <button class="mod-header" onclick="toggleAccordion(${i})">
-                  <span>Module ${i+1}</span><span>${i === mi ? '▲' : '▼'}</span>
-                </button>
-                <div class="mod-lessons-list">
-                  <button class="lesson-item-btn" onclick="state.mi=${i};state.assessment=false;renderCourse()">
-                    <span>📖</span><span style="flex:1;">${esc(m.lessons[0].title)}</span>
-                  </button>
-                  <button class="lesson-item-btn active" onclick="openAssessment(${i})">
-                    <span>📝</span><span style="flex:1;">Assessment</span>
-                  </button>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </aside>
-
-        <section class="content">
-          <article class="card lesson-card">
-            <h2>Module ${mi+1} Assessment</h2>
-            <div style="margin-top:16px;">
-              ${quiz.map((q, qi) => `
-                <div class="q" data-qindex="${qi}">
-                  <b>${qi+1}. ${esc(q.q)}</b>
-                  ${q.opts.map((opt, oi) => `
-                    <label data-opt="${oi}" onclick="selectOption(${qi},${oi})">
-                      <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
-                    </label>
-                  `).join('')}
-                  <div class="feedback" id="fb_${mi}_${qi}"></div>
-                </div>
-              `).join('')}
-              <button class="btn" style="margin-top:14px;" onclick="submitQuiz(${mi})">Submit Answers</button>
-              <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
-            </div>
-            <div class="actions">
-              <button class="btn-secondary" onclick="state.assessment=false;renderCourse()">← Back to lesson</button>
-              <button id="nextBtn_${mi}" class="btn btn-secondary" disabled style="opacity:0.5;" onclick="window.location.href='dashboard.html'">Finish →</button>
-            </div>
-          </article>
-        </section>
-      </div>
-    </div>
-  `;
+// Go back to the Outline View
+function goHome() {
+  document.getElementById('reader-view').style.display = 'none';
+  document.getElementById('sidebar-menu').classList.remove('active');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+  document.getElementById('outline-view').style.display = 'block';
+  window.scrollTo(0, 0);
 }
 
 // Start
 document.addEventListener('DOMContentLoaded', () => {
-  getToken(); 
-  renderCourse();
+  renderCourseOutline();
 });
 </script>
 </body>
