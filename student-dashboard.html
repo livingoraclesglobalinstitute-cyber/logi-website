@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LOGI LMS · Student Dashboard</title>
+  <style>
+    :root { --p: #ff4b93; --pd: #e93680; --ink: #34343b; --muted: #777780; --line: #e9e8ef; --bg: #f5f5f8; --success: #2e7d32; --error: #b33; --radius: 8px; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 15px/1.65 Arial, sans-serif; color: var(--ink); background: var(--bg); }
+    .inner { width: min(1100px, 92%); margin: auto; }
+    
+    /* Topbar */
+    .top { height: 64px; border-bottom: 1px solid var(--line); display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 9px rgba(0,0,0,.05); }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand { font-size: 24px; font-weight: 800; text-decoration: none; color: var(--ink); }
+    .brand span { color: var(--p); }
+    
+    /* Buttons */
+    .btn { background: var(--p); color: white; border: 0; border-radius: 24px; padding: 9px 18px; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; transition: 0.2s; }
+    .btn:hover { background: var(--pd); }
+    .btn-outline { background: transparent; color: var(--pd); border: 1.5px solid var(--p); border-radius: 24px; padding: 8px 16px; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; }
+    .btn-outline:hover { background: #fff0f6; }
+    
+    /* Login/Register Box */
+    .auth-wrap { display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 64px); padding: 40px 16px; background: linear-gradient(120deg,#fff2f7,#f3f0fa); }
+    .auth-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 32px; width: 100%; max-width: 420px; box-shadow: 0 8px 28px rgba(0,0,0,0.05); }
+    .auth-card h2 { margin: 0 0 20px; font-size: 22px; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; }
+    .field input { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 6px; outline: none; font-size: 14px; }
+    .field input:focus { border-color: var(--p); }
+    
+    /* Dashboard Content */
+    .dashboard { padding: 40px 0; }
+    .welcome { margin-bottom: 30px; }
+    .welcome h1 { margin: 0 0 5px; font-size: 28px; }
+    .welcome p { margin: 0; color: var(--muted); }
+    
+    /* Course Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .course-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .course-img { height: 140px; background: #e9e8ee center/cover no-repeat; }
+    .course-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .course-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--p); font-weight: bold; margin-bottom: 8px; }
+    .course-card h3 { margin: 0 0 10px; font-size: 18px; }
+    .course-card p { margin: 0 0 20px; color: var(--muted); font-size: 13px; flex: 1; }
+    
+    .footer { background: #292832; color: white; text-align: center; padding: 20px; font-size: 13px; margin-top: auto; }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner nav">
+    <a class="brand" href="dashboard.html">LOGI<span>.</span></a>
+    <div id="topActions">
+      <!-- JS will inject login/logout buttons here -->
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <!-- JS will load either the login screen or the dashboard here -->
+</main>
+
+<footer class="footer">
+  <strong>Living Oracles Global Institute</strong><br>
+  Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ==========================================
+   AUTHENTICATION CHECK
+   ========================================== */
+function getAuthToken() {
+  const userStr = localStorage.getItem('logi_user');
+  return userStr ? JSON.parse(userStr) : null;
+}
+
+function renderApp() {
+  const user = getAuthToken();
+  const topActions = document.getElementById('topActions');
+  const app = document.getElementById('app');
+
+  if (user) {
+    // --- LOGGED IN VIEW ---
+    topActions.innerHTML = `
+      <span style="font-size:13px; color:var(--muted); margin-right:15px;">${user.email}</span>
+      <button class="btn-outline" onclick="logout()">Log out</button>
+    `;
+
+    app.innerHTML = `
+      <div class="inner dashboard">
+        <div class="welcome">
+          <h1>Welcome back!</h1>
+          <p>Select a course below to continue your learning journey.</p>
+        </div>
+
+        <div class="grid">
+          <!-- Course Card -->
+          <div class="course-card">
+            <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80');"></div>
+            <div class="course-body">
+              <div class="course-tag">Engineering & Technology</div>
+              <h3>Advanced Transport Phenomena</h3>
+              <p>Master the fundamentals of momentum, heat, and mass transfer. Learn to apply Newton's law of viscosity, Fourier's law, and Fick's law.</p>
+              <a href="index.html" class="btn" style="text-align:center;">Start Course</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+  } else {
+    // --- LOGIN VIEW ---
+    topActions.innerHTML = '';
+    
+    app.innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2 id="authTitle">Welcome back</h2>
+          <div id="authError" style="color:var(--error); font-size:13px; margin-bottom:15px; display:none;"></div>
+          
+          <form id="authForm" onsubmit="handleLogin(event)">
+            <div class="field" id="nameField" style="display:none;">
+              <label>Full Name</label>
+              <input type="text" id="authName" placeholder="Jane Smith">
+            </div>
+            <div class="field">
+              <label>Email address</label>
+              <input type="email" id="authEmail" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input type="password" id="authPassword" placeholder="Your password" required>
+            </div>
+            <button type="submit" class="btn" style="width:100%; justify-content:center; margin-top:10px;" id="submitBtn">Log in</button>
+          </form>
+          
+          <div style="text-align:center; margin-top:20px; font-size:13px; color:var(--muted);">
+            <span id="switchText">Don't have an account?</span> 
+            <a href="#" onclick="toggleMode(event)" style="color:var(--pd); font-weight:bold; text-decoration:none;">Register</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+/* ==========================================
+   LOGIN / REGISTER LOGIC
+   ========================================== */
+let isRegistering = false;
+
+function toggleMode(e) {
+  e.preventDefault();
+  isRegistering = !isRegistering;
+  
+  document.getElementById('authTitle').textContent = isRegistering ? 'Create an account' : 'Welcome back';
+  document.getElementById('nameField').style.display = isRegistering ? 'block' : 'none';
+  document.getElementById('submitBtn').textContent = isRegistering ? 'Register' : 'Log in';
+  document.getElementById('switchText').textContent = isRegistering ? 'Already have an account?' : "Don't have an account?";
+  e.target.textContent = isRegistering ? 'Log in here' : 'Register';
+  document.getElementById('authError').style.display = 'none';
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const errEl = document.getElementById('authError');
+  
+  const email = document.getElementById('authEmail').value;
+  const password = document.getElementById('authPassword').value;
+  const name = document.getElementById('authName') ? document.getElementById('authName').value : '';
+
+  const endpoint = isRegistering ? '/api/register' : '/api/login';
+  
+  btn.textContent = 'Processing...';
+  btn.disabled = true;
+  errEl.style.display = 'none';
+
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, fullName: name })
+    });
+    
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Something went wrong');
+
+    if (isRegistering) {
+      alert('Registration successful! Please log in.');
+      toggleMode({ preventDefault: () => {} });
+    } else {
+      // Save session
+      localStorage.setItem('logi_user', JSON.stringify({ token: data.token, email: data.email }));
+      renderApp(); // Reload UI
+    }
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.textContent = isRegistering ? 'Register' : 'Log in';
+    btn.disabled = false;
+  }
+}
+
+function logout() {
+  localStorage.removeItem('logi_user');
+  renderApp();
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', renderApp);
+</script>
+</body>
+</html>
