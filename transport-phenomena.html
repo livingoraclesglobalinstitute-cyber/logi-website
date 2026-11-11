@@ -25,10 +25,9 @@
     /* Top Navbar */
     .top-nav { background: #5a3d42; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; position: sticky; top: 0; z-index: 100; }
     .top-nav .links { display: flex; gap: 20px; }
-    .top-nav .links a { color: #f0f0f0; }
+    .top-nav .links a { color: #f0f0f0; cursor: pointer; }
     .top-nav .links a:hover { color: white; text-decoration: underline; }
 
-    /* Mobile Menu Button (Hidden on Desktop) */
     .mobile-menu-btn { display: none; background: var(--p); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 15px; align-items: center; gap: 8px; font-size: 14px; }
     
     /* Layout */
@@ -51,7 +50,6 @@
     .side-activity.active { background: #e3f2fd; font-weight: bold; border-left: 4px solid #2196f3; padding-left: 26px; }
     .side-activity.done { color: var(--success); }
 
-    /* Sidebar Overlay for Mobile */
     .sidebar-overlay { display: none; position: fixed; top: 50px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 85; }
     .sidebar-overlay.active { display: block; }
 
@@ -89,7 +87,6 @@
     
     .lesson-content { font-size: 16px; line-height: 1.8; color: #333; flex: 1; }
     .lesson-content h3 { color: #111; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-    .lesson-content p { margin-bottom: 16px; }
     .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 15px 20px; margin: 20px 0; border-radius: 0 6px 6px 0; }
     .compare { width: 100%; border-collapse: collapse; margin: 20px 0; }
     .compare td, .compare th { border: 1px solid var(--line); padding: 12px; text-align: left; font-size: 15px; }
@@ -105,6 +102,7 @@
     .q input[type="radio"] { display: none; }
     .submit-quiz-btn { background: var(--p); color: white; border: 0; padding: 12px 25px; border-radius: 6px; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 20px; }
     .submit-quiz-btn:hover { background: var(--pd); }
+    .submit-quiz-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     /* Bottom Navigation */
     .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); }
@@ -117,13 +115,21 @@
     .btn-done { background: #e8f5e9; color: var(--success); border: 1px solid #c8e6c9; }
     .btn-done.done { background: var(--success); color: white; }
 
+    /* Grades View */
+    #grades-view { display: none; max-width: 900px; margin: 0 auto; width: 100%; background: var(--white); border-radius: var(--radius); box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 40px; }
+    #grades-view.active { display: block; }
+    .grades-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .grades-table th, .grades-table td { border-bottom: 1px solid var(--line); padding: 12px; text-align: left; }
+    .grades-table th { background: #fafafa; font-weight: 600; }
+    .grade-pass { color: var(--success); font-weight: bold; }
+    .grade-fail { color: var(--error); font-weight: bold; }
+    .grade-pending { color: var(--muted); }
+
     /* Mobile Responsive */
     @media (max-width: 800px) {
       .mobile-menu-btn { display: inline-flex; }
       .main-area { padding: 15px; }
-      #reader-view { padding: 20px; }
-      
-      /* Sidebar becomes a drawer */
+      #reader-view, #grades-view { padding: 20px; }
       .sidebar { position: fixed; top: 50px; left: 0; bottom: 0; height: auto; transform: translateX(-100%); transition: transform 0.3s; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
       .sidebar.active { transform: translateX(0); display: flex; }
       .close-sidebar-btn { display: block; }
@@ -137,17 +143,15 @@
 <div class="top-nav">
   <div style="font-weight: bold; font-size: 16px;">LOGI LMS</div>
   <div class="links">
-    <a href="#" onclick="goHome()">Course Outline</a>
-    <a href="#">Grades</a>
+    <a onclick="showOutline()">Course Outline</a>
+    <a onclick="showGrades()">Grades</a>
   </div>
 </div>
 
 <div class="layout">
   
-  <!-- Sidebar Overlay (Mobile) -->
   <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
-  <!-- SIDEBAR MENU (Appears in Reader View) -->
   <aside class="sidebar" id="sidebar-menu">
     <div class="sidebar-header">
       <h3>Course Menu</h3>
@@ -156,41 +160,45 @@
     <div id="sidebar-content"></div>
   </aside>
 
-  <!-- MAIN CONTENT AREA -->
   <main class="main-area">
     
     <!-- OUTLINE VIEW -->
     <div id="outline-view" class="container">
       <h1 class="course-title">Advanced Transport Phenomena</h1>
-      <div class="module-card">
-        <div class="module-header open" onclick="toggleModule(this)">
-          <div class="module-title-wrap"><span class="chevron">▼</span> General</div>
-        </div>
-        <div class="activities">
-          <div class="activity">
-            <div class="activity-icon">📢</div>
-            <div class="activity-content"><div class="activity-title">Announcements</div></div>
-          </div>
-        </div>
-      </div>
       <div id="course-modules"></div>
     </div>
 
     <!-- READER VIEW -->
     <div id="reader-view">
-      <!-- Mobile Menu Button -->
       <button class="mobile-menu-btn" onclick="openSidebar()">☰ Course Menu</button>
-      
       <h1 class="reader-title" id="reader-title"></h1>
       <div class="reader-meta" id="reader-meta"></div>
       <div class="lesson-content" id="reader-body"></div>
       
-      <!-- Bottom Navigation -->
       <div class="nav-bar">
         <button class="nav-btn btn-prev" id="btn-prev" onclick="navPrev()">← Previous</button>
         <button class="nav-btn btn-done" id="btn-done" onclick="toggleMarkDone()">Mark as Complete</button>
         <button class="nav-btn btn-next" id="btn-next" onclick="navNext()">Next →</button>
       </div>
+    </div>
+
+    <!-- GRADES VIEW -->
+    <div id="grades-view">
+      <h1 class="course-title">My Grades</h1>
+      <p style="color: var(--muted); margin-bottom: 20px;">Here is a summary of your quiz results. You must score 50% or higher to pass.</p>
+      
+      <table class="grades-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Score</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="grades-body">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
     </div>
 
   </main>
@@ -200,7 +208,7 @@
 
 <script>
 /* ============================================================
-   COURSE DATA (6 MODULES)
+   COURSE DATA
    ============================================================ */
 const COURSE = {
   id: 'transport-phenomena-101',
@@ -292,11 +300,14 @@ const COURSE = {
 };
 
 /* ============================================================
-   APP LOGIC
+   STATE & PERSISTENCE
    ============================================================ */
 let currentModuleIndex = 0;
 let currentActivityIndex = 0;
-let completedActivities = {}; 
+
+// Load completed activities and quiz scores from LocalStorage
+let completedActivities = JSON.parse(localStorage.getItem('logi_completed_' + COURSE.id)) || {};
+let quizScores = JSON.parse(localStorage.getItem('logi_scores_' + COURSE.id)) || {};
 
 // Flatten all activities for easy Next/Prev navigation
 let flatActivities = [];
@@ -305,6 +316,11 @@ COURSE.modules.forEach((mod, mi) => {
     flatActivities.push({ ...act, mi, ai });
   });
 });
+
+function saveState() {
+  localStorage.setItem('logi_completed_' + COURSE.id, JSON.stringify(completedActivities));
+  localStorage.setItem('logi_scores_' + COURSE.id, JSON.stringify(quizScores));
+}
 
 function toggleModule(headerElement) {
   headerElement.classList.toggle('open');
@@ -318,7 +334,11 @@ function showToast(msg, isError = false) {
   setTimeout(() => t.style.display = 'none', 3000);
 }
 
-// Render the initial Course Outline
+// ==========================================
+// RENDER VIEWS
+// ==========================================
+
+// 1. Render Course Outline
 function renderCourseOutline() {
   const container = document.getElementById('course-modules');
   let html = '';
@@ -353,7 +373,7 @@ function renderCourseOutline() {
   container.innerHTML = html;
 }
 
-// Render the Sidebar Menu
+// 2. Render Sidebar Menu
 function renderSidebar() {
   const sideContainer = document.getElementById('sidebar-content');
   let html = '';
@@ -385,7 +405,45 @@ function renderSidebar() {
   sideContainer.innerHTML = html;
 }
 
-// Open a Lesson or Quiz in the Full Page Reader
+// 3. Render Grades View
+function renderGrades() {
+  const tbody = document.getElementById('grades-body');
+  let html = '';
+  
+  COURSE.modules.forEach((mod, mi) => {
+    mod.activities.forEach((act, ai) => {
+      if (act.type === 'quiz') {
+        const scoreData = quizScores[act.id];
+        if (scoreData) {
+          const percentage = Math.round((scoreData.score / scoreData.total) * 100);
+          const pass = percentage >= 50;
+          html += `
+            <tr>
+              <td>${act.title}</td>
+              <td>${scoreData.score} / ${scoreData.total} (${percentage}%)</td>
+              <td class="${pass ? 'grade-pass' : 'grade-fail'}">${pass ? 'Passed' : 'Failed'}</td>
+            </tr>
+          `;
+        } else {
+          html += `
+            <tr>
+              <td>${act.title}</td>
+              <td>-</td>
+              <td class="grade-pending">Not Attempted</td>
+            </tr>
+          `;
+        }
+      }
+    });
+  });
+  
+  tbody.innerHTML = html;
+}
+
+// ==========================================
+// READER & NAVIGATION
+// ==========================================
+
 function openReader(mi, ai) {
   currentModuleIndex = mi;
   currentActivityIndex = ai;
@@ -393,8 +451,9 @@ function openReader(mi, ai) {
   const mod = COURSE.modules[mi];
   const act = mod.activities[ai];
   
-  // Update UI state
+  // Hide other views, show reader
   document.getElementById('outline-view').style.display = 'none';
+  document.getElementById('grades-view').classList.remove('active');
   document.getElementById('reader-view').style.display = 'flex';
   document.getElementById('sidebar-menu').classList.add('active');
   window.scrollTo(0, 0);
@@ -405,47 +464,68 @@ function openReader(mi, ai) {
   
   // Render Body
   const body = document.getElementById('reader-body');
+  const isDone = completedActivities[act.id];
+
   if (act.type === 'lesson') {
     body.innerHTML = act.html;
   } else {
-    body.innerHTML = `
-      <div id="quiz-wrapper">
-        ${act.quiz.map((q, qi) => `
-          <div class="q" data-qindex="${qi}">
-            <p>${qi+1}. ${q.q}</p>
-            ${q.opts.map((opt, oi) => `
-              <label data-opt="${oi}" onclick="selectQuizOption(${qi}, ${oi})">
-                <input type="radio" name="q${qi}" value="${oi}"> ${opt}
-              </label>
-            `).join('')}
-          </div>
-        `).join('')}
-        <button class="submit-quiz-btn" onclick="submitQuiz()">Submit Answers</button>
-        <p id="quiz-result" style="font-weight:bold; margin-top:15px; font-size:16px;"></p>
-      </div>
-    `;
+    const scoreData = quizScores[act.id];
+    
+    // If already submitted, show review mode
+    if (scoreData) {
+      body.innerHTML = `
+        <div class="callout" style="border-left-color: var(--success); background: #e8f5e9;">
+          <b>Quiz Completed!</b><br>
+          You scored ${scoreData.score} out of ${scoreData.total}. Your highest score has been saved.
+        </div>
+        <div style="margin-top: 20px;">
+          ${act.quiz.map((q, qi) => `
+            <div class="q" style="opacity: 0.8;">
+              <p>${qi+1}. ${q.q}</p>
+              ${q.opts.map((opt, oi) => `
+                <label style="cursor: default; ${oi === q.answer ? 'border-color: var(--success); background: #e8f5e9;' : ''}">
+                  ${opt} ${oi === q.answer ? ' (Correct Answer)' : ''}
+                </label>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+      `;
+    } else {
+      // Normal quiz taking mode
+      body.innerHTML = `
+        <div id="quiz-wrapper">
+          ${act.quiz.map((q, qi) => `
+            <div class="q" data-qindex="${qi}">
+              <p>${qi+1}. ${q.q}</p>
+              ${q.opts.map((opt, oi) => `
+                <label data-opt="${oi}" onclick="selectQuizOption(${qi}, ${oi})">
+                  <input type="radio" name="q${qi}" value="${oi}"> ${opt}
+                </label>
+              `).join('')}
+            </div>
+          `).join('')}
+          <button class="submit-quiz-btn" onclick="submitQuiz()">Submit Answers</button>
+          <p id="quiz-result" style="font-weight:bold; margin-top:15px; font-size:16px;"></p>
+        </div>
+      `;
+    }
   }
   
   updateNavButtons();
   renderSidebar();
-  
-  // Close mobile sidebar if open
   closeSidebar();
 }
 
-// Update Bottom Navigation (Prev, Done, Next)
 function updateNavButtons() {
   const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
   const act = flatActivities[currentIndex];
   const isDone = completedActivities[act.id];
   
-  // Prev Button
   document.getElementById('btn-prev').disabled = (currentIndex === 0);
   
-  // Done Button
   const btnDone = document.getElementById('btn-done');
   if (act.type === 'quiz') {
-    // Hide "Mark as Complete" for quizzes. They are completed by submitting.
     btnDone.style.display = 'none';
   } else {
     btnDone.style.display = 'block';
@@ -458,7 +538,6 @@ function updateNavButtons() {
     }
   }
   
-  // Next Button (Disabled if current is not done)
   const btnNext = document.getElementById('btn-next');
   if (currentIndex >= flatActivities.length - 1) {
     btnNext.textContent = 'Finish Course';
@@ -469,7 +548,6 @@ function updateNavButtons() {
   }
 }
 
-// Navigation Logic
 function navPrev() {
   const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
   if (currentIndex > 0) {
@@ -484,12 +562,11 @@ function navNext() {
     const next = flatActivities[currentIndex + 1];
     openReader(next.mi, next.ai);
   } else {
-    goHome();
+    showOutline();
     showToast('Course Completed! 🎉');
   }
 }
 
-// Mark Current Activity as Done (Lessons Only)
 function toggleMarkDone() {
   const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
   const act = flatActivities[currentIndex];
@@ -497,14 +574,18 @@ function toggleMarkDone() {
   if (completedActivities[act.id]) return; 
   
   completedActivities[act.id] = true;
-  showToast('Lesson marked as complete!');
+  saveState(); // Save to local storage
   
+  showToast('Lesson marked as complete!');
   updateNavButtons();
   renderSidebar();
   renderCourseOutline(); 
 }
 
-// Quiz Logic
+// ==========================================
+// QUIZ LOGIC
+// ==========================================
+
 function selectQuizOption(qi, oi) {
   const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
   wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
@@ -514,13 +595,6 @@ function selectQuizOption(qi, oi) {
 }
 
 async function submitQuiz() {
-  const userStr = localStorage.getItem('logi_user');
-  if (!userStr) {
-    showToast('Log in to save your score.', true);
-    return;
-  }
-  const token = JSON.parse(userStr).token;
-  
   const currentIndex = flatActivities.findIndex(a => a.mi === currentModuleIndex && a.ai === currentActivityIndex);
   const act = flatActivities[currentIndex];
   const quiz = act.quiz;
@@ -541,64 +615,9 @@ async function submitQuiz() {
     return;
   }
   
-  resultEl.textContent = 'Saving to database...';
+  resultEl.textContent = 'Saving score...';
   resultEl.style.color = 'var(--muted)';
   
-  try {
-    const res = await fetch('/api/progress', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        token: token,
-        moduleId: 'module_' + (currentModuleIndex + 1),
-        lessonId: 'quiz_' + (currentActivityIndex + 1),
-        completed: true,
-        quizScore: score,
-        quizTotal: quiz.length
-      })
-    });
-    
-    if (!res.ok) throw new Error('Failed to save');
-    
-    resultEl.textContent = `You scored ${score}/${quiz.length}. Saved! ✅`;
-    resultEl.style.color = 'var(--success)';
-    
-    // Auto-mark quiz as done
-    completedActivities[act.id] = true;
-    updateNavButtons();
-    renderSidebar();
-    renderCourseOutline();
-    showToast('Quiz score saved!');
-    
-  } catch (e) {
-    resultEl.textContent = `Error: ` + e.message;
-    resultEl.style.color = 'var(--error)';
-  }
-}
-
-// Sidebar Controls
-function openSidebar() {
-  document.getElementById('sidebar-menu').classList.add('active');
-  document.getElementById('sidebar-overlay').classList.add('active');
-}
-function closeSidebar() {
-  document.getElementById('sidebar-menu').classList.remove('active');
-  document.getElementById('sidebar-overlay').classList.remove('active');
-}
-
-// Go back to the Outline View
-function goHome() {
-  document.getElementById('reader-view').style.display = 'none';
-  document.getElementById('sidebar-menu').classList.remove('active');
-  document.getElementById('sidebar-overlay').classList.remove('active');
-  document.getElementById('outline-view').style.display = 'block';
-  window.scrollTo(0, 0);
-}
-
-// Start
-document.addEventListener('DOMContentLoaded', () => {
-  renderCourseOutline();
-});
-</script>
-</body>
-</html>
+  // 1. Save Locally First
+  quizScores[act.id] = { score: score, total: quiz.length };
+  completedActivities[act
