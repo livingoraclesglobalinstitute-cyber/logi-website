@@ -10,44 +10,44 @@ a{text-decoration:none;color:var(--ink)}
 .top-nav .links{display:flex;gap:20px}
 .top-nav a{color:#fff;cursor:pointer}
 
-/* ---- single-column layout ---- */
-.layout{flex:1;position:relative;width:100%}
+.layout{flex:1;width:100%;position:relative}
 .main-area{width:100%;max-width:1200px;margin:0 auto;padding:30px;display:flex;flex-direction:column}
 .container,#reader-view,#grades-view{width:100%;max-width:1200px;margin:0 auto}
 
 .course-title{font-size:26px;margin:0 0 10px;color:#222}
 .subline{color:var(--muted);margin:0 0 20px}
 
-/* ---- weekly module cards ---- */
 .module-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;margin:14px 0;overflow:hidden}
 .module-card.locked{opacity:.72}
 .module-header{padding:15px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;background:#fdfdfd;font-weight:600}
 .module-header.locked-header{cursor:not-allowed}
-.module-header .lock-badge{font-size:12px;font-weight:700;color:var(--muted)}
-.module-header .lock-badge.open{color:var(--success)}
+.lock-badge{font-size:12px;font-weight:700;color:var(--muted)}
+.lock-badge.open{color:var(--success)}
 .activities{display:none;padding:10px 20px 18px}
-.module-header.open+.activities{display:block}
+.activity{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid #eee;align-items:center}
+.activity-content{flex:1}
+.activity-title{font-weight:600;color:#0056b3;cursor:pointer}
+.activity-desc{font-size:13px;color:var(--muted)}
+.badge-done{color:var(--success);font-size:12px}
 
-/* ---- top activity navigation ---- */
-.activity-nav{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 22px}
-.activity-nav button{padding:10px 16px;border:1px solid var(--line);background:#fff;border-radius:6px;font-weight:600;font-size:14px;cursor:pointer;color:var(--ink)}
-.activity-nav button.active{background:var(--p);border-color:var(--p);color:#fff}
-.activity-nav button:disabled{opacity:.45;cursor:not-allowed}
-.activity-nav button .done-mark{color:var(--success);font-weight:bold}
-.activity-nav button.active .done-mark{color:#fff}
-
-/* ---- reader ---- */
 #reader-view,#grades-view{display:none;background:#fff;border-radius:8px;box-shadow:0 2px 10px #0000000c;padding:36px;min-height:75vh}
 #reader-view.active{display:flex;flex-direction:column}
 #grades-view.active{display:block}
 .reader-title{font-size:27px;margin:0 0 6px}
 .reader-meta{font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:20px}
+
+.activity-nav{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 22px}
+.activity-nav button{padding:10px 16px;border:1px solid var(--line);background:#fff;border-radius:6px;font-weight:600;font-size:14px;cursor:pointer;color:var(--ink)}
+.activity-nav button.active{background:var(--p);border-color:var(--p);color:#fff}
+.activity-nav button:disabled{opacity:.45;cursor:not-allowed}
+.activity-nav .done-mark{color:var(--success);font-weight:bold}
+.activity-nav button.active .done-mark{color:#fff}
+
 .lesson-content{font-size:16px;line-height:1.8;width:100%}
 .lesson-content h3{margin-top:26px;color:#222;border-bottom:1px solid #eee;padding-bottom:6px}
 .callout{background:var(--warn);border-left:4px solid #438bd5;padding:14px 18px;margin:18px 0}
 .example{background:#fff8fb;border:1px solid #f5c4d8;border-radius:7px;padding:12px 18px}
 
-/* ---- prev/next ---- */
 .nav-bar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:35px;padding-top:18px;border-top:1px solid var(--line)}
 .nav-btn,.submit-quiz-btn{padding:11px 18px;border:0;border-radius:6px;font-weight:bold;cursor:pointer}
 .btn-prev{background:#eee}
@@ -56,25 +56,20 @@ a{text-decoration:none;color:var(--ink)}
 .btn-done.done{background:var(--success);color:#fff}
 .nav-btn:disabled{opacity:.4;cursor:not-allowed}
 
-/* ---- quiz ---- */
 .q{margin:20px 0;padding-bottom:15px;border-bottom:1px solid #eee}
 .q p{font-weight:600}
-.q label{display:block;padding:10px 12px;border:1px solid #ddd;border-radius:6px;margin:8px 0;cursor:pointer}
+.q label{display:block;padding:10px 12px;border:1px solid #ddd;border-radius:6px;margin:8px 0;cursor:pointer;width:100%}
 .q label.selected{background:#e3f2fd;border-color:#2196f3}
-.q label.correct{background:#e8f5e9;border-color:var(--success)}
-.q label.wrong{background:#fdecec;border-color:var(--error)}
 .q input{margin-right:8px}
 .submit-quiz-btn{background:var(--p);color:#fff}
 .submit-quiz-btn:disabled{opacity:.5;cursor:not-allowed}
 
-/* ---- grades ---- */
 .grades-table{width:100%;border-collapse:collapse;margin-top:20px}
 .grades-table th,.grades-table td{padding:12px;border-bottom:1px solid var(--line);text-align:left}
 .grade-pass{color:var(--success);font-weight:bold}
 .grade-fail{color:var(--error);font-weight:bold}
 .grade-pending{color:var(--muted)}
 
-/* ---- toast ---- */
 .toast{position:fixed;bottom:20px;right:20px;background:var(--success);color:#fff;padding:12px 18px;border-radius:6px;display:none;z-index:200}
 
 @media(max-width:800px){
@@ -107,17 +102,16 @@ const keyDone='logi_completed_'+COURSE.id, keyScores='logi_scores_'+COURSE.id;
 let completedActivities=JSON.parse(localStorage.getItem(keyDone)||'{}');
 let quizScores=JSON.parse(localStorage.getItem(keyScores)||'{}');
 
-/* ---------- helpers: weekly unlocking ---------- */
 function isWeekUnlocked(mi){
   if(mi===0) return true;
-  const prev = COURSE.modules[mi-1];
-  const prevQuiz = prev.activities.find(a=>a.type==='quiz');
+  const prev=COURSE.modules[mi-1];
+  const prevQuiz=prev.activities.find(a=>a.type==='quiz');
   if(!prevQuiz) return true;
-  const s = quizScores[prevQuiz.id];
-  return !!(s && s.score/s.total >= 0.5);
+  const s=quizScores[prevQuiz.id];
+  return !!(s && s.score/s.total>=0.5);
 }
 function isQuizUnlocked(mi){
-  const lesson = COURSE.modules[mi].activities.find(a=>a.type==='lesson');
+  const lesson=COURSE.modules[mi].activities.find(a=>a.type==='lesson');
   return !lesson || !!completedActivities[lesson.id];
 }
 function saveState(){
@@ -126,43 +120,46 @@ function saveState(){
 }
 function toast(s){
   const e=document.getElementById('toast');
-  e.textContent=s; e.style.display='block';
+  e.textContent=s;e.style.display='block';
   setTimeout(()=>e.style.display='none',2600);
 }
 
-/* ---------- course outline ---------- */
+function toggleWeek(headerEl){
+  headerEl.classList.toggle('open');
+  const acts=headerEl.nextElementSibling;
+  if(acts) acts.style.display = headerEl.classList.contains('open')?'block':'none';
+}
+
 function renderCourseOutline(){
   const c=document.getElementById('course-modules');
-  c.innerHTML = COURSE.modules.map((m,mi)=>{
-    const unlocked = isWeekUnlocked(mi);
-    const doneCount = m.activities.filter(a=>completedActivities[a.id]).length;
+  c.innerHTML=COURSE.modules.map((m,mi)=>{
+    const unlocked=isWeekUnlocked(mi);
+    const doneCount=m.activities.filter(a=>completedActivities[a.id]).length;
     return `<div class="module-card ${unlocked?'':'locked'}">
-      <div class="module-header ${unlocked?'':'locked-header'}">
-        <span>${m.title}</span>
-        <span class="lock-badge ${unlocked?'open':''}">${unlocked?doneCount+'/'+m.activities.length+' completed':'🔒 Locked'}</span>
+      <div class="module-header ${unlocked?'':'locked-header'}" ${unlocked?'onclick="toggleWeek(this)"':''}>
+        <span>${unlocked?'▾':'🔒'} ${m.title}</span>
+        <span class="lock-badge ${unlocked?'open':''}">${unlocked?doneCount+'/'+m.activities.length+' completed':'Locked'}</span>
       </div>
-      <div class="activities">
+      <div class="activities" style="display:none">
         ${unlocked ? m.activities.map((a,ai)=>`
           <div class="activity">
             <div>${a.type==='quiz'?'📝':'📘'}</div>
             <div class="activity-content">
-              <div class="activity-title" onclick="openActivity(${mi},${ai})">${a.title}</div>
+              <div class="activity-title" onclick="event.stopPropagation();openActivity(${mi},${ai})">${a.title}</div>
               <div class="activity-desc">${a.type==='quiz'?'Assessment · 3 questions':a.duration+' · Lecture notes'}</div>
             </div>
-            <span class="badge-done ${completedActivities[a.id]?'show':''}" style="display:${completedActivities[a.id]?'inline-block':'none'};color:var(--success);font-size:12px">✓ Done</span>
+            <span class="badge-done" style="display:${completedActivities[a.id]?'inline-block':'none'}">✓ Done</span>
           </div>`).join('') : `<p style="color:var(--muted);margin:8px 0">Pass the previous week's assessment to unlock this week.</p>`}
       </div>
     </div>`;
   }).join('');
 }
 
-/* ---------- open activity ---------- */
 function openActivity(mi,ai){
   if(!isWeekUnlocked(mi)){ toast('This week is locked. Pass the previous assessment first.'); return; }
-  const a = COURSE.modules[mi].activities[ai];
+  const a=COURSE.modules[mi].activities[ai];
   if(a.type==='quiz' && !isQuizUnlocked(mi)){
-    toast('Complete the lecture notes first to unlock the assessment.');
-    return;
+    toast('Complete the lecture notes first to unlock the assessment.'); return;
   }
   currentModuleIndex=mi; currentActivityIndex=ai;
 
@@ -170,20 +167,19 @@ function openActivity(mi,ai){
   document.getElementById('grades-view').classList.remove('active');
   document.getElementById('reader-view').style.display='flex';
 
-  const m = COURSE.modules[mi];
-  document.getElementById('reader-title').textContent = m.title;
-  document.getElementById('reader-meta').textContent =
-    a.type==='quiz' ? 'Weekly assessment · 3 questions' : 'Lecture notes · '+a.duration;
+  const m=COURSE.modules[mi];
+  document.getElementById('reader-title').textContent=m.title;
+  document.getElementById('reader-meta').textContent = a.type==='quiz' ? 'Weekly assessment · 3 questions' : 'Lecture notes · '+a.duration;
 
-  renderActivityNav(mi, ai);
+  renderActivityNav(mi,ai);
 
-  const b = document.getElementById('reader-body');
+  const b=document.getElementById('reader-body');
   if(a.type==='lesson'){
-    b.innerHTML = a.html;
+    b.innerHTML=a.html;
   } else {
-    const s = quizScores[a.id];
-    const passed = s && s.score/s.total >= 0.5;
-    b.innerHTML = `${passed?`<div class="callout"><b>Assessment passed.</b> Best score: ${s.score}/${s.total}. You may review your answers below.</div>`:''}
+    const s=quizScores[a.id];
+    const passed=s && s.score/s.total>=0.5;
+    b.innerHTML=`${passed?`<div class="callout"><b>Assessment passed.</b> Best score: ${s.score}/${s.total}. You may review your answers below.</div>`:''}
       <div id="quiz-wrapper">
         ${a.quiz.map((q,qi)=>`
           <div class="q" data-qindex="${qi}">
@@ -194,26 +190,22 @@ function openActivity(mi,ai){
         <p id="quiz-result"></p>
       </div>`;
   }
-
   updateNavButtons();
   window.scrollTo(0,0);
 }
 
-/* ---------- top activity navigation ---------- */
 function renderActivityNav(mi,ai){
-  const m = COURSE.modules[mi];
-  const nav = document.getElementById('activity-nav');
-  nav.innerHTML = m.activities.map((a,i)=>{
-    const isQuiz = a.type==='quiz';
-    const unlocked = isQuiz ? isQuizUnlocked(mi) : true;
-    const done = !!completedActivities[a.id];
+  const m=COURSE.modules[mi];
+  document.getElementById('activity-nav').innerHTML=m.activities.map((a,i)=>{
+    const isQuiz=a.type==='quiz';
+    const unlocked=isQuiz?isQuizUnlocked(mi):true;
+    const done=!!completedActivities[a.id];
     return `<button class="${i===ai?'active':''}" onclick="openActivity(${mi},${i})" ${unlocked?'':'disabled'}>
       ${isQuiz?'📝 Week Assessment':'📘 Lecture Notes'} ${done?'<span class="done-mark">✓</span>':''}
     </button>`;
   }).join('');
 }
 
-/* ---------- prev / next ---------- */
 function updateNavButtons(){
   const mi=currentModuleIndex, ai=currentActivityIndex;
   const m=COURSE.modules[mi], a=m.activities[ai];
@@ -222,16 +214,16 @@ function updateNavButtons(){
   const doneBtn=document.getElementById('btn-done');
 
   prevBtn.disabled = ai===0 && mi===0;
-  doneBtn.style.display = a.type==='quiz' ? 'none' : 'inline-block';
-  const done = !!completedActivities[a.id];
+  doneBtn.style.display = a.type==='quiz'?'none':'inline-block';
+  const done=!!completedActivities[a.id];
   doneBtn.textContent = done?'✓ Completed':'Mark as Complete';
   doneBtn.classList.toggle('done',done);
 
-  if(ai < m.activities.length-1){
-    nextBtn.textContent = 'Next →';
+  if(ai<m.activities.length-1){
+    nextBtn.textContent='Next →';
     nextBtn.disabled = !done && a.type!=='quiz';
   } else {
-    nextBtn.textContent = mi===COURSE.modules.length-1 ? 'Finish Course' : 'Next Week →';
+    nextBtn.textContent = mi===COURSE.modules.length-1?'Finish Course':'Next Week →';
     nextBtn.disabled = !completedActivities[a.id] && a.type!=='quiz';
   }
 }
@@ -244,20 +236,17 @@ function navPrev(){
 function navNext(){
   const mi=currentModuleIndex, ai=currentActivityIndex;
   const m=COURSE.modules[mi];
-  if(ai < m.activities.length-1){
-    openActivity(mi,ai+1); return;
-  }
-  if(mi < COURSE.modules.length-1){
-    const quiz = m.activities.find(a=>a.type==='quiz');
-    const s = quiz && quizScores[quiz.id];
+  if(ai<m.activities.length-1){ openActivity(mi,ai+1); return; }
+  if(mi<COURSE.modules.length-1){
+    const quiz=m.activities.find(a=>a.type==='quiz');
+    const s=quiz && quizScores[quiz.id];
     if(s && s.score/s.total>=0.5){ openActivity(mi+1,0); }
-    else { toast('Pass this week\'s assessment to unlock the next week.'); }
+    else { toast("Pass this week's assessment to unlock the next week."); }
     return;
   }
   showOutline(); toast('You have completed all course activities.');
 }
 
-/* ---------- completion & quiz ---------- */
 function toggleMarkDone(){
   const mi=currentModuleIndex, ai=currentActivityIndex;
   const a=COURSE.modules[mi].activities[ai];
@@ -283,7 +272,7 @@ function submitQuiz(){
   const old=quizScores[a.id];
   if(!old || score>old.score) quizScores[a.id]={score,total:a.quiz.length};
 
-  const pct = Math.round(score/a.quiz.length*100);
+  const pct=Math.round(score/a.quiz.length*100);
   if(score/a.quiz.length>=0.5){
     completedActivities[a.id]=true;
     r.textContent=`Passed: ${score}/${a.quiz.length} (${pct}%).`;
@@ -298,7 +287,6 @@ function submitQuiz(){
   renderGrades(); renderCourseOutline(); renderActivityNav(mi,ai); updateNavButtons();
 }
 
-/* ---------- grades ---------- */
 function renderGrades(){
   const rows=[];
   COURSE.modules.forEach(m=>{
@@ -315,7 +303,6 @@ function renderGrades(){
   document.getElementById('grades-body').innerHTML=rows.join('');
 }
 
-/* ---------- views ---------- */
 function showOutline(){
   document.getElementById('reader-view').style.display='none';
   document.getElementById('grades-view').classList.remove('active');
