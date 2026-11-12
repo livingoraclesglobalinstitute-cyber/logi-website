@@ -28,28 +28,903 @@ const COURSE = {
     "id": "logi-advanced-transport-phenomena",
     "modules": [
         {
-            "title": "Week 1: Introduction to Advanced Transport Phenomena",
-            "activities": [
-                {
-                    "id": "w1-lesson",
-                    "title": "Lecture Notes: Introduction to Advanced Transport Phenomena",
-                    "type": "lesson",
-                    "duration": "60–90 mins",
-                    "html": "<p>Transport phenomena is the unified study of momentum, energy, and mass transfer. At an advanced level, we move beyond empirical correlations to a rigorous derivation of the governing differential equations from first principles (conservation laws). This framework allows engineers to model complex systems—from microfluidic devices to industrial chemical reactors—by identifying the driving potentials, the transport mechanisms (convective and diffusive), and the appropriate boundary conditions.</p><div class='callout'><b>Learning outcomes:</b> Formulate transport problems; derive constitutive laws; apply shell balances; interpret coupled transport mechanisms in engineering systems.</div><h3>1. The Unifying Framework</h3><p>The profound beauty of transport phenomena lies in the mathematical analogy between the three primary transfer processes. All three describe the movement of a conserved quantity (mass, energy, or momentum) in response to a driving-potential gradient. However, as we move to advanced problems, we must account for the fact that these mechanisms are often coupled. For example, in a reacting flow, the velocity field (momentum) dictates the temperature profile (heat), which in turn dictates the reaction rates and species concentrations (mass).</p><h3>2. Fluxes and Constitutive Laws</h3><p>The flux (rate of transfer per unit area) is linearly related to the gradient for Newtonian fluids and isotropic materials:</p><p><b>Momentum:</b> τyx = -μ(∂u/∂y) (Newton's Law of Viscosity)</p><p><b>Heat:</b> q''x = -k(∂T/∂x) (Fourier's Law)</p><p><b>Mass:</b> JA,x = -DAB(∂CA/∂x) (Fick's Law)</p><p>The negative sign indicates that transport occurs down the gradient (from high to low). The proportionality constants (μ, k, DAB) are not merely empirical constants; they are macroscopic manifestations of microscopic molecular collisions and interactions.</p><h3>3. From Local Laws to Equipment Models: The Shell Balance</h3><p>To predict the behavior of a system, we apply the conservation laws to a differential control volume (a 'shell'). The general balance is: <i>Rate of Accumulation = Rate of In - Rate of Out + Rate of Generation</i>. By taking the limit as the volume approaches zero, we derive the differential equations governing the system. For instance, applying this to momentum yields the Navier-Stokes equations, and applying it to energy yields the convection-conduction equation.</p><h3>Worked Engineering Example: Coupled Transport</h3><div class='example'><p><b>Problem:</b> Consider a catalytic tubular reactor where a highly exothermic gas-phase reaction occurs. Why is a simple plug-flow model insufficient?</p><p><b>Solution:</b> In a highly exothermic reaction, the heat generated at the catalytic wall creates a radial temperature gradient. Because density and viscosity depend on temperature, the velocity profile will deform (momentum-heat coupling). Furthermore, the reaction rate depends exponentially on temperature (Arrhenius law). Therefore, mass transfer to the wall is coupled to heat transfer out of the system and the local velocity profile. We must solve the continuity, Navier-Stokes, energy, and species equations simultaneously.</p></div><h3>Study and Application Task</h3><p>Consider a system where a liquid is flowing down an inclined plane. Write down the assumptions you would need to make to derive the velocity profile. How would the profile change if the fluid were non-Newtonian?</p>"
-                },
-                {
-                    "id": "w1-quiz",
-                    "title": "Week 1 Assessment",
-                    "type": "quiz",
-                    "quiz": [
-                        {"q": "Which gradient drives Newtonian momentum transfer?", "opts": ["Temperature gradient", "Velocity gradient", "Concentration gradient", "Electrical potential"], "answer": 1},
-                        {"q": "The negative sign in Fourier's law indicates heat flows:", "opts": ["Toward higher temperature", "Down the temperature gradient", "Only upward", "Only in gases"], "answer": 1},
-                        {"q": "A local constitutive law is primarily used to relate:", "opts": ["Flux to a driving gradient", "Profit to production", "Conversion to catalyst age", "Pressure to molecular weight"], "answer": 0}
-                    ]
-                }
-            ]
+    "title": "Week 1: Introduction to Advanced Transport Phenomena",
+    "activities": [
+        {
+            "id": "w1-lesson",
+            "title": "Lecture Notes: Introduction to Advanced Transport Phenomena",
+            "type": "lesson",
+            "duration": "60–90 mins",
+            "html": `
+<h2>Introduction to Advanced Transport Phenomena</h2>
+
+<p>Transport phenomena is one of the fundamental foundations of chemical engineering. It describes how momentum, energy and chemical species move through fluids, solids and interfaces. Almost every industrial chemical process involves one or more of these transport mechanisms.</p>
+
+<div class="callout">
+<b>Learning Outcomes</b>
+<p>By the end of this module, learners should be able to:</p>
+<ul>
+<li>Define transport phenomena and explain its importance in chemical engineering.</li>
+<li>Distinguish momentum, heat and mass transport.</li>
+<li>Explain molecular, microscopic and macroscopic transport descriptions.</li>
+<li>Interpret Newton's law of viscosity, Fourier's law and Fick's law.</li>
+<li>Derive and interpret general conservation equations.</li>
+<li>Calculate basic momentum, heat and mass transfer rates.</li>
+<li>Explain Reynolds, Prandtl and Schmidt numbers.</li>
+<li>Apply transport principles to industrial engineering problems.</li>
+</ul>
+</div>
+
+<h3>1. Prerequisite Knowledge</h3>
+
+<p>Learners should have basic knowledge of:</p>
+<ul>
+<li>Engineering mathematics and differential calculus.</li>
+<li>Vector calculus.</li>
+<li>Fluid mechanics.</li>
+<li>Thermodynamics.</li>
+<li>Heat transfer.</li>
+<li>Mass transfer.</li>
+<li>Material and energy balances.</li>
+</ul>
+
+<h3>2. Understanding Transport Phenomena</h3>
+
+<p>Transport phenomena is the study of the movement and transfer of physical quantities within engineering systems.</p>
+
+<p>The three fundamental transport processes are:</p>
+
+<table>
+<tr><th>Transport process</th><th>Quantity transferred</th><th>Driving force</th></tr>
+<tr><td>Momentum transport</td><td>Momentum</td><td>Velocity gradient</td></tr>
+<tr><td>Heat transport</td><td>Thermal energy</td><td>Temperature gradient</td></tr>
+<tr><td>Mass transport</td><td>Chemical species</td><td>Concentration or chemical-potential gradient</td></tr>
+</table>
+
+<p><b>Momentum transport:</b> Occurs when different layers of a fluid move at different velocities. Viscous interactions transfer momentum between these layers.</p>
+
+<p><b>Heat transport:</b> Occurs when thermal energy moves from a region of higher temperature to a region of lower temperature.</p>
+
+<p><b>Mass transport:</b> Occurs when chemical species move through a medium due to concentration differences, chemical-potential gradients or bulk fluid motion.</p>
+
+<div class="callout">
+<b>Engineering significance</b>
+<p>A chemical reactor may have favourable reaction kinetics but still perform poorly because reactants cannot reach the catalyst surface sufficiently quickly. Similarly, an exothermic reactor may become unsafe if heat removal is inadequate.</p>
+<p>Transport phenomena therefore determines important aspects of process efficiency, equipment design, product quality and operational safety.</p>
+</div>
+
+<h3>3. The Three Levels of Transport Description</h3>
+
+<h4>3.1 Molecular Level</h4>
+
+<p>At the molecular level, transport occurs through molecular motion and interactions.</p>
+
+<ul>
+<li>Momentum is transferred through molecular collisions and interactions.</li>
+<li>Thermal energy is transferred through molecular motion and interactions.</li>
+<li>Mass is transferred through molecular diffusion.</li>
+</ul>
+
+<p>Molecular mechanisms help explain why viscosity, thermal conductivity and molecular diffusivity exist.</p>
+
+<h4>3.2 Microscopic or Continuum Level</h4>
+
+<p>At this level, matter is treated as a continuous medium. Engineering quantities such as velocity, pressure, temperature and concentration are represented as mathematical fields.</p>
+
+<p>For example, temperature can be expressed as:</p>
+
+<div class="equation">
+T = T(x,y,z,t)
+</div>
+
+<p>This indicates that temperature can vary with spatial position and time.</p>
+
+<p>Similarly, the velocity field is represented as:</p>
+
+<div class="equation">
+v = v(x,y,z,t)
+</div>
+
+<h4>3.3 Macroscopic Level</h4>
+
+<p>The macroscopic approach examines the overall behaviour of an engineering system.</p>
+
+Examples include:
+<ul>
+<li>Total pressure drop through an industrial pipeline.</li>
+<li>Total heat duty of a heat exchanger.</li>
+<li>Overall mass transfer rate in an absorption column.</li>
+<li>Mixing performance in an industrial reactor.</li>
+</ul>
+
+<h3>4. Understanding Transport Flux</h3>
+
+<p>Flux describes the amount of a physical quantity transferred through a unit area per unit time.</p>
+
+<p>For uniform flux perpendicular to a surface:</p>
+
+<div class="equation">
+Transfer Rate = Flux × Area
+</div>
+
+<p>For a non-uniform flux, the total transfer rate is calculated by integration:</p>
+
+<div class="equation">
+Transfer Rate = ∫A J · n dA
+</div>
+
+<p>Where J represents the flux vector and n represents the outward unit normal.</p>
+
+<table>
+<tr><th>Transport quantity</th><th>SI unit</th></tr>
+<tr><td>Heat flux</td><td>W/m²</td></tr>
+<tr><td>Diffusive molar flux</td><td>mol/(m²·s)</td></tr>
+<tr><td>Diffusive mass flux</td><td>kg/(m²·s)</td></tr>
+<tr><td>Momentum flux or stress</td><td>Pa</td></tr>
+</table>
+
+<h3>5. Momentum Transport</h3>
+
+<p>Momentum transport describes the movement of momentum within a fluid.</p>
+
+<p>Consider two parallel plates separated by a fluid. The lower plate is stationary while the upper plate moves horizontally. The fluid experiences a velocity gradient because of the no-slip condition at the boundaries.</p>
+
+<h4>5.1 Newton's Law of Viscosity</h4>
+
+<p>For a Newtonian fluid undergoing simple shear:</p>
+
+<div class="equation">
+τyx = μ(du/dy)
+</div>
+
+<p>Where:</p>
+<ul>
+<li>τyx = Shear stress (Pa).</li>
+<li>μ = Dynamic viscosity (Pa·s).</li>
+<li>u = Fluid velocity (m/s).</li>
+<li>y = Distance perpendicular to flow (m).</li>
+</ul>
+
+<p>Shear stress is proportional to the velocity gradient for a Newtonian fluid.</p>
+
+<h4>5.2 Dynamic and Kinematic Viscosity</h4>
+
+<p>Dynamic viscosity measures resistance to shear deformation.</p>
+
+<p>Kinematic viscosity is defined as:</p>
+
+<div class="equation">
+ν = μ/ρ
+</div>
+
+<p>Where:</p>
+<ul>
+<li>ν = Kinematic viscosity (m²/s).</li>
+<li>μ = Dynamic viscosity (Pa·s).</li>
+<li>ρ = Fluid density (kg/m³).</li>
+</ul>
+
+<h3>6. Energy Transport</h3>
+
+<p>Thermal energy is transferred through three principal mechanisms:</p>
+
+<ul>
+<li>Conduction.</li>
+<li>Convection.</li>
+<li>Radiation.</li>
+</ul>
+
+<h4>6.1 Fourier's Law of Heat Conduction</h4>
+
+<p>Conduction occurs through microscopic energy interactions within a material.</p>
+
+<div class="equation">
+qᵧ = -k(dT/dy)
+</div>
+
+<p>Where:</p>
+<ul>
+<li>qᵧ = Heat flux (W/m²).</li>
+<li>k = Thermal conductivity (W/(m·K)).</li>
+<li>T = Temperature (K).</li>
+<li>y = Distance (m).</li>
+</ul>
+
+<p>The negative sign indicates that heat flows in the direction of decreasing temperature.</p>
+
+<h4>6.2 Convection</h4>
+
+<p>Convection involves thermal energy transfer between a surface and a moving fluid.</p>
+
+<div class="equation">
+Q = hA(Ts - T∞)
+</div>
+
+<p>Where:</p>
+<ul>
+<li>Q = Heat transfer rate (W).</li>
+<li>h = Convective heat transfer coefficient (W/(m²·K)).</li>
+<li>A = Heat transfer area (m²).</li>
+<li>Ts = Surface temperature.</li>
+<li>T∞ = Bulk fluid temperature.</li>
+</ul>
+
+<p>The convective heat transfer coefficient depends on flow conditions, geometry and fluid properties.</p>
+
+<h3>7. Mass Transport</h3>
+
+<p>Mass transport describes the movement of chemical species within gases, liquids and solids.</p>
+
+<p>Important industrial applications include gas absorption, distillation, extraction, drying, membrane separation and catalytic reactions.</p>
+
+<h4>7.1 Fick's First Law of Diffusion</h4>
+
+<p>For a suitable binary or dilute-system description with constant diffusivity:</p>
+
+<div class="equation">
+JA = -DAB(dCA/dy)
+</div>
+
+<p>Where:</p>
+<ul>
+<li>JA = Diffusive molar flux of species A (mol/(m²·s)).</li>
+<li>DAB = Molecular diffusivity (m²/s).</li>
+<li>CA = Concentration of species A (mol/m³).</li>
+<li>y = Distance (m).</li>
+</ul>
+
+<p>The negative sign indicates that diffusion occurs down the concentration gradient.</p>
+
+<h4>7.2 Molecular Diffusion and Convection</h4>
+
+<p>Diffusion is the movement of a species relative to the bulk movement of the mixture. Convection is the transport caused by bulk fluid motion.</p>
+
+<p>A simple expression for total molar flux is:</p>
+
+<div class="equation">
+NA = CAv + JA
+</div>
+
+<p>This distinction is important when analysing absorption columns, membrane systems and chemical reactors.</p>
+
+<h3>8. General Conservation Principles</h3>
+
+<p>Conservation equations are the mathematical foundation of transport phenomena.</p>
+
+<div class="callout">
+<b>General Balance Equation</b>
+<div class="equation">
+Accumulation = In - Out + Generation
+</div>
+</div>
+
+<h4>8.1 Derivation of the General Scalar Conservation Equation</h4>
+
+<p>Consider a control volume containing a transported quantity φ per unit mass.</p>
+
+<p>Let:</p>
+<ul>
+<li>ρ = Density.</li>
+<li>φ = Quantity per unit mass.</li>
+<li>v = Bulk velocity.</li>
+<li>jφ = Non-advective flux.</li>
+<li>sφ = Source term per unit volume.</li>
+</ul>
+
+<p>The accumulation of the quantity is:</p>
+
+<div class="equation">
+∂/∂t ∫V ρφ dV
+</div>
+
+<p>The total outward transport through the control surface is:</p>
+
+<div class="equation">
+∫A (ρφv + jφ) · n dA
+</div>
+
+<p>Applying the conservation principle:</p>
+
+<div class="equation">
+∂/∂t ∫V ρφ dV =
+-∫A (ρφv + jφ) · n dA
++∫V sφ dV
+</div>
+
+<p>Applying the divergence theorem converts the surface integral into a volume integral.</p>
+
+<p>The resulting local conservation equation is:</p>
+
+<div class="equation">
+∂(ρφ)/∂t + ∇·(ρφv + jφ) = sφ
+</div>
+
+<p>This general form can be adapted to different transport quantities by specifying the appropriate constitutive equations and source terms.</p>
+
+<h4>8.2 Species Conservation Equation</h4>
+
+<p>For species A:</p>
+
+<div class="equation">
+∂(ρYA)/∂t + ∇·(ρYAv + jA) = rA
+</div>
+
+<p>Where YA is the mass fraction and rA represents the rate of production per unit volume.</p>
+
+<p>For a simplified incompressible system with constant diffusivity:</p>
+
+<div class="equation">
+∂YA/∂t + v·∇YA = DAB∇²YA + rA/ρ
+</div>
+
+<p>This equation includes accumulation, convection, diffusion and chemical reaction.</p>
+
+<h4>8.3 Momentum Conservation: Navier–Stokes Equation</h4>
+
+<p>For a Newtonian incompressible fluid with constant viscosity:</p>
+
+<div class="equation">
+ρ[∂v/∂t + (v·∇)v] =
+-∇p + μ∇²v + ρg
+</div>
+
+<p>The terms represent:</p>
+<ul>
+<li>Local acceleration.</li>
+<li>Convective acceleration.</li>
+<li>Pressure forces.</li>
+<li>Viscous momentum diffusion.</li>
+<li>Body forces such as gravity.</li>
+</ul>
+
+<p>The incompressible continuity equation is:</p>
+
+<div class="equation">
+∇·v = 0
+</div>
+
+<h4>8.4 Simplified Energy Equation</h4>
+
+<p>For an incompressible fluid with constant properties and the stated simplified assumptions:</p>
+
+<div class="equation">
+ρcp[∂T/∂t + v·∇T] =
+k∇²T + Φ + q'''
+</div>
+
+<p>Where:</p>
+<ul>
+<li>cp = Specific heat capacity (J/(kg·K)).</li>
+<li>k = Thermal conductivity (W/(m·K)).</li>
+<li>Φ = Viscous dissipation per unit volume (W/m³).</li>
+<li>q''' = Volumetric heat generation (W/m³).</li>
+</ul>
+
+<h3>9. Transport Analogies</h3>
+
+<p>Momentum, heat and mass transport have similar mathematical structures.</p>
+
+<table>
+<tr><th>Momentum</th><th>Heat</th><th>Mass</th></tr>
+<tr><td>Velocity</td><td>Temperature</td><td>Concentration</td></tr>
+<tr><td>Shear stress</td><td>Heat flux</td><td>Diffusive flux</td></tr>
+<tr><td>Viscosity</td><td>Thermal conductivity</td><td>Diffusivity</td></tr>
+<tr><td>Newton's law</td><td>Fourier's law</td><td>Fick's law</td></tr>
+</table>
+
+<p>These analogies help engineers understand the mathematical similarities between transport processes. However, their physical mechanisms and boundary conditions are not identical.</p>
+
+<h3>10. Important Dimensionless Numbers</h3>
+
+<h4>10.1 Reynolds Number</h4>
+
+<div class="equation">
+Re = ρUL/μ
+</div>
+
+<p>Compares inertial forces with viscous forces.</p>
+
+<h4>10.2 Prandtl Number</h4>
+
+<div class="equation">
+Pr = μcp/k = ν/α
+</div>
+
+<p>Compares momentum diffusivity with thermal diffusivity.</p>
+
+<h4>10.3 Schmidt Number</h4>
+
+<div class="equation">
+Sc = ν/DAB
+</div>
+
+<p>Compares momentum diffusivity with molecular mass diffusivity.</p>
+
+<h4>10.4 Péclet Numbers</h4>
+
+<div class="equation">
+Peₕ = Re × Pr
+</div>
+
+<div class="equation">
+Peₘ = Re × Sc
+</div>
+
+<p>These numbers compare convective transport with molecular diffusion for heat and mass respectively.</p>
+
+<h3>11. Fully Worked Engineering Examples</h3>
+
+<h4>Example 1: Momentum Transfer Between Parallel Plates</h4>
+
+<div class="example">
+<b>Problem</b>
+<p>A Newtonian liquid is confined between two parallel plates separated by 2 mm. The upper plate moves at 0.6 m/s while the lower plate remains stationary.</p>
+
+<p>Dynamic viscosity = 0.015 Pa·s.</p>
+<p>Plate area = 0.5 m².</p>
+
+<p>Calculate the velocity gradient, shear stress and required force.</p>
+
+<b>Solution</b>
+
+<p>Convert the separation:</p>
+
+<div class="equation">
+h = 2 mm = 0.002 m
+</div>
+
+<p>Velocity gradient:</p>
+
+<div class="equation">
+du/dy = 0.6/0.002 = 300 s⁻¹
+</div>
+
+<p>Newton's law:</p>
+
+<div class="equation">
+τ = μ(du/dy)
+</div>
+
+<div class="equation">
+τ = 0.015 × 300 = 4.5 Pa
+</div>
+
+<p>Calculate force:</p>
+
+<div class="equation">
+F = τA = 4.5 × 0.5
+</div>
+
+<div class="equation">
+<b>F = 2.25 N</b>
+</div>
+
+<p><b>Interpretation:</b> The moving plate requires a force of 2.25 N to overcome viscous resistance, neglecting other forces.</p>
+</div>
+
+<h4>Example 2: Heat Conduction Through a Plane Wall</h4>
+
+<div class="example">
+<b>Problem</b>
+
+<p>An industrial furnace wall has the following properties:</p>
+
+<ul>
+<li>Thickness = 0.18 m.</li>
+<li>Area = 12 m².</li>
+<li>Thermal conductivity = 0.72 W/(m·K).</li>
+<li>Hot-side temperature = 160°C.</li>
+<li>Cold-side temperature = 40°C.</li>
+</ul>
+
+<p>Assume steady one-dimensional conduction, constant conductivity and negligible internal heat generation. Calculate the heat-transfer rate.</p>
+
+<b>Solution</b>
+
+<p>Temperature difference:</p>
+
+<div class="equation">
+ΔT = 160 - 40 = 120 K
+</div>
+
+<p>Fourier's law for a plane wall:</p>
+
+<div class="equation">
+Q = kAΔT/L
+</div>
+
+<div class="equation">
+Q = (0.72 × 12 × 120)/0.18
+</div>
+
+<div class="equation">
+<b>Q = 5,760 W = 5.76 kW</b>
+</div>
+
+<p>Heat flux:</p>
+
+<div class="equation">
+q'' = 5760/12 = 480 W/m²
+</div>
+
+<p><b>Interpretation:</b> The wall transfers 5.76 kW of heat under the stated conditions.</p>
+</div>
+
+<h4>Example 3: Molecular Diffusion Through a Liquid Film</h4>
+
+<div class="example">
+<b>Problem</b>
+
+<p>A dissolved species A diffuses through a stationary liquid film.</p>
+
+<ul>
+<li>Diffusivity = 1.8 × 10⁻⁹ m²/s.</li>
+<li>Film thickness = 1.5 mm.</li>
+<li>Concentration at side 1 = 2.0 mol/m³.</li>
+<li>Concentration at side 2 = 0.5 mol/m³.</li>
+<li>Area = 3.0 m².</li>
+</ul>
+
+<p>Assume steady one-dimensional diffusion, constant diffusivity and no reaction. Calculate the molar flux and total transfer rate.</p>
+
+<b>Solution</b>
+
+<p>Convert film thickness:</p>
+
+<div class="equation">
+L = 1.5 × 10⁻³ m
+</div>
+
+<p>Concentration difference:</p>
+
+<div class="equation">
+ΔCA = 2.0 - 0.5 = 1.5 mol/m³
+</div>
+
+<p>Fick's first law:</p>
+
+<div class="equation">
+JA = DAB × ΔCA/L
+</div>
+
+<div class="equation">
+JA = (1.8 × 10⁻⁹ × 1.5)/(1.5 × 10⁻³)
+</div>
+
+<div class="equation">
+<b>JA = 1.8 × 10⁻⁶ mol/(m²·s)</b>
+</div>
+
+<p>Total molar transfer rate:</p>
+
+<div class="equation">
+ṅA = JA × A
+</div>
+
+<div class="equation">
+ṅA = 1.8 × 10⁻⁶ × 3
+</div>
+
+<div class="equation">
+<b>ṅA = 5.4 × 10⁻⁶ mol/s</b>
+</div>
+</div>
+
+<h3>12. Industrial Applications</h3>
+
+<h4>12.1 Chemical Reactor Cooling</h4>
+
+<p>Exothermic chemical reactions generate heat. Reactor cooling systems must remove sufficient energy to maintain safe operating temperatures.</p>
+
+<p>Transport mechanisms involved:</p>
+<ul>
+<li>Momentum transport through mixing and circulation.</li>
+<li>Heat transport through the reactor wall and cooling fluid.</li>
+<li>Mass transport of reactants and products.</li>
+</ul>
+
+<h4>12.2 Gas Absorption</h4>
+
+<p>Gas absorption transfers a chemical species from a gas phase into a liquid phase. Examples include carbon dioxide capture, hydrogen sulphide removal and gas purification.</p>
+
+<h4>12.3 Industrial Heat Exchangers</h4>
+
+<p>Heat exchangers transfer energy between fluids. Their design requires consideration of convection, conduction, pressure drop and fouling.</p>
+
+<h4>12.4 Industrial Drying</h4>
+
+<p>Drying removes moisture from materials through simultaneous heat and mass transfer. It is important in food processing, pharmaceuticals, mineral processing and agricultural industries.</p>
+
+<h3>13. Applied Engineering Case Study: Cooling a Jacketed Reactor</h3>
+
+<div class="example">
+<b>Case description</b>
+
+<p>An industrial facility operates a jacketed reactor for an exothermic liquid-phase reaction. Engineers investigate the reactor's heat-removal performance.</p>
+
+<table>
+<tr><th>Parameter</th><th>Value</th></tr>
+<tr><td>Wall thickness</td><td>0.020 m</td></tr>
+<tr><td>Wall conductivity</td><td>16 W/(m·K)</td></tr>
+<tr><td>Heat-transfer area</td><td>4.0 m²</td></tr>
+<tr><td>Inner wall temperature</td><td>90°C</td></tr>
+<tr><td>Outer wall temperature</td><td>30°C</td></tr>
+<tr><td>Cooling-water flow rate</td><td>1.5 kg/s</td></tr>
+<tr><td>Water specific heat capacity</td><td>4180 J/(kg·K)</td></tr>
+<tr><td>Water temperature rise</td><td>10 K</td></tr>
+</table>
+
+<b>Part A: Wall conduction</b>
+
+<div class="equation">
+Q = kAΔT/L
+</div>
+
+<div class="equation">
+Q = (16 × 4 × 60)/0.020
+</div>
+
+<div class="equation">
+<b>Q = 192,000 W = 192 kW</b>
+</div>
+
+<b>Part B: Cooling-water heat gain</b>
+
+<div class="equation">
+Qw = ṁcpΔTw
+</div>
+
+<div class="equation">
+Qw = 1.5 × 4180 × 10
+</div>
+
+<div class="equation">
+<b>Qw = 62,700 W = 62.7 kW</b>
+</div>
+
+<b>Part C: Engineering interpretation</b>
+
+<p>The wall-conduction estimate is 192 kW, whereas the measured cooling-water heat gain is 62.7 kW.</p>
+
+<p>Difference:</p>
+
+<div class="equation">
+192 - 62.7 = 129.3 kW
+</div>
+
+<p>These estimates are not consistent with a simple steady-state model in which all heat conducted through the wall is absorbed by the measured cooling-water stream.</p>
+
+<p>Possible causes include:</p>
+<ul>
+<li>Incorrect temperature measurements.</li>
+<li>Errors in cooling-water flow measurement.</li>
+<li>Other cooling streams or heat losses.</li>
+<li>Unsteady operating conditions.</li>
+<li>Additional thermal resistances or an inadequate model.</li>
+</ul>
+
+<b>Engineering conclusion</b>
+
+<p>A wall-conduction calculation alone cannot establish total reactor cooling performance. A complete analysis must consider process-side convection, wall conduction, coolant-side convection and the overall energy balance.</p>
+</div>
+
+<h4>Case Study Discussion Questions</h4>
+
+<ol>
+<li>Why can a reactor wall have high thermal conductivity while overall cooling performance remains poor?</li>
+<li>What additional measurements should engineers collect before modifying the cooling system?</li>
+<li>How can inadequate mixing affect heat transfer from the reactor contents to the wall?</li>
+<li>What safety consequences could occur if heat generation exceeds heat-removal capacity?</li>
+</ol>
+
+<h3>14. Module Summary</h3>
+
+<p>Advanced Transport Phenomena provides a unified framework for understanding the movement of momentum, energy and mass in engineering systems.</p>
+
+<p>The three fundamental constitutive laws introduced in this module are:</p>
+
+<div class="equation">
+τ = μ(du/dy)
+</div>
+
+<div class="equation">
+qᵧ = -k(dT/dy)
+</div>
+
+<div class="equation">
+JA = -DAB(dCA/dy)
+</div>
+
+<p>These laws form the foundation for more advanced transport models involving fluid flow, heat exchange, molecular diffusion and coupled transport processes.</p>
+
+<h3>15. References and Further Reading</h3>
+
+<ol>
+<li>Bird, R. B., Stewart, W. E., &amp; Lightfoot, E. N. (2007). <i>Transport Phenomena</i>, Revised 2nd Edition. John Wiley &amp; Sons.</li>
+<li>Leal, L. G. (2007). <i>Advanced Transport Phenomena: Fluid Mechanics and Convective Transport Processes</i>. Cambridge University Press.</li>
+<li>Deen, W. M. (2012). <i>Analysis of Transport Phenomena</i>, 2nd Edition. Oxford University Press.</li>
+<li>National Institute of Standards and Technology (NIST). Thermophysical and transport property resources.</li>
+</ol>
+
+<p><b>Academic note:</b> This is original LOGI professional learning material. The worked numerical examples are illustrative engineering calculations. They are not official university examination questions or university-issued course materials.</p>
+
+<h3>16. Separate Answer Key and Explanations</h3>
+
+<details>
+<summary><b>Assessment Answer Key</b></summary>
+
+<ol>
+<li><b>B:</b> Momentum, energy and mass are the three principal transport processes.</li>
+<li><b>C:</b> Newton's law of viscosity relates shear stress to velocity gradient for Newtonian fluids.</li>
+<li><b>B:</b> Dynamic viscosity has the SI unit Pa·s.</li>
+<li><b>A:</b> Heat flows spontaneously down a temperature gradient.</li>
+<li><b>C:</b> Fick's law describes molecular diffusion using diffusivity and a concentration gradient.</li>
+<li><b>A:</b> Reynolds number compares inertial and viscous effects.</li>
+<li><b>B:</b> Steady one-dimensional conduction through a plane wall with constant conductivity and no generation produces a linear temperature profile.</li>
+<li><b>C:</b> Total species flux can contain both convective and diffusive contributions.</li>
+<li><b>A:</b> Chemical reactions introduce production or consumption terms into species conservation equations.</li>
+<li><b>B:</b> Reactor performance depends on the interaction of mixing, heat transfer and mass transport.</li>
+</ol>
+
+<b>Applied Problem Solutions</b>
+
+<p><b>Momentum:</b></p>
+
+<div class="equation">
+du/dy = 0.8/0.004 = 200 s⁻¹
+</div>
+
+<div class="equation">
+τ = 0.020 × 200 = 4.0 Pa
+</div>
+
+<p><b>Heat transfer:</b></p>
+
+<div class="equation">
+Q = (15 × 2 × 50)/0.05
+</div>
+
+<div class="equation">
+Q = 30,000 W = 30 kW
+</div>
+
+<p><b>Mass transfer:</b></p>
+
+<div class="equation">
+JA = (2.0 × 10⁻⁹ × 10)/0.002
+</div>
+
+<div class="equation">
+JA = 1.0 × 10⁻⁵ mol/(m²·s)
+</div>
+
+</details>
+
+<h3>17. Module Completion Requirements</h3>
+
+<ul>
+<li>Complete all lecture notes.</li>
+<li>Study the three worked engineering examples.</li>
+<li>Attempt the applied reactor case study.</li>
+<li>Complete the Week 1 assessment.</li>
+<li>Achieve a minimum assessment score of 50%.</li>
+</ul>
+
+<p><b>Progression:</b> Successful completion of this module qualifies the learner to proceed to Week 2, subject to the LOGI LMS progression rules.</p>
+
+<p><b>LOGI — Faith. Excellence. Impact.</b></p>
+`
         },
         {
+            "id": "w1-quiz",
+            "title": "Week 1 Assessment",
+            "type": "quiz",
+            "duration": "20–30 mins",
+            "quiz": [
+                {
+                    "q": "Which three processes constitute the fundamental areas of transport phenomena?",
+                    "opts": [
+                        "Momentum, energy and mass transfer",
+                        "Pressure, volume and temperature",
+                        "Reaction, equilibrium and catalysis",
+                        "Filtration, distillation and evaporation"
+                    ],
+                    "answer": 0
+                },
+                {
+                    "q": "Newton's law of viscosity relates shear stress to:",
+                    "opts": [
+                        "Temperature gradient",
+                        "Pressure difference only",
+                        "Velocity gradient",
+                        "Concentration gradient"
+                    ],
+                    "answer": 2
+                },
+                {
+                    "q": "What is the SI unit of dynamic viscosity?",
+                    "opts": [
+                        "m²/s",
+                        "Pa·s",
+                        "W/(m·K)",
+                        "mol/(m²·s)"
+                    ],
+                    "answer": 1
+                },
+                {
+                    "q": "According to Fourier's law, heat flows naturally in the direction of:",
+                    "opts": [
+                        "Decreasing temperature",
+                        "Increasing temperature",
+                        "Increasing pressure",
+                        "Increasing concentration"
+                    ],
+                    "answer": 0
+                },
+                {
+                    "q": "Fick's first law describes:",
+                    "opts": [
+                        "Fluid acceleration",
+                        "Heat convection",
+                        "Molecular diffusion",
+                        "Chemical equilibrium"
+                    ],
+                    "answer": 2
+                },
+                {
+                    "q": "The Reynolds number represents the ratio of:",
+                    "opts": [
+                        "Inertial forces to viscous forces",
+                        "Thermal diffusivity to viscosity",
+                        "Mass transfer to heat transfer",
+                        "Pressure to temperature"
+                    ],
+                    "answer": 0
+                },
+                {
+                    "q": "For steady one-dimensional conduction through a plane wall with constant thermal conductivity and no internal heat generation, the temperature profile is:",
+                    "opts": [
+                        "Always exponential",
+                        "Linear",
+                        "Always parabolic",
+                        "Independent of wall thickness"
+                    ],
+                    "answer": 1
+                },
+                {
+                    "q": "The total molar flux of a species in a moving fluid can include:",
+                    "opts": [
+                        "Only molecular diffusion",
+                        "Only bulk convection",
+                        "Bulk convection and molecular diffusion",
+                        "Only chemical reaction"
+                    ],
+                    "answer": 2
+                },
+                {
+                    "q": "In a species conservation equation, a chemical reaction is represented by:",
+                    "opts": [
+                        "A generation or consumption term",
+                        "A gravitational constant",
+                        "A velocity boundary condition only",
+                        "A thermal conductivity term"
+                    ],
+                    "answer": 0
+                },
+                {
+                    "q": "A transport-limited reaction means:",
+                    "opts": [
+                        "Transport restricts reactant delivery or product removal",
+                        "Intrinsic kinetics are always zero",
+                        "The catalyst has no surface",
+                        "Pressure is irrelevant"
+                    ],
+                    "answer": 0
+                }
+            ]
+        }
+    ]
+}
             "title": "Week 2: Mathematical Foundations for Transport",
             "activities": [
                 {
