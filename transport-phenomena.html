@@ -2580,13 +2580,53 @@ const keyDone='logi_completed_'+COURSE.id,keyScores='logi_scores_'+COURSE.id;
 let completedActivities=JSON.parse(localStorage.getItem(keyDone)||'{}');
 let quizScores=JSON.parse(localStorage.getItem(keyScores)||'{}');
 let flatActivities=[];COURSE.modules.forEach((m,mi)=>m.activities.forEach((a,ai)=>flatActivities.push({...a,mi,ai})));
+
 function saveState(){localStorage.setItem(keyDone,JSON.stringify(completedActivities));localStorage.setItem(keyScores,JSON.stringify(quizScores))}
 function toast(s){let e=document.getElementById('toast');e.textContent=s;e.style.display='block';setTimeout(()=>e.style.display='none',2600)}
 function toggleModule(e){e.classList.toggle('open')}
-function renderCourseOutline(){let c=document.getElementById('course-modules');c.innerHTML=COURSE.modules.map((m,mi)=>`<div class="module-card"><div class="module-header open" onclick="toggleModule(this)"><span>▾ ${m.title}</span><span>${m.activities.filter(a=>completedActivities[a.id]).length}/${m.activities.length} completed</span></div><div class="activities">${m.activities.map((a,ai)=>`<div class="activity"><div>${a.type==='quiz'?'📝':'📘'}</div><div class="activity-content"><div class="activity-title" onclick="openReader(${mi},${ai})">${a.title}</div><div class="activity-desc">${a.type==='quiz'?'Assessment · 3 questions':a.duration+' · Lecture notes'}</div></div><span class="badge-done ${completedActivities[a.id]?'show':''}">✓ Done</span></div>`).join('')}</div></div>`).join('')}
+
+// --- SEQUENTIAL LOCKING LOGIC ---
+function isUnlocked(mi, ai) {
+    // The very first activity is always unlocked
+    if (mi === 0 && ai === 0) return true;
+    
+    let targetIndex = flatActivities.findIndex(a => a.mi === mi && a.ai === ai);
+    if (targetIndex === -1) return false;
+    
+    let prevActivity = flatActivities[targetIndex - 1];
+    if (!prevActivity) return true; 
+    
+    // The previous activity must be completed
+    return !!completedActivities[prevActivity.id];
+}
+
+function renderCourseOutline(){
+    let c=document.getElementById('course-modules');
+    c.innerHTML=COURSE.modules.map((m,mi)=>{
+        let moduleCompletedCount = m.activities.filter(a=>completedActivities[a.id]).length;
+        return `<div class="module-card"><div class="module-header open" onclick="toggleModule(this)"><span>▾ ${m.title}</span><span>${moduleCompletedCount}/${m.activities.length} completed</span></div><div class="activities">${m.activities.map((a,ai)=>{
+            let unlocked = isUnlocked(mi, ai);
+            let done = !!completedActivities[a.id];
+            let icon = a.type==='quiz'?'📝':'📘';
+            let lockIcon = unlocked ? '' : ' 🔒';
+            let clickAction = unlocked ? `openReader(${mi},${ai})` : `toast('🔒 Please complete the previous lesson/assessment to unlock this.')`;
+            
+            return `<div class="activity" style="${unlocked?'':'opacity:0.6;'}"><div>${icon}${lockIcon}</div><div class="activity-content"><div class="activity-title" onclick="${clickAction}">${a.title}</div><div class="activity-desc">${a.type==='quiz'?'Assessment · 3 questions':a.duration+' · Lecture notes'}</div></div><span class="badge-done ${done?'show':''}">✓ Done</span></div>`
+        }).join('')}</div></div>`
+    }).join('')
+}
 
 function renderSidebar(){
-    document.getElementById('sidebar-content').innerHTML=COURSE.modules.map((m,mi)=>`<div class="side-module ${mi===currentModuleIndex?'open':''}"><div class="side-module-header" onclick="toggleModule(this)">${m.title}</div><div class="side-activities">${m.activities.map((a,ai)=>`<div class="side-activity ${(mi===currentModuleIndex&&ai===currentActivityIndex)?'active':''} ${completedActivities[a.id]?'done':''}" onclick="openReader(${mi},${ai}); closeSidebar();">${completedActivities[a.id]?'✓':a.type==='quiz'?'📝':'📘'} ${a.title}</div>`).join('')}</div></div>`).join('')
+    document.getElementById('sidebar-content').innerHTML=COURSE.modules.map((m,mi)=>`<div class="side-module ${mi===currentModuleIndex?'open':''}"><div class="side-module-header" onclick="toggleModule(this)">${m.title}</div><div class="side-activities">${m.activities.map((a,ai)=>{
+        let unlocked = isUnlocked(mi, ai);
+        let done = !!completedActivities[a.id];
+        let icon = done?'✓':a.type==='quiz'?'📝':'📘';
+        let lockIcon = unlocked ? '' : ' 🔒';
+        let clickAction = unlocked ? `openReader(${mi},${ai}); closeSidebar();` : `toast('🔒 Please complete the previous lesson/assessment to unlock this.');`;
+        let activeClass = (mi===currentModuleIndex&&ai===currentActivityIndex)?'active':'';
+        
+        return `<div class="side-activity ${activeClass} ${done?'done':''}" style="${unlocked?'':'opacity:0.6;'}" onclick="${clickAction}">${icon}${lockIcon} ${a.title}</div>`
+    }).join('')}</div></div>`).join('')
 }
 
 function getLetterGrade(pct){if(pct>=90)return'A';if(pct>=80)return'B';if(pct>=70)return'C';if(pct>=60)return'D';if(pct>=50)return'E';return'F'}
@@ -2620,15 +2660,68 @@ function renderGrades(){
 
 function showOutline(){document.getElementById('reader-view').style.display='none';document.getElementById('grades-view').classList.remove('active');document.getElementById('outline-view').style.display='block';closeSidebar();window.scrollTo(0,0)}
 function showGrades(){document.getElementById('reader-view').style.display='none';document.getElementById('outline-view').style.display='none';document.getElementById('grades-view').classList.add('active');closeSidebar();renderGrades();window.scrollTo(0,0)}
-function openReader(mi,ai){currentModuleIndex=mi;currentActivityIndex=ai;let m=COURSE.modules[mi],a=m.activities[ai];document.getElementById('outline-view').style.display='none';document.getElementById('grades-view').classList.remove('active');document.getElementById('reader-view').style.display='block';let displayTitle = a.type === 'quiz' ? m.title.split(':')[0] + ' Assessment' : a.title;document.getElementById('reader-title').textContent = displayTitle;
-let b=document.getElementById('reader-body');if(a.type==='lesson'){b.innerHTML=a.html}else{let s=quizScores[a.id];b.innerHTML=`${s&&s.score/s.total>=.5?`<div class="callout"><b>Assessment passed.</b> Best score: ${s.score}/${s.total}. You may review your answers below.</div>`:''}<div id="quiz-wrapper">${a.quiz.map((q,qi)=>`<div class="q" data-qindex="${qi}"><p>${qi+1}. ${q.q}</p>${q.opts.map((o,oi)=>`<label class="${s&&oi===q.answer?'':''}"><input type="radio" name="q${qi}" value="${oi}">${o}</label>`).join('')}</div>`).join('')}<button class="submit-quiz-btn" onclick="submitQuiz()">Submit / Retry Assessment</button><p id="quiz-result"></p></div>`;if(s&&s.score/s.total>=.5){document.querySelectorAll('#quiz-wrapper input').forEach(x=>x.disabled=true);document.querySelector('#quiz-wrapper button').disabled=true}}
-updateNavButtons();renderSidebar();closeSidebar();window.scrollTo(0,0)}
+
+function openReader(mi,ai){
+    if(!isUnlocked(mi,ai)){
+        toast('🔒 Please complete the previous lesson/assessment to unlock this.');
+        return;
+    }
+    currentModuleIndex=mi;currentActivityIndex=ai;let m=COURSE.modules[mi],a=m.activities[ai];document.getElementById('outline-view').style.display='none';document.getElementById('grades-view').classList.remove('active');document.getElementById('reader-view').style.display='block';let displayTitle = a.type === 'quiz' ? m.title.split(':')[0] + ' Assessment' : a.title;document.getElementById('reader-title').textContent = displayTitle;
+    let b=document.getElementById('reader-body');if(a.type==='lesson'){b.innerHTML=a.html}else{let s=quizScores[a.id];b.innerHTML=`${s&&s.score/s.total>=.5?`<div class="callout"><b>Assessment passed.</b> Best score: ${s.score}/${s.total}. You may review your answers below.</div>`:''}<div id="quiz-wrapper">${a.quiz.map((q,qi)=>`<div class="q" data-qindex="${qi}"><p>${qi+1}. ${q.q}</p>${q.opts.map((o,oi)=>`<label class="${s&&oi===q.answer?'':''}"><input type="radio" name="q${qi}" value="${oi}">${o}</label>`).join('')}</div>`).join('')}<button class="submit-quiz-btn" onclick="submitQuiz()">Submit / Retry Assessment</button><p id="quiz-result"></p></div>`;if(s&&s.score/s.total>=.5){document.querySelectorAll('#quiz-wrapper input').forEach(x=>x.disabled=true);document.querySelector('#quiz-wrapper button').disabled=true}}
+    updateNavButtons();renderSidebar();closeSidebar();window.scrollTo(0,0)
+}
+
 function currentIndex(){return flatActivities.findIndex(a=>a.mi===currentModuleIndex&&a.ai===currentActivityIndex)}
-function updateNavButtons(){let a=flatActivities[currentIndex()],done=!!completedActivities[a.id];document.getElementById('btn-prev').disabled=currentIndex()===0;let d=document.getElementById('btn-done');d.style.display=a.type==='quiz'?'none':'inline-block';d.textContent=done?'✓ Completed':'Mark as Complete';d.classList.toggle('done',done);let n=document.getElementById('btn-next');n.textContent=currentIndex()===flatActivities.length-1?'Finish Course':'Next →';n.disabled=!done}
+
+function updateNavButtons(){
+    let a=flatActivities[currentIndex()],done=!!completedActivities[a.id];
+    document.getElementById('btn-prev').disabled=currentIndex()===0;
+    let d=document.getElementById('btn-done');
+    d.style.display=a.type==='quiz'?'none':'inline-block';
+    d.textContent=done?'✓ Completed':'Mark as Complete';
+    d.classList.toggle('done',done);
+    let n=document.getElementById('btn-next');
+    n.textContent=currentIndex()===flatActivities.length-1?'Finish Course':'Next →';
+    n.disabled=!done;
+}
+
 function navPrev(){let i=currentIndex();if(i>0){let a=flatActivities[i-1];openReader(a.mi,a.ai)}}
 function navNext(){let i=currentIndex();if(!completedActivities[flatActivities[i].id])return;if(i<flatActivities.length-1){let a=flatActivities[i+1];openReader(a.mi,a.ai)}else{showOutline();toast('You have completed all course activities.')}} 
-function toggleMarkDone(){let a=flatActivities[currentIndex()];completedActivities[a.id]=true;saveState();updateNavButtons();renderSidebar();renderCourseOutline();toast('Lesson marked complete')}
-function submitQuiz(){let a=flatActivities[currentIndex()],score=0,all=true;a.quiz.forEach((q,qi)=>{let v=document.querySelector(`input[name="q${qi}"]:checked`);if(!v)all=false;else if(+v.value===q.answer)score++});let r=document.getElementById('quiz-result');if(!all){r.textContent='Please answer every question before submitting.';return}let old=quizScores[a.id];if(!old||score>old.score)quizScores[a.id]={score,total:a.quiz.length};if(score/a.quiz.length>=.5){completedActivities[a.id]=true;r.textContent=`Passed: ${score}/${a.quiz.length} (${Math.round(score/a.quiz.length*100)}%).`;r.style.color='var(--success)'}else{delete completedActivities[a.id];r.textContent=`Not yet passed: ${score}/${a.quiz.length} (${Math.round(score/a.quiz.length*100)}%). Review the notes and retry.`;r.style.color='var(--error)'}saveState();renderGrades();renderCourseOutline();updateNavButtons();if(completedActivities[a.id]){toast('Assessment passed!');setTimeout(()=>openReader(currentModuleIndex,currentActivityIndex),900)}}
+
+function toggleMarkDone(){
+    let a=flatActivities[currentIndex()];
+    completedActivities[a.id]=true;
+    saveState();updateNavButtons();renderSidebar();renderCourseOutline();
+    toast('Lesson marked complete. Next item unlocked!')
+}
+
+function submitQuiz(){
+    let a=flatActivities[currentIndex()],score=0,all=true;
+    a.quiz.forEach((q,qi)=>{
+        let v=document.querySelector(`input[name="q${qi}"]:checked`);
+        if(!v)all=false;else if(+v.value===q.answer)score++
+    });
+    let r=document.getElementById('quiz-result');
+    if(!all){r.textContent='Please answer every question before submitting.';return}
+    
+    let old=quizScores[a.id];
+    if(!old||score>old.score)quizScores[a.id]={score,total:a.quiz.length};
+    
+    if(score/a.quiz.length>=.5){
+        completedActivities[a.id]=true;
+        r.textContent=`Passed: ${score}/${a.quiz.length} (${Math.round(score/a.quiz.length*100)}%).`;
+        r.style.color='var(--success)';
+        saveState();renderGrades();renderCourseOutline();updateNavButtons();
+        toast('Assessment passed! Next week unlocked.');
+        setTimeout(()=>openReader(currentModuleIndex,currentActivityIndex),900);
+    } else {
+        delete completedActivities[a.id];
+        r.textContent=`Not yet passed: ${score}/${a.quiz.length} (${Math.round(score/a.quiz.length*100)}%). Review the notes and retry.`;
+        r.style.color='var(--error)';
+        saveState();renderGrades();renderCourseOutline();updateNavButtons();
+    }
+}
+
 function openSidebar(){document.getElementById('sidebar-menu').classList.add('active');document.getElementById('sidebar-overlay').classList.add('active')}
 function closeSidebar(){document.getElementById('sidebar-menu').classList.remove('active');document.getElementById('sidebar-overlay').classList.remove('active')}
 document.addEventListener('DOMContentLoaded',()=>{renderCourseOutline()});
