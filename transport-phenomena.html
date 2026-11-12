@@ -926,27 +926,1323 @@ JA = 1.0 × 10⁻⁵ mol/(m²·s)
             ]
         },
         {
-            "title": "Week 2: Mathematical Foundations for Transport",
-            "activities": [
+    "title": "Week 2: Mathematical Foundations for Advanced Transport Phenomena",
+    "activities": [
+        {
+            "id": "w2-lesson",
+            "title": "Lecture Notes: Mathematical Foundations for Advanced Transport Phenomena",
+            "type": "lesson",
+            "duration": "60–90 mins",
+            "html": `
+<h2>Mathematical Foundations for Advanced Transport Phenomena</h2>
+
+<p>Advanced transport phenomena relies heavily on mathematical modelling. The movement of momentum, energy and chemical species is described using differential equations, vector calculus and mathematical operators.</p>
+
+<p>Engineers must understand how physical quantities vary in space and time before they can formulate accurate mathematical models of industrial processes.</p>
+
+<div class="callout">
+<b>Learning Outcomes</b>
+<p>By the end of this module, learners should be able to:</p>
+<ul>
+<li>Explain the mathematical foundations of transport phenomena.</li>
+<li>Distinguish Cartesian, cylindrical and spherical coordinate systems.</li>
+<li>Understand scalar and vector fields.</li>
+<li>Calculate gradients, divergence and curl.</li>
+<li>Apply the Laplacian operator to engineering problems.</li>
+<li>Distinguish ordinary differential equations from partial differential equations.</li>
+<li>Classify basic differential equations used in transport modelling.</li>
+<li>Formulate initial and boundary conditions.</li>
+<li>Apply mathematical operators to heat, mass and momentum transport.</li>
+<li>Solve basic engineering problems involving vector calculus and differential equations.</li>
+</ul>
+</div>
+
+<h3>1. Mathematical Prerequisite Knowledge</h3>
+
+<p>Learners should have working knowledge of:</p>
+
+<ul>
+<li>Algebra and trigonometry.</li>
+<li>Differentiation and integration.</li>
+<li>Partial differentiation.</li>
+<li>Ordinary differential equations.</li>
+<li>Basic matrix and vector operations.</li>
+<li>Engineering units and dimensional analysis.</li>
+</ul>
+
+<h3>2. Why Mathematics Is Important in Transport Phenomena</h3>
+
+<p>Transport phenomena involves physical quantities that vary with position and time.</p>
+
+<p>For example, temperature inside an industrial reactor may vary from one location to another and may change during operation.</p>
+
+<p>Temperature can therefore be represented as:</p>
+
+<div class="equation">
+T = T(x,y,z,t)
+</div>
+
+<p>Similarly, fluid velocity can be represented as:</p>
+
+<div class="equation">
+v = v(x,y,z,t)
+</div>
+
+<p>These mathematical representations allow engineers to predict how transport processes behave under different operating conditions.</p>
+
+<div class="callout">
+<b>Engineering application</b>
+<p>When designing a chemical reactor, engineers may need to predict temperature distributions, velocity profiles and reactant concentrations. These quantities are described mathematically using differential equations.</p>
+</div>
+
+<h3>3. Coordinate Systems in Chemical Engineering</h3>
+
+<p>Coordinate systems describe the position of a point in space. The choice of coordinate system depends on the geometry of the engineering problem.</p>
+
+<h4>3.1 Cartesian Coordinate System</h4>
+
+<p>The Cartesian coordinate system uses three perpendicular directions:</p>
+
+<ul>
+<li>x-axis</li>
+<li>y-axis</li>
+<li>z-axis</li>
+</ul>
+
+<p>A point is represented by:</p>
+
+<div class="equation">
+(x,y,z)
+</div>
+
+<p>It is particularly useful for rectangular geometries and flat surfaces.</p>
+
+<p><b>Industrial applications:</b></p>
+
+<ul>
+<li>Heat conduction through plane walls.</li>
+<li>Transport through rectangular channels.</li>
+<li>Flow between parallel plates.</li>
+<li>Diffusion through flat membranes.</li>
+</ul>
+
+<h4>3.2 Cylindrical Coordinate System</h4>
+
+<p>Cylindrical coordinates are represented by:</p>
+
+<div class="equation">
+(r,θ,z)
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>r = Radial distance from the central axis.</li>
+<li>θ = Angular position.</li>
+<li>z = Axial distance.</li>
+</ul>
+
+<p>This system is particularly useful for cylindrical equipment.</p>
+
+<p><b>Industrial applications:</b></p>
+
+<ul>
+<li>Fluid flow through pipes.</li>
+<li>Heat transfer in cylindrical reactors.</li>
+<li>Heat conduction through cylindrical insulation.</li>
+<li>Mass transfer in tubular membranes.</li>
+</ul>
+
+<h4>3.3 Spherical Coordinate System</h4>
+
+<p>Spherical coordinates are represented by:</p>
+
+<div class="equation">
+(r,θ,φ)
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>r = Radial distance from the origin.</li>
+<li>θ = Polar angle measured from the positive z-axis.</li>
+<li>φ = Azimuthal angle in the xy-plane.</li>
+</ul>
+
+<p>This system is useful when the physical system has spherical symmetry.</p>
+
+<p><b>Industrial applications:</b></p>
+
+<ul>
+<li>Mass transfer around spherical catalyst particles.</li>
+<li>Heat conduction in spherical vessels.</li>
+<li>Diffusion through spherical particles.</li>
+<li>Heat transfer involving droplets.</li>
+</ul>
+
+<h3>4. Scalar and Vector Fields</h3>
+
+<h4>4.1 Scalar Fields</h4>
+
+<p>A scalar field assigns one numerical value to every point in a region.</p>
+
+<p>Examples include:</p>
+
+<ul>
+<li>Temperature.</li>
+<li>Pressure.</li>
+<li>Density.</li>
+<li>Concentration.</li>
+<li>Viscosity.</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="equation">
+T(x,y,z)=300+2x-3y+4z
+</div>
+
+<p>This equation describes temperature as a function of spatial position. The numerical coefficients represent temperature gradients in the corresponding directions, with consistent units understood.</p>
+
+<h4>4.2 Vector Fields</h4>
+
+<p>A vector field has both magnitude and direction at every point.</p>
+
+<p>Examples include:</p>
+
+<ul>
+<li>Fluid velocity.</li>
+<li>Heat flux.</li>
+<li>Mass flux.</li>
+<li>Force fields.</li>
+</ul>
+
+<p>A three-dimensional velocity field is represented as:</p>
+
+<div class="equation">
+v = ux i + uy j + uz k
+</div>
+
+<p>Where ux, uy and uz represent velocity components along the x, y and z directions.</p>
+
+<h3>5. The Del Operator (∇)</h3>
+
+<p>The del operator is a vector differential operator used extensively in transport phenomena.</p>
+
+<p>In Cartesian coordinates:</p>
+
+<div class="equation">
+∇ = i(∂/∂x) + j(∂/∂y) + k(∂/∂z)
+</div>
+
+<p>It is used to calculate the gradient, divergence and curl of physical fields.</p>
+
+<div class="callout">
+<b>Three important vector operations</b>
+<ol>
+<li>Gradient: Measures the spatial rate and direction of change of a scalar field.</li>
+<li>Divergence: Measures the net outward flux per unit volume of a vector field.</li>
+<li>Curl: Measures the local rotational tendency of a vector field.</li>
+</ol>
+</div>
+
+<h3>6. Gradient of a Scalar Field</h3>
+
+<p>The gradient describes how rapidly a scalar quantity changes in space and identifies the direction of its maximum increase.</p>
+
+<p>For a scalar function T:</p>
+
+<div class="equation">
+∇T = i(∂T/∂x) + j(∂T/∂y) + k(∂T/∂z)
+</div>
+
+<p>For temperature, the gradient indicates the direction of maximum temperature increase.</p>
+
+<p>The magnitude of the gradient indicates how rapidly temperature changes with distance.</p>
+
+<h4>6.1 Physical Meaning in Heat Transfer</h4>
+
+<p>Fourier's law can be expressed in vector form:</p>
+
+<div class="equation">
+q = -k∇T
+</div>
+
+<p>This equation shows that heat flux is directed opposite to the temperature gradient when thermal conductivity is positive.</p>
+
+<h4>6.2 Worked Engineering Example: Temperature Gradient</h4>
+
+<div class="example">
+<b>Problem</b>
+
+<p>The temperature distribution inside a solid material is given by:</p>
+
+<div class="equation">
+T = 300 + 2x - 3y + 4z
+</div>
+
+<p>Temperature is in kelvin and coordinates are in metres.</p>
+
+<p>Calculate the temperature gradient and its magnitude.</p>
+
+<b>Step 1: Differentiate with respect to x</b>
+
+<div class="equation">
+∂T/∂x = 2 K/m
+</div>
+
+<b>Step 2: Differentiate with respect to y</b>
+
+<div class="equation">
+∂T/∂y = -3 K/m
+</div>
+
+<b>Step 3: Differentiate with respect to z</b>
+
+<div class="equation">
+∂T/∂z = 4 K/m
+</div>
+
+<b>Step 4: Construct the gradient vector</b>
+
+<div class="equation">
+∇T = 2i - 3j + 4k K/m
+</div>
+
+<b>Step 5: Calculate the magnitude</b>
+
+<div class="equation">
+|∇T| = √(2² + (-3)² + 4²)
+</div>
+
+<div class="equation">
+|∇T| = √(4 + 9 + 16)
+</div>
+
+<div class="equation">
+<b>|∇T| = √29 = 5.385 K/m</b>
+</div>
+
+<p><b>Interpretation:</b> The maximum temperature increase occurs in the direction of the gradient vector, with a magnitude of approximately 5.385 K per metre.</p>
+</div>
+
+<h3>7. Divergence of a Vector Field</h3>
+
+<p>Divergence measures the net outward flow of a vector quantity per unit volume at a point.</p>
+
+<p>For a vector field:</p>
+
+<div class="equation">
+v = ux i + uy j + uz k
+</div>
+
+<p>The Cartesian divergence is:</p>
+
+<div class="equation">
+∇·v = ∂ux/∂x + ∂uy/∂y + ∂uz/∂z
+</div>
+
+<p>Physical interpretation:</p>
+
+<ul>
+<li>Positive divergence indicates a local net outward flux.</li>
+<li>Negative divergence indicates a local net inward flux.</li>
+<li>Zero divergence indicates no net local outward flux.</li>
+</ul>
+
+<p>For an incompressible fluid:</p>
+
+<div class="equation">
+∇·v = 0
+</div>
+
+<p>This is the differential continuity condition for an incompressible flow.</p>
+
+<h4>7.1 Worked Engineering Example: Velocity Divergence</h4>
+
+<div class="example">
+<b>Problem</b>
+
+<p>A fluid velocity field is described by:</p>
+
+<div class="equation">
+ux = 2x</div>
+<div class="equation">
+uy = -y</div>
+<div class="equation">
+uz = 3z</div>
+
+<p>Calculate the divergence of the velocity field.</p>
+
+<b>Solution</b>
+
+<p>Using the Cartesian divergence equation:</p>
+
+<div class="equation">
+∇·v = ∂ux/∂x + ∂uy/∂y + ∂uz/∂z
+</div>
+
+<p>Differentiate each component:</p>
+
+<div class="equation">
+∂ux/∂x = 2
+</div>
+
+<div class="equation">
+∂uy/∂y = -1
+</div>
+
+<div class="equation">
+∂uz/∂z = 3
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+∇·v = 2 - 1 + 3
+</div>
+
+<div class="equation">
+<b>∇·v = 4 s⁻¹</b>
+</div>
+
+<p><b>Interpretation:</b> The velocity field has positive divergence, indicating local volumetric expansion for this prescribed field.</p>
+
+<p>The field is therefore not compatible with incompressible flow at the specified locations.</p>
+</div>
+
+<h3>8. Curl of a Vector Field</h3>
+
+<p>The curl describes the local rotational tendency of a vector field.</p>
+
+<p>For a three-dimensional vector field:</p>
+
+<div class="equation">
+∇×v =
+| i    j    k |
+</div>
+
+<div class="equation">
+| ∂/∂x  ∂/∂y  ∂/∂z |
+</div>
+
+<div class="equation">
+| ux   uy   uz |
+</div>
+
+<p>Expanding the determinant:</p>
+
+<div class="equation">
+∇×v =
+(∂uz/∂y - ∂uy/∂z)i
++ (∂ux/∂z - ∂uz/∂x)j
++ (∂uy/∂x - ∂ux/∂y)k
+</div>
+
+<p>In fluid mechanics, curl of the velocity field is associated with vorticity.</p>
+
+<div class="equation">
+ω = ∇×v
+</div>
+
+<p>Where ω represents the vorticity vector.</p>
+
+<p>Vorticity is important in analysing:</p>
+
+<ul>
+<li>Fluid mixing.</li>
+<li>Boundary layers.</li>
+<li>Vortex formation.</li>
+<li>Rotating flows.</li>
+<li>Flow separation.</li>
+</ul>
+
+<h4>8.1 Worked Example: Curl of a Velocity Field</h4>
+
+<div class="example">
+<b>Problem</b>
+
+<p>Consider the velocity field:</p>
+
+<div class="equation">
+ux = -2y
+</div>
+
+<div class="equation">
+uy = 2x
+</div>
+
+<div class="equation">
+uz = 0
+</div>
+
+<p>Calculate its curl.</p>
+
+<b>Solution</b>
+
+<p>The x-component is:</p>
+
+<div class="equation">
+∂uz/∂y - ∂uy/∂z = 0 - 0 = 0
+</div>
+
+<p>The y-component is:</p>
+
+<div class="equation">
+∂ux/∂z - ∂uz/∂x = 0 - 0 = 0
+</div>
+
+<p>The z-component is:</p>
+
+<div class="equation">
+∂uy/∂x - ∂ux/∂y = 2 - (-2) = 4
+</div>
+
+<p>Therefore:</p>
+
+<div class="equation">
+<b>∇×v = 4k s⁻¹</b>
+</div>
+
+<p><b>Interpretation:</b> The flow has constant vorticity directed along the positive z-axis.</p>
+</div>
+
+<h3>9. The Laplacian Operator</h3>
+
+<p>The Laplacian is a second-order differential operator widely used in heat, mass and momentum transport equations.</p>
+
+<p>For a scalar field T in Cartesian coordinates:</p>
+
+<div class="equation">
+∇²T = ∂²T/∂x² + ∂²T/∂y² + ∂²T/∂z²
+</div>
+
+<p>The Laplacian describes the sum of the second spatial derivatives of a scalar field.</p>
+
+<p>It appears in:</p>
+
+<ul>
+<li>Heat conduction equations.</li>
+<li>Diffusion equations.</li>
+<li>Viscous momentum diffusion.</li>
+<li>Potential-field equations.</li>
+</ul>
+
+<h4>9.1 Cylindrical Coordinate Laplacian</h4>
+
+<p>For a scalar field T(r,θ,z):</p>
+
+<div class="equation">
+∇²T =
+(1/r)∂/∂r(r∂T/∂r)
++ (1/r²)∂²T/∂θ²
++ ∂²T/∂z²
+</div>
+
+<p>This expression is particularly important when analysing heat conduction or diffusion in cylindrical geometries.</p>
+
+<h4>9.2 Spherical Coordinate Laplacian</h4>
+
+<p>For a scalar field T(r,θ,φ):</p>
+
+<div class="equation">
+∇²T =
+(1/r²)∂/∂r(r²∂T/∂r)
++ (1/(r²sinθ))∂/∂θ(sinθ∂T/∂θ)
++ (1/(r²sin²θ))∂²T/∂φ²
+</div>
+
+<p>These expressions allow the same physical conservation principles to be formulated for different geometries.</p>
+
+<h3>10. Differential Operators in Different Coordinate Systems</h3>
+
+<p>For advanced transport problems, engineers must be able to select the appropriate differential operators for the geometry.</p>
+
+<h4>10.1 Gradient</h4>
+
+<p><b>Cartesian:</b></p>
+
+<div class="equation">
+∇T = (∂T/∂x)i + (∂T/∂y)j + (∂T/∂z)k
+</div>
+
+<p><b>Cylindrical:</b></p>
+
+<div class="equation">
+∇T = (∂T/∂r)er
++ (1/r)(∂T/∂θ)eθ
++ (∂T/∂z)ez
+</div>
+
+<p><b>Spherical:</b></p>
+
+<div class="equation">
+∇T = (∂T/∂r)er
++ (1/r)(∂T/∂θ)eθ
++ (1/(r sinθ))(∂T/∂φ)eφ
+</div>
+
+<h4>10.2 Divergence in Cylindrical Coordinates</h4>
+
+<p>For velocity components vr, vθ and vz:</p>
+
+<div class="equation">
+∇·v =
+(1/r)∂(rvr)/∂r
++ (1/r)∂vθ/∂θ
++ ∂vz/∂z
+</div>
+
+<h4>10.3 Divergence in Spherical Coordinates</h4>
+
+<p>For velocity components vr, vθ and vφ:</p>
+
+<div class="equation">
+∇·v =
+(1/r²)∂(r²vr)/∂r
++ (1/(r sinθ))∂(vθ sinθ)/∂θ
++ (1/(r sinθ))∂vφ/∂φ
+</div>
+
+<div class="callout">
+<b>Important engineering principle</b>
+<p>Choosing the wrong coordinate system can make a transport equation unnecessarily complicated or lead to incorrect mathematical expressions. Cylindrical coordinates are particularly useful for pipes, while spherical coordinates are useful for spherical particles and droplets.</p>
+</div>
+
+<h3>11. Ordinary and Partial Differential Equations</h3>
+
+<h4>11.1 Ordinary Differential Equations (ODEs)</h4>
+
+<p>An ordinary differential equation contains derivatives with respect to one independent variable.</p>
+
+<p>Example:</p>
+
+<div class="equation">
+dT/dx = -5
+</div>
+
+<p>Integrating:</p>
+
+<div class="equation">
+T = -5x + C
+</div>
+
+<p>Where C is an integration constant determined using an appropriate boundary condition.</p>
+
+<p>ODEs frequently appear in steady-state transport problems with simplified geometries.</p>
+
+<h4>11.2 Partial Differential Equations (PDEs)</h4>
+
+<p>A partial differential equation contains partial derivatives with respect to two or more independent variables.</p>
+
+<p>Example:</p>
+
+<div class="equation">
+∂T/∂t = α∇²T
+</div>
+
+<p>This is the transient heat conduction equation for a stationary medium with constant properties and no internal heat generation.</p>
+
+<p>It describes how temperature changes with both position and time.</p>
+
+<h3>12. Classification of Partial Differential Equations</h3>
+
+<p>Second-order PDEs are commonly classified as elliptic, parabolic or hyperbolic.</p>
+
+<h4>12.1 Elliptic Equations</h4>
+
+<p>Example:</p>
+
+<div class="equation">
+∇²T = 0
+</div>
+
+<p>This is Laplace's equation.</p>
+
+<p>It commonly describes steady-state diffusion or heat conduction without internal generation under suitable assumptions.</p>
+
+<h4>12.2 Parabolic Equations</h4>
+
+<p>Example:</p>
+
+<div class="equation">
+∂T/∂t = α∇²T
+</div>
+
+<p>This represents transient heat diffusion.</p>
+
+<h4>12.3 Hyperbolic Equations</h4>
+
+<p>Example:</p>
+
+<div class="equation">
+∂²u/∂t² = c²∂²u/∂x²
+</div>
+
+<p>This is the one-dimensional wave equation.</p>
+
+<p>It describes wave propagation and is useful in certain fluid and mechanical transport problems.</p>
+
+<h3>13. Initial and Boundary Conditions</h3>
+
+<p>Differential equations require additional information before a unique physical solution can be obtained.</p>
+
+<h4>13.1 Initial Conditions</h4>
+
+<p>An initial condition specifies the state of a system at the starting time.</p>
+
+<p>For example:</p>
+
+<div class="equation">
+T(x,0) = 25°C
+</div>
+
+<p>This means the temperature distribution is initially 25°C throughout the specified region.</p>
+
+<h4>13.2 Dirichlet Boundary Condition</h4>
+
+<p>Specifies the value of the dependent variable at a boundary.</p>
+
+<p>Example:</p>
+
+<div class="equation">
+T(0,t) = 100°C
+</div>
+
+<h4>13.3 Neumann Boundary Condition</h4>
+
+<p>Specifies the derivative or flux at a boundary.</p>
+
+<p>Example:</p>
+
+<div class="equation">
+-k(dT/dx) = q''
+</div>
+
+<p>This specifies a heat flux at the surface.</p>
+
+<h4>13.4 Robin or Mixed Boundary Condition</h4>
+
+<p>Combines the dependent variable and its derivative.</p>
+
+<p>For convective heat transfer:</p>
+
+<div class="equation">
+-k(dT/dn) = h(Ts - T∞)
+</div>
+
+<p>This condition describes heat transfer between a solid surface and a surrounding fluid.</p>
+
+<h3>14. Derivation of the One-Dimensional Heat Conduction Equation</h3>
+
+<p>Consider a small stationary solid element undergoing one-dimensional heat conduction.</p>
+
+<p>Assume:</p>
+
+<ul>
+<li>Constant density.</li>
+<li>Constant specific heat capacity.</li>
+<li>Constant thermal conductivity.</li>
+<li>No bulk movement of the material.</li>
+<li>No internal heat generation.</li>
+</ul>
+
+<p>The general energy balance is:</p>
+
+<div class="equation">
+Energy accumulation = Heat in - Heat out
+</div>
+
+<p>For a small differential element:</p>
+
+<div class="equation">
+ρcp(∂T/∂t) = -∂qx/∂x
+</div>
+
+<p>Using Fourier's law:</p>
+
+<div class="equation">
+qx = -k(∂T/∂x)
+</div>
+
+<p>Differentiate with respect to x:</p>
+
+<div class="equation">
+∂qx/∂x = -k(∂²T/∂x²)
+</div>
+
+<p>Substitute into the energy balance:</p>
+
+<div class="equation">
+ρcp(∂T/∂t) = k(∂²T/∂x²)
+</div>
+
+<p>Rearranging:</p>
+
+<div class="equation">
+∂T/∂t = [k/(ρcp)](∂²T/∂x²)
+</div>
+
+<p>Define thermal diffusivity:</p>
+
+<div class="equation">
+α = k/(ρcp)
+</div>
+
+<p>Therefore:</p>
+
+<div class="equation">
+<b>∂T/∂t = α(∂²T/∂x²)</b>
+</div>
+
+<p>This is the one-dimensional transient heat conduction equation.</p>
+
+<div class="callout">
+<b>Physical interpretation</b>
+<p>Thermal diffusivity measures how quickly temperature disturbances spread through a material. Materials with higher thermal diffusivity respond more rapidly to changes in thermal conditions, for comparable geometries and boundary conditions.</p>
+</div>
+
+<h3>15. Worked Engineering Example: Thermal Diffusivity</h3>
+
+<div class="example">
+<b>Problem</b>
+
+<p>A metal component has the following properties:</p>
+
+<ul>
+<li>Thermal conductivity = 45 W/(m·K).</li>
+<li>Density = 7800 kg/m³.</li>
+<li>Specific heat capacity = 460 J/(kg·K).</li>
+</ul>
+
+<p>Calculate the thermal diffusivity.</p>
+
+<b>Solution</b>
+
+<p>Thermal diffusivity is:</p>
+
+<div class="equation">
+α = k/(ρcp)
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+α = 45/(7800 × 460)
+</div>
+
+<div class="equation">
+α = 45/3,588,000
+</div>
+
+<div class="equation">
+<b>α = 1.254 × 10⁻⁵ m²/s</b>
+</div>
+
+<p><b>Interpretation:</b> The thermal diffusivity is approximately 1.254 × 10⁻⁵ m²/s. This parameter describes the rate at which temperature disturbances diffuse through the material.</p>
+</div>
+
+<h3>16. Worked Engineering Example: Cylindrical Diffusion</h3>
+
+<div class="example">
+<b>Problem</b>
+
+<p>A dissolved species diffuses radially through a cylindrical medium. The concentration distribution is:</p>
+
+<div class="equation">
+C(r) = 10 + 2r²
+</div>
+
+<p>Calculate the cylindrical Laplacian of concentration.</p>
+
+<b>Solution</b>
+
+<p>For a radially symmetric cylindrical field with no axial or angular variation:</p>
+
+<div class="equation">
+∇²C = (1/r)d/dr(r dC/dr)
+</div>
+
+<p>First derivative:</p>
+
+<div class="equation">
+dC/dr = 4r
+</div>
+
+<p>Multiply by r:</p>
+
+<div class="equation">
+r(dC/dr) = 4r²
+</div>
+
+<p>Differentiate:</p>
+
+<div class="equation">
+d/dr(4r²) = 8r
+</div>
+
+<p>Divide by r:</p>
+
+<div class="equation">
+∇²C = 8r/r
+</div>
+
+<div class="equation">
+<b>∇²C = 8</b>
+</div>
+
+<p>The result is constant throughout the region where the assumed concentration function applies, including the limiting value at the axis.</p>
+</div>
+
+<h3>17. Industrial Applications of Mathematical Foundations</h3>
+
+<h4>17.1 Pipeline Flow</h4>
+
+<p>Cylindrical coordinates simplify the mathematical analysis of velocity profiles, pressure distributions and momentum transport inside pipes.</p>
+
+<h4>17.2 Heat Transfer in Industrial Reactors</h4>
+
+<p>Coordinate systems and differential equations help engineers calculate temperature distributions inside reactor walls and cylindrical vessels.</p>
+
+<h4>17.3 Diffusion in Catalyst Particles</h4>
+
+<p>Spherical coordinates are useful when studying concentration distributions inside spherical catalyst particles.</p>
+
+<h4>17.4 Computational Fluid Dynamics</h4>
+
+<p>Vector calculus and partial differential equations provide the mathematical foundation for CFD models used to predict fluid velocity, pressure, temperature and species concentration.</p>
+
+<h3>18. Applied Engineering Case Study: Temperature Distribution in a Cylindrical Reactor Wall</h3>
+
+<div class="example">
+<b>Case description</b>
+
+<p>An industrial chemical reactor has a cylindrical metal wall. Engineers need to understand how temperature changes across the wall thickness.</p>
+
+<p>Assume the following:</p>
+
+<ul>
+<li>Inner radius = 0.50 m.</li>
+<li>Outer radius = 0.60 m.</li>
+<li>Inner wall temperature = 180°C.</li>
+<li>Outer wall temperature = 60°C.</li>
+<li>Thermal conductivity = 20 W/(m·K).</li>
+</ul>
+
+<p>Assume steady radial conduction, constant thermal conductivity, negligible axial and angular variations, and no internal heat generation.</p>
+
+<b>Part A: Select the appropriate coordinate system</b>
+
+<p>The reactor wall is cylindrical. Therefore, cylindrical coordinates are appropriate.</p>
+
+<b>Part B: Formulate the governing equation</b>
+
+<p>For steady radial conduction without internal generation:</p>
+
+<div class="equation">
+(1/r)d/dr(r dT/dr) = 0
+</div>
+
+<b>Part C: Integrate the equation</b>
+
+<p>Multiply by r:</p>
+
+<div class="equation">
+d/dr(r dT/dr) = 0
+</div>
+
+<p>Integrate once:</p>
+
+<div class="equation">
+r dT/dr = C1
+</div>
+
+<p>Rearrange:</p>
+
+<div class="equation">
+dT/dr = C1/r
+</div>
+
+<p>Integrate again:</p>
+
+<div class="equation">
+T(r) = C1 ln(r) + C2
+</div>
+
+<p>The constants are determined using the specified wall temperatures.</p>
+
+<b>Part D: Calculate the temperature distribution</b>
+
+<p>For cylindrical conduction:</p>
+
+<div class="equation">
+T(r) = Ti + (To - Ti)
+[ln(r/ri)/ln(ro/ri)]
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>Ti = 180°C.</li>
+<li>To = 60°C.</li>
+<li>ri = 0.50 m.</li>
+<li>ro = 0.60 m.</li>
+</ul>
+
+<p>At the intermediate radius r = 0.55 m:</p>
+
+<div class="equation">
+T(0.55) = 180 + (60 - 180)
+[ln(0.55/0.50)/ln(0.60/0.50)]
+</div>
+
+<div class="equation">
+T(0.55) = 180 - 120(0.09531/0.18232)
+</div>
+
+<div class="equation">
+<b>T(0.55) ≈ 117.3°C</b>
+</div>
+
+<b>Engineering interpretation</b>
+
+<p>The temperature distribution through a cylindrical wall is logarithmic rather than linear. This is an important distinction between cylindrical and plane-wall conduction.</p>
+</div>
+
+<h4>Case Study Discussion Questions</h4>
+
+<ol>
+<li>Why are cylindrical coordinates more appropriate than Cartesian coordinates for this reactor wall?</li>
+<li>Why does the temperature profile become logarithmic?</li>
+<li>How would thermal conductivity affect the heat-transfer rate?</li>
+<li>What additional assumptions would need to be reconsidered if the reactor wall generated heat internally?</li>
+<li>How could this mathematical model be used when designing reactor insulation?</li>
+</ol>
+
+<h3>19. Module Summary</h3>
+
+<p>This module introduced the mathematical tools required for advanced transport analysis.</p>
+
+<p>The most important operators are:</p>
+
+<div class="equation">
+Gradient: ∇T
+</div>
+
+<div class="equation">
+Divergence: ∇·v
+</div>
+
+<div class="equation">
+Curl: ∇×v
+</div>
+
+<div class="equation">
+Laplacian: ∇²T
+</div>
+
+<p>The module also established the importance of:</p>
+
+<ul>
+<li>Cartesian, cylindrical and spherical coordinate systems.</li>
+<li>Scalar and vector fields.</li>
+<li>Ordinary and partial differential equations.</li>
+<li>Initial and boundary conditions.</li>
+<li>Mathematical formulation of heat conduction.</li>
+</ul>
+
+<p>These mathematical foundations will be applied in subsequent modules involving fluid mechanics, heat transfer, molecular diffusion and coupled transport processes.</p>
+
+<h3>20. References and Further Reading</h3>
+
+<ol>
+<li>Bird, R. B., Stewart, W. E., &amp; Lightfoot, E. N. (2007). <i>Transport Phenomena</i>, Revised 2nd Edition. John Wiley &amp; Sons.</li>
+<li>Leal, L. G. (2007). <i>Advanced Transport Phenomena: Fluid Mechanics and Convective Transport Processes</i>. Cambridge University Press.</li>
+<li>Deen, W. M. (2012). <i>Analysis of Transport Phenomena</i>, 2nd Edition. Oxford University Press.</li>
+<li>Kreyszig, E. (2011). <i>Advanced Engineering Mathematics</i>, 10th Edition. John Wiley &amp; Sons.</li>
+<li>Aris, R. (1962). <i>Vectors, Tensors and the Basic Equations of Fluid Mechanics</i>. Prentice-Hall.</li>
+</ol>
+
+<p><b>Academic note:</b> This is original LOGI professional learning material based on established mathematical and chemical-engineering principles. Numerical examples are illustrative. This material does not represent an official university syllabus or qualification.</p>
+
+<p><b>Recommended preparation for Week 3:</b> Review partial differentiation, vector operators and cylindrical-coordinate equations.</p>
+
+<p><b>LOGI — Faith. Excellence. Impact.</b></p>
+`
+        },
+
+        {
+            "id": "w2-quiz",
+            "title": "Week 2 Assessment",
+            "type": "quiz",
+            "duration": "25–30 mins",
+            "quiz": [
                 {
-                    "id": "w2-lesson",
-                    "title": "Lecture Notes: Mathematical Foundations for Transport",
-                    "type": "lesson",
-                    "duration": "60–90 mins",
-                    "html": "<p>Transport equations are mathematically complex because they involve vector and tensor fields that vary in three-dimensional space and time. A firm grasp of vector calculus and partial differential equations (PDEs) is essential for formulating and solving advanced transport problems.</p><div class='callout'><b>Learning outcomes:</b> Manipulate vector operators; select appropriate coordinate systems; classify PDEs; apply boundary and initial conditions.</div><h3>1. Scalar, Vector, and Tensor Fields</h3><p>In transport phenomena, we deal with fields that assign a value to every point in space and time. Temperature and pressure are scalar fields (magnitude only). Velocity and heat flux are vector fields (magnitude and direction). The stress tensor (and shear rate tensor) are second-order tensors. The momentum flux has a direction (the direction of fluid motion) and acts on a surface with its own orientation (the normal vector).</p><h3>2. The Fundamental Differential Operators</h3><p><b>Gradient (∇φ):</b> Acts on a scalar to produce a vector pointing in the direction of steepest ascent. It represents the driving force for transport.</p><p><b>Divergence (∇·v):</b> Acts on a vector to produce a scalar. It represents the net outward flux per unit volume. A non-zero divergence indicates a source or sink.</p><p><b>Laplacian (∇²φ = ∇·∇φ):</b> The divergence of a gradient. It represents the net diffusion into a point relative to the surroundings. In steady-state heat conduction with no generation, ∇²T = 0.</p><h3>3. Coordinate Systems</h3><p>The choice of coordinate system is dictated by the geometry of the problem. While Cartesian (x, y, z) is standard, many industrial problems involve cylindrical (r, θ, z) or spherical (r, θ, φ) geometries. Symmetry is your greatest ally: a fully developed, axisymmetric pipe flow eliminates the angular (θ) and axial (z) derivatives in the velocity profile, reducing the Navier-Stokes equations to an ordinary differential equation (ODE).</p><h3>4. PDE Classification</h3><p>Second-order linear PDEs are classified as Elliptic (steady-state, e.g., Laplace equation), Parabolic (transient diffusion, e.g., heat equation), or Hyperbolic (wave propagation). This classification dictates the types of boundary conditions required and the numerical methods used to solve them. Parabolic equations require initial conditions, while Elliptic equations require boundary conditions.</p><h3>Worked Engineering Example: Steady 1D Conduction</h3><div class='example'><p><b>Problem:</b> Solve for the temperature profile in a slab of thickness L with constant thermal conductivity k, subjected to temperatures T1 at x=0 and T2 at x=L.</p><p><b>Solution:</b> The governing equation is d²T/dx² = 0. Integrating once gives dT/dx = C1. Integrating again gives T(x) = C1x + C2. Applying boundary conditions: T(0) = T1 -> C2 = T1. T(L) = T2 -> T2 = C1L + T1 -> C1 = (T2 - T1)/L. Thus, T(x) = T1 + (T2 - T1)(x/L). The profile is linear.</p></div>"
+                    "q": "Which coordinate system is most appropriate for analysing fully developed flow through a straight circular pipe?",
+                    "opts": [
+                        "Cartesian coordinates",
+                        "Cylindrical coordinates",
+                        "Spherical coordinates",
+                        "Polar coordinates only"
+                    ],
+                    "answer": 1
                 },
                 {
-                    "id": "w2-quiz",
-                    "title": "Week 2 Assessment",
-                    "type": "quiz",
-                    "quiz": [
-                        {"q": "The divergence of a vector field is:", "opts": ["A scalar", "A vector", "A matrix only", "A boundary condition"], "answer": 0},
-                        {"q": "Which coordinate system is natural for a straight circular pipe?", "opts": ["Spherical", "Cylindrical", "Cartesian only", "Elliptic"], "answer": 1},
-                        {"q": "An initial condition specifies:", "opts": ["The value at the starting time", "The wall roughness", "The final conversion", "The mesh size"], "answer": 0}
-                    ]
+                    "q": "A scalar field is a physical quantity that has:",
+                    "opts": [
+                        "Magnitude and direction",
+                        "Direction only",
+                        "Magnitude only at each point",
+                        "No mathematical representation"
+                    ],
+                    "answer": 2
+                },
+                {
+                    "q": "The gradient of a scalar field describes:",
+                    "opts": [
+                        "The maximum spatial rate and direction of increase",
+                        "The total mass of a system",
+                        "The rotational motion of a vector field",
+                        "The pressure drop only"
+                    ],
+                    "answer": 0
+                },
+                {
+                    "q": "For an incompressible fluid, the continuity condition is:",
+                    "opts": [
+                        "∇T = 0",
+                        "∇×v = 0",
+                        "∇·v = 0",
+                        "∇²T = 0"
+                    ],
+                    "answer": 2
+                },
+                {
+                    "q": "The curl of a velocity field is associated with:",
+                    "opts": [
+                        "Thermal conductivity",
+                        "Vorticity",
+                        "Molecular diffusivity",
+                        "Specific heat capacity"
+                    ],
+                    "answer": 1
+                },
+                {
+                    "q": "Which mathematical operator appears in the classical heat diffusion equation?",
+                    "opts": [
+                        "Gradient only",
+                        "Curl only",
+                        "Laplacian",
+                        "Matrix determinant only"
+                    ],
+                    "answer": 2
+                },
+                {
+                    "q": "An ordinary differential equation contains derivatives with respect to:",
+                    "opts": [
+                        "Only one independent variable",
+                        "Three independent variables necessarily",
+                        "Time and space in every case",
+                        "No independent variable"
+                    ],
+                    "answer": 0
+                },
+                {
+                    "q": "Which boundary condition specifies the value of temperature at a surface?",
+                    "opts": [
+                        "Neumann condition",
+                        "Dirichlet condition",
+                        "Robin condition",
+                        "Periodic condition"
+                    ],
+                    "answer": 1
+                },
+                {
+                    "q": "The thermal diffusivity of a material is calculated using:",
+                    "opts": [
+                        "α = ρcp/k",
+                        "α = k/(ρcp)",
+                        "α = μ/ρ",
+                        "α = DAB/ν"
+                    ],
+                    "answer": 1
+                },
+                {
+                    "q": "For steady radial heat conduction through a cylindrical wall with constant thermal conductivity and no internal generation, the temperature distribution is:",
+                    "opts": [
+                        "Always linear",
+                        "Always exponential",
+                        "Logarithmic with radius",
+                        "Independent of radius"
+                    ],
+                    "answer": 2
                 }
             ]
         },
+
+        {
+            "id": "w2-answer-key",
+            "title": "Week 2 Answer Key and Explanations",
+            "type": "lesson",
+            "duration": "10–15 mins",
+            "html": `
+<h2>Week 2: Separate Answer Key and Explanations</h2>
+
+<p>This section contains the correct answers and explanations for the Week 2 assessment. Students should attempt the quiz before accessing this section.</p>
+
+<div class="callout">
+<b>Assessment information</b>
+<ul>
+<li>Total questions: 10</li>
+<li>Marks per question: 2</li>
+<li>Total marks: 20</li>
+<li>Minimum pass mark: 10/20 (50%)</li>
+</ul>
+</div>
+
+<h3>Assessment Answer Key</h3>
+
+<h4>Question 1</h4>
+<p><b>Correct answer: B — Cylindrical coordinates.</b></p>
+<p><b>Explanation:</b> A circular pipe has cylindrical geometry. Cylindrical coordinates simplify the representation of radial, angular and axial variations in fluid flow.</p>
+
+<h4>Question 2</h4>
+<p><b>Correct answer: C — Magnitude only at each point.</b></p>
+<p><b>Explanation:</b> A scalar has magnitude but no direction. Temperature, pressure and concentration are examples of scalar fields.</p>
+
+<h4>Question 3</h4>
+<p><b>Correct answer: A — The maximum spatial rate and direction of increase.</b></p>
+<p><b>Explanation:</b> The gradient points in the direction of the greatest increase of a scalar field. Its magnitude represents the maximum rate of spatial change.</p>
+
+<h4>Question 4</h4>
+<p><b>Correct answer: C — ∇·v = 0.</b></p>
+<p><b>Explanation:</b> For incompressible flow, the velocity field satisfies the divergence-free continuity condition.</p>
+
+<h4>Question 5</h4>
+<p><b>Correct answer: B — Vorticity.</b></p>
+<p><b>Explanation:</b> The curl of the velocity field gives the vorticity vector, which describes local rotational behaviour of the fluid.</p>
+
+<h4>Question 6</h4>
+<p><b>Correct answer: C — Laplacian.</b></p>
+<p><b>Explanation:</b> The heat diffusion equation contains the Laplacian operator, which accounts for second spatial derivatives of temperature.</p>
+
+<h4>Question 7</h4>
+<p><b>Correct answer: A — Only one independent variable.</b></p>
+<p><b>Explanation:</b> An ordinary differential equation contains ordinary derivatives with respect to one independent variable. A partial differential equation contains partial derivatives with respect to multiple independent variables.</p>
+
+<h4>Question 8</h4>
+<p><b>Correct answer: B — Dirichlet condition.</b></p>
+<p><b>Explanation:</b> A Dirichlet boundary condition specifies the value of the dependent variable, such as a fixed temperature at a surface.</p>
+
+<h4>Question 9</h4>
+<p><b>Correct answer: B — α = k/(ρcp).</b></p>
+<p><b>Explanation:</b> Thermal diffusivity is thermal conductivity divided by volumetric heat capacity. Its SI unit is m²/s.</p>
+
+<h4>Question 10</h4>
+<p><b>Correct answer: C — Logarithmic with radius.</b></p>
+<p><b>Explanation:</b> Integrating the steady radial cylindrical heat conduction equation twice produces a logarithmic temperature distribution.</p>
+
+<h3>Applied Problem Solutions</h3>
+
+<h4>Solution 1: Temperature Gradient</h4>
+
+<p>Given:</p>
+
+<div class="equation">
+T = 300 + 2x - 3y + 4z
+</div>
+
+<p>Differentiate:</p>
+
+<div class="equation">
+∇T = 2i - 3j + 4k
+</div>
+
+<p>Magnitude:</p>
+
+<div class="equation">
+|∇T| = √(4 + 9 + 16)
+</div>
+
+<div class="equation">
+<b>|∇T| = 5.385 K/m</b>
+</div>
+
+<h4>Solution 2: Velocity Divergence</h4>
+
+<p>Given:</p>
+
+<div class="equation">
+ux = 2x, uy = -y, uz = 3z
+</div>
+
+<p>Therefore:</p>
+
+<div class="equation">
+∇·v = 2 - 1 + 3
+</div>
+
+<div class="equation">
+<b>∇·v = 4 s⁻¹</b>
+</div>
+
+<h4>Solution 3: Thermal Diffusivity</h4>
+
+<div class="equation">
+α = k/(ρcp)
+</div>
+
+<div class="equation">
+α = 45/(7800 × 460)
+</div>
+
+<div class="equation">
+<b>α = 1.254 × 10⁻⁵ m²/s</b>
+</div>
+
+<h4>Solution 4: Cylindrical Diffusion</h4>
+
+<p>Given:</p>
+
+<div class="equation">
+C(r) = 10 + 2r²
+</div>
+
+<p>Using the radially symmetric cylindrical Laplacian:</p>
+
+<div class="equation">
+∇²C = (1/r)d/dr(r dC/dr)
+</div>
+
+<div class="equation">
+dC/dr = 4r
+</div>
+
+<div class="equation">
+∇²C = (1/r)d/dr(4r²)
+</div>
+
+<div class="equation">
+<b>∇²C = 8</b>
+</div>
+
+<h3>Module Completion Requirements</h3>
+
+<ul>
+<li>Complete the Week 2 lecture notes.</li>
+<li>Attempt all 10 assessment questions.</li>
+<li>Review the separate answer key after submitting the quiz.</li>
+<li>Study the worked mathematical examples.</li>
+<li>Achieve at least 50% to qualify for progression.</li>
+</ul>
+
+<p><b>Next module:</b> Week 3 — Molecular Structure, Transport Properties and Constitutive Relationships.</p>
+
+<p><b>LOGI — Faith. Excellence. Impact.</b></p>
+`
+        }
+    ]
+},
         {
             "title": "Week 3: Conservation Principles and Governing Equations",
             "activities": [
