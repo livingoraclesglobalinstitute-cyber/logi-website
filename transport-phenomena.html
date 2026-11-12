@@ -18498,95 +18498,5528 @@ Next: Week 12 – Advanced Transport in Multiphase and Porous Systems.
   ]
 },
         {
-            "title": "Week 14: Multiphase Transport Phenomena",
-            "activities": [
-                {
-                    "id": "w14-lesson",
-                    "title": "Lecture Notes: Multiphase Transport Phenomena",
-                    "type": "lesson",
-                    "duration": "60–90 mins",
-                    "html": "<p>Multiphase systems (gas-liquid, liquid-solid, gas-solid) are ubiquitous in the chemical, petrochemical, and pharmaceutical industries. Interfacial area and phase distribution dominate the transport rates.</p><div class='callout'><b>Learning outcomes:</b> Characterize flow regimes in multiphase reactors; calculate volumetric mass transfer rates (kLa); apply fluidization principles.</div><h3>1. Multiphase Hydrodynamics</h3><p>The behavior of a gas-liquid system depends strongly on the flow regime: bubbly flow, slug flow, churn flow, or annular flow in pipes; or bubble columns and stirred tanks in reactors. The gas holdup (ε_g) is the volume fraction of gas, which strongly affects the residence time.</p><h3>2. Volumetric Mass Transfer (kLa)</h3><p>In multiphase systems, the specific interfacial area (a) is often very large. The overall volumetric transfer rate is given by rate = kL * a * (C* - C). The product kLa is the critical parameter. It depends on the liquid properties (viscosity, surface tension), gas flow rate, and reactor geometry. In aeration tanks, for instance, kLa determines how efficiently oxygen is supplied to bacteria.</p><h3>3. Fluidized Beds</h3><p>When a gas is passed upward through a bed of fine solid particles, it eventually reaches a velocity where the drag force on the particles balances their weight. This is the minimum fluidization velocity (u_mf). Above this velocity, the bed behaves like a boiling liquid, providing excellent heat transfer and mixing, though gas bypassing (bubbles) can reduce efficiency.</p><h3>4. Scale-Up Complexities</h3><p>Scaling up multiphase reactors is notoriously difficult. Matching one dimensionless group (e.g., maintaining the same kLa) may require impossible changes in power input or sparger design. Often, empirical pilot plant data and complex correlations are the only viable routes.</p><h3>Worked Engineering Example: Oxygen Transfer</h3><div class='example'><p><b>Problem:</b> A bioreactor requires an oxygen transfer rate of 0.05 mol/(m³·s). If the saturation concentration is 0.2 mol/m³ and the bulk liquid concentration is 0.05 mol/m³, what kLa is required?</p><p><b>Solution:</b> OTR = kLa * (C* - C). Rearranging: kLa = OTR / (C* - C) = 0.05 / (0.2 - 0.05) = 0.05 / 0.15 = 0.333 s⁻¹. The design must ensure the agitation and aeration system can achieve this kLa.</p></div>"
-                },
-                {
-                    "id": "w14-quiz",
-                    "title": "Week 14 Assessment",
-                    "type": "quiz",
-                    "quiz": [
-                        {"q": "The term a in kLa commonly represents:", "opts": ["Interfacial area per unit volume", "Pipe cross-sectional area only", "Particle density", "Thermal diffusivity"], "answer": 0},
-                        {"q": "Minimum fluidisation occurs when:", "opts": ["Fluid drag balances effective particle weight", "All particles dissolve", "Gas flow stops", "Pressure drop becomes zero"], "answer": 0},
-                        {"q": "Gas holdup is:", "opts": ["Fraction of reactor volume occupied by gas", "Mass fraction of catalyst", "Liquid viscosity", "Heat exchanger effectiveness"], "answer": 0}
-                    ]
-                }
-            ]
-        },
+  id: "w14",
+  title: "Week 14: Transport in Reactive Systems and Advanced Reactor Design",
+  moduleCode: "ATP 602",
+  level: "Advanced Postgraduate",
+  duration: "90–120 minutes",
+  passMark: 50,
+
+  activities: [
+
+    // =====================================================
+    // ACTIVITY 1: LECTURE NOTES
+    // =====================================================
+
+    {
+      id: "w14-lesson",
+      type: "lesson",
+      title: "Lecture Notes: Transport in Reactive Systems and Advanced Reactor Design",
+
+      html: `
+        <h1>Week 14: Transport in Reactive Systems and Advanced Reactor Design</h1>
+
+        <p><strong>ATP 602 – Advanced Transport Phenomena</strong></p>
+        <p><strong>Lecture duration:</strong> 90–120 minutes</p>
+
+        <div class="callout">
+          <strong>Lecture Overview</strong>
+          <p>
+            Chemical reactors are systems in which reactants are converted
+            into products through chemical reactions. Their performance
+            depends not only on reaction kinetics but also on the transport
+            of mass, momentum and energy.
+          </p>
+          <p>
+            In heterogeneous catalytic reactors, reactants must move from
+            the bulk fluid to catalyst surfaces, diffuse through pores,
+            undergo chemical reactions and allow products to diffuse
+            back into the bulk fluid. Heat must also be supplied or
+            removed to maintain suitable operating conditions.
+          </p>
+          <p>
+            This lecture integrates transport phenomena with reactor
+            engineering, focusing on reaction–diffusion interactions,
+            catalytic effectiveness, thermal management and reactor
+            stability.
+          </p>
+        </div>
+
+        <h2>1. Learning Outcomes</h2>
+
+        <p>By the end of this lecture, students should be able to:</p>
+
+        <ol>
+          <li>Explain the relationship between transport phenomena and chemical reaction kinetics.</li>
+          <li>Apply the Arrhenius equation to evaluate temperature-dependent reaction rates.</li>
+          <li>Distinguish homogeneous and heterogeneous reactions.</li>
+          <li>Explain external and internal mass transfer limitations in catalytic reactors.</li>
+          <li>Apply the Thiele modulus and effectiveness factor to reaction–diffusion systems.</li>
+          <li>Explain heat generation and heat removal in chemical reactors.</li>
+          <li>Apply simplified energy balances to reactive systems.</li>
+          <li>Evaluate the Damköhler number and its engineering significance.</li>
+          <li>Compare continuous stirred-tank and plug-flow reactor models.</li>
+          <li>Identify thermal instability and propose appropriate reactor safety measures.</li>
+        </ol>
+
+        <h2>2. Introduction to Reactive Transport Systems</h2>
+
+        <p>
+          A reactive transport system involves the movement of chemical
+          species and energy while chemical reactions occur.
+        </p>
+
+        <p>
+          In a simple reaction system, a reactant A may be converted
+          into product B:
+        </p>
+
+        <div class="equation">
+          A → B
+        </div>
+
+        <p>
+          The reaction may occur throughout a fluid volume or at
+          a solid surface.
+        </p>
+
+        <h3>2.1 Homogeneous Reactions</h3>
+
+        <p>
+          A homogeneous reaction occurs within a single phase.
+          For example, two dissolved chemicals may react in a
+          liquid solution.
+        </p>
+
+        <p>
+          The reaction rate is commonly expressed per unit volume
+          of the reacting phase.
+        </p>
+
+        <h3>2.2 Heterogeneous Reactions</h3>
+
+        <p>
+          A heterogeneous reaction involves reactants or products
+          in different phases. Many industrial catalytic reactions
+          involve gaseous or liquid reactants reacting on a solid
+          catalyst surface.
+        </p>
+
+        <p>
+          Such reactions involve several transport and reaction steps:
+        </p>
+
+        <ol>
+          <li>Transport of reactants from the bulk fluid to the catalyst particle.</li>
+          <li>External mass transfer across the fluid boundary layer.</li>
+          <li>Diffusion of reactants through catalyst pores.</li>
+          <li>Adsorption of reactants onto active sites, where applicable.</li>
+          <li>Surface chemical reaction.</li>
+          <li>Desorption of products.</li>
+          <li>Diffusion of products out of the catalyst particle.</li>
+          <li>Transport of products into the bulk fluid.</li>
+        </ol>
+
+        <div class="example">
+          <strong>Example: Industrial hydrogenation</strong>
+          <p>
+            In a hydrogenation reactor, hydrogen and an unsaturated
+            organic compound may react over a solid metal catalyst.
+            The overall production rate depends on reactant
+            availability, catalyst properties, temperature,
+            pressure and transport resistance.
+          </p>
+          <p>
+            Even if the catalyst has very fast intrinsic kinetics,
+            poor external or internal mass transfer can limit
+            the observed reaction rate.
+          </p>
+        </div>
+
+        <h2>3. Chemical Reaction Kinetics</h2>
+
+        <p>
+          Reaction kinetics describes how quickly chemical
+          reactants are converted into products.
+        </p>
+
+        <p>
+          For a simple irreversible reaction:
+        </p>
+
+        <div class="equation">
+          A → Products
+        </div>
+
+        <p>
+          A general power-law rate expression is:
+        </p>
+
+        <div class="equation">
+          -r<sub>A</sub> = k C<sub>A</sub><sup>n</sup>
+        </div>
+
+        <p>Where:</p>
+
+        <ul>
+          <li>r<sub>A</sub> = rate of disappearance of A (mol/m³·s)</li>
+          <li>k = reaction rate constant</li>
+          <li>C<sub>A</sub> = concentration of A (mol/m³)</li>
+          <li>n = reaction order</li>
+        </ul>
+
+        <p>
+          The reaction order describes how the reaction rate
+          depends on reactant concentration. It must generally
+          be established experimentally and is not necessarily
+          equal to the stoichiometric coefficient.
+        </p>
+
+        <h3>3.1 Zero-Order Reactions</h3>
+
+        <div class="equation">
+          -r<sub>A</sub> = k
+        </div>
+
+        <p>
+          For a zero-order reaction, the rate is independent
+          of reactant concentration over the applicable
+          concentration range.
+        </p>
+
+        <h3>3.2 First-Order Reactions</h3>
+
+        <div class="equation">
+          -r<sub>A</sub> = kC<sub>A</sub>
+        </div>
+
+        <p>
+          For a first-order reaction, the rate is directly
+          proportional to reactant concentration.
+        </p>
+
+        <h3>3.3 Second-Order Reactions</h3>
+
+        <div class="equation">
+          -r<sub>A</sub> = kC<sub>A</sub><sup>2</sup>
+        </div>
+
+        <p>
+          For this example of a second-order reaction,
+          the rate is proportional to the square of the
+          reactant concentration.
+        </p>
+
+        <h2>4. Temperature Dependence of Reaction Rates</h2>
+
+        <p>
+          Chemical reaction rates are strongly influenced
+          by temperature. Many reactions become faster as
+          temperature increases.
+        </p>
+
+        <p>
+          The Arrhenius equation describes the temperature
+          dependence of the reaction rate constant.
+        </p>
+
+        <div class="equation">
+          k = A exp(-E<sub>a</sub>/RT)
+        </div>
+
+        <p>Where:</p>
+
+        <ul>
+          <li>k = reaction rate constant</li>
+          <li>A = pre-exponential factor</li>
+          <li>E<sub>a</sub> = activation energy (J/mol)</li>
+          <li>R = universal gas constant (8.314 J/mol·K)</li>
+          <li>T = absolute temperature (K)</li>
+        </ul>
+
+        <p>
+          The activation energy represents the energy barrier
+          associated with the reaction mechanism.
+        </p>
+
+        <h3>4.1 Comparing Reaction Rates at Two Temperatures</h3>
+
+        <p>
+          When activation energy is approximately constant,
+          the ratio of rate constants at two temperatures
+          can be calculated using:
+        </p>
+
+        <div class="equation">
+          ln(k<sub>2</sub>/k<sub>1</sub>) =
+          (E<sub>a</sub>/R)(1/T<sub>1</sub> − 1/T<sub>2</sub>)
+        </div>
+
+        <div class="example">
+          <strong>Worked Example 1: Effect of Temperature on Reaction Rate</strong>
+
+          <p>
+            A chemical reaction has an activation energy
+            of 50 kJ/mol. Its rate constant at 300 K is
+            0.010 s⁻¹. Estimate the rate constant at 320 K.
+          </p>
+
+          <p><strong>Given:</strong></p>
+
+          <ul>
+            <li>E<sub>a</sub> = 50,000 J/mol</li>
+            <li>R = 8.314 J/mol·K</li>
+            <li>T<sub>1</sub> = 300 K</li>
+            <li>T<sub>2</sub> = 320 K</li>
+            <li>k<sub>1</sub> = 0.010 s⁻¹</li>
+          </ul>
+
+          <p><strong>Solution:</strong></p>
+
+          <p>
+            ln(k<sub>2</sub>/k<sub>1</sub>) =
+            (50,000/8.314)(1/300 − 1/320)
+          </p>
+
+          <p>
+            ln(k<sub>2</sub>/k<sub>1</sub>) ≈ 1.252
+          </p>
+
+          <p>
+            k<sub>2</sub>/k<sub>1</sub> = exp(1.252)
+          </p>
+
+          <p>
+            k<sub>2</sub>/k<sub>1</sub> ≈ 3.50
+          </p>
+
+          <p>
+            k<sub>2</sub> = 0.010 × 3.50
+          </p>
+
+          <p>
+            <strong>k<sub>2</sub> ≈ 0.0350 s⁻¹</strong>
+          </p>
+
+          <p>
+            Increasing the temperature from 300 K to 320 K
+            increases the reaction rate constant by
+            approximately 3.5 times.
+          </p>
+        </div>
+
+        <h2>5. Mass Transfer Limitations in Catalytic Reactors</h2>
+
+        <p>
+          Catalytic reactions may be limited by the rate at
+          which reactants reach active catalytic sites.
+        </p>
+
+        <p>Two important mass transfer limitations are:</p>
+
+        <h3>5.1 External Mass Transfer Resistance</h3>
+
+        <p>
+          External mass transfer resistance occurs when
+          reactants move from the bulk fluid to the external
+          surface of a catalyst particle.
+        </p>
+
+        <p>
+          A simplified mass transfer relationship is:
+        </p>
+
+        <div class="equation">
+          N<sub>A</sub> = k<sub>c</sub>(C<sub>A,b</sub> − C<sub>A,s</sub>)
+        </div>
+
+        <p>Where:</p>
+
+        <ul>
+          <li>N<sub>A</sub> = molar transfer flux (mol/m²·s)</li>
+          <li>k<sub>c</sub> = external mass transfer coefficient (m/s)</li>
+          <li>C<sub>A,b</sub> = bulk fluid concentration (mol/m³)</li>
+          <li>C<sub>A,s</sub> = concentration at the particle surface (mol/m³)</li>
+        </ul>
+
+        <p>
+          External mass transfer may be improved by changing
+          fluid velocity, mixing, particle size or reactor
+          hydrodynamics, subject to pressure-drop and
+          equipment constraints.
+        </p>
+
+        <h3>5.2 Internal Diffusion Resistance</h3>
+
+        <p>
+          Internal diffusion resistance occurs when reactants
+          move through pores within a porous catalyst particle.
+        </p>
+
+        <p>
+          A reactant concentration gradient may develop
+          between the particle surface and its interior.
+          Consequently, the concentration at internal
+          catalytic sites may be lower than the surface
+          concentration.
+        </p>
+
+        <p>
+          Internal diffusion limitations can reduce the
+          fraction of catalyst effectively utilised.
+        </p>
+
+        <h2>6. The Thiele Modulus</h2>
+
+        <p>
+          The Thiele modulus compares the characteristic
+          reaction rate with the characteristic internal
+          diffusion rate in a porous catalyst.
+        </p>
+
+        <p>
+          For a first-order reaction in a spherical catalyst
+          particle:
+        </p>
+
+        <div class="equation">
+          φ = R<sub>p</sub> √(k<sub>v</sub>/D<sub>eff</sub>)
+        </div>
+
+        <p>Where:</p>
+
+        <ul>
+          <li>φ = Thiele modulus (dimensionless)</li>
+          <li>R<sub>p</sub> = catalyst particle radius (m)</li>
+          <li>k<sub>v</sub> = first-order reaction rate constant based on catalyst particle volume (s⁻¹)</li>
+          <li>D<sub>eff</sub> = effective diffusivity (m²/s)</li>
+        </ul>
+
+        <p>
+          The interpretation depends on the geometry and
+          reaction model, but generally:
+        </p>
+
+        <ul>
+          <li>Small φ: diffusion is relatively fast compared with reaction.</li>
+          <li>Large φ: internal diffusion limitations may be significant.</li>
+        </ul>
+
+        <h3>6.1 Effectiveness Factor</h3>
+
+        <p>
+          The effectiveness factor measures the actual
+          reaction rate inside a porous catalyst particle
+          relative to the rate that would occur if the
+          entire particle were at the external-surface
+          reactant concentration and temperature.
+        </p>
+
+        <div class="equation">
+          η =
+          Actual reaction rate /
+          Ideal rate at uniform surface conditions
+        </div>
+
+        <p>
+          For an isothermal, spherical catalyst with a
+          first-order reaction and a constant effective
+          diffusivity, the effectiveness factor is:
+        </p>
+
+        <div class="equation">
+          η = (3/φ²)(φ coth φ − 1)
+        </div>
+
+        <p>
+          This expression applies to the stated spherical,
+          first-order, steady-state diffusion–reaction model.
+          Other geometries and kinetic expressions require
+          different effectiveness-factor relationships.
+        </p>
+
+        <div class="example">
+          <strong>Worked Example 2: Catalyst Effectiveness Factor</strong>
+
+          <p>
+            A spherical catalyst particle has a Thiele
+            modulus of 2.0. Calculate its effectiveness
+            factor using the first-order spherical model.
+          </p>
+
+          <p><strong>Solution:</strong></p>
+
+          <p>
+            η = (3/φ²)(φ coth φ − 1)
+          </p>
+
+          <p>For φ = 2:</p>
+
+          <p>
+            coth(2) ≈ 1.0373
+          </p>
+
+          <p>
+            η = (3/4)[(2 × 1.0373) − 1]
+          </p>
+
+          <p>
+            η = 0.75(2.0746 − 1)
+          </p>
+
+          <p>
+            η = 0.75 × 1.0746
+          </p>
+
+          <p><strong>η ≈ 0.806</strong></p>
+
+          <p>
+            Approximately 80.6% of the ideal reaction
+            rate is achieved under the stated model.
+          </p>
+        </div>
+
+        <h2>7. The Damköhler Number</h2>
+
+        <p>
+          The Damköhler number compares the characteristic
+          rate of chemical reaction with the characteristic
+          rate of transport or flow.
+        </p>
+
+        <p>
+          Its precise definition depends on the process
+          and transport mechanism being examined.
+        </p>
+
+        <p>
+          For a first-order reaction in a system with
+          characteristic residence time:
+        </p>
+
+        <div class="equation">
+          Da = kτ
+        </div>
+
+        <p>Where:</p>
+
+        <ul>
+          <li>Da = Damköhler number (dimensionless)</li>
+          <li>k = first-order reaction rate constant (s⁻¹)</li>
+          <li>τ = characteristic residence time (s)</li>
+        </ul>
+
+        <p>General interpretation:</p>
+
+        <ul>
+          <li>Da much smaller than 1: reaction is relatively slow compared with residence time.</li>
+          <li>Da approximately equal to 1: reaction and residence-time scales are comparable.</li>
+          <li>Da much greater than 1: reaction is relatively fast compared with the available residence time.</li>
+        </ul>
+
+        <p>
+          A large Damköhler number does not automatically
+          mean complete conversion. Actual conversion
+          also depends on reactor configuration, mixing,
+          kinetics and transport limitations.
+        </p>
+
+        <div class="example">
+          <strong>Worked Example 3: Damköhler Number</strong>
+
+          <p>
+            A first-order reaction has a rate constant
+            of 0.05 s⁻¹. The reactor residence time is
+            40 seconds. Calculate the Damköhler number.
+          </p>
+
+          <p><strong>Solution:</strong></p>
+
+          <p>Da = kτ</p>
+
+          <p>Da = 0.05 × 40</p>
+
+          <p><strong>Da = 2.0</strong></p>
+
+          <p>
+            The reaction and residence-time scales are
+            comparable, with the reaction occurring
+            relatively quickly over the available
+            residence time.
+          </p>
+        </div>
+
+        <h2>8. Energy Balances in Reactive Systems</h2>
+
+        <p>
+          Chemical reactions may release or absorb energy.
+          Exothermic reactions release heat, while
+          endothermic reactions absorb heat.
+        </p>
+
+        <p>
+          The energy balance is therefore essential
+          in reactor design and operation.
+        </p>
+
+        <h3>8.1 Exothermic Reactions</h3>
+
+        <p>
+          An exothermic reaction has a negative enthalpy
+          change under the specified thermodynamic
+          conditions:
+        </p>
+
+        <div class="equation">
+          ΔH<sub>r</sub> &lt; 0
+        </div>
+
+        <p>
+          Heat is released as the reaction proceeds.
+          If heat removal is insufficient, reactor
+          temperature may increase.
+        </p>
+
+        <h3>8.2 Endothermic Reactions</h3>
+
+        <p>
+          An endothermic reaction has a positive
+          enthalpy change:
+        </p>
+
+        <div class="equation">
+          ΔH<sub>r</sub> &gt; 0
+        </div>
+
+        <p>
+          Heat must be supplied to maintain the reaction
+          and desired production rate.
+        </p>
+
+        <h3>8.3 General Energy Balance</h3>
+
+        <p>
+          The general energy balance accounts for:
+        </p>
+
+        <ul>
+          <li>Energy entering the system.</li>
+          <li>Energy leaving the system.</li>
+          <li>Heat transferred to or from the surroundings.</li>
+          <li>Work interactions.</li>
+          <li>Accumulation of energy within the system.</li>
+        </ul>
+
+        <p>
+          A simplified steady-flow reactor energy balance
+          may be expressed as:
+        </p>
+
+        <div class="equation">
+          Energy in − Energy out + Heat added − Work done
+          = 0
+        </div>
+
+        <p>
+          The exact formulation depends on the selected
+          control volume, kinetic and potential energy
+          contributions, shaft work and enthalpy reference.
+        </p>
+
+        <h2>9. Heat Generation and Heat Removal</h2>
+
+        <p>
+          In an exothermic reactor, heat is generated
+          by the chemical reaction and transferred
+          away through reactor walls, cooling jackets,
+          coils or other heat exchange arrangements.
+        </p>
+
+        <h3>9.1 Heat Generation</h3>
+
+        <p>
+          For a single reaction, the magnitude of
+          heat generation per unit reactor volume
+          may be represented by:
+        </p>
+
+        <div class="equation">
+          q'''<sub>gen</sub> =
+          (-ΔH<sub>r</sub>)(-r<sub>A</sub>)
+        </div>
+
+        <p>
+          For an exothermic reaction, both
+          -ΔH<sub>r</sub> and -r<sub>A</sub>
+          are positive when expressed using the
+          usual disappearance-rate convention.
+        </p>
+
+        <p>
+          The units are W/m³ when reaction enthalpy
+          is in J/mol and reaction rate is in mol/m³·s.
+        </p>
+
+        <h3>9.2 Heat Removal</h3>
+
+        <p>
+          A simplified heat removal relationship is:
+        </p>
+
+        <div class="equation">
+          Q = UA(T<sub>r</sub> − T<sub>c</sub>)
+        </div>
+
+        <p>Where:</p>
+
+        <ul>
+          <li>Q = heat removal rate (W)</li>
+          <li>U = overall heat transfer coefficient (W/m²·K)</li>
+          <li>A = heat transfer area (m²)</li>
+          <li>T<sub>r</sub> = representative reactor temperature (K)</li>
+          <li>T<sub>c</sub> = representative coolant temperature (K)</li>
+        </ul>
+
+        <p>
+          This expression assumes a representative
+          temperature difference. More detailed designs
+          may require logarithmic mean temperature
+          difference or distributed energy balances.
+        </p>
+
+        <div class="example">
+          <strong>Worked Example 4: Heat Removal from a Reactor</strong>
+
+          <p>
+            An exothermic reactor has an overall heat
+            transfer coefficient of 500 W/m²·K.
+            Its heat exchange area is 12 m².
+            The representative reactor temperature
+            is 400 K and the coolant temperature is
+            350 K.
+          </p>
+
+          <p>Calculate the heat removal rate.</p>
+
+          <p><strong>Solution:</strong></p>
+
+          <p>Q = UA(T<sub>r</sub> − T<sub>c</sub>)</p>
+
+          <p>Q = 500 × 12 × (400 − 350)</p>
+
+          <p>Q = 500 × 12 × 50</p>
+
+          <p><strong>Q = 300,000 W = 300 kW</strong></p>
+
+          <p>
+            The reactor removes heat at a rate of
+            300 kW under the stated conditions.
+          </p>
+        </div>
+
+        <h2>10. Thermal Runaway and Reactor Stability</h2>
+
+        <p>
+          Thermal runaway is a potentially dangerous
+          condition in which increasing temperature
+          accelerates an exothermic reaction, causing
+          additional heat generation.
+        </p>
+
+        <p>
+          If the heat generation rate exceeds the
+          available heat removal capacity, reactor
+          temperature may rise rapidly.
+        </p>
+
+        <h3>10.1 Positive Feedback Mechanism</h3>
+
+        <ol>
+          <li>The reaction generates heat.</li>
+          <li>Reactor temperature increases.</li>
+          <li>The Arrhenius relationship increases the reaction rate.</li>
+          <li>Higher reaction rates generate more heat.</li>
+          <li>Temperature may continue increasing if heat removal cannot compensate.</li>
+        </ol>
+
+        <p>
+          This feedback can produce severe temperature
+          excursions, overpressure, equipment damage
+          and potentially hazardous releases.
+        </p>
+
+        <h3>10.2 Heat Generation and Removal Curves</h3>
+
+        <p>
+          A reactor operating point may be analysed
+          by comparing heat generation and heat removal
+          as functions of temperature.
+        </p>
+
+        <p>
+          At a steady thermal operating point:
+        </p>
+
+        <div class="equation">
+          Q<sub>gen</sub> = Q<sub>rem</sub>
+        </div>
+
+        <p>
+          A small temperature disturbance can be
+          assessed by examining how the heat generation
+          and heat removal rates change with temperature.
+        </p>
+
+        <p>
+          In a simplified lumped thermal model, local
+          stability requires the heat removal rate
+          to respond more strongly to a small temperature
+          increase than the heat generation rate:
+        </p>
+
+        <div class="equation">
+          dQ<sub>rem</sub>/dT &gt;
+          dQ<sub>gen</sub>/dT
+        </div>
+
+        <p>
+          This is a local stability condition for the
+          simplified model, not a complete safety
+          assessment of a real reactor.
+        </p>
+
+        <h3>10.3 Prevention and Control</h3>
+
+        <ul>
+          <li>Appropriate reactor cooling capacity.</li>
+          <li>Temperature monitoring and independent alarms.</li>
+          <li>Automatic emergency shutdown systems.</li>
+          <li>Controlled reactant addition and feed interruption.</li>
+          <li>Emergency relief and pressure protection.</li>
+          <li>Suitable reactor material selection.</li>
+          <li>Hazard identification and process risk assessment.</li>
+          <li>Validated operating limits and emergency procedures.</li>
+        </ul>
+
+        <h2>11. Reactor Types and Transport Considerations</h2>
+
+        <h3>11.1 Batch Reactor</h3>
+
+        <p>
+          A batch reactor is charged with reactants,
+          operated for a specified period and then
+          discharged.
+        </p>
+
+        <p>
+          It is commonly used in pharmaceutical,
+          specialty chemical and small-scale production.
+        </p>
+
+        <p>
+          Important transport considerations include
+          mixing, heat transfer, temperature uniformity
+          and changes in reactant concentration with time.
+        </p>
+
+        <h3>11.2 Continuous Stirred-Tank Reactor (CSTR)</h3>
+
+        <p>
+          A CSTR operates continuously with feed entering
+          and product leaving. Ideal mixing assumes
+          uniform reactor composition and temperature.
+        </p>
+
+        <p>
+          For a steady-state CSTR with constant density:
+        </p>
+
+        <div class="equation">
+          F<sub>A0</sub> − F<sub>A</sub> +
+          r<sub>A</sub>V = 0
+        </div>
+
+        <p>
+          Where r<sub>A</sub> is the signed rate of
+          formation of A. For a reactant undergoing
+          disappearance, r<sub>A</sub> is negative.
+        </p>
+
+        <p>
+          Using the positive disappearance rate:
+        </p>
+
+        <div class="equation">
+          V =
+          F<sub>A0</sub>X / (-r<sub>A</sub>)<sub>exit</sub>
+        </div>
+
+        <p>
+          This equation assumes steady operation and
+          an ideal CSTR with the reaction rate evaluated
+          at the exit conditions.
+        </p>
+
+        <h3>11.3 Plug-Flow Reactor (PFR)</h3>
+
+        <p>
+          A plug-flow reactor is an idealised tubular
+          reactor in which fluid moves through the
+          reactor with negligible axial mixing.
+        </p>
+
+        <p>
+          The composition and temperature may change
+          along the reactor length.
+        </p>
+
+        <p>
+          The ideal PFR design equation is:
+        </p>
+
+        <div class="equation">
+          V =
+          F<sub>A0</sub>
+          ∫<sub>0</sub><sup>X</sup>
+          dX / (-r<sub>A</sub>)
+        </div>
+
+        <p>
+          The rate is evaluated at the local reactor
+          conditions, which may change with conversion
+          and position.
+        </p>
+
+        <h3>11.4 Packed-Bed Catalytic Reactor</h3>
+
+        <p>
+          A packed-bed reactor contains catalyst
+          particles through which reactants flow.
+          The design must consider pressure drop,
+          external mass transfer, internal diffusion,
+          reaction kinetics and heat transfer.
+        </p>
+
+        <h3>11.5 Fluidised-Bed Reactor</h3>
+
+        <p>
+          A fluidised-bed reactor uses upward-moving
+          fluid to suspend solid particles.
+          It can provide strong mixing and heat
+          transfer, although particle behaviour,
+          entrainment and gas–solid contacting
+          must be considered.
+        </p>
+
+        <h2>12. Comparing CSTR and PFR Performance</h2>
+
+        <p>
+          Reactor configuration influences conversion,
+          residence-time distribution, temperature
+          profiles and transport limitations.
+        </p>
+
+        <p><strong>Ideal CSTR characteristics:</strong></p>
+
+        <ul>
+          <li>Uniform composition throughout the reactor.</li>
+          <li>Exit concentration represents the reactor concentration.</li>
+          <li>Strong mixing is assumed.</li>
+          <li>For many positive-order irreversible reactions, a CSTR requires a larger volume than a PFR for the same conversion and feed conditions.</li>
+        </ul>
+
+        <p><strong>Ideal PFR characteristics:</strong></p>
+
+        <ul>
+          <li>Composition changes along the reactor length.</li>
+          <li>Axial mixing is neglected in the ideal model.</li>
+          <li>Radial mixing is assumed sufficient to avoid radial gradients in the simple model.</li>
+          <li>Temperature may vary along the reactor.</li>
+        </ul>
+
+        <p>
+          Actual reactor performance depends on kinetics,
+          heat effects, mixing, pressure drop and transport
+          resistance. An ideal reactor comparison should
+          not replace detailed process analysis.
+        </p>
+
+        <h2>13. Coupled Reaction, Diffusion and Heat Transfer</h2>
+
+        <p>
+          In catalytic reactors, reaction, diffusion and
+          heat transfer occur simultaneously.
+        </p>
+
+        <p>
+          A simplified species balance for a porous
+          catalyst may be expressed as:
+        </p>
+
+        <div class="equation">
+          ∂C<sub>A</sub>/∂t =
+          D<sub>eff</sub>∇²C<sub>A</sub> + r<sub>A</sub>
+        </div>
+
+        <p>
+          Here r<sub>A</sub> is the signed rate of formation
+          of species A. For a disappearing reactant,
+          r<sub>A</sub> is negative.
+        </p>
+
+        <p>
+          A simplified heat equation for a stationary
+          porous catalyst, under constant effective
+          thermal properties, is:
+        </p>
+
+        <div class="equation">
+          ρ<sub>eff</sub>c<sub>p,eff</sub>
+          ∂T/∂t =
+          k<sub>eff</sub>∇²T + q'''<sub>gen</sub>
+        </div>
+
+        <p>
+          These equations represent simplified models.
+          More detailed descriptions may account for
+          separate solid and fluid temperatures,
+          convection, variable properties, multiple
+          species and temperature-dependent reaction rates.
+        </p>
+
+        <h2>14. Industrial Applications</h2>
+
+        <h3>14.1 Petroleum Refining</h3>
+
+        <p>
+          Catalytic cracking, reforming and hydrotreating
+          processes involve chemical reactions in the
+          presence of solid catalysts. Reactor design
+          must consider mass transfer, heat effects,
+          pressure drop and catalyst deactivation.
+        </p>
+
+        <h3>14.2 Fertiliser Manufacturing</h3>
+
+        <p>
+          Ammonia production involves gas-phase reaction
+          over a catalyst at elevated pressure and
+          temperature. Heat management and reactant
+          distribution are important for safe and
+          efficient operation.
+        </p>
+
+        <h3>14.3 Polymer Production</h3>
+
+        <p>
+          Polymerisation reactions may release
+          substantial heat. Mixing, heat transfer,
+          viscosity changes and reactor stability
+          influence product quality and process safety.
+        </p>
+
+        <h3>14.4 Pharmaceutical Manufacturing</h3>
+
+        <p>
+          Reaction conditions, mixing and heat transfer
+          influence product purity, selectivity and
+          batch-to-batch consistency.
+        </p>
+
+        <h3>14.5 Environmental Engineering</h3>
+
+        <p>
+          Biological and catalytic treatment systems
+          depend on the transport of oxygen, nutrients
+          and contaminants to reactive microorganisms
+          or catalyst surfaces.
+        </p>
+
+        <h2>15. Industrial Case Study: Exothermic Catalytic Reactor</h2>
+
+        <div class="callout">
+          <strong>Case Study</strong>
+
+          <p>
+            A chemical manufacturing facility operates
+            a packed-bed catalytic reactor for an
+            exothermic conversion process. Over time,
+            the reactor begins to experience uneven
+            temperature distribution and reduced
+            conversion.
+          </p>
+
+          <p><strong>Observed problems:</strong></p>
+
+          <ul>
+            <li>Temperature increases in selected regions of the reactor.</li>
+            <li>Pressure drop across the catalyst bed increases.</li>
+            <li>Product conversion becomes inconsistent.</li>
+            <li>Cooling performance becomes less effective.</li>
+            <li>Some catalyst particles show signs of deactivation.</li>
+          </ul>
+
+          <p><strong>Possible engineering explanations:</strong></p>
+
+          <ol>
+            <li>
+              Poor flow distribution may create local
+              regions with excessive reactant concentration.
+            </li>
+            <li>
+              Internal diffusion limitations may reduce
+              catalyst utilisation.
+            </li>
+            <li>
+              Catalyst deactivation may change the
+              distribution of reaction activity.
+            </li>
+            <li>
+              Fouling or particle degradation may increase
+              pressure drop.
+            </li>
+            <li>
+              Insufficient heat removal may cause
+              temperature excursions.
+            </li>
+          </ol>
+
+          <p><strong>Recommended engineering investigations:</strong></p>
+
+          <ul>
+            <li>Review temperature profiles along the reactor.</li>
+            <li>Measure pressure drop and compare with baseline operation.</li>
+            <li>Evaluate catalyst activity and particle condition.</li>
+            <li>Assess flow distribution and reactor hydrodynamics.</li>
+            <li>Evaluate heat exchanger and cooling system performance.</li>
+            <li>Review process safety limits and emergency shutdown arrangements.</li>
+          </ul>
+
+          <p>
+            The case demonstrates that reactor performance
+            is controlled by the combined effects of
+            chemical kinetics and transport phenomena.
+          </p>
+        </div>
+
+        <h2>16. Engineering Design Considerations</h2>
+
+        <p>
+          Engineers designing reactive systems should evaluate:
+        </p>
+
+        <ul>
+          <li>Reaction kinetics and activation energy.</li>
+          <li>Reactant concentration and conversion requirements.</li>
+          <li>External and internal mass transfer resistance.</li>
+          <li>Catalyst particle size and pore structure.</li>
+          <li>Thiele modulus and effectiveness factor.</li>
+          <li>Reactor residence time and Damköhler number.</li>
+          <li>Heat generation and heat removal capacity.</li>
+          <li>Temperature distribution and thermal stability.</li>
+          <li>Pressure drop and pumping or compression requirements.</li>
+          <li>Reactor materials and corrosion resistance.</li>
+          <li>Catalyst deactivation and replacement requirements.</li>
+          <li>Instrumentation, alarms and emergency protection.</li>
+          <li>Environmental performance and waste management.</li>
+        </ul>
+
+        <h2>17. Summary of Important Equations</h2>
+
+        <div class="equation">
+          Power-law kinetics:
+          -r<sub>A</sub> = kC<sub>A</sub><sup>n</sup>
+        </div>
+
+        <div class="equation">
+          Arrhenius equation:
+          k = A exp(-E<sub>a</sub>/RT)
+        </div>
+
+        <div class="equation">
+          Two-temperature Arrhenius relationship:
+          ln(k<sub>2</sub>/k<sub>1</sub>) =
+          (E<sub>a</sub>/R)(1/T<sub>1</sub> − 1/T<sub>2</sub>)
+        </div>
+
+        <div class="equation">
+          External mass transfer:
+          N<sub>A</sub> =
+          k<sub>c</sub>(C<sub>A,b</sub> − C<sub>A,s</sub>)
+        </div>
+
+        <div class="equation">
+          Spherical catalyst Thiele modulus:
+          φ = R<sub>p</sub>√(k<sub>v</sub>/D<sub>eff</sub>)
+        </div>
+
+        <div class="equation">
+          Spherical first-order effectiveness factor:
+          η = (3/φ²)(φ coth φ − 1)
+        </div>
+
+        <div class="equation">
+          First-order Damköhler number:
+          Da = kτ
+        </div>
+
+        <div class="equation">
+          Heat generation:
+          q'''<sub>gen</sub> =
+          (-ΔH<sub>r</sub>)(-r<sub>A</sub>)
+        </div>
+
+        <div class="equation">
+          Heat removal:
+          Q = UA(T<sub>r</sub> − T<sub>c</sub>)
+        </div>
+
+        <div class="equation">
+          Thermal steady state:
+          Q<sub>gen</sub> = Q<sub>rem</sub>
+        </div>
+
+        <div class="equation">
+          CSTR design equation:
+          V = F<sub>A0</sub>X/(-r<sub>A</sub>)<sub>exit</sub>
+        </div>
+
+        <div class="equation">
+          PFR design equation:
+          V = F<sub>A0</sub> ∫<sub>0</sub><sup>X</sup>
+          dX/(-r<sub>A</sub>)
+        </div>
+
+        <div class="equation">
+          Simplified reaction–diffusion equation:
+          ∂C<sub>A</sub>/∂t =
+          D<sub>eff</sub>∇²C<sub>A</sub> + r<sub>A</sub>
+        </div>
+
+        <h2>18. References for Further Reading</h2>
+
+        <ol>
+          <li>
+            Fogler, H. S. (2016).
+            <em>Elements of Chemical Reaction Engineering</em> (5th ed.).
+            Pearson.
+          </li>
+
+          <li>
+            Levenspiel, O. (1999).
+            <em>Chemical Reaction Engineering</em> (3rd ed.).
+            John Wiley &amp; Sons.
+          </li>
+
+          <li>
+            Froment, G. F., Bischoff, K. B., &amp; De Wilde, J. (2011).
+            <em>Chemical Reactor Analysis and Design</em> (3rd ed.).
+            John Wiley &amp; Sons.
+          </li>
+
+          <li>
+            Bird, R. B., Stewart, W. E., &amp; Lightfoot, E. N. (2007).
+            <em>Transport Phenomena</em> (2nd ed.).
+            John Wiley &amp; Sons.
+          </li>
+
+          <li>
+            Smith, J. M. (1981).
+            <em>Chemical Engineering Kinetics</em> (3rd ed.).
+            McGraw-Hill.
+          </li>
+
+          <li>
+            Carberry, J. J. (1976).
+            <em>Chemical and Catalytic Reaction Engineering</em>.
+            McGraw-Hill.
+          </li>
+        </ol>
+
+        <div class="callout">
+          <strong>Week 14 Completion</strong>
+
+          <p>
+            You should now understand how reaction kinetics
+            interacts with mass transfer, heat transfer
+            and reactor hydrodynamics.
+          </p>
+
+          <p>
+            You should also be able to perform introductory
+            calculations involving Arrhenius kinetics,
+            catalyst effectiveness, Damköhler numbers
+            and reactor heat removal.
+          </p>
+
+          <p>
+            Proceed to the Week 14 assessment.
+          </p>
+        </div>
+      `
+    },
+
+    // =====================================================
+    // ACTIVITY 2: ASSESSMENT
+    // =====================================================
+
+    {
+      id: "w14-quiz",
+      type: "quiz",
+      title: "Week 14 Assessment: Transport in Reactive Systems and Advanced Reactor Design",
+
+      quiz: [
+
         {
-            "title": "Week 15: Dimensional Analysis, Similarity and Scale-Up",
-            "activities": [
-                {
-                    "id": "w15-lesson",
-                    "title": "Lecture Notes: Dimensional Analysis, Similarity and Scale-Up",
-                    "type": "lesson",
-                    "duration": "60–90 mins",
-                    "html": "<p>Dimensional analysis is a fundamental tool for reducing the number of variables in a physical problem, allowing for efficient experimentation and safe scale-up from lab to industrial size.</p><div class='callout'><b>Learning outcomes:</b> Apply the Buckingham Pi theorem; define geometric, kinematic, and dynamic similarity; evaluate scale-up trade-offs.</div><h3>1. Buckingham Pi Theorem</h3><p>If a physical problem involves 'n' dimensional variables and 'k' fundamental dimensions (usually Mass, Length, Time, Temperature), the system can be described by (n - k) independent dimensionless groups. This drastically reduces the number of experiments required.</p><h3>2. Key Transport Dimensionless Groups</h3><p><b>Reynolds (Re):</b> Inertia / Viscosity. Determines flow regime.</p><p><b>Prandtl (Pr):</b> Momentum diffusivity / Thermal diffusivity. Relates velocity and temperature boundary layers.</p><p><b>Schmidt (Sc):</b> Momentum diffusivity / Mass diffusivity.</p><p><b>Sherwood (Sh):</b> Convective mass transfer / Diffusive mass transfer.</p><h3>3. The Three Levels of Similarity</h3><p><b>Geometric:</b> Model and prototype have the same shape (ratios of lengths are constant).</p><p><b>Kinematic:</b> Velocity ratios are constant everywhere in the flow field.</p><p><b>Dynamic:</b> Force ratios (like Re, Fr, We) are identical. Complete dynamic similarity is often impossible in scale-up (e.g., you can't match both Re and Froude number simultaneously when changing scale).</p><h3>4. Scale-Up Challenges</h3><p>When scaling a stirred tank reactor, matching the power per unit volume (P/V) might ensure good mixing, but it may shear delicate crystals. Matching tip speed might protect the crystals but lead to poor bulk mixing. Engineers must choose which dimensionless criteria are most critical for the specific process.</p><h3>Worked Engineering Example: Force Ratios</h3><div class='example'><p><b>Problem:</b> A 1:10 scale model of a ship is tested in a water tunnel. If the full-scale ship travels at 10 m/s, what should be the model velocity to ensure dynamic similarity based on the Froude number (Fr = v/√gL)?</p><p><b>Solution:</b> For dynamic similarity, Fr_model = Fr_prototype. Thus, v_model/√(g * L_model) = v_proto/√(g * L_proto). Solving for v_model: v_model = v_proto * √(L_model/L_proto) = 10 * √(1/10) = 10 / 3.16 = 3.16 m/s.</p></div>"
-                },
-                {
-                    "id": "w15-quiz",
-                    "title": "Week 15 Assessment",
-                    "type": "quiz",
-                    "quiz": [
-                        {"q": "Buckingham Pi theorem produces:", "opts": ["Dimensionless groups", "Only dimensional constants", "A chemical reaction mechanism", "A mesh automatically"], "answer": 0},
-                        {"q": "Schmidt number is:", "opts": ["ν/D", "ν/α", "hL/k", "ρvL/μ"], "answer": 0},
-                        {"q": "Dynamic similarity requires matching:", "opts": ["Relevant dimensionless force ratios", "Only equipment colour", "Only total mass", "Only operating cost"], "answer": 0}
-                    ]
-                }
-            ]
+          q: "1. What is the main purpose of the Arrhenius equation?",
+          opts: [
+            "To calculate fluid pressure drop",
+            "To describe the temperature dependence of a reaction rate constant",
+            "To calculate membrane porosity",
+            "To determine fluid density"
+          ],
+          answer: 1
         },
+
         {
-            "title": "Week 16: Mathematical Modelling and Numerical Methods",
-            "activities": [
-                {
-                    "id": "w16-lesson",
-                    "title": "Lecture Notes: Mathematical Modelling and Numerical Methods",
-                    "type": "lesson",
-                    "duration": "60–90 mins",
-                    "html": "<p>Complex geometries, non-linear properties, and coupled physics make analytical solutions to transport equations impossible. We must rely on Computational Fluid Dynamics (CFD) and numerical heat/mass transfer.</p><div class='callout'><b>Learning outcomes:</b> Formulate numerical models; discretize governing equations; understand the importance of verification and validation (V&V).</div><h3>1. The Finite Volume Method (FVM)</h3><p>FVM is the most popular method in CFD. It involves dividing the domain into discrete control volumes (a mesh). The governing equations are integrated over each control volume. This method is highly conservative; the flux leaving one cell exactly equals the flux entering the adjacent cell, ensuring mass and energy are conserved.</p><h3>2. Discretization</h3><p>Derivatives are approximated using Taylor series expansions. For example, the central difference scheme for a first derivative is (φ_E - φ_W)/2Δx. Higher-order schemes reduce numerical diffusion but may cause unphysical oscillations (dispersion errors).</p><h3>3. The Iterative Solution</h3><p>Because the Navier-Stokes equations are non-linear (due to the convective term), the discretized algebraic equations must be solved iteratively. The SIMPLE (Semi-Implicit Method for Pressure-Linked Equations) algorithm is widely used to couple the pressure and velocity fields.</p><h3>4. Verification vs. Validation</h3><p><b>Verification:</b> Are we solving the equations right? (Checking for numerical errors, mesh independence, and convergence).</p><p><b>Validation:</b> Are we solving the right equations? (Comparing simulation results with experimental data). A model is only useful if it is validated.</p><h3>Worked Engineering Example: Mesh Refinement</h3><div class='example'><p><b>Problem:</b> A CFD simulation predicts a pressure drop of 100 Pa on a coarse mesh and 115 Pa on a fine mesh. How do you know which is correct?</p><p><b>Solution:</b> Perform a mesh independence study. Refine the mesh further until the pressure drop changes by less than a specified tolerance (e.g., 1%). If the result converges to 118 Pa, then 118 Pa is the mesh-independent solution. Comparing this to an experimental benchmark is the validation step.</p></div>"
-                },
-                {
-                    "id": "w16-quiz",
-                    "title": "Week 16 Assessment",
-                    "type": "quiz",
-                    "quiz": [
-                        {"q": "Finite volume methods are based on:", "opts": ["Integral conservation over control volumes", "Only curve fitting", "Molecular orbital theory", "Averaging without balances"], "answer": 0},
-                        {"q": "Verification asks:", "opts": ["Are the equations solved correctly?", "Is the model reality?", "Is the equipment profitable?", "Is the fluid Newtonian?"], "answer": 0},
-                        {"q": "Mesh independence is assessed by:", "opts": ["Comparing solutions at refined mesh resolutions", "Changing the fluid name", "Removing boundary conditions", "Ignoring convergence"], "answer": 0}
-                    ]
-                }
-            ]
+          q: "2. External mass transfer resistance in a catalytic reactor occurs when:",
+          opts: [
+            "Reactants move through the interior of the catalyst pores",
+            "Products leave the reactor through a pipeline",
+            "Reactants move from the bulk fluid to the catalyst particle surface",
+            "Heat is transferred through the reactor insulation"
+          ],
+          answer: 2
         },
+
         {
-            "title": "Week 17: Industrial Applications, Research and Emerging Technologies",
-            "activities": [
-                {
-                    "id": "w17-lesson",
-                    "title": "Lecture Notes: Industrial Applications, Research and Emerging Technologies",
-                    "type": "lesson",
-                    "duration": "60–90 mins",
-                    "html": "<p>Advanced transport phenomena are the foundation of modern process engineering, environmental remediation, and cutting-edge technologies like microfluidics and fuel cells.</p><div class='callout'><b>Learning outcomes:</b> Apply transport principles to emerging fields; understand microfluidics and energy storage; appreciate the role of research.</div><h3>1. Microfluidics and Lab-on-a-Chip</h3><p>At the microscale, the surface-area-to-volume ratio is enormous. Surface tension and viscous forces (low Re, highly laminar) dominate over inertia. Mixing is purely diffusive. These principles are used to design biochips for rapid medical diagnostics, where only a drop of blood is needed.</p><h3>2. Energy Storage and Fuel Cells</h3><p>In Li-ion batteries and PEM fuel cells, performance is often limited by the transport of ions in the electrolyte and reactants across porous electrodes. The electrochemical reactions are coupled with species diffusion, heat generation (ohmic and reaction heat), and two-phase flow (water management in fuel cells). Managing these coupled transport limits is the key to increasing power density and lifespan.</p><h3>3. Carbon Capture and Sustainability</h3><p>Absorption columns and membrane contactors rely on simultaneous heat and mass transfer to capture CO2 from flue gases. The design requires optimizing the solvent chemistry (kinetics) with the hydrodynamics (gas-liquid interfacial area, pressure drop).</p><h3>4. Research Methodology</h3><p>A strong research project in transport phenomena starts with a well-defined literature gap. It uses a combination of theoretical scaling analysis, controlled experiments (e.g., using PIV or LDV for velocity fields), and computational modeling. Uncertainty quantification (UQ) is critical to ensure the results are statistically significant and reproducible.</p><h3>Worked Engineering Example: Fuel Cell Water Management</h3><div class='example'><p><b>Challenge:</b> In a PEM fuel cell, water is produced at the cathode. If the gas flow rate is too low, liquid water floods the porous gas diffusion layer (GDL), blocking oxygen transport and killing performance. If the flow rate is too high, the membrane dries out, losing proton conductivity. The engineering solution requires precisely balancing the convective removal of water vapor with the diffusion of oxygen, often using a microporous layer with specific hydrophobic properties.</p></div>"
-                },
-                {
-                    "id": "w17-quiz",
-                    "title": "Week 17 Assessment",
-                    "type": "quiz",
-                    "quiz": [
-                        {"q": "A wastewater aeration system is strongly influenced by:", "opts": ["Gas–liquid oxygen transfer", "Only solid-state diffusion", "Only radiation", "No interfacial area"], "answer": 0},
-                        {"q": "A research model should be validated against:", "opts": ["Experimental or trusted benchmark evidence", "Only its own assumptions", "A random output", "No reference"], "answer": 0},
-                        {"q": "A useful scale-up decision should consider:", "opts": ["Performance, energy, safety and economics", "Only vessel height", "Only colour", "Only software brand"], "answer": 0}
-                    ]
-                }
-            ]
+          q: "3. What does a large Thiele modulus generally indicate for a porous catalyst?",
+          opts: [
+            "Internal diffusion limitations may be significant",
+            "The reaction rate is necessarily zero",
+            "The catalyst has no internal pores",
+            "The fluid has zero viscosity"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "4. What does the effectiveness factor measure?",
+          opts: [
+            "The ratio of reactor pressure to atmospheric pressure",
+            "The percentage of reactant converted in a pipeline",
+            "The ratio of heat removal to heat generation",
+            "The actual catalyst reaction rate relative to the ideal rate at uniform surface conditions"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "5. For a first-order reaction, the Damköhler number based on residence time is:",
+          opts: [
+            "Da = μ/ρ",
+            "Da = kτ",
+            "Da = ρCp/k",
+            "Da = ΔP/L"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "6. Which statement describes an exothermic reaction?",
+          opts: [
+            "It always absorbs heat",
+            "It has a positive reaction enthalpy under the stated convention",
+            "It releases heat",
+            "It cannot be temperature-dependent"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "7. Thermal runaway can occur when:",
+          opts: [
+            "Heat generation exceeds available heat removal and temperature accelerates reaction",
+            "The reactor contains no reactants",
+            "Heat removal is always greater than heat generation",
+            "The reaction rate is completely independent of temperature"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "8. Which statement best describes an ideal CSTR?",
+          opts: [
+            "It has no inlet or outlet",
+            "Its temperature must always increase along its length",
+            "It has no mixing",
+            "Its contents are assumed to be uniformly mixed"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "9. Which reactor model assumes negligible axial mixing and a composition that changes along the flow direction?",
+          opts: [
+            "Ideal batch reactor",
+            "Ideal plug-flow reactor",
+            "Perfectly mixed CSTR",
+            "Closed storage vessel"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "10. Why is heat transfer important in an exothermic catalytic reactor?",
+          opts: [
+            "It eliminates all chemical reactions",
+            "It prevents reactants from entering the catalyst",
+            "It helps control temperature and reduce the risk of thermal instability",
+            "It makes the pressure drop independent of flow rate"
+          ],
+          answer: 2
         }
-    ]
-};
+
+      ]
+    },
+
+    // =====================================================
+    // ACTIVITY 3: SEPARATE ANSWER KEY AND EXPLANATIONS
+    // =====================================================
+
+    {
+      id: "w14-answer-key",
+      type: "lesson",
+      title: "Week 14 Assessment Answer Key and Explanations",
+
+      html: `
+        <h1>Week 14 Assessment Answer Key and Explanations</h1>
+
+        <p>
+          This section contains the correct answers,
+          explanations and additional worked problems
+          for Week 14.
+        </p>
+
+        <h2>Part A: Multiple-Choice Answer Key</h2>
+
+        <ol>
+
+          <li>
+            <strong>Correct answer: B — To describe the temperature dependence of a reaction rate constant.</strong>
+
+            <p>
+              The Arrhenius equation describes how a reaction
+              rate constant changes with absolute temperature
+              and activation energy.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: C — Reactants move from the bulk fluid to the catalyst particle surface.</strong>
+
+            <p>
+              External mass transfer occurs across the
+              fluid boundary layer surrounding the catalyst
+              particle. It supplies reactants to the
+              particle surface.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: A — Internal diffusion limitations may be significant.</strong>
+
+            <p>
+              A large Thiele modulus generally indicates
+              that reaction is relatively fast compared
+              with internal diffusion in the stated
+              reaction–diffusion model.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: D — The actual catalyst reaction rate relative to the ideal rate at uniform surface conditions.</strong>
+
+            <p>
+              The effectiveness factor measures how
+              effectively the catalyst particle is used
+              when internal diffusion and temperature
+              gradients may limit its performance.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: B — Da = kτ.</strong>
+
+            <p>
+              For a first-order reaction, the Damköhler
+              number based on residence time is the
+              product of the reaction rate constant
+              and characteristic residence time.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: C — It releases heat.</strong>
+
+            <p>
+              An exothermic reaction releases heat.
+              Its reaction enthalpy is negative under
+              the usual thermodynamic sign convention.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: A — Heat generation exceeds available heat removal and temperature accelerates reaction.</strong>
+
+            <p>
+              Thermal runaway may occur when heat
+              generation increases with temperature
+              faster than the reactor can remove heat.
+              This creates a potentially dangerous
+              positive feedback mechanism.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: D — Its contents are assumed to be uniformly mixed.</strong>
+
+            <p>
+              An ideal continuous stirred-tank reactor
+              assumes uniform composition and temperature
+              throughout the reactor volume.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: B — Ideal plug-flow reactor.</strong>
+
+            <p>
+              An ideal PFR assumes negligible axial
+              mixing, so reactant concentration changes
+              along the direction of flow.
+            </p>
+          </li>
+
+          <li>
+            <strong>Correct answer: C — It helps control temperature and reduce the risk of thermal instability.</strong>
+
+            <p>
+              Heat removal is important because
+              uncontrolled temperature increases
+              can accelerate exothermic reactions
+              and create dangerous operating conditions.
+            </p>
+          </li>
+
+        </ol>
+
+        <h2>Part B: Additional Worked Problems</h2>
+
+        <h3>Problem 1: Arrhenius Temperature Dependence</h3>
+
+        <p>
+          A reaction has an activation energy of
+          60 kJ/mol. Its rate constant at 300 K is
+          0.020 s⁻¹. Calculate the rate constant
+          at 330 K.
+        </p>
+
+        <p><strong>Solution:</strong></p>
+
+        <p>
+          ln(k<sub>2</sub>/k<sub>1</sub>) =
+          (E<sub>a</sub>/R)(1/T<sub>1</sub> − 1/T<sub>2</sub>)
+        </p>
+
+        <p>Given:</p>
+
+        <ul>
+          <li>E<sub>a</sub> = 60,000 J/mol</li>
+          <li>R = 8.314 J/mol·K</li>
+          <li>T<sub>1</sub> = 300 K</li>
+          <li>T<sub>2</sub> = 330 K</li>
+          <li>k<sub>1</sub> = 0.020 s⁻¹</li>
+        </ul>
+
+        <p>
+          ln(k<sub>2</sub>/0.020) =
+          (60,000/8.314)(1/300 − 1/330)
+        </p>
+
+        <p>
+          ln(k<sub>2</sub>/0.020) ≈ 2.191
+        </p>
+
+        <p>
+          k<sub>2</sub>/0.020 = exp(2.191)
+        </p>
+
+        <p>
+          k<sub>2</sub>/0.020 ≈ 8.94
+        </p>
+
+        <p>
+          k<sub>2</sub> = 0.020 × 8.94
+        </p>
+
+        <p>
+          <strong>k<sub>2</sub> ≈ 0.179 s⁻¹</strong>
+        </p>
+
+        <p>
+          The rate constant increases substantially
+          as the temperature rises from 300 K to 330 K.
+        </p>
+
+        <h3>Problem 2: Damköhler Number</h3>
+
+        <p>
+          A first-order reaction occurs in a reactor
+          with a residence time of 60 seconds.
+          The reaction rate constant is 0.025 s⁻¹.
+          Calculate the Damköhler number.
+        </p>
+
+        <p><strong>Solution:</strong></p>
+
+        <p>Da = kτ</p>
+
+        <p>Da = 0.025 × 60</p>
+
+        <p><strong>Da = 1.50</strong></p>
+
+        <p>
+          The reaction and residence-time scales
+          are comparable, with reaction occurring
+          at a significant rate over the available
+          residence time.
+        </p>
+
+        <h3>Problem 3: Catalyst Effectiveness Factor</h3>
+
+        <p>
+          A spherical porous catalyst has a Thiele
+          modulus of 3.0. Calculate the effectiveness
+          factor for an isothermal first-order reaction.
+        </p>
+
+        <p><strong>Solution:</strong></p>
+
+        <p>
+          η = (3/φ²)(φ coth φ − 1)
+        </p>
+
+        <p>For φ = 3:</p>
+
+        <p>
+          coth(3) ≈ 1.00497
+        </p>
+
+        <p>
+          η = (3/9)[(3 × 1.00497) − 1]
+        </p>
+
+        <p>
+          η = (1/3)(3.01491 − 1)
+        </p>
+
+        <p>
+          η = (1/3)(2.01491)
+        </p>
+
+        <p><strong>η ≈ 0.672</strong></p>
+
+        <p>
+          The catalyst achieves approximately 67.2%
+          of the ideal reaction rate under the
+          stated spherical first-order model.
+        </p>
+
+        <h3>Problem 4: Heat Generation in a Reactor</h3>
+
+        <p>
+          An exothermic reaction has a reaction
+          enthalpy of -80,000 J/mol. The rate of
+          reactant disappearance is 0.05 mol/m³·s.
+          Calculate the volumetric heat generation rate.
+        </p>
+
+        <p><strong>Solution:</strong></p>
+
+        <p>
+          q'''<sub>gen</sub> =
+          (-ΔH<sub>r</sub>)(-r<sub>A</sub>)
+        </p>
+
+        <p>
+          q'''<sub>gen</sub> =
+          80,000 × 0.05
+        </p>
+
+        <p>
+          <strong>q'''<sub>gen</sub> = 4,000 W/m³</strong>
+        </p>
+
+        <p>
+          The reaction generates heat at a rate of
+          4,000 watts per cubic metre of reactor volume.
+        </p>
+
+        <h3>Problem 5: CSTR Volume Calculation</h3>
+
+        <p>
+          A continuous stirred-tank reactor treats a
+          reactant feed of 2 mol/s. The required
+          conversion is 60%. The reactant disappearance
+          rate at the reactor exit conditions is
+          0.20 mol/m³·s.
+        </p>
+
+        <p>Calculate the required reactor volume.</p>
+
+        <p><strong>Solution:</strong></p>
+
+        <p>
+          V = F<sub>A0</sub>X/(-r<sub>A</sub>)<sub>exit</sub>
+        </p>
+
+        <p>
+          V = (2 × 0.60)/0.20
+        </p>
+
+        <p>
+          V = 1.20/0.20
+        </p>
+
+        <p><strong>V = 6.0 m³</strong></p>
+
+        <p>
+          The ideal CSTR requires a volume of 6.0 m³
+          under the stated steady-state assumptions.
+        </p>
+
+        <h2>Part C: Engineering Interpretation</h2>
+
+        <p>
+          A chemical manufacturing plant operates
+          an exothermic packed-bed reactor. Operators
+          observe an unexpected increase in reactor
+          temperature and a gradual decline in
+          product conversion.
+        </p>
+
+        <p>Discuss the following engineering questions:</p>
+
+        <ol>
+          <li>How can an increase in temperature affect reaction kinetics?</li>
+          <li>Why might internal diffusion limitations reduce catalyst effectiveness?</li>
+          <li>How could increasing pressure drop influence reactor performance?</li>
+          <li>What could happen if heat generation exceeds heat removal?</li>
+          <li>Which process variables and safety systems should engineers investigate?</li>
+        </ol>
+
+        <p>
+          Suggested discussion areas include activation
+          energy, catalyst activity, pressure drop,
+          reactant distribution, Thiele modulus,
+          heat exchanger performance, temperature
+          monitoring and emergency shutdown systems.
+        </p>
+
+        <div class="callout">
+          <strong>End of Week 14</strong>
+
+          <p>
+            Successful completion of this week should
+            demonstrate an understanding of reaction
+            kinetics, transport limitations, catalyst
+            effectiveness, reactor energy balances
+            and thermal stability.
+          </p>
+
+          <p>
+            The next week will focus on computational
+            modelling and numerical methods for
+            transport phenomena.
+          </p>
+        </div>
+      `
+    }
+
+  ]
+},
+        {
+  id: "w15",
+  title: "Week 15: Computational Modelling and Numerical Methods for Transport Phenomena",
+  moduleCode: "ATP 602",
+  level: "Advanced Postgraduate",
+  duration: "90–120 minutes",
+  passMark: 50,
+
+  activities: [
+
+    // =====================================================
+    // ACTIVITY 1: LECTURE NOTES
+    // =====================================================
+
+    {
+      id: "w15-lesson",
+      type: "lesson",
+      title: "Lecture Notes: Computational Modelling and Numerical Methods for Transport Phenomena",
+      html: `
+
+<h1>Week 15: Computational Modelling and Numerical Methods for Transport Phenomena</h1>
+
+<p><strong>ATP 602 – Advanced Transport Phenomena</strong></p>
+
+<p><strong>Duration:</strong> 90–120 minutes</p>
+
+<div class="callout">
+<strong>Introduction</strong>
+<p>Many engineering transport problems involve complex geometries, variable material properties, nonlinear boundary conditions, turbulent flow, chemical reactions and interactions between heat, mass and momentum transfer. These problems may not have simple analytical solutions.</p>
+
+<p>Computational modelling provides a systematic way of approximating solutions to such problems using numerical methods and computer-based simulations.</p>
+</div>
+
+<h2>1. Learning Outcomes</h2>
+
+<p>By the end of this lesson, students should be able to:</p>
+
+<ol>
+<li>Explain the role of computational modelling in transport phenomena.</li>
+<li>Distinguish between analytical, numerical and computational solutions.</li>
+<li>Identify the governing equations used in computational transport modelling.</li>
+<li>Explain the principles of finite difference, finite volume and finite element methods.</li>
+<li>Apply simple finite difference approximations to a one-dimensional conduction problem.</li>
+<li>Explain numerical stability, convergence and accuracy.</li>
+<li>Interpret the Courant number, Fourier number and cell Peclet number.</li>
+<li>Describe the basic workflow of computational fluid dynamics.</li>
+<li>Explain mesh generation, boundary conditions and turbulence modelling.</li>
+<li>Evaluate computational results using verification, validation and grid-independence studies.</li>
+</ol>
+
+<h2>2. Introduction to Computational Modelling</h2>
+
+<p>Computational modelling is the process of representing a physical system mathematically and solving its governing equations using numerical algorithms.</p>
+
+<p>In transport phenomena, computational modelling is used to predict:</p>
+
+<ul>
+<li>Fluid velocity and pressure distributions.</li>
+<li>Temperature distributions in solids and fluids.</li>
+<li>Concentration profiles in reacting and non-reacting systems.</li>
+<li>Heat and mass transfer rates.</li>
+<li>Pressure losses in complex flow networks.</li>
+<li>Mixing, separation and reaction performance.</li>
+<li>Transport behaviour in porous materials.</li>
+</ul>
+
+<h3>2.1 Analytical versus numerical solutions</h3>
+
+<p>An analytical solution expresses the result using a mathematical expression that satisfies the governing equations and specified conditions.</p>
+
+<p>A numerical solution approximates the solution at selected locations or computational cells.</p>
+
+<div class="example">
+<strong>Example:</strong>
+<p>For steady one-dimensional conduction through a plane wall with constant thermal conductivity and no internal heat generation, an analytical solution may be obtained directly from Fourier's law.</p>
+
+<p>However, if the wall has irregular geometry, temperature-dependent conductivity, internal heat generation and complicated boundary conditions, numerical methods may be more practical.</p>
+</div>
+
+<h2>3. Governing Equations in Computational Transport</h2>
+
+<p>Computational transport models are based on conservation principles.</p>
+
+<h3>3.1 Conservation of mass</h3>
+
+<p>The general continuity equation is:</p>
+
+<div class="equation">
+∂ρ/∂t + ∇ · (ρu) = 0
+</div>
+
+<p>For an incompressible fluid with constant density:</p>
+
+<div class="equation">
+∇ · u = 0
+</div>
+
+<p>Where:</p>
+<ul>
+<li>ρ = fluid density (kg/m³)</li>
+<li>u = velocity vector (m/s)</li>
+<li>t = time (s)</li>
+</ul>
+
+<h3>3.2 Conservation of momentum</h3>
+
+<p>For a Newtonian fluid with constant viscosity, the incompressible Navier–Stokes equation is:</p>
+
+<div class="equation">
+ρ(∂u/∂t + u · ∇u) = -∇p + μ∇²u + ρg
+</div>
+
+<p>Where:</p>
+<ul>
+<li>p = pressure (Pa)</li>
+<li>μ = dynamic viscosity (Pa·s)</li>
+<li>g = gravitational acceleration vector (m/s²)</li>
+</ul>
+
+<p>This equation accounts for momentum accumulation, convection, pressure forces, viscous forces and body forces.</p>
+
+<h3>3.3 Conservation of energy</h3>
+
+<p>For a simplified incompressible fluid with constant properties and negligible viscous dissipation, the temperature equation can be written as:</p>
+
+<div class="equation">
+ρcp(∂T/∂t + u · ∇T) = k∇²T + q'''
+</div>
+
+<p>Where:</p>
+<ul>
+<li>cp = specific heat capacity (J/kg·K)</li>
+<li>T = temperature (K)</li>
+<li>k = thermal conductivity (W/m·K)</li>
+<li>q''' = volumetric heat generation (W/m³)</li>
+</ul>
+
+<h3>3.4 Conservation of species</h3>
+
+<p>For a dilute species with constant diffusivity:</p>
+
+<div class="equation">
+∂C/∂t + u · ∇C = D∇²C + RA
+</div>
+
+<p>Where:</p>
+<ul>
+<li>C = species concentration (mol/m³)</li>
+<li>D = molecular diffusivity (m²/s)</li>
+<li>RA = species generation or consumption rate (mol/m³·s)</li>
+</ul>
+
+<div class="callout">
+<strong>Important:</strong>
+<p>These equations are simplified forms of the governing transport equations. More complete models may require variable properties, compressibility, viscous dissipation, chemical reaction networks, multicomponent diffusion and additional source terms.</p>
+</div>
+
+<h2>4. Discretisation of Governing Equations</h2>
+
+<p>Numerical methods transform continuous differential equations into algebraic equations that can be solved computationally.</p>
+
+<p>This process is called discretisation.</p>
+
+<h3>4.1 Computational domain</h3>
+
+<p>The computational domain is the physical region being modelled. It may represent:</p>
+
+<ul>
+<li>A pipe or pipeline.</li>
+<li>A heat exchanger.</li>
+<li>A chemical reactor.</li>
+<li>A storage tank.</li>
+<li>A porous catalyst.</li>
+<li>A building ventilation system.</li>
+</ul>
+
+<p>The domain is divided into smaller elements, cells or nodes depending on the numerical method.</p>
+
+<h3>4.2 Mesh or grid generation</h3>
+
+<p>A computational mesh is the collection of discrete locations used to represent the physical domain.</p>
+
+<p>Common mesh types include:</p>
+
+<ul>
+<li>Structured meshes: regularly arranged cells or nodes.</li>
+<li>Unstructured meshes: irregular arrangements suitable for complex geometries.</li>
+<li>Hybrid meshes: combinations of structured and unstructured regions.</li>
+</ul>
+
+<p>Mesh refinement increases the number of computational cells or elements and can improve spatial resolution, although it also increases computational cost.</p>
+
+<h2>5. Finite Difference Method (FDM)</h2>
+
+<p>The finite difference method approximates derivatives using values at neighbouring grid points.</p>
+
+<p>It is commonly used for relatively simple geometries and structured grids.</p>
+
+<h3>5.1 First-order derivative</h3>
+
+<p>A forward difference approximation is:</p>
+
+<div class="equation">
+(dT/dx)i ≈ (Ti+1 - Ti)/Δx
+</div>
+
+<p>A backward difference approximation is:</p>
+
+<div class="equation">
+(dT/dx)i ≈ (Ti - Ti-1)/Δx
+</div>
+
+<p>A central difference approximation is:</p>
+
+<div class="equation">
+(dT/dx)i ≈ (Ti+1 - Ti-1)/(2Δx)
+</div>
+
+<h3>5.2 Second-order derivative</h3>
+
+<p>The central difference approximation for the second derivative is:</p>
+
+<div class="equation">
+(d²T/dx²)i ≈ (Ti+1 - 2Ti + Ti-1)/(Δx)²
+</div>
+
+<p>For a uniform grid, this approximation has a truncation error proportional to (Δx)², assuming sufficient smoothness of the solution.</p>
+
+<h3>5.3 Application to heat conduction</h3>
+
+<p>Consider steady one-dimensional heat conduction in a plane wall with constant thermal conductivity and uniform volumetric heat generation.</p>
+
+<p>The governing equation is:</p>
+
+<div class="equation">
+d²T/dx² + q'''/k = 0
+</div>
+
+<p>Using the central difference approximation:</p>
+
+<div class="equation">
+(Ti+1 - 2Ti + Ti-1)/(Δx)² + q'''/k = 0
+</div>
+
+<p>Rearranging:</p>
+
+<div class="equation">
+Ti-1 - 2Ti + Ti+1 = -(q'''/k)(Δx)²
+</div>
+
+<p>This equation is applied at each internal node. The resulting simultaneous algebraic equations can be solved to determine the nodal temperatures.</p>
+
+<div class="example">
+<strong>Worked Example 1: Finite Difference Solution for Heat Conduction</strong>
+
+<p>A plane wall has a thickness of 0.10 m. Both surfaces are maintained at 300 K. The wall has a thermal conductivity of 10 W/m·K and uniform internal heat generation of 1,000,000 W/m³.</p>
+
+<p>Divide the wall into four equal intervals. Determine the temperature at the internal nodes using the finite difference method.</p>
+
+<p><strong>Step 1: Identify the data</strong></p>
+
+<ul>
+<li>L = 0.10 m</li>
+<li>k = 10 W/m·K</li>
+<li>q''' = 1,000,000 W/m³</li>
+<li>T0 = T4 = 300 K</li>
+<li>Number of intervals = 4</li>
+</ul>
+
+<p><strong>Step 2: Calculate grid spacing</strong></p>
+
+<div class="equation">
+Δx = L/4 = 0.10/4 = 0.025 m
+</div>
+
+<p><strong>Step 3: Apply the finite difference equation</strong></p>
+
+<div class="equation">
+Ti-1 - 2Ti + Ti+1 = -(q'''/k)(Δx)²
+</div>
+
+<div class="equation">
+= -(1,000,000/10)(0.025)²
+</div>
+
+<div class="equation">
+= -62.5
+</div>
+
+<p>The internal-node equations are:</p>
+
+<div class="equation">
+300 - 2T1 + T2 = -62.5
+</div>
+
+<div class="equation">
+T1 - 2T2 + T3 = -62.5
+</div>
+
+<div class="equation">
+T2 - 2T3 + 300 = -62.5
+</div>
+
+<p><strong>Step 4: Solve the simultaneous equations</strong></p>
+
+<div class="equation">
+T1 = 393.75 K
+</div>
+
+<div class="equation">
+T2 = 425.00 K
+</div>
+
+<div class="equation">
+T3 = 393.75 K
+</div>
+
+<p><strong>Final answer:</strong> The maximum temperature occurs at the centre of the wall and is 425 K.</p>
+
+<p>The symmetrical temperature distribution is consistent with the equal surface temperatures and uniform heat generation.</p>
+</div>
+
+<h2>6. Finite Volume Method (FVM)</h2>
+
+<p>The finite volume method is widely used in computational fluid dynamics and engineering transport simulations.</p>
+
+<p>It divides the computational domain into control volumes and applies conservation equations to each volume.</p>
+
+<h3>6.1 Basic principle</h3>
+
+<p>The general conservation equation can be expressed as:</p>
+
+<div class="equation">
+Accumulation = Inflow - Outflow + Generation
+</div>
+
+<p>For a control volume, the integral conservation equation accounts for the transport of mass, momentum, energy or chemical species through its boundaries.</p>
+
+<h3>6.2 General transport equation</h3>
+
+<p>A simplified scalar transport equation can be expressed as:</p>
+
+<div class="equation">
+∂(ρφ)/∂t + ∇ · (ρuφ) = ∇ · (Γ∇φ) + Sφ
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>φ = transported variable.</li>
+<li>Γ = diffusion coefficient for the transported variable.</li>
+<li>Sφ = source term.</li>
+<li>ρ = density.</li>
+<li>u = velocity vector.</li>
+</ul>
+
+<p>The variable φ may represent temperature, concentration or another conserved quantity, provided the appropriate transport coefficients and source terms are defined.</p>
+
+<h3>6.3 Advantages of FVM</h3>
+
+<ul>
+<li>It is based directly on conservation laws.</li>
+<li>It handles complex geometries using suitable meshes.</li>
+<li>It is widely used in industrial CFD software.</li>
+<li>It can represent convection, diffusion and source terms.</li>
+<li>It provides local conservation across control-volume faces when implemented conservatively.</li>
+</ul>
+
+<h2>7. Finite Element Method (FEM)</h2>
+
+<p>The finite element method divides a domain into smaller elements and approximates the solution using interpolation or shape functions.</p>
+
+<p>FEM is particularly useful for:</p>
+
+<ul>
+<li>Complex geometries.</li>
+<li>Structural and thermal engineering.</li>
+<li>Coupled multiphysics problems.</li>
+<li>Irregular boundaries.</li>
+<li>Problems involving spatially varying material properties.</li>
+</ul>
+
+<h3>7.1 Basic principle</h3>
+
+<p>The solution variable is approximated within an element using shape functions:</p>
+
+<div class="equation">
+T(x) ≈ Σ Ni(x)Ti
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>Ni(x) = shape function associated with node i.</li>
+<li>Ti = nodal temperature.</li>
+</ul>
+
+<p>The differential equation is commonly converted into a weak or variational form. The element equations are then assembled into a global system.</p>
+
+<h3>7.2 General algebraic form</h3>
+
+<div class="equation">
+[K]{T} = {F}
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>[K] = assembled system matrix.</li>
+<li>{T} = vector of unknown nodal values.</li>
+<li>{F} = load or source vector.</li>
+</ul>
+
+<p>For transient problems, the system may include mass or capacity matrices and time-dependent terms.</p>
+
+<h2>8. Comparing FDM, FVM and FEM</h2>
+
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Basic principle</th>
+<th>Typical applications</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FDM</td>
+<td>Approximates derivatives at grid points.</td>
+<td>Simple heat conduction and structured-grid problems.</td>
+</tr>
+<tr>
+<td>FVM</td>
+<td>Applies conservation laws to control volumes.</td>
+<td>Fluid flow, heat transfer and CFD.</td>
+</tr>
+<tr>
+<td>FEM</td>
+<td>Uses element interpolation and weak formulations.</td>
+<td>Complex geometries and coupled multiphysics problems.</td>
+</tr>
+</tbody>
+</table>
+
+<p>No single method is universally superior. Selection depends on the governing equations, geometry, required accuracy, conservation requirements and computational resources.</p>
+
+<h2>9. Numerical Stability and Time Integration</h2>
+
+<p>For transient transport problems, the solution is calculated at successive time levels.</p>
+
+<p>The choice of time step is important because an excessively large time step can cause numerical instability or inaccurate results.</p>
+
+<h3>9.1 Explicit and implicit methods</h3>
+
+<p><strong>Explicit methods:</strong> The solution at the next time level is calculated directly from known values at the current time level.</p>
+
+<p><strong>Implicit methods:</strong> The solution at the next time level is obtained by solving a system of equations involving unknown values at that future time level.</p>
+
+<p>Explicit methods are often simpler but may require restrictive time steps. Implicit methods are generally more stable for many diffusion problems, although they require additional computational work and are not automatically stable or accurate for every numerical scheme.</p>
+
+<h3>9.2 Fourier number</h3>
+
+<p>For transient heat conduction:</p>
+
+<div class="equation">
+Fo = αΔt/(Δx)²
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>α = thermal diffusivity (m²/s).</li>
+<li>Δt = time step (s).</li>
+<li>Δx = grid spacing (m).</li>
+</ul>
+
+<p>For a standard one-dimensional explicit finite difference scheme for pure diffusion, stability requires:</p>
+
+<div class="equation">
+Fo ≤ 1/2
+</div>
+
+<p>This is a scheme-specific stability condition, not a universal rule for all numerical methods or multidimensional problems.</p>
+
+<h3>9.3 Courant number</h3>
+
+<p>The Courant number is important in transient convection-dominated calculations.</p>
+
+<div class="equation">
+Co = uΔt/Δx
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>u = characteristic fluid velocity (m/s).</li>
+<li>Δt = time step (s).</li>
+<li>Δx = characteristic cell size (m).</li>
+</ul>
+
+<p>It measures how far information travels through the computational grid during one time step relative to the cell size.</p>
+
+<p>Allowable Courant numbers depend on the numerical scheme, dimensionality and accuracy requirements.</p>
+
+<h2>10. Numerical Diffusion and the Cell Peclet Number</h2>
+
+<p>In convection–diffusion problems, numerical schemes must accurately represent the competition between fluid convection and molecular diffusion.</p>
+
+<p>The cell Peclet number is:</p>
+
+<div class="equation">
+PeΔ = uΔx/D
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>u = characteristic velocity (m/s).</li>
+<li>Δx = cell size (m).</li>
+<li>D = molecular diffusivity (m²/s).</li>
+</ul>
+
+<p>A large cell Peclet number indicates that convection dominates diffusion at the cell scale.</p>
+
+<p>For a standard one-dimensional uniform-grid central-difference convection–diffusion discretisation with constant coefficients, oscillatory solutions may occur when the cell Peclet number exceeds 2.</p>
+
+<p>Possible remedies include:</p>
+
+<ul>
+<li>Mesh refinement.</li>
+<li>Upwind discretisation.</li>
+<li>Higher-resolution convection schemes.</li>
+<li>Appropriate numerical limiters.</li>
+</ul>
+
+<div class="callout">
+<strong>Numerical diffusion:</strong>
+<p>Some discretisation methods introduce artificial smoothing into the solution. This can reduce sharp temperature, concentration or velocity gradients that should exist physically.</p>
+</div>
+
+<h2>11. Computational Fluid Dynamics (CFD)</h2>
+
+<p>Computational fluid dynamics is the numerical simulation of fluid flow and related transport processes.</p>
+
+<p>CFD commonly solves the continuity, momentum and energy equations, with additional equations for turbulence, species transport and chemical reactions where required.</p>
+
+<h3>11.1 CFD workflow</h3>
+
+<ol>
+<li><strong>Problem definition:</strong> Identify the physical system, objectives and assumptions.</li>
+<li><strong>Geometry creation:</strong> Develop the computational representation of the equipment or process.</li>
+<li><strong>Mesh generation:</strong> Divide the geometry into computational cells.</li>
+<li><strong>Material properties:</strong> Define density, viscosity, thermal conductivity, heat capacity and other required properties.</li>
+<li><strong>Physical models:</strong> Select appropriate laminar, turbulent, multiphase, heat-transfer or reaction models.</li>
+<li><strong>Boundary conditions:</strong> Specify inlet, outlet, wall and other relevant conditions.</li>
+<li><strong>Solver configuration:</strong> Select discretisation schemes, time step, convergence criteria and solver settings.</li>
+<li><strong>Solution:</strong> Execute the numerical calculation.</li>
+<li><strong>Post-processing:</strong> Analyse pressure, velocity, temperature, concentration and other results.</li>
+<li><strong>Verification and validation:</strong> Evaluate numerical correctness and agreement with physical evidence.</li>
+</ol>
+
+<h3>11.2 Boundary conditions</h3>
+
+<p>Boundary conditions describe how the computational domain interacts with its surroundings.</p>
+
+<p>Common boundary conditions include:</p>
+
+<ul>
+<li>Velocity inlet.</li>
+<li>Pressure inlet.</li>
+<li>Pressure outlet.</li>
+<li>No-slip wall.</li>
+<li>Specified wall temperature.</li>
+<li>Specified heat flux.</li>
+<li>Specified concentration.</li>
+<li>Symmetry boundary.</li>
+<li>Periodic boundary.</li>
+</ul>
+
+<p>Incorrect boundary conditions can produce physically misleading results even when the numerical solver converges.</p>
+
+<h2>12. Turbulence Modelling</h2>
+
+<p>Industrial flows often involve turbulence. Directly resolving every turbulent scale can require extremely high computational resources.</p>
+
+<p>Engineering CFD therefore commonly uses turbulence models.</p>
+
+<h3>12.1 Reynolds-averaged Navier–Stokes (RANS)</h3>
+
+<p>RANS models represent the effects of turbulent fluctuations through averaged equations and additional turbulence models.</p>
+
+<p>Common models include:</p>
+
+<ul>
+<li>Standard k–ε model.</li>
+<li>Realizable k–ε model.</li>
+<li>Standard k–ω model.</li>
+<li>SST k–ω model.</li>
+</ul>
+
+<h3>12.2 Large Eddy Simulation (LES)</h3>
+
+<p>LES resolves the larger turbulent structures and models the effects of smaller unresolved structures.</p>
+
+<p>It generally requires more computational resources than conventional RANS calculations.</p>
+
+<h3>12.3 Direct Numerical Simulation (DNS)</h3>
+
+<p>DNS resolves the full range of turbulent scales without using a turbulence closure model. It is computationally expensive and is generally restricted to relatively simple or small-scale research problems.</p>
+
+<h2>13. Convergence, Accuracy and Grid Independence</h2>
+
+<h3>13.1 Numerical convergence</h3>
+
+<p>Numerical convergence occurs when the iterative solution approaches a stable numerical result according to the selected convergence criteria.</p>
+
+<p>Residuals are commonly monitored during iterative CFD calculations.</p>
+
+<p>However, low residuals alone do not prove that the solution is physically accurate.</p>
+
+<h3>13.2 Grid independence</h3>
+
+<p>A grid-independence study investigates whether the predicted engineering quantities change significantly as the mesh is refined.</p>
+
+<p>A typical procedure is:</p>
+
+<ol>
+<li>Perform the simulation on a coarse mesh.</li>
+<li>Repeat using a medium mesh.</li>
+<li>Repeat using a fine mesh.</li>
+<li>Compare important outputs such as pressure drop, heat-transfer rate and maximum temperature.</li>
+<li>Assess whether further refinement produces acceptably small changes.</li>
+</ol>
+
+<h3>13.3 Verification and validation</h3>
+
+<p><strong>Verification</strong> asks: Are the equations being solved correctly?</p>
+
+<p>It involves checking the numerical implementation, discretisation, convergence and numerical errors.</p>
+
+<p><strong>Validation</strong> asks: Are the correct physical equations and models being used to represent reality?</p>
+
+<p>It involves comparing model predictions with reliable experimental measurements or other appropriate physical evidence.</p>
+
+<h3>13.4 Sources of computational error</h3>
+
+<ul>
+<li>Insufficient mesh resolution.</li>
+<li>Excessively large time steps.</li>
+<li>Incorrect boundary conditions.</li>
+<li>Inaccurate material properties.</li>
+<li>Inappropriate turbulence models.</li>
+<li>Incorrect physical assumptions.</li>
+<li>Incomplete convergence.</li>
+<li>Numerical truncation and round-off errors.</li>
+</ul>
+
+<h2>14. Computational Modelling of Coupled Transport</h2>
+
+<p>Many industrial systems involve simultaneous momentum, heat and mass transport.</p>
+
+<p>Examples include:</p>
+
+<ul>
+<li>Heat transfer in a chemical reactor.</li>
+<li>Evaporation from a wet surface.</li>
+<li>Mixing and reaction in a stirred tank.</li>
+<li>Drying of agricultural and pharmaceutical materials.</li>
+<li>Gas absorption in packed columns.</li>
+<li>Heat and mass transfer in porous catalysts.</li>
+</ul>
+
+<p>In these systems, a change in one transport process can influence the others.</p>
+
+<div class="example">
+<strong>Example: Exothermic Chemical Reactor</strong>
+
+<p>In an exothermic reactor, chemical reactions generate heat. The temperature affects reaction kinetics, while the flow field affects heat removal and species transport.</p>
+
+<p>A computational model may therefore need to solve:</p>
+
+<ul>
+<li>Momentum equations to determine fluid flow.</li>
+<li>Energy equations to determine temperature.</li>
+<li>Species equations to determine reactant and product concentrations.</li>
+<li>Reaction-rate expressions to represent chemical transformation.</li>
+</ul>
+
+<p>The model can help identify hot spots, poor mixing, concentration gradients and possible thermal instability.</p>
+</div>
+
+<h2>15. Worked Example 2: Stability of an Explicit Heat Conduction Scheme</h2>
+
+<p>A one-dimensional solid has a thermal diffusivity of 1.0 × 10⁻⁵ m²/s. The spatial grid spacing is 0.01 m.</p>
+
+<p>Determine the maximum time step allowed by the standard one-dimensional explicit diffusion stability criterion.</p>
+
+<p><strong>Step 1: Apply the stability condition</strong></p>
+
+<div class="equation">
+Fo = αΔt/(Δx)² ≤ 0.5
+</div>
+
+<p><strong>Step 2: Rearrange</strong></p>
+
+<div class="equation">
+Δt ≤ 0.5(Δx)²/α
+</div>
+
+<p><strong>Step 3: Substitute</strong></p>
+
+<div class="equation">
+Δt ≤ 0.5(0.01)²/(1.0 × 10⁻⁵)
+</div>
+
+<div class="equation">
+Δt ≤ 5 s
+</div>
+
+<p><strong>Final answer:</strong> The maximum time step under this stability criterion is 5 seconds.</p>
+
+<p>In practice, a smaller time step may be selected to improve temporal accuracy or provide additional numerical margin.</p>
+
+<h2>16. Industrial Applications of Computational Transport Modelling</h2>
+
+<h3>16.1 Chemical processing</h3>
+<p>CFD can be used to investigate reactor mixing, heat removal, concentration distributions and flow maldistribution.</p>
+
+<h3>16.2 Oil and gas engineering</h3>
+<p>Computational models can help analyse multiphase pipeline flow, pressure drop, thermal behaviour and transport through processing equipment.</p>
+
+<h3>16.3 Building and construction</h3>
+<p>Numerical heat-transfer and airflow models can support building ventilation, thermal comfort, insulation design and fire-safety analysis.</p>
+
+<h3>16.4 Food and pharmaceutical processing</h3>
+<p>Modelling can support drying, cooling, sterilisation, mixing and temperature control.</p>
+
+<h3>16.5 Environmental engineering</h3>
+<p>Computational transport models can investigate pollutant dispersion, groundwater contamination and heat transfer in environmental systems.</p>
+
+<h2>17. Industrial Case Study: CFD Analysis of a Heat Exchanger</h2>
+
+<div class="example">
+<strong>Case Study: Identifying Poor Flow Distribution in a Heat Exchanger</strong>
+
+<p>An industrial plant experiences lower-than-expected heat-transfer performance in a shell-and-tube heat exchanger.</p>
+
+<p>Initial inspection suggests that some regions of the shell may experience poor fluid distribution, while other regions experience excessive flow velocity.</p>
+
+<p><strong>Engineering problem:</strong></p>
+
+<p>The design team wants to investigate the flow field, pressure distribution and temperature variation inside the equipment.</p>
+
+<p><strong>Proposed computational approach:</strong></p>
+
+<ol>
+<li>Create the shell-and-tube geometry or an appropriately simplified model.</li>
+<li>Generate a computational mesh with suitable refinement near walls and other important regions.</li>
+<li>Define fluid properties for the hot and cold streams.</li>
+<li>Specify inlet temperatures, flow rates and outlet conditions.</li>
+<li>Apply suitable turbulence and heat-transfer models.</li>
+<li>Run the simulation and monitor numerical convergence.</li>
+<li>Examine velocity contours, pressure distribution and temperature profiles.</li>
+<li>Compare predicted pressure drop and heat-transfer performance with available measurements.</li>
+<li>Investigate alternative baffle arrangements or flow-distribution modifications.</li>
+</ol>
+
+<p><strong>Expected engineering outcomes:</strong></p>
+
+<ul>
+<li>Identification of low-velocity regions.</li>
+<li>Identification of possible bypass flow.</li>
+<li>Assessment of pressure losses.</li>
+<li>Identification of regions with poor heat-transfer performance.</li>
+<li>Evaluation of potential design improvements.</li>
+</ul>
+
+<p><strong>Important limitation:</strong> A CFD prediction is not automatically proof that a design will perform as predicted. The model must use appropriate geometry, physical properties, boundary conditions and turbulence treatment, and should be verified and validated against suitable evidence.</p>
+</div>
+
+<h2>18. Engineering Design Considerations</h2>
+
+<p>Before accepting a computational transport model, engineers should consider:</p>
+
+<ol>
+<li>Whether the governing equations represent the physical system.</li>
+<li>Whether the geometry has been represented appropriately.</li>
+<li>Whether the mesh is sufficiently refined.</li>
+<li>Whether boundary and initial conditions are realistic.</li>
+<li>Whether material properties are accurate.</li>
+<li>Whether the selected numerical schemes are appropriate.</li>
+<li>Whether the solution is converged.</li>
+<li>Whether mesh independence has been investigated.</li>
+<li>Whether the model has been validated against experimental or operational data.</li>
+<li>Whether uncertainty and limitations have been documented.</li>
+</ol>
+
+<h2>19. Summary of Key Equations</h2>
+
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continuity</td>
+<td>∂ρ/∂t + ∇·(ρu) = 0</td>
+</tr>
+<tr>
+<td>Incompressible continuity</td>
+<td>∇·u = 0</td>
+</tr>
+<tr>
+<td>Incompressible momentum</td>
+<td>ρ(∂u/∂t + u·∇u) = -∇p + μ∇²u + ρg</td>
+</tr>
+<tr>
+<td>Central first derivative</td>
+<td>(Ti+1 - Ti-1)/(2Δx)</td>
+</tr>
+<tr>
+<td>Central second derivative</td>
+<td>(Ti+1 - 2Ti + Ti-1)/(Δx)²</td>
+</tr>
+<tr>
+<td>General scalar transport</td>
+<td>∂(ρφ)/∂t + ∇·(ρuφ) = ∇·(Γ∇φ) + Sφ</td>
+</tr>
+<tr>
+<td>Fourier number</td>
+<td>Fo = αΔt/(Δx)²</td>
+</tr>
+<tr>
+<td>Courant number</td>
+<td>Co = uΔt/Δx</td>
+</tr>
+<tr>
+<td>Cell Peclet number</td>
+<td>PeΔ = uΔx/D</td>
+</tr>
+<tr>
+<td>FEM algebraic system</td>
+<td>[K]{T} = {F}</td>
+</tr>
+</tbody>
+</table>
+
+<h2>20. References</h2>
+
+<ol>
+<li>Versteeg, H. K., &amp; Malalasekera, W. (2007). <em>An Introduction to Computational Fluid Dynamics: The Finite Volume Method.</em> 2nd Edition. Pearson.</li>
+<li>Ferziger, J. H., Perić, M., &amp; Street, R. L. (2020). <em>Computational Methods for Fluid Dynamics.</em> 4th Edition. Springer.</li>
+<li>Patankar, S. V. (1980). <em>Numerical Heat Transfer and Fluid Flow.</em> Hemisphere Publishing.</li>
+<li>Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2011). <em>Fundamentals of Heat and Mass Transfer.</em> 7th Edition. Wiley.</li>
+<li>White, F. M. (2016). <em>Fluid Mechanics.</em> 8th Edition. McGraw-Hill Education.</li>
+<li>Anderson, J. D. (1995). <em>Computational Fluid Dynamics: The Basics with Applications.</em> McGraw-Hill.</li>
+</ol>
+
+<div class="callout">
+<strong>End of Week 15 Lecture Notes</strong>
+<p>Proceed to the Week 15 Assessment to evaluate your understanding of computational modelling and numerical methods in transport phenomena.</p>
+</div>
+
+`
+    },
+
+    // =====================================================
+    // ACTIVITY 2: ASSESSMENT
+    // =====================================================
+
+    {
+      id: "w15-quiz",
+      type: "quiz",
+      title: "Week 15 Assessment: Computational Modelling and Numerical Methods",
+      quiz: [
+
+        {
+          q: "1. What is the main purpose of computational modelling in transport phenomena?",
+          opts: [
+            "To eliminate the need for physical conservation laws",
+            "To approximate solutions to complex transport equations using numerical methods",
+            "To replace all experimental measurements",
+            "To ensure that all engineering systems operate without uncertainty"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "2. Which numerical method applies conservation equations directly to control volumes?",
+          opts: [
+            "Finite Difference Method",
+            "Finite Element Method",
+            "Finite Volume Method",
+            "Monte Carlo Method"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "3. Which expression represents the central difference approximation for a second derivative?",
+          opts: [
+            "(Ti+1 - Ti-1)/(2Δx)",
+            "(Ti - Ti-1)/Δx",
+            "(Ti+1 + Ti-1)/(2Δx)",
+            "(Ti+1 - 2Ti + Ti-1)/(Δx)²"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "4. For the standard one-dimensional explicit finite difference scheme for pure diffusion, which stability condition is commonly applied?",
+          opts: [
+            "Fo ≤ 0.5",
+            "Fo ≥ 2",
+            "Fo = 10",
+            "Fo must always be zero"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "5. What does the Courant number represent?",
+          opts: [
+            "The ratio of thermal conductivity to density",
+            "The distance travelled by information during a time step relative to the cell size",
+            "The ratio of pressure to viscosity",
+            "The ratio of reaction rate to heat generation"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "6. What is the principal purpose of a grid-independence study?",
+          opts: [
+            "To increase the number of equations without checking accuracy",
+            "To remove all boundary conditions",
+            "To assess whether important numerical results change significantly with mesh refinement",
+            "To prove that the physical model is always correct"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "7. Which statement correctly distinguishes verification from validation?",
+          opts: [
+            "Verification checks whether the equations are solved correctly, while validation assesses whether the model represents physical reality adequately",
+            "Verification and validation mean exactly the same thing",
+            "Verification compares only fluid density, while validation compares only pressure",
+            "Validation is performed before the governing equations are selected"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "8. Which turbulence modelling approach resolves large turbulent structures and models smaller unresolved structures?",
+          opts: [
+            "Standard finite difference method",
+            "Direct Numerical Simulation",
+            "Steady-state conduction modelling",
+            "Large Eddy Simulation"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "9. A large cell Peclet number indicates that:",
+          opts: [
+            "Molecular diffusion is necessarily dominant",
+            "Convection is dominant relative to diffusion at the cell scale",
+            "The fluid has zero velocity",
+            "The temperature must be uniform"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "10. Why is validation against experimental or operational data important?",
+          opts: [
+            "It guarantees that the model has no numerical errors",
+            "It removes the need for mesh refinement",
+            "It provides evidence that the model predictions adequately represent the physical system",
+            "It automatically makes every turbulence model suitable"
+          ],
+          answer: 2
+        }
+
+      ]
+    },
+
+    // =====================================================
+    // ACTIVITY 3: SEPARATE ANSWER KEY AND EXPLANATIONS
+    // =====================================================
+
+    {
+      id: "w15-answer-key",
+      type: "lesson",
+      title: "Week 15 Assessment Answer Key and Explanations",
+      html: `
+
+<h1>Week 15 Assessment Answer Key and Explanations</h1>
+
+<p><strong>ATP 602 – Advanced Transport Phenomena</strong></p>
+
+<div class="callout">
+<strong>Assessment Review</strong>
+<p>This section contains the correct answers, explanations and additional numerical problems. Students should attempt the assessment before reviewing this section.</p>
+</div>
+
+<h2>Part A: Assessment Answer Key</h2>
+
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Correct Answer</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>1</td>
+<td>B</td>
+<td>Computational modelling uses numerical methods to approximate solutions to complex governing equations that may not have convenient analytical solutions.</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>C</td>
+<td>The finite volume method applies conservation principles to individual control volumes and accounts for fluxes across their boundaries.</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>D</td>
+<td>The central difference approximation for a second derivative uses the values at the two neighbouring nodes and the central node.</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>A</td>
+<td>For the standard one-dimensional explicit diffusion scheme, the Fourier number must not exceed 0.5 for stability.</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>B</td>
+<td>The Courant number compares the distance travelled by information during one time step with the characteristic cell size.</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>C</td>
+<td>Grid independence examines whether important numerical predictions are sufficiently insensitive to further mesh refinement.</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>A</td>
+<td>Verification evaluates whether the mathematical equations are solved correctly. Validation evaluates whether the selected model adequately represents the real physical system.</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>D</td>
+<td>Large Eddy Simulation resolves the larger turbulent structures and models the smaller unresolved scales.</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>B</td>
+<td>A large cell Peclet number means convection dominates molecular diffusion at the computational cell scale.</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>C</td>
+<td>Validation provides evidence that the model's predictions are consistent with experimental measurements or reliable operational observations.</td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>Part B: Additional Worked Problems</h2>
+
+<h3>Problem 1: Calculate the Fourier Number</h3>
+
+<p>A solid has a thermal diffusivity of 8.0 × 10⁻⁶ m²/s. A numerical simulation uses a time step of 2 seconds and a grid spacing of 0.01 m.</p>
+
+<p>Calculate the Fourier number.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Fo = αΔt/(Δx)²
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+Fo = (8.0 × 10⁻⁶ × 2)/(0.01)²
+</div>
+
+<div class="equation">
+Fo = 1.6 × 10⁻⁵/1.0 × 10⁻⁴
+</div>
+
+<div class="equation">
+Fo = 0.16
+</div>
+
+<p><strong>Answer:</strong> Fo = 0.16.</p>
+
+<p>For the standard one-dimensional explicit diffusion scheme, 0.16 is below the stability limit of 0.5.</p>
+
+<h3>Problem 2: Calculate the Courant Number</h3>
+
+<p>Fluid flows through a computational domain at 2.5 m/s. The grid spacing is 0.05 m and the time step is 0.01 seconds.</p>
+
+<p>Determine the Courant number.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Co = uΔt/Δx
+</div>
+
+<div class="equation">
+Co = (2.5 × 0.01)/0.05
+</div>
+
+<div class="equation">
+Co = 0.025/0.05
+</div>
+
+<div class="equation">
+Co = 0.5
+</div>
+
+<p><strong>Answer:</strong> Co = 0.5.</p>
+
+<p>The fluid travels a distance equivalent to half the cell size during one time step.</p>
+
+<h3>Problem 3: Calculate the Cell Peclet Number</h3>
+
+<p>A fluid flows at 0.4 m/s through a computational grid with cell spacing of 0.02 m. The molecular diffusivity of the transported species is 2.0 × 10⁻⁵ m²/s.</p>
+
+<p>Calculate the cell Peclet number.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+PeΔ = uΔx/D
+</div>
+
+<div class="equation">
+PeΔ = (0.4 × 0.02)/(2.0 × 10⁻⁵)
+</div>
+
+<div class="equation">
+PeΔ = 0.008/0.00002
+</div>
+
+<div class="equation">
+PeΔ = 400
+</div>
+
+<p><strong>Answer:</strong> PeΔ = 400.</p>
+
+<p>This indicates strongly convection-dominated transport at the cell scale. The numerical scheme and mesh should be selected carefully to avoid non-physical oscillations or excessive numerical diffusion.</p>
+
+<h3>Problem 4: Determine the Maximum Time Step</h3>
+
+<p>A one-dimensional explicit heat conduction model uses a thermal diffusivity of 1.5 × 10⁻⁵ m²/s. The spatial grid spacing is 0.015 m.</p>
+
+<p>Calculate the maximum time step using the standard one-dimensional explicit diffusion stability condition.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Fo = αΔt/(Δx)² ≤ 0.5
+</div>
+
+<p>Rearranging:</p>
+
+<div class="equation">
+Δt ≤ 0.5(Δx)²/α
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+Δt ≤ 0.5(0.015)²/(1.5 × 10⁻⁵)
+</div>
+
+<div class="equation">
+Δt ≤ 0.0001125/0.000015
+</div>
+
+<div class="equation">
+Δt ≤ 7.5 s
+</div>
+
+<p><strong>Answer:</strong> The maximum time step under the stated stability criterion is 7.5 seconds.</p>
+
+<h3>Problem 5: Finite Difference Temperature Calculation</h3>
+
+<p>A one-dimensional wall is divided into equal grid intervals. At an internal node, the neighbouring temperatures are:</p>
+
+<ul>
+<li>Ti-1 = 380 K</li>
+<li>Ti+1 = 400 K</li>
+</ul>
+
+<p>The volumetric heat generation is 500,000 W/m³, thermal conductivity is 20 W/m·K, and grid spacing is 0.02 m.</p>
+
+<p>Determine the temperature at the internal node using the finite difference equation for steady conduction with uniform heat generation.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Ti-1 - 2Ti + Ti+1 = -(q'''/k)(Δx)²
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+380 - 2Ti + 400 = -(500000/20)(0.02)²
+</div>
+
+<div class="equation">
+780 - 2Ti = -10
+</div>
+
+<div class="equation">
+-2Ti = -790
+</div>
+
+<div class="equation">
+Ti = 395 K
+</div>
+
+<p><strong>Answer:</strong> Ti = 395 K.</p>
+
+<h2>Part C: Important Conceptual Distinctions</h2>
+
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discretisation</td>
+<td>Converting continuous governing equations into a discrete numerical representation.</td>
+</tr>
+<tr>
+<td>Mesh refinement</td>
+<td>Increasing spatial resolution by using smaller cells or elements.</td>
+</tr>
+<tr>
+<td>Numerical stability</td>
+<td>The ability of a numerical scheme to prevent errors from growing uncontrollably during computation.</td>
+</tr>
+<tr>
+<td>Convergence</td>
+<td>The numerical solution approaches a stable result under the chosen iterative or solution procedure.</td>
+</tr>
+<tr>
+<td>Grid independence</td>
+<td>Important solution quantities change negligibly as the mesh is further refined.</td>
+</tr>
+<tr>
+<td>Verification</td>
+<td>Checking whether the numerical model solves the mathematical equations correctly.</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Checking whether the mathematical and physical model represents the real system adequately.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Part D: Engineering Reflection</h2>
+
+<p>Consider a chemical processing plant that wants to use CFD to investigate an exothermic reactor.</p>
+
+<p>Discuss the following:</p>
+
+<ol>
+<li>Which governing equations should be considered?</li>
+<li>What boundary conditions would be required?</li>
+<li>Why would mesh refinement be important near reactor walls and inlet regions?</li>
+<li>How could temperature and concentration predictions be validated?</li>
+<li>What limitations might arise from using an unsuitable turbulence or reaction model?</li>
+</ol>
+
+<h2>Conclusion</h2>
+
+<p>Computational modelling is an important engineering tool for analysing complex transport systems. However, numerical output should never be accepted simply because a computer solver has produced a result.</p>
+
+<p>Reliable engineering predictions require appropriate governing equations, suitable discretisation, accurate boundary conditions, numerical stability, convergence studies, grid-independence assessment and validation against physical evidence.</p>
+
+<div class="callout">
+<strong>End of Week 15</strong>
+<p>You have completed the study of computational modelling and numerical methods for transport phenomena.</p>
+
+<p><strong>Next:</strong> Week 16 – Integrated Industrial Design Project, Case Studies and Technical Evaluation.</p>
+</div>
+
+`
+    }
+
+  ]
+},
+        {
+  id: "w16",
+  title: "Week 16: Integrated Industrial Design Project, Case Studies and Technical Evaluation",
+  moduleCode: "ATP 602",
+  level: "Advanced Postgraduate",
+  duration: "120–150 minutes",
+  passMark: 50,
+
+  activities: [
+
+    // =====================================================
+    // ACTIVITY 1: LECTURE NOTES AND DESIGN PROJECT
+    // =====================================================
+
+    {
+      id: "w16-lesson",
+      type: "lesson",
+      title: "Lecture Notes: Integrated Industrial Design Project, Case Studies and Technical Evaluation",
+      html: `
+
+<h1>Week 16: Integrated Industrial Design Project, Case Studies and Technical Evaluation</h1>
+
+<p><strong>ATP 602 – Advanced Transport Phenomena</strong></p>
+
+<p><strong>Duration:</strong> 120–150 minutes</p>
+
+<div class="callout">
+<strong>Introduction</strong>
+<p>Engineering systems rarely involve only one transport mechanism. Industrial processes commonly combine fluid flow, heat transfer, mass transfer, chemical reaction, phase change and mechanical constraints.</p>
+
+<p>This week integrates the principles studied in ATP 602 through industrial case studies and a preliminary engineering design project. Students will identify the controlling transport mechanisms, establish governing equations, perform design calculations, evaluate alternatives and communicate their engineering conclusions.</p>
+</div>
+
+<h2>1. Learning Outcomes</h2>
+
+<p>By the end of this lesson, students should be able to:</p>
+
+<ol>
+<li>Integrate momentum, heat and mass transfer principles in an industrial system.</li>
+<li>Identify the governing physical mechanisms in a coupled transport problem.</li>
+<li>Develop a preliminary process design using engineering calculations.</li>
+<li>Estimate reactor volume, heat generation and heat-removal requirements.</li>
+<li>Evaluate mass-transfer and reaction limitations.</li>
+<li>Apply dimensionless numbers to interpret process behaviour.</li>
+<li>Assess pressure drop, thermal performance and process safety.</li>
+<li>Interpret computational and experimental results critically.</li>
+<li>Compare engineering alternatives using technical and economic criteria.</li>
+<li>Prepare a structured engineering design report.</li>
+</ol>
+
+<h2>2. Integrated Transport Phenomena in Industrial Systems</h2>
+
+<p>Transport phenomena provides the foundation for understanding how momentum, energy and chemical species move through engineering systems.</p>
+
+<h3>2.1 Momentum transport</h3>
+
+<p>Momentum transport describes fluid motion and the forces associated with it.</p>
+
+<p>It is important in:</p>
+
+<ul>
+<li>Pipeline and channel flow.</li>
+<li>Pumping and fluid distribution.</li>
+<li>Mixing and agitation.</li>
+<li>Flow through packed beds.</li>
+<li>Pressure losses in process equipment.</li>
+<li>Boundary-layer development.</li>
+</ul>
+
+<p>For incompressible Newtonian flow with constant properties, the momentum equation is:</p>
+
+<div class="equation">
+ρ(∂u/∂t + u · ∇u) = -∇p + μ∇²u + ρg
+</div>
+
+<h3>2.2 Heat transport</h3>
+
+<p>Heat transport describes energy movement due to temperature differences.</p>
+
+<p>It is important in:</p>
+
+<ul>
+<li>Reactors and heat exchangers.</li>
+<li>Boilers and condensers.</li>
+<li>Industrial drying.</li>
+<li>Thermal processing.</li>
+<li>Cooling and insulation systems.</li>
+</ul>
+
+<p>Fourier's law of heat conduction is:</p>
+
+<div class="equation">
+q = -k∇T
+</div>
+
+<p>For convection, Newton's law of cooling is:</p>
+
+<div class="equation">
+Q = hA(Ts - T∞)
+</div>
+
+<h3>2.3 Mass transport</h3>
+
+<p>Mass transport describes the movement of chemical species due to concentration gradients and bulk fluid motion.</p>
+
+<p>Fick's first law for molecular diffusion is:</p>
+
+<div class="equation">
+JA = -DAB∇CA
+</div>
+
+<p>Where JA is the diffusive molar flux of species A relative to the chosen reference frame.</p>
+
+<p>Mass transfer is important in:</p>
+
+<ul>
+<li>Absorption and stripping.</li>
+<li>Distillation and extraction.</li>
+<li>Drying and evaporation.</li>
+<li>Membrane separation.</li>
+<li>Catalytic reactions.</li>
+<li>Gas–liquid and liquid–liquid processing.</li>
+</ul>
+
+<h2>3. Understanding Coupled Transport</h2>
+
+<p>In many industrial systems, momentum, heat and mass transport occur simultaneously.</p>
+
+<p>For example, in an exothermic chemical reactor:</p>
+
+<ul>
+<li>Fluid flow distributes reactants and products.</li>
+<li>Mass transfer transports reactants to reaction sites.</li>
+<li>Chemical reaction consumes reactants and generates products.</li>
+<li>Reaction heat raises the temperature.</li>
+<li>Heat transfer removes energy from the reactor.</li>
+<li>Temperature changes influence reaction kinetics and fluid properties.</li>
+</ul>
+
+<p>These interactions can create positive or negative feedback effects.</p>
+
+<div class="example">
+<strong>Example: Thermal Feedback in an Exothermic Reactor</strong>
+
+<p>An increase in reactor temperature may increase the reaction rate according to the Arrhenius equation. A higher reaction rate may generate heat more rapidly.</p>
+
+<p>If the cooling system cannot remove the additional heat, the temperature may rise further. This can lead to thermal instability or runaway conditions.</p>
+
+<p>Therefore, reactor design must consider reaction kinetics, heat generation, heat removal, mixing and safety systems together.</p>
+</div>
+
+<h2>4. Integrated Design Methodology</h2>
+
+<p>A systematic engineering design should follow a logical sequence.</p>
+
+<h3>4.1 Define the engineering problem</h3>
+
+<p>Identify:</p>
+
+<ul>
+<li>The purpose of the process.</li>
+<li>The required production rate.</li>
+<li>The operating conditions.</li>
+<li>The desired product quality.</li>
+<li>The available feed materials.</li>
+<li>The relevant safety and environmental constraints.</li>
+</ul>
+
+<h3>4.2 Establish design assumptions</h3>
+
+<p>Engineering calculations often require assumptions. These should be clearly stated and justified.</p>
+
+<p>Examples include:</p>
+
+<ul>
+<li>Steady-state operation.</li>
+<li>Constant fluid density.</li>
+<li>Constant thermal conductivity.</li>
+<li>Ideal mixing in a CSTR.</li>
+<li>Negligible heat loss to the surroundings.</li>
+<li>Specified reaction kinetics.</li>
+<li>Negligible external mass-transfer resistance.</li>
+</ul>
+
+<p>Assumptions must not be confused with measured facts. Their effect on the design should be evaluated.</p>
+
+<h3>4.3 Establish governing equations</h3>
+
+<p>Depending on the system, the design may require:</p>
+
+<ul>
+<li>Mass balances.</li>
+<li>Momentum balances.</li>
+<li>Energy balances.</li>
+<li>Species balances.</li>
+<li>Reaction-rate equations.</li>
+<li>Heat-transfer equations.</li>
+<li>Mass-transfer equations.</li>
+</ul>
+
+<h3>4.4 Perform engineering calculations</h3>
+
+<p>Calculate the important design quantities, including:</p>
+
+<ul>
+<li>Equipment volume.</li>
+<li>Flow velocity.</li>
+<li>Pressure drop.</li>
+<li>Heat generation.</li>
+<li>Heat-transfer area.</li>
+<li>Mass-transfer requirements.</li>
+<li>Operating temperature.</li>
+<li>Safety margins.</li>
+</ul>
+
+<h3>4.5 Evaluate the design</h3>
+
+<p>Compare the predicted performance with the required process specifications.</p>
+
+<h2>5. Case Study One: Design of an Exothermic Continuous Stirred-Tank Reactor</h2>
+
+<div class="example">
+<strong>Industrial scenario</strong>
+
+<p>A chemical processing plant wants to produce a liquid product through an exothermic reaction. The process uses a continuous stirred-tank reactor (CSTR) equipped with a cooling jacket.</p>
+
+<p>The engineering team must estimate the required reactor volume and determine whether the proposed cooling system has sufficient heat-removal capacity under the stated design assumptions.</p>
+
+<h3>Given design information</h3>
+
+<ul>
+<li>Reactant feed rate, FA0 = 2 mol/s.</li>
+<li>Required conversion, X = 0.60.</li>
+<li>Reactant consumption rate at the design outlet condition = 0.20 mol/m³·s.</li>
+<li>Heat released per mole of reactant consumed = 80,000 J/mol.</li>
+<li>Overall heat-transfer coefficient, U = 500 W/m²·K.</li>
+<li>Available heat-transfer area, A = 12 m².</li>
+<li>Mean temperature difference, ΔT = 20 K.</li>
+</ul>
+
+<h3>5.1 Calculate the reactor volume</h3>
+
+<p>For an ideal steady-state CSTR:</p>
+
+<div class="equation">
+V = FA0 X / (-rA)exit
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+V = (2 × 0.60)/0.20
+</div>
+
+<div class="equation">
+V = 1.20/0.20
+</div>
+
+<div class="equation">
+V = 6 m³
+</div>
+
+<p><strong>Preliminary reactor volume = 6 m³.</strong></p>
+
+<p>This calculation assumes that the stated reaction rate is the rate at the reactor outlet, that the reactor is ideally mixed, and that the rate expression is appropriate for the selected operating condition.</p>
+
+<h3>5.2 Calculate the reactant consumption rate</h3>
+
+<p>The molar consumption rate is:</p>
+
+<div class="equation">
+FA,consumed = FA0 X
+</div>
+
+<div class="equation">
+= 2 × 0.60
+</div>
+
+<div class="equation">
+= 1.2 mol/s
+</div>
+
+<h3>5.3 Calculate heat generation</h3>
+
+<p>The heat generation rate is estimated from:</p>
+
+<div class="equation">
+Qgen = FA,consumed × |ΔHr|
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+Qgen = 1.2 × 80,000
+</div>
+
+<div class="equation">
+Qgen = 96,000 W
+</div>
+
+<div class="equation">
+Qgen = 96 kW
+</div>
+
+<p><strong>Estimated reaction heat generation = 96 kW.</strong></p>
+
+<h3>5.4 Calculate heat-removal capacity</h3>
+
+<p>Using the overall heat-transfer equation:</p>
+
+<div class="equation">
+Qremoval = UAΔT
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+Qremoval = 500 × 12 × 20
+</div>
+
+<div class="equation">
+Qremoval = 120,000 W
+</div>
+
+<div class="equation">
+Qremoval = 120 kW
+</div>
+
+<p><strong>Estimated heat-removal capacity = 120 kW.</strong></p>
+
+<h3>5.5 Compare heat generation and removal</h3>
+
+<div class="equation">
+Qremoval - Qgen = 120 - 96
+</div>
+
+<div class="equation">
+= 24 kW
+</div>
+
+<p>The calculated heat-removal capacity exceeds the estimated reaction heat generation by 24 kW under the specified mean temperature difference.</p>
+
+<p><strong>Preliminary engineering interpretation:</strong> The proposed cooling system has a nominal heat-removal capacity greater than the estimated reaction heat generation at the stated design point.</p>
+
+<div class="callout">
+<strong>Important design limitation</strong>
+<p>This comparison is not sufficient to establish reactor safety or prove that the cooling system is adequate under all operating conditions. A complete design must account for sensible heat, feed and product temperatures, heat losses, changing reaction rates, cooling-medium conditions, fouling, control-system response, utility failure and possible runaway scenarios.</p>
+</div>
+</div>
+
+<h2>6. Case Study Two: Mass Transfer in a Gas–Liquid Absorption Column</h2>
+
+<p>Gas–liquid absorption is used to remove a soluble component from a gas stream by contacting it with a liquid solvent.</p>
+
+<p>Examples include:</p>
+
+<ul>
+<li>Carbon dioxide absorption.</li>
+<li>Removal of ammonia from gas streams.</li>
+<li>Removal of acidic gases from industrial emissions.</li>
+<li>Solvent recovery.</li>
+<li>Gas purification.</li>
+</ul>
+
+<h3>6.1 Two-film theory</h3>
+
+<p>The two-film theory assumes that mass-transfer resistance is concentrated in thin films adjacent to the gas–liquid interface.</p>
+
+<p>Mass transfer occurs through:</p>
+
+<ol>
+<li>The gas-side film.</li>
+<li>The gas–liquid interface.</li>
+<li>The liquid-side film.</li>
+</ol>
+
+<p>For a gas component A, a simplified gas-side mass-transfer expression is:</p>
+
+<div class="equation">
+NA = kG(pA,b - pA,i)
+</div>
+
+<p>For liquid-side transfer:</p>
+
+<div class="equation">
+NA = kL(CA,i - CA,b)
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>NA = molar mass-transfer flux (mol/m²·s).</li>
+<li>kG = gas-side mass-transfer coefficient.</li>
+<li>kL = liquid-side mass-transfer coefficient.</li>
+<li>pA,b = bulk gas partial pressure.</li>
+<li>pA,i = interfacial partial pressure.</li>
+<li>CA,i = interfacial liquid concentration.</li>
+<li>CA,b = bulk liquid concentration.</li>
+</ul>
+
+<h3>6.2 Overall mass-transfer resistance</h3>
+
+<p>For a dilute system with a linear equilibrium relationship:</p>
+
+<div class="equation">
+yA* = m xA
+</div>
+
+<p>The overall gas-phase coefficient can be related to the individual coefficients by:</p>
+
+<div class="equation">
+1/KG = 1/kG + m/kL
+</div>
+
+<p>This form assumes consistent concentration or pressure driving-force conventions and compatible definitions of the coefficients. In practical designs, the basis and units must be checked carefully.</p>
+
+<h3>6.3 Industrial design considerations</h3>
+
+<ul>
+<li>Gas and liquid flow rates.</li>
+<li>Equilibrium relationships.</li>
+<li>Interfacial area.</li>
+<li>Mass-transfer coefficients.</li>
+<li>Column diameter and height.</li>
+<li>Pressure drop.</li>
+<li>Flooding and loading limits.</li>
+<li>Solvent properties and regeneration requirements.</li>
+</ul>
+
+<h2>7. Case Study Three: Pressure Drop in an Industrial Pipeline</h2>
+
+<p>Transporting liquids through pipelines requires sufficient pumping capacity to overcome frictional and local pressure losses.</p>
+
+<p>The Darcy–Weisbach equation is:</p>
+
+<div class="equation">
+ΔP = fD (L/Dp)(ρv²/2)
+</div>
+
+<p>Where:</p>
+
+<ul>
+<li>ΔP = pressure drop (Pa).</li>
+<li>fD = Darcy friction factor.</li>
+<li>L = pipe length (m).</li>
+<li>Dp = internal pipe diameter (m).</li>
+<li>ρ = fluid density (kg/m³).</li>
+<li>v = average velocity (m/s).</li>
+</ul>
+
+<p>For local losses:</p>
+
+<div class="equation">
+ΔPminor = ΣK (ρv²/2)
+</div>
+
+<p>The total pressure drop can be estimated by adding major and minor losses, subject to the selected system model.</p>
+
+<div class="example">
+<strong>Worked Example: Pipeline Pressure Drop</strong>
+
+<p>Water flows through a 100 m long straight pipe with the following properties:</p>
+
+<ul>
+<li>Darcy friction factor = 0.025.</li>
+<li>Pipe diameter = 0.05 m.</li>
+<li>Water density = 1000 kg/m³.</li>
+<li>Average velocity = 2 m/s.</li>
+</ul>
+
+<p>Calculate the pressure drop due to major friction losses only.</p>
+
+<p><strong>Step 1: Apply Darcy–Weisbach</strong></p>
+
+<div class="equation">
+ΔP = fD(L/Dp)(ρv²/2)
+</div>
+
+<p><strong>Step 2: Substitute</strong></p>
+
+<div class="equation">
+ΔP = 0.025(100/0.05)(1000 × 2²/2)
+</div>
+
+<div class="equation">
+ΔP = 0.025 × 2000 × 2000
+</div>
+
+<div class="equation">
+ΔP = 100,000 Pa
+</div>
+
+<div class="equation">
+ΔP = 100 kPa
+</div>
+
+<p><strong>Answer:</strong> The estimated major pressure loss is 100 kPa.</p>
+
+<p>Minor losses, elevation changes, pump efficiency and any variation in fluid properties have not been included.</p>
+</div>
+
+<h2>8. Dimensionless Analysis for Integrated Design</h2>
+
+<p>Dimensionless numbers help engineers identify the dominant physical mechanisms and compare systems of different sizes.</p>
+
+<table>
+<thead>
+<tr>
+<th>Dimensionless number</th>
+<th>Definition</th>
+<th>Engineering significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reynolds number</td>
+<td>Re = ρvL/μ</td>
+<td>Ratio of inertial to viscous forces.</td>
+</tr>
+<tr>
+<td>Prandtl number</td>
+<td>Pr = ν/α</td>
+<td>Ratio of momentum to thermal diffusivity.</td>
+</tr>
+<tr>
+<td>Schmidt number</td>
+<td>Sc = ν/D</td>
+<td>Ratio of momentum to mass diffusivity.</td>
+</tr>
+<tr>
+<td>Nusselt number</td>
+<td>Nu = hL/k</td>
+<td>Relative importance of convective heat transfer.</td>
+</tr>
+<tr>
+<td>Sherwood number</td>
+<td>Sh = kL/D</td>
+<td>Relative importance of convective mass transfer.</td>
+</tr>
+<tr>
+<td>Damköhler number</td>
+<td>Da = kτ</td>
+<td>For a first-order reaction, compares reaction and residence-time scales.</td>
+</tr>
+<tr>
+<td>Biot number</td>
+<td>Bi = hLc/ks</td>
+<td>Compares internal conduction resistance with surface convection resistance.</td>
+</tr>
+<tr>
+<td>Fourier number</td>
+<td>Fo = αt/L²</td>
+<td>Measures the extent of transient thermal diffusion.</td>
+</tr>
+</tbody>
+</table>
+
+<p>The characteristic length and the exact definition of each dimensionless number must be selected consistently with the physical problem.</p>
+
+<h2>9. Engineering Design Trade-Offs</h2>
+
+<p>Industrial design involves balancing several competing requirements.</p>
+
+<h3>9.1 Heat-transfer performance versus cost</h3>
+
+<p>Increasing heat-transfer area may improve heat removal, but it can increase equipment cost, size and maintenance requirements.</p>
+
+<h3>9.2 Pressure drop versus flow rate</h3>
+
+<p>Increasing fluid velocity may improve mixing and convective transfer, but it generally increases pressure loss and pumping requirements.</p>
+
+<h3>9.3 Reaction rate versus thermal safety</h3>
+
+<p>Higher temperatures may increase reaction rates, but can also increase heat generation and the risk of thermal instability.</p>
+
+<h3>9.4 Mass-transfer performance versus energy consumption</h3>
+
+<p>Increasing agitation or gas velocity may improve interphase contact, but can increase power consumption, pressure drop or entrainment.</p>
+
+<h3>9.5 Design robustness</h3>
+
+<p>A robust design should remain acceptable under reasonable variations in:</p>
+
+<ul>
+<li>Feed composition.</li>
+<li>Flow rate.</li>
+<li>Operating temperature.</li>
+<li>Material properties.</li>
+<li>Equipment fouling.</li>
+<li>Utility availability.</li>
+<li>Process disturbances.</li>
+</ul>
+
+<h2>10. Computational and Experimental Evaluation</h2>
+
+<p>Computational models and experiments complement each other.</p>
+
+<h3>10.1 Computational evaluation</h3>
+
+<p>CFD or other numerical models can help predict:</p>
+
+<ul>
+<li>Velocity and pressure distributions.</li>
+<li>Temperature gradients.</li>
+<li>Species concentration profiles.</li>
+<li>Mixing and flow maldistribution.</li>
+<li>Local heat and mass-transfer rates.</li>
+</ul>
+
+<h3>10.2 Experimental evaluation</h3>
+
+<p>Experimental investigations may use:</p>
+
+<ul>
+<li>Temperature sensors.</li>
+<li>Pressure transducers.</li>
+<li>Flow meters.</li>
+<li>Concentration analysers.</li>
+<li>Tracer studies.</li>
+<li>Laboratory-scale pilot equipment.</li>
+</ul>
+
+<h3>10.3 Model comparison</h3>
+
+<p>Predicted and measured quantities should be compared using consistent operating conditions and measurement definitions.</p>
+
+<p>A simple percentage error can be calculated as:</p>
+
+<div class="equation">
+Percentage error = |Predicted - Measured|/|Measured| × 100
+</div>
+
+<p>This measure is useful for basic comparison, but it does not replace a complete uncertainty analysis.</p>
+
+<h2>11. Integrated Engineering Design Project</h2>
+
+<div class="callout">
+<strong>Project Title:</strong>
+<p>Preliminary Design and Technical Evaluation of a Continuous Exothermic Chemical Reactor with Integrated Heat Removal and Mass-Transfer Considerations.</p>
+</div>
+
+<h3>11.1 Project background</h3>
+
+<p>A chemical manufacturing facility intends to install a continuous reactor for an exothermic liquid-phase reaction. The reactor must achieve a specified conversion while maintaining an acceptable operating temperature and providing sufficient heat removal.</p>
+
+<p>The design team must evaluate reactor size, reaction heat generation, cooling capacity, transport limitations and operational risks.</p>
+
+<h3>11.2 Design data</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Design value</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Reactant feed rate</td><td>2 mol/s</td></tr>
+<tr><td>Target conversion</td><td>60%</td></tr>
+<tr><td>Outlet reaction rate</td><td>0.20 mol/m³·s</td></tr>
+<tr><td>Heat released per mole consumed</td><td>80 kJ/mol</td></tr>
+<tr><td>Overall heat-transfer coefficient</td><td>500 W/m²·K</td></tr>
+<tr><td>Available heat-transfer area</td><td>12 m²</td></tr>
+<tr><td>Mean temperature difference</td><td>20 K</td></tr>
+<tr><td>Proposed reactor type</td><td>Continuous stirred-tank reactor</td></tr>
+</tbody>
+</table>
+
+<h3>11.3 Required project tasks</h3>
+
+<ol>
+<li>Explain the physical and chemical processes occurring in the reactor.</li>
+<li>Identify the relevant momentum, heat and mass-transfer mechanisms.</li>
+<li>State and justify the assumptions used in the preliminary design.</li>
+<li>Calculate the required reactor volume using the ideal CSTR design equation.</li>
+<li>Calculate the reactant consumption rate.</li>
+<li>Estimate the rate of heat generation.</li>
+<li>Calculate the available heat-removal capacity.</li>
+<li>Compare heat generation and heat removal.</li>
+<li>Discuss how internal and external mass-transfer limitations could affect the reaction rate if the process involves catalytic particles or a separate phase.</li>
+<li>Identify the information required to assess pressure drop and pumping requirements.</li>
+<li>Explain how a CFD model could be used to investigate mixing and temperature distribution.</li>
+<li>Recommend safety and monitoring measures for the proposed reactor.</li>
+</ol>
+
+<h3>11.4 Required engineering discussion</h3>
+
+<p>Your discussion should address:</p>
+
+<ul>
+<li>Whether the preliminary heat-removal calculation is sufficient to establish safe operation.</li>
+<li>How temperature affects the reaction rate.</li>
+<li>How poor mixing could create local temperature and concentration gradients.</li>
+<li>How mass-transfer limitations could reduce the observed reaction rate.</li>
+<li>How cooling-system failure could affect the process.</li>
+<li>What experimental information would be required before final equipment design.</li>
+</ul>
+
+<h3>11.5 Expected project deliverables</h3>
+
+<p>Prepare a technical report containing:</p>
+
+<ol>
+<li>Title page.</li>
+<li>Executive summary.</li>
+<li>Introduction and problem statement.</li>
+<li>Process description.</li>
+<li>Design assumptions and limitations.</li>
+<li>Governing equations.</li>
+<li>Engineering calculations.</li>
+<li>Results and interpretation.</li>
+<li>Transport limitations and safety considerations.</li>
+<li>Computational or experimental evaluation plan.</li>
+<li>Engineering recommendations.</li>
+<li>Conclusion.</li>
+<li>References.</li>
+</ol>
+
+<h2>12. Suggested Project Assessment Rubric</h2>
+
+<table>
+<thead>
+<tr>
+<th>Assessment criterion</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Problem definition and process understanding</td><td>10%</td></tr>
+<tr><td>Governing equations and assumptions</td><td>15%</td></tr>
+<tr><td>Engineering calculations and units</td><td>25%</td></tr>
+<tr><td>Integration of momentum, heat and mass transfer</td><td>15%</td></tr>
+<tr><td>Technical evaluation and safety discussion</td><td>15%</td></tr>
+<tr><td>Recommendations and engineering judgement</td><td>10%</td></tr>
+<tr><td>Report organisation and referencing</td><td>10%</td></tr>
+<tr><th>Total</th><th>100%</th></tr>
+</tbody>
+</table>
+
+<h2>13. Engineering Safety and Risk Evaluation</h2>
+
+<p>Transport calculations are not a substitute for process safety analysis.</p>
+
+<p>Before a reactor or other industrial system is operated, the engineering team should consider:</p>
+
+<ul>
+<li>Maximum credible reaction heat generation.</li>
+<li>Loss of cooling or utility supply.</li>
+<li>Blocked outlets and abnormal pressure.</li>
+<li>Loss of agitation or circulation.</li>
+<li>Feed interruption or incorrect feed composition.</li>
+<li>Instrument and control-system failure.</li>
+<li>Emergency shutdown requirements.</li>
+<li>Relief and containment provisions.</li>
+<li>Safe operating limits and alarm settings.</li>
+</ul>
+
+<p>Appropriate formal hazard studies, such as HAZID and HAZOP, may be required depending on the process and applicable regulations.</p>
+
+<h2>14. Technical Evaluation and Engineering Recommendations</h2>
+
+<p>A good engineering recommendation should be supported by calculations, evidence and an understanding of uncertainty.</p>
+
+<p>Recommendations should:</p>
+
+<ol>
+<li>Identify the design requirement.</li>
+<li>Present the relevant engineering evidence.</li>
+<li>Explain the expected benefit.</li>
+<li>Discuss limitations and risks.</li>
+<li>Identify additional information required.</li>
+</ol>
+
+<p>For example, recommending a larger heat exchanger should be supported by heat-duty calculations, achievable heat-transfer coefficients, operating conditions, fouling allowances and economic considerations.</p>
+
+<h2>15. Week 16 Summary</h2>
+
+<p>This week integrated the central principles of advanced transport phenomena through industrial case studies and a preliminary reactor design project.</p>
+
+<p>The main engineering lessons are:</p>
+
+<ul>
+<li>Momentum, heat and mass transport must often be evaluated together.</li>
+<li>Reaction kinetics influence heat generation and species consumption.</li>
+<li>Heat removal must be assessed against credible heat-generation scenarios.</li>
+<li>Mass-transfer limitations can affect observed reaction performance.</li>
+<li>Pressure losses influence pumping requirements and process economics.</li>
+<li>Computational models should be supported by verification and validation.</li>
+<li>Engineering decisions must consider safety, uncertainty and operating conditions.</li>
+</ul>
+
+<h2>16. References</h2>
+
+<ol>
+<li>Bird, R. B., Stewart, W. E., &amp; Lightfoot, E. N. (2007). <em>Transport Phenomena.</em> 2nd Edition. John Wiley &amp; Sons.</li>
+<li>Fogler, H. S. (2016). <em>Elements of Chemical Reaction Engineering.</em> 5th Edition. Pearson.</li>
+<li>Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2011). <em>Fundamentals of Heat and Mass Transfer.</em> 7th Edition. Wiley.</li>
+<li>Levenspiel, O. (1999). <em>Chemical Reaction Engineering.</em> 3rd Edition. John Wiley &amp; Sons.</li>
+<li>Versteeg, H. K., &amp; Malalasekera, W. (2007). <em>An Introduction to Computational Fluid Dynamics: The Finite Volume Method.</em> 2nd Edition. Pearson.</li>
+<li>Green, D. W., &amp; Southard, M. Z. (Eds.). (2019). <em>Perry's Chemical Engineers' Handbook.</em> 9th Edition. McGraw-Hill.</li>
+</ol>
+
+<div class="callout">
+<strong>End of Week 16 Lecture Notes</strong>
+<p>Complete the Week 16 assessment and review the separate answer key. The integrated design project provides an opportunity to demonstrate your ability to apply advanced transport principles to a realistic engineering problem.</p>
+</div>
+
+`
+    },
+
+    // =====================================================
+    // ACTIVITY 2: ASSESSMENT
+    // =====================================================
+
+    {
+      id: "w16-quiz",
+      type: "quiz",
+      title: "Week 16 Assessment: Integrated Industrial Design and Technical Evaluation",
+      quiz: [
+
+        {
+          q: "1. Why must momentum, heat and mass transfer often be considered together in industrial reactor design?",
+          opts: [
+            "Because they are always independent of one another",
+            "Because fluid flow, species transport and temperature changes can influence one another",
+            "Because chemical reactions do not affect transport",
+            "Because only momentum transport determines reactor performance"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "2. Which equation is used to estimate the volume of an ideal steady-state CSTR for a single reaction using the exit reaction rate?",
+          opts: [
+            "V = FA0X/(-rA)exit",
+            "V = UAΔT",
+            "V = ρvL/μ",
+            "V = kAΔT"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "3. An exothermic reaction consumes reactant at 1.2 mol/s and releases 80 kJ per mole consumed. What is the heat generation rate?",
+          opts: [
+            "9.6 kW",
+            "48 kW",
+            "96 kW",
+            "120 kW"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "4. Which expression represents the basic overall heat-transfer equation?",
+          opts: [
+            "Q = mcpΔT",
+            "Q = kA/L",
+            "Q = ρv²/2",
+            "Q = UAΔT"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "5. In the two-film theory of gas–liquid mass transfer, the principal mass-transfer resistances are associated with:",
+          opts: [
+            "The gas-side and liquid-side films",
+            "The reactor wall and foundation",
+            "The pump and motor",
+            "The inlet and outlet pipes only"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "6. Which equation is commonly used to estimate major frictional pressure losses in a pipeline?",
+          opts: [
+            "Fourier's law",
+            "Darcy–Weisbach equation",
+            "Arrhenius equation",
+            "Fick's first law"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "7. What does the Reynolds number compare?",
+          opts: [
+            "Heat generation and heat removal",
+            "Reaction rate and residence time",
+            "Inertial forces and viscous forces",
+            "Thermal conductivity and specific heat capacity"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "8. Why is it important to investigate mass-transfer limitations in catalytic reactor design?",
+          opts: [
+            "They always increase the intrinsic reaction rate",
+            "They eliminate the need for kinetic data",
+            "They guarantee uniform concentration throughout the catalyst",
+            "They can reduce the observed reaction rate by limiting reactant transport to reaction sites"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "9. Which statement best describes a useful engineering recommendation?",
+          opts: [
+            "It is supported by calculations, evidence, assumptions and an evaluation of limitations",
+            "It is based only on personal preference",
+            "It ignores uncertainty and safety",
+            "It does not require an explanation"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "10. Why is a comparison between heat generation and heat-removal capacity important in an exothermic reactor?",
+          opts: [
+            "To determine the colour of the reactor",
+            "To assess whether the cooling system can remove the expected reaction heat under the stated conditions",
+            "To eliminate the need for temperature monitoring",
+            "To prove that thermal runaway is impossible"
+          ],
+          answer: 1
+        }
+
+      ]
+    },
+
+    // =====================================================
+    // ACTIVITY 3: SEPARATE ANSWER KEY AND EXPLANATIONS
+    // =====================================================
+
+    {
+      id: "w16-answer-key",
+      type: "lesson",
+      title: "Week 16 Assessment Answer Key and Explanations",
+      html: `
+
+<h1>Week 16 Assessment Answer Key and Explanations</h1>
+
+<p><strong>ATP 602 – Advanced Transport Phenomena</strong></p>
+
+<div class="callout">
+<strong>Assessment Review</strong>
+<p>This section provides the correct answers, explanations and additional engineering calculations. Students should complete the assessment before reviewing this material.</p>
+</div>
+
+<h2>Part A: Assessment Answer Key</h2>
+
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Correct Answer</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>1</td>
+<td>B</td>
+<td>Momentum, heat and mass transport interact in industrial systems. For example, fluid flow affects heat and species distribution, while temperature can influence fluid properties and reaction kinetics.</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>A</td>
+<td>The ideal steady-state CSTR design equation is V = FA0X/(-rA)exit, where the reaction rate is evaluated at the reactor composition and operating conditions.</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>C</td>
+<td>Heat generation is 1.2 mol/s × 80,000 J/mol = 96,000 W, equivalent to 96 kW.</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>D</td>
+<td>The overall heat-transfer equation is Q = UAΔT, where U is the overall heat-transfer coefficient, A is the heat-transfer area and ΔT is the appropriate mean temperature difference.</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>A</td>
+<td>The two-film theory represents mass-transfer resistance through gas-side and liquid-side films adjacent to the interface.</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>B</td>
+<td>The Darcy–Weisbach equation estimates major frictional pressure loss in a pipe using the Darcy friction factor, pipe geometry, fluid density and average velocity.</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>C</td>
+<td>The Reynolds number is the ratio of inertial forces to viscous forces and helps characterise flow behaviour.</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>D</td>
+<td>Mass-transfer limitations can restrict reactant movement to catalytic sites and reduce the observed reaction rate below the rate expected from intrinsic kinetics alone.</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>A</td>
+<td>A sound engineering recommendation must be supported by calculations, evidence, stated assumptions and consideration of uncertainty and risk.</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>B</td>
+<td>Comparing heat generation and heat-removal capacity is an important preliminary step in evaluating reactor thermal performance. It does not, by itself, establish that the reactor is safe under all possible conditions.</td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>Part B: Additional Worked Problems</h2>
+
+<h3>Problem 1: Reactor Volume and Reactant Conversion</h3>
+
+<p>A continuous stirred-tank reactor receives reactant at 3 mol/s. The required conversion is 50%. The reactant consumption rate at the outlet condition is 0.25 mol/m³·s.</p>
+
+<p>Calculate the ideal CSTR volume.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+V = FA0X/(-rA)exit
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+V = (3 × 0.50)/0.25
+</div>
+
+<div class="equation">
+V = 1.5/0.25
+</div>
+
+<div class="equation">
+V = 6 m³
+</div>
+
+<p><strong>Answer:</strong> The ideal CSTR volume is 6 m³.</p>
+
+<h3>Problem 2: Heat Generation in an Exothermic Process</h3>
+
+<p>A reaction consumes 1.5 mol/s of reactant. The heat released is 65 kJ per mole consumed.</p>
+
+<p>Determine the heat-generation rate.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Qgen = FA,consumed × |ΔHr|
+</div>
+
+<div class="equation">
+Qgen = 1.5 × 65,000
+</div>
+
+<div class="equation">
+Qgen = 97,500 W
+</div>
+
+<div class="equation">
+Qgen = 97.5 kW
+</div>
+
+<p><strong>Answer:</strong> The heat-generation rate is 97.5 kW.</p>
+
+<h3>Problem 3: Heat-Transfer Area Requirement</h3>
+
+<p>An industrial process must remove 150 kW of heat. The overall heat-transfer coefficient is 600 W/m²·K, and the mean temperature difference is 25 K.</p>
+
+<p>Calculate the required heat-transfer area.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Q = UAΔT
+</div>
+
+<p>Rearranging:</p>
+
+<div class="equation">
+A = Q/(UΔT)
+</div>
+
+<p>Convert heat duty into watts:</p>
+
+<div class="equation">
+Q = 150,000 W
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+A = 150,000/(600 × 25)
+</div>
+
+<div class="equation">
+A = 150,000/15,000
+</div>
+
+<div class="equation">
+A = 10 m²
+</div>
+
+<p><strong>Answer:</strong> The theoretical heat-transfer area is 10 m².</p>
+
+<p>Final equipment sizing should also consider fouling, operating variability, design margins, material compatibility and the actual temperature profile.</p>
+
+<h3>Problem 4: Calculate Pipeline Pressure Drop</h3>
+
+<p>A liquid with density 900 kg/m³ flows through a straight pipe. The pipe length is 80 m, internal diameter is 0.04 m, average velocity is 1.5 m/s and Darcy friction factor is 0.03.</p>
+
+<p>Calculate the major frictional pressure drop.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+ΔP = fD(L/Dp)(ρv²/2)
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+ΔP = 0.03(80/0.04)(900 × 1.5²/2)
+</div>
+
+<div class="equation">
+ΔP = 0.03 × 2000 × 1012.5
+</div>
+
+<div class="equation">
+ΔP = 60,750 Pa
+</div>
+
+<div class="equation">
+ΔP = 60.75 kPa
+</div>
+
+<p><strong>Answer:</strong> The major frictional pressure drop is 60.75 kPa.</p>
+
+<h3>Problem 5: Compare Heat Generation and Removal</h3>
+
+<p>A reactor generates 85 kW of heat. Its cooling system has an estimated heat-removal capacity of 100 kW at the stated operating condition.</p>
+
+<p>Calculate the nominal difference between heat-removal capacity and heat generation.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Qmargin = Qremoval - Qgeneration
+</div>
+
+<div class="equation">
+Qmargin = 100 - 85
+</div>
+
+<div class="equation">
+Qmargin = 15 kW
+</div>
+
+<p><strong>Answer:</strong> The nominal heat-removal capacity exceeds the estimated heat generation by 15 kW.</p>
+
+<p>This is not a complete safety margin calculation. A full assessment must consider the maximum credible heat-generation rate, changes in heat-transfer performance, cooling failure and transient operating conditions.</p>
+
+<h2>Part C: Engineering Interpretation Questions</h2>
+
+<h3>1. Why is reactor volume alone insufficient to establish good reactor performance?</h3>
+
+<p>Reactor volume does not independently establish conversion, selectivity, thermal stability or product quality. These depend on reaction kinetics, mixing, residence-time distribution, heat removal, mass transfer and operating conditions.</p>
+
+<h3>2. Why can increased fluid velocity create a design trade-off?</h3>
+
+<p>Increased velocity may improve mixing and convective transfer, but it can also increase frictional pressure losses and pumping energy requirements.</p>
+
+<h3>3. Why should a reactor design include a cooling-failure assessment?</h3>
+
+<p>Loss of cooling can allow heat to accumulate in an exothermic system. Temperature may rise, reaction kinetics may accelerate and the process may become unsafe. Appropriate safeguards and emergency response provisions are therefore required.</p>
+
+<h3>4. Why is experimental validation important?</h3>
+
+<p>Engineering calculations and numerical models rely on assumptions and simplified representations. Experimental or operational data help establish whether predicted behaviour adequately represents the real process.</p>
+
+<h2>Part D: Integrated Design Project Submission Checklist</h2>
+
+<p>Before submitting the Week 16 design project, confirm that your report includes:</p>
+
+<ol>
+<li>A clearly defined engineering problem.</li>
+<li>A description of the industrial process.</li>
+<li>Relevant transport mechanisms.</li>
+<li>Governing equations and assumptions.</li>
+<li>Calculations with correct units.</li>
+<li>Interpretation of the calculated results.</li>
+<li>Heat and mass-transfer considerations.</li>
+<li>Momentum transport and pressure-loss considerations.</li>
+<li>Safety and operational limitations.</li>
+<li>Computational or experimental evaluation methods.</li>
+<li>Engineering recommendations.</li>
+<li>References.</li>
+</ol>
+
+<h2>Conclusion</h2>
+
+<p>Integrated engineering design requires more than the application of individual equations. Engineers must understand how fluid flow, heat transfer, mass transfer and chemical reaction interact within a real process.</p>
+
+<p>A technically sound design should be based on defensible assumptions, correct calculations, appropriate models, safety considerations and evidence from experimental or operational evaluation.</p>
+
+<div class="callout">
+<strong>End of Week 16</strong>
+
+<p>You have completed the integrated industrial design and technical evaluation component of ATP 602.</p>
+
+<p><strong>Next:</strong> Week 17 – Final Comprehensive Assessment and Engineering Design Evaluation.</p>
+</div>
+
+`
+    }
+
+  ]
+},
+        {
+  id: "w17",
+  title: "Week 17: Final Comprehensive Assessment and Engineering Design Evaluation",
+  moduleCode: "ATP 602",
+  level: "Advanced Postgraduate",
+  duration: "150–180 minutes",
+  passMark: 50,
+
+  activities: [
+
+    // =====================================================
+    // ACTIVITY 1: FINAL REVIEW AND EXAMINATION GUIDANCE
+    // =====================================================
+
+    {
+      id: "w17-lesson",
+      type: "lesson",
+      title: "Final Review: Advanced Transport Phenomena and Engineering Design Evaluation",
+      html: `
+
+<h1>Week 17: Final Comprehensive Assessment and Engineering Design Evaluation</h1>
+
+<p><strong>ATP 602 – Advanced Transport Phenomena</strong></p>
+
+<p><strong>Duration:</strong> 150–180 minutes</p>
+
+<div class="callout">
+<strong>Course Completion</strong>
+<p>This is the final instructional week of ATP 602. It brings together the fundamental theories, mathematical models, numerical techniques and engineering applications studied throughout the 17-week programme.</p>
+
+<p>Students are expected to demonstrate not only knowledge of transport equations but also the ability to select appropriate models, perform calculations, interpret results and make technically defensible engineering decisions.</p>
+</div>
+
+<h2>1. Final Learning Outcomes</h2>
+
+<p>By the end of this final week, students should be able to:</p>
+
+<ol>
+<li>Explain the fundamental principles of momentum, heat and mass transport.</li>
+<li>Apply conservation equations to engineering transport problems.</li>
+<li>Analyse laminar and turbulent fluid flow.</li>
+<li>Calculate heat-transfer rates through different geometries.</li>
+<li>Evaluate transient heat conduction and thermal resistance.</li>
+<li>Apply molecular and convective mass-transfer principles.</li>
+<li>Analyse coupled heat, mass and momentum transport.</li>
+<li>Evaluate transport limitations in reactive systems.</li>
+<li>Interpret transport processes in multiphase and porous systems.</li>
+<li>Explain membrane transport and separation principles.</li>
+<li>Apply numerical methods to transport equations.</li>
+<li>Evaluate computational results using verification and validation.</li>
+<li>Integrate transport principles into industrial engineering design.</li>
+<li>Communicate engineering findings through calculations and technical reports.</li>
+</ol>
+
+<h2>2. Comprehensive Course Review</h2>
+
+<h3>2.1 Weeks 1–3: Fundamentals and Mathematical Foundations</h3>
+
+<p>The introductory weeks established the physical and mathematical foundations of transport phenomena.</p>
+
+<p>Key concepts included:</p>
+
+<ul>
+<li>Momentum, heat and mass transport.</li>
+<li>Conservation of mass, momentum and energy.</li>
+<li>Constitutive transport relationships.</li>
+<li>Vector and differential operators.</li>
+<li>Boundary and initial conditions.</li>
+<li>Dimensional analysis and similarity.</li>
+<li>Reynolds, Prandtl, Schmidt, Nusselt and Sherwood numbers.</li>
+</ul>
+
+<p>Students should understand that transport equations are mathematical expressions of conservation principles combined with appropriate constitutive models.</p>
+
+<h3>2.2 Weeks 4–6: Momentum Transport and Fluid Flow</h3>
+
+<p>These topics examined the movement of fluids and the forces associated with flow.</p>
+
+<p>Important concepts included:</p>
+
+<ul>
+<li>Newtonian and non-Newtonian fluids.</li>
+<li>Newton's law of viscosity.</li>
+<li>Navier–Stokes equations.</li>
+<li>Boundary-layer development.</li>
+<li>Laminar and turbulent flow.</li>
+<li>Internal pipe flow.</li>
+<li>Darcy–Weisbach pressure-loss calculations.</li>
+<li>Flow through different geometries.</li>
+<li>Friction factors and minor losses.</li>
+</ul>
+
+<p>Students should be able to distinguish between Darcy and Fanning friction factors and apply the correct friction-factor convention in pressure-drop calculations.</p>
+
+<h3>2.3 Weeks 7–8: Heat Transfer and Thermal Analysis</h3>
+
+<p>These weeks addressed heat transfer by conduction, convection and radiation, together with complex geometries and transient conduction.</p>
+
+<p>Key concepts included:</p>
+
+<ul>
+<li>Fourier's law of conduction.</li>
+<li>Newton's law of cooling.</li>
+<li>Thermal resistance networks.</li>
+<li>Plane-wall, cylindrical and spherical conduction.</li>
+<li>Composite walls and insulation.</li>
+<li>Critical insulation radius.</li>
+<li>Thermal diffusivity.</li>
+<li>Biot and Fourier numbers.</li>
+<li>Lumped-capacitance analysis.</li>
+<li>Transient temperature distributions.</li>
+</ul>
+
+<h3>2.4 Weeks 9–10: Molecular and Convective Mass Transfer</h3>
+
+<p>These topics examined how chemical species move through fluids and across interfaces.</p>
+
+<p>Important concepts included:</p>
+
+<ul>
+<li>Fick's laws of diffusion.</li>
+<li>Molecular diffusivity.</li>
+<li>Steady-state and transient diffusion.</li>
+<li>Diffusion through stagnant films.</li>
+<li>Equimolar counterdiffusion.</li>
+<li>Convective mass transfer.</li>
+<li>Interphase mass transfer.</li>
+<li>Mass-transfer coefficients.</li>
+<li>Concentration boundary layers.</li>
+</ul>
+
+<h3>2.5 Week 11: Coupled Heat, Mass and Momentum Transport</h3>
+
+<p>This week examined interactions between different transport mechanisms.</p>
+
+<p>Important concepts included:</p>
+
+<ul>
+<li>Coupled conservation equations.</li>
+<li>Thermal and concentration boundary layers.</li>
+<li>Heat and mass-transfer analogies.</li>
+<li>Chilton–Colburn analogy.</li>
+<li>Drying and evaporation.</li>
+<li>Reactive transport.</li>
+<li>Thiele modulus and effectiveness factor.</li>
+<li>Soret and Dufour effects.</li>
+</ul>
+
+<h3>2.6 Weeks 12–13: Multiphase, Porous and Membrane Transport</h3>
+
+<p>These topics extended transport analysis to systems containing multiple phases and porous materials.</p>
+
+<p>Important areas included:</p>
+
+<ul>
+<li>Gas–liquid and liquid–liquid transport.</li>
+<li>Interfacial mass transfer.</li>
+<li>Porous media and effective transport properties.</li>
+<li>Permeability and flow through porous materials.</li>
+<li>Capillary effects.</li>
+<li>Diffusion in porous catalysts.</li>
+<li>Membrane separation.</li>
+<li>Selective transport and membrane resistance.</li>
+</ul>
+
+<h3>2.7 Week 14: Reactive Systems and Reactor Design</h3>
+
+<p>This week examined the interaction between transport processes and chemical reaction.</p>
+
+<p>Important concepts included:</p>
+
+<ul>
+<li>Reaction kinetics.</li>
+<li>Arrhenius equation.</li>
+<li>External and internal mass-transfer resistance.</li>
+<li>Thiele modulus.</li>
+<li>Effectiveness factor.</li>
+<li>Damköhler number.</li>
+<li>Batch, CSTR and PFR reactors.</li>
+<li>Heat generation and removal.</li>
+<li>Thermal runaway and reactor stability.</li>
+</ul>
+
+<h3>2.8 Week 15: Computational Modelling</h3>
+
+<p>This week examined numerical approaches to solving complex transport equations.</p>
+
+<p>Important concepts included:</p>
+
+<ul>
+<li>Finite Difference Method.</li>
+<li>Finite Volume Method.</li>
+<li>Finite Element Method.</li>
+<li>Computational Fluid Dynamics.</li>
+<li>Mesh generation.</li>
+<li>Numerical stability and convergence.</li>
+<li>Courant and Fourier numbers.</li>
+<li>Grid-independence studies.</li>
+<li>Verification and validation.</li>
+</ul>
+
+<h3>2.9 Week 16: Integrated Industrial Design</h3>
+
+<p>The previous week brought together transport principles through industrial case studies and preliminary reactor design.</p>
+
+<p>Students examined:</p>
+
+<ul>
+<li>Integrated process design.</li>
+<li>Reactor-volume calculations.</li>
+<li>Reaction heat generation.</li>
+<li>Heat-removal requirements.</li>
+<li>Gas–liquid mass transfer.</li>
+<li>Pipeline pressure drop.</li>
+<li>Engineering trade-offs.</li>
+<li>Industrial safety and technical evaluation.</li>
+</ul>
+
+<h2>3. Essential Governing Equations</h2>
+
+<h3>3.1 Continuity equation</h3>
+
+<div class="equation">
+∂ρ/∂t + ∇ · (ρu) = 0
+</div>
+
+<p>For an incompressible fluid with constant density:</p>
+
+<div class="equation">
+∇ · u = 0
+</div>
+
+<h3>3.2 Newton's law of viscosity</h3>
+
+<div class="equation">
+τ = μ(du/dy)
+</div>
+
+<h3>3.3 Navier–Stokes equation</h3>
+
+<p>For incompressible Newtonian flow with constant properties:</p>
+
+<div class="equation">
+ρ(∂u/∂t + u · ∇u) = -∇p + μ∇²u + ρg
+</div>
+
+<h3>3.4 Fourier's law</h3>
+
+<div class="equation">
+q = -k∇T
+</div>
+
+<h3>3.5 Newton's law of cooling</h3>
+
+<div class="equation">
+Q = hA(Ts - T∞)
+</div>
+
+<h3>3.6 Cylindrical heat conduction</h3>
+
+<div class="equation">
+Q = 2πkL(Ti - To)/ln(ro/ri)
+</div>
+
+<h3>3.7 Spherical heat conduction</h3>
+
+<div class="equation">
+Q = 4πk(Ti - To)/(1/ri - 1/ro)
+</div>
+
+<h3>3.8 Fick's first law</h3>
+
+<div class="equation">
+JA = -DAB∇CA
+</div>
+
+<h3>3.9 General convection–diffusion–reaction equation</h3>
+
+<div class="equation">
+∂C/∂t + u · ∇C = D∇²C + RA
+</div>
+
+<p>This is a simplified equation for a dilute species with constant diffusivity.</p>
+
+<h3>3.10 Darcy–Weisbach equation</h3>
+
+<div class="equation">
+ΔP = fD(L/Dp)(ρv²/2)
+</div>
+
+<h3>3.11 Arrhenius equation</h3>
+
+<div class="equation">
+k = A exp(-Ea/RT)
+</div>
+
+<h3>3.12 Thiele modulus for a first-order spherical catalyst</h3>
+
+<div class="equation">
+φ = R√(k/Deff)
+</div>
+
+<h3>3.13 Effectiveness factor for a first-order isothermal spherical catalyst</h3>
+
+<div class="equation">
+η = (3/φ²)(φ cothφ - 1)
+</div>
+
+<h3>3.14 Overall heat transfer</h3>
+
+<div class="equation">
+Q = UAΔTlm
+</div>
+
+<p>For heat exchangers, ΔTlm represents the log-mean temperature difference where the relevant flow arrangement and assumptions support its use.</p>
+
+<h3>3.15 Dimensionless numbers</h3>
+
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Reynolds</td><td>Re = ρvL/μ</td></tr>
+<tr><td>Prandtl</td><td>Pr = ν/α</td></tr>
+<tr><td>Schmidt</td><td>Sc = ν/D</td></tr>
+<tr><td>Nusselt</td><td>Nu = hL/k</td></tr>
+<tr><td>Sherwood</td><td>Sh = kL/D</td></tr>
+<tr><td>Lewis</td><td>Le = α/D</td></tr>
+<tr><td>Biot</td><td>Bi = hLc/ks</td></tr>
+<tr><td>Fourier</td><td>Fo = αt/L²</td></tr>
+<tr><td>Damköhler</td><td>Da = kτ for a first-order reaction</td></tr>
+</tbody>
+</table>
+
+<h2>4. General Approach to Solving Transport Problems</h2>
+
+<p>Students should use a systematic problem-solving approach during the final examination.</p>
+
+<ol>
+<li><strong>Understand the physical system:</strong> Identify the equipment, geometry, material and operating conditions.</li>
+<li><strong>Identify the transport mechanism:</strong> Determine whether momentum, heat, mass or coupled transport is involved.</li>
+<li><strong>Write the governing equation:</strong> Select the correct conservation equation and constitutive relationship.</li>
+<li><strong>State assumptions:</strong> Specify steady or transient conditions, material properties and other simplifications.</li>
+<li><strong>Apply boundary conditions:</strong> Define the conditions at the relevant surfaces, inlets and outlets.</li>
+<li><strong>Substitute numerical data:</strong> Use consistent units and appropriate conversion factors.</li>
+<li><strong>Calculate the result:</strong> Show the mathematical steps clearly.</li>
+<li><strong>Check the result:</strong> Confirm dimensional consistency and whether the result is physically reasonable.</li>
+<li><strong>Interpret the result:</strong> Explain what the calculated quantity means for the engineering system.</li>
+</ol>
+
+<h2>5. Final Examination Instructions</h2>
+
+<div class="callout">
+<strong>Important Examination Instructions</strong>
+
+<ul>
+<li>Read every question carefully before selecting an answer.</li>
+<li>Attempt all questions.</li>
+<li>Use the appropriate transport equation for each problem.</li>
+<li>Show calculations and units where required.</li>
+<li>Use reasonable engineering assumptions only when necessary and state them.</li>
+<li>Do not confuse Darcy and Fanning friction factors.</li>
+<li>Distinguish between heat generation and heat removal.</li>
+<li>Do not assume that numerical convergence automatically establishes physical validity.</li>
+<li>Review the separate answer key after completing the assessment.</li>
+</ul>
+</div>
+
+<h2>6. Final Engineering Design Evaluation</h2>
+
+<p>In addition to the comprehensive examination, students should complete an integrated engineering design evaluation.</p>
+
+<h3>Design problem</h3>
+
+<p>A chemical processing facility intends to operate a continuous exothermic reactor. The reactor receives a liquid reactant feed and uses a cooling system to control its operating temperature.</p>
+
+<p>The design team must evaluate the reactor's preliminary performance and identify the additional information needed before final equipment selection and safe operation.</p>
+
+<h3>Given information</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Reactant feed rate</td><td>2 mol/s</td></tr>
+<tr><td>Target conversion</td><td>60%</td></tr>
+<tr><td>Outlet reaction rate</td><td>0.20 mol/m³·s</td></tr>
+<tr><td>Heat released per mole consumed</td><td>80 kJ/mol</td></tr>
+<tr><td>Overall heat-transfer coefficient</td><td>500 W/m²·K</td></tr>
+<tr><td>Heat-transfer area</td><td>12 m²</td></tr>
+<tr><td>Mean temperature difference</td><td>20 K</td></tr>
+</tbody>
+</table>
+
+<h3>Required engineering evaluation</h3>
+
+<ol>
+<li>Calculate the required ideal CSTR volume.</li>
+<li>Calculate the reactant consumption rate.</li>
+<li>Calculate the heat-generation rate.</li>
+<li>Calculate the available heat-removal capacity.</li>
+<li>Compare heat generation and heat removal.</li>
+<li>Explain how reaction temperature affects reaction kinetics.</li>
+<li>Discuss possible internal and external mass-transfer limitations.</li>
+<li>Identify the momentum-transport considerations affecting mixing and circulation.</li>
+<li>Explain how CFD could help evaluate temperature and concentration distributions.</li>
+<li>Recommend appropriate process monitoring and safety measures.</li>
+<li>Identify the additional data required before final reactor design.</li>
+</ol>
+
+<h3>Expected engineering conclusion</h3>
+
+<p>Students should distinguish between a preliminary calculation and a complete engineering design. A nominal excess in cooling capacity does not establish that thermal runaway is impossible or that the reactor is safe under every operating condition.</p>
+
+<p>A final engineering recommendation should consider transient heat balances, maximum credible reaction rates, cooling-system reliability, feed disturbances, mixing performance, control response, relief systems and applicable safety requirements.</p>
+
+<h2>7. Final Technical Report Requirements</h2>
+
+<p>Where a written design report is required, it should contain:</p>
+
+<ol>
+<li>Title page.</li>
+<li>Executive summary.</li>
+<li>Introduction and background.</li>
+<li>Engineering problem statement.</li>
+<li>Process description.</li>
+<li>Design assumptions.</li>
+<li>Governing equations.</li>
+<li>Calculations and results.</li>
+<li>Discussion of transport mechanisms.</li>
+<li>Technical and safety evaluation.</li>
+<li>Engineering recommendations.</li>
+<li>Conclusion.</li>
+<li>References.</li>
+</ol>
+
+<h2>8. Final Course Reflection</h2>
+
+<p>Advanced transport phenomena is not simply the study of individual equations. It is the study of how physical quantities move, interact and influence the performance of engineering systems.</p>
+
+<p>A competent engineer should be able to:</p>
+
+<ul>
+<li>Understand the physical meaning of transport equations.</li>
+<li>Recognise the assumptions behind mathematical models.</li>
+<li>Identify the dominant transport resistance.</li>
+<li>Perform technically correct calculations.</li>
+<li>Evaluate complex systems using numerical methods.</li>
+<li>Interpret results using engineering judgement.</li>
+<li>Consider safety, uncertainty and operational limitations.</li>
+<li>Communicate findings professionally.</li>
+</ul>
+
+<div class="callout">
+<strong>End of Final Lecture Notes</strong>
+<p>You have reached the final assessment stage of ATP 602 – Advanced Transport Phenomena.</p>
+
+<p>Proceed to the comprehensive examination and complete the separate engineering design evaluation.</p>
+</div>
+
+<h2>9. References</h2>
+
+<ol>
+<li>Bird, R. B., Stewart, W. E., &amp; Lightfoot, E. N. (2007). <em>Transport Phenomena.</em> 2nd Edition. John Wiley &amp; Sons.</li>
+<li>Welty, J. R., Rorrer, G. L., &amp; Foster, D. G. (2014). <em>Fundamentals of Momentum, Heat, and Mass Transfer.</em> 6th Edition. Wiley.</li>
+<li>Incropera, F. P., DeWitt, D. P., Bergman, T. L., &amp; Lavine, A. S. (2011). <em>Fundamentals of Heat and Mass Transfer.</em> 7th Edition. Wiley.</li>
+<li>White, F. M. (2016). <em>Fluid Mechanics.</em> 8th Edition. McGraw-Hill Education.</li>
+<li>Fogler, H. S. (2016). <em>Elements of Chemical Reaction Engineering.</em> 5th Edition. Pearson.</li>
+<li>Levenspiel, O. (1999). <em>Chemical Reaction Engineering.</em> 3rd Edition. John Wiley &amp; Sons.</li>
+<li>Versteeg, H. K., &amp; Malalasekera, W. (2007). <em>An Introduction to Computational Fluid Dynamics: The Finite Volume Method.</em> 2nd Edition. Pearson.</li>
+<li>Ferziger, J. H., Perić, M., &amp; Street, R. L. (2020). <em>Computational Methods for Fluid Dynamics.</em> 4th Edition. Springer.</li>
+</ol>
+
+`
+    },
+
+    // =====================================================
+    // ACTIVITY 2: FINAL COMPREHENSIVE ASSESSMENT
+    // =====================================================
+
+    {
+      id: "w17-quiz",
+      type: "quiz",
+      title: "Week 17 Final Comprehensive Assessment: Advanced Transport Phenomena",
+      quiz: [
+
+        {
+          q: "1. Which principle forms the foundation of the continuity equation?",
+          opts: [
+            "Conservation of mass",
+            "Conservation of electrical charge",
+            "Conservation of angular displacement",
+            "Conservation of chemical equilibrium"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "2. For a Newtonian fluid, which relationship describes shear stress?",
+          opts: [
+            "τ = k(dT/dx)",
+            "τ = μ(du/dy)",
+            "τ = ρgh",
+            "τ = hAΔT"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "3. What does the Reynolds number represent?",
+          opts: [
+            "The ratio of heat generation to heat removal",
+            "The ratio of thermal diffusivity to mass diffusivity",
+            "The ratio of inertial forces to viscous forces",
+            "The ratio of pressure to temperature"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "4. Which law describes heat conduction due to a temperature gradient?",
+          opts: [
+            "Newton's law of viscosity",
+            "Fick's first law",
+            "Darcy's law",
+            "Fourier's law"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "5. For steady radial heat conduction through a cylindrical wall with constant thermal conductivity, the temperature profile is:",
+          opts: [
+            "Logarithmic with radius",
+            "Always linear with radius",
+            "Always exponential with time",
+            "Independent of radius"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "6. What does the Biot number compare?",
+          opts: [
+            "Inertial forces with viscous forces",
+            "Internal conduction resistance with surface convection resistance",
+            "Reaction rate with residence time",
+            "Molecular diffusion with bulk flow velocity"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "7. Which equation describes molecular diffusion in a dilute system?",
+          opts: [
+            "Darcy–Weisbach equation",
+            "Arrhenius equation",
+            "Fick's first law",
+            "Newton's law of cooling"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "8. What does the Sherwood number represent?",
+          opts: [
+            "The ratio of inertial forces to viscous forces",
+            "The ratio of heat generation to heat removal",
+            "The ratio of momentum diffusivity to thermal diffusivity",
+            "The relative importance of convective mass transfer compared with molecular diffusion"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "9. What is the main purpose of the Chilton–Colburn analogy?",
+          opts: [
+            "To relate heat, mass and momentum transfer under suitable conditions",
+            "To calculate the molecular weight of a fluid",
+            "To eliminate the need for boundary conditions",
+            "To determine chemical equilibrium constants"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "10. What does a large Thiele modulus generally indicate for an internal-diffusion-limited catalyst?",
+          opts: [
+            "The reaction has stopped completely",
+            "Internal diffusion resistance is important relative to intrinsic reaction kinetics",
+            "The catalyst has zero surface area",
+            "External pressure is necessarily zero"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "11. Which statement best describes the Damköhler number for a first-order reaction using residence time?",
+          opts: [
+            "It is the ratio of pressure to density",
+            "It is the ratio of thermal conductivity to viscosity",
+            "It compares the reaction timescale with the residence-time scale through Da = kτ",
+            "It is the ratio of heat transfer to mass transfer"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "12. Which statement correctly describes the ideal CSTR?",
+          opts: [
+            "It has no fluid entering or leaving",
+            "It has zero reaction rate",
+            "It has no mixing under any condition",
+            "It is ideally mixed, so the reactor contents have the same composition and temperature as the outlet stream"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "13. In the two-film theory, the overall mass-transfer resistance is associated primarily with:",
+          opts: [
+            "Gas-side and liquid-side films",
+            "Only the pump",
+            "Only the reactor foundation",
+            "Only the external environment"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "14. Which method applies conservation equations to individual control volumes?",
+          opts: [
+            "Finite Element Method",
+            "Finite Volume Method",
+            "Molecular dynamics only",
+            "Analytical integration only"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "15. What is the main purpose of a grid-independence study?",
+          opts: [
+            "To remove all physical assumptions",
+            "To prove that experimental data are unnecessary",
+            "To assess whether important results change significantly with mesh refinement",
+            "To increase computational cost without evaluating accuracy"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "16. Which statement correctly distinguishes validation from verification?",
+          opts: [
+            "They are exactly the same procedure",
+            "Verification checks only the equipment cost",
+            "Validation checks only the number of mesh cells",
+            "Verification checks whether the equations are solved correctly, while validation evaluates whether the model represents physical reality adequately"
+          ],
+          answer: 3
+        },
+
+        {
+          q: "17. A pipeline has a Darcy friction factor of 0.02, length of 100 m, diameter of 0.05 m, density of 1000 kg/m³ and velocity of 2 m/s. What is the major pressure drop?",
+          opts: [
+            "80 kPa",
+            "40 kPa",
+            "20 kPa",
+            "8 kPa"
+          ],
+          answer: 0
+        },
+
+        {
+          q: "18. A cooling system has U = 400 W/m²·K, A = 10 m² and a mean temperature difference of 25 K. What is its estimated heat-removal rate?",
+          opts: [
+            "10 kW",
+            "100 kW",
+            "250 kW",
+            "400 kW"
+          ],
+          answer: 1
+        },
+
+        {
+          q: "19. Which situation can lead to thermal runaway in an exothermic reactor?",
+          opts: [
+            "Heat removal always exceeds heat generation",
+            "The reaction rate remains constant under all temperatures",
+            "Heat generation exceeds available heat removal and rising temperature accelerates the reaction",
+            "The reactor has no chemical reaction"
+          ],
+          answer: 2
+        },
+
+        {
+          q: "20. What is the most appropriate basis for accepting an industrial transport design?",
+          opts: [
+            "A single calculation without stated assumptions",
+            "The highest possible flow rate regardless of cost",
+            "A computational result without verification",
+            "Consistent calculations, suitable models, technical evaluation, safety assessment and supporting evidence"
+          ],
+          answer: 3
+        }
+
+      ]
+    },
+
+    // =====================================================
+    // ACTIVITY 3: ANSWER KEY AND WORKED SOLUTIONS
+    // =====================================================
+
+    {
+      id: "w17-answer-key",
+      type: "lesson",
+      title: "Week 17 Final Assessment Answer Key, Explanations and Engineering Solutions",
+      html: `
+
+<h1>Week 17 Final Assessment Answer Key, Explanations and Engineering Solutions</h1>
+
+<p><strong>ATP 602 – Advanced Transport Phenomena</strong></p>
+
+<div class="callout">
+<strong>Final Assessment Review</strong>
+<p>This section contains the correct answers to the 20-question comprehensive examination, explanations, numerical solutions and guidance for the final engineering design evaluation.</p>
+
+<p>Students should complete the assessment before reviewing this section.</p>
+</div>
+
+<h2>Part A: Final Examination Answer Key</h2>
+
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Correct Answer</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>1</td>
+<td>A</td>
+<td>The continuity equation is derived from conservation of mass. It accounts for mass accumulation and mass flow into and out of a control volume.</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>B</td>
+<td>For a Newtonian fluid, shear stress is proportional to the velocity gradient, with dynamic viscosity as the proportionality constant.</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>C</td>
+<td>The Reynolds number compares inertial forces with viscous forces and is used to characterise flow behaviour.</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>D</td>
+<td>Fourier's law describes heat conduction driven by a temperature gradient.</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>A</td>
+<td>For steady cylindrical conduction with constant thermal conductivity and no heat generation, temperature varies logarithmically with radius.</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>B</td>
+<td>The Biot number compares internal conduction resistance with external surface convection resistance.</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>C</td>
+<td>Fick's first law relates diffusive flux to the concentration gradient.</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>D</td>
+<td>The Sherwood number characterises convective mass transfer relative to molecular diffusion.</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>A</td>
+<td>The Chilton–Colburn analogy relates heat and mass transfer behaviour to momentum transfer under suitable conditions.</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>B</td>
+<td>A large Thiele modulus generally indicates that internal diffusion resistance is important compared with the intrinsic reaction rate.</td>
+</tr>
+
+<tr>
+<td>11</td>
+<td>C</td>
+<td>For a first-order reaction with residence time τ, Da = kτ compares the reaction timescale with the residence-time scale.</td>
+</tr>
+
+<tr>
+<td>12</td>
+<td>D</td>
+<td>An ideal CSTR is perfectly mixed, so its contents have the same composition and temperature as the outlet stream.</td>
+</tr>
+
+<tr>
+<td>13</td>
+<td>A</td>
+<td>The two-film theory represents mass-transfer resistance through the gas-side and liquid-side films.</td>
+</tr>
+
+<tr>
+<td>14</td>
+<td>B</td>
+<td>The finite volume method applies conservation equations to discrete control volumes.</td>
+</tr>
+
+<tr>
+<td>15</td>
+<td>C</td>
+<td>Grid-independence studies determine whether important predicted quantities are sufficiently insensitive to further mesh refinement.</td>
+</tr>
+
+<tr>
+<td>16</td>
+<td>D</td>
+<td>Verification evaluates the numerical solution of the mathematical model. Validation evaluates whether the model adequately represents the physical system.</td>
+</tr>
+
+<tr>
+<td>17</td>
+<td>A</td>
+<td>Using Darcy–Weisbach, the pressure drop is 80,000 Pa or 80 kPa.</td>
+</tr>
+
+<tr>
+<td>18</td>
+<td>B</td>
+<td>Q = UAΔT = 400 × 10 × 25 = 100,000 W, equivalent to 100 kW.</td>
+</tr>
+
+<tr>
+<td>19</td>
+<td>C</td>
+<td>Thermal runaway may occur when heat generation exceeds heat removal and the resulting temperature increase accelerates reaction kinetics.</td>
+</tr>
+
+<tr>
+<td>20</td>
+<td>D</td>
+<td>A sound industrial design requires consistent calculations, appropriate models, technical evaluation, safety assessment and supporting evidence.</td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>Part B: Additional Numerical Problems and Worked Solutions</h2>
+
+<h3>Problem 1: Reynolds Number</h3>
+
+<p>A liquid with density 1000 kg/m³ and dynamic viscosity 0.001 Pa·s flows through a pipe with an average velocity of 1.5 m/s. The pipe diameter is 0.04 m.</p>
+
+<p>Calculate the Reynolds number.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Re = ρvD/μ
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+Re = (1000 × 1.5 × 0.04)/0.001
+</div>
+
+<div class="equation">
+Re = 60,000
+</div>
+
+<p><strong>Answer:</strong> Re = 60,000.</p>
+
+<p>This value indicates turbulent flow in a conventional circular pipe under ordinary operating conditions.</p>
+
+<h3>Problem 2: Cylindrical Heat Conduction</h3>
+
+<p>A cylindrical pipe has an inner radius of 0.04 m and an outer radius of 0.05 m. The pipe length is 3 m, thermal conductivity is 20 W/m·K, and the temperature difference across the wall is 80 K.</p>
+
+<p>Calculate the steady heat-transfer rate through the pipe wall.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Q = 2πkL(Ti - To)/ln(ro/ri)
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+Q = 2π × 20 × 3 × 80 / ln(0.05/0.04)
+</div>
+
+<div class="equation">
+Q = 30,159.3 / 0.22314
+</div>
+
+<div class="equation">
+Q ≈ 135,167 W
+</div>
+
+<div class="equation">
+Q ≈ 135.2 kW
+</div>
+
+<p><strong>Answer:</strong> The steady heat-transfer rate is approximately 135.2 kW.</p>
+
+<p>This is an idealised radial-conduction calculation that neglects external convection, contact resistance and other thermal resistances.</p>
+
+<h3>Problem 3: Molecular Diffusion Flux</h3>
+
+<p>A dilute species has a molecular diffusivity of 2.0 × 10⁻⁹ m²/s. Its concentration decreases from 10 mol/m³ to 4 mol/m³ over a distance of 0.03 m.</p>
+
+<p>Assuming a linear concentration profile, calculate the magnitude of the diffusive molar flux.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+JA = -DAB(dCA/dx)
+</div>
+
+<p>Concentration gradient:</p>
+
+<div class="equation">
+dCA/dx = (4 - 10)/0.03
+</div>
+
+<div class="equation">
+dCA/dx = -200 mol/m⁴
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+JA = -(2.0 × 10⁻⁹)(-200)
+</div>
+
+<div class="equation">
+JA = 4.0 × 10⁻⁷ mol/m²·s
+</div>
+
+<p><strong>Answer:</strong> The diffusive flux magnitude is 4.0 × 10⁻⁷ mol/m²·s, directed toward the region of lower concentration.</p>
+
+<h3>Problem 4: Heat-Removal Area</h3>
+
+<p>An industrial reactor generates 120 kW of heat. The overall heat-transfer coefficient is 500 W/m²·K, and the mean temperature difference is 30 K.</p>
+
+<p>Calculate the theoretical heat-transfer area required.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Q = UAΔT
+</div>
+
+<p>Rearranging:</p>
+
+<div class="equation">
+A = Q/(UΔT)
+</div>
+
+<p>Convert heat duty:</p>
+
+<div class="equation">
+Q = 120,000 W
+</div>
+
+<p>Substitute:</p>
+
+<div class="equation">
+A = 120,000/(500 × 30)
+</div>
+
+<div class="equation">
+A = 120,000/15,000
+</div>
+
+<div class="equation">
+A = 8 m²
+</div>
+
+<p><strong>Answer:</strong> The theoretical heat-transfer area is 8 m².</p>
+
+<p>Final design must account for fouling, operating variability, actual temperature profiles and suitable engineering allowances.</p>
+
+<h3>Problem 5: Damköhler Number</h3>
+
+<p>A first-order reaction has a rate constant of 0.04 s⁻¹ and a reactor residence time of 25 seconds.</p>
+
+<p>Calculate the Damköhler number.</p>
+
+<p><strong>Solution:</strong></p>
+
+<div class="equation">
+Da = kτ
+</div>
+
+<div class="equation">
+Da = 0.04 × 25
+</div>
+
+<div class="equation">
+Da = 1.0
+</div>
+
+<p><strong>Answer:</strong> Da = 1.0.</p>
+
+<p>The reaction and residence-time scales are comparable under this definition. The actual conversion depends on reactor configuration and other process conditions.</p>
+
+<h2>Part C: Final Integrated Engineering Design Solution</h2>
+
+<p>Use the following design data:</p>
+
+<ul>
+<li>Feed rate = 2 mol/s.</li>
+<li>Conversion = 60%.</li>
+<li>Outlet reaction rate = 0.20 mol/m³·s.</li>
+<li>Heat released = 80,000 J/mol consumed.</li>
+<li>Overall heat-transfer coefficient = 500 W/m²·K.</li>
+<li>Heat-transfer area = 12 m².</li>
+<li>Mean temperature difference = 20 K.</li>
+</ul>
+
+<h3>Step 1: Calculate reactor volume</h3>
+
+<div class="equation">
+V = FA0X/(-rA)exit
+</div>
+
+<div class="equation">
+V = (2 × 0.60)/0.20
+</div>
+
+<div class="equation">
+V = 6 m³
+</div>
+
+<h3>Step 2: Calculate reactant consumption rate</h3>
+
+<div class="equation">
+FA,consumed = FA0X
+</div>
+
+<div class="equation">
+FA,consumed = 2 × 0.60
+</div>
+
+<div class="equation">
+FA,consumed = 1.2 mol/s
+</div>
+
+<h3>Step 3: Calculate heat generation</h3>
+
+<div class="equation">
+Qgen = FA,consumed × |ΔHr|
+</div>
+
+<div class="equation">
+Qgen = 1.2 × 80,000
+</div>
+
+<div class="equation">
+Qgen = 96,000 W
+</div>
+
+<div class="equation">
+Qgen = 96 kW
+</div>
+
+<h3>Step 4: Calculate heat-removal capacity</h3>
+
+<div class="equation">
+Qremoval = UAΔT
+</div>
+
+<div class="equation">
+Qremoval = 500 × 12 × 20
+</div>
+
+<div class="equation">
+Qremoval = 120,000 W
+</div>
+
+<div class="equation">
+Qremoval = 120 kW
+</div>
+
+<h3>Step 5: Compare heat generation and removal</h3>
+
+<div class="equation">
+Qmargin = 120 - 96
+</div>
+
+<div class="equation">
+Qmargin = 24 kW
+</div>
+
+<p><strong>Preliminary result:</strong> The stated heat-removal capacity exceeds the estimated reaction heat generation by 24 kW at the specified operating point.</p>
+
+<h3>Step 6: Engineering interpretation</h3>
+
+<p>The preliminary calculation suggests that the cooling system has sufficient nominal capacity to remove the estimated reaction heat under the specified conditions.</p>
+
+<p>However, this result alone does not establish safe operation. The final assessment should consider:</p>
+
+<ul>
+<li>Maximum reaction rate and heat release.</li>
+<li>Temperature-dependent reaction kinetics.</li>
+<li>Feed and product sensible heat.</li>
+<li>Cooling-medium temperature and flow rate.</li>
+<li>Heat-transfer fouling.</li>
+<li>Mixing and local hot spots.</li>
+<li>Loss of cooling or agitation.</li>
+<li>Pressure relief and emergency shutdown systems.</li>
+<li>Control-system response and operating limits.</li>
+</ul>
+
+<h2>Part D: Final Engineering Design Evaluation Rubric</h2>
+
+<p>The integrated engineering design evaluation may be graded using the following rubric.</p>
+
+<table>
+<thead>
+<tr>
+<th>Assessment criterion</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Problem definition and process understanding</td><td>10%</td></tr>
+<tr><td>Governing equations and engineering assumptions</td><td>15%</td></tr>
+<tr><td>Accuracy of calculations and units</td><td>20%</td></tr>
+<tr><td>Integration of momentum, heat and mass transport</td><td>15%</td></tr>
+<tr><td>Reaction and transport limitation analysis</td><td>10%</td></tr>
+<tr><td>Safety and risk evaluation</td><td>10%</td></tr>
+<tr><td>Technical interpretation and recommendations</td><td>10%</td></tr>
+<tr><td>Report organisation and referencing</td><td>10%</td></tr>
+<tr><th>Total</th><th>100%</th></tr>
+</tbody>
+</table>
+
+<h2>Part E: Final Course Completion Checklist</h2>
+
+<p>Before concluding ATP 602, students should be able to confirm that they can:</p>
+
+<ol>
+<li>Explain the principles of momentum transport.</li>
+<li>Apply fluid-flow and pressure-drop equations.</li>
+<li>Analyse heat conduction and convection.</li>
+<li>Solve basic transient heat-transfer problems.</li>
+<li>Apply molecular and convective mass-transfer principles.</li>
+<li>Explain coupled transport processes.</li>
+<li>Analyse multiphase and porous transport systems.</li>
+<li>Explain membrane transport and separation.</li>
+<li>Evaluate reaction and diffusion limitations.</li>
+<li>Apply reactor design equations under appropriate assumptions.</li>
+<li>Explain numerical methods used in transport modelling.</li>
+<li>Interpret CFD and computational modelling results.</li>
+<li>Evaluate engineering designs using technical and safety criteria.</li>
+<li>Present engineering calculations and conclusions professionally.</li>
+</ol>
+
+<h2>Final Course Conclusion</h2>
+
+<p>Advanced Transport Phenomena provides a foundation for analysing and designing systems in chemical, mechanical, energy, environmental, food, pharmaceutical and process engineering.</p>
+
+<p>The central principle is that momentum, energy and chemical species are transported through physical systems according to conservation laws and constitutive relationships.</p>
+
+<p>Effective engineering requires more than knowing the equations. It requires understanding the physical mechanisms, selecting appropriate mathematical models, applying sound assumptions, interpreting results and evaluating safety and performance.</p>
+
+<div class="callout">
+<strong>Congratulations on Completing ATP 602 – Advanced Transport Phenomena</strong>
+
+<p>You have reached the end of the 17-week course.</p>
+
+<p>The final stage is to complete the comprehensive assessment and integrated engineering design evaluation.</p>
+
+<p><strong>Course:</strong> ATP 602 – Advanced Transport Phenomena</p>
+<p><strong>Course duration:</strong> 17 Weeks</p>
+<p><strong>Final assessment pass mark:</strong> 50%</p>
+<p><strong>Final topic:</strong> Comprehensive Assessment and Engineering Design Evaluation</p>
+</div>
+
+`
+    }
+
+  ]
+},
 let currentModuleIndex=0,currentActivityIndex=0;
 const keyDone='logi_completed_'+COURSE.id,keyScores='logi_scores_'+COURSE.id;
 let completedActivities=JSON.parse(localStorage.getItem(keyDone)||'{}');
