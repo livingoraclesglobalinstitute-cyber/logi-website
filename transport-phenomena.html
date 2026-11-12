@@ -13,6 +13,7 @@
 .q{margin:20px 0;padding-bottom:15px;border-bottom:1px solid #eee}.q p{font-weight:600}.q label{display:block;padding:10px 12px;border:1px solid #ddd;border-radius:6px;margin:8px 0;cursor:pointer}.q label.selected{background:#e3f2fd;border-color:#2196f3}.q input{margin-right:8px}.submit-quiz-btn{background:var(--p);color:#fff}.grades-table{width:100%;border-collapse:collapse;margin-top:20px}.grades-table th,.grades-table td{padding:12px;border-bottom:1px solid var(--line);text-align:left}.grade-pass{color:var(--success);font-weight:bold}.grade-fail{color:var(--error);font-weight:bold}.grade-pending{color:var(--muted)}.mobile-menu-btn{display:none;background:var(--p);color:#fff;border:0;padding:8px 12px;border-radius:6px;margin-bottom:12px}.toast{position:fixed;bottom:20px;right:20px;background:var(--success);color:#fff;padding:12px 18px;border-radius:6px;display:none;z-index:200}
 @media(max-width:800px){.main-area{padding:14px}.sidebar{position:fixed;top:50px;left:0;bottom:0;height:auto;transform:translateX(-100%);transition:transform .25s;box-shadow:2px 0 10px #0002}.sidebar.active{transform:translateX(0)}.mobile-menu-btn{display:inline-block}#reader-view,#grades-view{padding:20px}.nav-bar{flex-wrap:wrap}.nav-btn{padding:10px 12px}.top-nav .links{gap:12px}}
 </style></head><body>
+<div class="top-nav"><div><b>LOGI LMS</b> <span style="opacity:.8">| Advanced Transport Phenomena</span></div><div class="links"><a onclick="showOutline()">Course Outline</a><a onclick="showGrades()">Grades</a></div></div>
 <div class="layout"><div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 <aside class="sidebar" id="sidebar-menu"><div class="sidebar-header"><b>Course Menu</b><button onclick="closeSidebar()">✕</button></div><div id="sidebar-content"></div></aside>
 <main class="main-area">
@@ -27,14 +28,14 @@ const COURSE = {
     "id": "logi-advanced-transport-phenomena",
     "modules": [
         {
-    "title": "Week 1: Introduction to Advanced Transport Phenomena",
-    "activities": [
-        {
-            "id": "w1-lesson",
-            "title": "Lecture Notes: Introduction to Advanced Transport Phenomena",
-            "type": "lesson",
-            "duration": "60–90 mins",
-            "html": `
+            "title": "Week 1: Introduction to Advanced Transport Phenomena",
+            "activities": [
+                {
+                    "id": "w1-lesson",
+                    "title": "Lecture Notes: Introduction to Advanced Transport Phenomena",
+                    "type": "lesson",
+                    "duration": "60–90 mins",
+                    "html": `
 <h2>Introduction to Advanced Transport Phenomena</h2>
 
 <p>Transport phenomena is one of the fundamental foundations of chemical engineering. It describes how momentum, energy and chemical species move through fluids, solids and interfaces. Almost every industrial chemical process involves one or more of these transport mechanisms.</p>
@@ -813,117 +814,117 @@ JA = 1.0 × 10⁻⁵ mol/(m²·s)
 
 <p><b>LOGI — Faith. Excellence. Impact.</b></p>
 `
-        },
-        {
-            "id": "w1-quiz",
-            "title": "Week 1 Assessment",
-            "type": "quiz",
-            "duration": "20–30 mins",
-            "quiz": [
-                {
-                    "q": "Which three processes constitute the fundamental areas of transport phenomena?",
-                    "opts": [
-                        "Momentum, energy and mass transfer",
-                        "Pressure, volume and temperature",
-                        "Reaction, equilibrium and catalysis",
-                        "Filtration, distillation and evaporation"
-                    ],
-                    "answer": 0
                 },
                 {
-                    "q": "Newton's law of viscosity relates shear stress to:",
-                    "opts": [
-                        "Temperature gradient",
-                        "Pressure difference only",
-                        "Velocity gradient",
-                        "Concentration gradient"
-                    ],
-                    "answer": 2
-                },
-                {
-                    "q": "What is the SI unit of dynamic viscosity?",
-                    "opts": [
-                        "m²/s",
-                        "Pa·s",
-                        "W/(m·K)",
-                        "mol/(m²·s)"
-                    ],
-                    "answer": 1
-                },
-                {
-                    "q": "According to Fourier's law, heat flows naturally in the direction of:",
-                    "opts": [
-                        "Decreasing temperature",
-                        "Increasing temperature",
-                        "Increasing pressure",
-                        "Increasing concentration"
-                    ],
-                    "answer": 0
-                },
-                {
-                    "q": "Fick's first law describes:",
-                    "opts": [
-                        "Fluid acceleration",
-                        "Heat convection",
-                        "Molecular diffusion",
-                        "Chemical equilibrium"
-                    ],
-                    "answer": 2
-                },
-                {
-                    "q": "The Reynolds number represents the ratio of:",
-                    "opts": [
-                        "Inertial forces to viscous forces",
-                        "Thermal diffusivity to viscosity",
-                        "Mass transfer to heat transfer",
-                        "Pressure to temperature"
-                    ],
-                    "answer": 0
-                },
-                {
-                    "q": "For steady one-dimensional conduction through a plane wall with constant thermal conductivity and no internal heat generation, the temperature profile is:",
-                    "opts": [
-                        "Always exponential",
-                        "Linear",
-                        "Always parabolic",
-                        "Independent of wall thickness"
-                    ],
-                    "answer": 1
-                },
-                {
-                    "q": "The total molar flux of a species in a moving fluid can include:",
-                    "opts": [
-                        "Only molecular diffusion",
-                        "Only bulk convection",
-                        "Bulk convection and molecular diffusion",
-                        "Only chemical reaction"
-                    ],
-                    "answer": 2
-                },
-                {
-                    "q": "In a species conservation equation, a chemical reaction is represented by:",
-                    "opts": [
-                        "A generation or consumption term",
-                        "A gravitational constant",
-                        "A velocity boundary condition only",
-                        "A thermal conductivity term"
-                    ],
-                    "answer": 0
-                },
-                {
-                    "q": "A transport-limited reaction means:",
-                    "opts": [
-                        "Transport restricts reactant delivery or product removal",
-                        "Intrinsic kinetics are always zero",
-                        "The catalyst has no surface",
-                        "Pressure is irrelevant"
-                    ],
-                    "answer": 0
+                    "id": "w1-quiz",
+                    "title": "Week 1 Assessment",
+                    "type": "quiz",
+                    "duration": "20–30 mins",
+                    "quiz": [
+                        {
+                            "q": "Which three processes constitute the fundamental areas of transport phenomena?",
+                            "opts": [
+                                "Momentum, energy and mass transfer",
+                                "Pressure, volume and temperature",
+                                "Reaction, equilibrium and catalysis",
+                                "Filtration, distillation and evaporation"
+                            ],
+                            "answer": 0
+                        },
+                        {
+                            "q": "Newton's law of viscosity relates shear stress to:",
+                            "opts": [
+                                "Temperature gradient",
+                                "Pressure difference only",
+                                "Velocity gradient",
+                                "Concentration gradient"
+                            ],
+                            "answer": 2
+                        },
+                        {
+                            "q": "What is the SI unit of dynamic viscosity?",
+                            "opts": [
+                                "m²/s",
+                                "Pa·s",
+                                "W/(m·K)",
+                                "mol/(m²·s)"
+                            ],
+                            "answer": 1
+                        },
+                        {
+                            "q": "According to Fourier's law, heat flows naturally in the direction of:",
+                            "opts": [
+                                "Decreasing temperature",
+                                "Increasing temperature",
+                                "Increasing pressure",
+                                "Increasing concentration"
+                            ],
+                            "answer": 0
+                        },
+                        {
+                            "q": "Fick's first law describes:",
+                            "opts": [
+                                "Fluid acceleration",
+                                "Heat convection",
+                                "Molecular diffusion",
+                                "Chemical equilibrium"
+                            ],
+                            "answer": 2
+                        },
+                        {
+                            "q": "The Reynolds number represents the ratio of:",
+                            "opts": [
+                                "Inertial forces to viscous forces",
+                                "Thermal diffusivity to viscosity",
+                                "Mass transfer to heat transfer",
+                                "Pressure to temperature"
+                            ],
+                            "answer": 0
+                        },
+                        {
+                            "q": "For steady one-dimensional conduction through a plane wall with constant thermal conductivity and no internal heat generation, the temperature profile is:",
+                            "opts": [
+                                "Always exponential",
+                                "Linear",
+                                "Always parabolic",
+                                "Independent of wall thickness"
+                            ],
+                            "answer": 1
+                        },
+                        {
+                            "q": "The total molar flux of a species in a moving fluid can include:",
+                            "opts": [
+                                "Only molecular diffusion",
+                                "Only bulk convection",
+                                "Bulk convection and molecular diffusion",
+                                "Only chemical reaction"
+                            ],
+                            "answer": 2
+                        },
+                        {
+                            "q": "In a species conservation equation, a chemical reaction is represented by:",
+                            "opts": [
+                                "A generation or consumption term",
+                                "A gravitational constant",
+                                "A velocity boundary condition only",
+                                "A thermal conductivity term"
+                            ],
+                            "answer": 0
+                        },
+                        {
+                            "q": "A transport-limited reaction means:",
+                            "opts": [
+                                "Transport restricts reactant delivery or product removal",
+                                "Intrinsic kinetics are always zero",
+                                "The catalyst has no surface",
+                                "Pressure is irrelevant"
+                            ],
+                            "answer": 0
+                        }
+                    ]
                 }
             ]
-        }
-    ]
-},
+        },
         {
             "title": "Week 2: Mathematical Foundations for Transport",
             "activities": [
