@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Advanced Professional Diplomas — Living Oracles Global Institute</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Explore our Advanced Professional Diplomas in business, ministry, project management, and more at Living Oracles Global Institute." />
+    <meta property="og:title" content="Advanced Professional Diplomas — Living Oracles Global Institute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/our-program/advanced-professional-diplomas" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Explore Advanced Professional Diplomas in business, ministry, project management, and more." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Institutional Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- FontAwesome Core -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   ROOT VARIABLES – MATCHING SHORT COURSES */
+        /* ========================================== */
+        :root {
+            --pink: #ff4b93;
+            --pink-dark: #e93680;
+            --lav: #f3f0fa;
+            --ink: #34343b;
+            --muted: #777780;
+            --line: #e9e8ef;
+            --white: #fff;
+        }
+
+        /* ========================================== */
+        /*   GLOBAL RESETS                            */
+        /* ========================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--ink);
+            background: #fff;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ========================================== */
+        /*   TOPBAR                                  */
+        /* ========================================== */
+        .topbar {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 max(5%, calc((100% - 1180px)/2));
+            box-shadow: 0 2px 9px #00000012;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--pink); }
+
+        .nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+
+        .nav a:hover:not(.button) { color: var(--pink); }
+
+        .nav .button {
+            background: var(--pink);
+            color: #fff;
+            padding: 9px 24px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav .button:hover { background: var(--pink-dark); }
+
+        @media (max-width: 650px) {
+            .topbar { height: 54px; padding: 0 5%; }
+            .logo { font-size: 24px; }
+            .nav { gap: 10px; }
+            .nav a:first-child { display: none; }
+            .nav .button { font-size: 11px; padding: 8px 14px; }
+        }
+
+        /* ========================================== */
+        /*   HERO                                    */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(110deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%);
+            padding: 28px 5% 34px;
+        }
+
+        .hero-inner {
+            max-width: 1180px;
+            margin: auto;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--pink);
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb span { color: #777; }
+
+        .hero h1 {
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.1;
+            margin: 0 0 12px;
+        }
+
+        .hero h1 span { color: var(--pink); }
+
+        .hero p {
+            max-width: 610px;
+            font-size: 14px;
+            color: #65656d;
+            margin: 0 0 18px;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--pink);
+            color: white;
+            padding: 9px 19px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .hero-mark {
+            font-size: clamp(55px, 9vw, 100px);
+            font-weight: 900;
+            letter-spacing: -7px;
+            color: #f7d9e7;
+            text-shadow: 3px 3px 0 #fff;
+        }
+
+        @media (max-width: 650px) {
+            .hero { padding: 22px 5%; }
+            .hero-inner { min-height: 165px; }
+            .hero-mark { font-size: 48px; letter-spacing: -4px; }
+            .hero p { font-size: 12px; max-width: 440px; }
+        }
+
+        /* ========================================== */
+        /*   INNER CONTAINER                         */
+        /* ========================================== */
+        .inner {
+            width: min(1180px, 90%);
+            margin: auto;
+        }
+
+        /* ========================================== */
+        /*   CATALOG SECTIONS                        */
+        /* ========================================== */
+        .catalog-section {
+            padding: 32px 0 38px;
+        }
+
+        .catalog-section.grey { background: #f5f5f8; }
+        .catalog-section.tint { background: #fff6fa; }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            border-bottom: 1px solid #dedee5;
+            padding-bottom: 11px;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .section-head:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 190px;
+            height: 2px;
+            background: linear-gradient(90deg, #f4c52d, var(--pink));
+        }
+
+        .section-head h2 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .highlight {
+            background: var(--pink);
+            color: #fff;
+            padding: 1px 5px;
+        }
+
+        .section-intro {
+            font-size: 12px;
+            color: #777;
+            margin: -8px 0 17px;
+        }
+
+        @media (max-width: 650px) {
+            .section-head h2 { font-size: 17px; }
+            .catalog-section { padding: 25px 0; }
+        }
+
+        /* ========================================== */
+        /*   DROPDOWN ACCORDION                      */
+        /* ========================================== */
+        .school-accordion {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px #00000008;
+            transition: box-shadow 0.25s ease;
+        }
+
+        .school-accordion:hover {
+            box-shadow: 0 4px 14px #00000010;
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+            gap: 14px;
+        }
+
+        .accordion-header:hover {
+            background: #fdf9fc;
+        }
+
+        .accordion-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .accordion-icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #fff6fa;
+            color: var(--pink);
+            font-size: 1.05rem;
+        }
+
+        .accordion-text h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .accordion-text p {
+            font-size: 12px;
+            color: #888;
+            margin: 3px 0 0;
+            line-height: 1.4;
+        }
+
+        .accordion-count {
+            background: var(--pink);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-left: 6px;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .accordion-chevron {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f5f5f8;
+            color: var(--pink);
+            font-size: 11px;
+            transition: transform 0.35s ease, background 0.2s ease;
+        }
+
+        .school-accordion.active .accordion-chevron {
+            transform: rotate(180deg);
+            background: var(--pink);
+            color: #fff;
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .school-accordion.active .accordion-body {
+            max-height: 3000px;
+        }
+
+        .accordion-inner {
+            padding: 0 20px 20px;
+            border-top: 1px solid var(--line);
+        }
+
+        /* ========================================== */
+        /*   COURSE GRID INSIDE ACCORDION            */
+        /* ========================================== */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            padding-top: 18px;
+        }
+
+        .course-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            transition: .2s;
+            min-width: 0;
+        }
+
+        .course-card:hover {
+            border-color: #ffd1e3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px #00000010;
+        }
+
+        .course-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.4;
+            margin-bottom: 8px;
+            flex: 1;
+        }
+
+        .course-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .course-meta i {
+            color: var(--pink);
+            font-size: 10px;
+        }
+
+        .course-card-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--pink);
+            padding: 6px 10px;
+            border: 1px solid #ffd1e3;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            margin-top: auto;
+        }
+
+        .course-card-cta:hover {
+            background: var(--pink);
+            color: #fff;
+            border-color: var(--pink);
+        }
+
+        .course-card-cta i {
+            font-size: 9px;
+            transition: transform 0.2s ease;
+        }
+
+        .course-card-cta:hover i {
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 900px) {
+            .course-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 650px) {
+            .accordion-header { padding: 14px 16px; }
+            .accordion-inner { padding: 0 16px 16px; }
+            .accordion-text h3 { font-size: 13px; }
+            .accordion-text p { font-size: 11px; }
+            .accordion-icon { width: 36px; height: 36px; font-size: 0.95rem; }
+            .course-grid { grid-template-columns: 1fr; gap: 10px; }
+            .course-card { padding: 16px 14px; }
+            .course-card h4 { font-size: 12px; }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .footer {
+            background: #292832;
+            color: #eee;
+            text-align: center;
+            padding: 24px 5%;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+
+        .footer strong { color: var(--pink); }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+        <nav class="nav">
+            <a href="https://www.logi.education">Home</a>
+            <a href="https://www.logi.education/our-program">Programmes</a>
+            <a class="button" href="index.html">Explore Courses</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="breadcrumb">
+                    <a href="https://www.logi.education">Home</a> / <a href="https://www.logi.education/our-program">Programmes</a> / <span>Advanced Professional Diplomas</span>
+                </div>
+                <h1>Advanced <span>Professional Diplomas</span></h1>
+                <p>In-depth, career-focused diplomas for professionals seeking advanced competence in business, ministry, and project management.</p>
+                <a class="pill" href="#diplomas">Browse All Diplomas</a>
+            </div>
+            <div aria-label="LOGI" class="hero-mark">LOGI</div>
+        </div>
+    </section>
+
+    <!-- DIPLOMA LISTINGS BY SCHOOL -->
+    <section class="catalog-section grey" id="diplomas">
+        <div class="inner">
+            <div class="section-head">
+                <h2>All Advanced <span class="highlight">Diplomas</span></h2>
+            </div>
+            <p class="section-intro">Click any school below to expand and explore its advanced professional diplomas.</p>
+
+            <!-- SCHOOL 1: BUSINESS & LEADERSHIP -->
+            <div class="school-accordion active">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-title">
+                        <div class="accordion-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="accordion-text">
+                            <h3>School of Business &amp; Leadership</h3>
+                            <p>Advanced business administration and organisational leadership</p>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="accordion-count">1 Diploma</span>
+                        <div class="accordion-chevron"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-inner">
+                        <div class="course-grid">
+                            <div class="course-card">
+                                <h4>Advanced Professional Diploma in Business Administration</h4>
+                                <div class="course-meta"><i class="fas fa-clock"></i> 5–6 months · Online</div>
+                                <a href="/our-program/advanced-professional-diploma-business-administration.html" class="course-card-cta">View Diploma <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCHOOL 2: MINISTRY & THEOLOGY -->
+            <div class="school-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-title">
+                        <div class="accordion-icon"><i class="fas fa-bible"></i></div>
+                        <div class="accordion-text">
+                            <h3>School of Ministry &amp; Theology</h3>
+                            <p>Advanced training for ministry and Christian leadership</p>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="accordion-count">1 Diploma</span>
+                        <div class="accordion-chevron"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-inner">
+                        <div class="course-grid">
+                            <div class="course-card">
+                                <h4>Advanced Professional Diploma in Ministry</h4>
+                                <div class="course-meta"><i class="fas fa-clock"></i> 5–6 months · Online</div>
+                                <a href="/our-program/advanced-professional-diploma-ministry.html" class="course-card-cta">View Diploma <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCHOOL 3: ENGINEERING & TECHNOLOGY -->
+            <div class="school-accordion">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-title">
+                        <div class="accordion-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="accordion-text">
+                            <h3>School of Engineering &amp; Technology</h3>
+                            <p>Advanced project, quality, and process management</p>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="accordion-count">1 Diploma</span>
+                        <div class="accordion-chevron"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-inner">
+                        <div class="course-grid">
+                            <div class="course-card">
+                                <h4>Advanced Professional Diploma in Project, Quality &amp; Process Management</h4>
+                                <div class="course-meta"><i class="fas fa-clock"></i> 5–6 months · Online</div>
+                                <a href="/our-program/advanced-professional-diploma-project-quality-and-process-management.html" class="course-card-cta">View Diploma <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="catalog-section tint">
+        <div class="inner" style="text-align:center;">
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:10px;color:#34343b;">Ready to Take the Next Step?</h2>
+            <p style="font-size:14px;color:#777;max-width:580px;margin:0 auto 20px;line-height:1.7;">Apply online today and advance your career with a professional diploma from LOGI.</p>
+            <a href="https://logi.education/main-registration-form" class="pill" style="font-size:13px;padding:11px 24px;">Apply Now <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+    </footer>
+
+    <!-- ACCORDION TOGGLE SCRIPT -->
+    <script>
+        function toggleAccordion(header) {
+            const accordion = header.closest('.school-accordion');
+            accordion.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
