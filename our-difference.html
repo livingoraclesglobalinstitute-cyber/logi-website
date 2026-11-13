@@ -2,1212 +2,461 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport" />
-    <title>LIVING ORACLES GLOBAL INSTITUTE: Our Difference</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Our Difference — Living Oracles Global Institute</title>
 
     <!-- Meta Tags -->
-    <meta content="Discover what makes Living Oracles Global Institute different through Christ-centered education, practical learning, experienced faculty, leadership" name="description" />
-    <meta content="https://www.logi.education/p/our-difference.html" property="og:url" />
-    <meta content="Our Difference" property="og:title" />
-    <meta content="Discover what makes Living Oracles Global Institute different through Christ-centered education, practical learning, experienced faculty, leadership" property="og:description" />
+    <meta name="description" content="Discover what makes Living Oracles Global Institute different through Christ-centered education, practical learning, experienced faculty, and leadership development." />
+    <meta property="og:title" content="Our Difference — Living Oracles Global Institute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/our-difference" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Institutional Favicon -->
     <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
     <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
 
-    <!-- Open Graph Tags for Google Business Profile -->
-    <meta content="Living Oracles Global Institute" property="og:title" />
-    <meta content="website" property="og:type" />
-    <meta content="https://logi.education" property="og:url" />
-    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
-    <meta content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." property="og:description" />
-    <meta content="summary_large_image" name="twitter:card" />
-
-    <!-- FontAwesome Core for UI Icons -->
+    <!-- FontAwesome Core -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
     <style>
         /* ========================================== */
-        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /*   ROOT VARIABLES – MATCHING SHORT COURSES */
         /* ========================================== */
-        .top-bar {
-            background: #1a1a2e;
-            color: #ffffff;
-            padding: 6px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.7rem;
-            flex-wrap: wrap;
-            gap: 6px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .top-bar::before,
-        .top-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            background: linear-gradient(180deg, 
-                #c9a86c 0%, #c9a86c 20%,
-                #8B5353 20%, #8B5353 40%,
-                #1a7a3a 40%, #1a7a3a 60%,
-                #c9a86c 60%, #c9a86c 80%,
-                #8B5353 80%, #8B5353 100%
-            );
-            opacity: 0.5;
-        }
-
-        .top-bar::before {
-            left: 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .top-bar::after {
-            right: 0;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .top-bar .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .contact-info a,
-        .top-bar .contact-info span {
-            color: #d4d0c8;
-            text-decoration: none;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s;
-        }
-
-        .top-bar .contact-info a:hover {
-            color: #c9a86c;
-        }
-
-        .top-bar .contact-info i {
-            font-size: 0.65rem;
-            color: #c9a86c;
-        }
-
-        .top-bar .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .social-icons a {
-            color: #8a8680;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .top-bar .social-icons a:hover {
-            color: #c9a86c;
-        }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 4px 0;
-            }
-            .top-bar::before,
-            .top-bar::after {
-                width: 25px;
-            }
-            .top-bar .contact-info {
-                padding: 0 35px;
-                gap: 8px;
-            }
-            .top-bar .social-icons {
-                padding: 0 35px;
-            }
-            .top-bar .contact-info a,
-            .top-bar .contact-info span {
-                font-size: 0.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-bar::before,
-            .top-bar::after {
-                width: 18px;
-            }
-            .top-bar .contact-info {
-                padding: 0 25px;
-                gap: 6px;
-                font-size: 0.55rem;
-            }
-            .top-bar .social-icons {
-                padding: 0 25px;
-                gap: 8px;
-            }
-            .top-bar .social-icons a {
-                font-size: 0.65rem;
-            }
+        :root {
+            --pink: #ff4b93;
+            --pink-dark: #e93680;
+            --lav: #f3f0fa;
+            --ink: #34343b;
+            --muted: #777780;
+            --line: #e9e8ef;
+            --white: #fff;
         }
 
         /* ========================================== */
-        /*   HEADER - FIXED FULL WIDTH WHITE         */
-        /* ========================================== */
-        .main-header {
-            background: #ffffff;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 38px;
-            left: 0;
-            width: 100%;
-            z-index: 9998;
-            border-bottom: 1px solid #e8e3dc;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            width: 40px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .logo .logo-text {
-            color: #1a1a2e;
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .logo .logo-text span {
-            display: block;
-            font-weight: 300;
-            font-size: 0.45rem;
-            opacity: 0.6;
-            letter-spacing: 1.5px;
-        }
-
-        @media (max-width: 768px) {
-            .main-header {
-                top: 34px;
-                padding: 6px 4%;
-            }
-            .logo img {
-                width: 32px;
-            }
-            .logo .logo-text {
-                font-size: 0.65rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.4rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-header {
-                top: 30px;
-                padding: 4px 3%;
-            }
-            .logo img {
-                width: 28px;
-            }
-            .logo .logo-text {
-                font-size: 0.55rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.35rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   MOBILE HAMBURGER MENU BUTTON             */
-        /* ========================================== */
-        .menu-btn {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            color: #1a1a2e;
-            font-size: 13px;
-            padding: 5px 10px;
-            border-radius: 30px;
-            background: rgba(26, 26, 46, 0.06);
-            border: 1px solid rgba(26, 26, 46, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .menu-btn:hover {
-            background: rgba(26, 26, 46, 0.12);
-        }
-
-        .menu-btn i {
-            font-size: 16px;
-        }
-
-        /* ========================================== */
-        /*   DESKTOP NAVIGATION - DARK TEXT          */
-        /* ========================================== */
-        .navigation-menu-bar {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            position: static !important;
-            width: auto !important;
-            height: auto !important;
-            display: block !important;
-            overflow: visible !important;
-        }
-
-        .navigation-menu-bar ul {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            list-style: none !important;
-            gap: 0.2rem !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-end !important;
-        }
-
-        .navigation-menu-bar ul li {
-            position: relative;
-        }
-
-        .navigation-menu-bar ul li a {
-            color: #1a1a2e !important;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .navigation-menu-bar ul li a:hover {
-            color: #8B5353 !important;
-            background: rgba(139, 83, 83, 0.06);
-        }
-
-        .navigation-menu-bar ul li .submenu {
-            display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            padding: 0.4rem 0;
-            margin-top: 6px;
-            z-index: 1100;
-            animation: fadeInDropdown 0.25s ease;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 0px !important;
-            min-width: 200px;
-            width: max-content !important;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
-            display: flex !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li {
-            width: 100%;
-        }
-
-        .navigation-menu-bar ul li .submenu li a {
-            color: #1e3c4f !important;
-            font-size: 0.78rem;
-            padding: 8px 16px;
-            width: 100%;
-            border-radius: 0;
-            font-weight: 500;
-            display: block !important;
-            white-space: nowrap !important;
-            text-shadow: none !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li a:hover {
-            background: rgba(139, 83, 83, 0.08) !important;
-            color: #8B5353 !important;
-        }
-
-        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-            font-size: 0.5rem;
-            transition: transform 0.25s ease;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
-            transform: rotate(180deg);
-        }
-
-        @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========================================== */
-        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-        /* ========================================== */
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                min-height: 100vh !important;
-                overflow-y: auto !important;
-                background: #ffffff !important;
-                display: block !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                align-items: stretch !important;
-                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
-                z-index: 10000 !important;
-                padding: 70px 1.2rem 1.5rem 1.2rem !important;
-                box-shadow: none !important;
-                transform: translateX(100%) !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-
-            .navigation-menu-bar.mobile-open {
-                transform: translateX(0) !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-            }
-
-            .navigation-menu-bar ul {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0 !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                flex: 1 !important;
-            }
-
-            .navigation-menu-bar ul li {
-                border-bottom: 1px solid #f0ede6 !important;
-                list-style: none !important;
-            }
-
-            .navigation-menu-bar ul li a {
-                color: #1a1a2e !important;
-                font-weight: 500 !important;
-                padding: 0.7rem 0.5rem !important;
-                justify-content: flex-start !important;
-                border-radius: 0 !important;
-                white-space: normal !important;
-                text-shadow: none !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 10px !important;
-                font-size: 0.95rem !important;
-            }
-
-            .navigation-menu-bar ul li a i {
-                font-size: 1.1rem !important;
-                color: #c9a86c !important;
-                width: 24px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li a:hover {
-                background: rgba(139, 83, 83, 0.06) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a {
-                justify-content: space-between !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-                color: #8B5353 !important;
-                font-size: 0.65rem !important;
-                margin-left: auto !important;
-            }
-
-            .navigation-menu-bar ul li .submenu {
-                position: static !important;
-                transform: none !important;
-                background: #f8f6f2 !important;
-                border-radius: 0 !important;
-                display: none !important;
-                flex-direction: column !important;
-                gap: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border-left: 3px solid #c9a86c !important;
-                width: 100% !important;
-                box-shadow: none !important;
-                min-width: auto !important;
-                animation: none !important;
-            }
-
-            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li {
-                border-bottom: none !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a {
-                color: #1a1a2e !important;
-                font-weight: 400 !important;
-                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                justify-content: flex-start !important;
-                gap: 10px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a i {
-                font-size: 0.85rem !important;
-                color: #c9a86c !important;
-                width: 20px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a:hover {
-                background: rgba(139, 83, 83, 0.08) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-                border-left: 3px solid #8B5353 !important;
-                margin-left: 1rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
-                padding-left: 3rem !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer {
-                margin-top: auto !important;
-                padding-top: 1rem !important;
-                padding-bottom: 0.5rem !important;
-                border-top: 1px solid #f0ede6 !important;
-                display: flex !important;
-                justify-content: center !important;
-                gap: 1.2rem !important;
-                flex-shrink: 0 !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a {
-                color: #8a8680 !important;
-                font-size: 1.1rem !important;
-                transition: color 0.25s ease !important;
-                text-decoration: none !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a:hover {
-                color: #c9a86c !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navigation-menu-bar {
-                padding: 60px 1rem 1.5rem 1rem !important;
-            }
-            .navigation-menu-bar ul li a {
-                font-size: 0.85rem !important;
-                padding: 0.6rem 0.4rem !important;
-            }
-            .navigation-menu-bar ul li .submenu li a {
-                font-size: 0.78rem !important;
-                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
-        /* ========================================== */
-        .institutional-footer {
-            background: #1a1a2e;
-            color: #d4d0c8;
-            padding: 2.5rem 5% 1.2rem;
-            margin-top: 0;
-            border-top: none;
-            font-size: 0.85rem;
-            width: 100%;
-        }
-
-        .footer-grid-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .footer-column h2 {
-            color: #ffffff !important;
-            font-size: 0.8rem !important;
-            margin-bottom: 0.6rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-        }
-
-        .footer-column p,
-        .footer-column address {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.7;
-            font-style: normal;
-            margin-bottom: 4px;
-        }
-
-        .footer-column a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-            display: inline-block;
-        }
-
-        .footer-column a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 0.2rem !important;
-            list-style: none !important;
-        }
-
-        .footer-column ul li a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-        }
-
-        .footer-column ul li a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column .footer-address-line {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .footer-column .footer-address-line i {
-            color: #c9a86c;
-            font-size: 0.75rem;
-            margin-top: 4px;
-            width: 16px;
-        }
-
-        .footer-column .footer-address-line span {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.6;
-        }
-
-        .footer-bottom-bar {
-            max-width: 1200px;
-            margin: 1.2rem auto 0;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .footer-copyright {
-            font-size: 0.7rem;
-            font-weight: 400;
-            color: #8a8680;
-        }
-
-        .footer-subscription-container h3 {
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.2rem;
-        }
-
-        .footer-subscription-container p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .subscription-form {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .subscription-form input[type="email"] {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            padding: 5px 8px;
-            color: #ffffff;
-            font-size: 0.75rem;
-            flex-grow: 1;
-            outline: none;
-            transition: border-color 0.3s;
-            min-width: 100px;
-        }
-
-        .subscription-form input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .subscription-form input[type="email"]:focus {
-            border-color: #ffffff;
-        }
-
-        .subscription-form button {
-            background: #ffffff;
-            color: #8B5353;
-            border: none;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
-        }
-
-        .subscription-form button:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-1px);
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.2rem;
-            }
-            .institutional-footer { font-size: 0.75rem; }
-            .footer-column h2 { font-size: 0.7rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.72rem !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .footer-bottom-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .institutional-footer { 
-                font-size: 0.7rem;
-                padding: 1.5rem 4% 1rem;
-            }
-            .footer-column h2 { font-size: 0.6rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.65rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FLOATING CHAT                            */
-        /* ========================================== */
-        .floating-chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .floating-chat-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #25d366;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .floating-chat-link:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background: #20ba5a;
-        }
-
-        .floating-chat-link i {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 480px) {
-            .floating-chat-link {
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-            .floating-chat-link span {
-                display: none;
-            }
-            .floating-chat-link i {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ========================================== */
-        /*          GLOBAL THEME ROOT RESETS          */
+        /*   GLOBAL RESETS                            */
         /* ========================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html,
-        body {
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
             overflow-x: hidden !important;
             width: 100% !important;
         }
 
         body {
-            background-color: #fcfdfe;
-            color: #334155;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--ink);
+            background: #fff;
             line-height: 1.5;
-            padding-top: 80px;
-            -webkit-font-smoothing: antialiased;
         }
 
-        @media (max-width: 768px) {
-            body { padding-top: 70px; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding-top: 60px; }
-        }
-
-        .container-wrapper {
-            max-width: 100% !important;
-            margin: 0 auto;
-            padding: 0 !important;
-            width: 100% !important;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
         /* ========================================== */
-        /*   HERO SECTION — OUR DIFFERENCE           */
+        /*   TOPBAR – MATCHING SHORT COURSES         */
         /* ========================================== */
-        .difference-hero-section {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
+        .topbar {
+            height: 64px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
+            justify-content: space-between;
+            padding: 0 max(5%, calc((100% - 1180px)/2));
+            box-shadow: 0 2px 9px #00000012;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
         }
 
-        .difference-hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #ffffff;
-            padding: 0 20px;
-        }
-
-        .difference-hero-content h1 {
-            font-size: 46px;
+        .logo {
+            font-size: 28px;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: -1.5px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--pink);
+        }
+
+        .nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+
+        .nav a:hover:not(.button) {
+            color: var(--pink);
+        }
+
+        .nav .button {
+            background: var(--pink);
+            color: #fff;
+            padding: 9px 24px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav .button:hover {
+            background: var(--pink-dark);
+        }
+
+        @media (max-width: 650px) {
+            .topbar { height: 54px; padding: 0 5%; }
+            .logo { font-size: 24px; }
+            .nav { gap: 10px; }
+            .nav a:first-child { display: none; }
+            .nav .button { font-size: 11px; padding: 8px 14px; }
+        }
+
+        /* ========================================== */
+        /*   HERO – LIGHT GRADIENT, MATCHING SHORT   */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(110deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%);
+            padding: 28px 5% 34px;
+        }
+
+        .hero-inner {
+            max-width: 1180px;
+            margin: auto;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--pink);
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb span { color: #777; }
+
+        .hero h1 {
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.1;
+            margin: 0 0 12px;
+        }
+
+        .hero h1 span { color: var(--pink); }
+
+        .hero p {
+            max-width: 610px;
+            font-size: 14px;
+            color: #65656d;
+            margin: 0 0 18px;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--pink);
+            color: white;
+            padding: 9px 19px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .hero-mark {
+            font-size: clamp(55px, 9vw, 100px);
+            font-weight: 900;
+            letter-spacing: -7px;
+            color: #f7d9e7;
+            text-shadow: 3px 3px 0 #fff;
+        }
+
+        @media (max-width: 650px) {
+            .hero { padding: 22px 5%; }
+            .hero-inner { min-height: 165px; }
+            .hero-mark { font-size: 48px; letter-spacing: -4px; }
+            .hero p { font-size: 12px; max-width: 440px; }
+        }
+
+        /* ========================================== */
+        /*   INNER CONTAINER                         */
+        /* ========================================== */
+        .inner {
+            width: min(1180px, 90%);
+            margin: auto;
+        }
+
+        /* ========================================== */
+        /*   CATALOG SECTIONS                        */
+        /* ========================================== */
+        .catalog-section {
+            padding: 32px 0 38px;
+        }
+
+        .catalog-section.grey { background: #f5f5f8; }
+        .catalog-section.tint { background: #fff6fa; }
+
+        /* Section Head with underline accent */
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            border-bottom: 1px solid #dedee5;
+            padding-bottom: 11px;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .section-head:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 190px;
+            height: 2px;
+            background: linear-gradient(90deg, #f4c52d, var(--pink));
+        }
+
+        .section-head h2 {
+            font-size: 22px;
+            font-weight: 600;
             margin: 0;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
-            line-height: 1.2;
         }
 
-        .difference-hero-content .difference-hero-subtitle {
+        .highlight {
+            background: var(--pink);
+            color: #fff;
+            padding: 1px 5px;
+        }
+
+        .section-intro {
+            font-size: 12px;
+            color: #777;
+            margin: -8px 0 17px;
+        }
+
+        @media (max-width: 650px) {
+            .section-head h2 { font-size: 17px; }
+            .catalog-section { padding: 25px 0; }
+        }
+
+        /* ========================================== */
+        /*   GRID LAYOUTS                            */
+        /* ========================================== */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 650px) {
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        /* ========================================== */
+        /*   DIFFERENCE CARDS (INFO CARDS)           */
+        /* ========================================== */
+        .diff-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 22px 20px;
+            box-shadow: 0 2px 6px #00000008;
+            display: flex;
+            flex-direction: column;
+            transition: .2s;
+        }
+
+        .diff-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 18px #00000012;
+        }
+
+        .diff-icon {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background: var(--pink-tint, #fff6fa);
+            color: var(--pink);
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .diff-card h3 {
             font-size: 15px;
-            font-weight: 400;
-            color: #ffffff;
-            margin-top: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
         }
 
-        .difference-hero-content .difference-hero-line {
-            width: 100px;
-            height: 3px;
-            background: #ffffff;
-            margin: 20px auto 0;
-            border-radius: 3px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .difference-hero-section { height: 280px; }
-            .difference-hero-content h1 { font-size: 28px; }
-            .difference-hero-content .difference-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
-        }
-
-        @media (max-width: 480px) {
-            .difference-hero-section { height: 240px; }
-            .difference-hero-content h1 { font-size: 22px; }
-            .difference-hero-content .difference-hero-subtitle { font-size: 10px; }
+        .diff-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
         }
 
         /* ========================================== */
-        /*   OUR DIFFERENCE PAGE STYLES              */
+        /*   FACULTY & OUTCOME – ACCENTED CARDS      */
         /* ========================================== */
-        .logi-diff-section {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 50px 4% !important;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-            background: transparent !important;
-            background-color: transparent !important;
-            box-sizing: border-box !important;
-            box-shadow: none !important;
-            border: none !important;
+        .diff-card.accent-gold {
+            border-top: 3px solid #A37F55;
         }
 
-        .logi-diff-header {
-            margin: 0 0 20px 0 !important;
-            background: transparent !important;
+        .diff-card.accent-gold .diff-icon {
+            background: #fdf6ed;
+            color: #A37F55;
         }
 
-        .logi-diff-header h2 {
-            color: #8B5353 !important;
-            font-size: 26px !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1.5px !important;
-            margin: 0 !important;
-            text-align: left !important;
+        .diff-card.accent-gold h3 {
+            color: #A37F55;
         }
 
-        .logi-diff-intro {
-            margin: 0 0 40px 0 !important;
-            max-width: 100% !important;
-            background: transparent !important;
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .footer {
+            background: #292832;
+            color: #eee;
+            text-align: center;
+            padding: 24px 5%;
+            font-size: 12px;
         }
 
-        .logi-diff-intro p {
-            font-size: 14px !important;
-            line-height: 1.6 !important;
-            color: #555 !important;
-            margin: 0 !important;
-            text-align: left !important;
-        }
-
-        .logi-diff-grid {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            gap: 30px !important;
-            margin: 0 0 50px 0 !important;
-            background: transparent !important;
-        }
-
-        .logi-diff-card {
-            flex: 1 1 30% !important;
-            min-width: 280px !important;
-            text-align: left !important;
-            background: transparent !important;
-            background-color: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
-        }
-
-        .logi-split-header {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 12px !important;
-            margin-bottom: 12px !important;
-            background: transparent !important;
-        }
-
-        .logi-diff-icon {
-            width: 32px !important;
-            height: 32px !important;
-            color: #8B5353 !important;
-            flex-shrink: 0 !important;
-            background: transparent !important;
-        }
-
-        .logi-split-header h3 {
-            color: #8B5353 !important;
-            font-size: 20px !important;
-            font-weight: bold !important;
-            margin: 0 !important;
-            background: transparent !important;
-            text-align: left !important;
-        }
-
-        .logi-diff-card p,
-        .logi-diff-split-col p {
-            font-size: 13.5px !important;
-            line-height: 1.55 !important;
-            color: #666 !important;
-            margin: 0 !important;
-            background: transparent !important;
-            text-align: left !important;
-        }
-
-        .logi-diff-split-row {
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: space-between !important;
-            gap: 40px !important;
-            margin: 0 !important;
-            border-top: none !important;
-            padding-top: 0 !important;
-            background: transparent !important;
-            box-sizing: border-box !important;
-        }
-
-        .logi-diff-split-col {
-            flex: 1 1 50% !important;
-            background: transparent !important;
-            box-sizing: border-box !important;
-        }
-
-        .faculty-accent,
-        .outcome-accent {
-            border-bottom: 2px solid #A37F55 !important;
-            padding-bottom: 8px !important;
-        }
-
-        .faculty-accent h3,
-        .outcome-accent h3,
-        .faculty-icon,
-        .outcome-icon {
-            color: #A37F55 !important;
-        }
-
-        .logi-diff-icon svg {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        @media (max-width: 768px) {
-            .logi-diff-section {
-                padding: 30px 16px !important;
-            }
-
-            .logi-diff-card {
-                flex: 1 1 100% !important;
-            }
-
-            .logi-diff-split-row {
-                flex-direction: column !important;
-                gap: 30px !important;
-            }
-
-            .logi-diff-split-col {
-                flex: 1 1 100% !important;
-            }
-        }
+        .footer strong { color: var(--pink); }
     </style>
 </head>
 <body>
 
     <!-- ========================================== -->
-    <!--   HEADER PLACEHOLDER                       -->
+    <!--   TOPBAR – MATCHING SHORT COURSES         -->
     <!-- ========================================== -->
-    <div id="header-placeholder"></div>
+    <header class="topbar">
+        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+        <nav class="nav">
+            <a href="https://www.logi.education">Home</a>
+            <a href="https://www.logi.education/our-program">Programmes</a>
+            <a class="button" href="index.html">Explore Courses</a>
+        </nav>
+    </header>
 
     <!-- ========================================== -->
-    <!--   HERO SECTION — OUR DIFFERENCE           -->
+    <!--   HERO                                     -->
     <!-- ========================================== -->
-    <section class="difference-hero-section">
-        <div class="difference-hero-content">
-            <h1>Our Difference</h1>
-            <div class="difference-hero-line"></div>
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="breadcrumb">
+                    <a href="https://www.logi.education">Home</a> / <span>Our Difference</span>
+                </div>
+                <h1>Our <span>Difference</span></h1>
+                <p>At Living Oracles Global Institute, we are committed to raising Christ-centered leaders who combine biblical wisdom, academic excellence, ethical leadership, and practical competence.</p>
+                <a class="pill" href="#focus">Discover What Sets Us Apart</a>
+            </div>
+            <div aria-label="LOGI" class="hero-mark">LOGI</div>
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!--          PAGE CONTENT - OUR DIFFERENCE      -->
+    <!--   OUR FOCUS / PASSION / APPROACH          -->
     <!-- ========================================== -->
-    <main class="container-wrapper">
-
-        <!-- === SECTION: OUR DIFFERENCE === -->
-        <section class="logi-diff-section">
-
-            <!-- Header -->
-            <div class="logi-diff-header">
-                <h2>Our Difference</h2>
+    <section class="catalog-section grey" id="focus">
+        <div class="inner">
+            <div class="section-head">
+                <h2>What Sets Us <span class="highlight">Apart</span></h2>
             </div>
+            <p class="section-intro">Three commitments that define our educational philosophy and institutional purpose.</p>
 
-            <!-- Intro Text -->
-            <div class="logi-diff-intro">
-                <p>At Living Oracles Global Institute, we are committed to raising Christ-centered leaders who combine biblical wisdom, academic excellence, ethical leadership, and practical competence. Our distinctive approach sets us apart by equipping students to transform their communities, professions, churches, and nations for the glory of God.</p>
-            </div>
-
-            <!-- Part 1: Core Trio (3-Column Grid) -->
-            <div class="logi-diff-grid">
-
-                <!-- 1. Our Focus -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <circle cx="12" cy="12" r="6"></circle>
-                                <circle cx="12" cy="12" r="2"></circle>
-                            </svg>
-                        </div>
-                        <h3>Our Focus</h3>
-                    </div>
+            <div class="grid-3">
+                <!-- Our Focus -->
+                <div class="diff-card">
+                    <div class="diff-icon"><i class="fas fa-crosshairs"></i></div>
+                    <h3>Our Focus</h3>
                     <p>We develop leaders who demonstrate both spiritual maturity and professional excellence. We particularly serve students from developing nations, bridging the gap where leadership is marked by moral decline, by equipping believers to lead with integrity outside the church walls.</p>
                 </div>
 
-                <!-- 2. Our Passion -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                            </svg>
-                        </div>
-                        <h3>Our Passion</h3>
-                    </div>
+                <!-- Our Passion -->
+                <div class="diff-card">
+                    <div class="diff-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Our Passion</h3>
                     <p>Our greatest passion is to see lives transformed through the Gospel. While tuition supports quality education and operations, all available surplus resources are directly reinvested into advancing evangelism, discipleship, and community outreach.</p>
                 </div>
 
-                <!-- 3. Our Approach -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                            </svg>
-                        </div>
-                        <h3>Our Approach</h3>
-                    </div>
+                <!-- Our Approach -->
+                <div class="diff-card">
+                    <div class="diff-icon"><i class="fas fa-compass"></i></div>
+                    <h3>Our Approach</h3>
                     <p>True education extends far beyond exams or simple knowledge. Our philosophy emphasizes understanding, critical thinking, practical application, character development, and using biblical principles to solve real-world community challenges.</p>
                 </div>
-
             </div>
+        </div>
+    </section>
 
-            <!-- Part 2: Faculty & Outcome (50/50 Split Row with Distinct Accent & Underlines) -->
-            <div class="logi-diff-split-row">
+    <!-- ========================================== -->
+    <!--   OUR FACULTY & EXPECTED OUTCOME          -->
+    <!-- ========================================== -->
+    <section class="catalog-section" id="faculty">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Our Faculty &amp; <span class="highlight">Outcome</span></h2>
+            </div>
+            <p class="section-intro">The people who teach you and the results you can expect from your LOGI education.</p>
 
-                <!-- Left Column: Our Faculty -->
-                <div class="logi-diff-split-col">
-                    <div class="logi-split-header faculty-accent">
-                        <div class="logi-diff-icon faculty-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
-                            </svg>
-                        </div>
-                        <h3>Our Faculty</h3>
-                    </div>
+            <div class="grid-2">
+                <!-- Our Faculty -->
+                <div class="diff-card accent-gold">
+                    <div class="diff-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Our Faculty</h3>
                     <p>Our faculty members are experienced educators, ministry leaders, and industry professionals who bring both academic expertise and practical experience into the classroom. They teach from real-life knowledge, professional practice, and deep biblical conviction, ensuring students receive education that is relevant, impactful, and transformational.</p>
                 </div>
 
-                <!-- Right Column: Our Expected Outcome -->
-                <div class="logi-diff-split-col">
-                    <div class="logi-split-header outcome-accent">
-                        <div class="logi-diff-icon outcome-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
-                            </svg>
-                        </div>
-                        <h3>Our Expected Outcome</h3>
-                    </div>
+                <!-- Our Expected Outcome -->
+                <div class="diff-card accent-gold">
+                    <div class="diff-icon"><i class="fas fa-award"></i></div>
+                    <h3>Our Expected Outcome</h3>
                     <p>We believe every student possesses God-given potential for leadership. Through our programmes, graduates are equipped with biblical knowledge, professional competence, and Christ-like character to be faithful ambassadors of Christ who lead with excellence, wisdom, and compassion while making a lasting global impact.</p>
                 </div>
-
             </div>
-
-        </section>
-
-    </main>
+        </div>
+    </section>
 
     <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
+    <!--   FOOTER                                   -->
     <!-- ========================================== -->
-    <div id="footer-placeholder"></div>
-
-    <!-- ========================================== -->
-    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
-    <!-- ========================================== -->
-    <script src="load.js"></script>
+    <footer class="footer">
+        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+    </footer>
 
 </body>
 </html>
