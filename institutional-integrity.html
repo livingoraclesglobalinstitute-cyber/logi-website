@@ -2,1451 +2,601 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport" />
-    <title>LIVING ORACLES GLOBAL INSTITUTE: Institutional Integrity Statement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Institutional Integrity Statement — Living Oracles Global Institute</title>
 
     <!-- Meta Tags -->
-    <meta content="Learn about Living Oracles Global Institute's commitment to academic integrity, ethical practices, transparency, accountability, and student support" name="description" />
-    <meta content="https://www.logi.education/p/institutional-integrity-statement.html" property="og:url" />
-    <meta content="Institutional Integrity Statement" property="og:title" />
-    <meta content="Learn about Living Oracles Global Institute's commitment to academic integrity, ethical practices, transparency, accountability, and student support" property="og:description" />
+    <meta name="description" content="Learn about Living Oracles Global Institute's commitment to academic integrity, ethical practices, transparency, accountability, and student support." />
+    <meta property="og:title" content="Institutional Integrity Statement — Living Oracles Global Institute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/institutional-integrity" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Our commitment to academic integrity, ethical practices, transparency, and accountability." />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Institutional Favicon -->
     <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
     <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
 
-    <!-- Open Graph Tags for Google Business Profile -->
-    <meta content="Living Oracles Global Institute" property="og:title" />
-    <meta content="website" property="og:type" />
-    <meta content="https://logi.education" property="og:url" />
-    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
-    <meta content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." property="og:description" />
-    <meta content="summary_large_image" name="twitter:card" />
-
-    <!-- FontAwesome Core for UI Icons -->
+    <!-- FontAwesome Core -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
     <style>
         /* ========================================== */
-        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /*   ROOT VARIABLES – MATCHING SHORT COURSES */
         /* ========================================== */
-        .top-bar {
-            background: #1a1a2e;
-            color: #ffffff;
-            padding: 6px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.7rem;
-            flex-wrap: wrap;
-            gap: 6px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .top-bar::before,
-        .top-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            background: linear-gradient(180deg, 
-                #c9a86c 0%, #c9a86c 20%,
-                #8B5353 20%, #8B5353 40%,
-                #1a7a3a 40%, #1a7a3a 60%,
-                #c9a86c 60%, #c9a86c 80%,
-                #8B5353 80%, #8B5353 100%
-            );
-            opacity: 0.5;
-        }
-
-        .top-bar::before {
-            left: 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .top-bar::after {
-            right: 0;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .top-bar .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .contact-info a,
-        .top-bar .contact-info span {
-            color: #d4d0c8;
-            text-decoration: none;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s;
-        }
-
-        .top-bar .contact-info a:hover {
-            color: #c9a86c;
-        }
-
-        .top-bar .contact-info i {
-            font-size: 0.65rem;
-            color: #c9a86c;
-        }
-
-        .top-bar .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .social-icons a {
-            color: #8a8680;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .top-bar .social-icons a:hover {
-            color: #c9a86c;
-        }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 4px 0;
-            }
-            .top-bar::before,
-            .top-bar::after {
-                width: 25px;
-            }
-            .top-bar .contact-info {
-                padding: 0 35px;
-                gap: 8px;
-            }
-            .top-bar .social-icons {
-                padding: 0 35px;
-            }
-            .top-bar .contact-info a,
-            .top-bar .contact-info span {
-                font-size: 0.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-bar::before,
-            .top-bar::after {
-                width: 18px;
-            }
-            .top-bar .contact-info {
-                padding: 0 25px;
-                gap: 6px;
-                font-size: 0.55rem;
-            }
-            .top-bar .social-icons {
-                padding: 0 25px;
-                gap: 8px;
-            }
-            .top-bar .social-icons a {
-                font-size: 0.65rem;
-            }
+        :root {
+            --pink: #ff4b93;
+            --pink-dark: #e93680;
+            --lav: #f3f0fa;
+            --ink: #34343b;
+            --muted: #777780;
+            --line: #e9e8ef;
+            --white: #fff;
+            --gold: #A37F55;
         }
 
         /* ========================================== */
-        /*   HEADER - FIXED FULL WIDTH WHITE         */
-        /* ========================================== */
-        .main-header {
-            background: #ffffff;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 38px;
-            left: 0;
-            width: 100%;
-            z-index: 9998;
-            border-bottom: 1px solid #e8e3dc;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            width: 40px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .logo .logo-text {
-            color: #1a1a2e;
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .logo .logo-text span {
-            display: block;
-            font-weight: 300;
-            font-size: 0.45rem;
-            opacity: 0.6;
-            letter-spacing: 1.5px;
-        }
-
-        @media (max-width: 768px) {
-            .main-header {
-                top: 34px;
-                padding: 6px 4%;
-            }
-            .logo img {
-                width: 32px;
-            }
-            .logo .logo-text {
-                font-size: 0.65rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.4rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-header {
-                top: 30px;
-                padding: 4px 3%;
-            }
-            .logo img {
-                width: 28px;
-            }
-            .logo .logo-text {
-                font-size: 0.55rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.35rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   MOBILE HAMBURGER MENU BUTTON             */
-        /* ========================================== */
-        .menu-btn {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            color: #1a1a2e;
-            font-size: 13px;
-            padding: 5px 10px;
-            border-radius: 30px;
-            background: rgba(26, 26, 46, 0.06);
-            border: 1px solid rgba(26, 26, 46, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .menu-btn:hover {
-            background: rgba(26, 26, 46, 0.12);
-        }
-
-        .menu-btn i {
-            font-size: 16px;
-        }
-
-        /* ========================================== */
-        /*   DESKTOP NAVIGATION - DARK TEXT          */
-        /* ========================================== */
-        .navigation-menu-bar {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            position: static !important;
-            width: auto !important;
-            height: auto !important;
-            display: block !important;
-            overflow: visible !important;
-        }
-
-        .navigation-menu-bar ul {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            list-style: none !important;
-            gap: 0.2rem !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-end !important;
-        }
-
-        .navigation-menu-bar ul li {
-            position: relative;
-        }
-
-        .navigation-menu-bar ul li a {
-            color: #1a1a2e !important;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .navigation-menu-bar ul li a:hover {
-            color: #8B5353 !important;
-            background: rgba(139, 83, 83, 0.06);
-        }
-
-        .navigation-menu-bar ul li .submenu {
-            display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            padding: 0.4rem 0;
-            margin-top: 6px;
-            z-index: 1100;
-            animation: fadeInDropdown 0.25s ease;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 0px !important;
-            min-width: 200px;
-            width: max-content !important;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
-            display: flex !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li {
-            width: 100%;
-        }
-
-        .navigation-menu-bar ul li .submenu li a {
-            color: #1e3c4f !important;
-            font-size: 0.78rem;
-            padding: 8px 16px;
-            width: 100%;
-            border-radius: 0;
-            font-weight: 500;
-            display: block !important;
-            white-space: nowrap !important;
-            text-shadow: none !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li a:hover {
-            background: rgba(139, 83, 83, 0.08) !important;
-            color: #8B5353 !important;
-        }
-
-        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-            font-size: 0.5rem;
-            transition: transform 0.25s ease;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
-            transform: rotate(180deg);
-        }
-
-        @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========================================== */
-        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-        /* ========================================== */
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                min-height: 100vh !important;
-                overflow-y: auto !important;
-                background: #ffffff !important;
-                display: block !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                align-items: stretch !important;
-                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
-                z-index: 10000 !important;
-                padding: 70px 1.2rem 1.5rem 1.2rem !important;
-                box-shadow: none !important;
-                transform: translateX(100%) !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-
-            .navigation-menu-bar.mobile-open {
-                transform: translateX(0) !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-            }
-
-            .navigation-menu-bar ul {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0 !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                flex: 1 !important;
-            }
-
-            .navigation-menu-bar ul li {
-                border-bottom: 1px solid #f0ede6 !important;
-                list-style: none !important;
-            }
-
-            .navigation-menu-bar ul li a {
-                color: #1a1a2e !important;
-                font-weight: 500 !important;
-                padding: 0.7rem 0.5rem !important;
-                justify-content: flex-start !important;
-                border-radius: 0 !important;
-                white-space: normal !important;
-                text-shadow: none !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 10px !important;
-                font-size: 0.95rem !important;
-            }
-
-            .navigation-menu-bar ul li a i {
-                font-size: 1.1rem !important;
-                color: #c9a86c !important;
-                width: 24px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li a:hover {
-                background: rgba(139, 83, 83, 0.06) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a {
-                justify-content: space-between !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-                color: #8B5353 !important;
-                font-size: 0.65rem !important;
-                margin-left: auto !important;
-            }
-
-            .navigation-menu-bar ul li .submenu {
-                position: static !important;
-                transform: none !important;
-                background: #f8f6f2 !important;
-                border-radius: 0 !important;
-                display: none !important;
-                flex-direction: column !important;
-                gap: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border-left: 3px solid #c9a86c !important;
-                width: 100% !important;
-                box-shadow: none !important;
-                min-width: auto !important;
-                animation: none !important;
-            }
-
-            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li {
-                border-bottom: none !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a {
-                color: #1a1a2e !important;
-                font-weight: 400 !important;
-                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                justify-content: flex-start !important;
-                gap: 10px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a i {
-                font-size: 0.85rem !important;
-                color: #c9a86c !important;
-                width: 20px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a:hover {
-                background: rgba(139, 83, 83, 0.08) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-                border-left: 3px solid #8B5353 !important;
-                margin-left: 1rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
-                padding-left: 3rem !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer {
-                margin-top: auto !important;
-                padding-top: 1rem !important;
-                padding-bottom: 0.5rem !important;
-                border-top: 1px solid #f0ede6 !important;
-                display: flex !important;
-                justify-content: center !important;
-                gap: 1.2rem !important;
-                flex-shrink: 0 !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a {
-                color: #8a8680 !important;
-                font-size: 1.1rem !important;
-                transition: color 0.25s ease !important;
-                text-decoration: none !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a:hover {
-                color: #c9a86c !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navigation-menu-bar {
-                padding: 60px 1rem 1.5rem 1rem !important;
-            }
-            .navigation-menu-bar ul li a {
-                font-size: 0.85rem !important;
-                padding: 0.6rem 0.4rem !important;
-            }
-            .navigation-menu-bar ul li .submenu li a {
-                font-size: 0.78rem !important;
-                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
-        /* ========================================== */
-        .institutional-footer {
-            background: #1a1a2e;
-            color: #d4d0c8;
-            padding: 2.5rem 5% 1.2rem;
-            margin-top: 0;
-            border-top: none;
-            font-size: 0.85rem;
-            width: 100%;
-        }
-
-        .footer-grid-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .footer-column h2 {
-            color: #ffffff !important;
-            font-size: 0.8rem !important;
-            margin-bottom: 0.6rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-        }
-
-        .footer-column p,
-        .footer-column address {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.7;
-            font-style: normal;
-            margin-bottom: 4px;
-        }
-
-        .footer-column a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-            display: inline-block;
-        }
-
-        .footer-column a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 0.2rem !important;
-            list-style: none !important;
-        }
-
-        .footer-column ul li a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-        }
-
-        .footer-column ul li a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column .footer-address-line {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .footer-column .footer-address-line i {
-            color: #c9a86c;
-            font-size: 0.75rem;
-            margin-top: 4px;
-            width: 16px;
-        }
-
-        .footer-column .footer-address-line span {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.6;
-        }
-
-        .footer-bottom-bar {
-            max-width: 1200px;
-            margin: 1.2rem auto 0;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .footer-copyright {
-            font-size: 0.7rem;
-            font-weight: 400;
-            color: #8a8680;
-        }
-
-        .footer-subscription-container h3 {
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.2rem;
-        }
-
-        .footer-subscription-container p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .subscription-form {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .subscription-form input[type="email"] {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            padding: 5px 8px;
-            color: #ffffff;
-            font-size: 0.75rem;
-            flex-grow: 1;
-            outline: none;
-            transition: border-color 0.3s;
-            min-width: 100px;
-        }
-
-        .subscription-form input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .subscription-form input[type="email"]:focus {
-            border-color: #ffffff;
-        }
-
-        .subscription-form button {
-            background: #ffffff;
-            color: #8B5353;
-            border: none;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
-        }
-
-        .subscription-form button:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-1px);
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.2rem;
-            }
-            .institutional-footer { font-size: 0.75rem; }
-            .footer-column h2 { font-size: 0.7rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.72rem !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .footer-bottom-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .institutional-footer { 
-                font-size: 0.7rem;
-                padding: 1.5rem 4% 1rem;
-            }
-            .footer-column h2 { font-size: 0.6rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.65rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FLOATING CHAT                            */
-        /* ========================================== */
-        .floating-chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .floating-chat-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #25d366;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .floating-chat-link:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background: #20ba5a;
-        }
-
-        .floating-chat-link i {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 480px) {
-            .floating-chat-link {
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-            .floating-chat-link span {
-                display: none;
-            }
-            .floating-chat-link i {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ========================================== */
-        /*          GLOBAL THEME ROOT RESETS          */
+        /*   GLOBAL RESETS                            */
         /* ========================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html,
-        body {
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
             overflow-x: hidden !important;
             width: 100% !important;
         }
 
         body {
-            background-color: #fcfdfe;
-            color: #334155;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--ink);
+            background: #fff;
             line-height: 1.5;
-            padding-top: 80px;
-            -webkit-font-smoothing: antialiased;
         }
 
-        @media (max-width: 768px) {
-            body { padding-top: 70px; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding-top: 60px; }
-        }
-
-        .container-wrapper {
-            max-width: 100% !important;
-            margin: 0 auto;
-            padding: 0 !important;
-            width: 100% !important;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
         /* ========================================== */
-        /*   HERO SECTION — INSTITUTIONAL INTEGRITY  */
+        /*   TOPBAR – MATCHING SHORT COURSES         */
         /* ========================================== */
-        .integrity-hero-section {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
+        .topbar {
+            height: 64px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
+            justify-content: space-between;
+            padding: 0 max(5%, calc((100% - 1180px)/2));
+            box-shadow: 0 2px 9px #00000012;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
         }
 
-        .integrity-hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #ffffff;
-            padding: 0 20px;
-        }
-
-        .integrity-hero-content h1 {
-            font-size: 46px;
+        .logo {
+            font-size: 28px;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: -1.5px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--pink);
+        }
+
+        .nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+
+        .nav a:hover:not(.button) {
+            color: var(--pink);
+        }
+
+        .nav .button {
+            background: var(--pink);
+            color: #fff;
+            padding: 9px 24px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav .button:hover {
+            background: var(--pink-dark);
+        }
+
+        @media (max-width: 650px) {
+            .topbar { height: 54px; padding: 0 5%; }
+            .logo { font-size: 24px; }
+            .nav { gap: 10px; }
+            .nav a:first-child { display: none; }
+            .nav .button { font-size: 11px; padding: 8px 14px; }
+        }
+
+        /* ========================================== */
+        /*   HERO – LIGHT GRADIENT, MATCHING SHORT   */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(110deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%);
+            padding: 28px 5% 34px;
+        }
+
+        .hero-inner {
+            max-width: 1180px;
+            margin: auto;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--pink);
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb span { color: #777; }
+
+        .hero h1 {
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.1;
+            margin: 0 0 12px;
+        }
+
+        .hero h1 span { color: var(--pink); }
+
+        .hero p {
+            max-width: 610px;
+            font-size: 14px;
+            color: #65656d;
+            margin: 0 0 18px;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--pink);
+            color: white;
+            padding: 9px 19px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .hero-mark {
+            font-size: clamp(55px, 9vw, 100px);
+            font-weight: 900;
+            letter-spacing: -7px;
+            color: #f7d9e7;
+            text-shadow: 3px 3px 0 #fff;
+        }
+
+        @media (max-width: 650px) {
+            .hero { padding: 22px 5%; }
+            .hero-inner { min-height: 165px; }
+            .hero-mark { font-size: 48px; letter-spacing: -4px; }
+            .hero p { font-size: 12px; max-width: 440px; }
+        }
+
+        /* ========================================== */
+        /*   INNER CONTAINER                         */
+        /* ========================================== */
+        .inner {
+            width: min(1180px, 90%);
+            margin: auto;
+        }
+
+        /* ========================================== */
+        /*   CATALOG SECTIONS                        */
+        /* ========================================== */
+        .catalog-section {
+            padding: 32px 0 38px;
+        }
+
+        .catalog-section.grey { background: #f5f5f8; }
+        .catalog-section.tint { background: #fff6fa; }
+
+        /* Section Head with underline accent */
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            border-bottom: 1px solid #dedee5;
+            padding-bottom: 11px;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .section-head:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 190px;
+            height: 2px;
+            background: linear-gradient(90deg, #f4c52d, var(--pink));
+        }
+
+        .section-head h2 {
+            font-size: 22px;
+            font-weight: 600;
             margin: 0;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
-            line-height: 1.2;
         }
 
-        .integrity-hero-content .integrity-hero-subtitle {
+        .highlight {
+            background: var(--pink);
+            color: #fff;
+            padding: 1px 5px;
+        }
+
+        .section-intro {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+            margin: -8px 0 20px;
+        }
+
+        @media (max-width: 650px) {
+            .section-head h2 { font-size: 17px; }
+            .catalog-section { padding: 25px 0; }
+        }
+
+        /* ========================================== */
+        /*   GRID LAYOUTS                            */
+        /* ========================================== */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 650px) {
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        /* ========================================== */
+        /*   PRINCIPLE CARDS                         */
+        /* ========================================== */
+        .principle-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 22px 20px;
+            box-shadow: 0 2px 6px #00000008;
+            display: flex;
+            flex-direction: column;
+            transition: .2s;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 18px #00000012;
+        }
+
+        .principle-icon {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background: #fff6fa;
+            color: var(--pink);
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .principle-card h3 {
             font-size: 15px;
-            font-weight: 400;
-            color: #ffffff;
-            margin-top: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
         }
 
-        .integrity-hero-content .integrity-hero-line {
-            width: 100px;
-            height: 3px;
-            background: #ffffff;
-            margin: 20px auto 0;
-            border-radius: 3px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .integrity-hero-section { height: 280px; }
-            .integrity-hero-content h1 { font-size: 28px; }
-            .integrity-hero-content .integrity-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
-        }
-
-        @media (max-width: 480px) {
-            .integrity-hero-section { height: 240px; }
-            .integrity-hero-content h1 { font-size: 20px; }
-            .integrity-hero-content .integrity-hero-subtitle { font-size: 10px; }
+        .principle-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
         }
 
         /* ========================================== */
-        /*   INSTITUTIONAL INTEGRITY PAGE STYLES      */
+        /*   COMMITMENT CARDS (ACCENTED)             */
         /* ========================================== */
-        .logi-integrity-section {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 60px 4% !important;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-            background: transparent !important;
-            background-color: transparent !important;
-            box-sizing: border-box !important;
-            box-shadow: none !important;
-            border: none !important;
+        .commitment-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 22px 20px;
+            box-shadow: 0 2px 6px #00000008;
+            transition: .2s;
         }
 
-        .logi-integrity-header {
-            text-align: left !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 55px 0 !important;
-            background: transparent !important;
-            border: none !important;
+        .commitment-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 18px #00000012;
         }
 
-        .logi-integrity-header h2 {
-            color: #8B5353 !important;
-            font-size: 32px !important;
-            font-weight: 700 !important;
-            margin: 0 0 12px 0 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 2px !important;
-            text-align: left !important;
-            border: none !important;
+        .commitment-card.gold {
+            border-top: 3px solid var(--gold);
         }
 
-        .logi-integrity-intro {
-            margin: 0 !important;
-            background: transparent !important;
-            border: none !important;
+        .commitment-card .commitment-icon {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background: #fdf6ed;
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 12px;
         }
 
-        .logi-integrity-intro p {
-            font-size: 14px !important;
-            line-height: 1.7 !important;
-            color: #555 !important;
-            margin: 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
+        .commitment-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
         }
 
-        .logi-integrity-subheading {
-            text-align: left !important;
-            margin-bottom: 35px !important;
-            background: transparent !important;
-            border: none !important;
+        .commitment-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 6px;
         }
 
-        .logi-integrity-subheading h3 {
-            color: #8B5353 !important;
-            font-size: 24px !important;
-            font-weight: bold !important;
-            margin: 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
+        .commitment-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 14px;
         }
 
-        .logi-integrity-grid {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-start !important;
-            gap: 40px 30px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 70px 0 !important;
-            background: transparent !important;
-            border: none !important;
+        .commitment-card p:last-child {
+            margin-bottom: 0;
         }
 
-        .logi-integrity-card {
-            flex: 0 1 calc(33.333% - 20px) !important;
-            min-width: 280px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            background: transparent !important;
-            background-color: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
+        /* ========================================== */
+        /*   PLEDGE CARD                             */
+        /* ========================================== */
+        .pledge-card {
+            background: linear-gradient(110deg, #fff6fa 0%, #fff 100%);
+            border: 1px solid var(--pink-soft, #ffd1e3);
+            border-left: 4px solid var(--pink);
+            border-radius: 5px;
+            padding: 24px 22px;
+            box-shadow: 0 2px 6px #00000008;
         }
 
-        .logi-split-header {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 12px !important;
-            margin-bottom: 12px !important;
-            background: transparent !important;
-            border: none !important;
+        .pledge-card .pledge-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--pink);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 12px;
         }
 
-        .logi-integrity-card h4 {
-            color: #8B5353 !important;
-            font-size: 20px !important;
-            margin: 0 !important;
-            font-weight: bold !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
+        .pledge-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 10px;
         }
 
-        .logi-integrity-card p {
-            font-size: 14px !important;
-            line-height: 1.65 !important;
-            color: #666 !important;
-            margin: 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
+        .pledge-card p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.75;
         }
 
-        .logi-commitments-row {
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: space-between !important;
-            gap: 40px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 70px 0 !important;
-            border: none !important;
-            padding-top: 0 !important;
-            background: transparent !important;
-            box-sizing: border-box !important;
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .footer {
+            background: #292832;
+            color: #eee;
+            text-align: center;
+            padding: 24px 5%;
+            font-size: 12px;
         }
 
-        .logi-commitments-col {
-            flex: 1 1 50% !important;
-            background: transparent !important;
-            border: none !important;
-            box-sizing: border-box !important;
-        }
-
-        .faculty-accent,
-        .outcome-accent {
-            border-bottom: 2px solid #A37F55 !important;
-            padding-bottom: 8px !important;
-            margin-bottom: 25px !important;
-            background: transparent !important;
-            border-top: none !important;
-            border-left: none !important;
-            border-right: none !important;
-        }
-
-        .logi-commitments-header h3 {
-            color: #A37F55 !important;
-            font-size: 20px !important;
-            font-weight: bold !important;
-            margin: 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-commitment-item {
-            margin-bottom: 25px !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-commitment-item:last-child {
-            margin-bottom: 0 !important;
-        }
-
-        .logi-commitment-item h5 {
-            color: #8B5353 !important;
-            font-size: 16px !important;
-            font-weight: bold !important;
-            margin: 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-commitment-item p {
-            font-size: 14px !important;
-            line-height: 1.6 !important;
-            color: #666 !important;
-            margin: 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-pledge-container {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            border: none !important;
-            padding-top: 0 !important;
-            background: transparent !important;
-        }
-
-        .logi-pledge-card {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            border: none !important;
-            background: transparent !important;
-            background-color: transparent !important;
-            box-shadow: none !important;
-        }
-
-        .logi-pledge-card h3 {
-            color: #8B5353 !important;
-            font-size: 20px !important;
-            font-weight: bold !important;
-            margin: 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-pledge-card p {
-            font-size: 14px !important;
-            line-height: 1.65 !important;
-            color: #666 !important;
-            margin: 0 !important;
-            font-weight: normal !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-integrity-icon {
-            width: 24px !important;
-            height: 24px !important;
-            flex-shrink: 0 !important;
-            background: transparent !important;
-            color: #8B5353 !important;
-        }
-
-        .logi-integrity-icon svg {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        @media (max-width: 991px) {
-            .logi-integrity-card {
-                flex: 1 1 calc(50% - 15px) !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .logi-integrity-section {
-                padding: 40px 16px !important;
-            }
-
-            .logi-integrity-header h2 {
-                font-size: 26px !important;
-            }
-
-            .logi-integrity-grid {
-                flex-direction: column !important;
-                gap: 30px !important;
-            }
-
-            .logi-integrity-card {
-                flex: 1 1 100% !important;
-                min-width: 100% !important;
-            }
-
-            .logi-commitments-row {
-                flex-direction: column !important;
-                gap: 30px !important;
-                padding-top: 0 !important;
-            }
-
-            .logi-commitments-col {
-                flex: 1 1 100% !important;
-            }
-        }
+        .footer strong { color: var(--pink); }
     </style>
 </head>
 <body>
 
     <!-- ========================================== -->
-    <!--   HEADER PLACEHOLDER                       -->
+    <!--   TOPBAR – MATCHING SHORT COURSES         -->
     <!-- ========================================== -->
-    <div id="header-placeholder"></div>
+    <header class="topbar">
+        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+        <nav class="nav">
+            <a href="https://www.logi.education">Home</a>
+            <a href="https://www.logi.education/our-program">Programmes</a>
+            <a class="button" href="index.html">Explore Courses</a>
+        </nav>
+    </header>
 
     <!-- ========================================== -->
-    <!--   HERO SECTION — INSTITUTIONAL INTEGRITY  -->
+    <!--   HERO                                     -->
     <!-- ========================================== -->
-    <section class="integrity-hero-section">
-        <div class="integrity-hero-content">
-            <h1>Institutional Integrity</h1>
-            <div class="integrity-hero-line"></div>
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="breadcrumb">
+                    <a href="https://www.logi.education">Home</a> / <span>Institutional Integrity</span>
+                </div>
+                <h1>Institutional <span>Integrity</span></h1>
+                <p>Our unwavering commitment to honesty, transparency, accountability, and ethical conduct forms the foundation of our institution.</p>
+                <a class="pill" href="#principles">Our Core Principles</a>
+            </div>
+            <div aria-label="LOGI" class="hero-mark">LOGI</div>
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!--    PAGE CONTENT - INSTITUTIONAL INTEGRITY  -->
+    <!--   INTEGRITY STATEMENT                      -->
     <!-- ========================================== -->
-    <main class="container-wrapper">
-
-        <!-- === SECTION: INSTITUTIONAL INTEGRITY STATEMENT === -->
-        <section class="logi-integrity-section">
-
-            <!-- Header & Introduction -->
-            <div class="logi-integrity-header">
-                <h2>Institutional Integrity Statement</h2>
-                <div class="logi-integrity-intro">
-                    <p>At Living Oracles Global Institute, we are deeply committed to fostering a culture of integrity rooted in biblical truth, Christian values, and academic excellence. Our unwavering commitment to honesty, transparency, accountability, and ethical conduct forms the foundation of our institution. This Institutional Integrity Statement reflects our dedication to representing ourselves truthfully and serving our students, partners, and the wider community with excellence and integrity.</p>
-                </div>
+    <section class="catalog-section grey" id="statement">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Integrity <span class="highlight">Statement</span></h2>
             </div>
+            <p class="section-intro">At Living Oracles Global Institute, we are deeply committed to fostering a culture of integrity rooted in biblical truth, Christian values, and academic excellence. This Institutional Integrity Statement reflects our dedication to representing ourselves truthfully and serving our students, partners, and the wider community with excellence and integrity.</p>
+        </div>
+    </section>
 
-            <!-- PART 1: CORE PRINCIPLES (GRID) -->
-            <div class="logi-integrity-subheading">
-                <h3>Our Core Principles</h3>
+    <!-- ========================================== -->
+    <!--   CORE PRINCIPLES – 3-COLUMN GRID         -->
+    <!-- ========================================== -->
+    <section class="catalog-section" id="principles">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Our Core <span class="highlight">Principles</span></h2>
             </div>
+            <p class="section-intro">Five commitments that guide every decision, policy, and action at LOGI.</p>
 
-            <div class="logi-integrity-grid">
-
-                <!-- 1. Spiritual Foundation -->
-                <div class="logi-integrity-card">
-                    <div class="logi-split-header">
-                        <div class="logi-integrity-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                        </div>
-                        <h4>Spiritual Foundation</h4>
-                    </div>
-                    <p>We believe that every decision, policy, and action should reflect the teachings of Jesus Christ and the principles of God's Word. Our institution is guided by biblical values that promote faith, wisdom, servant leadership, and love.</p>
+            <div class="grid-3">
+                <!-- Spiritual Foundation -->
+                <div class="principle-card">
+                    <div class="principle-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Spiritual Foundation</h3>
+                    <p>We believe every decision, policy, and action should reflect the teachings of Jesus Christ and the principles of God's Word. Our institution is guided by biblical values that promote faith, wisdom, servant leadership, and love.</p>
                 </div>
 
-                <!-- 2. Academic Integrity -->
-                <div class="logi-integrity-card">
-                    <div class="logi-split-header">
-                        <div class="logi-integrity-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
-                            </svg>
-                        </div>
-                        <h4>Academic Integrity</h4>
-                    </div>
-                    <p>We uphold the highest standards of academic honesty, ethical scholarship, and intellectual responsibility. Students, faculty, and staff are expected to demonstrate integrity in learning, teaching, research, assessment, and all academic activities.</p>
+                <!-- Academic Integrity -->
+                <div class="principle-card">
+                    <div class="principle-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Academic Integrity</h3>
+                    <p>We uphold the highest standards of academic honesty, ethical scholarship, and intellectual responsibility. Students, faculty, and staff demonstrate integrity in learning, teaching, research, assessment, and all academic activities.</p>
                 </div>
 
-                <!-- 3. Transparent Communication -->
-                <div class="logi-integrity-card">
-                    <div class="logi-split-header">
-                        <div class="logi-integrity-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            </svg>
-                        </div>
-                        <h4>Transparent Communication</h4>
-                    </div>
+                <!-- Transparent Communication -->
+                <div class="principle-card">
+                    <div class="principle-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Transparent Communication</h3>
                     <p>We are committed to honest, accurate, and timely communication with students, staff, partners, and the public. We provide clear information about our programmes, admissions, tuition, policies, accreditation status, and developments while addressing inquiries promptly.</p>
                 </div>
 
-                <!-- 4. Ethical Practices -->
-                <div class="logi-integrity-card">
-                    <div class="logi-split-header">
-                        <div class="logi-integrity-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="2" x2="12" y2="22"></line>
-                                <line x1="12" y1="12" x2="20" y2="12"></line>
-                            </svg>
-                        </div>
-                        <h4>Ethical Practices</h4>
-                    </div>
+                <!-- Ethical Practices -->
+                <div class="principle-card">
+                    <div class="principle-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h3>Ethical Practices</h3>
                     <p>We conduct all institutional activities with fairness, professionalism, and accountability. Our admissions, financial operations, governance, employment, and student services are guided by biblical ethics, legal compliance, and respect for every individual.</p>
                 </div>
 
-                <!-- 5. Accountability -->
-                <div class="logi-integrity-card">
-                    <div class="logi-split-header">
-                        <div class="logi-integrity-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 11 12 14 22 4"></polyline>
-                                <path d="M21-12v7a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74"></path>
-                            </svg>
-                        </div>
-                        <h4>Accountability</h4>
-                    </div>
+                <!-- Accountability -->
+                <div class="principle-card">
+                    <div class="principle-icon"><i class="fas fa-check-double"></i></div>
+                    <h3>Accountability</h3>
                     <p>We accept responsibility for our actions and decisions. When mistakes occur, we are committed to acknowledging them, making appropriate corrections, and continually improving our systems, policies, and services.</p>
                 </div>
-
             </div>
+        </div>
+    </section>
 
-            <!-- PART 2: OUR COMMITMENTS (50/50 SPLIT) -->
-            <div class="logi-commitments-row">
+    <!-- ========================================== -->
+    <!--   OUR COMMITMENTS – 2-COLUMN GRID         -->
+    <!-- ========================================== -->
+    <section class="catalog-section grey" id="commitments">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Our <span class="highlight">Commitments</span></h2>
+            </div>
+            <p class="section-intro">Two dimensions of our institutional pledge — to students and to the public.</p>
 
-                <!-- Left Column: Commitment to Students -->
-                <div class="logi-commitments-col">
-                    <div class="logi-commitments-header faculty-accent">
-                        <h3>Commitment to Students</h3>
-                    </div>
+            <div class="grid-2">
+                <!-- Commitment to Students -->
+                <div class="commitment-card gold">
+                    <div class="commitment-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>Commitment to Students</h3>
 
-                    <div class="logi-commitment-item">
-                        <div class="logi-split-header">
-                            <div class="logi-integrity-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
-                                </svg>
-                            </div>
-                            <h5>Educational Excellence</h5>
-                        </div>
-                        <p>We are dedicated to providing high-quality, Christ-centred education that equips students with biblical knowledge, professional skills, leadership capacity, and moral character for lifelong service and success.</p>
-                    </div>
+                    <h4>Educational Excellence</h4>
+                    <p>We are dedicated to providing high-quality, Christ-centred education that equips students with biblical knowledge, professional skills, leadership capacity, and moral character for lifelong service and success.</p>
 
-                    <div class="logi-commitment-item">
-                        <div class="logi-split-header">
-                            <div class="logi-integrity-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                            </div>
-                            <h5>Supportive Learning Environment</h5>
-                        </div>
-                        <p>We strive to create a welcoming, inclusive, and spiritually enriching environment where every student is encouraged to grow academically, personally, professionally, and spiritually.</p>
-                    </div>
+                    <h4>Supportive Learning Environment</h4>
+                    <p>We strive to create a welcoming, inclusive, and spiritually enriching environment where every student is encouraged to grow academically, personally, professionally, and spiritually.</p>
 
-                    <div class="logi-commitment-item">
-                        <div class="logi-split-header">
-                            <div class="logi-integrity-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </div>
-                            <h5>Honest Representation</h5>
-                        </div>
-                        <p>We are committed to accurately representing our academic programmes, faculty, partnerships, learning resources, and institutional achievements. Students can rely on truthful and transparent information throughout their educational journey.</p>
-                    </div>
+                    <h4>Honest Representation</h4>
+                    <p>We are committed to accurately representing our academic programmes, faculty, partnerships, learning resources, and institutional achievements. Students can rely on truthful and transparent information throughout their educational journey.</p>
                 </div>
 
-                <!-- Right Column: Commitment to the Public -->
-                <div class="logi-commitments-col">
-                    <div class="logi-commitments-header outcome-accent">
-                        <h3>Commitment to the Public</h3>
-                    </div>
+                <!-- Commitment to the Public -->
+                <div class="commitment-card gold">
+                    <div class="commitment-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Commitment to the Public</h3>
 
-                    <div class="logi-commitment-item">
-                        <div class="logi-split-header">
-                            <div class="logi-integrity-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                            </div>
-                            <h5>Community Engagement</h5>
-                        </div>
-                        <p>We actively engage with churches, ministries, organizations, and communities by promoting education, leadership development, discipleship, and social responsibility. We seek to be a positive influence through meaningful partnerships and faithful service.</p>
-                    </div>
+                    <h4>Community Engagement</h4>
+                    <p>We actively engage with churches, ministries, organizations, and communities by promoting education, leadership development, discipleship, and social responsibility. We seek to be a positive influence through meaningful partnerships and faithful service.</p>
 
-                    <div class="logi-commitment-item">
-                        <div class="logi-split-header">
-                            <div class="logi-integrity-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M12 6v6l4 2"></path>
-                                </svg>
-                            </div>
-                            <h5>Responsible Stewardship</h5>
-                        </div>
-                        <p>We recognize that all resources entrusted to us are gifts from God. Therefore, we are committed to managing our financial, physical, technological, and human resources responsibly, transparently, and in ways that advance our educational mission.</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- PART 3: OUR PLEDGE CALLOUT -->
-            <div class="logi-pledge-container">
-                <div class="logi-pledge-card">
-                    <div class="logi-split-header">
-                        <div class="logi-integrity-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                <polyline points="9 11 12 14 17 9"></polyline>
-                            </svg>
-                        </div>
-                        <h3>Our Pledge</h3>
-                    </div>
-                    <p>Living Oracles Global Institute remains steadfast in its commitment to integrity, accountability, biblical truth, and continuous improvement. We believe that faithful stewardship, ethical leadership, and unwavering honesty are essential to fulfilling our mission of equipping leaders, transforming lives, and advancing God's Kingdom through Christ-centred education.</p>
+                    <h4>Responsible Stewardship</h4>
+                    <p>We recognize that all resources entrusted to us are gifts from God. Therefore, we are committed to managing our financial, physical, technological, and human resources responsibly, transparently, and in ways that advance our educational mission.</p>
                 </div>
             </div>
-
-        </section>
-
-    </main>
+        </div>
+    </section>
 
     <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
+    <!--   OUR PLEDGE                              -->
     <!-- ========================================== -->
-    <div id="footer-placeholder"></div>
+    <section class="catalog-section tint" id="pledge">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Our <span class="highlight">Pledge</span></h2>
+            </div>
+            <p class="section-intro">The unwavering commitment that defines who we are and how we serve.</p>
+
+            <div class="pledge-card">
+                <div class="pledge-icon"><i class="fas fa-handshake"></i></div>
+                <h3>A Solemn Institutional Pledge</h3>
+                <p>Living Oracles Global Institute remains steadfast in its commitment to integrity, accountability, biblical truth, and continuous improvement. We believe that faithful stewardship, ethical leadership, and unwavering honesty are essential to fulfilling our mission of equipping leaders, transforming lives, and advancing God's Kingdom through Christ-centred education.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- ========================================== -->
-    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
+    <!--   FOOTER                                   -->
     <!-- ========================================== -->
-    <script src="load.js"></script>
+    <footer class="footer">
+        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+    </footer>
 
 </body>
 </html>
