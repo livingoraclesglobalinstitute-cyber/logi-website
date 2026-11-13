@@ -2,1470 +2,613 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" name="viewport" />
-    <title>LIVING ORACLES GLOBAL INSTITUTE: About Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>About Us — Living Oracles Global Institute</title>
 
     <!-- Meta Tags -->
-    <meta content="Learn about Living Oracles Global Institute, a faith-based online institution equipping Christ-centered leaders through affordable education in leader" name="description" />
-    <meta content="https://www.logi.education/p/about-us.html" property="og:url" />
-    <meta content="About Us" property="og:title" />
-    <meta content="Learn about Living Oracles Global Institute, a faith-based online institution equipping Christ-centered leaders through affordable education in leader" property="og:description" />
+    <meta name="description" content="Learn about Living Oracles Global Institute, a faith-based online institution offering continuing education and professional development." />
+    <meta property="og:title" content="About Us — Living Oracles Global Institute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/about" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Institutional Favicon -->
     <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
     <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
 
-    <!-- Open Graph Tags for Google Business Profile -->
-    <meta content="Living Oracles Global Institute" property="og:title" />
-    <meta content="website" property="og:type" />
-    <meta content="https://logi.education" property="og:url" />
-    <meta content="https://i.imgur.com/kkE49KM.png" property="og:image" />
-    <meta content="A faith-based global institute equipping leaders through practical education in theology, business, technology, and leadership." property="og:description" />
-    <meta content="summary_large_image" name="twitter:card" />
-
-    <!-- FontAwesome Core for UI Icons -->
+    <!-- FontAwesome Core -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
     <style>
         /* ========================================== */
-        /*   TOP BAR - FIXED - KENTE COLOR ACCENTS   */
+        /*   ROOT VARIABLES – MATCHING SHORT COURSES */
         /* ========================================== */
-        .top-bar {
-            background: #1a1a2e;
-            color: #ffffff;
-            padding: 6px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.7rem;
-            flex-wrap: wrap;
-            gap: 6px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .top-bar::before,
-        .top-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            background: linear-gradient(180deg, 
-                #c9a86c 0%, #c9a86c 20%,
-                #8B5353 20%, #8B5353 40%,
-                #1a7a3a 40%, #1a7a3a 60%,
-                #c9a86c 60%, #c9a86c 80%,
-                #8B5353 80%, #8B5353 100%
-            );
-            opacity: 0.5;
-        }
-
-        .top-bar::before {
-            left: 0;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .top-bar::after {
-            right: 0;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .top-bar .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .contact-info a,
-        .top-bar .contact-info span {
-            color: #d4d0c8;
-            text-decoration: none;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s;
-        }
-
-        .top-bar .contact-info a:hover {
-            color: #c9a86c;
-        }
-
-        .top-bar .contact-info i {
-            font-size: 0.65rem;
-            color: #c9a86c;
-        }
-
-        .top-bar .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .top-bar .social-icons a {
-            color: #8a8680;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: color 0.3s;
-        }
-
-        .top-bar .social-icons a:hover {
-            color: #c9a86c;
-        }
-
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 4px 0;
-            }
-            .top-bar::before,
-            .top-bar::after {
-                width: 25px;
-            }
-            .top-bar .contact-info {
-                padding: 0 35px;
-                gap: 8px;
-            }
-            .top-bar .social-icons {
-                padding: 0 35px;
-            }
-            .top-bar .contact-info a,
-            .top-bar .contact-info span {
-                font-size: 0.6rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-bar::before,
-            .top-bar::after {
-                width: 18px;
-            }
-            .top-bar .contact-info {
-                padding: 0 25px;
-                gap: 6px;
-                font-size: 0.55rem;
-            }
-            .top-bar .social-icons {
-                padding: 0 25px;
-                gap: 8px;
-            }
-            .top-bar .social-icons a {
-                font-size: 0.65rem;
-            }
+        :root {
+            --pink: #ff4b93;
+            --pink-dark: #e93680;
+            --lav: #f3f0fa;
+            --ink: #34343b;
+            --muted: #777780;
+            --line: #e9e8ef;
+            --white: #fff;
         }
 
         /* ========================================== */
-        /*   HEADER - FIXED FULL WIDTH WHITE         */
-        /* ========================================== */
-        .main-header {
-            background: #ffffff;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 38px;
-            left: 0;
-            width: 100%;
-            z-index: 9998;
-            border-bottom: 1px solid #e8e3dc;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            width: 40px;
-            height: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .logo .logo-text {
-            color: #1a1a2e;
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .logo .logo-text span {
-            display: block;
-            font-weight: 300;
-            font-size: 0.45rem;
-            opacity: 0.6;
-            letter-spacing: 1.5px;
-        }
-
-        @media (max-width: 768px) {
-            .main-header {
-                top: 34px;
-                padding: 6px 4%;
-            }
-            .logo img {
-                width: 32px;
-            }
-            .logo .logo-text {
-                font-size: 0.65rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.4rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-header {
-                top: 30px;
-                padding: 4px 3%;
-            }
-            .logo img {
-                width: 28px;
-            }
-            .logo .logo-text {
-                font-size: 0.55rem;
-            }
-            .logo .logo-text span {
-                font-size: 0.35rem;
-            }
-        }
-
-        /* ========================================== */
-        /*   MOBILE HAMBURGER MENU BUTTON             */
-        /* ========================================== */
-        .menu-btn {
-            display: none;
-            align-items: center;
-            gap: 6px;
-            color: #1a1a2e;
-            font-size: 13px;
-            padding: 5px 10px;
-            border-radius: 30px;
-            background: rgba(26, 26, 46, 0.06);
-            border: 1px solid rgba(26, 26, 46, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .menu-btn:hover {
-            background: rgba(26, 26, 46, 0.12);
-        }
-
-        .menu-btn i {
-            font-size: 16px;
-        }
-
-        /* ========================================== */
-        /*   DESKTOP NAVIGATION - DARK TEXT          */
-        /* ========================================== */
-        .navigation-menu-bar {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            position: static !important;
-            width: auto !important;
-            height: auto !important;
-            display: block !important;
-            overflow: visible !important;
-        }
-
-        .navigation-menu-bar ul {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            list-style: none !important;
-            gap: 0.2rem !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-end !important;
-        }
-
-        .navigation-menu-bar ul li {
-            position: relative;
-        }
-
-        .navigation-menu-bar ul li a {
-            color: #1a1a2e !important;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.75rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            white-space: nowrap;
-        }
-
-        .navigation-menu-bar ul li a:hover {
-            color: #8B5353 !important;
-            background: rgba(139, 83, 83, 0.06);
-        }
-
-        .navigation-menu-bar ul li .submenu {
-            display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            padding: 0.4rem 0;
-            margin-top: 6px;
-            z-index: 1100;
-            animation: fadeInDropdown 0.25s ease;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 0px !important;
-            min-width: 200px;
-            width: max-content !important;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open .submenu {
-            display: flex !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li {
-            width: 100%;
-        }
-
-        .navigation-menu-bar ul li .submenu li a {
-            color: #1e3c4f !important;
-            font-size: 0.78rem;
-            padding: 8px 16px;
-            width: 100%;
-            border-radius: 0;
-            font-weight: 500;
-            display: block !important;
-            white-space: nowrap !important;
-            text-shadow: none !important;
-        }
-
-        .navigation-menu-bar ul li .submenu li a:hover {
-            background: rgba(139, 83, 83, 0.08) !important;
-            color: #8B5353 !important;
-        }
-
-        .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-            font-size: 0.5rem;
-            transition: transform 0.25s ease;
-        }
-
-        .navigation-menu-bar ul li.desktop-dropdown-open>a .menu-chevron-icon {
-            transform: rotate(180deg);
-        }
-
-        @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ========================================== */
-        /*   MOBILE MENU - FULL SCREEN SLIDE IN      */
-        /* ========================================== */
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                min-height: 100vh !important;
-                overflow-y: auto !important;
-                background: #ffffff !important;
-                display: block !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                align-items: stretch !important;
-                transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
-                z-index: 10000 !important;
-                padding: 70px 1.2rem 1.5rem 1.2rem !important;
-                box-shadow: none !important;
-                transform: translateX(100%) !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-            }
-
-            .navigation-menu-bar.mobile-open {
-                transform: translateX(0) !important;
-                opacity: 1 !important;
-                pointer-events: auto !important;
-            }
-
-            .navigation-menu-bar ul {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0 !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                flex: 1 !important;
-            }
-
-            .navigation-menu-bar ul li {
-                border-bottom: 1px solid #f0ede6 !important;
-                list-style: none !important;
-            }
-
-            .navigation-menu-bar ul li a {
-                color: #1a1a2e !important;
-                font-weight: 500 !important;
-                padding: 0.7rem 0.5rem !important;
-                justify-content: flex-start !important;
-                border-radius: 0 !important;
-                white-space: normal !important;
-                text-shadow: none !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                display: flex !important;
-                align-items: center !important;
-                gap: 10px !important;
-                font-size: 0.95rem !important;
-            }
-
-            .navigation-menu-bar ul li a i {
-                font-size: 1.1rem !important;
-                color: #c9a86c !important;
-                width: 24px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li a:hover {
-                background: rgba(139, 83, 83, 0.06) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a {
-                justify-content: space-between !important;
-            }
-
-            .navigation-menu-bar ul li.has-submenu>a .menu-chevron-icon {
-                color: #8B5353 !important;
-                font-size: 0.65rem !important;
-                margin-left: auto !important;
-            }
-
-            .navigation-menu-bar ul li .submenu {
-                position: static !important;
-                transform: none !important;
-                background: #f8f6f2 !important;
-                border-radius: 0 !important;
-                display: none !important;
-                flex-direction: column !important;
-                gap: 0 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border-left: 3px solid #c9a86c !important;
-                width: 100% !important;
-                box-shadow: none !important;
-                min-width: auto !important;
-                animation: none !important;
-            }
-
-            .navigation-menu-bar ul li.mobile-dropdown-open .submenu {
-                display: flex !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li {
-                border-bottom: none !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a {
-                color: #1a1a2e !important;
-                font-weight: 400 !important;
-                padding: 0.5rem 0.8rem 0.5rem 2.2rem !important;
-                border-bottom: none !important;
-                background: transparent !important;
-                justify-content: flex-start !important;
-                gap: 10px !important;
-                font-size: 0.85rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a i {
-                font-size: 0.85rem !important;
-                color: #c9a86c !important;
-                width: 20px !important;
-                text-align: center !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li a:hover {
-                background: rgba(139, 83, 83, 0.08) !important;
-                color: #8B5353 !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu {
-                border-left: 3px solid #8B5353 !important;
-                margin-left: 1rem !important;
-            }
-
-            .navigation-menu-bar ul li .submenu li.has-submenu .submenu li a {
-                padding-left: 3rem !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer {
-                margin-top: auto !important;
-                padding-top: 1rem !important;
-                padding-bottom: 0.5rem !important;
-                border-top: 1px solid #f0ede6 !important;
-                display: flex !important;
-                justify-content: center !important;
-                gap: 1.2rem !important;
-                flex-shrink: 0 !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a {
-                color: #8a8680 !important;
-                font-size: 1.1rem !important;
-                transition: color 0.25s ease !important;
-                text-decoration: none !important;
-            }
-
-            .navigation-menu-bar .mobile-menu-footer a:hover {
-                color: #c9a86c !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .navigation-menu-bar {
-                padding: 60px 1rem 1.5rem 1rem !important;
-            }
-            .navigation-menu-bar ul li a {
-                font-size: 0.85rem !important;
-                padding: 0.6rem 0.4rem !important;
-            }
-            .navigation-menu-bar ul li .submenu li a {
-                font-size: 0.78rem !important;
-                padding: 0.4rem 0.6rem 0.4rem 1.8rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FOOTER - MATCHING FOUNDER'S MESSAGE     */
-        /* ========================================== */
-        .institutional-footer {
-            background: #1a1a2e;
-            color: #d4d0c8;
-            padding: 2.5rem 5% 1.2rem;
-            margin-top: 0;
-            border-top: none;
-            font-size: 0.85rem;
-            width: 100%;
-        }
-
-        .footer-grid-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .footer-column h2 {
-            color: #ffffff !important;
-            font-size: 0.8rem !important;
-            margin-bottom: 0.6rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-        }
-
-        .footer-column p,
-        .footer-column address {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.7;
-            font-style: normal;
-            margin-bottom: 4px;
-        }
-
-        .footer-column a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-            display: inline-block;
-        }
-
-        .footer-column a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 0.2rem !important;
-            list-style: none !important;
-        }
-
-        .footer-column ul li a {
-            color: #b0aca4 !important;
-            text-decoration: none !important;
-            font-size: 0.82rem !important;
-            transition: color 0.25s ease !important;
-        }
-
-        .footer-column ul li a:hover {
-            color: #ffffff !important;
-        }
-
-        .footer-column .footer-address-line {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .footer-column .footer-address-line i {
-            color: #c9a86c;
-            font-size: 0.75rem;
-            margin-top: 4px;
-            width: 16px;
-        }
-
-        .footer-column .footer-address-line span {
-            color: #b0aca4;
-            font-size: 0.82rem;
-            line-height: 1.6;
-        }
-
-        .footer-bottom-bar {
-            max-width: 1200px;
-            margin: 1.2rem auto 0;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-        }
-
-        .footer-copyright {
-            font-size: 0.7rem;
-            font-weight: 400;
-            color: #8a8680;
-        }
-
-        .footer-bottom-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-bottom-links a {
-            color: #8a8680;
-            font-size: 0.7rem;
-            text-decoration: none;
-            transition: color 0.25s ease;
-        }
-
-        .footer-bottom-links a:hover {
-            color: #ffffff;
-        }
-
-        .footer-subscription-container h3 {
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.2rem;
-        }
-
-        .footer-subscription-container p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .subscription-form {
-            display: flex;
-            gap: 4px;
-            width: 100%;
-            flex-wrap: wrap;
-        }
-
-        .subscription-form input[type="email"] {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            padding: 5px 8px;
-            color: #ffffff;
-            font-size: 0.75rem;
-            flex-grow: 1;
-            outline: none;
-            transition: border-color 0.3s;
-            min-width: 100px;
-        }
-
-        .subscription-form input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .subscription-form input[type="email"]:focus {
-            border-color: #ffffff;
-        }
-
-        .subscription-form button {
-            background: #ffffff;
-            color: #8B5353;
-            border: none;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.05em;
-        }
-
-        .subscription-form button:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-1px);
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1.2rem;
-            }
-            .institutional-footer { font-size: 0.75rem; }
-            .footer-column h2 { font-size: 0.7rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.72rem !important;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .footer-grid-container {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .footer-bottom-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .footer-bottom-links {
-                flex-wrap: wrap;
-                gap: 0.6rem;
-            }
-            .institutional-footer { 
-                font-size: 0.7rem;
-                padding: 1.5rem 4% 1rem;
-            }
-            .footer-column h2 { font-size: 0.6rem !important; }
-            .footer-column p, .footer-column address, .footer-column a,
-            .footer-column ul li a, .footer-column .footer-address-line span {
-                font-size: 0.65rem !important;
-            }
-        }
-
-        /* ========================================== */
-        /*   FLOATING CHAT                            */
-        /* ========================================== */
-        .floating-chat-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .floating-chat-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #25d366;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .floating-chat-link:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            background: #20ba5a;
-        }
-
-        .floating-chat-link i {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 480px) {
-            .floating-chat-link {
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-            .floating-chat-link span {
-                display: none;
-            }
-            .floating-chat-link i {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* ========================================== */
-        /*          GLOBAL THEME ROOT RESETS          */
+        /*   GLOBAL RESETS                            */
         /* ========================================== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html,
-        body {
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
             overflow-x: hidden !important;
             width: 100% !important;
         }
 
         body {
-            background-color: #fcfdfe;
-            color: #334155;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--ink);
+            background: #fff;
             line-height: 1.5;
-            padding-top: 80px;
-            -webkit-font-smoothing: antialiased;
         }
 
-        @media (max-width: 768px) {
-            body { padding-top: 70px; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding-top: 60px; }
-        }
-
-        .container-wrapper {
-            max-width: 100% !important;
-            margin: 0 auto;
-            padding: 0 !important;
-            width: 100% !important;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
         /* ========================================== */
-        /*   HERO SECTION — ABOUT US                 */
+        /*   TOPBAR – MATCHING SHORT COURSES         */
         /* ========================================== */
-        .about-hero-section {
-            position: relative;
-            width: 100%;
-            height: 340px;
-            background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
+        .topbar {
+            height: 64px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
+            justify-content: space-between;
+            padding: 0 max(5%, calc((100% - 1180px)/2));
+            box-shadow: 0 2px 9px #00000012;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
         }
 
-        .about-hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #ffffff;
-            padding: 0 20px;
-        }
-
-        .about-hero-content h1 {
-            font-size: 46px;
+        .logo {
+            font-size: 28px;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: -1.5px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--pink);
+        }
+
+        .nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+
+        .nav a:hover:not(.button) {
+            color: var(--pink);
+        }
+
+        .nav .button {
+            background: var(--pink);
+            color: #fff;
+            padding: 9px 24px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav .button:hover {
+            background: var(--pink-dark);
+        }
+
+        @media (max-width: 650px) {
+            .topbar { height: 54px; padding: 0 5%; }
+            .logo { font-size: 24px; }
+            .nav { gap: 10px; }
+            .nav a:first-child { display: none; }
+            .nav .button { font-size: 11px; padding: 8px 14px; }
+        }
+
+        /* ========================================== */
+        /*   HERO – LIGHT GRADIENT, MATCHING SHORT   */
+        /* ========================================== */
+        .hero {
+            background: linear-gradient(110deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%);
+            padding: 28px 5% 34px;
+        }
+
+        .hero-inner {
+            max-width: 1180px;
+            margin: auto;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--pink);
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb span { color: #777; }
+
+        .hero h1 {
+            font-size: clamp(30px, 4vw, 43px);
+            line-height: 1.1;
+            margin: 0 0 12px;
+        }
+
+        .hero h1 span { color: var(--pink); }
+
+        .hero p {
+            max-width: 610px;
+            font-size: 14px;
+            color: #65656d;
+            margin: 0 0 18px;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--pink);
+            color: white;
+            padding: 9px 19px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .hero-mark {
+            font-size: clamp(55px, 9vw, 100px);
+            font-weight: 900;
+            letter-spacing: -7px;
+            color: #f7d9e7;
+            text-shadow: 3px 3px 0 #fff;
+        }
+
+        @media (max-width: 650px) {
+            .hero { padding: 22px 5%; }
+            .hero-inner { min-height: 165px; }
+            .hero-mark { font-size: 48px; letter-spacing: -4px; }
+            .hero p { font-size: 12px; max-width: 440px; }
+        }
+
+        /* ========================================== */
+        /*   INNER CONTAINER                         */
+        /* ========================================== */
+        .inner {
+            width: min(1180px, 90%);
+            margin: auto;
+        }
+
+        /* ========================================== */
+        /*   CATALOG SECTIONS                        */
+        /* ========================================== */
+        .catalog-section {
+            padding: 32px 0 38px;
+        }
+
+        .catalog-section.grey { background: #f5f5f8; }
+        .catalog-section.tint { background: #fff6fa; }
+
+        /* Section Head with underline accent */
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            border-bottom: 1px solid #dedee5;
+            padding-bottom: 11px;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .section-head:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 190px;
+            height: 2px;
+            background: linear-gradient(90deg, #f4c52d, var(--pink));
+        }
+
+        .section-head h2 {
+            font-size: 22px;
+            font-weight: 600;
             margin: 0;
-            text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.7);
-            line-height: 1.2;
         }
 
-        .about-hero-content .about-hero-subtitle {
-            font-size: 15px;
-            font-weight: 400;
-            color: #ffffff;
-            margin-top: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+        .highlight {
+            background: var(--pink);
+            color: #fff;
+            padding: 1px 5px;
         }
 
-        .about-hero-content .about-hero-line {
-            width: 100px;
-            height: 3px;
-            background: #ffffff;
-            margin: 20px auto 0;
-            border-radius: 3px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        .section-intro {
+            font-size: 12px;
+            color: #777;
+            margin: -8px 0 17px;
         }
 
-        @media (max-width: 768px) {
-            .about-hero-section { height: 260px; }
-            .about-hero-content h1 { font-size: 30px; }
-            .about-hero-content .about-hero-subtitle { font-size: 11px; letter-spacing: 2px; }
-        }
-
-        @media (max-width: 480px) {
-            .about-hero-section { height: 220px; }
-            .about-hero-content h1 { font-size: 24px; }
-            .about-hero-content .about-hero-subtitle { font-size: 10px; }
+        @media (max-width: 650px) {
+            .section-head h2 { font-size: 17px; }
+            .catalog-section { padding: 25px 0; }
         }
 
         /* ========================================== */
-        /*   ABOUT US PAGE CUSTOM STYLES              */
+        /*   ABOUT GRID (TWO COLUMNS)                */
         /* ========================================== */
-        .logi-about-section,
-        .logi-foundations-section {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 60px 4% !important;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-            color: #444 !important;
-            background: transparent !important;
-            background-color: transparent !important;
-            overflow: hidden !important;
-            box-sizing: border-box !important;
-            box-shadow: none !important;
-            border: none !important;
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        .logi-foundations-section {
-            padding-top: 0px !important;
+        .about-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 24px 22px;
+            box-shadow: 0 2px 6px #00000008;
+            display: flex;
+            flex-direction: column;
         }
 
-        .logi-about-header,
-        .logi-main-header {
-            text-align: left !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 45px 0 !important;
-            background: transparent !important;
-            border: none !important;
+        .about-card .card-icon {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            background: var(--pink-tint, #fff6fa);
+            color: var(--pink);
+            font-size: 1rem;
+            margin-bottom: 12px;
         }
 
-        .logi-about-header h2,
-        .logi-main-header h2 {
-            color: #8B5353 !important;
-            font-size: 32px !important;
-            font-weight: 700 !important;
-            margin: 0 0 12px 0 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 2px !important;
-            text-align: left !important;
-            border: none !important;
+        .about-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
         }
 
-        .logi-about-intro {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 45px 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
+        .about-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 10px;
         }
 
-        .logi-about-intro p {
-            font-size: 14px !important;
-            line-height: 1.7 !important;
-            color: #555 !important;
-            margin: 0 0 20px 0 !important;
-            text-align: left !important;
-            background: transparent !important;
-            border: none !important;
+        .about-card p:last-child {
+            margin-bottom: 0;
         }
 
-        .logi-about-intro p:last-child {
-            margin-bottom: 0 !important;
+        .about-list {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0;
         }
 
-        .logi-about-pillars-row,
-        .logi-about-bottom-row,
-        .logi-pillars-row {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            justify-content: space-between !important;
-            gap: 30px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 40px 0 !important;
-            background: transparent !important;
-            border: none !important;
+        .about-list li {
+            font-size: 13px;
+            color: var(--muted);
+            padding: 4px 0 4px 20px;
+            position: relative;
         }
 
-        .logi-about-bottom-row {
-            padding-top: 0px !important;
-            margin-bottom: 0 !important;
-        }
-
-        .logi-diff-card,
-        .logi-value-node {
-            flex: 1 1 50% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            background: transparent !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-
-        .logi-split-header {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 15px !important;
-            margin: 0 0 12px 0 !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-diff-card h3,
-        .logi-value-node h4 {
-            color: #8B5353 !important;
-            font-size: 20px !important;
-            margin: 0 !important;
-            font-weight: bold !important;
-            text-align: left !important;
-            text-transform: none !important;
-        }
-
-        .logi-value-node h4 {
-            font-size: 18px !important;
-        }
-
-        .logi-diff-card p,
-        .logi-value-node p {
-            font-size: 14px !important;
-            line-height: 1.7 !important;
-            color: #555 !important;
-            margin: 0 !important;
-            text-align: left !important;
-        }
-
-        .logi-programmes-list {
-            list-style-type: disc !important;
-            padding-left: 20px !important;
-            margin: 15px 0 0 0 !important;
-            width: 100% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            background: transparent !important;
-        }
-
-        .logi-programmes-list li {
-            font-size: 14px !important;
-            font-weight: normal !important;
-            color: #555 !important;
-            margin: 4px 0 !important;
-            text-align: left !important;
-        }
-
-        .logi-values-intro-row {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 0 35px 0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            text-align: left !important;
-            padding-top: 20px !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-values-subgrid {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: wrap !important;
-            justify-content: flex-start !important;
-            gap: 30px !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .logi-values-subgrid .logi-value-node {
-            flex: 1 1 calc(33.333% - 20px) !important;
-            min-width: 220px !important;
-        }
-
-        .logi-diff-icon {
-            width: 38px !important;
-            height: 38px !important;
-            flex-shrink: 0 !important;
-            background: transparent !important;
-            color: #8B5353 !important;
-        }
-
-        .logi-diff-icon svg {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        @media (max-width: 991px) {
-            .logi-about-header h2,
-            .logi-main-header h2 {
-                font-size: 28px !important;
-            }
-            .logi-diff-card h3 {
-                font-size: 19px !important;
-            }
-            .logi-value-node h4 {
-                font-size: 17px !important;
-            }
+        .about-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--pink);
+            position: absolute;
+            left: 0;
+            top: 5px;
+            font-size: 10px;
         }
 
         @media (max-width: 768px) {
-            .logi-about-section,
-            .logi-foundations-section {
-                padding: 40px 16px !important;
-            }
-
-            .logi-about-header h2,
-            .logi-main-header h2 {
-                font-size: 26px !important;
-            }
-
-            .logi-about-pillars-row,
-            .logi-about-bottom-row,
-            .logi-pillars-row {
-                flex-direction: column !important;
-                gap: 30px !important;
-            }
-
-            .logi-diff-card,
-            .logi-value-node {
-                flex: 1 1 100% !important;
-                max-width: 100% !important;
-                min-width: 100% !important;
-            }
-
-            .logi-values-subgrid {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 30px !important;
-            }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-card { padding: 20px 18px; }
         }
+
+        /* ========================================== */
+        /*   CORE VALUES GRID (3 COLUMNS)            */
+        /* ========================================== */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+        }
+
+        .value-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 22px 18px;
+            text-align: center;
+            box-shadow: 0 2px 6px #00000008;
+            transition: .2s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 18px #00000012;
+        }
+
+        .value-icon {
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--pink-tint, #fff6fa);
+            color: var(--pink);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .value-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--ink);
+        }
+
+        .value-card p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 650px) {
+            .values-grid { grid-template-columns: 1fr; gap: 10px; }
+            .value-card { padding: 18px 14px; }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .footer {
+            background: #292832;
+            color: #eee;
+            text-align: center;
+            padding: 24px 5%;
+            font-size: 12px;
+        }
+
+        .footer strong { color: var(--pink); }
     </style>
 </head>
 <body>
 
     <!-- ========================================== -->
-    <!--   HEADER PLACEHOLDER                       -->
+    <!--   TOPBAR – MATCHING SHORT COURSES         -->
     <!-- ========================================== -->
-    <div id="header-placeholder"></div>
+    <header class="topbar">
+        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+        <nav class="nav">
+            <a href="https://www.logi.education">Home</a>
+            <a href="https://www.logi.education/our-program">Programmes</a>
+            <a class="button" href="index.html">Explore Courses</a>
+        </nav>
+    </header>
 
     <!-- ========================================== -->
-    <!--   HERO SECTION — ABOUT US                 -->
+    <!--   HERO                                     -->
     <!-- ========================================== -->
-    <section class="about-hero-section">
-        <div class="about-hero-content">
-            <h1>About Us</h1>
-            <div class="about-hero-line"></div>
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="breadcrumb">
+                    <a href="https://www.logi.education">Home</a> / <span>About Us</span>
+                </div>
+                <h1>Who We <span>Are</span></h1>
+                <p>Living Oracles Global Institute is a Christ-centered online institution committed to equipping individuals for transformational leadership through high-quality biblical and professional education.</p>
+                <a class="pill" href="#foundation">Our Foundation</a>
+            </div>
+            <div aria-label="LOGI" class="hero-mark">LOGI</div>
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!--          PAGE CONTENT - ABOUT US           -->
+    <!--   WHO WE ARE / OUR IDENTITY               -->
     <!-- ========================================== -->
-    <main class="container-wrapper">
-
-        <!-- === PART 1: WHO WE ARE & CORE FRAMEWORK === -->
-        <section class="logi-about-section">
-
-            <!-- Main Header -->
-            <div class="logi-about-header">
-                <h2>Who We Are</h2>
+    <section class="catalog-section grey" id="identity">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Our <span class="highlight">Identity</span></h2>
             </div>
+            <p class="section-intro">A faith-based institution bridging Christian conviction with practical professional excellence.</p>
 
-            <!-- Intro Text -->
-            <div class="logi-about-intro">
-                <p>Living Oracles Global Institute is a Christ-centered online institution committed to equipping individuals for transformational leadership through high-quality biblical and professional education. We combine academic excellence with practical learning to prepare students for effective service in ministry, business, education, leadership, technology, and other professional fields.</p>
-                <p>Our learning environment is designed to cultivate spiritual maturity, ethical leadership, and practical competence. Every aspect of the student experience reflects our commitment to developing graduates who are grounded in biblical values while excelling in today's rapidly changing world.</p>
-            </div>
-
-            <!-- Row: Faith & Excellence and Our Graduates (Side-by-Side) -->
-            <div class="logi-about-pillars-row">
-
-                <!-- Bridging Faith and Professional Excellence -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3z"></path>
-                                <path d="M6 21a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3v12a3 3 0 0 0 3 3z"></path>
-                                <line x1="6" y1="12" x2="18" y2="12"></line>
-                            </svg>
-                        </div>
-                        <h3>Bridging Faith and Excellence</h3>
-                    </div>
-                    <p>We believe Christian faith and professional success should complement one another. Our programmes prepare students to lead confidently in government, business, education, healthcare, technology, ministry, and other sectors without compromising biblical convictions. We equip leaders who influence society with wisdom, integrity, compassion, and excellence.</p>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>Our Learning Environment</h3>
+                    <p>Our learning environment is designed to cultivate spiritual maturity, ethical leadership, and practical competence. Every aspect of the student experience reflects our commitment to developing graduates who are grounded in biblical values while excelling in today's rapidly changing world.</p>
                 </div>
 
-                <!-- Our Graduates -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
-                            </svg>
-                        </div>
-                        <h3>Our Graduates</h3>
-                    </div>
-                    <p>Graduates of Living Oracles Global Institute are equipped to become transformational leaders who create lasting impact in churches, communities, businesses, educational institutions, nonprofit organizations, and public service. They lead with integrity, demonstrate Christ-like character, and contribute meaningfully to the advancement of God's Kingdom and the development of society.</p>
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>Bridging Faith and Excellence</h3>
+                    <p>We believe Christian faith and professional success should complement one another. Our programmes prepare students to lead confidently in government, business, education, healthcare, technology, ministry, and other sectors without compromising biblical convictions.</p>
                 </div>
-
             </div>
+        </div>
+    </section>
 
-            <!-- Row: Our Programmes & Global Reach (Side-by-Side) -->
-            <div class="logi-about-bottom-row">
+    <!-- ========================================== -->
+    <!--   OUR PROGRAMMES & GRADUATES              -->
+    <!-- ========================================== -->
+    <section class="catalog-section" id="programmes">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Programmes &amp; <span class="highlight">Graduates</span></h2>
+            </div>
+            <p class="section-intro">Flexible, online programmes that integrate faith and professional disciplines.</p>
 
-                <!-- Our Programmes -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                            </svg>
-                        </div>
-                        <h3>Our Programmes</h3>
-                    </div>
-                    <p>We offer flexible, online programmes designed to meet the needs of today's learners. These programmes integrate Theology, Ministry, Leadership, Business, Technology, and other professional disciplines to provide a well-rounded, Christ-centered education:</p>
-
-                    <ul class="logi-programmes-list">
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Our Programmes</h3>
+                    <p>Our programmes integrate Theology, Ministry, Leadership, Business, Technology, and other professional disciplines to provide a well-rounded, Christ-centered education:</p>
+                    <ul class="about-list">
                         <li>Certificate Programmes</li>
-                        <li>Diploma Programmes</li>
-                    
+                        <li>Advanced Professional Diplomas</li>
+                        <li>Professional Development Courses</li>
+                        <li>Free Short Courses</li>
                     </ul>
                 </div>
 
-                <!-- Global Reach -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="2" y1="12" x2="22" y2="12"></line>
-                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                            </svg>
-                        </div>
-                        <h3>Global Reach</h3>
-                    </div>
-                    <p>Living Oracles Global Institute serves students from around the world through a flexible online learning environment, making quality Christian higher education accessible regardless of geographical location. Our commitment is to equip leaders who will faithfully serve God and positively influence the world for generations to come.</p>
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Our Graduates</h3>
+                    <p>Graduates of Living Oracles Global Institute are equipped to become transformational leaders who create lasting impact in churches, communities, businesses, educational institutions, nonprofit organizations, and public service.</p>
+                    <p>They lead with integrity, demonstrate Christ-like character, and contribute meaningfully to the advancement of God's Kingdom and the development of society.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   GLOBAL REACH                            -->
+    <!-- ========================================== -->
+    <section class="catalog-section grey" id="global">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Global <span class="highlight">Reach</span></h2>
+            </div>
+            <p class="section-intro">Serving students worldwide through flexible, accessible online education.</p>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Accessible Anywhere</h3>
+                    <p>Living Oracles Global Institute serves students from around the world through a flexible online learning environment, making quality Christian higher education accessible regardless of geographical location.</p>
                 </div>
 
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-people-group"></i></div>
+                    <h3>Lasting Impact</h3>
+                    <p>Our commitment is to equip leaders who will faithfully serve God and positively influence the world for generations to come — in their families, churches, workplaces, and communities.</p>
+                </div>
             </div>
+        </div>
+    </section>
 
-        </section>
-
-
-        <!-- === PART 2: OUR FOUNDATION (VISION, MISSION, VALUES) === -->
-        <section class="logi-foundations-section">
-
-            <div class="logi-main-header">
-                <h2>Our Foundation</h2>
+    <!-- ========================================== -->
+    <!--   OUR FOUNDATION (VISION & MISSION)       -->
+    <!-- ========================================== -->
+    <section class="catalog-section" id="foundation">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Our <span class="highlight">Foundation</span></h2>
             </div>
+            <p class="section-intro">The vision and mission that shape our institutional purpose.</p>
 
-            <!-- Row: Vision & Mission (2-Column side-by-side) -->
-            <div class="logi-pillars-row">
-
-                <!-- Our Vision -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <circle cx="12" cy="12" r="6"></circle>
-                                <circle cx="12" cy="12" r="2"></circle>
-                            </svg>
-                        </div>
-                        <h3>Our Vision</h3>
-                    </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Our Vision</h3>
                     <p>To raise Christ-centered leaders who influence the world through biblical truth, godly character, and excellence in leadership, ministry, business, and professional service.</p>
                 </div>
 
-                <!-- Our Mission -->
-                <div class="logi-diff-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                        </div>
-                        <h3>Our Mission</h3>
-                    </div>
+                <div class="about-card">
+                    <div class="card-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Our Mission</h3>
                     <p>To develop Christ-like leaders worldwide through affordable, accessible, and outcomes-based education that transforms individuals, churches, communities, and nations.</p>
                 </div>
-
             </div>
+        </div>
+    </section>
 
-            <!-- Row: Core Values Introduction (Spanning across) -->
-            <div class="logi-values-intro-row">
-                <div class="logi-diff-card logi-intro-card">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                        </div>
-                        <h3>Our Core Values</h3>
-                    </div>
-                    <p>Our commitment to excellence is guided by the core values that shape our character, learning environment, and leadership training program. These values define who we are and how we prepare students for meaningful impact:</p>
-                </div>
+    <!-- ========================================== -->
+    <!--   CORE VALUES – 3-COLUMN GRID             -->
+    <!-- ========================================== -->
+    <section class="catalog-section tint" id="values">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Our Core <span class="highlight">Values</span></h2>
             </div>
+            <p class="section-intro">Six pillars that define our character, learning environment, and leadership training.</p>
 
-            <!-- Row: The Six Core Values (3-in-a-row on Desktop & Tablet) -->
-            <div class="logi-values-subgrid">
-
-                <!-- Value 1: Faith -->
-                <div class="logi-value-node">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                                <line x1="12" y1="6" x2="12" y2="12"></line>
-                                <line x1="10" y1="8" x2="14" y2="8"></line>
-                            </svg>
-                        </div>
-                        <h4>Faith</h4>
-                    </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-cross"></i></div>
+                    <h3>Faith</h3>
                     <p>Living and leading according to God's Word.</p>
                 </div>
 
-                <!-- Value 2: Leadership -->
-                <div class="logi-value-node">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                            </svg>
-                        </div>
-                        <h4>Leadership</h4>
-                    </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-star"></i></div>
+                    <h3>Leadership</h3>
                     <p>Inspiring positive change through servant leadership.</p>
                 </div>
 
-                <!-- Value 3: Competence -->
-                <div class="logi-value-node">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <circle cx="12" cy="12" r="4"></circle>
-                                <line x1="12" y1="1" x2="12" y2="3"></line>
-                                <line x1="12" y1="21" x2="12" y2="23"></line>
-                                <line x1="1" y1="12" x2="3" y2="12"></line>
-                                <line x1="21" y1="12" x2="23" y2="12"></line>
-                            </svg>
-                        </div>
-                        <h4>Competence</h4>
-                    </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-award"></i></div>
+                    <h3>Competence</h3>
                     <p>Pursuing excellence in knowledge, skills, and professional practice.</p>
                 </div>
 
-                <!-- Value 4: Perseverance -->
-                <div class="logi-value-node">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                                <polyline points="17 6 23 6 23 12"></polyline>
-                            </svg>
-                        </div>
-                        <h4>Perseverance</h4>
-                    </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Perseverance</h3>
                     <p>Remaining steadfast in purpose despite challenges.</p>
                 </div>
 
-                <!-- Value 5: Integrity -->
-                <div class="logi-value-node">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                <polyline points="2 17 12 22 22 17"></polyline>
-                                <polyline points="2 12 12 17 22 12"></polyline>
-                            </svg>
-                        </div>
-                        <h4>Integrity</h4>
-                    </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Integrity</h3>
                     <p>Demonstrating honesty, accountability, and biblical character.</p>
                 </div>
 
-                <!-- Value 6: Service -->
-                <div class="logi-value-node">
-                    <div class="logi-split-header">
-                        <div class="logi-diff-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                            </svg>
-                        </div>
-                        <h4>Service</h4>
-                    </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Service</h3>
                     <p>Serving God, humanity, and our communities with humility and compassion.</p>
                 </div>
-
             </div>
-
-        </section>
-
-    </main>
+        </div>
+    </section>
 
     <!-- ========================================== -->
-    <!--   FOOTER PLACEHOLDER                       -->
+    <!--   FOOTER                                   -->
     <!-- ========================================== -->
-    <div id="footer-placeholder"></div>
-
-    <!-- ========================================== -->
-    <!--   JAVASCRIPT - LOAD HEADER & FOOTER       -->
-    <!-- ========================================== -->
-    <script src="load.js"></script>
+    <footer class="footer">
+        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+    </footer>
 
 </body>
 </html>
