@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>School of Engineering &amp; Technology — Living Oracles Global Institute</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Develop technical, analytical, and process-management skills for modern industry through practical engineering programmes at Living Oracles Global Institute." />
+    <meta property="og:title" content="School of Engineering &amp; Technology — Living Oracles Global Institute" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://logi.education/schools/engineering-technology" />
+    <meta property="og:image" content="https://i.imgur.com/kkE49KM.png" />
+    <meta property="og:description" content="Technical, analytical, and process-management skills for modern industry." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Institutional Favicon -->
+    <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
+    <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
+
+    <!-- FontAwesome Core -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ========================================== */
+        /*   ROOT VARIABLES                          */
+        /* ========================================== */
+        :root {
+            --pink: #ff4b93;
+            --pink-dark: #e93680;
+            --lav: #f3f0fa;
+            --ink: #34343b;
+            --muted: #777780;
+            --line: #e9e8ef;
+            --white: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--ink);
+            background: #fff;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ========================================== */
+        /*   TOPBAR                                  */
+        /* ========================================== */
+        .topbar {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 max(5%, calc((100% - 1180px)/2));
+            box-shadow: 0 2px 9px #00000012;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--pink); }
+
+        .nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+
+        .nav a:hover:not(.button) { color: var(--pink); }
+
+        .nav .button {
+            background: var(--pink);
+            color: #fff;
+            padding: 9px 24px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav .button:hover { background: var(--pink-dark); }
+
+        @media (max-width: 650px) {
+            .topbar { height: 54px; padding: 0 5%; }
+            .logo { font-size: 24px; }
+            .nav { gap: 10px; }
+            .nav a:first-child { display: none; }
+            .nav .button { font-size: 11px; padding: 8px 14px; }
+        }
+
+        /* ========================================== */
+        /*   PHOTOGRAPHIC HERO                       */
+        /* ========================================== */
+        .school-hero {
+            position: relative;
+            width: 100%;
+            min-height: 480px;
+            background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 60px 5%;
+            color: #fff;
+        }
+
+        .school-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(15, 10, 25, 0.88) 0%, rgba(40, 20, 50, 0.78) 45%, rgba(255, 75, 147, 0.35) 100%);
+            z-index: 1;
+        }
+
+        .school-hero-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 720px;
+        }
+
+        .school-hero .breadcrumb {
+            font-size: 12px;
+            color: #ffd1e3;
+            margin-bottom: 8px;
+        }
+
+        .school-hero .breadcrumb a { color: #fff; }
+        .school-hero .breadcrumb span { color: #ffb6d1; }
+
+        .school-hero h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.05;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .school-hero h1 span { color: #ffb6d1; }
+
+        .school-hero p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.92);
+            max-width: 620px;
+        }
+
+        .school-hero-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .school-hero .pill {
+            display: inline-block;
+            background: var(--pink);
+            color: #fff;
+            padding: 11px 22px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .school-hero .pill:hover { background: var(--pink-dark); }
+
+        .school-hero .pill.outline {
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.6);
+        }
+
+        .school-hero .pill.outline:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #fff;
+        }
+
+        @media (max-width: 650px) {
+            .school-hero { min-height: 380px; padding: 40px 5%; }
+            .school-hero p { font-size: 13px; }
+        }
+
+        /* ========================================== */
+        /*   INNER CONTAINER                         */
+        /* ========================================== */
+        .inner {
+            width: min(1180px, 90%);
+            margin: auto;
+        }
+
+        /* ========================================== */
+        /*   CATALOG SECTIONS                        */
+        /* ========================================== */
+        .catalog-section { padding: 42px 0 48px; }
+        .catalog-section.grey { background: #f5f5f8; }
+        .catalog-section.tint { background: #fff6fa; }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            border-bottom: 1px solid #dedee5;
+            padding-bottom: 11px;
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .section-head:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 190px;
+            height: 2px;
+            background: linear-gradient(90deg, #f4c52d, var(--pink));
+        }
+
+        .section-head h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .highlight {
+            background: var(--pink);
+            color: #fff;
+            padding: 2px 6px;
+        }
+
+        .section-intro {
+            font-size: 13px;
+            color: #666;
+            margin: -10px 0 22px;
+            line-height: 1.7;
+            max-width: 780px;
+        }
+
+        @media (max-width: 650px) {
+            .section-head h2 { font-size: 19px; }
+            .catalog-section { padding: 30px 0; }
+        }
+
+        /* ========================================== */
+        /*   SPLIT INTRO BLOCK                       */
+        /* ========================================== */
+        .split-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .split-intro-text h2 {
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .split-intro-text h2 span { color: var(--pink); }
+
+        .split-intro-text p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.75;
+            margin-bottom: 12px;
+        }
+
+        .split-intro-image {
+            height: 380px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 15px 35px #00000020;
+        }
+
+        @media (max-width: 768px) {
+            .split-intro { grid-template-columns: 1fr; gap: 22px; }
+            .split-intro-image { height: 260px; }
+        }
+
+        /* ========================================== */
+        /*   PROGRAMME CARDS WITH REAL IMAGES        */
+        /* ========================================== */
+        .programme-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .programme-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 6px #00000008;
+            transition: all 0.25s ease;
+        }
+
+        .programme-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px #00000015;
+            border-color: #ffd1e3;
+        }
+
+        .programme-card-image {
+            width: 100%;
+            height: 170px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #f0eef4;
+        }
+
+        .programme-card-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35) 100%);
+        }
+
+        .programme-card-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(255,255,255,0.95);
+            color: var(--pink);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 3px;
+            z-index: 2;
+        }
+
+        .programme-card-badge.diploma {
+            background: var(--pink);
+            color: #fff;
+        }
+
+        .programme-card-body {
+            padding: 18px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .programme-card-body h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.4;
+            margin-bottom: 8px;
+            flex: 1;
+            min-height: 40px;
+        }
+
+        .programme-card-body p {
+            font-size: 12px;
+            color: #777;
+            line-height: 1.55;
+            margin-bottom: 12px;
+        }
+
+        .programme-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .programme-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .programme-meta i {
+            color: var(--pink);
+            font-size: 10px;
+        }
+
+        .programme-card-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--pink);
+            padding: 8px 12px;
+            border: 1px solid #ffd1e3;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            margin-top: auto;
+        }
+
+        .programme-card-cta:hover {
+            background: var(--pink);
+            color: #fff;
+            border-color: var(--pink);
+        }
+
+        .programme-card-cta i {
+            font-size: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .programme-card-cta:hover i { transform: translateX(3px); }
+
+        @media (max-width: 1024px) {
+            .programme-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .programme-grid { grid-template-columns: 1fr; }
+            .programme-card-image { height: 180px; }
+        }
+
+        /* ========================================== */
+        /*   FOOTER                                  */
+        /* ========================================== */
+        .footer {
+            background: #292832;
+            color: #eee;
+            text-align: center;
+            padding: 24px 5%;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+
+        .footer strong { color: var(--pink); }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!--   TOPBAR                                  -->
+    <!-- ========================================== -->
+    <header class="topbar">
+        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
+        <nav class="nav">
+            <a href="https://www.logi.education">Home</a>
+            <a href="https://www.logi.education/our-program">Programmes</a>
+            <a class="button" href="https://www.logi.education/schools">Explore other schools</a>
+        </nav>
+    </header>
+
+    <!-- ========================================== -->
+    <!--   PHOTOGRAPHIC HERO                       -->
+    <!-- ========================================== -->
+    <section class="school-hero">
+        <div class="school-hero-inner">
+            <div class="breadcrumb">
+                <a href="https://www.logi.education">Home</a> / <a href="/schools">Schools</a> / <span>Engineering &amp; Technology</span>
+            </div>
+            <h1>School of <span>Engineering &amp; Technology</span></h1>
+            <p>Develop the technical, analytical, and process-management skills required in modern industry — through practical, applied engineering education that connects theory with real-world problem solving.</p>
+            <div class="school-hero-actions">
+                <a href="#programmes" class="pill">Explore Programmes <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+                <a href="https://logi.education/main-registration-form" class="pill outline">Apply Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   SPLIT INTRO                             -->
+    <!-- ========================================== -->
+    <section class="catalog-section">
+        <div class="inner">
+            <div class="split-intro">
+                <div class="split-intro-text">
+                    <h2>Engineered for <span>Real-World Impact</span></h2>
+                    <p>The School of Engineering &amp; Technology is designed for professionals who want to sharpen their technical expertise, master process improvement, and lead complex projects with confidence.</p>
+                    <p>Whether you are in manufacturing, construction, energy, or technology, our programmes combine rigorous engineering principles with practical business and process skills — preparing you to deliver measurable results in industry.</p>
+                    <p>Learn from experienced engineers and industry practitioners who will guide you through real case studies, technical exercises, and applied projects.</p>
+                </div>
+                <div class="split-intro-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=80');"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   PROGRAMMES (REAL IMAGES FROM YOUR REPO) -->
+    <!-- ========================================== -->
+    <section class="catalog-section grey" id="programmes">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Programmes <span class="highlight">Offered</span></h2>
+            </div>
+            <p class="section-intro">Focused certificates and advanced diplomas designed to give you the edge in modern engineering, quality, and project environments — all delivered 100% online.</p>
+
+            <div class="programme-grid">
+
+                <!-- 1. Business Analysis & Process Improvement (Certificate) -->
+                <div class="programme-card">
+                    <div class="programme-card-image" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/business-analysis-banner.jpg');">
+                        <span class="programme-card-badge">Certificate</span>
+                    </div>
+                    <div class="programme-card-body">
+                        <h3>Certificate in Business Analysis &amp; Process Improvement</h3>
+                        <p>Business process mapping, quality improvement, data-driven decision making, lean principles, and optimization.</p>
+                        <div class="programme-meta">
+                            <span><i class="fas fa-clock"></i> 3 Months</span>
+                            <span><i class="fas fa-laptop"></i> Online</span>
+                        </div>
+                        <a href="/our-program/certificate-business-analysis-and-process-improvement.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- 2. Advanced Diploma in Project, Quality & Process Management -->
+                <div class="programme-card">
+                    <div class="programme-card-image" style="background-image:url('https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/project-management-banner.jpg');">
+                        <span class="programme-card-badge diploma">Advanced Diploma</span>
+                    </div>
+                    <div class="programme-card-body">
+                        <h3>Advanced Professional Diploma in Project, Quality &amp; Process Management</h3>
+                        <p>Advanced project management, quality assurance, risk management, strategic planning, and capstone project.</p>
+                        <div class="programme-meta">
+                            <span><i class="fas fa-clock"></i> 6–9 Months</span>
+                            <span><i class="fas fa-laptop"></i> Online</span>
+                        </div>
+                        <a href="/our-program/advanced-professional-diploma-project-quality-and-process-management.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   FINAL CTA                               -->
+    <!-- ========================================== -->
+    <section class="catalog-section tint">
+        <div class="inner" style="text-align:center;">
+            <h2 style="font-size:24px;font-weight:700;margin-bottom:12px;color:#34343b;">Engineer Your Next Step</h2>
+            <p style="font-size:14px;color:#666;max-width:600px;margin:0 auto 22px;line-height:1.7;">Take the first step toward a career-defining engineering qualification. Apply today and begin your journey at the School of Engineering &amp; Technology.</p>
+            <a href="https://logi.education/main-registration-form" class="pill" style="font-size:13px;padding:11px 24px;">Apply Now <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   FOOTER                                  -->
+    <!-- ========================================== -->
+    <footer class="footer">
+        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+    </footer>
+
+</body>
+</html>
