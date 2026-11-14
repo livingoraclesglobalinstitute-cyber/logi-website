@@ -33,6 +33,7 @@
             --muted: #777780;
             --line: #e9e8ef;
             --white: #fff;
+            --gold: #f4c52d;
         }
 
         * {
@@ -382,6 +383,11 @@
             color: #fff;
         }
 
+        .programme-card-badge.soon {
+            background: var(--gold);
+            color: var(--ink);
+        }
+
         .programme-card-body {
             padding: 18px 18px 20px;
             display: flex;
@@ -465,6 +471,193 @@
         }
 
         /* ========================================== */
+        /*   COMING SOON LIST                         */
+        /* ========================================== */
+        .coming-soon-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .coming-soon-item {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 24px 26px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            box-shadow: 0 2px 6px #00000008;
+            transition: all 0.25s ease;
+        }
+
+        .coming-soon-item:hover {
+            border-color: var(--gold);
+            box-shadow: 0 8px 20px #00000012;
+        }
+
+        .coming-soon-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 6px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            background-color: #f0eef4;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .coming-soon-content h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .coming-soon-content p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .coming-soon-areas {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .coming-soon-areas strong {
+            color: var(--ink);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .coming-soon-areas ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px 20px;
+        }
+
+        .coming-soon-areas li {
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .coming-soon-areas li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--pink);
+            font-weight: bold;
+        }
+
+        .coming-soon-notify {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--gold);
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            margin-top: 14px;
+        }
+
+        .coming-soon-notify:hover {
+            background: #e0b220;
+        }
+
+        .coming-soon-notify i { font-size: 10px; }
+
+        @media (max-width: 700px) {
+            .coming-soon-item {
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+            }
+            .coming-soon-image {
+                width: 100%;
+                height: 160px;
+            }
+            .coming-soon-areas ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================== */
+        /*   FINAL CTA                               */
+        /* ========================================== */
+        .final-cta-section {
+            padding: 52px 5%;
+            background: linear-gradient(120deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%);
+            text-align: center;
+        }
+
+        .final-cta-section h2 {
+            font-size: clamp(22px, 3vw, 30px);
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .final-cta-section p {
+            font-size: 14px;
+            color: #666;
+            max-width: 640px;
+            margin: 0 auto 24px;
+            line-height: 1.7;
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .final-cta-section .pill {
+            display: inline-block;
+            background: var(--pink);
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .final-cta-section .pill:hover { background: var(--pink-dark); }
+
+        .final-cta-section .pill.outline {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--line);
+        }
+
+        .final-cta-section .pill.outline:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            background: transparent;
+        }
+
+        /* ========================================== */
         /*   FOOTER                                  */
         /* ========================================== */
         .footer {
@@ -473,7 +666,6 @@
             text-align: center;
             padding: 24px 5%;
             font-size: 12px;
-            margin-top: 30px;
         }
 
         .footer strong { color: var(--pink); }
@@ -504,7 +696,7 @@
             <h1>School of <span>Engineering &amp; Technology</span></h1>
             <p>Develop the technical, analytical, and process-management skills required in modern industry — through practical, applied engineering education that connects theory with real-world problem solving.</p>
             <div class="school-hero-actions">
-                <a href="#programmes" class="pill">Explore Programmes <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+                <a href="#current-programmes" class="pill">Explore Programmes <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
                 <a href="https://logi.education/main-registration-form" class="pill outline">Apply Now</a>
             </div>
         </div>
@@ -518,9 +710,9 @@
             <div class="split-intro">
                 <div class="split-intro-text">
                     <h2>Engineered for <span>Real-World Impact</span></h2>
-                    <p>The School of Engineering &amp; Technology is designed for professionals who want to sharpen their technical expertise, master process improvement, and lead complex projects with confidence.</p>
-                    <p>Whether you are in manufacturing, construction, energy, or technology, our programmes combine rigorous engineering principles with practical business and process skills — preparing you to deliver measurable results in industry.</p>
-                    <p>Learn from experienced engineers and industry practitioners who will guide you through real case studies, technical exercises, and applied projects.</p>
+                    <p>The School of Engineering &amp; Technology prepares professionals, graduates, and aspiring industry practitioners to strengthen their technical expertise, improve industrial processes, and contribute to engineering innovation.</p>
+                    <p>Our learning approach connects engineering principles with practical applications across manufacturing, chemical processing, construction, energy, automation, and technology.</p>
+                    <p>Through technical exercises, industrial case studies, applied projects, and professional development, learners develop competencies they can apply in real-world working environments.</p>
                 </div>
                 <div class="split-intro-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=80');"></div>
             </div>
@@ -528,14 +720,14 @@
     </section>
 
     <!-- ========================================== -->
-    <!--   PROGRAMMES (REAL IMAGES FROM YOUR REPO) -->
+    <!--   CURRENT PROGRAMMES                      -->
     <!-- ========================================== -->
-    <section class="catalog-section grey" id="programmes">
+    <section class="catalog-section grey" id="current-programmes">
         <div class="inner">
             <div class="section-head">
-                <h2>Programmes <span class="highlight">Offered</span></h2>
+                <h2>Current <span class="highlight">Programmes</span></h2>
             </div>
-            <p class="section-intro">Focused certificates and advanced diplomas designed to give you the edge in modern engineering, quality, and project environments — all delivered 100% online.</p>
+            <p class="section-intro">Focused certificates and advanced professional diplomas designed to develop practical competencies in engineering, quality, process improvement, and project environments — all delivered 100% online.</p>
 
             <div class="programme-grid">
 
@@ -546,7 +738,7 @@
                     </div>
                     <div class="programme-card-body">
                         <h3>Certificate in Business Analysis &amp; Process Improvement</h3>
-                        <p>Business process mapping, quality improvement, data-driven decision making, lean principles, and optimization.</p>
+                        <p>Develop practical skills in business process mapping, quality improvement, data-driven decision-making, lean principles, and process optimisation.</p>
                         <div class="programme-meta">
                             <span><i class="fas fa-clock"></i> 3 Months</span>
                             <span><i class="fas fa-laptop"></i> Online</span>
@@ -562,7 +754,7 @@
                     </div>
                     <div class="programme-card-body">
                         <h3>Advanced Professional Diploma in Project, Quality &amp; Process Management</h3>
-                        <p>Advanced project management, quality assurance, risk management, strategic planning, and capstone project.</p>
+                        <p>Develop advanced competencies in project management, quality assurance, risk management, strategic planning, and applied process improvement.</p>
                         <div class="programme-meta">
                             <span><i class="fas fa-clock"></i> 6–9 Months</span>
                             <span><i class="fas fa-laptop"></i> Online</span>
@@ -576,13 +768,140 @@
     </section>
 
     <!-- ========================================== -->
+    <!--   COMING SOON SECTION                     -->
+    <!-- ========================================== -->
+    <section class="catalog-section" id="coming-soon">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Coming Soon: <span class="highlight">Engineering &amp; Industrial Programmes</span></h2>
+            </div>
+            <p class="section-intro">LOGI is expanding its engineering and technology portfolio with specialised professional programmes designed to address emerging industrial needs and technical skills requirements. The following programmes are currently in development.</p>
+
+            <div class="coming-soon-list">
+
+                <!-- 1 -->
+                <div class="coming-soon-item">
+                    <div class="coming-soon-image" style="background-image:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="coming-soon-content">
+                        <h3>Professional Certificate in Industrial Process Control &amp; Automation</h3>
+                        <p>Explore industrial instrumentation, process control systems, automation principles, sensors, controllers, and industrial control applications.</p>
+                        <div class="coming-soon-areas">
+                            <strong>Key Learning Areas</strong>
+                            <ul>
+                                <li>Industrial instrumentation</li>
+                                <li>Process measurement and control</li>
+                                <li>PLC fundamentals</li>
+                                <li>Control systems</li>
+                                <li>Industrial automation applications</li>
+                            </ul>
+                        </div>
+                        <a href="mailto:info@logi.education?subject=Interest%20in%20Industrial%20Process%20Control%20%26%20Automation" class="coming-soon-notify">
+                            <i class="fas fa-bell"></i> Notify Me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="coming-soon-item">
+                    <div class="coming-soon-image" style="background-image:url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="coming-soon-content">
+                        <h3>Professional Certificate in Industrial Fluid Mechanics, Heat &amp; Mass Transfer</h3>
+                        <p>Develop an understanding of fluid flow, heat transfer, and mass transfer principles applied to industrial equipment and processing operations.</p>
+                        <div class="coming-soon-areas">
+                            <strong>Key Learning Areas</strong>
+                            <ul>
+                                <li>Industrial fluid flow</li>
+                                <li>Heat exchangers and thermal systems</li>
+                                <li>Heat transfer operations</li>
+                                <li>Mass transfer fundamentals</li>
+                                <li>Industrial process applications</li>
+                            </ul>
+                        </div>
+                        <a href="mailto:info@logi.education?subject=Interest%20in%20Fluid%20Mechanics%20%26%20Heat%20Transfer" class="coming-soon-notify">
+                            <i class="fas fa-bell"></i> Notify Me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="coming-soon-item">
+                    <div class="coming-soon-image" style="background-image:url('https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="coming-soon-content">
+                        <h3>Professional Certificate in Industrial Thermodynamics &amp; Energy Management</h3>
+                        <p>Explore thermodynamic principles, energy conversion, industrial utilities, and energy-efficiency strategies for modern industrial operations.</p>
+                        <div class="coming-soon-areas">
+                            <strong>Key Learning Areas</strong>
+                            <ul>
+                                <li>Applied industrial thermodynamics</li>
+                                <li>Energy conversion systems</li>
+                                <li>Steam and power systems</li>
+                                <li>Energy efficiency</li>
+                                <li>Industrial energy management</li>
+                            </ul>
+                        </div>
+                        <a href="mailto:info@logi.education?subject=Interest%20in%20Thermodynamics%20%26%20Energy%20Management" class="coming-soon-notify">
+                            <i class="fas fa-bell"></i> Notify Me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="coming-soon-item">
+                    <div class="coming-soon-image" style="background-image:url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="coming-soon-content">
+                        <h3>Professional Certificate in Chemical Reactor Design &amp; Industrial Reaction Engineering</h3>
+                        <p>Understand the principles of chemical reaction engineering and their application in industrial reactor systems and chemical processing.</p>
+                        <div class="coming-soon-areas">
+                            <strong>Key Learning Areas</strong>
+                            <ul>
+                                <li>Chemical reaction kinetics</li>
+                                <li>Reactor types and configurations</li>
+                                <li>Reactor design principles</li>
+                                <li>Industrial reaction systems</li>
+                                <li>Process optimisation</li>
+                            </ul>
+                        </div>
+                        <a href="mailto:info@logi.education?subject=Interest%20in%20Chemical%20Reactor%20Design" class="coming-soon-notify">
+                            <i class="fas fa-bell"></i> Notify Me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="coming-soon-item">
+                    <div class="coming-soon-image" style="background-image:url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=400&q=80');"></div>
+                    <div class="coming-soon-content">
+                        <h3>Professional Certificate in Engineering Mathematics, Modelling &amp; Simulation</h3>
+                        <p>Build analytical and computational skills for solving engineering problems, interpreting technical data, and modelling industrial systems.</p>
+                        <div class="coming-soon-areas">
+                            <strong>Key Learning Areas</strong>
+                            <ul>
+                                <li>Applied engineering mathematics</li>
+                                <li>Differential equations</li>
+                                <li>Mathematical modelling</li>
+                                <li>Numerical methods</li>
+                                <li>Engineering simulation</li>
+                            </ul>
+                        </div>
+                        <a href="mailto:info@logi.education?subject=Interest%20in%20Engineering%20Mathematics%20%26%20Simulation" class="coming-soon-notify">
+                            <i class="fas fa-bell"></i> Notify Me
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
     <!--   FINAL CTA                               -->
     <!-- ========================================== -->
-    <section class="catalog-section tint">
-        <div class="inner" style="text-align:center;">
-            <h2 style="font-size:24px;font-weight:700;margin-bottom:12px;color:#34343b;">Engineer Your Next Step</h2>
-            <p style="font-size:14px;color:#666;max-width:600px;margin:0 auto 22px;line-height:1.7;">Take the first step toward a career-defining engineering qualification. Apply today and begin your journey at the School of Engineering &amp; Technology.</p>
-            <a href="https://logi.education/main-registration-form" class="pill" style="font-size:13px;padding:11px 24px;">Apply Now <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+    <section class="final-cta-section">
+        <h2>Engineer Your Next Step</h2>
+        <p>Build practical competencies, strengthen your technical knowledge, and prepare for new opportunities in engineering and industry. Explore our available programmes and watch out for upcoming professional training opportunities.</p>
+        <div class="final-cta-buttons">
+            <a href="https://logi.education/main-registration-form" class="pill">Apply Now <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+            <a href="https://www.logi.education/contact" class="pill outline">Contact LOGI</a>
         </div>
     </section>
 
