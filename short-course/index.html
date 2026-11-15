@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -20,6 +19,12 @@ a{color:inherit;text-decoration:none}.topbar{height:64px;display:flex;align-item
 .card-top{height:36px;display:flex;align-items:center;justify-content:space-between;padding:6px 10px;gap:5px;font-size:10px;color:#666}.provider{font-weight:700;white-space:nowrap}.mini-logo{display:inline-flex;width:21px;height:19px;border:1px solid #8d829d;border-radius:2px;align-items:center;justify-content:center;color:#706083;margin-right:4px;font-size:9px}
 .badge{background:var(--pink);color:#fff;border-radius:20px;padding:4px 8px;font-size:9px;white-space:nowrap}.badge.purple{background:#8051a2}.badge.gold{background:#c68a12}
 .course-image{height:118px;margin:0 9px;background:#e9e8ee center/cover no-repeat;border-radius:3px;position:relative}.course-image:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#17172525,transparent 65%)}
+/* Enrolment Student Badge on Image */
+.course-enrolment-pill{position:absolute;bottom:8px;left:8px;right:8px;display:flex;align-items:center;justify-content:space-between;background:rgba(25,24,35,0.78);backdrop-filter:blur(4px);padding:4px 8px;border-radius:4px;color:#fff;font-size:9.5px;z-index:2}
+.mini-avatars{display:flex;align-items:center}
+.mini-avatars img{width:18px;height:18px;border-radius:50%;object-fit:cover;border:1.5px solid #fff;margin-left:-6px}
+.mini-avatars img:first-child{margin-left:0}
+.course-enrolment-pill span{font-weight:600;color:#ffd1e3}
 .card-body{padding:11px 11px 13px;text-align:center;display:flex;flex-direction:column;flex:1}.card h3{font-size:13px;line-height:1.35;font-weight:600;margin:0 0 9px;min-height:36px}.duration{font-size:10px;color:#85858e;margin:2px 0}.duration strong{display:block;color:#666;font-weight:600}.card-note{font-size:10px;color:#92929a;margin:7px 0 10px}.card-cta{margin-top:auto;display:inline-block;color:var(--pink);font-size:11px;padding:5px 12px;border:1px solid #ffd1e3;border-radius:3px}.card-cta:hover{background:var(--pink);color:#fff}.card-cta.disabled{color:#999;border-color:#e5e5e9;cursor:default}
 .section-intro{font-size:12px;color:#777;margin:-8px 0 17px}.footer{background:#292832;color:#eee;text-align:center;padding:24px 5%;font-size:12px}.footer strong{color:var(--pink)}
 @media(max-width:900px){.course-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-mark{font-size:70px}}
@@ -45,77 +50,367 @@ a{color:inherit;text-decoration:none}.topbar{height:64px;display:flex;align-item
 <section class="catalog-section grey"><div class="inner">
 <div class="section-head"><h2>Trending <span class="highlight">Courses</span></h2><a class="view-all" href="#free-certificates">View all courses</a></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Industrial Automation</h3><div class="duration">Flexible Duration:<strong>4–5 Hours Learning</strong></div><div class="card-note">Engineering &amp; Technology</div><a class="card-cta" href="introduction-to-industrial-automation.html">Start Now</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')"></div><div class="card-body"><h3>Business Analysis &amp; Process Improvement</h3><div class="duration">Flexible Duration:<strong>Online Learning</strong></div><div class="card-note">Business &amp; Management</div><a class="card-cta" href="https://enrol.logi.education">Start Now</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Engineering Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Engineering Management</div><a class="card-cta" href="engineering-management.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Lean Six Sigma</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quality &amp; Process Improvement</div><a class="card-cta" href="lean-six-sigma.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars">
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Student">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student">
+            </div>
+            <span>1,420 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Industrial Automation</h3><div class="duration">Flexible Duration:<strong>4–5 Hours Learning</strong></div><div class="card-note">Engineering &amp; Technology</div><a class="card-cta" href="introduction-to-industrial-automation.html">Start Now</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Student">
+            </div>
+            <span>2,150 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Business Analysis &amp; Process Improvement</h3><div class="duration">Flexible Duration:<strong>Online Learning</strong></div><div class="card-note">Business &amp; Management</div><a class="card-cta" href="https://enrol.logi.education">Start Now</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Student">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Student">
+            </div>
+            <span>980 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Engineering Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Engineering Management</div><a class="card-cta" href="engineering-management.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80" alt="Student">
+                <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=100&q=80" alt="Student">
+            </div>
+            <span>1,890 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Lean Six Sigma</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quality &amp; Process Improvement</div><a class="card-cta" href="lean-six-sigma.html">View Course</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section" id="free-certificates"><div class="inner">
 <div class="section-head"><h2>Free <span class="highlight">Certificates</span></h2><a class="view-all" href="#engineering">Explore categories</a></div>
 <p class="section-intro">Short, focused learning experiences. LOGI certificates of completion are issued subject to each course's completion and assessment requirements.</p>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Industrial Automation</h3><div class="duration">Flexible Duration:<strong>4–5 Hours Learning</strong></div><div class="card-note">Beginner Level</div><a class="card-cta" href="introduction-to-industrial-automation.html">Start Now</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')"></div><div class="card-body"><h3>Certificate in Business Analysis &amp; Process Improvement</h3><div class="duration">Flexible Duration:<strong>Online Learning</strong></div><div class="card-note">Free Programme</div><a class="card-cta" href="https://enrol.logi.education">Start Now</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student"></div>
+            <span>1,420 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Industrial Automation</h3><div class="duration">Flexible Duration:<strong>4–5 Hours Learning</strong></div><div class="card-note">Beginner Level</div><a class="card-cta" href="introduction-to-industrial-automation.html">Start Now</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Student"></div>
+            <span>2,150 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Certificate in Business Analysis &amp; Process Improvement</h3><div class="duration">Flexible Duration:<strong>Online Learning</strong></div><div class="card-note">Free Programme</div><a class="card-cta" href="https://enrol.logi.education">Start Now</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section grey" id="engineering"><div class="inner">
 <div class="section-head"><h2>Engineering &amp; <span class="highlight">Industrial Technology</span></h2><a class="view-all" href="#quality">Next category ↓</a></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Engineering Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Engineering &amp; Technology</div><a class="card-cta" href="engineering-management.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Manufacturing Processes</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Manufacturing</div><a class="card-cta" href="manufacturing-processes.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Industrial Instrumentation</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Instrumentation &amp; Control</div><a class="card-cta" href="industrial-instrumentation.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Industrial Maintenance Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Industrial Operations</div><a class="card-cta" href="industrial-maintenance-management.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Student"></div>
+            <span>980 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Engineering Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Engineering &amp; Technology</div><a class="card-cta" href="engineering-management.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student"></div>
+            <span>870 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Manufacturing Processes</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Manufacturing</div><a class="card-cta" href="manufacturing-processes.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&q=80" alt="Student"></div>
+            <span>640 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Industrial Instrumentation</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Instrumentation &amp; Control</div><a class="card-cta" href="industrial-instrumentation.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Student"></div>
+            <span>750 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Industrial Maintenance Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Industrial Operations</div><a class="card-cta" href="industrial-maintenance-management.html">View Course</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section" id="quality"><div class="inner">
 <div class="section-head"><h2>Quality Management &amp; <span class="highlight">Process Improvement</span></h2><a class="view-all" href="#project">Next category ↓</a></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Lean Six Sigma</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quality Management</div><a class="card-cta" href="lean-six-sigma.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Six Sigma – DMAIC Methodology</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Process Improvement</div><a class="card-cta" href="six-sigma-dmaic.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Quality Management Systems (ISO 9001)</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quality Assurance</div><a class="card-cta" href="quality-management-systems-iso-9001.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Root Cause Analysis</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Problem Solving</div><a class="card-cta" href="root-cause-analysis.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=100&q=80" alt="Student"></div>
+            <span>1,890 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Lean Six Sigma</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quality Management</div><a class="card-cta" href="lean-six-sigma.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Student"></div>
+            <span>1,120 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Six Sigma – DMAIC Methodology</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Process Improvement</div><a class="card-cta" href="six-sigma-dmaic.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Student"></div>
+            <span>950 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Quality Management Systems (ISO 9001)</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quality Assurance</div><a class="card-cta" href="quality-management-systems-iso-9001.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Student"></div>
+            <span>820 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Root Cause Analysis</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Problem Solving</div><a class="card-cta" href="root-cause-analysis.html">View Course</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section grey" id="project"><div class="inner">
 <div class="section-head"><h2>Project &amp; <span class="highlight">Engineering Management</span></h2><a class="view-all" href="#construction">Next category ↓</a></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to PRINCE2 Project Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Project Management</div><a class="card-cta" href="prince2-project-management.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Project Planning and Scheduling</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Project Controls</div><a class="card-cta" href="project-planning-scheduling.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Agile Project Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Project Management</div><a class="card-cta" href="agile-project-management.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Project Risk Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Risk &amp; Governance</div><a class="card-cta" href="project-risk-management.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="Student"></div>
+            <span>1,640 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to PRINCE2 Project Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Project Management</div><a class="card-cta" href="prince2-project-management.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&q=80" alt="Student"></div>
+            <span>1,150 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Project Planning and Scheduling</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Project Controls</div><a class="card-cta" href="project-planning-scheduling.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student"></div>
+            <span>2,300 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Agile Project Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Project Management</div><a class="card-cta" href="agile-project-management.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Student"></div>
+            <span>890 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Project Risk Management</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Risk &amp; Governance</div><a class="card-cta" href="project-risk-management.html">View Course</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section" id="construction"><div class="inner">
 <div class="section-head"><h2>Construction &amp; <span class="highlight">Civil Engineering</span></h2><a class="view-all" href="#safety">Next category ↓</a></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Buildings and Construction Works</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Construction</div><a class="card-cta" href="buildings-construction-works.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Construction Cost Estimation</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quantity &amp; Cost</div><a class="card-cta" href="construction-cost-estimation.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Building Information Modelling (BIM)</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Digital Construction</div><a class="card-cta" href="building-information-modelling-bim.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Concrete Technology</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Civil Engineering</div><a class="card-cta" href="concrete-technology.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Student"></div>
+            <span>720 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Buildings and Construction Works</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Construction</div><a class="card-cta" href="buildings-construction-works.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&q=80" alt="Student"></div>
+            <span>940 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Construction Cost Estimation</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Quantity &amp; Cost</div><a class="card-cta" href="construction-cost-estimation.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=100&q=80" alt="Student"></div>
+            <span>1,310 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Building Information Modelling (BIM)</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Digital Construction</div><a class="card-cta" href="building-information-modelling-bim.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Student"></div>
+            <span>680 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Concrete Technology</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Civil Engineering</div><a class="card-cta" href="concrete-technology.html">View Course</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section grey" id="safety"><div class="inner">
 <div class="section-head"><h2>Health, Safety &amp; <span class="highlight">Environment</span></h2><a class="view-all" href="#energy">Next category ↓</a></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Fire Safety</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Workplace Safety</div><a class="card-cta" href="fire-safety.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to ISO 45001 Occupational Health and Safety</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Safety Management</div><a class="card-cta" href="iso-45001-occupational-health-safety.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Hazard Identification and Risk Assessment</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Hazard &amp; Risk Control</div><a class="card-cta" href="hazard-identification-risk-assessment.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1516937941344-00b4e0337589?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Construction Safety</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Construction Safety</div><a class="card-cta" href="construction-safety.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student"></div>
+            <span>1,190 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Fire Safety</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Workplace Safety</div><a class="card-cta" href="fire-safety.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student"></div>
+            <span>1,540 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to ISO 45001 Occupational Health and Safety</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Safety Management</div><a class="card-cta" href="iso-45001-occupational-health-safety.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Student"></div>
+            <span>890 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Hazard Identification and Risk Assessment</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Hazard &amp; Risk Control</div><a class="card-cta" href="hazard-identification-risk-assessment.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1516937941344-00b4e0337589?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&q=80" alt="Student"></div>
+            <span>1,020 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Construction Safety</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Construction Safety</div><a class="card-cta" href="construction-safety.html">View Course</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section" id="energy"><div class="inner">
 <div class="section-head"><h2>Energy, Oil &amp; Gas <span class="highlight">Technologies</span></h2><a class="view-all" href="#more">More courses ↓</a></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Solar Photovoltaic Technology</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Renewable Energy</div><a class="card-cta" href="solar-photovoltaic-technology.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1473341304170-971805e6e2e5?w=600&amp;q=80')"></div><div class="card-body"><h3>Basics of Oil &amp; Gas – Reserves, Risk &amp; Value</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Oil &amp; Gas</div><a class="card-cta" href="oil-gas-reserves-risk-value.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student"></div>
+            <span>1,750 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Solar Photovoltaic Technology</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Renewable Energy</div><a class="card-cta" href="solar-photovoltaic-technology.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Certificate</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1473341304170-971805e6e2e5?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Student"></div>
+            <span>840 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Basics of Oil &amp; Gas – Reserves, Risk &amp; Value</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Oil &amp; Gas</div><a class="card-cta" href="oil-gas-reserves-risk-value.html">View Course</a></div>
+</article>
 </div>
 </div></section>
+
 <section class="catalog-section tint" id="more"><div class="inner">
 <div class="section-head"><h2>More Professional <span class="highlight">Essentials</span></h2></div>
 <div class="course-grid">
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&amp;q=80')"></div><div class="card-body"><h3>Introduction to Data Analytics</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Technology &amp; Data</div><a class="card-cta" href="data-analytics.html">View Course</a></div></article>
-<article class="card"><div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div><div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&amp;q=80')"></div><div class="card-body"><h3>Cybersecurity Fundamentals</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Digital Skills</div><a class="card-cta" href="cybersecurity-fundamentals.html">View Course</a></div></article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80" alt="Student"></div>
+            <span>2,410 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Introduction to Data Analytics</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Technology &amp; Data</div><a class="card-cta" href="data-analytics.html">View Course</a></div>
+</article>
+<article class="card">
+    <div class="card-top"><span class="provider"><span class="mini-logo">LO</span>LOGI</span><span class="badge">Free Learning</span></div>
+    <div class="course-image" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&amp;q=80')">
+        <div class="course-enrolment-pill">
+            <div class="mini-avatars"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Student"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Student"></div>
+            <span>1,960 Enrolled</span>
+        </div>
+    </div>
+    <div class="card-body"><h3>Cybersecurity Fundamentals</h3><div class="duration">Flexible Duration:<strong>4–6 Hours Learning</strong></div><div class="card-note">Digital Skills</div><a class="card-cta" href="cybersecurity-fundamentals.html">View Course</a></div>
+</article>
 </div>
 </div></section>
 </main>
