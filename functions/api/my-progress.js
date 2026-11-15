@@ -3,35 +3,42 @@ import {
   jsonResponse
 } from "./_auth.js";
 
-export async function onRequestGet(context) {
+export async function onRequestGet({ request, env }) {
   try {
-    const { request, env } = context;
+    if (!env.DB) {
+      throw new Error("Database binding DB is missing.");
+    }
 
-    const authHeader = request.headers.get("Authorization");
+    // Support the existing dashboard's token query parameter
+    // and the more secure Authorization: Bearer header.
+    const authHeader = request.headers.get("Authorization") || "";
 
-    const bearerToken = authHeader?.startsWith("Bearer ")
-      ? authHeader.slice(7).trim()
-      : null;
+    const bearerToken = authHeader.startsWith("Bearer ")
+      ? authHeader.slice(7)
+      : "";
 
-    // Temporary compatibility with the current dashboard.
     const url = new URL(request.url);
-    const oldQueryToken = url.searchParams.get("token");
+    const queryToken = url.searchParams.get("token") || "";
 
-    const token = bearerToken || oldQueryToken;
+    const token = bearerToken || queryToken;
 
-    const user = await verifyAuthToken(token, env);
-
-    if (!user) {
-      return jsonResponse({ error: "Unauthorized" }, 401);
+    if (!token) {
+      return jsonResponse({
+        success: false,
+        error: "Authentication required. Please log in."
+      }, 401);
     }
 
-    const userId = Number(user.sub);
+    const authenticatedUser = await verifyAuthToken(token, env);
 
-    if (!Number.isSafeInteger(userId) || userId <= 0) {
-      return jsonResponse({ error: "Invalid user account." }, 401);
+    if (!authenticatedUser) {
+      return jsonResponse({
+        success: false,
+        error: "Your session is invalid or has expired. Please log in again."
+      }, 401);
     }
 
-    const { results } = await env.DB.prepare(`
+    const result = await env.DB.prepare(`
       SELECT
         module_id,
         lesson_id,
@@ -42,19 +49,20 @@ export async function onRequestGet(context) {
         updated_at
       FROM progress
       WHERE user_id = ?
-      ORDER BY module_id, lesson_id
-    `).bind(userId).all();
+      ORDER BY updated_at DESC
+    `).bind(authenticatedUser.id).all();
 
     return jsonResponse({
       success: true,
-      progress: results
+      progress: result.results || []
     });
 
   } catch (error) {
-    console.error("Progress retrieval error:", error);
+    console.error("LOGI my-progress error:", error);
 
     return jsonResponse({
-      error: "Could not retrieve student progress."
+      success: false,
+      error: "Unable to retrieve your progress. Please try again."
     }, 500);
   }
 }
