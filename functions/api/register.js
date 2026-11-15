@@ -98,7 +98,7 @@ export async function onRequestPost(context) {
       }, 409);
     }
 
-    console.error("Registration error:", error);
+    console.error("Registration error:", error?.stack || error);
 
     return jsonResponse({
       error: "Registration could not be completed."
