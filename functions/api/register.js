@@ -4,104 +4,109 @@ import {
   jsonResponse
 } from "./_auth.js";
 
-export async function onRequestPost(context) {
+export async function onRequestPost({ request, env }) {
   try {
-    const { request, env } = context;
-
-    const { email, password, fullName } = await request.json();
+    if (!env.DB) {
+      throw new Error("Database binding DB is missing.");
+    }
 
     if (
-      typeof email !== "string" ||
-      typeof password !== "string"
+      typeof env.JWT_SECRET !== "string" ||
+      env.JWT_SECRET.length < 32
     ) {
+      throw new Error("JWT_SECRET is missing or invalid.");
+    }
+
+    const body = await request.json();
+
+    const fullName = String(body.fullName || "").trim();
+    const email = String(body.email || "").trim().toLowerCase();
+    const password = String(body.password || "");
+
+    if (!fullName || !email || !password) {
       return jsonResponse({
-        error: "Email and password are required."
+        success: false,
+        error: "Please provide your full name, email and password."
       }, 400);
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
-    const name = typeof fullName === "string"
-      ? fullName.trim()
-      : "";
-
-    if (
-      normalizedEmail.length > 254 ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)
-    ) {
-      return jsonResponse({ error: "Please enter a valid email address." }, 400);
-    }
-
-    if (password.length < 8 || password.length > 256) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return jsonResponse({
-        error: "Password must be between 8 and 256 characters."
+        success: false,
+        error: "Please enter a valid email address."
       }, 400);
     }
 
-    if (name.length > 120) {
-      return jsonResponse({ error: "Name is too long." }, 400);
+    if (password.length < 8) {
+      return jsonResponse({
+        success: false,
+        error: "Your password must contain at least 8 characters."
+      }, 400);
     }
 
-    if (!env.DB || !env.JWT_SECRET) {
+    if (fullName.length > 150 || email.length > 254) {
       return jsonResponse({
-        error: "Registration service is not configured."
-      }, 500);
+        success: false,
+        error: "The supplied information is too long."
+      }, 400);
     }
 
-    const passwordHash = await hashPassword(password);
-    const now = new Date().toISOString();
+    const existing = await env.DB.prepare(
+      "SELECT id FROM users WHERE email = ? LIMIT 1"
+    ).bind(email).first();
 
-    await env.DB.prepare(`
-      INSERT INTO users (
-        email,
-        password_hash,
-        full_name,
-        created_at,
-        updated_at
-      )
-      VALUES (?, ?, ?, ?, ?)
-    `).bind(
-      normalizedEmail,
-      passwordHash,
-      name || null,
-      now,
-      now
-    ).run();
-
-    const user = await env.DB.prepare(`
-      SELECT id, email, full_name
-      FROM users
-      WHERE email = ?
-    `).bind(normalizedEmail).first();
-
-    if (!user) {
+    if (existing) {
       return jsonResponse({
-        error: "Account creation could not be confirmed."
-      }, 500);
-    }
-
-    const token = await createAuthToken(user, env);
-
-    return jsonResponse({
-      success: true,
-      message: "Account created successfully.",
-      token,
-      email: user.email,
-      fullName: user.full_name || ""
-    });
-
-  } catch (error) {
-    if (
-      error.message?.includes("UNIQUE constraint failed")
-    ) {
-      return jsonResponse({
+        success: false,
         error: "An account with this email already exists."
       }, 409);
     }
 
-    console.error("Registration error:", error?.stack || error);
+    const passwordHash = await hashPassword(password);
+
+    await env.DB.prepare(`
+      INSERT INTO users (
+        full_name,
+        email,
+        password_hash,
+        created_at,
+        updated_at
+      )
+      VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    `).bind(
+      fullName,
+      email,
+      passwordHash
+    ).run();
+
+    const user = await env.DB.prepare(
+      "SELECT id, full_name, email FROM users WHERE email = ? LIMIT 1"
+    ).bind(email).first();
+
+    if (!user) {
+      throw new Error("Unable to retrieve the newly created account.");
+    }
+
+    const token = await createAuthToken({
+      id: user.id,
+      email: user.email
+    }, env);
 
     return jsonResponse({
-      error: "Registration could not be completed."
+      success: true,
+      message: "Registration successful.",
+      token,
+      id: user.id,
+      fullName: user.full_name,
+      email: user.email
+    }, 201);
+
+  } catch (error) {
+    console.error("LOGI registration error:", error);
+
+    return jsonResponse({
+      success: false,
+      error: "Registration could not be completed. Please try again."
     }, 500);
   }
 }
