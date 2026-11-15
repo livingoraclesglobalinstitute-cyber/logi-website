@@ -3,80 +3,76 @@ import {
   jsonResponse
 } from "./_auth.js";
 
-export async function onRequestPost(context) {
+export async function onRequestPost({ request, env }) {
   try {
-    const { request, env } = context;
+    if (!env.DB) {
+      throw new Error("Database binding DB is missing.");
+    }
 
     const body = await request.json();
 
-    // Accept the existing dashboard's token format temporarily.
-    const authHeader = request.headers.get("Authorization");
-    const bearerToken = authHeader?.startsWith("Bearer ")
-      ? authHeader.slice(7).trim()
-      : null;
+    // Accept a token from the Authorization header
+    // or the existing dashboard's request body.
+    const authHeader = request.headers.get("Authorization") || "";
+    const bearerToken = authHeader.startsWith("Bearer ")
+      ? authHeader.slice(7)
+      : "";
 
-    const token = bearerToken || body.token;
+    const token = bearerToken || String(body.token || "");
 
-    const user = await verifyAuthToken(token, env);
-
-    if (!user) {
-      return jsonResponse({ error: "Unauthorized" }, 401);
-    }
-
-    const userId = Number(user.sub);
-
-    if (!Number.isSafeInteger(userId) || userId <= 0) {
-      return jsonResponse({ error: "Invalid user account." }, 401);
-    }
-
-    const {
-      moduleId,
-      lessonId,
-      completed,
-      quizScore,
-      quizTotal
-    } = body;
-
-    if (
-      typeof moduleId !== "string" ||
-      !moduleId.trim() ||
-      moduleId.length > 150 ||
-      typeof lessonId !== "string" ||
-      !lessonId.trim() ||
-      lessonId.length > 150
-    ) {
+    if (!token) {
       return jsonResponse({
-        error: "Valid module and lesson IDs are required."
+        success: false,
+        error: "Authentication required. Please log in."
+      }, 401);
+    }
+
+    const authenticatedUser = await verifyAuthToken(token, env);
+
+    if (!authenticatedUser) {
+      return jsonResponse({
+        success: false,
+        error: "Your session is invalid or has expired. Please log in again."
+      }, 401);
+    }
+
+    const moduleId = String(body.moduleId || body.module_id || "").trim();
+    const lessonId = String(body.lessonId || body.lesson_id || "").trim();
+
+    const completed =
+      body.completed === true ||
+      body.completed === 1 ||
+      body.completed === "1" ? 1 : 0;
+
+    const quizScore = Number(body.quizScore ?? body.quiz_score ?? 0);
+    const quizTotal = Number(body.quizTotal ?? body.quiz_total ?? 0);
+
+    if (!moduleId || !lessonId) {
+      return jsonResponse({
+        success: false,
+        error: "Module ID and lesson ID are required."
+      }, 400);
+    }
+
+    if (moduleId.length > 150 || lessonId.length > 150) {
+      return jsonResponse({
+        success: false,
+        error: "Module ID or lesson ID is too long."
       }, 400);
     }
 
     if (
-      ![true, false, 0, 1].includes(completed)
+      !Number.isInteger(quizScore) ||
+      !Number.isInteger(quizTotal) ||
+      quizScore < 0 ||
+      quizTotal < 0 ||
+      quizScore > quizTotal
     ) {
       return jsonResponse({
-        error: "Invalid completion status."
-      }, 400);
-    }
-
-    const score = quizScore ?? null;
-    const total = quizTotal ?? null;
-
-    if (
-      (score === null) !== (total === null) ||
-      (score !== null && (
-        !Number.isInteger(score) ||
-        !Number.isInteger(total) ||
-        score < 0 ||
-        total <= 0 ||
-        score > total
-      ))
-    ) {
-      return jsonResponse({
+        success: false,
         error: "Invalid quiz score."
       }, 400);
     }
-
-    const now = new Date().toISOString();
 
     await env.DB.prepare(`
       INSERT INTO progress (
@@ -89,32 +85,34 @@ export async function onRequestPost(context) {
         created_at,
         updated_at
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 
       ON CONFLICT(user_id, module_id, lesson_id)
       DO UPDATE SET
         completed = excluded.completed,
         quiz_score = excluded.quiz_score,
         quiz_total = excluded.quiz_total,
-        updated_at = excluded.updated_at
+        updated_at = CURRENT_TIMESTAMP
     `).bind(
-      userId,
-      moduleId.trim(),
-      lessonId.trim(),
-      completed ? 1 : 0,
-      score,
-      total,
-      now,
-      now
+      authenticatedUser.id,
+      moduleId,
+      lessonId,
+      completed,
+      quizScore,
+      quizTotal
     ).run();
 
-    return jsonResponse({ success: true });
+    return jsonResponse({
+      success: true,
+      message: "Progress saved successfully."
+    });
 
   } catch (error) {
-    console.error("Progress save error:", error);
+    console.error("LOGI progress error:", error);
 
     return jsonResponse({
-      error: "Could not save student progress."
+      success: false,
+      error: "Unable to save progress. Please try again."
     }, 500);
   }
 }
