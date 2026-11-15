@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Schools — Living Oracles Global Institute</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Schools &amp; Student Life — Living Oracles Global Institute</title>
 
     <!-- Meta Tags -->
-    <meta name="description" content="Explore the four schools of Living Oracles Global Institute: Business &amp; Leadership, Ministry &amp; Theology, Engineering &amp; Technology, and Digital Technology." />
+    <meta name="description" content="Explore the four schools of Living Oracles Global Institute: Business & Leadership, Ministry & Theology, Engineering & Technology, and Digital Technology. Meet our students and faculty." />
     <meta property="og:title" content="Schools — Living Oracles Global Institute" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://logi.education/schools" />
@@ -18,6 +18,11 @@
     <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
     <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
 
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- FontAwesome Core -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
@@ -28,11 +33,20 @@
         :root {
             --pink: #ff4b93;
             --pink-dark: #e93680;
+            --pink-soft: #fff0f6;
             --lav: #f3f0fa;
-            --ink: #34343b;
-            --muted: #777780;
-            --line: #e9e8ef;
-            --white: #fff;
+            --ink: #1e1e24;
+            --muted: #646473;
+            --line: #e4e4ec;
+            --white: #ffffff;
+            --gold: #f4c52d;
+            --bg-soft: #f8f8fc;
+            --bg-tint: #fff9fb;
+            --bg-chip: #f4f4f8;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.09);
+            --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
         }
 
         * {
@@ -41,7 +55,11 @@
             padding: 0;
         }
 
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
         html, body {
             overflow-x: hidden !important;
@@ -50,178 +68,524 @@
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: var(--ink);
-            background: #fff;
-            line-height: 1.5;
+            background: var(--white);
+            line-height: 1.6;
         }
 
-        a { color: inherit; text-decoration: none; }
+        a { 
+            color: inherit; 
+            text-decoration: none; 
+            transition: var(--transition);
+        }
+
+        img { max-width: 100%; display: block; }
+
+        /* Scroll offset for sticky header */
+        #all-schools, #student-life { 
+            scroll-margin-top: 96px; 
+        }
+
+        /* ========================================== */
+        /*   ANNOUNCEMENT BAR (ACADEMIC INTAKE)      */
+        /* ========================================== */
+        .intake-bar {
+            background: #181720;
+            color: #f0f0f5;
+            font-size: 12.5px;
+            padding: 9px 5%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .intake-badge {
+            background: var(--pink);
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .intake-bar a {
+            color: #ffb6d1;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .intake-bar a:hover { color: var(--white); }
 
         /* ========================================== */
         /*   TOPBAR                                  */
         /* ========================================== */
         .topbar {
-            height: 64px;
+            height: 74px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 max(5%, calc((100% - 1180px)/2));
-            box-shadow: 0 2px 9px #00000012;
-            background: #fff;
+            padding: 0 max(5%, calc((100% - 1280px)/2));
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+            background: rgba(255, 255, 255, 0.95);
             position: sticky;
             top: 0;
             z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 800;
-            letter-spacing: -1.5px;
-            color: #555;
-            text-decoration: none;
+            letter-spacing: -1.8px;
+            color: #2c2c35;
         }
 
         .logo span { color: var(--pink); }
 
-        .nav {
-            display: flex;
-            gap: 22px;
-            align-items: center;
-            font-size: 13px;
+        .logo-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            border-left: 1px solid var(--line);
+            padding-left: 10px;
+            line-height: 1.25;
+            display: none;
         }
 
-        .nav a {
-            text-decoration: none;
-            color: var(--ink);
-            transition: color 0.2s;
+        @media (min-width: 900px) {
+            .logo-sub { display: block; }
+        }
+
+        .nav {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .nav a:hover:not(.button) { color: var(--pink); }
 
-        .nav .button {
-            background: var(--pink);
-            color: #fff;
-            padding: 9px 24px;
-            border-radius: 4px;
-            transition: background 0.2s;
+        .nav a.active {
+            color: var(--pink);
+            font-weight: 600;
         }
 
-        .nav .button:hover { background: var(--pink-dark); }
+        .nav .portal-link {
+            font-size: 13px;
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-        @media (max-width: 650px) {
-            .topbar { height: 54px; padding: 0 5%; }
-            .logo { font-size: 24px; }
-            .nav { gap: 10px; }
-            .nav a:first-child { display: none; }
-            .nav .button { font-size: 11px; padding: 8px 14px; }
+        .nav .button {
+            background: var(--pink);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(255, 75, 147, 0.25);
+            font-weight: 600;
+        }
+
+        .nav .button:hover { 
+            background: var(--pink-dark);
+            box-shadow: 0 4px 14px rgba(255, 75, 147, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* Hamburger button - hidden on desktop */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--ink);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .menu-toggle:hover {
+            background: var(--bg-chip);
+        }
+
+        /* Mobile drawer */
+        .mobile-drawer {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            padding: 80px 28px 28px;
+            flex-direction: column;
+            gap: 4px;
+            transition: right 0.3s cubic-bezier(0.2, 0, 0, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-drawer.open {
+            right: 0;
+        }
+
+        .mobile-drawer a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--ink);
+            border-radius: 8px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .mobile-drawer a:hover {
+            background: var(--bg-soft);
+            color: var(--pink);
+        }
+
+        .mobile-drawer a i {
+            width: 20px;
+            color: var(--pink);
+            font-size: 14px;
+        }
+
+        .mobile-drawer .apply-mobile {
+            margin-top: 20px;
+            background: var(--pink);
+            color: var(--white) !important;
+            justify-content: center;
+            border-bottom: none;
+            border-radius: 8px;
+        }
+
+        .mobile-drawer .apply-mobile i { color: var(--white); }
+
+        .mobile-drawer .apply-mobile:hover {
+            background: var(--pink-dark);
+            color: var(--white) !important;
+        }
+
+        .drawer-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .drawer-overlay.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .drawer-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--ink);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .drawer-close:hover {
+            background: var(--bg-chip);
+        }
+
+        @media (max-width: 768px) {
+            .topbar { height: 64px; padding: 0 5%; }
+            .logo { font-size: 26px; }
+            .nav { display: none; }
+            .menu-toggle { display: block; }
+            .mobile-drawer { display: flex; }
         }
 
         /* ========================================== */
-        /*   PHOTOGRAPHIC HERO                       */
+        /*   PHOTOGRAPHIC HERO (WITH STUDENTS)         */
         /* ========================================== */
         .schools-hero {
             position: relative;
             width: 100%;
-            min-height: 460px;
-            background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80');
+            min-height: 540px;
+            background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85');
             background-size: cover;
-            background-position: center;
+            background-position: center 30%;
             display: flex;
             align-items: center;
-            padding: 60px 5%;
-            color: #fff;
+            padding: 84px 5%;
+            color: var(--white);
         }
 
         .schools-hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(120deg, rgba(15, 10, 25, 0.88) 0%, rgba(40, 20, 50, 0.78) 45%, rgba(255, 75, 147, 0.35) 100%);
+            background: linear-gradient(115deg, rgba(16, 13, 28, 0.94) 0%, rgba(28, 19, 44, 0.85) 50%, rgba(233, 54, 128, 0.42) 100%);
             z-index: 1;
         }
 
-        .schools-hero-inner {
-            max-width: 1180px;
+        .schools-hero-grid {
+            max-width: 1280px;
             margin: 0 auto;
             width: 100%;
             position: relative;
             z-index: 2;
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .schools-hero-inner {
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            max-width: 760px;
+            gap: 20px;
         }
 
         .schools-hero .breadcrumb {
             font-size: 12px;
             color: #ffd1e3;
-            margin-bottom: 8px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        .schools-hero .breadcrumb a { color: #fff; }
+        .schools-hero .breadcrumb a { color: var(--white); opacity: 0.8; }
+        .schools-hero .breadcrumb a:hover { opacity: 1; }
         .schools-hero .breadcrumb span { color: #ffb6d1; }
 
         .schools-hero h1 {
-            font-size: clamp(32px, 5vw, 52px);
-            line-height: 1.05;
+            font-size: clamp(36px, 5vw, 56px);
+            line-height: 1.08;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0;
+            letter-spacing: -1.5px;
         }
 
         .schools-hero h1 span { color: #ffb6d1; }
 
         .schools-hero p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.92);
-            max-width: 620px;
+            font-size: 16px;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 590px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 6px;
         }
 
         .schools-hero .pill {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: var(--pink);
-            color: #fff;
-            padding: 11px 22px;
-            border-radius: 4px;
-            font-size: 13px;
+            color: var(--white);
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 600;
-            margin-top: 14px;
-            align-self: flex-start;
+            box-shadow: 0 4px 16px rgba(255, 75, 147, 0.35);
         }
 
-        .schools-hero .pill:hover { background: var(--pink-dark); }
+        .schools-hero .pill:hover { 
+            background: var(--pink-dark);
+            transform: translateY(-2px);
+        }
 
-        @media (max-width: 650px) {
-            .schools-hero { min-height: 380px; padding: 40px 5%; }
-            .schools-hero p { font-size: 13px; }
+        .schools-hero .pill-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            padding: 13px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(6px);
+        }
+
+        .schools-hero .pill-outline:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--white);
+        }
+
+        /* Floating Student Community Card in Hero */
+        .hero-student-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 26px;
+            color: var(--white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .hero-student-avatars {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .hero-student-avatars img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid #241b35;
+            margin-left: -12px;
+        }
+
+        .hero-student-avatars img:first-child { margin-left: 0; }
+
+        .hero-student-count {
+            margin-left: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            background: var(--pink);
+            padding: 4px 10px;
+            border-radius: 99px;
+        }
+
+        .hero-student-card blockquote {
+            font-size: 14px;
+            line-height: 1.65;
+            font-style: italic;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 14px;
+        }
+
+        .hero-student-meta {
+            font-size: 12px;
+            color: #ffd1e3;
+            font-weight: 600;
+        }
+
+        .hero-student-meta span {
+            display: block;
+            font-weight: 400;
+            color: rgba(255,255,255,0.75);
+            margin-top: 2px;
+        }
+
+        @media (max-width: 960px) {
+            .schools-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+            .hero-student-card { max-width: 480px; }
         }
 
         /* ========================================== */
-        /*   INNER CONTAINER                         */
+        /*   INSTITUTIONAL METRICS STRIP              */
+        /* ========================================== */
+        .metrics-strip {
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+            padding: 28px 5%;
+        }
+
+        .metrics-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .metric-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: var(--pink-soft);
+            color: var(--pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .metric-text strong {
+            display: block;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.2;
+        }
+
+        .metric-text span {
+            font-size: 12.5px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ========================================== */
+        /*   INNER CONTAINER & SECTIONS                */
         /* ========================================== */
         .inner {
-            width: min(1180px, 90%);
+            width: min(1280px, 90%);
             margin: auto;
         }
 
-        /* ========================================== */
-        /*   CATALOG SECTIONS                        */
-        /* ========================================== */
-        .catalog-section { padding: 52px 0 60px; }
-        .catalog-section.grey { background: #f5f5f8; }
-        .catalog-section.tint { background: #fff6fa; }
+        .catalog-section { padding: 72px 0 84px; }
+        .catalog-section.grey { background: var(--bg-soft); }
+        .catalog-section.tint { background: var(--bg-tint); }
 
         .section-head {
             display: flex;
             justify-content: space-between;
-            align-items: end;
-            gap: 15px;
-            border-bottom: 1px solid #dedee5;
-            padding-bottom: 11px;
+            align-items: flex-end;
+            gap: 20px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
             margin-bottom: 22px;
             position: relative;
+            flex-wrap: wrap;
         }
 
         .section-head:after {
@@ -229,29 +593,31 @@
             position: absolute;
             bottom: -1px;
             left: 0;
-            width: 190px;
-            height: 2px;
-            background: linear-gradient(90deg, #f4c52d, var(--pink));
+            width: 220px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--pink));
+            border-radius: 2px;
         }
 
         .section-head h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .highlight {
             background: var(--pink);
-            color: #fff;
-            padding: 2px 6px;
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: 4px;
         }
 
         .section-intro {
-            font-size: 13px;
-            color: #666;
-            margin: -10px 0 30px;
-            line-height: 1.7;
-            max-width: 780px;
+            font-size: 14.5px;
+            color: var(--muted);
+            margin: -4px 0 38px;
+            line-height: 1.75;
+            max-width: 760px;
         }
 
         /* ========================================== */
@@ -260,30 +626,30 @@
         .schools-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 28px;
+            gap: 32px;
         }
 
         .school-card {
-            background: #fff;
+            background: var(--white);
             border: 1px solid var(--line);
-            border-radius: 10px;
+            border-radius: 14px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px #00000008;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
         }
 
         .school-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 16px 36px #00000018;
+            box-shadow: var(--shadow-lg);
             border-color: #ffd1e3;
         }
 
         .school-card-image {
             position: relative;
             width: 100%;
-            height: 230px;
+            height: 245px;
             background-size: cover;
             background-position: center;
             background-color: #ecebf3;
@@ -293,45 +659,100 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.55) 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.08) 30%, rgba(18, 16, 26, 0.78) 100%);
         }
 
         .school-card-badge {
             position: absolute;
-            top: 14px;
-            left: 14px;
-            background: rgba(255,255,255,0.95);
+            top: 16px;
+            left: 16px;
+            background: rgba(255, 255, 255, 0.96);
             color: var(--pink);
-            font-size: 10px;
+            font-size: 10.5px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
-            padding: 5px 11px;
-            border-radius: 3px;
+            padding: 6px 14px;
+            border-radius: 4px;
             z-index: 2;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Cohort / Student Pill on Image */
+        .school-cohort-pill {
+            position: absolute;
+            bottom: 14px;
+            left: 16px;
+            right: 16px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--white);
+            font-size: 12px;
+        }
+
+        .mini-avatars {
+            display: flex;
+            align-items: center;
+        }
+
+        .mini-avatars img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--white);
+            margin-left: -8px;
+        }
+
+        .mini-avatars img:first-child { margin-left: 0; }
+
+        .mini-avatars span {
+            margin-left: 8px;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
         }
 
         .school-card-body {
-            padding: 24px 26px 26px;
+            padding: 26px 28px 28px;
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
         .school-card-body h3 {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: 800;
             color: var(--ink);
             margin-bottom: 10px;
-            line-height: 1.25;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
         }
 
         .school-card-body p {
-            font-size: 13.5px;
-            color: #555;
-            line-height: 1.65;
+            font-size: 14px;
+            color: #4f4f5e;
+            line-height: 1.7;
             margin-bottom: 18px;
             flex: 1;
+        }
+
+        /* Sample Courses Tags */
+        .course-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .course-tag {
+            font-size: 11px;
+            font-weight: 600;
+            color: #4b4b59;
+            background: var(--bg-chip);
+            padding: 4px 10px;
+            border-radius: 5px;
         }
 
         .school-card-meta {
@@ -346,15 +767,15 @@
         .school-card-meta span {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
             font-size: 12px;
             font-weight: 600;
-            color: #666;
+            color: var(--muted);
         }
 
         .school-card-meta i {
             color: var(--pink);
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .school-card-cta {
@@ -365,188 +786,603 @@
             font-size: 13px;
             font-weight: 700;
             color: var(--pink);
-            padding: 10px 14px;
-            border: 1px solid #ffd1e3;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            align-self: flex-start;
+            padding: 12px 18px;
+            border: 1.5px solid #ffd1e3;
+            border-radius: 8px;
+            transition: var(--transition);
             width: 100%;
+            background: transparent;
         }
 
         .school-card-cta:hover {
             background: var(--pink);
-            color: #fff;
+            color: var(--white);
             border-color: var(--pink);
+            box-shadow: 0 4px 16px rgba(255, 75, 147, 0.25);
         }
 
-        .school-card-cta i {
+        .school-card-cta i { transition: transform 0.2s ease; }
+        .school-card-cta:hover i { transform: translateX(5px); }
+
+        @media (max-width: 960px) {
+            .schools-grid { grid-template-columns: 1fr; gap: 26px; }
+        }
+
+        /* ========================================== */
+        /*   STUDENT LIFE & LEARNING EXPERIENCE        */
+        /* ========================================== */
+        .campus-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+        }
+
+        .campus-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .campus-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .campus-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .campus-card-body {
+            padding: 22px 24px;
+        }
+
+        .campus-label {
             font-size: 11px;
-            transition: transform 0.2s ease;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--pink);
+            margin-bottom: 6px;
+            display: block;
         }
 
-        .school-card-cta:hover i { transform: translateX(4px); }
+        .campus-card-body h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .campus-card-body p {
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
 
         @media (max-width: 900px) {
-            .schools-grid { grid-template-columns: 1fr; gap: 22px; }
-            .school-card-image { height: 200px; }
+            .campus-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ========================================== */
+        /*   STUDENT VOICES / TESTIMONIALS            */
+        /* ========================================== */
+        .voices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+        }
+
+        .voice-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .voice-quote-icon {
+            color: #ffd1e3;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .voice-card p {
+            font-size: 14px;
+            color: #3f3f4e;
+            line-height: 1.75;
+            margin-bottom: 22px;
+        }
+
+        .student-profile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+        }
+
+        .student-profile img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffd1e3;
+        }
+
+        .student-info strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .student-info span {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .student-school-tag {
+            display: inline-block;
+            margin-top: 3px;
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--pink);
+        }
+
+        @media (max-width: 900px) {
+            .voices-grid { grid-template-columns: 1fr; }
         }
 
         /* ========================================== */
         /*   CTA STRIP                               */
         /* ========================================== */
         .cta-strip {
-            padding: 52px 5%;
-            background: linear-gradient(120deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%);
+            padding: 72px 5%;
+            background: linear-gradient(125deg, #faf5fd 0%, #ffffff 55%, #ffe9f1 100%);
             text-align: center;
+            border-top: 1px solid var(--line);
         }
 
         .cta-strip h2 {
-            font-size: clamp(22px, 3vw, 30px);
+            font-size: clamp(26px, 3.2vw, 34px);
             font-weight: 800;
             color: var(--ink);
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+            letter-spacing: -0.8px;
         }
 
         .cta-strip p {
-            font-size: 14px;
-            color: #666;
-            max-width: 580px;
-            margin: 0 auto 24px;
-            line-height: 1.7;
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 560px;
+            margin: 0 auto 28px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         .cta-strip .pill {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: var(--pink);
-            color: #fff;
-            padding: 12px 26px;
-            border-radius: 4px;
-            font-size: 13px;
+            color: var(--white);
+            padding: 14px 34px;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 600;
-            transition: background 0.2s;
+            box-shadow: 0 4px 14px rgba(255, 75, 147, 0.3);
         }
 
-        .cta-strip .pill:hover { background: var(--pink-dark); }
+        .cta-strip .pill:hover { 
+            background: var(--pink-dark);
+            transform: translateY(-2px);
+        }
+
+        .cta-strip .pill-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            color: var(--ink);
+            border: 1px solid var(--line);
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cta-strip .pill-secondary:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+        }
 
         /* ========================================== */
-        /*   FOOTER                                  */
+        /*   SIMPLE FOOTER                           */
         /* ========================================== */
         .footer {
-            background: #292832;
-            color: #eee;
+            background: #181720;
+            color: #d4d4de;
             text-align: center;
-            padding: 24px 5%;
-            font-size: 12px;
+            padding: 32px 5%;
+            font-size: 13px;
+            letter-spacing: 0.2px;
+            line-height: 1.7;
         }
 
-        .footer strong { color: var(--pink); }
+        .footer strong { 
+            color: var(--pink); 
+            font-weight: 600;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
 
     <!-- ========================================== -->
+    <!--   ACADEMIC INTAKE BAR                     -->
+    <!-- ========================================== -->
+    <div class="intake-bar">
+        <span class="intake-badge">Admissions Open</span>
+        <span>Applications are now open for the upcoming 2026/2027 Online Academic Cohort.</span>
+        <a href="https://www.logi.education/main-registration-form">Start Your Application &rarr;</a>
+    </div>
+
+    <!-- ========================================== -->
     <!--   TOPBAR                                  -->
     <!-- ========================================== -->
     <header class="topbar">
-        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
-        <nav class="nav">
-            <a href="https://www.logi.education">Home</a>
-            <a href="https://www.logi.education/our-program">Programmes</a>
+        <div class="logo-wrap">
+            <a class="logo" href="https://www.logi.education" aria-label="LOGI Home">LOGI<span>.</span></a>
+            <span class="logo-sub">Living Oracles<br>Global Institute</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+            <a class="hide-mobile" href="https://www.logi.education">Home</a>
+            <a class="active hide-mobile" href="#all-schools">Schools</a>
+            <a class="hide-mobile" href="https://www.logi.education/our-program">Programmes</a>
+            <a class="hide-mobile" href="#student-life">Student Life</a>
+            <a class="portal-link hide-mobile" href="https://www.logi.education"><i class="fas fa-user-graduate" aria-hidden="true"></i> Student Portal</a>
             <a class="button" href="https://www.logi.education/main-registration-form">Apply Now</a>
         </nav>
+        <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
     </header>
 
+    <!-- Mobile Drawer -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Mobile navigation">
+        <button class="drawer-close" aria-label="Close navigation menu">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <a href="https://www.logi.education"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+        <a href="#all-schools"><i class="fas fa-university" aria-hidden="true"></i> Schools</a>
+        <a href="https://www.logi.education/our-program"><i class="fas fa-book" aria-hidden="true"></i> Programmes</a>
+        <a href="#student-life"><i class="fas fa-users" aria-hidden="true"></i> Student Life</a>
+        <a href="https://www.logi.education"><i class="fas fa-user-graduate" aria-hidden="true"></i> Student Portal</a>
+        <a href="https://www.logi.education/main-registration-form" class="apply-mobile"><i class="fas fa-pen" aria-hidden="true"></i> Apply Now</a>
+    </div>
+
     <!-- ========================================== -->
-    <!--   PHOTOGRAPHIC HERO                       -->
+    <!--   PHOTOGRAPHIC HERO (WITH STUDENTS)         -->
     <!-- ========================================== -->
     <section class="schools-hero">
-        <div class="schools-hero-inner">
-            <div class="breadcrumb">
-                <a href="https://www.logi.education">Home</a> / <span>Schools</span>
+        <div class="schools-hero-grid">
+            <div class="schools-hero-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.logi.education">Home</a> / <span>Academic Schools</span>
+                </div>
+                <h1>Four Schools.<br>One <span>Global Campus.</span></h1>
+                <p>Join a vibrant community of learners, leaders, and builders across four specialised faculties. Earn accredited certificates and diplomas through flexible, Christ-centred online education.</p>
+                <div class="hero-actions">
+                    <a href="#all-schools" class="pill">Explore All Schools <i class="fas fa-arrow-down" style="font-size:11px;" aria-hidden="true"></i></a>
+                    <a href="#student-life" class="pill-outline"><i class="fas fa-users" aria-hidden="true"></i> Meet Our Students</a>
+                </div>
             </div>
-            <h1>Our <span>Schools</span></h1>
-            <p>Four schools. One mission. Explore practical, Christ-centred programmes across business, ministry, engineering, and digital technology — all delivered 100% online.</p>
-            <a href="#all-schools" class="pill">Explore All Schools <i class="fas fa-arrow-down" style="font-size:10px;margin-left:4px;"></i></a>
+
+            <!-- Floating Student Community Card -->
+            <div class="hero-student-card">
+                <div class="hero-student-avatars">
+                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=150&q=80" alt="Abena Mensah" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Samuel Osei-Bonsu" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Chidinma Okeke" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80" alt="David Boateng" loading="lazy">
+                    <span class="hero-student-count">+2,440 Students</span>
+                </div>
+                <blockquote>“Studying at LOGI gave me practical leadership frameworks I applied in my organisation the very same week—while connecting me with classmates across four continents.”</blockquote>
+                <div class="hero-student-meta">
+                    <cite>Abena Mensah — Class of 2026</cite>
+                    <span>Diploma in Strategic Leadership · School of Business</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!--   SCHOOLS GRID                            -->
+    <!--   INSTITUTIONAL METRICS STRIP              -->
+    <!-- ========================================== -->
+    <section class="metrics-strip" aria-label="Institutional Statistics">
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <div class="metric-icon"><i class="fas fa-user-graduate" aria-hidden="true"></i></div>
+                <div class="metric-text">
+                    <strong>2,440+</strong>
+                    <span>Active Global Students</span>
+                </div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-icon"><i class="fas fa-globe-africa" aria-hidden="true"></i></div>
+                <div class="metric-text">
+                    <strong>35+ Countries</strong>
+                    <span>International Student Body</span>
+                </div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-icon"><i class="fas fa-certificate" aria-hidden="true"></i></div>
+                <div class="metric-text">
+                    <strong>20+ Programmes</strong>
+                    <span>Certificates &amp; Diplomas</span>
+                </div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-icon"><i class="fas fa-laptop-house" aria-hidden="true"></i></div>
+                <div class="metric-text">
+                    <strong>100% Online</strong>
+                    <span>Live &amp; Self-Paced Study</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   SCHOOLS GRID (WITH STUDENT COHORTS)       -->
     <!-- ========================================== -->
     <section class="catalog-section grey" id="all-schools">
         <div class="inner">
             <div class="section-head">
                 <h2>Choose Your <span class="highlight">School</span></h2>
             </div>
-            <p class="section-intro">Each school offers a distinct pathway of certificate, diploma, and professional programmes designed to prepare you for real-world impact.</p>
+            <p class="section-intro">Each school is led by experienced faculty practitioners and supported by active peer study cohorts, offering practical programmes designed for real-world impact.</p>
 
             <div class="schools-grid">
 
                 <!-- 1. Business & Leadership -->
                 <div class="school-card">
-                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80');">
-                        <span class="school-card-badge">Business &amp; Leadership</span>
+                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80');">
+                        <span class="school-card-badge">School of Business &amp; Leadership</span>
+                        <div class="school-cohort-pill">
+                            <div class="mini-avatars">
+                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80" alt="Business student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Business student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt="Business student" loading="lazy">
+                                <span>680+ Enrolled Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="school-card-body">
                         <h3>School of Business &amp; Leadership</h3>
                         <p>Develop the strategic vision, ethical leadership, and management skills needed to transform organisations and communities — grounded in practical, Christ-centred education.</p>
-                        <div class="school-card-meta">
-                            <span><i class="fas fa-book-open"></i> 4 Programmes</span>
-                            <span><i class="fas fa-clock"></i> 3–9 Months</span>
+                        <div class="course-tags">
+                            <span class="course-tag">Strategic Leadership</span>
+                            <span class="course-tag">Project Management</span>
+                            <span class="course-tag">Entrepreneurship</span>
                         </div>
-                        <a href="/schools/business-leadership" class="school-card-cta">Explore School <i class="fas fa-arrow-right"></i></a>
+                        <div class="school-card-meta">
+                            <span><i class="fas fa-book-open" aria-hidden="true"></i> 4 Programmes</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> 3–9 Months</span>
+                            <span><i class="fas fa-award" aria-hidden="true"></i> Verified Certificate</span>
+                        </div>
+                        <a href="/schools/business-leadership" class="school-card-cta">Explore School &amp; Curriculum <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <!-- 2. Ministry & Theology -->
                 <div class="school-card">
-                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=900&q=80');">
-                        <span class="school-card-badge">Ministry &amp; Theology</span>
+                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=80');">
+                        <span class="school-card-badge">School of Ministry &amp; Theology</span>
+                        <div class="school-cohort-pill">
+                            <div class="mini-avatars">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Ministry student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" alt="Ministry student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&q=80" alt="Ministry student" loading="lazy">
+                                <span>1,120+ Enrolled Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="school-card-body">
                         <h3>School of Ministry &amp; Theology</h3>
-                        <p>Prepare for Christian service, ministry leadership, and effective biblical work through practical, Christ-centred education — grounding you in the Word.</p>
-                        <div class="school-card-meta">
-                            <span><i class="fas fa-book-open"></i> 12 Programmes</span>
-                            <span><i class="fas fa-clock"></i> 3–9 Months</span>
+                        <p>Prepare for Christian service, ministry leadership, and effective biblical work through practical, Christ-centred education — grounding you deeply in the Word.</p>
+                        <div class="course-tags">
+                            <span class="course-tag">Biblical Studies</span>
+                            <span class="course-tag">Pastoral Leadership</span>
+                            <span class="course-tag">Christian Counselling</span>
                         </div>
-                        <a href="/schools/ministry-theology" class="school-card-cta">Explore School <i class="fas fa-arrow-right"></i></a>
+                        <div class="school-card-meta">
+                            <span><i class="fas fa-book-open" aria-hidden="true"></i> 12 Programmes</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> 3–9 Months</span>
+                            <span><i class="fas fa-award" aria-hidden="true"></i> Verified Diploma</span>
+                        </div>
+                        <a href="/schools/ministry-theology" class="school-card-cta">Explore School &amp; Curriculum <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <!-- 3. Engineering & Technology -->
                 <div class="school-card">
-                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80');">
-                        <span class="school-card-badge">Engineering &amp; Technology</span>
+                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=900&q=80');">
+                        <span class="school-card-badge">School of Engineering &amp; Technology</span>
+                        <div class="school-cohort-pill">
+                            <div class="mini-avatars">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Engineering student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Engineering student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=100&q=80" alt="Engineering student" loading="lazy">
+                                <span>290+ Enrolled Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="school-card-body">
                         <h3>School of Engineering &amp; Technology</h3>
                         <p>Develop the technical, analytical, and process-management skills required in modern industry — through practical, applied engineering education.</p>
-                        <div class="school-card-meta">
-                            <span><i class="fas fa-book-open"></i> 2 Programmes</span>
-                            <span><i class="fas fa-clock"></i> 3–9 Months</span>
+                        <div class="course-tags">
+                            <span class="course-tag">Industrial Operations</span>
+                            <span class="course-tag">Systems &amp; Quality Engineering</span>
                         </div>
-                        <a href="/schools/engineering-technology" class="school-card-cta">Explore School <i class="fas fa-arrow-right"></i></a>
+                        <div class="school-card-meta">
+                            <span><i class="fas fa-book-open" aria-hidden="true"></i> 2 Programmes</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> 3–9 Months</span>
+                            <span><i class="fas fa-award" aria-hidden="true"></i> Verified Certificate</span>
+                        </div>
+                        <a href="/schools/engineering-technology" class="school-card-cta">Explore School &amp; Curriculum <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <!-- 4. Digital Technology -->
                 <div class="school-card">
-                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80');">
-                        <span class="school-card-badge">Digital Technology</span>
+                    <div class="school-card-image" style="background-image:url('https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80');">
+                        <span class="school-card-badge">School of Digital Technology</span>
+                        <div class="school-cohort-pill">
+                            <div class="mini-avatars">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" alt="Digital Technology student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?auto=format&fit=crop&w=100&q=80" alt="Digital Technology student" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="Digital Technology student" loading="lazy">
+                                <span>350+ Enrolled Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="school-card-body">
                         <h3>School of Digital Technology</h3>
-                        <p>Equip yourself with the digital skills of the future — from IT fundamentals and data analytics to cybersecurity and digital operations.</p>
-                        <div class="school-card-meta">
-                            <span><i class="fas fa-book-open"></i> 2 Free Courses</span>
-                            <span><i class="fas fa-gift"></i> More Coming Soon</span>
+                        <p>Equip yourself with the digital skills of the future — from IT fundamentals and data analytics to cybersecurity and modern digital operations.</p>
+                        <div class="course-tags">
+                            <span class="course-tag">IT Fundamentals</span>
+                            <span class="course-tag">Digital Operations</span>
+                            <span class="course-tag">Data Literacy</span>
                         </div>
-                        <a href="/schools/digital-technology" class="school-card-cta">Explore School <i class="fas fa-arrow-right"></i></a>
+                        <div class="school-card-meta">
+                            <span><i class="fas fa-book-open" aria-hidden="true"></i> 2 Free Courses</span>
+                            <span><i class="fas fa-gift" aria-hidden="true"></i> Open Enrolment</span>
+                            <span><i class="fas fa-bolt" aria-hidden="true"></i> More Coming Soon</span>
+                        </div>
+                        <a href="/schools/digital-technology" class="school-card-cta">Explore School &amp; Free Courses <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   STUDENT LIFE & LEARNING EXPERIENCE        -->
+    <!-- ========================================== -->
+    <section class="catalog-section" id="student-life">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Life as a <span class="highlight">LOGI Student</span></h2>
+            </div>
+            <p class="section-intro">Online education at LOGI is never isolating. You learn alongside an active global cohort with faculty mentorship, live discussions, and verifiable academic credentials.</p>
+
+            <div class="campus-grid">
+                <div class="campus-card">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Students attending a virtual seminar" loading="lazy">
+                    <div class="campus-card-body">
+                        <span class="campus-label">Interactive Learning</span>
+                        <h3>Live Seminars &amp; Study Cohorts</h3>
+                        <p>Combine self-paced weekly modules with live interactive faculty Q&amp;A sessions and peer discussion groups across time zones.</p>
+                    </div>
+                </div>
+
+                <div class="campus-card">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80" alt="Students collaborating together" loading="lazy">
+                    <div class="campus-card-body">
+                        <span class="campus-label">Global Community</span>
+                        <h3>Peer Mentorship &amp; Chapels</h3>
+                        <p>Connect with fellow students from Ghana, Nigeria, the UK, the US, and beyond through weekly online fellowship and accountability circles.</p>
+                    </div>
+                </div>
+
+                <div class="campus-card">
+                    <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=800&q=80" alt="Graduating students celebrating" loading="lazy">
+                    <div class="campus-card-body">
+                        <span class="campus-label">Graduation &amp; Recognition</span>
+                        <h3>Verified Academic Credentials</h3>
+                        <p>Graduate with official transcripts and digital certificates verifiable online by employers, ministries, and academic institutions worldwide.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!--   STUDENT VOICES & ALUMNI OUTCOMES          -->
+    <!-- ========================================== -->
+    <section class="catalog-section tint">
+        <div class="inner">
+            <div class="section-head">
+                <h2>Student <span class="highlight">Voices</span></h2>
+            </div>
+            <p class="section-intro">Hear directly from current students and recent graduates across our four schools.</p>
+
+            <div class="voices-grid">
+                <div class="voice-card">
+                    <div>
+                        <div class="voice-quote-icon" aria-hidden="true"><i class="fas fa-quote-left"></i></div>
+                        <p>“The Ministry &amp; Theology faculty balanced deep scriptural scholarship with practical church administration. Balancing coursework alongside full-time work was seamless.”</p>
+                    </div>
+                    <div class="student-profile">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Samuel Osei-Bonsu" loading="lazy">
+                        <div class="student-info">
+                            <strong>Samuel Osei-Bonsu</strong>
+                            <span>Accra, Ghana · Cohort of 2026</span>
+                            <span class="student-school-tag">School of Ministry &amp; Theology</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div>
+                        <div class="voice-quote-icon" aria-hidden="true"><i class="fas fa-quote-left"></i></div>
+                        <p>“I started with the free IT Fundamentals course in the School of Digital Technology and immediately gained the confidence to transition into a digital operations role.”</p>
+                    </div>
+                    <div class="student-profile">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Chidinma Okeke" loading="lazy">
+                        <div class="student-info">
+                            <strong>Chidinma Okeke</strong>
+                            <span>Lagos, Nigeria · Current Student</span>
+                            <span class="student-school-tag">School of Digital Technology</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="voice-card">
+                    <div>
+                        <div class="voice-quote-icon" aria-hidden="true"><i class="fas fa-quote-left"></i></div>
+                        <p>“What sets LOGI apart is the calibre of the students and instructors. Every case study pushed me to think ethically and strategically as an engineering team lead.”</p>
+                    </div>
+                    <div class="student-profile">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80" alt="David Boateng" loading="lazy">
+                        <div class="student-info">
+                            <strong>David Boateng</strong>
+                            <span>London, United Kingdom · Alumni</span>
+                            <span class="student-school-tag">School of Engineering &amp; Technology</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -555,17 +1391,68 @@
     <!--   CTA STRIP                               -->
     <!-- ========================================== -->
     <section class="cta-strip">
-        <h2>Not Sure Which School to Choose?</h2>
-        <p>Our admissions team is ready to guide you toward the programme that best fits your goals, calling, and schedule.</p>
-        <a href="https://www.logi.education/contact" class="pill">Talk to an Advisor <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+        <h2>Ready to Begin Your Academic Journey?</h2>
+        <p>Whether you are advancing your career, strengthening your ministry, or exploring a free introductory course, our admissions advisors are ready to help.</p>
+        <div class="cta-buttons">
+            <a href="https://www.logi.education/main-registration-form" class="pill">Apply for Admission <i class="fas fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+            <a href="https://www.logi.education/contact" class="pill-secondary"><i class="fas fa-headset" aria-hidden="true"></i> Talk to an Admissions Advisor</a>
+        </div>
     </section>
 
     <!-- ========================================== -->
-    <!--   FOOTER                                  -->
+    <!--   SIMPLE FOOTER                           -->
     <!-- ========================================== -->
     <footer class="footer">
-        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+        <div class="footer-content">
+            Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+        </div>
     </footer>
+
+    <script>
+        (function() {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var drawer = document.getElementById('mobile-drawer');
+            var overlay = document.getElementById('drawer-overlay');
+            var closeBtn = document.querySelector('.drawer-close');
+
+            function openDrawer() {
+                drawer.classList.add('open');
+                overlay.classList.add('visible');
+                menuToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                drawer.classList.remove('open');
+                overlay.classList.remove('visible');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', function() {
+                if (drawer.classList.contains('open')) {
+                    closeDrawer();
+                } else {
+                    openDrawer();
+                }
+            });
+
+            closeBtn.addEventListener('click', closeDrawer);
+            overlay.addEventListener('click', closeDrawer);
+
+            // Close drawer when a link is clicked
+            drawer.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', closeDrawer);
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                    closeDrawer();
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
