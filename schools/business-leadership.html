@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>School of Business &amp; Leadership — Living Oracles Global Institute</title>
 
     <!-- Meta Tags -->
@@ -18,6 +18,11 @@
     <link href="https://i.imgur.com/kkE49KM.png" rel="icon" type="image/png" />
     <link href="https://i.imgur.com/kkE49KM.png" rel="apple-touch-icon" type="image/png" />
 
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- FontAwesome Core -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
 
@@ -28,11 +33,24 @@
         :root {
             --pink: #ff4b93;
             --pink-dark: #e93680;
+            --pink-soft: #fff0f6;
             --lav: #f3f0fa;
-            --ink: #34343b;
-            --muted: #777780;
-            --line: #e9e8ef;
-            --white: #fff;
+            --ink: #1e1e24;
+            --muted: #646473;
+            --line: #e4e4ec;
+            --white: #ffffff;
+            --gold: #f4c52d;
+            --bg-soft: #f8f8fc;
+            --bg-tint: #fff9fb;
+            --bg-chip: #f4f4f8;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.09);
+            --transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+
+            /* Fixed topbar height (no intake bar) */
+            --topbar-h: 74px;
+            --header-total: var(--topbar-h);
         }
 
         * {
@@ -41,8 +59,10 @@
             padding: 0;
         }
 
-        html {
+        html { 
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         html, body {
@@ -52,74 +72,235 @@
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: var(--ink);
-            background: #fff;
-            line-height: 1.5;
+            background: var(--white);
+            line-height: 1.6;
+            padding-top: var(--header-total);
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
+        a { 
+            color: inherit; 
+            text-decoration: none; 
+            transition: var(--transition);
+        }
+
+        img { max-width: 100%; display: block; }
+
+        /* Scroll offset for fixed header */
+        #programmes { 
+            scroll-margin-top: calc(var(--header-total) + 20px); 
         }
 
         /* ========================================== */
-        /*   TOPBAR                                  */
+        /*   TOPBAR (FIXED)                          */
         /* ========================================== */
         .topbar {
-            height: 64px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--topbar-h);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 max(5%, calc((100% - 1180px)/2));
-            box-shadow: 0 2px 9px #00000012;
-            background: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 9999;
+            padding: 0 max(5%, calc((100% - 1280px)/2));
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+            background: rgba(255, 255, 255, 0.97);
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 800;
-            letter-spacing: -1.5px;
-            color: #555;
-            text-decoration: none;
+            letter-spacing: -1.8px;
+            color: #2c2c35;
         }
 
         .logo span { color: var(--pink); }
 
-        .nav {
-            display: flex;
-            gap: 22px;
-            align-items: center;
-            font-size: 13px;
+        .logo-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            border-left: 1px solid var(--line);
+            padding-left: 10px;
+            line-height: 1.25;
+            display: none;
         }
 
-        .nav a {
-            text-decoration: none;
-            color: var(--ink);
-            transition: color 0.2s;
+        @media (min-width: 900px) {
+            .logo-sub { display: block; }
+        }
+
+        .nav {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .nav a:hover:not(.button) { color: var(--pink); }
 
-        .nav .button {
-            background: var(--pink);
-            color: #fff;
-            padding: 9px 24px;
-            border-radius: 4px;
-            transition: background 0.2s;
+        .nav a.active {
+            color: var(--pink);
+            font-weight: 600;
         }
 
-        .nav .button:hover { background: var(--pink-dark); }
+        .nav .portal-link {
+            font-size: 13px;
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-        @media (max-width: 650px) {
-            .topbar { height: 54px; padding: 0 5%; }
-            .logo { font-size: 24px; }
-            .nav { gap: 10px; }
-            .nav a:first-child { display: none; }
-            .nav .button { font-size: 11px; padding: 8px 14px; }
+        .nav .button {
+            background: var(--pink);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(255, 75, 147, 0.25);
+            font-weight: 600;
+        }
+
+        .nav .button:hover { 
+            background: var(--pink-dark);
+            box-shadow: 0 4px 14px rgba(255, 75, 147, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* Hamburger button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--ink);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .menu-toggle:hover {
+            background: var(--bg-chip);
+        }
+
+        /* Mobile drawer */
+        .mobile-drawer {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+            z-index: 10002;
+            padding: 80px 28px 28px;
+            flex-direction: column;
+            gap: 4px;
+            transition: right 0.3s cubic-bezier(0.2, 0, 0, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-drawer.open {
+            right: 0;
+        }
+
+        .mobile-drawer a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--ink);
+            border-radius: 8px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .mobile-drawer a:hover {
+            background: var(--bg-soft);
+            color: var(--pink);
+        }
+
+        .mobile-drawer a i {
+            width: 20px;
+            color: var(--pink);
+            font-size: 14px;
+        }
+
+        .mobile-drawer .apply-mobile {
+            margin-top: 20px;
+            background: var(--pink);
+            color: var(--white) !important;
+            justify-content: center;
+            border-bottom: none;
+            border-radius: 8px;
+        }
+
+        .mobile-drawer .apply-mobile i { color: var(--white); }
+
+        .mobile-drawer .apply-mobile:hover {
+            background: var(--pink-dark);
+            color: var(--white) !important;
+        }
+
+        .drawer-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .drawer-overlay.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .drawer-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--ink);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .drawer-close:hover {
+            background: var(--bg-chip);
+        }
+
+        /* Responsive header overrides */
+        @media (max-width: 768px) {
+            :root {
+                --topbar-h: 64px;
+            }
+            .topbar { padding: 0 5%; }
+            .logo { font-size: 26px; }
+            .nav { display: none; }
+            .menu-toggle { display: block; }
+            .mobile-drawer { display: flex; }
         }
 
         /* ========================================== */
@@ -128,121 +309,208 @@
         .school-hero {
             position: relative;
             width: 100%;
-            min-height: 480px;
-            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80');
+            min-height: 540px;
+            background-color: #1a1525;
+            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1800&q=85');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
-            padding: 60px 5%;
-            color: #fff;
+            padding: 84px 5%;
+            color: var(--white);
         }
 
         .school-hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(120deg, rgba(15, 10, 25, 0.88) 0%, rgba(40, 20, 50, 0.78) 45%, rgba(255, 75, 147, 0.35) 100%);
+            background: linear-gradient(115deg, rgba(16, 13, 28, 0.94) 0%, rgba(28, 19, 44, 0.85) 50%, rgba(233, 54, 128, 0.35) 100%);
             z-index: 1;
         }
 
-        .school-hero-inner {
-            max-width: 1180px;
+        .school-hero-grid {
+            max-width: 1280px;
             margin: 0 auto;
             width: 100%;
             position: relative;
             z-index: 2;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .school-hero-inner {
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            max-width: 720px;
+            gap: 20px;
         }
 
         .school-hero .breadcrumb {
             font-size: 12px;
             color: #ffd1e3;
-            margin-bottom: 8px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        .school-hero .breadcrumb a { color: #fff; }
+        .school-hero .breadcrumb a { color: var(--white); opacity: 0.8; }
+        .school-hero .breadcrumb a:hover { opacity: 1; }
         .school-hero .breadcrumb span { color: #ffb6d1; }
 
         .school-hero h1 {
-            font-size: clamp(32px, 5vw, 52px);
-            line-height: 1.05;
+            font-size: clamp(34px, 4.5vw, 52px);
+            line-height: 1.08;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0;
+            letter-spacing: -1.5px;
         }
 
         .school-hero h1 span { color: #ffb6d1; }
 
         .school-hero p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.92);
-            max-width: 620px;
+            font-size: 16px;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.92);
+            max-width: 590px;
         }
 
         .school-hero-actions {
             display: flex;
             gap: 12px;
-            margin-top: 14px;
+            margin-top: 10px;
             flex-wrap: wrap;
         }
 
         .school-hero .pill {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: var(--pink);
-            color: #fff;
-            padding: 11px 22px;
-            border-radius: 4px;
-            font-size: 13px;
+            color: var(--white);
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 600;
-            transition: background 0.2s;
+            box-shadow: 0 4px 16px rgba(255, 75, 147, 0.35);
         }
 
-        .school-hero .pill:hover { background: var(--pink-dark); }
+        .school-hero .pill:hover { 
+            background: var(--pink-dark);
+            transform: translateY(-2px);
+        }
 
         .school-hero .pill.outline {
-            background: transparent;
-            border: 1.5px solid rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            box-shadow: none;
+            backdrop-filter: blur(6px);
         }
 
         .school-hero .pill.outline:hover {
-            background: rgba(255,255,255,0.15);
-            border-color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--white);
+        }
+
+        /* Floating Fast-Facts Card in Hero */
+        .hero-facts-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 28px;
+            color: var(--white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .hero-facts-card h3 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #ffb6d1;
+            margin-bottom: 18px;
+        }
+
+        .hero-fact-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .hero-fact-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .hero-fact-row:first-of-type {
+            padding-top: 0;
+        }
+
+        .hero-fact-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: rgba(255, 75, 147, 0.25);
+            color: #ffb6d1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .hero-fact-text strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .hero-fact-text span {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 400;
+        }
+
+        @media (max-width: 960px) {
+            .school-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+            .hero-facts-card { max-width: 480px; }
         }
 
         @media (max-width: 650px) {
-            .school-hero { min-height: 380px; padding: 40px 5%; }
-            .school-hero p { font-size: 13px; }
+            .school-hero { min-height: 440px; padding: 48px 5%; }
+            .school-hero p { font-size: 14px; }
+            .school-hero .pill { padding: 12px 22px; font-size: 13px; }
         }
 
         /* ========================================== */
         /*   INNER CONTAINER                         */
         /* ========================================== */
         .inner {
-            width: min(1180px, 90%);
+            width: min(1280px, 90%);
             margin: auto;
         }
 
         /* ========================================== */
         /*   CATALOG SECTIONS                        */
         /* ========================================== */
-        .catalog-section { padding: 42px 0 48px; }
-        .catalog-section.grey { background: #f5f5f8; }
-        .catalog-section.tint { background: #fff6fa; }
+        .catalog-section { padding: 72px 0 84px; }
+        .catalog-section.grey { background: var(--bg-soft); }
+        .catalog-section.tint { background: var(--bg-tint); }
 
         .section-head {
             display: flex;
             justify-content: space-between;
-            align-items: end;
-            gap: 15px;
-            border-bottom: 1px solid #dedee5;
-            padding-bottom: 11px;
+            align-items: flex-end;
+            gap: 20px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
             margin-bottom: 22px;
             position: relative;
+            flex-wrap: wrap;
         }
 
         .section-head:after {
@@ -250,34 +518,36 @@
             position: absolute;
             bottom: -1px;
             left: 0;
-            width: 190px;
-            height: 2px;
-            background: linear-gradient(90deg, #f4c52d, var(--pink));
+            width: 220px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--pink));
+            border-radius: 2px;
         }
 
         .section-head h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .highlight {
             background: var(--pink);
-            color: #fff;
-            padding: 2px 6px;
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: 4px;
         }
 
         .section-intro {
-            font-size: 13px;
-            color: #666;
-            margin: -10px 0 22px;
-            line-height: 1.7;
+            font-size: 14.5px;
+            color: var(--muted);
+            margin: -4px 0 38px;
+            line-height: 1.75;
             max-width: 780px;
         }
 
         @media (max-width: 650px) {
-            .section-head h2 { font-size: 19px; }
-            .catalog-section { padding: 30px 0; }
+            .section-head h2 { font-size: 22px; }
+            .catalog-section { padding: 48px 0 56px; }
         }
 
         /* ========================================== */
@@ -286,38 +556,41 @@
         .split-intro {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 48px;
             align-items: center;
         }
 
         .split-intro-text h2 {
-            font-size: clamp(24px, 3vw, 34px);
+            font-size: clamp(26px, 3.2vw, 36px);
             line-height: 1.15;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             font-weight: 800;
             color: var(--ink);
+            letter-spacing: -0.5px;
         }
 
         .split-intro-text h2 span { color: var(--pink); }
 
         .split-intro-text p {
-            font-size: 14px;
-            color: #555;
+            font-size: 14.5px;
+            color: #4f4f5e;
             line-height: 1.75;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .split-intro-image {
-            height: 380px;
+            height: 420px;
+            background-color: #f0eef4;
+            background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80');
             background-size: cover;
             background-position: center;
-            border-radius: 8px;
-            box-shadow: 0 15px 35px #00000020;
+            border-radius: 14px;
+            box-shadow: var(--shadow-lg);
         }
 
         @media (max-width: 768px) {
-            .split-intro { grid-template-columns: 1fr; gap: 22px; }
-            .split-intro-image { height: 260px; }
+            .split-intro { grid-template-columns: 1fr; gap: 26px; }
+            .split-intro-image { height: 280px; }
         }
 
         /* ========================================== */
@@ -326,29 +599,29 @@
         .programme-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 28px;
         }
 
         .programme-card {
-            background: #fff;
+            background: var(--white);
             border: 1px solid var(--line);
-            border-radius: 8px;
+            border-radius: 14px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 2px 6px #00000008;
-            transition: all 0.25s ease;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
         }
 
         .programme-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 24px #00000015;
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
             border-color: #ffd1e3;
         }
 
         .programme-card-image {
             width: 100%;
-            height: 170px;
+            height: 180px;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -359,72 +632,81 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35) 100%);
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.45) 100%);
         }
 
         .programme-card-badge {
             position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(255,255,255,0.95);
+            top: 14px;
+            left: 14px;
+            background: rgba(255,255,255,0.96);
             color: var(--pink);
-            font-size: 10px;
+            font-size: 10.5px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 3px;
+            padding: 6px 12px;
+            border-radius: 4px;
             z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .programme-card-badge.diploma {
             background: var(--pink);
-            color: #fff;
+            color: var(--white);
+        }
+
+        .programme-card-badge.soon {
+            background: var(--gold);
+            color: var(--ink);
         }
 
         .programme-card-body {
-            padding: 18px 18px 20px;
+            padding: 24px 26px 26px;
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
         .programme-card-body h3 {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: 800;
             color: var(--ink);
             line-height: 1.4;
-            margin-bottom: 8px;
-            flex: 1;
-            min-height: 40px;
+            margin-bottom: 10px;
+            letter-spacing: -0.2px;
         }
 
         .programme-card-body p {
-            font-size: 12px;
-            color: #777;
-            line-height: 1.55;
-            margin-bottom: 12px;
+            font-size: 13.5px;
+            color: #4f4f5e;
+            line-height: 1.65;
+            margin-bottom: 16px;
+            flex: 1;
         }
 
         .programme-meta {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 14px;
+            gap: 18px;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 18px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
             flex-wrap: wrap;
         }
 
         .programme-meta span {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            font-weight: 600;
         }
 
         .programme-meta i {
             color: var(--pink);
-            font-size: 10px;
+            font-size: 12px;
         }
 
         .programme-card-cta {
@@ -432,80 +714,212 @@
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             color: var(--pink);
-            padding: 8px 12px;
-            border: 1px solid #ffd1e3;
-            border-radius: 3px;
-            transition: all 0.2s ease;
+            padding: 12px 16px;
+            border: 1.5px solid #ffd1e3;
+            border-radius: 8px;
+            transition: var(--transition);
             margin-top: auto;
+            background: transparent;
         }
 
         .programme-card-cta:hover {
             background: var(--pink);
-            color: #fff;
+            color: var(--white);
             border-color: var(--pink);
+            box-shadow: 0 4px 16px rgba(255, 75, 147, 0.25);
         }
 
         .programme-card-cta i {
-            font-size: 10px;
+            font-size: 11px;
             transition: transform 0.2s ease;
         }
 
-        .programme-card-cta:hover i { transform: translateX(3px); }
+        .programme-card-cta:hover i { transform: translateX(4px); }
 
         @media (max-width: 1024px) {
             .programme-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 720px) {
             .programme-grid { grid-template-columns: 1fr; }
-            .programme-card-image { height: 180px; }
+            .programme-card-image { height: 190px; }
         }
 
         /* ========================================== */
-        /*   FOOTER                                  */
+        /*   FINAL CTA                               */
+        /* ========================================== */
+        .final-cta-section {
+            padding: 72px 5%;
+            background: linear-gradient(125deg, #faf5fd 0%, #ffffff 55%, #ffe9f1 100%);
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        .final-cta-section h2 {
+            font-size: clamp(26px, 3.2vw, 34px);
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 14px;
+            letter-spacing: -0.8px;
+        }
+
+        .final-cta-section p {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 640px;
+            margin: 0 auto 28px;
+            line-height: 1.8;
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .final-cta-section .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--pink);
+            color: var(--white);
+            padding: 14px 34px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 14px rgba(255, 75, 147, 0.3);
+        }
+
+        .final-cta-section .pill:hover { 
+            background: var(--pink-dark);
+            transform: translateY(-2px);
+        }
+
+        .final-cta-section .pill.outline {
+            background: var(--white);
+            color: var(--ink);
+            border: 1px solid var(--line);
+            box-shadow: none;
+        }
+
+        .final-cta-section .pill.outline:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            background: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* ========================================== */
+        /*   SIMPLE FOOTER                           */
         /* ========================================== */
         .footer {
-            background: #292832;
-            color: #eee;
+            background: #181720;
+            color: #d4d4de;
             text-align: center;
-            padding: 24px 5%;
-            font-size: 12px;
-            margin-top: 30px;
+            padding: 32px 5%;
+            font-size: 13px;
+            letter-spacing: 0.2px;
+            line-height: 1.7;
         }
 
-        .footer strong { color: var(--pink); }
+        .footer strong { 
+            color: var(--pink); 
+            font-weight: 600;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
 
     <!-- ========================================== -->
-    <!--   TOPBAR                                  -->
+    <!--   TOPBAR (FIXED)                          -->
     <!-- ========================================== -->
     <header class="topbar">
-        <a class="logo" href="https://www.logi.education">LOGI<span>.</span></a>
-        <nav class="nav">
+        <div class="logo-wrap">
+            <a class="logo" href="https://www.logi.education" aria-label="LOGI Home">LOGI<span>.</span></a>
+            <span class="logo-sub">Living Oracles<br>Global Institute</span>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
             <a href="https://www.logi.education">Home</a>
             <a href="https://www.logi.education/our-program">Programmes</a>
-            <a class="button" href="https://www.logi.education/schools">Explore other schools</a>
+            <a href="/schools">Schools</a>
+            <a class="portal-link" href="https://www.logi.education/dashboard"><i class="fas fa-user-graduate" aria-hidden="true"></i> Student Portal</a>
+            <a class="button" href="https://www.logi.education/main-registration-form">Apply Now</a>
         </nav>
+        <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
     </header>
+
+    <!-- Mobile Drawer -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Mobile navigation">
+        <button class="drawer-close" aria-label="Close navigation menu">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <a href="https://www.logi.education"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+        <a href="/schools"><i class="fas fa-university" aria-hidden="true"></i> Schools</a>
+        <a href="https://www.logi.education/our-program"><i class="fas fa-book" aria-hidden="true"></i> Programmes</a>
+        <a href="https://www.logi.education/dashboard"><i class="fas fa-user-graduate" aria-hidden="true"></i> Student Portal</a>
+        <a href="https://www.logi.education/main-registration-form" class="apply-mobile"><i class="fas fa-pen" aria-hidden="true"></i> Apply Now</a>
+    </div>
 
     <!-- ========================================== -->
     <!--   PHOTOGRAPHIC HERO                       -->
     <!-- ========================================== -->
     <section class="school-hero">
-        <div class="school-hero-inner">
-            <div class="breadcrumb">
-                <a href="https://www.logi.education">Home</a> / <a href="#">Schools</a> / <span>Business &amp; Leadership</span>
+        <div class="school-hero-grid">
+            <div class="school-hero-inner">
+                <div class="breadcrumb">
+                    <a href="https://www.logi.education">Home</a> / <a href="/schools">Schools</a> / <span>Business &amp; Leadership</span>
+                </div>
+                <h1>School of <span>Business &amp; Leadership</span></h1>
+                <p>Develop the strategic vision, ethical leadership, and management skills needed to transform organisations and communities — grounded in practical, Christ-centred education.</p>
+                <div class="school-hero-actions">
+                    <a href="#programmes" class="pill">Explore Programmes <i class="fas fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+                    <a href="https://logi.education/main-registration-form" class="pill outline">Apply Now</a>
+                </div>
             </div>
-            <h1>School of <span>Business &amp; Leadership</span></h1>
-            <p>Develop the strategic vision, ethical leadership, and management skills needed to transform organisations and communities — grounded in practical, Christ-centred education.</p>
-            <div class="school-hero-actions">
-                <a href="#programmes" class="pill">Explore Programmes <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
-                <a href="https://logi.education/main-registration-form" class="pill outline">Apply Now</a>
+
+            <!-- Floating Fast-Facts Card -->
+            <div class="hero-facts-card">
+                <h3>School at a Glance</h3>
+                <div class="hero-fact-row">
+                    <div class="hero-fact-icon"><i class="fas fa-book-open" aria-hidden="true"></i></div>
+                    <div class="hero-fact-text">
+                        <strong>4 Active Programmes</strong>
+                        <span>Certificates &amp; advanced diplomas</span>
+                    </div>
+                </div>
+                <div class="hero-fact-row">
+                    <div class="hero-fact-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
+                    <div class="hero-fact-text">
+                        <strong>3–9 Months</strong>
+                        <span>Flexible study duration</span>
+                    </div>
+                </div>
+                <div class="hero-fact-row">
+                    <div class="hero-fact-icon"><i class="fas fa-laptop-house" aria-hidden="true"></i></div>
+                    <div class="hero-fact-text">
+                        <strong>100% Online</strong>
+                        <span>Live &amp; self-paced learning</span>
+                    </div>
+                </div>
+                <div class="hero-fact-row">
+                    <div class="hero-fact-icon"><i class="fas fa-award" aria-hidden="true"></i></div>
+                    <div class="hero-fact-text">
+                        <strong>Verified Credentials</strong>
+                        <span>Digital certificates &amp; diplomas</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -522,13 +936,13 @@
                     <p>Our programmes combine practical business knowledge with ethical leadership principles, preparing you to build sustainable organisations and create lasting impact.</p>
                     <p>Learn from experienced leaders and industry practitioners who will mentor you through real-world case studies, strategic projects, and hands-on application.</p>
                 </div>
-                <div class="split-intro-image" style="background-image:url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80');"></div>
+                <div class="split-intro-image"></div>
             </div>
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!--   PROGRAMMES (REAL IMAGES FROM YOUR REPO) -->
+    <!--   PROGRAMMES                              -->
     <!-- ========================================== -->
     <section class="catalog-section grey" id="programmes">
         <div class="inner">
@@ -548,10 +962,10 @@
                         <h3>Certificate in Business Administration</h3>
                         <p>Foundational business principles, financial literacy, ethical leadership, and organizational management skills.</p>
                         <div class="programme-meta">
-                            <span><i class="fas fa-clock"></i> 3 Months</span>
-                            <span><i class="fas fa-laptop"></i> Online</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> 3 Months</span>
+                            <span><i class="fas fa-laptop" aria-hidden="true"></i> Online</span>
                         </div>
-                        <a href="/our-program/certificate-business-administration.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right"></i></a>
+                        <a href="/our-program/certificate-business-administration.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
@@ -564,10 +978,10 @@
                         <h3>Certificate in Leadership &amp; Management</h3>
                         <p>Strategic leadership, team building, conflict resolution, vision casting, and change management skills.</p>
                         <div class="programme-meta">
-                            <span><i class="fas fa-clock"></i> 3 Months</span>
-                            <span><i class="fas fa-laptop"></i> Online</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> 3 Months</span>
+                            <span><i class="fas fa-laptop" aria-hidden="true"></i> Online</span>
                         </div>
-                        <a href="/our-program/certificate-leadership-and-management.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right"></i></a>
+                        <a href="/our-program/certificate-leadership-and-management.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
@@ -580,10 +994,10 @@
                         <h3>Certificate in Organizational Leadership</h3>
                         <p>Organizational behavior, strategic planning, innovation, ethical decision-making, and servant leadership.</p>
                         <div class="programme-meta">
-                            <span><i class="fas fa-clock"></i> 3 Months</span>
-                            <span><i class="fas fa-laptop"></i> Online</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> 3 Months</span>
+                            <span><i class="fas fa-laptop" aria-hidden="true"></i> Online</span>
                         </div>
-                        <a href="/our-program/certificate-organizational-leadership.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right"></i></a>
+                        <a href="/our-program/certificate-organizational-leadership.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
@@ -596,10 +1010,10 @@
                         <h3>Advanced Professional Diploma in Business Administration</h3>
                         <p>Advanced business strategy, financial management, entrepreneurship, and capstone project.</p>
                         <div class="programme-meta">
-                            <span><i class="fas fa-clock"></i> 6–9 Months</span>
-                            <span><i class="fas fa-laptop"></i> Online</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> 6–9 Months</span>
+                            <span><i class="fas fa-laptop" aria-hidden="true"></i> Online</span>
                         </div>
-                        <a href="/our-program/advanced-professional-diploma-business-administration.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right"></i></a>
+                        <a href="/our-program/advanced-professional-diploma-business-administration.html" class="programme-card-cta">Explore Programme <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
@@ -610,20 +1024,67 @@
     <!-- ========================================== -->
     <!--   FINAL CTA                               -->
     <!-- ========================================== -->
-    <section class="catalog-section tint">
-        <div class="inner" style="text-align:center;">
-            <h2 style="font-size:24px;font-weight:700;margin-bottom:12px;color:#34343b;">Become a Transformational Leader</h2>
-            <p style="font-size:14px;color:#666;max-width:600px;margin:0 auto 22px;line-height:1.7;">Take the first step toward becoming a strategic, ethical leader. Apply today and begin your journey at the School of Business &amp; Leadership.</p>
-            <a href="https://logi.education/main-registration-form" class="pill" style="font-size:13px;padding:11px 24px;">Apply Now <i class="fas fa-arrow-right" style="font-size:10px;margin-left:4px;"></i></a>
+    <section class="final-cta-section">
+        <h2>Become a Transformational Leader</h2>
+        <p>Take the first step toward becoming a strategic, ethical leader. Apply today and begin your journey at the School of Business &amp; Leadership.</p>
+        <div class="final-cta-buttons">
+            <a href="https://logi.education/main-registration-form" class="pill">Apply Now <i class="fas fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+            <a href="https://www.logi.education/contact" class="pill outline">Contact LOGI</a>
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!--   FOOTER                                  -->
+    <!--   SIMPLE FOOTER                           -->
     <!-- ========================================== -->
     <footer class="footer">
-        Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+        <div class="footer-content">
+            Living Oracles Global Institute (LOGI) · <strong>Faith. Excellence. Impact.</strong>
+        </div>
     </footer>
+
+    <script>
+        (function() {
+            var menuToggle = document.querySelector('.menu-toggle');
+            var drawer = document.getElementById('mobile-drawer');
+            var overlay = document.getElementById('drawer-overlay');
+            var closeBtn = document.querySelector('.drawer-close');
+
+            function openDrawer() {
+                drawer.classList.add('open');
+                overlay.classList.add('visible');
+                menuToggle.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                drawer.classList.remove('open');
+                overlay.classList.remove('visible');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', function() {
+                if (drawer.classList.contains('open')) {
+                    closeDrawer();
+                } else {
+                    openDrawer();
+                }
+            });
+
+            closeBtn.addEventListener('click', closeDrawer);
+            overlay.addEventListener('click', closeDrawer);
+
+            drawer.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', closeDrawer);
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                    closeDrawer();
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
