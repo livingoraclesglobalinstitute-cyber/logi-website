@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agile Project Management · LOGI LMS</title>
+  <style>
+    :root { --p:#ff4b93; --pd:#e93680; --ink:#34343b; --muted:#777780; --line:#e9e8ef; --ok:#2e7d32; --err:#b33; }
+    * { box-sizing: border-box; }
+    body { margin:0; font:15px/1.6 Arial, sans-serif; color:var(--ink); background:#f5f5f8; }
+    .top { height:60px; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; padding:0 20px; }
+    .brand { font-weight:800; font-size:22px; text-decoration:none; color:var(--ink); }
+    .brand span { color:var(--p); }
+    .wrap { max-width:820px; margin:30px auto; padding:0 18px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:28px; margin-bottom:20px; }
+    h1 { margin:0 0 8px; font-size:26px; }
+    h2 { margin:0 0 14px; font-size:20px; }
+    .muted { color:var(--muted); font-size:14px; }
+    .btn { background:var(--p); color:#fff; border:0; border-radius:24px; padding:11px 22px; font-weight:bold; cursor:pointer; font-size:15px; text-decoration:none; display:inline-block; }
+    .btn:hover { background:var(--pd); }
+    .btn:disabled { opacity:.6; cursor:not-allowed; }
+    .opt { display:block; border:1px solid var(--line); border-radius:8px; padding:12px 14px; margin:8px 0; cursor:pointer; }
+    .opt:hover { border-color:var(--p); }
+    .opt input { margin-right:8px; }
+    .msg { padding:12px 14px; border-radius:6px; margin:14px 0; display:none; font-size:14px; }
+    .msg.ok { background:#e8f5e9; color:var(--ok); display:block; }
+    .msg.err { background:#fdecea; color:var(--err); display:block; }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="/student-dashboard.html">LOGI<span>.</span></a>
+</header>
+
+<div class="wrap">
+
+  <!-- Login gate -->
+  <div class="card" id="gate" style="display:none;">
+    <h2>Please log in to start this course</h2>
+    <p class="muted">You need a LOGI learning account to track your progress.</p>
+    <a class="btn" href="/student-dashboard.html">Go to Login / Register</a>
+  </div>
+
+  <!-- Course content -->
+  <div id="course" style="display:none;">
+
+    <div class="card">
+      <h1>Introduction to Agile Project Management</h1>
+      <p class="muted">Module 1 · Lesson 1 · Final quiz</p>
+      <p>Agile delivers work in short, feedback-driven cycles. Below is a short knowledge check. Score 70% or more to complete the course.</p>
+    </div>
+
+    <div class="card">
+      <h2>Final Quiz</h2>
+      <form id="quiz">
+        <p><strong>1. What is the main goal of a sprint?</strong></p>
+        <label class="opt"><input type="radio" name="q1" value="a"> a) Deliver a potentially shippable increment</label>
+        <label class="opt"><input type="radio" name="q1" value="b"> b) Write all documentation up front</label>
+        <label class="opt"><input type="radio" name="q1" value="c"> c) Freeze requirements permanently</label>
+
+        <p><strong>2. What is a retrospective?</strong></p>
+        <label class="opt"><input type="radio" name="q2" value="a"> a) A meeting to plan the next sprint</label>
+        <label class="opt"><input type="radio" name="q2" value="b"> b) A reflection on what went well and what to improve</label>
+        <label class="opt"><input type="radio" name="q2" value="c"> c) A demo for stakeholders</label>
+
+        <p><strong>3. Who owns the product backlog?</strong></p>
+        <label class="opt"><input type="radio" name="q3" value="a"> a) The Scrum Master</label>
+        <label class="opt"><input type="radio" name="q3" value="b"> b) The Product Owner</label>
+        <label class="opt"><input type="radio" name="q3" value="c"> c) The Development Team</label>
+
+        <div class="msg" id="quizMsg"></div>
+
+        <button type="submit" class="btn" id="submitBtn" style="margin-top:14px;">Submit Quiz</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Completion</h2>
+      <p class="muted" id="statusText">Not completed yet.</p>
+      <div class="msg" id="saveMsg"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ====== IDs — must match what the dashboard filters on ======
+const MODULE_ID = 'agile_module_1';
+const LESSON_ID = 'agile_lesson_1';
+const PASS_MARK = 0.7; // 70%
+
+// ====== Auth ======
+function getAuth() {
+  const raw = localStorage.getItem('logi_user');
+  if (!raw) return null;
+  try { return JSON.parse(raw); } catch { return null; }
+}
+
+function showGateOrCourse() {
+  const user = getAuth();
+  document.getElementById('gate').style.display   = user ? 'none' : 'block';
+  document.getElementById('course').style.display = user ? 'block' : 'none';
+}
+
+// ====== Save progress to Cloudflare ======
+async function saveProgress({ completed, quizScore, quizTotal }) {
+  const user = getAuth();
+  if (!user || !user.token) throw new Error('Not logged in.');
+
+  const res = await fetch('/api/progress', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${user.token}`
+    },
+    body: JSON.stringify({
+      moduleId: MODULE_ID,
+      lessonId: LESSON_ID,
+      completed,
+      quizScore,
+      quizTotal
+    })
+  });
+
+  const data = await res.json();
+  if (!res.ok || !data.success) {
+    throw new Error(data.error || 'Could not save progress.');
+  }
+  return data;
+}
+
+// ====== Quiz ======
+const ANSWERS = { q1: 'a', q2: 'b', q3: 'b' };
+
+document.getElementById('quiz').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const quizMsg = document.getElementById('quizMsg');
+  const saveMsg = document.getElementById('saveMsg');
+  const btn = document.getElementById('submitBtn');
+
+  quizMsg.className = 'msg';
+  saveMsg.className = 'msg';
+
+  let score = 0;
+  let total = Object.keys(ANSWERS).length;
+
+  for (const [q, correct] of Object.entries(ANSWERS)) {
+    const picked = form.querySelector(`input[name="${q}"]:checked`);
+    if (picked && picked.value === correct) score++;
+  }
+
+  const passed = score / total >= PASS_MARK;
+
+  quizMsg.className = 'msg ' + (passed ? 'ok' : 'err');
+  quizMsg.textContent = `You scored ${score}/${total}. ${passed ? 'Passed!' : 'You need 70% to pass — try again.'}`;
+
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  try {
+    await saveProgress({
+      completed: passed ? 1 : 0,
+      quizScore: score,
+      quizTotal: total
+    });
+
+    saveMsg.className = 'msg ok';
+    saveMsg.textContent = 'Progress saved to your dashboard.';
+    document.getElementById('statusText').textContent =
+      `Last attempt: ${score}/${total} — ${passed ? 'Completed ✅' : 'Not yet passed'}`;
+
+  } catch (err) {
+    saveMsg.className = 'msg err';
+    saveMsg.textContent = 'Could not save progress: ' + err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Quiz';
+  }
+});
+
+showGateOrCourse();
+</script>
+</body>
+</html>
