@@ -1,35 +1,96 @@
-// functions/api/login.js
+import {
+  verifyPassword,
+  hashPassword,
+  createAuthToken,
+  jsonResponse
+} from "./_auth.js";
+
 export async function onRequestPost(context) {
   try {
     const { request, env } = context;
+
     const { email, password } = await request.json();
 
-    if (!email || !password) {
-      return new Response(JSON.stringify({ error: "Email and password required" }), { status: 400 });
+    if (
+      typeof email !== "string" ||
+      typeof password !== "string" ||
+      !email.trim() ||
+      !password
+    ) {
+      return jsonResponse({
+        error: "Email and password are required."
+      }, 400);
     }
 
-    // Hash the input password to match the database
-    const msgBuffer = new TextEncoder().encode(password + "LOGI_SECRET_SALT");
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    const normalizedEmail = email.trim().toLowerCase();
 
-    // Check D1 Database
-    const user = await env.DB.prepare(
-      "SELECT id, email FROM users WHERE email = ? AND password_hash = ?"
-    ).bind(email.toLowerCase(), passwordHash).first();
+    if (normalizedEmail.length > 254 || password.length > 256) {
+      return jsonResponse({
+        error: "Invalid email or password."
+      }, 401);
+    }
+
+    if (!env.DB || !env.JWT_SECRET) {
+      return jsonResponse({
+        error: "Login service is not configured."
+      }, 500);
+    }
+
+    const user = await env.DB.prepare(`
+      SELECT id, email, password_hash, full_name
+      FROM users
+      WHERE email = ?
+    `).bind(normalizedEmail).first();
 
     if (!user) {
-      return new Response(JSON.stringify({ error: "Invalid email or password" }), { status: 401, headers: { "Content-Type": "application/json" } });
+      return jsonResponse({
+        error: "Invalid email or password."
+      }, 401);
     }
 
-    // In a production app, use JWT. For this setup, we'll send a simple token.
-    const token = btoa(JSON.stringify({ id: user.id, email: user.email }));
+    const verification = await verifyPassword(
+      password,
+      user.password_hash
+    );
 
-    return new Response(JSON.stringify({ success: true, token: token, email: user.email }), {
-      headers: { "Content-Type": "application/json" }
+    if (!verification.valid) {
+      return jsonResponse({
+        error: "Invalid email or password."
+      }, 401);
+    }
+
+    // Upgrade existing SHA-256 hashes after successful login.
+    if (verification.needsUpgrade) {
+      const newHash = await hashPassword(password);
+
+      await env.DB.prepare(`
+        UPDATE users
+        SET password_hash = ?,
+            updated_at = ?
+        WHERE id = ?
+          AND password_hash = ?
+      `).bind(
+        newHash,
+        new Date().toISOString(),
+        user.id,
+        user.password_hash
+      ).run();
+    }
+
+    const token = await createAuthToken(user, env);
+
+    return jsonResponse({
+      success: true,
+      token,
+      email: user.email,
+      fullName: user.full_name || ""
     });
-  } catch (e) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+
+  } catch (error) {
+    console.error("Login error:", error);
+
+    return jsonResponse({
+      error: "Login could not be completed."
+    }, 500);
   }
 }
