@@ -1,96 +1,84 @@
 import {
   verifyPassword,
-  hashPassword,
   createAuthToken,
   jsonResponse
 } from "./_auth.js";
 
-export async function onRequestPost(context) {
+export async function onRequestPost({ request, env }) {
   try {
-    const { request, env } = context;
-
-    const { email, password } = await request.json();
+    if (!env.DB) {
+      throw new Error("Database binding DB is missing.");
+    }
 
     if (
-      typeof email !== "string" ||
-      typeof password !== "string" ||
-      !email.trim() ||
-      !password
+      typeof env.JWT_SECRET !== "string" ||
+      env.JWT_SECRET.length < 32
     ) {
+      throw new Error("JWT_SECRET is missing or invalid.");
+    }
+
+    const body = await request.json();
+
+    const email = String(body.email || "").trim().toLowerCase();
+    const password = String(body.password || "");
+
+    if (!email || !password) {
       return jsonResponse({
-        error: "Email and password are required."
+        success: false,
+        error: "Please enter your email address and password."
       }, 400);
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
-
-    if (normalizedEmail.length > 254 || password.length > 256) {
-      return jsonResponse({
-        error: "Invalid email or password."
-      }, 401);
-    }
-
-    if (!env.DB || !env.JWT_SECRET) {
-      return jsonResponse({
-        error: "Login service is not configured."
-      }, 500);
-    }
-
     const user = await env.DB.prepare(`
-      SELECT id, email, password_hash, full_name
+      SELECT
+        id,
+        full_name,
+        email,
+        password_hash
       FROM users
       WHERE email = ?
-    `).bind(normalizedEmail).first();
+      LIMIT 1
+    `).bind(email).first();
 
     if (!user) {
       return jsonResponse({
-        error: "Invalid email or password."
+        success: false,
+        error: "Invalid email address or password."
       }, 401);
     }
 
-    const verification = await verifyPassword(
+    const passwordIsValid = await verifyPassword(
       password,
       user.password_hash
     );
 
-    if (!verification.valid) {
+    if (!passwordIsValid) {
       return jsonResponse({
-        error: "Invalid email or password."
+        success: false,
+        error: "Invalid email address or password."
       }, 401);
     }
 
-    // Upgrade existing SHA-256 hashes after successful login.
-    if (verification.needsUpgrade) {
-      const newHash = await hashPassword(password);
-
-      await env.DB.prepare(`
-        UPDATE users
-        SET password_hash = ?,
-            updated_at = ?
-        WHERE id = ?
-          AND password_hash = ?
-      `).bind(
-        newHash,
-        new Date().toISOString(),
-        user.id,
-        user.password_hash
-      ).run();
-    }
-
-    const token = await createAuthToken(user, env);
+    const token = await createAuthToken({
+      id: user.id,
+      email: user.email
+    }, env);
 
     return jsonResponse({
       success: true,
+      message: "Login successful.",
       token,
-      email: user.email,
-      fullName: user.full_name || ""
+      id: user.id,
+      fullName: user.full_name,
+      email: user.email
     });
 
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("LOGI login error:", error);
 
     return jsonResponse({
-      error: "Login could not be completed."
+      success: false,
+      error: "Login could not be completed. Please try again."
     }, 500);
   }
 }
