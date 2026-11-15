@@ -5,42 +5,166 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LOGI LMS · Student Dashboard</title>
   <style>
-    :root { --p: #ff4b93; --pd: #e93680; --ink: #34343b; --muted: #777780; --line: #e9e8ef; --bg: #f5f5f8; --success: #2e7d32; --error: #b33; --radius: 8px; }
+    :root {
+      --p: #ff4b93;
+      --pd: #e93680;
+      --ink: #34343b;
+      --muted: #777780;
+      --line: #e9e8ef;
+      --bg: #f5f5f8;
+      --success: #2e7d32;
+      --error: #b33;
+      --radius: 8px;
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; font: 15px/1.65 Arial, sans-serif; color: var(--ink); background: var(--bg); display: flex; flex-direction: column; min-height: 100vh; }
+    body {
+      margin: 0;
+      font: 15px/1.65 Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
     .inner { width: min(1100px, 92%); margin: auto; }
-    .top { height: 64px; border-bottom: 1px solid var(--line); display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 2px 9px rgba(0,0,0,.05); }
+
+    /* Header */
+    .top {
+      height: 64px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 50;
+      box-shadow: 0 2px 9px rgba(0,0,0,.05);
+    }
     .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
     .brand { font-size: 24px; font-weight: 800; text-decoration: none; color: var(--ink); }
     .brand span { color: var(--p); }
-    .btn { background: var(--p); color: white; border: 0; border-radius: 24px; padding: 9px 18px; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; transition: 0.2s; }
+
+    /* Buttons */
+    .btn {
+      background: var(--p);
+      color: white;
+      border: 0;
+      border-radius: 24px;
+      padding: 9px 18px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.2s;
+    }
     .btn:hover { background: var(--pd); }
-    .btn-outline { background: transparent; color: var(--pd); border: 1.5px solid var(--p); border-radius: 24px; padding: 8px 16px; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: none; }
-    
-    .auth-wrap { display: flex; justify-content: center; align-items: center; flex: 1; padding: 40px 16px; background: linear-gradient(120deg,#fff2f7,#f3f0fa); }
-    .auth-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 32px; width: 100%; max-width: 420px; box-shadow: 0 8px 28px rgba(0,0,0,0.05); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pd);
+      border: 1.5px solid var(--p);
+      border-radius: 24px;
+      padding: 8px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    /* Auth screen */
+    .auth-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding: 40px 16px;
+      background: linear-gradient(120deg,#fff2f7,#f3f0fa);
+    }
+    .auth-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+    }
     .auth-card h2 { margin: 0 0 20px; font-size: 22px; }
     .field { margin-bottom: 16px; }
     .field label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px; }
-    .field input { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 6px; outline: none; font-size: 14px; }
+    .field input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      outline: none;
+      font-size: 14px;
+    }
     .field input:focus { border-color: var(--p); }
-    
+
+    /* Dashboard */
     .dashboard { padding: 40px 0; flex: 1; }
     .welcome { margin-bottom: 30px; }
     .welcome h1 { margin: 0 0 5px; font-size: 28px; }
     .welcome p { margin: 0; color: var(--muted); }
-    
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-    .course-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    .course-img { height: 140px; background: #e9e8ee center/cover no-repeat; position: relative; }
-    .course-badge { position: absolute; top: 12px; right: 12px; background: var(--success); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; display: none; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .course-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .course-img {
+      height: 140px;
+      background: #e9e8ee center/cover no-repeat;
+      position: relative;
+    }
+    .course-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--success);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      display: none;
+    }
     .course-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-    .course-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--p); font-weight: bold; margin-bottom: 8px; }
+    .course-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--p);
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
     .course-card h3 { margin: 0 0 10px; font-size: 18px; }
     .course-card p { margin: 0 0 20px; color: var(--muted); font-size: 13px; flex: 1; }
-    .progress-info { font-size: 13px; margin-bottom: 15px; font-weight: bold; color: var(--success); display: none; }
+    .progress-info {
+      font-size: 13px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: var(--success);
+      display: none;
+    }
 
-    .footer { background: #292832; color: white; text-align: center; padding: 20px; font-size: 13px; }
+    .footer {
+      background: #292832;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+    }
   </style>
 </head>
 <body>
@@ -59,13 +183,50 @@
 </footer>
 
 <script>
-function getAuthToken() {
-  const userStr = localStorage.getItem('logi_user');
-  return userStr ? JSON.parse(userStr) : null;
+/* =========================================================
+   COURSE CONFIG
+   ---------------------------------------------------------
+   Each course maps its dashboard card to the module_id /
+   lesson_id that the LMS page sends to POST /api/progress.
+   Add a new object here to add another course card.
+   ========================================================= */
+const COURSES = [
+  {
+    key: 'transport',
+    title: 'Advanced Transport Phenomena',
+    tag: 'Engineering & Technology',
+    description: "Master the fundamentals of momentum, heat, and mass transfer. Learn to apply Newton's law of viscosity, Fourier's law, and Fick's law.",
+    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80',
+    url: 'transport-phenomena.html',
+    moduleId: 'module_1',
+    lessonId: 'lesson_1'
+  },
+  {
+    key: 'agile',
+    title: 'Introduction to Agile Project Management',
+    tag: 'Project Management',
+    description: 'Learn Agile values, iterative delivery, Scrum roles, backlogs, sprints, reviews and continuous improvement.',
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80',
+    url: 'https://www.logi.education/agile-project-management',
+    moduleId: 'agile_module_1',
+    lessonId: 'agile_lesson_1'
+  }
+];
+
+/* =========================================================
+   AUTH HELPERS
+   ========================================================= */
+function getAuth() {
+  const raw = localStorage.getItem('logi_user');
+  if (!raw) return null;
+  try { return JSON.parse(raw); } catch { return null; }
 }
 
-async function renderApp() {
-  const user = getAuthToken();
+/* =========================================================
+   RENDER
+   ========================================================= */
+function renderApp() {
+  const user = getAuth();
   const topActions = document.getElementById('topActions');
   const app = document.getElementById('app');
 
@@ -75,30 +236,33 @@ async function renderApp() {
       <button class="btn-outline" onclick="logout()">Log out</button>
     `;
 
+    const cardsHtml = COURSES.map(c => `
+      <div class="course-card">
+        <div class="course-img" style="background-image: url('${c.image}');">
+          <div class="course-badge" id="badge-${c.key}">Completed ✅</div>
+        </div>
+        <div class="course-body">
+          <div class="course-tag">${c.tag}</div>
+          <h3>${c.title}</h3>
+          <p>${c.description}</p>
+          <div class="progress-info" id="progress-${c.key}"></div>
+          <a href="${c.url}" class="btn" id="btn-${c.key}" style="text-align:center;">Start Course</a>
+        </div>
+      </div>
+    `).join('');
+
     app.innerHTML = `
       <div class="inner dashboard">
         <div class="welcome">
           <h1>Welcome, ${user.fullName || user.email}!</h1>
           <p>Select a course below to continue your learning journey.</p>
         </div>
-        <div class="grid">
-          <div class="course-card">
-            <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80');">
-              <div class="course-badge" id="badge-transport">Completed ✅</div>
-            </div>
-            <div class="course-body">
-              <div class="course-tag">Engineering & Technology</div>
-              <h3>Advanced Transport Phenomena</h3>
-              <p>Master the fundamentals of momentum, heat, and mass transfer. Learn to apply Newton's law of viscosity, Fourier's law, and Fick's law.</p>
-              <div class="progress-info" id="progress-transport"></div>
-              <a href="transport-phenomena.html" class="btn" id="btn-transport" style="text-align:center;">Start Course</a>
-            </div>
-          </div>
-        </div>
+        <div class="grid">${cardsHtml}</div>
       </div>
     `;
 
     fetchProgress(user.token);
+
   } else {
     topActions.innerHTML = '';
     app.innerHTML = `
@@ -122,7 +286,7 @@ async function renderApp() {
             <button type="submit" class="btn" style="width:100%; justify-content:center; margin-top:10px;" id="submitBtn">Log in</button>
           </form>
           <div style="text-align:center; margin-top:20px; font-size:13px; color:var(--muted);">
-            <span id="switchText">Don't have an account?</span> 
+            <span id="switchText">Don't have an account?</span>
             <a href="#" onclick="toggleMode(event)" style="color:var(--pd); font-weight:bold; text-decoration:none;">Register</a>
           </div>
         </div>
@@ -131,13 +295,14 @@ async function renderApp() {
   }
 }
 
+/* =========================================================
+   PROGRESS
+   ========================================================= */
 async function fetchProgress(token) {
   try {
     const res = await fetch('/api/my-progress', {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      headers: { 'Authorization': `Bearer ${token}` }
     });
 
     if (res.status === 401) {
@@ -147,31 +312,35 @@ async function fetchProgress(token) {
     }
 
     const data = await res.json();
-
     if (!res.ok || !data.success) {
       throw new Error(data.error || 'Unable to retrieve progress.');
     }
 
-    if (data.progress && data.progress.length > 0) {
-      const tpProgress = data.progress.find(
-        p => p.module_id === 'module_1' &&
-             p.lesson_id === 'lesson_1'
+    if (!Array.isArray(data.progress)) return;
+
+    for (const course of COURSES) {
+      const row = data.progress.find(
+        p => p.module_id === course.moduleId && p.lesson_id === course.lessonId
       );
 
-      if (tpProgress && tpProgress.completed) {
-        document.getElementById('badge-transport').style.display = 'block';
+      if (!row) continue;
 
-        const progressText = document.getElementById('progress-transport');
+      const progressEl = document.getElementById(`progress-${course.key}`);
+      if (progressEl) {
+        progressEl.textContent =
+          `Last Score: ${row.quiz_score}/${row.quiz_total}`;
+        progressEl.style.display = 'block';
+      }
 
-        progressText.textContent =
-          `Last Score: ${tpProgress.quiz_score}/${tpProgress.quiz_total}`;
+      if (row.completed) {
+        const badge = document.getElementById(`badge-${course.key}`);
+        if (badge) badge.style.display = 'block';
 
-        progressText.style.display = 'block';
-
-        const btn = document.getElementById('btn-transport');
-
-        btn.textContent = 'Retake Course';
-        btn.style.background = 'var(--success)';
+        const btn = document.getElementById(`btn-${course.key}`);
+        if (btn) {
+          btn.textContent = 'Retake Course';
+          btn.style.background = 'var(--success)';
+        }
       }
     }
 
@@ -180,7 +349,11 @@ async function fetchProgress(token) {
   }
 }
 
+/* =========================================================
+   LOGIN / REGISTER
+   ========================================================= */
 let isRegistering = false;
+
 function toggleMode(e) {
   e.preventDefault();
   isRegistering = !isRegistering;
@@ -200,14 +373,11 @@ async function handleLogin(e) {
 
   const email = document.getElementById('authEmail').value.trim();
   const password = document.getElementById('authPassword').value;
-
   const name = document.getElementById('authName')
     ? document.getElementById('authName').value.trim()
     : '';
 
-  const endpoint = isRegistering
-    ? '/api/register'
-    : '/api/login';
+  const endpoint = isRegistering ? '/api/register' : '/api/login';
 
   btn.textContent = 'Processing...';
   btn.disabled = true;
@@ -216,25 +386,13 @@ async function handleLogin(e) {
   try {
     const res = await fetch(endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        fullName: name
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, fullName: name })
     });
 
     const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || 'Something went wrong.');
-    }
-
-    if (!data.token) {
-      throw new Error('Authentication token was not returned.');
-    }
+    if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+    if (!data.token) throw new Error('Authentication token was not returned.');
 
     localStorage.setItem('logi_user', JSON.stringify({
       token: data.token,
@@ -243,20 +401,22 @@ async function handleLogin(e) {
     }));
 
     isRegistering = false;
-
     renderApp();
 
   } catch (err) {
     errEl.textContent = err.message;
     errEl.style.display = 'block';
-
   } finally {
     btn.textContent = isRegistering ? 'Register' : 'Log in';
     btn.disabled = false;
   }
 }
 
-function logout() { localStorage.removeItem('logi_user'); renderApp(); }
+function logout() {
+  localStorage.removeItem('logi_user');
+  renderApp();
+}
+
 document.addEventListener('DOMContentLoaded', renderApp);
 </script>
 </body>
