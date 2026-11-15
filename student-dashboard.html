@@ -78,7 +78,7 @@ async function renderApp() {
     app.innerHTML = `
       <div class="inner dashboard">
         <div class="welcome">
-          <h1>Welcome back!</h1>
+          <h1>Welcome, ${user.fullName || user.email}!</h1>
           <p>Select a course below to continue your learning journey.</p>
         </div>
         <div class="grid">
@@ -133,22 +133,51 @@ async function renderApp() {
 
 async function fetchProgress(token) {
   try {
-    const res = await fetch(`/api/my-progress?token=${encodeURIComponent(token)}`);
+    const res = await fetch('/api/my-progress', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (res.status === 401) {
+      localStorage.removeItem('logi_user');
+      renderApp();
+      return;
+    }
+
     const data = await res.json();
-    
-    if (data.success && data.progress.length > 0) {
-      const tpProgress = data.progress.find(p => p.module_id === 'module_1' && p.lesson_id === 'lesson_1');
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Unable to retrieve progress.');
+    }
+
+    if (data.progress && data.progress.length > 0) {
+      const tpProgress = data.progress.find(
+        p => p.module_id === 'module_1' &&
+             p.lesson_id === 'lesson_1'
+      );
+
       if (tpProgress && tpProgress.completed) {
         document.getElementById('badge-transport').style.display = 'block';
+
         const progressText = document.getElementById('progress-transport');
-        progressText.textContent = `Last Score: ${tpProgress.quiz_score}/${tpProgress.quiz_total}`;
+
+        progressText.textContent =
+          `Last Score: ${tpProgress.quiz_score}/${tpProgress.quiz_total}`;
+
         progressText.style.display = 'block';
+
         const btn = document.getElementById('btn-transport');
+
         btn.textContent = 'Retake Course';
         btn.style.background = 'var(--success)';
       }
     }
-  } catch (err) { console.error(err); }
+
+  } catch (err) {
+    console.error('Progress error:', err);
+  }
 }
 
 let isRegistering = false;
@@ -165,35 +194,65 @@ function toggleMode(e) {
 
 async function handleLogin(e) {
   e.preventDefault();
+
   const btn = document.getElementById('submitBtn');
   const errEl = document.getElementById('authError');
-  const email = document.getElementById('authEmail').value;
+
+  const email = document.getElementById('authEmail').value.trim();
   const password = document.getElementById('authPassword').value;
-  const name = document.getElementById('authName') ? document.getElementById('authName').value : '';
-  const endpoint = isRegistering ? '/api/register' : '/api/login';
-  
-  btn.textContent = 'Processing...'; btn.disabled = true; errEl.style.display = 'none';
+
+  const name = document.getElementById('authName')
+    ? document.getElementById('authName').value.trim()
+    : '';
+
+  const endpoint = isRegistering
+    ? '/api/register'
+    : '/api/login';
+
+  btn.textContent = 'Processing...';
+  btn.disabled = true;
+  errEl.style.display = 'none';
 
   try {
     const res = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, fullName: name })
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        fullName: name
+      })
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Something went wrong');
 
-    if (isRegistering) {
-      alert('Registration successful! Please log in.');
-      toggleMode({ preventDefault: () => {} });
-    } else {
-      localStorage.setItem('logi_user', JSON.stringify({ token: data.token, email: data.email }));
-      renderApp(); 
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Something went wrong.');
     }
+
+    if (!data.token) {
+      throw new Error('Authentication token was not returned.');
+    }
+
+    localStorage.setItem('logi_user', JSON.stringify({
+      token: data.token,
+      email: data.email,
+      fullName: data.fullName || name
+    }));
+
+    isRegistering = false;
+
+    renderApp();
+
   } catch (err) {
-    errEl.textContent = err.message; errEl.style.display = 'block';
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+
   } finally {
-    btn.textContent = isRegistering ? 'Register' : 'Log in'; btn.disabled = false;
+    btn.textContent = isRegistering ? 'Register' : 'Log in';
+    btn.disabled = false;
   }
 }
 
