@@ -1,31 +1,107 @@
-// functions/api/register.js
+import {
+  hashPassword,
+  createAuthToken,
+  jsonResponse
+} from "./_auth.js";
+
 export async function onRequestPost(context) {
   try {
     const { request, env } = context;
+
     const { email, password, fullName } = await request.json();
 
-    if (!email || !password) {
-      return new Response(JSON.stringify({ error: "Email and password required" }), { status: 400 });
+    if (
+      typeof email !== "string" ||
+      typeof password !== "string"
+    ) {
+      return jsonResponse({
+        error: "Email and password are required."
+      }, 400);
     }
 
-    // Hash the password using Web Crypto API (SHA-256 with salt)
-    const msgBuffer = new TextEncoder().encode(password + "LOGI_SECRET_SALT");
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const passwordHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    const normalizedEmail = email.trim().toLowerCase();
+    const name = typeof fullName === "string"
+      ? fullName.trim()
+      : "";
 
-    // Insert into D1 Database
-    await env.DB.prepare(
-      "INSERT INTO users (email, password_hash) VALUES (?, ?)"
-    ).bind(email.toLowerCase(), passwordHash).run();
+    if (
+      normalizedEmail.length > 254 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)
+    ) {
+      return jsonResponse({ error: "Please enter a valid email address." }, 400);
+    }
 
-    return new Response(JSON.stringify({ success: true, message: "User created" }), {
-      headers: { "Content-Type": "application/json" }
+    if (password.length < 8 || password.length > 256) {
+      return jsonResponse({
+        error: "Password must be between 8 and 256 characters."
+      }, 400);
+    }
+
+    if (name.length > 120) {
+      return jsonResponse({ error: "Name is too long." }, 400);
+    }
+
+    if (!env.DB || !env.JWT_SECRET) {
+      return jsonResponse({
+        error: "Registration service is not configured."
+      }, 500);
+    }
+
+    const passwordHash = await hashPassword(password);
+    const now = new Date().toISOString();
+
+    await env.DB.prepare(`
+      INSERT INTO users (
+        email,
+        password_hash,
+        full_name,
+        created_at,
+        updated_at
+      )
+      VALUES (?, ?, ?, ?, ?)
+    `).bind(
+      normalizedEmail,
+      passwordHash,
+      name || null,
+      now,
+      now
+    ).run();
+
+    const user = await env.DB.prepare(`
+      SELECT id, email, full_name
+      FROM users
+      WHERE email = ?
+    `).bind(normalizedEmail).first();
+
+    if (!user) {
+      return jsonResponse({
+        error: "Account creation could not be confirmed."
+      }, 500);
+    }
+
+    const token = await createAuthToken(user, env);
+
+    return jsonResponse({
+      success: true,
+      message: "Account created successfully.",
+      token,
+      email: user.email,
+      fullName: user.full_name || ""
     });
-  } catch (e) {
-    if (e.message.includes("UNIQUE constraint failed")) {
-      return new Response(JSON.stringify({ error: "Email already exists" }), { status: 400, headers: { "Content-Type": "application/json" } });
+
+  } catch (error) {
+    if (
+      error.message?.includes("UNIQUE constraint failed")
+    ) {
+      return jsonResponse({
+        error: "An account with this email already exists."
+      }, 409);
     }
-    return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+
+    console.error("Registration error:", error);
+
+    return jsonResponse({
+      error: "Registration could not be completed."
+    }, 500);
   }
 }
