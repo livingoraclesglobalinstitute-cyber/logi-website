@@ -150,7 +150,16 @@
       margin-bottom: 8px;
     }
     .course-card h3 { margin: 0 0 10px; font-size: 18px; }
-    .course-card p { margin: 0 0 20px; color: var(--muted); font-size: 13px; flex: 1; }
+    .course-card p { margin: 0 0 15px; color: var(--muted); font-size: 13px; flex: 1; }
+
+    /* Score styling */
+    .progress-info {
+      font-size: 13px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: var(--success);
+      display: none;
+    }
 
     .card-actions {
       display: flex;
@@ -242,9 +251,10 @@ function renderApp() {
           <h3>${c.title}</h3>
           <p>${c.description}</p>
           
+          <div class="progress-info" id="progress-${c.key}"></div>
+
           <div class="card-actions">
             <a href="${c.url}" class="btn" id="btn-${c.key}">Start Course</a>
-            <!-- Hidden by default, shown if completed -->
             <a href="${c.url}" class="btn-outline" id="cert-${c.key}" style="display:none; border-color: var(--success); color: var(--success);">View Certificate 🏅</a>
           </div>
         </div>
@@ -319,13 +329,24 @@ async function fetchProgress(token) {
     if (!Array.isArray(data.progress)) return;
 
     for (const course of COURSES) {
-      // We check if ANY module for this course is marked as completed=1
-      // For single-module courses like Agile, this checks the specific module.
-      const row = data.progress.find(
+      // 1. Check if they completed ANY module to show the badge/retake button
+      const completedRow = data.progress.find(
         p => p.module_id.startsWith(course.moduleId.replace('_1', '')) && p.completed === 1
       );
 
-      if (!row) continue;
+      // 2. Look specifically for the quiz row to get the real score
+      const quizRow = data.progress.find(
+        p => p.module_id.startsWith(course.moduleId.replace('_1', '')) && p.lesson_id.includes('quiz')
+      );
+
+      if (!completedRow) continue;
+
+      // Show Score from the quiz row
+      const progressEl = document.getElementById(`progress-${course.key}`);
+      if (progressEl && quizRow && quizRow.quiz_score !== undefined) {
+        progressEl.textContent = `Last Score: ${quizRow.quiz_score}/${quizRow.quiz_total}`;
+        progressEl.style.display = 'block';
+      }
 
       // Show Completed Badge
       const badge = document.getElementById(`badge-${course.key}`);
