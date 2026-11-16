@@ -1,92 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore LOGI’s Introduction to Agile Project Management free short course.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
-  <title>Introduction to Agile Project Management | LOGI</title>
-  
+  <title>LOGI LMS · Introduction to Agile Project Management</title>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     :root {
-      --pink: #ff4b93;
-      --pink-dark: #e93680;
-      --lavender: #f1f0fb;
+      --p: #ff4b93;
+      --pd: #e93680;
       --ink: #34343b;
       --muted: #777780;
-      --line: #ececf1;
-      --white: #fff;
-      --shadow: 0 3px 14px rgba(30, 30, 50, .09);
-      --p: #e91e63; /* Certificate pink */
+      --line: #e9e8ef;
+      --soft: #f5f5f8;
+      --bg: #ffffff;
       --success: #2e7d32;
       --error: #b33;
+      --warn: #f0f7ff;
+      --radius: 10px;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; color: var(--ink); background: #fff; font-family: Arial, Helvetica, sans-serif; line-height: 1.55; }
-    a { color: inherit; text-decoration: none; }
-    
-    /* --- HEADER & HERO --- */
-    .site-header { height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 max(5vw, 20px); background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.13); position: relative; z-index: 5; }
-    .brand { font-size: 27px; font-weight: 800; letter-spacing: -1.5px; color: #55545c; }
-    .brand span { color: var(--pink); }
-    .header-actions { display: flex; align-items: center; gap: 22px; }
-    .explore { display: inline-block; padding: 8px 30px; border-radius: 4px; background: var(--pink); color: white; font-size: 14px; cursor: pointer; border: 0; font-weight: bold;}
-    .explore:hover { background: var(--pink-dark); }
-    .header-link { color: #555; font-size: 14px; }
-    
-    .hero { background: var(--lavender); padding: 34px max(6.5vw, 22px) 42px; }
-    .breadcrumb { color: var(--pink); margin-bottom: 22px; font-size: 15px; }
-    .breadcrumb span { color: var(--ink); }
-    .badge { display: inline-block; padding: 2px 7px; background: #7b218b; color: white; font-size: 13px; font-weight: 700; font-style: italic; margin-bottom: 15px; }
-    h1 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 38px); line-height: 1.2; }
-    .course-meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 14px; }
-    .stars { color: #f5b400; letter-spacing: 2px; }
-    .partner { display: flex; align-items: center; gap: 18px; margin-top: 30px; max-width: 460px; }
-    .partner-mark { min-width: 92px; color: #615b80; font-weight: 800; font-size: 25px; letter-spacing: -2px; }
-    .partner-copy { border-left: 2px solid #d8d6e4; padding-left: 18px; font-weight: 700; line-height: 1.4; }
+    body { margin: 0; font: 15px/1.65 Arial, sans-serif; color: var(--ink); background: #fbfafc; }
+    a { text-decoration: none; color: inherit; }
+    .inner { width: min(1160px, 92%); margin: auto; }
 
-    /* --- TABS & CONTENT --- */
-    .content-wrap { width: min(1120px, 90%); margin: 0 auto; }
-    .tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); box-shadow: 0 2px 5px rgba(0,0,0,.04); background: #fff; }
-    .tab { border: 0; background: white; color: #555; padding: 17px 20px; cursor: pointer; font-size: 14px; border-bottom: 3px solid transparent; }
-    .tab.active { border-bottom-color: var(--pink); color: var(--ink); font-weight: 700; }
-    .tab-panel { padding: 28px 0 10px; display: none; }
-    .tab-panel.active { display: block; }
-    .tab-panel h2 { font-size: 23px; margin: 0 0 12px; }
-    .lead { font-size: 18px; color: #66666e; line-height: 1.55; margin: 0; }
-    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0 32px; }
-    .feature { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: white; }
-    
-    /* --- LMS DASHBOARD STYLES --- */
-    .lms-dashboard { display: none; background: #f5f5f8; padding: 30px; border-radius: 8px; border: 1px solid var(--line); margin-top: 20px; }
-    .lms-dashboard.active { display: block; }
-    .lms-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
-    .lms-title { font-size: 22px; font-weight: bold; margin: 0; }
-    
-    .module-card { background: white; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 15px; overflow: hidden; }
-    .module-header { background: #fdfdfd; padding: 15px 20px; font-weight: bold; display: flex; justify-content: space-between; cursor: pointer; }
-    .module-content { padding: 20px; display: none; border-top: 1px solid var(--line); }
-    .module-card.open .module-content { display: block; }
-    .lesson-link { display: block; padding: 10px; background: #f9f9fc; border: 1px solid #eee; margin-bottom: 8px; border-radius: 6px; cursor: pointer; font-size: 14px; }
-    .lesson-link:hover { background: #f0edf3; }
-    
-    .quiz-box { background: #fff; border: 1px solid var(--line); padding: 20px; border-radius: 8px; margin-top: 20px; }
-    .q-label { display: block; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin: 8px 0; cursor: pointer; }
-    .q-label:hover { background: #f0f0f5; }
-    
-    .btn { background: var(--pink); color: white; border: 0; border-radius: 24px; padding: 11px 22px; font-weight: bold; cursor: pointer; font-size: 15px; display: inline-block; }
-    .btn:hover { background: var(--pink-dark); }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .msg { padding: 12px; border-radius: 6px; margin-top: 10px; font-size: 14px; display: none; }
-    .msg.ok { background: #e8f5e9; color: var(--success); display: block; }
-    .msg.err { background: #fdecea; color: var(--error); display: block; }
+    .top { height: 66px; border-bottom: 1px solid var(--line); display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 1px 6px rgba(0,0,0,0.02); }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand span { color: var(--p); }
 
-    /* --- CERTIFICATE PREVIEW STYLES --- */
-    .cert-preview-container { width: 100%; max-width: 1000px; margin: 20px auto; position: relative; overflow: hidden; border-radius: 8px; box-shadow: var(--shadow); background: #e8eaed; }
-    .cert-scaler { transform-origin: top left; width: 1000px; height: 707px; }
-    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
+    .mobile-nav-toggle { display: none; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 18px; color: var(--ink); align-items: center; justify-content: center; }
+    .mobile-nav-toggle:hover { background: var(--soft); }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn { background: var(--p); color: white; border: 0; border-radius: 24px; padding: 10px 18px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn:hover { background: var(--pd); }
+    .btn-outline { background: transparent; color: var(--pd); border: 1.5px solid var(--p); border-radius: 24px; padding: 9px 16px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; }
+    .btn-outline:hover { background: #fff0f6; }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-secondary { background: #f0edf3; color: var(--ink); border: 0; border-radius: 24px; padding: 9px 15px; font-weight: 600; cursor: pointer; font-size: 14px; }
+    .btn-secondary:hover { background: #e5e1ea; }
+
+    .auth-wrap { display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 66px); padding: 40px 16px; }
+    .auth-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 32px; width: 100%; max-width: 440px; box-shadow: 0 8px 28px rgba(0,0,0,0.05); }
+    .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
+    .auth-card p.muted { margin: 0 0 22px; font-size: 14px; color: var(--muted); }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+    .field input { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 14px; background: white; }
+    .field input:focus { outline: 2px solid var(--p); outline-offset: 1px; border-color: transparent; }
+    .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
+    .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
+    .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
+
+    .dash-layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 66px); position: relative; }
+    .sidebar { background: white; border-right: 1px solid var(--line); padding: 22px 14px; display: flex; flex-direction: column; gap: 6px; z-index: 40; transition: transform 0.25s ease-in-out; }
+    .sidebar .user-badge { background: var(--soft); border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 13px; }
+    .sidebar .user-badge strong { display: block; font-size: 14px; }
+    .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
+    .sidebar a, .sidebar button.nav-link { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 6px; background: transparent; border: 0; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; transition: background 0.1s; }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar .spacer { flex: 1; }
+
+    .main-panel { padding: 28px 32px 48px; overflow-y: auto; max-height: calc(100vh - 66px); background: #fbfafc; }
+    .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
+    .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+
+    .card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+    .card h2 { font-size: 20px; margin: 0 0 10px; }
+    .card h3 { font-size: 17px; margin: 18px 0 8px; }
+    .card p, .card li { color: #555; line-height: 1.75; }
+    
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 22px; }
+    .stat-box { background: white; border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+    .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
+    .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .lesson-card { max-width: 900px; }
+    .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 14px 17px; margin: 18px 0; border-radius: 0 6px 6px 0; }
+    .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
+    .compare th { background: #fff3f8; }
+    .diagram { margin: 20px 0; padding: 16px; background: #fafafd; border: 1px solid var(--line); border-radius: 8px; text-align: center; }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram-cap { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+    .q { border-top: 1px solid var(--line); padding: 14px 0; }
+    .q label { display: block; border: 1px solid var(--line); padding: 8px 12px; margin: 6px 0; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background 0.1s; }
+    .q label:hover { background: #fafafa; }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .feedback { font-size: 13px; margin-top: 6px; }
+    .actions { display: flex; justify-content: space-between; gap: 9px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 24px; }
+
+    .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
+    .module-side { background: white; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: sticky; top: 80px; }
+    .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
+    .module-side .sidehead h2 { font-size: 16px; margin: 0; }
+    .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
+    .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
+    .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
+
+    .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+    .mod-section:last-child { border-bottom: none; }
+    .mod-header { width: 100%; text-align: left; background: white; border: 0; padding: 12px 10px; border-radius: 6px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 13px; display: flex; justify-content: space-between; align-items: center; transition: background 0.1s; }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header.locked { color: #aaa; cursor: not-allowed; }
+
+    .mod-lessons-list { padding: 4px 0 8px 10px; display: none; }
+    .mod-section.open .mod-lessons-list { display: block; }
+
+    .lesson-item-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: white; border: 0; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #555; cursor: pointer; transition: background 0.1s; }
+    .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.done { color: var(--success); }
+
+    .drawer-overlay, .module-overlay { display: none; position: fixed; top: 66px; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 35; }
+    .drawer-overlay.open, .module-overlay.open { display: block; }
+    .module-overlay { z-index: 45; }
+
+    .mobile-module-toggle { display: none; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--p); color: var(--pd); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
+    .mobile-module-toggle:hover { background: #fff0f6; }
+
+    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
+    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
+    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
     .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
     .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
     .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
@@ -96,7 +138,7 @@
     .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
     .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
     .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
-    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
     .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
     .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
     .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
@@ -104,7 +146,7 @@
     .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
     .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
     .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
-    .cert-sidebar { background-color: var(--p); position: relative; display: flex; flex-direction: column; }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
     .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
     .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
     .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
@@ -112,473 +154,566 @@
     .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
     .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
     .cert-bottom-block { height: 40px; background: #c2185b; }
-    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
 
-    .banner { min-height: 220px; display: flex; align-items: end; padding: 24px; margin: 28px 0 0; color: white; background: linear-gradient(90deg, rgba(28,30,44,.76), rgba(28,30,44,.12)), url("https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat, #55546a; border-radius: 4px 4px 0 0; }
-    .banner h2 { margin: 0; max-width: 560px; font-size: 27px; }
-    
-    .enrol-card { border: 1px solid var(--line); box-shadow: var(--shadow); margin: 0 0 55px; background: white; }
-    .enrol-heading { border-top: 4px solid var(--pink); padding: 22px; text-align: center; font-size: 21px; }
-    .enrol-heading strong { color: var(--pink); display: block; font-size: 25px; }
-    .enrol-body { max-width: 560px; margin: 0 auto; padding: 10px 24px 30px; }
-    .site-footer { background: #f7f7fa; color: #777; text-align: center; padding: 22px; font-size: 13px; }
-    
-    .hidden { display: none !important; }
-    @media (max-width: 700px) {
-      .site-header { padding: 0 18px; }
-      .tabs { display: grid; grid-template-columns: repeat(2, 1fr); }
-      .feature-grid { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .mobile-nav-toggle { display: inline-flex; }
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar { position: fixed; top: 66px; left: 0; bottom: 0; width: 260px; background: white; box-shadow: 4px 0 16px rgba(0,0,0,0.1); transform: translateX(-100%); overflow-y: auto; }
+      .sidebar.open { transform: translateX(0); }
+      .main-panel { max-height: none; padding: 20px 16px 40px; }
+      .course-layout { grid-template-columns: 1fr; gap: 16px; }
+      .mobile-module-toggle { display: inline-flex; }
+      .module-side { position: fixed; top: 66px; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: white; border: 0; border-left: 1px solid var(--line); border-radius: 0; box-shadow: -4px 0 16px rgba(0,0,0,0.15); z-index: 50; transform: translateX(100%); transition: transform 0.25s ease-in-out; }
+      .module-side.open { transform: translateX(0); }
+      .module-side .modules { max-height: calc(100vh - 140px); }
+    }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="https://www.logi.education" aria-label="LOGI home">LOGI<span>.</span></a>
-    <nav class="header-actions" aria-label="Main navigation">
-      <a class="explore" href="https://www.logi.education/short-course">Explore Courses</a>
-      <a class="header-link" href="https://www.logi.education">Home</a>
-    </nav>
-  </header>
 
-  <section class="hero" id="heroSection">
-    <div class="breadcrumb">
-      <a href="https://www.logi.education">Home</a> /
-      <a href="https://www.logi.education/our-programs">Short Courses</a> /
-      <span>Introduction to Agile Project Management</span>
+<header class="top">
+  <div class="inner nav">
+    <div class="brand-wrap">
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()">☰</button>
+      <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
     </div>
-    <div class="badge">FREE SHORT COURSE</div>
-    <h1>Introduction to Agile Project Management</h1>
-    <div class="course-meta">
-      <span class="stars" aria-label="Free course">★★★★★</span>
-      <span>Beginner Level</span><span>|</span><span>4–5 Hours</span><span>|</span><span>Online, Self-Paced</span>
-    </div>
-    <div class="partner">
-      <div class="partner-mark">LOGI</div>
-      <div class="partner-copy">Living Oracles Global Institute<br>School of Engineering &amp; Technology</div>
-    </div>
-  </section>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</header>
 
-  <main class="content-wrap" id="mainContent">
-    <div class="tabs" role="tablist" aria-label="Course information">
-      <button class="tab active" role="tab" aria-selected="true" data-tab="overview">Course Overview</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="certificate">Certification</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="lms">My Learning Portal</button>
-    </div>
+<div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
+<div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
 
-    <!-- OVERVIEW TAB -->
-    <section class="tab-panel active" id="overview" role="tabpanel">
-      <p class="lead">This course introduces Agile values and ways of organising work in short, feedback-driven cycles. Learners explore iterative delivery, collaboration, prioritisation and common Scrum concepts.</p>
-      <div class="feature-grid">
-        <div class="feature"><strong>What you will learn</strong>Agile principles, iterative delivery, backlogs, sprint planning, daily coordination, reviews and retrospectives.</div>
-        <div class="feature"><strong>Course duration</strong>Approximately 4–5 hours of self-paced learning.</div>
-        <div class="feature"><strong>Assessment</strong>Knowledge checks, practical scenarios and a final assessment.</div>
+<div id="app"></div>
+
+<footer style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>Faith. Excellence. Impact.
+</footer>
+
+<script>
+/* ============================================================
+   LOGI LMS — Cloudflare D1 Edition
+   ============================================================ */
+
+const API_BASE = 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev';
+
+const COURSE = {
+  id: 'agile-101',
+  title: 'Introduction to Agile Project Management',
+  desc: 'This course introduces Agile values and ways of organising work in short, feedback-driven cycles.',
+  passMark: 50,
+  modules: [
+    {
+      title: "Agile Mindset and Principles",
+      lessons: [{
+        title: "Understanding Agile Values and Principles",
+        duration: "45 minutes",
+        html: `<p>Agile is a mindset and a set of values, not a methodology. The <b>Agile Manifesto</b>, written in 2001 by seventeen practitioners, articulated a set of values that prioritised individuals, working software, customer collaboration and responsiveness to change over rigid processes, documentation, contracts and plans.</p>
+<div class="callout"><b>Core principle:</b> Agile does not reject processes, documentation, contracts or plans. It re-balances their importance when they conflict with delivering value to the customer.</div>
+<h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to explain the four Agile values, describe the twelve principles, and recognise how Agile differs from traditional project management.</p>
+<h3>1. The four Agile values</h3>
+<table class="compare"><tr><th>We value more…</th><th>…than</th></tr><tr><td>Individuals and interactions</td><td>Processes and tools</td></tr><tr><td>Working software</td><td>Comprehensive documentation</td></tr><tr><td>Customer collaboration</td><td>Contract negotiation</td></tr><tr><td>Responding to change</td><td>Following a plan</td></tr></table>
+<h3>2. The twelve principles</h3>
+<div class="diagram">
+  <svg viewBox="0 0 640 320" role="img">
+    <g font-family="Arial" font-size="11">
+      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">The twelve Agile principles</text>
+      <rect x="20" y="50" width="190" height="240" rx="8" fill="#ffe0ee" stroke="#e93680"/>
+      <text x="115" y="75" text-anchor="middle" font-weight="bold" fill="#e93680">Customer value</text>
+      <text x="30" y="100" font-size="10" fill="#333">• Satisfy customer early</text>
+      <text x="30" y="120" font-size="10" fill="#333">• Welcome changing needs</text>
+      <text x="30" y="140" font-size="10" fill="#333">• Deliver frequently</text>
+      <rect x="225" y="50" width="190" height="240" rx="8" fill="#fff2f7" stroke="#e93680"/>
+      <text x="320" y="75" text-anchor="middle" font-weight="bold" fill="#e93680">Collaboration</text>
+      <text x="235" y="100" font-size="10" fill="#333">• Business and developers daily</text>
+      <text x="235" y="120" font-size="10" fill="#333">• Motivated individuals</text>
+      <rect x="430" y="50" width="190" height="240" rx="8" fill="#dcecff" stroke="#438bd5"/>
+      <text x="525" y="75" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Excellence</text>
+      <text x="440" y="100" font-size="10" fill="#333">• Continuous attention quality</text>
+      <text x="440" y="120" font-size="10" fill="#333">• Simplicity</text>
+    </g>
+  </svg>
+</div>
+<h3>3. Agile vs. traditional</h3>
+<table class="compare"><tr><th>Agile</th><th>Traditional (waterfall)</th></tr><tr><td>Iterative delivery in short cycles</td><td>Sequential phases</td></tr><tr><td>Change expected and welcomed</td><td>Change controlled</td></tr></table>`,
+        quiz: [
+          { q: "How many Agile values?", opts: ["Four core values", "Three basic values", "Five key values", "Six guiding values"], answer: 0 },
+          { q: "What does Agile prioritise more?", opts: ["Individuals and interactions", "Processes and tools", "Contracts and plans", "Comprehensive documentation"], answer: 0 },
+          { q: "How many Agile principles?", opts: ["Twelve guiding principles", "Ten core principles", "Eight key principles", "Seven basic principles"], answer: 0 },
+          { q: "What does working software provide?", opts: ["Primary measure progress", "Only final delivery", "No value at all", "Documentation replacement"], answer: 0 },
+          { q: "What does Agile do with change?", opts: ["Welcomes changing needs", "Resists all changes", "Ignores every change", "Delays change requests"], answer: 0 }
+        ]
+      }]
+    },
+    {
+      title: "Iterative and Incremental Delivery",
+      lessons: [{
+        title: "Short Cycles, Feedback and Continuous Delivery",
+        duration: "50 minutes",
+        html: `<p>Agile teams deliver value through short, repeated cycles called <b>iterations</b> or <b>sprints</b>. Each cycle produces a potentially shippable increment that the customer can inspect.</p>
+<div class="callout"><b>Core principle:</b> Deliver small increments frequently. The earlier feedback arrives, the cheaper it is to act on.</div>
+<h3>1. Iterative vs. incremental</h3>
+<table class="compare"><tr><th>Iterative</th><th>Incremental</th></tr><tr><td>Revisits and refines</td><td>Adds new parts each cycle</td></tr><tr><td>Improves quality</td><td>Adds functionality</td></tr></table>
+<h3>2. Timeboxes</h3>
+<p>A <b>timebox</b> is a fixed duration for a piece of work — typically 2 to 4 weeks for a sprint.</p>`,
+        quiz: [
+          { q: "What does iterative delivery add?", opts: ["Refinement through cycles", "One final delivery", "Unchanged requirements", "Slower feedback loops"], answer: 0 },
+          { q: "What is a timebox?", opts: ["Fixed duration of work", "Open-ended project scope", "Team's largest task", "Contract's payment term"], answer: 0 },
+          { q: "What does definition of done mean?", opts: ["Agreed completion criteria", "When budget is spent", "When code is written", "When team disbands"], answer: 0 }
+        ]
+      }]
+    }
+  ]
+};
+
+function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function getAuth() { const raw = localStorage.getItem('logi_user'); return raw ? JSON.parse(raw) : null; }
+
+const App = (() => {
+  let state = { user: null, mi: 0, li: 0, assessment: false, progress: [] };
+
+  function toggleMobileMenu() { document.querySelector('.sidebar')?.classList.toggle('open'); document.getElementById('drawerOverlay')?.classList.toggle('open'); }
+  function closeMobileMenu() { document.querySelector('.sidebar')?.classList.remove('open'); document.getElementById('drawerOverlay')?.classList.remove('open'); }
+  function toggleModuleMenu() { document.querySelector('.module-side')?.classList.toggle('open'); document.getElementById('moduleOverlay')?.classList.toggle('open'); }
+  function closeModuleMenu() { document.querySelector('.module-side')?.classList.remove('open'); document.getElementById('moduleOverlay')?.classList.remove('open'); }
+
+  async function fetchProgress() {
+    const user = getAuth();
+    if (!user || !user.token) return [];
+    try {
+      const res = await fetch(`${API_BASE}/my-progress`, { headers: { 'Authorization': `Bearer ${user.token}` } });
+      const data = await res.json();
+      return data.progress || [];
+    } catch { return []; }
+  }
+
+  function isLessonDone(mi, li) {
+    // Simplified check based on our D1 structure
+    return state.progress.some(p => p.module_id === `agile_module_${mi+1}` && p.lesson_id === `agile_lesson_${li+1}` && p.completed === 1);
+  }
+  
+  function getQuizResult(mi) {
+    return state.progress.find(p => p.module_id === `agile_module_${mi+1}` && p.lesson_id === `agile_lesson_1`);
+  }
+
+  function renderNav() {
+    const el = document.getElementById('navActions');
+    const toggleBtn = document.getElementById('menuToggleBtn');
+    const u = getAuth();
+    if (u) {
+      if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+      el.innerHTML = `
+        <span style="font-size:13px;color:var(--muted);margin-right:8px;">Signed in as <b style="color:var(--pd)">${esc(u.fullName || u.email)}</b></span>
+        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
+      `;
+    } else {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      el.innerHTML = `<button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button><button class="btn btn-sm" onclick="App.showRegister()">Register</button>`;
+    }
+  }
+
+  function renderSidebar(active) {
+    const u = getAuth() || {};
+    return `
+      <aside class="sidebar">
+        <div class="user-badge"><strong>${esc(u.fullName || 'Learner')}</strong><span>${esc(u.email || '')}</span></div>
+        <button class="nav-link ${active==='dashboard'?'active':''}" onclick="App.showDashboard()">📊 My dashboard</button>
+        <button class="nav-link ${active==='course'?'active':''}" onclick="App.openCourse(0,0)">📘 Current course</button>
+        <button class="nav-link ${active==='certificate'?'active':''}" onclick="App.showCertificate()">🏅 My certificate</button>
+        <div class="spacer"></div>
+        <button class="nav-link" onclick="App.logout()" style="color:var(--muted);">↪ Log out</button>
+      </aside>
+    `;
+  }
+
+  async function showLogin() {
+    closeMobileMenu();
+    document.getElementById('app').innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Welcome back</h2>
+          <p class="muted">Log in to continue Introduction to Agile Project Management.</p>
+          <div class="field"><label>Email address</label><input id="loginUser" type="email"></div>
+          <div class="field"><label>Password</label><input id="loginPass" type="password"></div>
+          <div class="error-msg" id="loginError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doLogin()">Log in</button>
+          <div class="auth-switch">Don't have an account? <a onclick="App.showRegister()">Register free</a></div>
+        </div>
       </div>
-      <h2>Course Modules</h2>
-      <ul>
-        <li>Agile Mindset and Principles</li>
-        <li>Iterative and Incremental Delivery</li>
-        <li>Roles and Responsibilities</li>
-        <li>Backlogs, Sprints and Reviews</li>
-        <li>Feedback and Continuous Improvement</li>
-      </ul>
-    </section>
+    `;
+    renderNav();
+  }
 
-    <!-- CERTIFICATE PREVIEW TAB -->
-    <section class="tab-panel" id="certificate" role="tabpanel">
-      <h2>Certificate of Completion</h2>
-      <p class="lead">Learners who complete the required course activities and achieve the stated pass mark in the final assessment may receive a LOGI Certificate of Completion.</p>
-      
-      <div class="cert-preview-container" id="certPreviewContainer">
-        <div class="cert-scaler" id="certScaler">
-          <div class="cert-wrapper">
-            <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
-            <div class="cert-main">
-              <div class="cert-header">
-                <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
-                <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
-              </div>
-              <div class="cert-date">30, October 2026</div>
-              <div class="cert-name">[Learner Name]</div>
-              <div class="cert-completion">has successfully completed</div>
-              <div class="cert-course-title">Introduction to Agile Project Management</div>
-              <div class="cert-description">This course has been developed and delivered by Living Oracles Global Institute, covering the foundational principles of agile project management, iterative delivery, and continuous improvement.</div>
-              <div class="cert-signature-area">
-                <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Signature" crossorigin="anonymous">
-                <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
-                <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
-              </div>
+  async function doLogin() {
+    const email = document.getElementById('loginUser').value.trim();
+    const password = document.getElementById('loginPass').value;
+    const err = document.getElementById('loginError');
+    err.textContent = 'Signing in...';
+    try {
+      const res = await fetch(`${API_BASE}/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      localStorage.setItem('logi_user', JSON.stringify(data));
+      await showDashboard();
+    } catch (e) { err.textContent = e.message; }
+  }
+
+  async function showRegister() {
+    closeMobileMenu();
+    document.getElementById('app').innerHTML = `
+      <div class="auth-wrap">
+        <div class="auth-card">
+          <h2>Create your free account</h2>
+          <p class="muted">Register to enrol in Introduction to Agile Project Management.</p>
+          <div class="field"><label>Full name</label><input id="regName"></div>
+          <div class="field"><label>Email address</label><input id="regEmail" type="email"></div>
+          <div class="field"><label>Password</label><input id="regPass" type="password"></div>
+          <div class="error-msg" id="regError"></div>
+          <button class="btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="App.doRegister()">Create account</button>
+          <div class="auth-switch">Already registered? <a onclick="App.showLogin()">Log in</a></div>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function doRegister() {
+    const fullName = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPass').value;
+    const err = document.getElementById('regError');
+    err.textContent = 'Creating account...';
+    try {
+      const res = await fetch(`${API_BASE}/register`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fullName, email, password }) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      localStorage.setItem('logi_user', JSON.stringify(data));
+      await showDashboard();
+    } catch (e) { err.textContent = e.message; }
+  }
+
+  async function showDashboard() {
+    const u = getAuth();
+    if (!u) return showLogin();
+    state.user = u;
+    state.progress = await fetchProgress();
+    
+    const completedCount = state.progress.filter(p => p.completed).length;
+    const pct = Math.min(100, Math.round((completedCount / 2) * 100)); // Rough estimate
+
+    document.getElementById('app').innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebar('dashboard')}
+        <main class="main-panel">
+          <h1>Welcome back, ${esc((u.fullName || u.email).split(' ')[0])} 👋</h1>
+          <p class="subtitle">Here is an overview of your learning progress.</p>
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Course progress</div></div>
+            <div class="stat-box"><div class="num">${COURSE.modules.length}</div><div class="lbl">Modules</div></div>
+          </div>
+          <div class="card">
+            <h2>${esc(COURSE.title)}</h2>
+            <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(0,0)">Start course</button>
             </div>
-            <div class="cert-sidebar">
-              <div class="cert-partner-box">LOGI</div>
-              <div class="cert-sidebar-pattern"></div>
-              <div class="cert-verify-area">
-                <div class="cert-verify-text">Scan to verify<br>this certificate</div>
-                <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=LOGI-SAMPLE-PREVIEW" alt="QR Code" crossorigin="anonymous">
-                <div class="cert-blockchain">Blockchain ID:<br>SAMPLE-PREVIEW-1234567890</div>
-              </div>
-              <div class="cert-bottom-block"></div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
+    const u = getAuth(); if (!u) return showLogin();
+    state.user = u; state.mi = mi; state.li = li; state.assessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
+
+  function renderCourse() {
+    const u = getAuth(); if (!u) return;
+    const mi = state.mi; const li = state.li;
+    const mod = COURSE.modules[mi]; if (!mod) return showDashboard();
+    if (state.assessment) return renderAssessmentScreen();
+
+    const lesson = mod.lessons[li];
+    const pct = Math.min(100, Math.round(((mi+1)/COURSE.modules.length)*100));
+
+    document.getElementById('app').innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">📚 Course Content (${pct}%)</button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead"><h2>Course content</h2><div class="progress-bar"><span style="width:${pct}%;"></span></div></div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const isOpen = (i === mi);
+                const done = isLessonDone(i, 0);
+                const quizPassed = getQuizResult(i)?.completed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header" onclick="App.openCourse(${i}, 0)"><span>Module ${i+1}: ${esc(m.title)}</span><span>${isOpen ? '▲' : '▼'}</span></button>
+                    <div class="mod-lessons-list">
+                      <button class="lesson-item-btn ${(i===mi && !state.assessment) ? 'active' : ''} ${done ? 'done' : ''}" onclick="App.openCourse(${i}, 0)">
+                        <span>${done ? '✓' : '📖'}</span><span style="flex:1;">${esc(m.lessons[0].title)}</span>
+                      </button>
+                      <button class="lesson-item-btn ${(i===mi && state.assessment) ? 'active' : ''}" onclick="App.openAssessment(${i})">
+                        <span>${quizPassed ? '✅' : '📝'}</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
             </div>
-          </div>
-        </div>
-      </div>
-      <p style="text-align:center; font-size:12px; color:var(--muted); margin-top:12px;">Illustrative certificate preview.</p>
-    </section>
-
-    <!-- LMS TAB (The actual course) -->
-    <section class="tab-panel" id="lms" role="tabpanel">
-      
-      <!-- Auth Gate -->
-      <div class="lms-dashboard active" id="authGate">
-        <h2>Login / Sign Up</h2>
-        <p>Create your free learning account to start this course.</p>
-        
-        <div id="loginForm">
-          <div style="margin-bottom:10px;"><label>Email</label><input type="email" id="loginEmail" style="width:100%; padding:10px;"></div>
-          <div style="margin-bottom:10px;"><label>Password</label><input type="password" id="loginPass" style="width:100%; padding:10px;"></div>
-          <div class="msg" id="loginErr"></div>
-          <button class="btn" onclick="Auth.login()">Log In</button>
-          <p style="margin-top:10px; font-size:14px;">Don't have an account? <a href="#" onclick="Auth.toggleRegister(event)" style="color:var(--pink); font-weight:bold;">Register here</a></p>
-        </div>
-
-        <div id="registerForm" style="display:none;">
-          <div style="margin-bottom:10px;"><label>Full Name</label><input type="text" id="regName" style="width:100%; padding:10px;"></div>
-          <div style="margin-bottom:10px;"><label>Email</label><input type="email" id="regEmail" style="width:100%; padding:10px;"></div>
-          <div style="margin-bottom:10px;"><label>Password</label><input type="password" id="regPass" style="width:100%; padding:10px;"></div>
-          <div class="msg" id="regErr"></div>
-          <button class="btn" onclick="Auth.register()">Create Account</button>
-          <p style="margin-top:10px; font-size:14px;">Already have an account? <a href="#" onclick="Auth.toggleRegister(event)" style="color:var(--pink); font-weight:bold;">Log in here</a></p>
-        </div>
-      </div>
-
-      <!-- Course Content (Hidden until logged in) -->
-      <div class="lms-dashboard" id="courseContent">
-        <div class="lms-top">
-          <h2 class="lms-title">Agile Course Modules</h2>
-          <button class="btn" onclick="Auth.logout()" style="background:#555;">Log Out</button>
-        </div>
-        
-        <div class="module-card open">
-          <div class="module-header">Module 1: Agile Mindset and Principles</div>
-          <div class="module-content">
-            <p>Agile is a mindset and a set of values, not a methodology. The Agile Manifesto prioritised individuals, working software, customer collaboration and responsiveness to change.</p>
-            <button class="lesson-link" onclick="LMS.startQuiz()">📝 Take Final Quiz</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quiz Area -->
-      <div class="lms-dashboard" id="quizArea">
-        <h2>Final Quiz</h2>
-        <p>Score 70% or more to complete the course and unlock your certificate.</p>
-        <form id="quizForm" onsubmit="LMS.submitQuiz(event)">
-          <div class="quiz-box">
-            <p><strong>1. What is the main goal of a sprint?</strong></p>
-            <label class="q-label"><input type="radio" name="q1" value="a"> a) Deliver a potentially shippable increment</label>
-            <label class="q-label"><input type="radio" name="q1" value="b"> b) Write all documentation up front</label>
-            <label class="q-label"><input type="radio" name="q1" value="c"> c) Freeze requirements permanently</label>
-
-            <p style="margin-top:20px;"><strong>2. What is a retrospective?</strong></p>
-            <label class="q-label"><input type="radio" name="q2" value="a"> a) A meeting to plan the next sprint</label>
-            <label class="q-label"><input type="radio" name="q2" value="b"> b) A reflection on what went well and what to improve</label>
-            <label class="q-label"><input type="radio" name="q2" value="c"> c) A demo for stakeholders</label>
-
-            <p style="margin-top:20px;"><strong>3. Who owns the product backlog?</strong></p>
-            <label class="q-label"><input type="radio" name="q3" value="a"> a) The Scrum Master</label>
-            <label class="q-label"><input type="radio" name="q3" value="b"> b) The Product Owner</label>
-            <label class="q-label"><input type="radio" name="q3" value="c"> c) The Development Team</label>
-          </div>
-          
-          <div class="msg" id="quizMsg"></div>
-          <button type="submit" class="btn" style="margin-top:20px;" id="submitQuizBtn">Submit Quiz</button>
-        </form>
-      </div>
-
-      <!-- Certificate Result -->
-      <div class="lms-dashboard" id="certResultArea" style="text-align:center; background:transparent; border:none;">
-        <div class="cert-controls">
-          <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
-          <button class="btn" onclick="LMS.downloadCert()">📥 Download as PNG</button>
-        </div>
-        <div class="cert-preview-container" style="max-width: 100%;">
-          <div class="cert-scaler" id="resultCertScaler">
-            <div class="cert-wrapper" id="printableCert">
-              <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
-              <div class="cert-main">
-                <div class="cert-header">
-                  <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous">
-                  <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
-                </div>
-                <div class="cert-date" id="resDate"></div>
-                <div class="cert-name" id="resName"></div>
-                <div class="cert-completion">has successfully completed</div>
-                <div class="cert-course-title">Introduction to Agile Project Management</div>
-                <div class="cert-description">This course has been developed and delivered by Living Oracles Global Institute, covering Agile values, iterative delivery, Scrum roles, backlogs, sprint events and continuous improvement.</div>
-                <div class="cert-signature-area">
-                  <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Signature" crossorigin="anonymous">
-                  <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
-                  <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
                 </div>
               </div>
-              <div class="cert-sidebar">
-                <div class="cert-partner-box">LOGI</div>
-                <div class="cert-sidebar-pattern"></div>
-                <div class="cert-verify-area">
-                  <div class="cert-verify-text">Scan to verify<br>this certificate</div>
-                  <img class="cert-qr" id="resQR" src="" alt="QR Code">
-                  <div class="cert-blockchain" id="resHash"></div>
-                </div>
-                <div class="cert-bottom-block"></div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function openAssessment(mi) { state.mi = mi; state.assessment = true; closeModuleMenu(); renderAssessmentScreen(); }
+
+  function renderAssessmentScreen() {
+    const u = getAuth(); if (!u) return;
+    const mi = state.mi;
+    const quiz = COURSE.modules[mi].lessons[0].quiz || [];
+    const passed = getQuizResult(mi)?.completed;
+
+    document.getElementById('app').innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead"><h2>Course content</h2></div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.openCourse(${mi}, 0)">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}" ${passed ? '' : 'disabled'} onclick="App.continueAfterAssessment()">${mi+1 < COURSE.modules.length ? 'Next Module →' : 'Finish →'}</button>
               </div>
-            </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    return `
+      <div style="margin-top:16px;">
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `<label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})"><input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}</label>`).join('')}
           </div>
-        </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
       </div>
+    `;
+  }
 
-    </section>
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`); if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`); if (lbl) { lbl.classList.add('selected'); const r = lbl.querySelector('input'); if (r) r.checked = true; }
+  }
 
-    <div class="banner">
-      <h2>Build practical foundational knowledge with LOGI’s Introduction to Agile Project Management short course.</h2>
-    </div>
-
-    <!-- Enrolment CTA (Now triggers the LMS tab) -->
-    <section class="enrol-card" id="enrolment">
-      <div class="enrol-heading">Learning this Course is <strong>Absolutely Free!</strong></div>
-      <div class="enrol-body" style="text-align:center; padding: 30px;">
-        <div class="feature">
-          <strong>Ready to start learning?</strong>
-          Create your learner account or sign in to the LOGI Learning Portal to access the course.
-          <p style="margin:18px 0 0;">
-            <button class="btn" style="font-size:16px; padding: 12px 30px;" onclick="document.querySelector('[data-tab=lms]').click()">Enter Learning Portal</button>
-          </p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    Living Oracles Global Institute (LOGI) · Faith. Excellence. Impact.
-  </footer>
-
-  <script>
-    // ====== TABS LOGIC ======
-    document.querySelectorAll('.tab').forEach(function (button) {
-      button.addEventListener('click', function () {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-        
-        button.classList.add('active');
-        document.getElementById(button.dataset.tab).classList.add('active');
-        
-        if (button.dataset.tab === 'certificate') {
-          setTimeout(scalePreviewCertificate, 10);
-        }
-        if (button.dataset.tab === 'lms') {
-          Auth.check();
-        }
-      });
+  async function submitQuiz(mi) {
+    const u = getAuth(); if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      if (sel && parseInt(sel.value) === q.answer) score++;
     });
 
-    // ====== API & AUTH LOGIC ======
-    const API_URL = 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev';
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+    const resultEl = document.getElementById('quizResult_' + mi);
     
-    const Auth = {
-      getUser: () => {
-        const raw = localStorage.getItem('logi_user');
-        return raw ? JSON.parse(raw) : null;
-      },
-      check: () => {
-        const user = Auth.getUser();
-        if (user) {
-          document.getElementById('authGate').classList.remove('active');
-          document.getElementById('courseContent').classList.add('active');
-        } else {
-          document.getElementById('authGate').classList.add('active');
-          document.getElementById('courseContent').classList.remove('active');
-          document.getElementById('quizArea').classList.remove('active');
-          document.getElementById('certResultArea').classList.remove('active');
-        }
-      },
-      toggleRegister: (e) => {
-        e.preventDefault();
-        document.getElementById('loginForm').style.display = document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
-        document.getElementById('registerForm').style.display = document.getElementById('registerForm').style.display === 'none' ? 'block' : 'none';
-      },
-      login: async () => {
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPass').value;
-        const err = document.getElementById('loginErr');
-        
-        err.className = 'msg'; err.style.display = 'none';
-        
-        try {
-          const res = await fetch(`${API_URL}/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error);
-          
-          localStorage.setItem('logi_user', JSON.stringify(data));
-          Auth.check();
-        } catch (error) {
-          err.textContent = error.message;
-          err.className = 'msg err';
-        }
-      },
-      register: async () => {
-        const fullName = document.getElementById('regName').value;
-        const email = document.getElementById('regEmail').value;
-        const password = document.getElementById('regPass').value;
-        const err = document.getElementById('regErr');
-        
-        err.className = 'msg'; err.style.display = 'none';
-        
-        try {
-          const res = await fetch(`${API_URL}/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fullName, email, password })
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error);
-          
-          localStorage.setItem('logi_user', JSON.stringify(data));
-          Auth.check();
-        } catch (error) {
-          err.textContent = error.message;
-          err.className = 'msg err';
-        }
-      },
-      logout: () => {
-        localStorage.removeItem('logi_user');
-        Auth.check();
-      }
-    };
-
-    // ====== LMS & QUIZ LOGIC ======
-    const LMS = {
-      startQuiz: () => {
-        document.getElementById('courseContent').classList.remove('active');
-        document.getElementById('quizArea').classList.add('active');
-      },
-      submitQuiz: async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = document.getElementById('submitQuizBtn');
-        const msg = document.getElementById('quizMsg');
-        
-        const answers = { q1: 'a', q2: 'b', q3: 'b' };
-        let score = 0;
-        for (const [q, correct] of Object.entries(answers)) {
-          const picked = form.querySelector(`input[name="${q}"]:checked`);
-          if (picked && picked.value === correct) score++;
-        }
-        
-        const passed = (score / 3) >= 0.7;
-        
-        msg.className = 'msg ' + (passed ? 'ok' : 'err');
-        msg.textContent = `You scored ${score}/3. ${passed ? 'Passed!' : 'Try again.'}`;
-        msg.style.display = 'block';
-        
-        if (passed) {
-          btn.textContent = 'Generating Certificate...';
-          btn.disabled = true;
-          
-          try {
-            await LMS.saveProgress(score);
-            await LMS.generateCert();
-          } catch (err) {
-            msg.className = 'msg err';
-            msg.textContent = 'Could not save: ' + err.message;
-            btn.disabled = false;
-            btn.textContent = 'Submit Quiz';
-          }
-        }
-      },
-      saveProgress: async (score) => {
-        const user = Auth.getUser();
-        if (!user || !user.token) return;
-        
-        const res = await fetch(`${API_URL}/progress`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${user.token}` },
-          body: JSON.stringify({
-            moduleId: 'agile_module_1',
-            lessonId: 'agile_lesson_1',
-            completed: 1,
-            quizScore: score,
-            quizTotal: 3
-          })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Progress save failed');
-      },
-      generateCert: async () => {
-        const user = Auth.getUser();
-        const res = await fetch(`${API_URL}/certificates`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${user.token}` },
-          body: JSON.stringify({
-            courseId: 'agile-101',
-            courseTitle: 'Introduction to Agile Project Management',
-            studentName: user.fullName || user.email
-          })
-        });
-        const data = await res.json();
-        
-        if (data.success) {
-          document.getElementById('quizArea').classList.remove('active');
-          document.getElementById('certResultArea').classList.add('active');
-          
-          document.getElementById('resName').textContent = data.certificate.studentName;
-          document.getElementById('resDate').textContent = new Date(data.certificate.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
-          document.getElementById('resHash').textContent = 'Blockchain ID: ' + data.certificate.hash;
-          document.getElementById('resQR').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(data.certificate.id)}`;
-          
-          setTimeout(() => {
-            const scaler = document.getElementById('resultCertScaler');
-            const container = scaler.parentElement;
-            const scale = container.clientWidth / 1000;
-            scaler.style.transform = `scale(${scale})`;
-            scaler.style.marginBottom = `-${707 * (1 - scale)}px`;
-          }, 50);
-        }
-      },
-      downloadCert: () => {
-        const cert = document.getElementById('printableCert');
-        const scaler = document.getElementById('resultCertScaler');
-        
-        const origTrans = scaler.style.transform;
-        const origMargin = scaler.style.marginBottom;
-        scaler.style.transform = 'none';
-        scaler.style.marginBottom = '0';
-        
-        html2canvas(cert, { scale: 2, useCORS: true, backgroundColor: '#fafafa', width: 1000, height: 707 }).then(canvas => {
-          const link = document.createElement('a');
-          link.download = 'LOGI_Certificate_Agile.png';
-          link.href = canvas.toDataURL('image/png');
-          link.click();
-          
-          scaler.style.transform = origTrans;
-          scaler.style.marginBottom = origMargin;
-        });
-      }
-    };
-
-    // ====== SCALING LOGIC ======
-    function scalePreviewCertificate() {
-      const container = document.getElementById('certPreviewContainer');
-      const scaler = document.getElementById('certScaler');
-      if (!container || !scaler) return;
+    if (passed) {
+      resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+      resultEl.style.color = 'var(--success)';
       
-      const scale = container.clientWidth / 1000;
-      scaler.style.transform = `scale(${scale})`;
-      container.style.height = `${707 * scale}px`;
+      // Save to Cloudflare D1
+      await fetch(`${API_BASE}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${u.token}` },
+        body: JSON.stringify({ moduleId: `agile_module_${mi+1}`, lessonId: `agile_lesson_1`, completed: 1, quizScore: score, quizTotal: quiz.length })
+      });
+      
+      state.progress = await fetchProgress();
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      nextBtn.disabled = false; nextBtn.classList.remove('btn-secondary'); nextBtn.classList.add('btn');
+    } else {
+      resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+      resultEl.style.color = 'var(--error)';
+    }
+  }
+
+  function continueAfterAssessment() {
+    if (state.mi + 1 < COURSE.modules.length) openCourse(state.mi + 1, 0);
+    else showCertificate();
+  }
+
+  function prevLesson() { if (state.li > 0) state.li--; else if (state.mi > 0) { state.mi--; state.li = 0; } renderCourse(); }
+  function nextLesson() { if (state.li < COURSE.modules[state.mi].lessons.length - 1) state.li++; else state.assessment = true; renderCourse(); }
+  
+  async function markCurrentLesson() {
+    const u = getAuth(); if (!u) return;
+    await fetch(`${API_BASE}/progress`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${u.token}` },
+      body: JSON.stringify({ moduleId: `agile_module_${state.mi+1}`, lessonId: `agile_lesson_${state.li+1}`, completed: 1, quizScore: 0, quizTotal: 0 })
+    });
+    state.progress = await fetchProgress();
+    renderCourse();
+  }
+
+  async function showCertificate() {
+    const u = getAuth(); if (!u) return showLogin();
+    state.user = u;
+    
+    // Check if they passed all modules
+    const allPassed = COURSE.modules.every((_, i) => getQuizResult(i)?.completed);
+    if (!allPassed) {
+      alert('You must pass all module assessments to unlock your certificate.');
+      return openCourse(0, 0);
     }
 
-    window.addEventListener('load', scalePreviewCertificate);
-    window.addEventListener('resize', scalePreviewCertificate);
-  </script>
+    // Generate the certificate via Cloudflare
+    const res = await fetch(`${API_BASE}/certificates`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${u.token}` },
+      body: JSON.stringify({ courseId: COURSE.id, courseTitle: COURSE.title, studentName: u.fullName || u.email })
+    });
+    const data = await res.json();
+    const cert = data.certificate;
+
+    document.getElementById('app').innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebar('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Congratulations! You have completed the course.</p>
+          <div class="cert-controls">
+            <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+            <button class="btn" onclick="App.downloadCert()">📥 Download as PNG</button>
+          </div>
+          <div class="cert-display-area">
+            <div class="cert-scaler" id="certScaler">
+              <div class="cert-wrapper" id="printableCert">
+                <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png">
+                <div class="cert-main">
+                  <div class="cert-header">
+                    <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png">
+                    <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                  </div>
+                  <div class="cert-date">${new Date(cert.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                  <div class="cert-name">${esc(cert.studentName)}</div>
+                  <div class="cert-completion">has successfully completed</div>
+                  <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                  <div class="cert-description">This course has been developed and delivered by Living Oracles Global Institute, covering Agile values, iterative delivery, Scrum roles, backlogs, sprint events and continuous improvement.</div>
+                  <div class="cert-signature-area">
+                    <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg">
+                    <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                    <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                  </div>
+                </div>
+                <div class="cert-sidebar">
+                  <div class="cert-partner-box">LOGI</div>
+                  <div class="cert-sidebar-pattern"></div>
+                  <div class="cert-verify-area">
+                    <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                    <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}">
+                    <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                  </div>
+                  <div class="cert-bottom-block"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+    scaleCert();
+    window.addEventListener('resize', scaleCert);
+  }
+
+  function scaleCert() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const scale = scaler.parentElement.clientWidth / 1000;
+    scaler.style.transform = `scale(${scale})`;
+    scaler.style.marginBottom = `-${707 * (1 - scale)}px`;
+  }
+
+  function downloadCert() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    const orig = scaler.style.transform;
+    scaler.style.transform = 'none';
+    html2canvas(cert, { scale: 2, useCORS: true, backgroundColor: '#fafafa', width: 1000, height: 707 }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      scaler.style.transform = orig;
+    });
+  }
+
+  function logout() { localStorage.removeItem('logi_user'); showLogin(); }
+  function goHome() { const u = getAuth(); u ? showDashboard() : showLogin(); }
+
+  return { 
+    toggleMobileMenu, closeMobileMenu, toggleModuleMenu, closeModuleMenu,
+    showLogin, doLogin, showRegister, doRegister, showDashboard, 
+    openCourse, openAssessment, selectOption, submitQuiz, continueAfterAssessment,
+    prevLesson, nextLesson, markCurrentLesson, showCertificate, downloadCert,
+    logout, goHome 
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const u = getAuth();
+  if (u) App.showDashboard();
+  else App.showLogin();
+});
+</script>
 </body>
 </html>
