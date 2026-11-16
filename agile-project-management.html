@@ -108,7 +108,8 @@ async function saveProgress({ completed, quizScore, quizTotal }) {
   const user = getAuth();
   if (!user || !user.token) throw new Error('Not logged in.');
 
-  const res = await fetch('/api/progress', {
+  // UPDATED: Pointing to your live Cloudflare Worker
+  const res = await fetch('https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/progress', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
