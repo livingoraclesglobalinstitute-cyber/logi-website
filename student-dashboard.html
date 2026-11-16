@@ -185,10 +185,6 @@
 <script>
 /* =========================================================
    COURSE CONFIG
-   ---------------------------------------------------------
-   Each course maps its dashboard card to the module_id /
-   lesson_id that the LMS page sends to POST /api/progress.
-   Add a new object here to add another course card.
    ========================================================= */
 const COURSES = [
   {
@@ -300,7 +296,8 @@ function renderApp() {
    ========================================================= */
 async function fetchProgress(token) {
   try {
-    const res = await fetch('/api/my-progress', {
+    // UPDATED: Pointing to live Cloudflare Worker
+    const res = await fetch('https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/my-progress', {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -377,7 +374,10 @@ async function handleLogin(e) {
     ? document.getElementById('authName').value.trim()
     : '';
 
-  const endpoint = isRegistering ? '/api/register' : '/api/login';
+  // UPDATED: Pointing to live Cloudflare Worker routes
+  const endpoint = isRegistering 
+    ? 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/register' 
+    : 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/login';
 
   btn.textContent = 'Processing...';
   btn.disabled = true;
