@@ -57,6 +57,7 @@
       text-decoration: none;
       display: inline-block;
       transition: 0.2s;
+      text-align: center;
     }
     .btn:hover { background: var(--pd); }
     .btn-outline {
@@ -150,12 +151,11 @@
     }
     .course-card h3 { margin: 0 0 10px; font-size: 18px; }
     .course-card p { margin: 0 0 20px; color: var(--muted); font-size: 13px; flex: 1; }
-    .progress-info {
-      font-size: 13px;
-      margin-bottom: 15px;
-      font-weight: bold;
-      color: var(--success);
-      display: none;
+
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .footer {
@@ -203,7 +203,7 @@ const COURSES = [
     tag: 'Project Management',
     description: 'Learn Agile values, iterative delivery, Scrum roles, backlogs, sprints, reviews and continuous improvement.',
     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80',
-    url: 'https://www.logi.education/agile-project-management',
+    url: 'agile-project-management.html',
     moduleId: 'agile_module_1',
     lessonId: 'agile_lesson_1'
   }
@@ -241,8 +241,12 @@ function renderApp() {
           <div class="course-tag">${c.tag}</div>
           <h3>${c.title}</h3>
           <p>${c.description}</p>
-          <div class="progress-info" id="progress-${c.key}"></div>
-          <a href="${c.url}" class="btn" id="btn-${c.key}" style="text-align:center;">Start Course</a>
+          
+          <div class="card-actions">
+            <a href="${c.url}" class="btn" id="btn-${c.key}">Start Course</a>
+            <!-- Hidden by default, shown if completed -->
+            <a href="${c.url}" class="btn-outline" id="cert-${c.key}" style="display:none; border-color: var(--success); color: var(--success);">View Certificate 🏅</a>
+          </div>
         </div>
       </div>
     `).join('');
@@ -296,7 +300,6 @@ function renderApp() {
    ========================================================= */
 async function fetchProgress(token) {
   try {
-    // UPDATED: Pointing to live Cloudflare Worker
     const res = await fetch('https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/my-progress', {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` }
@@ -316,28 +319,29 @@ async function fetchProgress(token) {
     if (!Array.isArray(data.progress)) return;
 
     for (const course of COURSES) {
+      // We check if ANY module for this course is marked as completed=1
+      // For single-module courses like Agile, this checks the specific module.
       const row = data.progress.find(
-        p => p.module_id === course.moduleId && p.lesson_id === course.lessonId
+        p => p.module_id.startsWith(course.moduleId.replace('_1', '')) && p.completed === 1
       );
 
       if (!row) continue;
 
-      const progressEl = document.getElementById(`progress-${course.key}`);
-      if (progressEl) {
-        progressEl.textContent =
-          `Last Score: ${row.quiz_score}/${row.quiz_total}`;
-        progressEl.style.display = 'block';
+      // Show Completed Badge
+      const badge = document.getElementById(`badge-${course.key}`);
+      if (badge) badge.style.display = 'block';
+
+      // Change main button to Retake
+      const btn = document.getElementById(`btn-${course.key}`);
+      if (btn) {
+        btn.textContent = 'Retake Course';
+        btn.style.background = 'var(--success)';
       }
 
-      if (row.completed) {
-        const badge = document.getElementById(`badge-${course.key}`);
-        if (badge) badge.style.display = 'block';
-
-        const btn = document.getElementById(`btn-${course.key}`);
-        if (btn) {
-          btn.textContent = 'Retake Course';
-          btn.style.background = 'var(--success)';
-        }
+      // Show Certificate Button
+      const certBtn = document.getElementById(`cert-${course.key}`);
+      if (certBtn) {
+        certBtn.style.display = 'block';
       }
     }
 
@@ -374,7 +378,6 @@ async function handleLogin(e) {
     ? document.getElementById('authName').value.trim()
     : '';
 
-  // UPDATED: Pointing to live Cloudflare Worker routes
   const endpoint = isRegistering 
     ? 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/register' 
     : 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/login';
