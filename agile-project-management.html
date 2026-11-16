@@ -997,6 +997,11 @@ async function loadStudentData(user, force = false) {
     const data = await res.json();
     const cache = getProgressCache();
     
+    // Reset cache for this course before loading fresh data
+    Object.keys(cache).forEach(k => {
+       if (k.startsWith(COURSE.id)) delete cache[k];
+    });
+
     // Map DB rows into the cache format used by the UI
     if (data.progress) {
       data.progress.forEach(row => {
