@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agile Project Management · LOGI LMS</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root { --p:#ff4b93; --pd:#e93680; --ink:#34343b; --muted:#777780; --line:#e9e8ef; --ok:#2e7d32; --err:#b33; }
     * { box-sizing: border-box; }
@@ -26,30 +25,6 @@
     .msg { padding:12px 14px; border-radius:6px; margin:14px 0; display:none; font-size:14px; }
     .msg.ok { background:#e8f5e9; color:var(--ok); display:block; }
     .msg.err { background:#fdecea; color:var(--err); display:block; }
-    
-    /* Certificate Styles */
-    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
-    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
-    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
-    .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
-    .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
-    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
-    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
-    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
-    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
-    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
-    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
-    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
-    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; }
-    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
-    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
-    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
-    .cert-signer-title { font-size: 12px; color: var(--muted); }
-    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
-    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; border-bottom: 1px solid #eee; }
-    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; margin-top: auto;}
-    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
-    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; }
   </style>
 </head>
 <body>
@@ -106,56 +81,14 @@
       <div class="msg" id="saveMsg"></div>
     </div>
 
-    <!-- Certificate Display Area -->
-    <div class="card" id="certCard" style="display:none; padding: 0; background: transparent; border: none;">
-      <div class="cert-display-area">
-        <div class="cert-scaler" id="certScaler">
-          <div class="cert-wrapper" id="printableCert">
-            <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
-            <div class="cert-main">
-              <div class="cert-header">
-                <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
-                <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
-              </div>
-              <div class="cert-date" id="certDate"></div>
-              <div class="cert-name" id="certName"></div>
-              <div class="cert-completion">has successfully completed</div>
-              <div class="cert-course-title">Introduction to Agile Project Management</div>
-              <div class="cert-description">
-                This course has been developed and delivered by Living Oracles Global Institute, covering Agile values, iterative delivery, Scrum roles, backlogs, sprint events and continuous improvement.
-              </div>
-              <div class="cert-signature-area">
-                <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Signature" crossorigin="anonymous">
-                <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
-                <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
-              </div>
-            </div>
-            <div class="cert-sidebar">
-              <div class="cert-partner-box">LOGI</div>
-              <div class="cert-verify-area">
-                <div class="cert-verify-text">Scan to verify<br>this certificate</div>
-                <img class="cert-qr" id="certQR" src="" alt="QR Code">
-                <div class="cert-blockchain" id="certHash"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top: 20px;">
-        <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
-        <button class="btn" onclick="downloadCertificateImage()">📥 Download as PNG</button>
-      </div>
-    </div>
-
   </div>
 </div>
 
 <script>
-// ====== IDs ======
+// ====== IDs — must match what the dashboard filters on ======
 const MODULE_ID = 'agile_module_1';
 const LESSON_ID = 'agile_lesson_1';
 const PASS_MARK = 0.7; // 70%
-const API_BASE = 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev';
 
 // ====== Auth ======
 function getAuth() {
@@ -175,7 +108,8 @@ async function saveProgress({ completed, quizScore, quizTotal }) {
   const user = getAuth();
   if (!user || !user.token) throw new Error('Not logged in.');
 
-  const res = await fetch(`${API_BASE}/progress`, {
+  // UPDATED: Pointing to your live Cloudflare Worker
+  const res = await fetch('https://logi-lms-api.livingoraclesglobalinstitute.workers.dev/progress', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -197,89 +131,7 @@ async function saveProgress({ completed, quizScore, quizTotal }) {
   return data;
 }
 
-// ====== Generate Certificate ======
-async function generateCertificate() {
-  const user = getAuth();
-  if (!user || !user.token) return;
-
-  const res = await fetch(`${API_BASE}/certificates`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${user.token}`
-    },
-    body: JSON.stringify({
-      courseId: 'agile-101',
-      courseTitle: 'Introduction to Agile Project Management',
-      studentName: user.fullName || user.email
-    })
-  });
-
-  const data = await res.json();
-  if (data.success) {
-    const cert = data.certificate;
-    document.getElementById('certCard').style.display = 'block';
-    document.getElementById('certDate').textContent = new Date(cert.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
-    document.getElementById('certName').textContent = cert.studentName;
-    document.getElementById('certHash').textContent = 'Blockchain ID: ' + cert.hash;
-    document.getElementById('certQR').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}`;
-    
-    // Scroll to certificate
-    document.getElementById('certCard').scrollIntoView({ behavior: 'smooth' });
-    scaleCertificate();
-  }
-}
-
-function scaleCertificate() {
-  const scaler = document.getElementById('certScaler');
-  if (!scaler) return;
-  const container = scaler.parentElement;
-  const containerWidth = container.clientWidth;
-  const certWidth = 1000;
-  if (containerWidth < certWidth) {
-    const scale = containerWidth / certWidth;
-    scaler.style.transform = `scale(${scale})`;
-    scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
-  } else {
-    scaler.style.transform = 'none';
-    scaler.style.marginBottom = '0';
-  }
-}
-
-function downloadCertificateImage() {
-  const cert = document.getElementById('printableCert');
-  const scaler = document.getElementById('certScaler');
-  if (!cert || !scaler) return;
-  
-  const originalTransform = scaler.style.transform;
-  const originalMargin = scaler.style.marginBottom;
-  
-  // Temporarily remove scaling for high-res capture
-  scaler.style.transform = 'none';
-  scaler.style.marginBottom = '0';
-  
-  html2canvas(cert, {
-    scale: 2, useCORS: true, backgroundColor: '#fafafa',
-    width: 1000, height: 707, windowWidth: 1000, windowHeight: 707
-  }).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.download = 'LOGI_Certificate_Agile.png';
-    link.href = imgData;
-    link.click();
-    
-    // Restore scaling
-    scaler.style.transform = originalTransform;
-    scaler.style.marginBottom = originalMargin;
-  }).catch(err => {
-    console.error('Error generating image:', err);
-    alert('Failed to generate image. Ensure you are online.');
-    scaler.style.transform = originalTransform;
-    scaler.style.marginBottom = originalMargin;
-  });
-}
-
-// ====== Quiz Logic ======
+// ====== Quiz ======
 const ANSWERS = { q1: 'a', q2: 'b', q3: 'b' };
 
 document.getElementById('quiz').addEventListener('submit', async (e) => {
@@ -321,10 +173,6 @@ document.getElementById('quiz').addEventListener('submit', async (e) => {
     document.getElementById('statusText').textContent =
       `Last attempt: ${score}/${total} — ${passed ? 'Completed ✅' : 'Not yet passed'}`;
 
-    if (passed) {
-      await generateCertificate();
-    }
-
   } catch (err) {
     saveMsg.className = 'msg err';
     saveMsg.textContent = 'Could not save progress: ' + err.message;
@@ -334,7 +182,6 @@ document.getElementById('quiz').addEventListener('submit', async (e) => {
   }
 });
 
-window.addEventListener('resize', scaleCertificate);
 showGateOrCourse();
 </script>
 </body>
