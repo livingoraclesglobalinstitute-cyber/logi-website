@@ -98,7 +98,6 @@
 
     /* NEW: Media Styling */
     .lesson-media { margin-bottom: 24px; }
-    .lesson-image { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
     .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
@@ -242,10 +241,9 @@ const COURSE = {
       lessons: [{
         title: "Understanding Agile Values and Principles",
         duration: "45 minutes",
-        // ADDED: Real Image and YouTube Video
+        // MODULE 1: Video kept, Image removed
         html: `
 <div class="lesson-media">
-  <img class="lesson-image" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="Agile Team Collaboration">
   <div class="video-container">
     <iframe src="https://www.youtube.com/embed/Z9QbYZh1YXY" title="Agile Methodology Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
@@ -321,13 +319,8 @@ const COURSE = {
       lessons: [{
         title: "Short Cycles, Feedback and Continuous Delivery",
         duration: "50 minutes",
+        // MODULE 2: Image and video removed
         html: `
-<div class="lesson-media">
-  <img class="lesson-image" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80" alt="Iterative Sprints">
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/lFqMZ8Y3V0o" title="What is a Sprint?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-</div>
 <p>Agile teams deliver value through short, repeated cycles called <b>iterations</b> or <b>sprints</b>. Each cycle produces a potentially shippable increment that the customer can inspect. This <b>iterative and incremental</b> approach reduces risk, surfaces feedback early and allows course correction before more work is committed.</p>
 <div class="callout"><b>Core principle:</b> Deliver small increments frequently. The earlier feedback arrives, the cheaper it is to act on — and the closer the product stays to what the customer actually needs.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to explain iterative and incremental delivery, describe the role of timeboxes, and recognise the benefits of frequent small releases.</p>
@@ -360,9 +353,9 @@ const COURSE = {
       lessons: [{
         title: "Scrum Roles and Agile Team Structures",
         duration: "50 minutes",
+        // MODULE 3: Video kept, Image removed
         html: `
 <div class="lesson-media">
-  <img class="lesson-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Agile Team">
   <div class="video-container">
     <iframe src="https://www.youtube.com/embed/502ILHjX9EE" title="Scrum Roles Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
@@ -423,13 +416,8 @@ const COURSE = {
       lessons: [{
         title: "The Product Backlog, Sprint Planning and Sprint Review",
         duration: "50 minutes",
+        // MODULE 4: Image and video removed
         html: `
-<div class="lesson-media">
-  <img class="lesson-image" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80" alt="Sprint Planning">
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/2A4W6Q7u2Q8" title="Sprint Planning Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-</div>
 <p>Agile organises work through backlogs and timeboxed events. The <b>product backlog</b> lists all desired work, prioritised by value. The <b>sprint backlog</b> lists the work chosen for the current sprint. Sprints are framed by <b>planning</b>, <b>daily stand-ups</b>, <b>reviews</b> and <b>retrospectives</b>.</p>
 <div class="callout"><b>Core principle:</b> The backlog is alive — items are added, refined, re-prioritised. A backlog that never changes is a project plan in disguise.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the product and sprint backlogs, explain the four main sprint events, and recognise the purpose of a sprint review.</p>
@@ -499,13 +487,8 @@ const COURSE = {
       lessons: [{
         title: "Retrospectives and the Improvement Mindset",
         duration: "45 minutes",
+        // MODULE 5: Image and video removed
         html: `
-<div class="lesson-media">
-  <img class="lesson-image" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="Retrospective Meeting">
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/7FbY9e7p8Y4" title="Sprint Retrospective" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-</div>
 <p>Agile teams improve through continuous reflection. The <b>sprint retrospective</b> is a dedicated event at the end of each sprint where the team examines how it worked and identifies improvements. Beyond the retrospective, feedback flows from sprint reviews, customer input, metrics and the daily scrum.</p>
 <div class="callout"><b>Core principle:</b> Improvement is a behaviour, not an event. Retrospectives create the habit of asking "how can we do better?" — and the discipline to act on the answer.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the purpose and structure of a retrospective, explain how the team converts insight into action, and recognise the feedback sources that support continuous improvement.</p>
