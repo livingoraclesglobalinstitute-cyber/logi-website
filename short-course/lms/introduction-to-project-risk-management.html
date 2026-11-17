@@ -9,7 +9,6 @@
   <title>LOGI LMS · Introduction to Project Risk Management</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
@@ -543,27 +542,7 @@
    LOGI LMS — Introduction to Project Risk Management
    ============================================================ */
 
-const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
-const STORE = {
-  progress: 'logi_progress',
-  certificates: 'logi_certificates',
-  posts: 'logi_posts',
-  announcements: 'logi_announcements',
-  enrolments: 'logi_enrolments'
-};
-
-function load(key, fallback) {
-  try {
-    const v = localStorage.getItem(key);
-    return v ? JSON.parse(v) : fallback;
-  } catch { return fallback; }
-}
-function save(key, val) {
-  localStorage.setItem(key, JSON.stringify(val));
-}
+const API_BASE = 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev';
 
 const COURSE = {
   id: 'risk-mgmt-101',
@@ -1042,118 +1021,78 @@ Example: 30% chance of a GH¢50,000 loss → EMV = 0.30 × 50,000 = <b>GH¢15,00
   ]
 };
 
-function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
 function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
-function nowISO() { return new Date().toISOString(); }
 function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 let currentSessionUser = null;
 
-function syncLocalUser(authUser) {
-  if (!authUser) { currentSessionUser = null; return null; }
-  const email = (authUser.email || '').toLowerCase();
-  currentSessionUser = {
-    id: authUser.id,
-    username: email,
-    email,
-    fullName: authUser.user_metadata?.full_name || email,
-    role: 'student'
-  };
-  return currentSessionUser;
+function getAuth() {
+  const raw = localStorage.getItem('logi_user');
+  if (!raw) return null;
+  try { return JSON.parse(raw); } catch { return null; }
 }
 
 async function currentUser() {
   if (currentSessionUser) return currentSessionUser;
-  const { data, error } = await supabaseClient.auth.getSession();
-  if (error) return null;
-  return data.session?.user ? syncLocalUser(data.session.user) : null;
+  const user = getAuth();
+  if (user) {
+    currentSessionUser = {
+      id: user.id,
+      username: user.email,
+      email: user.email,
+      fullName: user.fullName || user.email,
+      role: 'student'
+    };
+    return currentSessionUser;
+  }
+  return null;
 }
 
-let studentDataLoadedFor = null;
+// Progress tracking helpers (stored in memory/localStorage for instant UI, synced to DB)
+const PROGRESS_KEY = 'logi_progress_cache';
+function getProgressCache() {
+  try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch { return {}; }
+}
+function setProgressCache(cache) { localStorage.setItem(PROGRESS_KEY, JSON.stringify(cache)); }
 
 async function loadStudentData(user, force = false) {
   if (!user?.id) return;
-  if (!force && studentDataLoadedFor === user.id) return;
-
-  const email = (user.email || user.username || '').toLowerCase();
-
-  const [progressResult, enrolmentResult] = await Promise.all([
-    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
-    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
-  ]);
-
-  if (!progressResult.error && Array.isArray(progressResult.data)) {
-    const merged = getProgress(email);
-    progressResult.data.forEach(row => {
-      const key = row.module_index + '-' + row.lesson_index;
-      if (row.completed) merged.lessons[key] = true;
-      if (row.quiz_score !== null && row.quiz_score !== undefined) {
-        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
-      }
+  try {
+    const res = await fetch(`${API_BASE}/my-progress`, {
+      headers: { 'Authorization': `Bearer ${getAuth().token}` }
     });
-    saveProgress(email, merged);
-  }
+    if (!res.ok) return;
+    const data = await res.json();
+    const cache = getProgressCache();
 
-  studentDataLoadedFor = user.id;
-}
+    // Reset cache for this course before loading fresh data
+    Object.keys(cache).forEach(k => {
+       if (k.startsWith(COURSE.id)) delete cache[k];
+    });
 
-async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
-  const user = currentSessionUser;
-  if (!user?.id) return;
-  const p = getProgress(username);
-  const quiz = p.quizzes[moduleIndex];
-  const row = {
-    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
-    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
-    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
-  };
-  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
-}
-
-function getProgress(username) {
-  const all = load(STORE.progress, {});
-  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
-  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
-}
-function saveProgress(username, p) {
-  const all = load(STORE.progress, {});
-  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
-  all[username][COURSE.id] = p;
-  save(STORE.progress, all);
-}
-function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
-function enrol(username, courseId) {
-  const e = load(STORE.enrolments, {});
-  if (!e[username]) e[username] = [];
-  if (!e[username].includes(courseId)) e[username].push(courseId);
-  save(STORE.enrolments, e);
-}
-function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
-function addCert(username, cert) {
-  const c = load(STORE.certificates, {});
-  if (!c[username]) c[username] = [];
-  c[username].push(cert);
-  save(STORE.certificates, c);
+    // Map DB rows into the cache format used by the UI
+    if (data.progress) {
+      data.progress.forEach(row => {
+        const key = `${COURSE.id}_${row.module_id}_${row.lesson_id}`;
+        cache[key] = { completed: row.completed, score: row.quiz_score, total: row.quiz_total };
+      });
+      setProgressCache(cache);
+    }
+  } catch (e) { console.error('Could not load progress', e); }
 }
 
-function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
-function markLessonDone(username, mi, li) {
-  const p = getProgress(username);
-  p.lessons[mi + '-' + li] = true;
-  saveProgress(username, p);
-  saveProgressToSupabase(username, mi, li);
+function isLessonDone(username, mi, li) {
+  const cache = getProgressCache();
+  return !!cache[`${COURSE.id}_risk_${mi+1}_lesson_${li+1}`]?.completed;
 }
-function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
-function saveQuizResult(username, mi, score, total) {
-  const p = getProgress(username);
-  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
-  saveProgress(username, p);
-  saveProgressToSupabase(username, mi, 0);
+function getQuizResult(username, mi) {
+  const cache = getProgressCache();
+  return cache[`${COURSE.id}_risk_${mi+1}_quiz_1`] || null;
 }
 function isModuleLocked(username, mi) {
   if (mi === 0) return false;
   const prev = getQuizResult(username, mi - 1);
-  return !prev || !prev.passed;
+  return !prev || !prev.completed;
 }
 function courseProgressPct(username) {
   let total = 0, done = 0;
@@ -1167,7 +1106,7 @@ function courseProgressPct(username) {
 }
 function courseCompleted(username) {
   for (let mi = 0; mi < COURSE.modules.length; mi++) {
-    if (!getQuizResult(username, mi)?.passed) return false;
+    if (!getQuizResult(username, mi)?.completed) return false;
     for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
       if (!isLessonDone(username, mi, li)) return false;
     }
@@ -1180,31 +1119,9 @@ function nextIncompleteLesson(username) {
     for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
       if (!isLessonDone(username, mi, li)) return { mi, li };
     }
-    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+    if (!getQuizResult(username, mi)?.completed) return { mi, li: 0 };
   }
   return { mi: 0, li: 0 };
-}
-
-function generateCertificate(username) {
-  if (!username) return null;
-  const certs = getCerts(username);
-  let cert = certs.find(c => c.courseId === COURSE.id);
-  if (cert) return cert;
-
-  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
-  let studentName = currentSessionUser?.fullName || username;
-
-  cert = {
-    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
-    hash: hash,
-    courseId: COURSE.id,
-    courseTitle: COURSE.title,
-    studentName: studentName,
-    date: nowISO(),
-    issuedBy: 'Living Oracles Global Institute'
-  };
-  addCert(username, cert);
-  return cert;
 }
 
 const App = (() => {
@@ -1253,13 +1170,13 @@ const App = (() => {
       if (toggleBtn) toggleBtn.style.display = 'inline-flex';
       el.innerHTML = `
         <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
-        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <a href="https://www.logi.education/dashboard" class="btn-outline btn-sm">Main Portal</a>
         <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
       `;
     } else {
       if (toggleBtn) toggleBtn.style.display = 'none';
       el.innerHTML = `
-        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <a href="https://www.logi.education/dashboard" class="btn-outline btn-sm">Main Portal</a>
         <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
       `;
     }
@@ -1344,13 +1261,21 @@ const App = (() => {
     if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
     err.textContent = 'Signing in...';
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) { err.textContent = error.message; return; }
+    try {
+      const res = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
 
-    syncLocalUser(data.user);
-    enrol(email, COURSE.id);
-    await loadStudentData(currentSessionUser, true);
-    await showDashboard();
+      localStorage.setItem('logi_user', JSON.stringify(data));
+      currentSessionUser = null; // force reload
+      await showDashboard();
+    } catch (e) {
+      err.textContent = e.message;
+    }
   }
 
   function showRegister() {
@@ -1386,31 +1311,27 @@ const App = (() => {
     if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
 
     err.textContent = 'Creating account...';
-    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
 
-    if (error && /already registered|already exists|user already/i.test(error.message)) {
-      err.textContent = 'Account exists. Signing you in...';
-      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
-      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
-      syncLocalUser(signInData.user);
-      enrol(email, COURSE.id);
-      await loadStudentData(currentSessionUser, true);
-      await showDashboard();
-      return;
-    }
+    try {
+      const res = await fetch(`${API_BASE}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName: name, email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
 
-    if (error) { err.textContent = error.message; return; }
-    if (data.session && data.user) {
-      syncLocalUser(data.user);
-      enrol(email, COURSE.id);
-      await loadStudentData(currentSessionUser, true);
+      localStorage.setItem('logi_user', JSON.stringify(data));
+      currentSessionUser = null;
       await showDashboard();
+    } catch (e) {
+      err.textContent = e.message;
     }
   }
 
   async function logout() {
     closeMobileMenu();
-    await supabaseClient.auth.signOut();
+    localStorage.removeItem('logi_user');
     currentSessionUser = null;
     showLanding();
   }
@@ -1530,7 +1451,7 @@ const App = (() => {
               ${COURSE.modules.map((m, i) => {
                 const locked = isModuleLocked(username, i);
                 const isOpen = (i === mi);
-                const modPassed = getQuizResult(username, i)?.passed;
+                const modPassed = getQuizResult(username, i)?.completed;
                 return `
                   <div class="mod-section ${isOpen ? 'open' : ''}">
                     <button class="mod-header ${locked ? 'locked' : ''}"
@@ -1610,7 +1531,7 @@ const App = (() => {
     const quiz = mod.lessons[0].quiz || [];
     const username = u.username;
     const result = getQuizResult(username, mi);
-    const passed = !!result?.passed;
+    const passed = !!result?.completed;
     const pct = courseProgressPct(username);
     const isLastModule = (mi + 1 >= COURSE.modules.length);
     const allDone = courseCompleted(username);
@@ -1745,13 +1666,25 @@ const App = (() => {
       return;
     }
 
-    saveQuizResult(u.username, mi, score, quiz.length);
     const passed = (score / quiz.length * 100) >= COURSE.passMark;
 
-    if (passed) {
-      markLessonDone(u.username, mi, 0);
-      if (courseCompleted(u.username)) generateCertificate(u.username);
+    // Save to Cloudflare D1
+    try {
+      await fetch(`${API_BASE}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+        body: JSON.stringify({
+          moduleId: `risk_${mi+1}`,
+          lessonId: `quiz_1`,
+          completed: passed ? 1 : 0,
+          quizScore: score,
+          quizTotal: quiz.length
+        })
+      });
+      await loadStudentData(u, true); // Reload cache
+    } catch (e) { console.error(e); }
 
+    if (passed) {
       if (resultEl) {
         resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
         resultEl.style.color = 'var(--success)';
@@ -1796,7 +1729,22 @@ const App = (() => {
   async function markCurrentLesson() {
     const u = await currentUser();
     if (!u) return;
-    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+
+    try {
+      await fetch(`${API_BASE}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+        body: JSON.stringify({
+          moduleId: `risk_${state.activeCourseModule+1}`,
+          lessonId: `lesson_${state.activeCourseLesson+1}`,
+          completed: 1,
+          quizScore: 0,
+          quizTotal: 0
+        })
+      });
+      await loadStudentData(u, true);
+    } catch (e) { console.error(e); }
+
     renderCourse();
   }
 
@@ -1818,8 +1766,23 @@ const App = (() => {
     state.user = u;
     state.screen = 'certificate';
     const completed = courseCompleted(u.username);
-    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
-    if (completed && !cert) cert = generateCertificate(u.username);
+
+    let cert = null;
+    if (completed) {
+      try {
+        const res = await fetch(`${API_BASE}/certificates`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+          body: JSON.stringify({
+            courseId: COURSE.id,
+            courseTitle: COURSE.title,
+            studentName: u.fullName || u.email
+          })
+        });
+        const data = await res.json();
+        if (data.success) cert = data.certificate;
+      } catch (e) { console.error(e); }
+    }
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1994,10 +1957,9 @@ const App = (() => {
   }
 
   async function init() {
-    const { data } = await supabaseClient.auth.getSession();
-    if (data?.session?.user) {
-      syncLocalUser(data.session.user);
-      await loadStudentData(currentSessionUser, true);
+    const u = await currentUser();
+    if (u) {
+      await loadStudentData(u, true);
       await showDashboard();
     } else {
       showLanding();
