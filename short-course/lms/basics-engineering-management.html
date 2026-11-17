@@ -8,10 +8,7 @@
   <meta name="description" content="LOGI LMS – Basics of Engineering Management">
   <title>LOGI LMS · Basics of Engineering Management</title>
   
-  <!-- Include html2canvas for certificate image download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <!-- Include Supabase for real authentication -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
   <style>
     :root {
@@ -28,411 +25,121 @@
       --radius: 10px;
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font: 15px/1.65 Arial, sans-serif;
-      color: var(--ink);
-      background: #fbfafc;
-    }
+    body { margin: 0; font: 15px/1.65 Arial, sans-serif; color: var(--ink); background: #fbfafc; }
     a { text-decoration: none; color: inherit; }
     .inner { width: min(1160px, 92%); margin: auto; }
     
-    /* Sticky Top Header */
-    .top {
-      height: 66px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: white;
-      z-index: 50;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
-    }
+    .top { height: 66px; border-bottom: 1px solid var(--line); display: flex; align-items: center; position: sticky; top: 0; background: white; z-index: 50; box-shadow: 0 1px 6px rgba(0,0,0,0.02); }
     .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
     .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; }
     .brand span { color: var(--p); }
     
-    /* Mobile Menu Toggle Button */
-    .mobile-nav-toggle {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--ink);
-      align-items: center;
-      justify-content: center;
-    }
+    .mobile-nav-toggle { display: none; background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; cursor: pointer; font-size: 18px; color: var(--ink); align-items: center; justify-content: center; }
     .mobile-nav-toggle:hover { background: var(--soft); }
 
     .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .btn {
-      background: var(--p);
-      color: white;
-      border: 0;
-      border-radius: 24px;
-      padding: 10px 18px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .btn { background: var(--p); color: white; border: 0; border-radius: 24px; padding: 10px 18px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; display: inline-flex; align-items: center; gap: 6px; }
     .btn:hover { background: var(--pd); }
-    .btn-outline {
-      background: transparent;
-      color: var(--pd);
-      border: 1.5px solid var(--p);
-      border-radius: 24px;
-      padding: 9px 16px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.15s;
-    }
+    .btn-outline { background: transparent; color: var(--pd); border: 1.5px solid var(--p); border-radius: 24px; padding: 9px 16px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; }
     .btn-outline:hover { background: #fff0f6; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
-    .btn-secondary {
-      background: #f0edf3;
-      color: var(--ink);
-      border: 0;
-      border-radius: 24px;
-      padding: 9px 15px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-    }
+    .btn-secondary { background: #f0edf3; color: var(--ink); border: 0; border-radius: 24px; padding: 9px 15px; font-weight: 600; cursor: pointer; font-size: 14px; }
     .btn-secondary:hover { background: #e5e1ea; }
 
-    /* Auth screens */
-    .auth-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: calc(100vh - 66px);
-      padding: 40px 16px;
-    }
-    .auth-card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 36px 32px;
-      width: 100%;
-      max-width: 440px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.05);
-    }
+    .auth-wrap { display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 66px); padding: 40px 16px; }
+    .auth-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 32px; width: 100%; max-width: 440px; box-shadow: 0 8px 28px rgba(0,0,0,0.05); }
     .auth-card h2 { margin: 0 0 6px; font-size: 24px; }
     .auth-card p.muted { margin: 0 0 22px; font-size: 14px; }
     .field { margin-bottom: 14px; }
     .field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
-    .field input, .field select, .field textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      font: inherit;
-      font-size: 14px;
-      background: white;
-    }
-    .field input:focus, .field select:focus, .field textarea:focus {
-      outline: 2px solid var(--p);
-      outline-offset: 1px;
-      border-color: transparent;
-    }
+    .field input, .field select, .field textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 14px; background: white; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--p); outline-offset: 1px; border-color: transparent; }
     .auth-switch { text-align: center; margin-top: 16px; font-size: 14px; }
     .auth-switch a { color: var(--pd); font-weight: 600; cursor: pointer; }
     .error-msg { color: var(--error); font-size: 13px; margin-top: 8px; min-height: 18px; }
 
-    /* Dashboard layout */
-    .dash-layout {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      min-height: calc(100vh - 66px);
-      position: relative;
-    }
-    .sidebar {
-      background: white;
-      border-right: 1px solid var(--line);
-      padding: 22px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      z-index: 40;
-      transition: transform 0.25s ease-in-out;
-    }
-    .sidebar .user-badge {
-      background: var(--soft);
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
-      font-size: 13px;
-    }
+    .dash-layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 66px); position: relative; }
+    .sidebar { background: white; border-right: 1px solid var(--line); padding: 22px 14px; display: flex; flex-direction: column; gap: 6px; z-index: 40; transition: transform 0.25s ease-in-out; }
+    .sidebar .user-badge { background: var(--soft); border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 13px; }
     .sidebar .user-badge strong { display: block; font-size: 14px; }
     .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
-    .sidebar a, .sidebar button.nav-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      text-align: left;
-      padding: 10px 12px;
-      border-radius: 6px;
-      background: transparent;
-      border: 0;
-      font: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      cursor: pointer;
-      transition: background 0.1s;
-    }
+    .sidebar a, .sidebar button.nav-link { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 6px; background: transparent; border: 0; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; transition: background 0.1s; }
     .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
     .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
     .sidebar .spacer { flex: 1; }
     
-    .main-panel {
-      padding: 28px 32px 48px;
-      overflow-y: auto;
-      max-height: calc(100vh - 66px);
-      background: #fbfafc;
-    }
+    .main-panel { padding: 28px 32px 48px; overflow-y: auto; max-height: calc(100vh - 66px); background: #fbfafc; }
     .main-panel h1 { font-size: 26px; margin: 0 0 4px; }
     .main-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
 
-    .card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    }
+    .card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
     .card h2 { font-size: 20px; margin: 0 0 10px; }
     .card h3 { font-size: 17px; margin: 18px 0 8px; }
     .card p, .card li { color: #555; line-height: 1.75; }
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-    .stat-box {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 16px;
-    }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 22px; }
+    .stat-box { background: white; border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
     .stat-box .num { font-size: 26px; font-weight: 800; color: var(--pd); }
     .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
-    /* Course catalogue */
     .catalogue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
-    .course-tile {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .course-tile { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 8px; }
     .course-tile h3 { margin: 0; font-size: 17px; }
     .course-tile .meta { font-size: 12px; color: var(--muted); }
     .course-tile .desc { font-size: 13px; color: #666; flex: 1; }
 
-    /* Lesson content */
     .lesson-card { max-width: 900px; }
-    .callout {
-      background: var(--warn);
-      border-left: 4px solid #438bd5;
-      padding: 14px 17px;
-      margin: 18px 0;
-      border-radius: 0 6px 6px 0;
-    }
+    .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 14px 17px; margin: 18px 0; border-radius: 0 6px 6px 0; }
     .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
     .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
     .compare th { background: #fff3f8; }
 
+    /* Video Styling */
+    .lesson-media { margin-bottom: 24px; }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
     .q { border-top: 1px solid var(--line); padding: 14px 0; }
-    .q label {
-      display: block;
-      border: 1px solid var(--line);
-      padding: 8px 12px;
-      margin: 6px 0;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.1s;
-    }
+    .q label { display: block; border: 1px solid var(--line); padding: 8px 12px; margin: 6px 0; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background 0.1s; }
     .q label:hover { background: #fafafa; }
     .q label.selected { background: #fff0f6; border-color: var(--p); }
     .feedback { font-size: 13px; margin-top: 6px; }
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 9px;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--line);
-      padding-top: 18px;
-      margin-top: 24px;
-    }
-    .notice { font-size: 12px; color: var(--muted); margin-top: 14px; }
+    .actions { display: flex; justify-content: space-between; gap: 9px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 24px; }
 
-    /* Module sidebar inside course view */
     .course-layout { display: grid; grid-template-columns: 320px 1fr; gap: 22px; align-items: start; }
-    .module-side {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      position: sticky;
-      top: 80px;
-    }
+    .module-side { background: white; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: sticky; top: 80px; }
     .module-side .sidehead { padding: 16px; border-bottom: 1px solid var(--line); }
     .module-side .sidehead h2 { font-size: 16px; margin: 0; }
     .progress-bar { height: 7px; background: #f0edf3; border-radius: 9px; margin-top: 8px; overflow: hidden; }
     .progress-bar span { display: block; height: 100%; width: 0; background: var(--p); transition: width 0.3s; }
     .module-side .modules { padding: 8px; max-height: calc(100vh - 200px); overflow-y: auto; }
-    
-    /* Accordion module styling */
+
     .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
     .mod-section:last-child { border-bottom: none; }
-    .mod-header {
-      width: 100%;
-      text-align: left;
-      background: white;
-      border: 0;
-      padding: 12px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--ink);
-      font-size: 13px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.1s;
-    }
+    .mod-header { width: 100%; text-align: left; background: white; border: 0; padding: 12px 10px; border-radius: 6px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 13px; display: flex; justify-content: space-between; align-items: center; transition: background 0.1s; }
     .mod-header:hover { background: #fff3f8; color: var(--pd); }
     .mod-header.locked { color: #aaa; cursor: not-allowed; }
-    
-    .mod-lessons-list {
-      padding: 4px 0 8px 10px;
-      display: none;
-    }
+
+    .mod-lessons-list { padding: 4px 0 8px 10px; display: none; }
     .mod-section.open .mod-lessons-list { display: block; }
 
-    .lesson-item-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      text-align: left;
-      background: white;
-      border: 0;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 12px;
-      color: #555;
-      cursor: pointer;
-      transition: background 0.1s;
-    }
+    .lesson-item-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: white; border: 0; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #555; cursor: pointer; transition: background 0.1s; }
     .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
     .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
     .lesson-item-btn.done { color: var(--success); }
 
-    /* Overlay for Mobile Sidebar Drawer */
-    .drawer-overlay {
-      display: none;
-      position: fixed;
-      top: 66px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 35;
-    }
-    .drawer-overlay.open { display: block; }
+    .drawer-overlay, .module-overlay { display: none; position: fixed; top: 66px; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 35; }
+    .drawer-overlay.open, .module-overlay.open { display: block; }
+    .module-overlay { z-index: 45; }
 
-    /* Module Drawer Overlay for Course Content on Mobile */
-    .module-overlay {
-      display: none;
-      position: fixed;
-      top: 66px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 45;
-    }
-    .module-overlay.open { display: block; }
-
-    /* Floating / Header button for Course Modules on Mobile */
-    .mobile-module-toggle {
-      display: none;
-      align-items: center;
-      gap: 6px;
-      background: white;
-      border: 1.5px solid var(--p);
-      color: var(--pd);
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 12px;
-    }
+    .mobile-module-toggle { display: none; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--p); color: var(--pd); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
     .mobile-module-toggle:hover { background: #fff0f6; }
 
-    /* =========================================
-       CERTIFICATE STYLES (Landscape, 1000x707)
-       ========================================= */
-    .cert-display-area {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      overflow: hidden;
-      padding: 10px 0;
-    }
-    .cert-scaler {
-      transform-origin: top center;
-      width: 1000px;
-      height: 707px;
-    }
-    .cert-wrapper {
-      background: #fafafa;
-      width: 1000px;
-      height: 707px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      position: relative;
-      overflow: hidden;
-      color: var(--ink);
-    }
-    .cert-watermark {
-      position: absolute;
-      top: 50%;
-      left: 45%;
-      transform: translate(-50%, -50%);
-      width: 550px;
-      opacity: 0.04;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .cert-main {
-      padding: 40px 60px 30px 60px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 2;
-    }
+    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
+    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
+    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
+    .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
+    .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
     .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
     .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
     .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
@@ -458,54 +165,17 @@
     .cert-bottom-block { height: 40px; background: #c2185b; }
     .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
 
-    /* =========================================
-       RESPONSIVE BREAKPOINTS (Mobile & Tablet)
-       ========================================= */
     @media (max-width: 900px) {
       .mobile-nav-toggle { display: inline-flex; }
-      
       .dash-layout { grid-template-columns: 1fr; }
-      
-      .sidebar {
-        position: fixed;
-        top: 66px;
-        left: 0;
-        bottom: 0;
-        width: 260px;
-        background: white;
-        box-shadow: 4px 0 16px rgba(0,0,0,0.1);
-        transform: translateX(-100%);
-        overflow-y: auto;
-      }
-      .sidebar.open {
-        transform: translateX(0);
-      }
+      .sidebar { position: fixed; top: 66px; left: 0; bottom: 0; width: 260px; background: white; box-shadow: 4px 0 16px rgba(0,0,0,0.1); transform: translateX(-100%); overflow-y: auto; }
+      .sidebar.open { transform: translateX(0); }
       .sidebar .user-badge { display: block; }
-
       .main-panel { max-height: none; padding: 20px 16px 40px; }
-      
       .course-layout { grid-template-columns: 1fr; gap: 16px; }
       .mobile-module-toggle { display: inline-flex; }
-
-      .module-side {
-        position: fixed;
-        top: 66px;
-        right: 0;
-        bottom: 0;
-        width: 300px;
-        max-width: 85vw;
-        background: white;
-        border: 0;
-        border-left: 1px solid var(--line);
-        border-radius: 0;
-        box-shadow: -4px 0 16px rgba(0,0,0,0.15);
-        z-index: 50;
-        transform: translateX(100%);
-        transition: transform 0.25s ease-in-out;
-      }
-      .module-side.open {
-        transform: translateX(0);
-      }
+      .module-side { position: fixed; top: 66px; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: white; border: 0; border-left: 1px solid var(--line); border-radius: 0; box-shadow: -4px 0 16px rgba(0,0,0,0.15); z-index: 50; transform: translateX(100%); transition: transform 0.25s ease-in-out; }
+      .module-side.open { transform: translateX(0); }
       .module-side .modules { max-height: calc(100vh - 140px); }
     }
 
@@ -534,19 +204,14 @@
 <header class="top">
   <div class="inner nav">
     <div class="brand-wrap">
-      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()" aria-label="Toggle navigation menu">
-        ☰
-      </button>
+      <button class="mobile-nav-toggle" id="menuToggleBtn" onclick="App.toggleMobileMenu()">☰</button>
       <a class="brand" href="#" onclick="App.goHome();return false;">LOGI<span>.</span></a>
     </div>
     <div class="nav-actions" id="navActions"></div>
   </div>
 </header>
 
-<!-- Backdrop overlay for main navigation mobile drawer -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="App.closeMobileMenu()"></div>
-
-<!-- Backdrop overlay for course content modules mobile drawer -->
 <div class="module-overlay" id="moduleOverlay" onclick="App.closeModuleMenu()"></div>
 
 <div id="app"></div>
@@ -561,27 +226,7 @@
    LOGI LMS — Basics of Engineering Management
    ============================================================ */
 
-const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
-const STORE = {
-  progress: 'logi_progress',       
-  certificates: 'logi_certificates', 
-  posts: 'logi_posts',             
-  announcements: 'logi_announcements', 
-  enrolments: 'logi_enrolments'     
-};
-
-function load(key, fallback) {
-  try {
-    const v = localStorage.getItem(key);
-    return v ? JSON.parse(v) : fallback;
-  } catch { return fallback; }
-}
-function save(key, val) {
-  localStorage.setItem(key, JSON.stringify(val));
-}
+const API_BASE = 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev';
 
 const COURSE = {
   id: 'eng-mgmt-101',
@@ -594,7 +239,13 @@ const COURSE = {
       lessons: [{
         title: "Understanding Engineering Management",
         duration: "35 minutes",
-        html: `<p>Engineering management applies management principles, technical knowledge and structured problem-solving to deliver engineering work. It connects technical decisions with people, materials, equipment, time, cost, quality and safety.</p>
+        html: `
+<div class="lesson-media">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/Q6c8qJ8pY7Q" title="What is Engineering Management?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Engineering management applies management principles, technical knowledge and structured problem-solving to deliver engineering work. It connects technical decisions with people, materials, equipment, time, cost, quality and safety.</p>
 <div class="callout"><b>Core principle:</b> A technically sound solution can still fail if the work is poorly planned, resources are unavailable, responsibilities are unclear or risks are ignored.</div>
 <h3>Course learning outcomes</h3><p>By completing this course, you should be able to:</p><ul><li>Explain the role and functions of engineering management.</li><li>Plan activities, deliverables, dependencies and milestones.</li><li>Estimate and monitor resource and cost requirements.</li><li>Apply basic quality, safety and risk-management principles.</li><li>Coordinate engineering teams and stakeholders.</li><li>Use performance measures and root-cause thinking to improve work.</li></ul><h3>Lesson learning outcomes</h3><p>By the end of this lesson, you should be able to explain engineering management, distinguish it from engineering practice, identify its main responsibilities and recognise where it is used.</p>
 <h3>1. The management function</h3><ul><li><b>Planning:</b> defining objectives, activities, sequence, time and resources.</li><li><b>Organising:</b> assigning responsibilities and arranging people, equipment and materials.</li><li><b>Leading:</b> guiding teams, communicating expectations and resolving obstacles.</li><li><b>Controlling:</b> comparing actual performance with the plan and taking corrective action.</li></ul>
@@ -616,7 +267,13 @@ const COURSE = {
       lessons: [{
         title: "Planning Engineering Work and Controlling Project Delivery",
         duration: "45 minutes",
-        html: `<p>Engineering planning converts an objective into a coordinated set of activities, deliverables, responsibilities, resources and time targets. Project management then coordinates execution and responds to changes while protecting agreed requirements.</p>
+        html: `
+<div class="lesson-media">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/Z9QbYZh1YXY" title="Project Planning" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Engineering planning converts an objective into a coordinated set of activities, deliverables, responsibilities, resources and time targets. Project management then coordinates execution and responds to changes while protecting agreed requirements.</p>
 <div class="callout"><b>Planning question:</b> What must be delivered, what work is required, in what order, by whom, with which resources and by when?</div>
 <h3>Learning outcomes</h3><p>You should be able to define scope and deliverables, break work into activities, identify dependencies, develop milestones and use progress information to manage a project.</p>
 <h3>1. Define scope and deliverables</h3><p><b>Scope</b> describes the work included and excluded. A <b>deliverable</b> is a verifiable output, such as an installed pump, tested control panel, completed inspection report or commissioned production line. Clear acceptance criteria help prevent disagreement about completion.</p>
@@ -640,16 +297,20 @@ const COURSE = {
       lessons: [{
         title: "Planning Resources and Controlling Engineering Costs",
         duration: "40 minutes",
-        html: `<p>Engineering activities depend on people, materials, equipment, technology, time and money. Resource management identifies, acquires, allocates and controls these inputs. Cost management estimates, budgets, monitors and controls expenditure so work can be completed efficiently without unnecessary waste.</p>
+        html: `
+<div class="lesson-media">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/2A4W6Q7u2Q8" title="Resource Management" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Engineering activities depend on people, materials, equipment, technology, time and money. Resource management identifies, acquires, allocates and controls these inputs. Cost management estimates, budgets, monitors and controls expenditure so work can be completed efficiently without unnecessary waste.</p>
 <div class="callout"><b>Management principle:</b> Resources must be available in the right quantity, at the right time, in the right place and at an acceptable cost.</div>
 <h3>Learning objectives</h3><ul><li>Identify major categories of engineering resources.</li><li>Explain resource allocation and utilisation.</li><li>Differentiate direct, indirect, fixed and variable costs.</li><li>Prepare and interpret a basic engineering budget.</li><li>Calculate cost variance and explain cost-control methods.</li></ul>
 <h3>1. Categories of engineering resources</h3><p><b>Human resources:</b> engineers, technicians, operators, electricians, welders, supervisors and safety personnel. Assign work according to competence, authorisation and experience.</p><p><b>Materials:</b> steel, cement, pipes, cables, bearings, lubricants, valves and consumables. Check specifications, quantities, storage conditions and delivery dates.</p><p><b>Equipment:</b> pumps, compressors, welding machines, generators, lifting equipment, measuring instruments and production machinery. Plan availability, inspection and maintenance.</p><p><b>Financial resources:</b> funds for purchasing, labour, transport, operation and maintenance. <b>Information and technology:</b> drawings, specifications, work orders, software, maintenance records and monitoring data.</p>
-<h3>2. Resource planning and allocation</h3><p>Resource planning determines what is needed, how much is needed, when it is needed and how it will be obtained. Allocation assigns resources to particular activities. Check project requirements, availability, skills, equipment capacity, delivery lead times and budget limits.</p><table class="compare"><tr><th>Resource</th><th>Requirement</th><th>Purpose</th></tr><tr><td>Mechanical engineers</td><td>2</td><td>Installation supervision</td></tr><tr><td>Technicians</td><td>4</td><td>Mechanical assembly</td></tr><tr><td>Electricians</td><td>2</td><td>Electrical connections</td></tr><tr><td>Lifting equipment</td><td>1 unit</td><td>Positioning the pump</td></tr><tr><td>Steel pipes</td><td>30 metres</td><td>Pipe connections</td></tr></table><p>Coordinate resource timing with the project schedule. Arranging a crane before the foundation is ready may create avoidable hire charges.</p>
+<h3>2. Resource planning and allocation</h3><p>Resource planning determines what is needed, how much is needed, when it is needed and how it will be obtained. Allocation assigns resources to particular activities. Check project requirements, availability, skills, equipment capacity, delivery lead times and budget limits.</p>
 <h3>3. Resource utilisation and productivity</h3><p><b>Equipment utilisation (%) = (Actual operating time ÷ Available operating time) × 100.</b> If a machine operates for 8 hours out of 10 available hours, utilisation is (8 ÷ 10) × 100 = <b>80%</b>. Investigate the remaining time: it may involve breakdowns, setup, waiting for materials or planned maintenance.</p><p><b>Labour productivity = Output ÷ Labour hours.</b> If a team produces 40 components in 20 labour hours, productivity is 2 components per labour hour. Interpret this alongside quality and safety; higher output is not an improvement if defects or unsafe practices increase.</p>
-<h3>4. Understanding engineering costs</h3><p><b>Direct costs</b> can be attributed to a particular project or product, such as project materials, project labour and equipment rented specifically for the work. <b>Indirect costs</b> support wider operations, such as general security, administration and shared facility services.</p><p><b>Fixed costs</b> generally remain unchanged within a relevant period and operating range, such as rent or certain lease payments. <b>Variable costs</b> change with activity or output, such as raw materials and production consumables. A cost may be both direct and variable; raw material used in a product is a common example.</p><table class="compare"><tr><th>Classification</th><th>Meaning</th><th>Example</th></tr><tr><td>Direct</td><td>Traceable to a job or product</td><td>Steel for a fabricated frame</td></tr><tr><td>Indirect</td><td>Supports general operations</td><td>Factory security</td></tr><tr><td>Fixed</td><td>Generally stable within a period</td><td>Building rent</td></tr><tr><td>Variable</td><td>Changes with output/activity</td><td>Production materials</td></tr></table>
-<h3>5. Cost estimation and budgeting</h3><p>Cost estimation predicts the resources and money needed. Methods include using historical information from comparable work, applying unit rates to quantities, and preparing detailed estimates from labour, materials, equipment and other cost items. A budget is the approved financial plan used to allocate and control funds.</p><table class="compare"><tr><th>Ventilation installation item</th><th>Estimated cost</th></tr><tr><td>Ventilation equipment</td><td>GH¢8,000</td></tr><tr><td>Ducting materials</td><td>GH¢4,000</td></tr><tr><td>Labour</td><td>GH¢2,500</td></tr><tr><td>Electrical installation</td><td>GH¢1,500</td></tr><tr><td>Transportation</td><td>GH¢1,000</td></tr><tr><th>Total</th><th>GH¢17,000</th></tr></table><p>A project budget may include materials, labour, equipment, transport, operating expenses and an evidence-based contingency allowance for uncertainty. Monitor cash requirements and supplier commitments as well as money already paid.</p>
-<h3>6. Cost monitoring and control</h3><p><b>Cost variance = Budgeted cost − Actual cost.</b> A positive result means spending is below budget; a negative result means spending is above budget. If the materials budget is GH¢12,000 and actual expenditure is GH¢13,500, variance = 12,000 − 13,500 = <b>−GH¢1,500</b>, meaning the budget is exceeded by GH¢1,500.</p><p>Investigate price increases, wastage, inaccurate estimates, unauthorised purchases or scope changes. Do not simply cut expenditure if doing so would compromise specification, quality or safety.</p><p>For earned-value control, <b>Cost Variance (CV) = Earned Value − Actual Cost</b> and <b>Cost Performance Index (CPI) = Earned Value ÷ Actual Cost</b>. If earned value is GH¢20,000 and actual cost is GH¢25,000, CPI = 0.80. A CPI below 1 indicates cost performance is unfavourable against the value of work completed.</p>
-<h3>7. Improving cost efficiency</h3><ul><li>Buy to approved specifications and compare supplier value, not price alone.</li><li>Reduce material waste and unnecessary inventory.</li><li>Schedule labour and equipment to avoid idle time.</li><li>Use preventive maintenance to reduce emergency repairs.</li><li>Monitor energy use, overtime and transport costs.</li><li>Review expenditure regularly and document approvals.</li></ul>`,
+<h3>4. Understanding engineering costs</h3><p><b>Direct costs</b> can be attributed to a particular project or product, such as project materials, project labour and equipment rented specifically for the work. <b>Indirect costs</b> support wider operations, such as general security, administration and shared facility services.</p><p><b>Fixed costs</b> generally remain unchanged within a relevant period and operating range, such as rent or certain lease payments. <b>Variable costs</b> change with activity or output, such as raw materials and production consumables.</p>
+`,
         quiz: [
             { q: "A project has a GH¢20,000 budget and has spent GH¢22,500. What is the cost variance using budget minus actual cost?", opts: ["GH¢2,500 favourable", "GH¢42,500", "GH¢2,500 unfavourable", "GH¢20,000 favourable"], answer: 2, explanation: "20,000 − 22,500 = −GH¢2,500, indicating an overrun of GH¢2,500." },
             { q: "A critical spare part has a long supplier lead time. Which action best reduces the risk of a future shortage?", opts: ["Identify the lead time and plan procurement before the part is needed", "Wait until the machine stops", "Order an unapproved substitute", "Remove the part from the maintenance plan"], answer: 0, explanation: "Early procurement planning accounts for lead time and reduces avoidable downtime." },
@@ -664,17 +325,19 @@ const COURSE = {
       lessons: [{
         title: "Maintaining Quality and Managing Operational Risk",
         duration: "50 minutes",
-        html: `<p>Engineering outputs must meet defined requirements while protecting workers, customers, the public and the environment. Quality management checks that products and processes meet requirements. Safety management prevents injury and ill health. Risk management identifies uncertainty and selects controls to reduce its effects.</p><div class="callout"><b>Core principle:</b> Quality, safety and risk controls must be built into planning and execution, not added only after a problem occurs.</div>
+        html: `
+<div class="lesson-media">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/502ILHjX9EE" title="Quality and Safety" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Engineering outputs must meet defined requirements while protecting workers, customers, the public and the environment. Quality management checks that products and processes meet requirements. Safety management prevents injury and ill health. Risk management identifies uncertainty and selects controls to reduce its effects.</p><div class="callout"><b>Core principle:</b> Quality, safety and risk controls must be built into planning and execution, not added only after a problem occurs.</div>
 <h3>Learning objectives</h3><ul><li>Explain engineering quality and the difference between QA and QC.</li><li>Describe inspection, testing and quality systems.</li><li>Identify common engineering hazards.</li><li>Conduct a basic risk assessment.</li><li>Apply the hierarchy of controls.</li><li>Explain risk registers and improvement cycles.</li></ul>
-<h3>1. Understanding engineering quality</h3><p>Quality is the degree to which a product, service or process meets requirements and is fit for its intended purpose. Engineering quality includes performance, reliability, durability, accuracy, conformity, safety and maintainability. A pump may look sound but fail its quality requirements if it cannot deliver the specified flow or pressure.</p><table class="compare"><tr><th>Characteristic</th><th>Meaning</th></tr><tr><td>Reliability</td><td>Performs consistently without failure</td></tr><tr><td>Durability</td><td>Withstands use over time</td></tr><tr><td>Accuracy</td><td>Closeness to a required measurement or value</td></tr><tr><td>Conformity</td><td>Meets specified requirements</td></tr><tr><td>Maintainability</td><td>Can be inspected, repaired or serviced effectively</td></tr></table>
-<h3>2. Quality assurance and quality control</h3><p><b>Quality Assurance (QA)</b> is process-oriented and aims to prevent defects through procedures, training, supplier controls, audits and defined responsibilities. <b>Quality Control (QC)</b> checks materials, products or work outputs through inspection, measurement and testing to identify nonconformities.</p><table class="compare"><tr><th>Quality assurance</th><th>Quality control</th></tr><tr><td>Prevents defects through planned processes</td><td>Detects defects through checks and tests</td></tr><tr><td>Focuses on how work is performed</td><td>Focuses on whether outputs meet requirements</td></tr><tr><td>Procedures, training, audits</td><td>Inspection, measurement, testing</td></tr></table>
-<h3>3. Inspection, testing and quality systems</h3><p>Dimensional inspection measures length, diameter or thickness. Pressure testing evaluates a system under an approved test procedure. Electrical testing may check continuity and insulation resistance. Material testing evaluates properties such as tensile strength or hardness. Functional testing confirms that equipment performs its intended function.</p><p>A quality management system (QMS) defines policies, processes, responsibilities and records for consistent quality. ISO 9001 is a widely recognised quality management system standard. Organisations use a QMS to manage requirements, records, nonconformities, corrective action and improvement. A nonconformity is a failure to meet a specified requirement; it should be identified, controlled and appropriately resolved.</p>
-<h3>4. Understanding engineering hazards</h3><p>A <b>hazard</b> is something with the potential to cause harm. <b>Risk</b> considers the likelihood of harm and the severity of its consequences. Engineering hazards include exposed electrical conductors, rotating machinery, welding sparks and fumes, excessive noise, chemicals, work at height, manual handling and pressurised systems.</p><table class="compare"><tr><th>Hazard</th><th>Possible consequence</th></tr><tr><td>Exposed electrical conductors</td><td>Electric shock or electrocution</td></tr><tr><td>Unguarded moving machinery</td><td>Entanglement or crushing</td></tr><tr><td>Welding sparks and fumes</td><td>Burns, fire or respiratory harm</td></tr><tr><td>Excessive noise</td><td>Hearing damage</td></tr><tr><td>Working at height</td><td>Falls and serious injury</td></tr><tr><td>Heavy manual handling</td><td>Musculoskeletal injury</td></tr></table>
-<h3>5. Personal protective equipment</h3><p>Personal protective equipment (PPE) may include helmets, safety boots, gloves, goggles, face shields, hearing protection, respirators and protective clothing. Select PPE for the actual hazard, ensure correct fit and condition, and train workers in its use. PPE is not a substitute for eliminating hazards or applying stronger controls where practicable.</p>
-<h3>6. Basic risk assessment</h3><ol><li>Identify hazards in the task or workplace.</li><li>Identify who may be harmed and how.</li><li>Evaluate likelihood and severity using the organisation's approved method.</li><li>Select controls to eliminate or reduce the risk.</li><li>Record, communicate and review the assessment when conditions change.</li></ol><p>A simple illustrative method is <b>Risk Score = Likelihood × Severity</b>, using ratings from 1 to 5. A likelihood of 4 and severity of 5 gives a score of 20. The organisation must define its own rating bands and response requirements; this numerical example is not a universal regulatory scale.</p>
-<h3>7. Hierarchy of risk controls</h3><ol><li><b>Elimination:</b> remove the hazard completely.</li><li><b>Substitution:</b> replace it with a safer material or process.</li><li><b>Engineering controls:</b> isolate people from the hazard using guards, barriers, ventilation or interlocks.</li><li><b>Administrative controls:</b> use procedures, training, permits, signs and access restrictions.</li><li><b>PPE:</b> protect the worker with suitable equipment.</li></ol><p>Higher-level controls are generally more reliable because they depend less on individual behaviour.</p>
-<h3>8. Risk registers and risk response</h3><p>Engineering risks may be technical, financial, schedule-related, operational, environmental, supply-chain or safety-related. A risk register records the risk, possible effect, likelihood or priority, response, owner and review status.</p><table class="compare"><tr><th>Risk</th><th>Possible effect</th><th>Response / owner</th></tr><tr><td>Late material delivery</td><td>Project delay</td><td>Confirm delivery and identify approved alternatives / Procurement</td></tr><tr><td>Equipment failure</td><td>Production interruption</td><td>Preventive maintenance / Maintenance Engineer</td></tr><tr><td>Price increase</td><td>Budget overrun</td><td>Monitor quotations and commitments / Project Manager</td></tr><tr><td>Electrical fault</td><td>Injury or equipment damage</td><td>Inspection and authorised isolation / Electrical Supervisor</td></tr></table>
-<h3>9. Continuous quality and safety improvement</h3><p>The Plan–Do–Check–Act (PDCA) cycle supports improvement. <b>Plan:</b> define the issue and intended change. <b>Do:</b> implement the change. <b>Check:</b> measure results. <b>Act:</b> standardise an effective change or revise the approach. For example, if weld defects increase, review the process, revise the approved procedure where justified, train personnel, inspect results and update the standard method if performance improves.</p>`,
+<h3>1. Understanding engineering quality</h3><p>Quality is the degree to which a product, service or process meets requirements and is fit for its intended purpose. Engineering quality includes performance, reliability, durability, accuracy, conformity, safety and maintainability. A pump may look sound but fail its quality requirements if it cannot deliver the specified flow or pressure.</p>
+<h3>2. Quality assurance and quality control</h3><p><b>Quality Assurance (QA)</b> is process-oriented and aims to prevent defects through procedures, training, supplier controls, audits and defined responsibilities. <b>Quality Control (QC)</b> checks materials, products or work outputs through inspection, measurement and testing to identify nonconformities.</p>
+<h3>3. Understanding engineering hazards</h3><p>A <b>hazard</b> is something with the potential to cause harm. <b>Risk</b> considers the likelihood of harm and the severity of its consequences. Engineering hazards include exposed electrical conductors, rotating machinery, welding sparks and fumes, excessive noise, chemicals, work at height, manual handling and pressurised systems.</p>
+<h3>4. Hierarchy of risk controls</h3><ol><li><b>Elimination:</b> remove the hazard completely.</li><li><b>Substitution:</b> replace it with a safer material or process.</li><li><b>Engineering controls:</b> isolate people from the hazard using guards, barriers, ventilation or interlocks.</li><li><b>Administrative controls:</b> use procedures, training, permits, signs and access restrictions.</li><li><b>PPE:</b> protect the worker with suitable equipment.</li></ol>
+`,
         quiz: [
             { q: "A company introduces a documented welding procedure and trains all welders before production. This is primarily:", opts: ["Quality control", "A final product inspection", "Quality assurance", "A cost variance"], answer: 2, explanation: "A controlled procedure and training are preventive process measures, which are QA." },
             { q: "A worker notices an exposed live electrical conductor. What is the priority?", opts: ["Keep people away and follow the site's electrical isolation and reporting procedure", "Cover it with ordinary tape and continue", "Wait until the next inspection", "Ask an untrained worker to move it"], answer: 0, explanation: "The immediate priority is to prevent exposure and use authorised electrical safety procedures." },
@@ -689,16 +352,19 @@ const COURSE = {
       lessons: [{
         title: "Leading Engineering Teams and Coordinating Communication",
         duration: "40 minutes",
-        html: `<p>Engineering work is delivered by people with different technical skills and responsibilities. Engineering managers coordinate these people, communicate requirements, resolve problems and align activities with project and operational objectives. Technical knowledge must be supported by leadership, teamwork and clear communication.</p><div class="callout"><b>Teamwork principle:</b> People need clear responsibilities, reliable information and a shared understanding of the technical and safety requirements.</div>
+        html: `
+<div class="lesson-media">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/lFqMZ8Y3V0o" title="Team Leadership" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Engineering work is delivered by people with different technical skills and responsibilities. Engineering managers coordinate these people, communicate requirements, resolve problems and align activities with project and operational objectives. Technical knowledge must be supported by leadership, teamwork and clear communication.</p><div class="callout"><b>Teamwork principle:</b> People need clear responsibilities, reliable information and a shared understanding of the technical and safety requirements.</div>
 <h3>Learning objectives</h3><ul><li>Explain the importance of engineering teamwork.</li><li>Identify common team roles and responsibilities.</li><li>Describe leadership styles and when they may be useful.</li><li>Use effective technical communication.</li><li>Resolve workplace disagreements professionally.</li><li>Apply a structured decision-making process.</li></ul>
-<h3>1. Engineering teams and coordination</h3><p>An engineering team brings together people with different expertise to achieve a shared objective. Team members may include project managers, mechanical, electrical, civil or chemical engineers, technicians, operators, safety officers, quality inspectors and procurement personnel. Teamwork combines skills, supports problem-solving, improves coordination and helps reduce errors.</p><p>Engineering activities are often interdependent. For example, electrical installation may depend on mechanical equipment being positioned and inspected first. Managers should identify these dependencies and coordinate handovers.</p>
-<h3>2. Roles and responsibilities</h3><table class="compare"><tr><th>Role</th><th>Typical responsibility</th></tr><tr><td>Engineering Manager</td><td>Oversees engineering activities and technical coordination</td></tr><tr><td>Project Manager</td><td>Coordinates scope, schedule, resources and delivery</td></tr><tr><td>Design Engineer</td><td>Develops designs and technical specifications</td></tr><tr><td>Technician</td><td>Supports installation, inspection and maintenance</td></tr><tr><td>Safety Officer</td><td>Monitors safety requirements and risk controls</td></tr><tr><td>Quality Inspector</td><td>Checks compliance with quality requirements</td></tr><tr><td>Procurement Officer</td><td>Coordinates purchasing of materials and services</td></tr></table><p>In small organisations, one person may perform several roles, but accountability and authority should remain clear.</p>
-<h3>3. Leadership styles</h3><p><b>Autocratic leadership:</b> the leader makes decisions and gives direction. It may be useful in urgent situations requiring immediate control, but overuse can reduce participation.</p><p><b>Democratic leadership:</b> the leader consults team members and encourages input. This can improve cooperation and use the team's technical knowledge.</p><p><b>Transformational leadership:</b> the leader motivates people through a shared vision, innovation and development.</p><p><b>Situational leadership:</b> the leader adjusts guidance and delegation according to the task, urgency and competence of team members. No single style suits every situation.</p>
-<h3>4. Engineering communication</h3><p>Communication exchanges instructions, technical information, decisions and feedback. Verbal communication includes briefings and meetings. Written communication includes reports, emails, work orders and specifications. Visual communication includes drawings, diagrams, process flow diagrams and safety signs. Digital communication includes shared documents, project systems and maintenance databases.</p><p>Important controlled records include technical specifications, drawings, standard operating procedures, inspection reports, maintenance records, risk assessments, permits and project progress reports. Use current approved versions and ensure information reaches the authorised people.</p>
-<h3>5. Effective coordination meetings</h3><p>A useful meeting has a clear purpose, agenda, relevant participants, accurate information, recorded decisions, assigned owners and due dates. A weekly project meeting may review progress, materials, equipment readiness, safety issues, budget status, schedule risks and actions. Meeting notes should record what was decided, who is responsible and when the action is due.</p>
-<h3>6. Conflict resolution</h3><p>Conflict may arise from competing priorities, unclear responsibilities, limited resources, technical disagreements or deadline pressure. Listen to the people involved, clarify facts and requirements, identify options, agree an action and document the decision. Use mediation or management escalation when necessary. Safety and technical requirements must not be bypassed to settle a disagreement quickly.</p>
-<h3>7. Engineering decision-making</h3><ol><li>Define the problem and decision required.</li><li>Gather relevant technical and operational information.</li><li>Develop realistic alternatives.</li><li>Evaluate performance, safety, quality, cost and lifecycle implications.</li><li>Select an option within the appropriate authority.</li><li>Implement, communicate and review the decision.</li></ol><p>When selecting an industrial pump, compare required flow and head, energy consumption, material compatibility, reliability, purchase price, maintenance needs and spare-parts availability. The lowest purchase price may not produce the lowest whole-life cost.</p>
-<h3>8. Professional ethics and responsibility</h3><p>Engineering leaders should protect health and safety, communicate technical information honestly, avoid falsifying records, work within their competence, disclose conflicts of interest, protect confidential information and follow applicable laws, standards and procedures. Do not approve work that fails critical safety or technical requirements simply to meet a deadline.</p>`,
+<h3>1. Engineering teams and coordination</h3><p>An engineering team brings together people with different expertise to achieve a shared objective. Team members may include project managers, mechanical, electrical, civil or chemical engineers, technicians, operators, safety officers, quality inspectors and procurement personnel. Teamwork combines skills, supports problem-solving, improves coordination and helps reduce errors.</p>
+<h3>2. Leadership styles</h3><p><b>Autocratic leadership:</b> the leader makes decisions and gives direction. It may be useful in urgent situations requiring immediate control, but overuse can reduce participation.</p><p><b>Democratic leadership:</b> the leader consults team members and encourages input. This can improve cooperation and use the team's technical knowledge.</p><p><b>Transformational leadership:</b> the leader motivates people through a shared vision, innovation and development.</p><p><b>Situational leadership:</b> the leader adjusts guidance and delegation according to the task, urgency and competence of team members. No single style suits every situation.</p>
+<h3>3. Effective coordination meetings</h3><p>A useful meeting has a clear purpose, agenda, relevant participants, accurate information, recorded decisions, assigned owners and due dates. A weekly project meeting may review progress, materials, equipment readiness, safety issues, budget status, schedule risks and actions. Meeting notes should record what was decided, who is responsible and when the action is due.</p>
+<h3>4. Conflict resolution</h3><p>Conflict may arise from competing priorities, unclear responsibilities, limited resources, technical disagreements or deadline pressure. Listen to the people involved, clarify facts and requirements, identify options, agree an action and document the decision. Use mediation or management escalation when necessary. Safety and technical requirements must not be bypassed to settle a disagreement quickly.</p>
+`,
         quiz: [
             { q: "Two supervisors give conflicting instructions about isolated equipment. What should the technician do?", opts: ["Follow the most recent instruction automatically", "Restart the equipment to avoid delay", "Pause the work and verify the authorised release through the isolation procedure", "Ask another technician to guess"], answer: 2, explanation: "Safety-critical status must be verified through the authorised isolation process." },
             { q: "Which information is most important in a shift handover for maintenance work?", opts: ["Outstanding tasks, equipment condition, hazards and isolation status", "Personal opinions about colleagues", "Only the names of workers on leave", "Unrelated purchasing plans"], answer: 0, explanation: "A handover must communicate operational status and safety-critical information." },
@@ -713,17 +379,20 @@ const COURSE = {
       lessons: [{
         title: "Measuring Performance and Improving Engineering Processes",
         duration: "40 minutes",
-        html: `<p>Performance monitoring measures whether engineering activities achieve their objectives. Continuous improvement uses evidence to improve processes, systems and working methods. Managers may monitor production output, equipment downtime, energy use, defects, maintenance costs, safety performance and project progress.</p><div class="callout"><b>Improvement principle:</b> Measure performance, investigate gaps, act on verified causes and check whether the action produces a sustained improvement.</div>
+        html: `
+<div class="lesson-media">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/7FbY9e7p8Y4" title="Continuous Improvement" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Performance monitoring measures whether engineering activities achieve their objectives. Continuous improvement uses evidence to improve processes, systems and working methods. Managers may monitor production output, equipment downtime, energy use, defects, maintenance costs, safety performance and project progress.</p><div class="callout"><b>Improvement principle:</b> Measure performance, investigate gaps, act on verified causes and check whether the action produces a sustained improvement.</div>
 <h3>Learning objectives</h3><ul><li>Explain engineering performance monitoring.</li><li>Identify useful key performance indicators.</li><li>Calculate basic production and maintenance measures.</li><li>Interpret project performance information.</li><li>Explain engineering reports and root-cause analysis.</li><li>Apply continuous improvement and lean principles.</li></ul>
-<h3>1. Performance monitoring and KPIs</h3><p>Performance monitoring compares actual results with targets or baselines. A Key Performance Indicator (KPI) is a measurable value used to assess progress towards an objective. Define each KPI clearly, including its calculation, data source, reporting frequency and responsible person.</p><table class="compare"><tr><th>Area</th><th>Example KPI</th><th>Purpose</th></tr><tr><td>Production</td><td>Output per shift</td><td>Measures production quantity</td></tr><tr><td>Equipment</td><td>Downtime</td><td>Measures time unavailable</td></tr><tr><td>Maintenance</td><td>MTBF / MTTR</td><td>Measures reliability and repair time</td></tr><tr><td>Quality</td><td>Defect rate</td><td>Measures defective output</td></tr><tr><td>Cost</td><td>Cost variance</td><td>Compares budget and expenditure</td></tr><tr><td>Project</td><td>Schedule variance</td><td>Compares earned and planned progress</td></tr><tr><td>Energy</td><td>Energy per unit</td><td>Tracks energy intensity</td></tr></table>
-<h3>2. Production performance</h3><p><b>Production efficiency (%) = (Actual output ÷ Planned output) × 100.</b> If the target is 500 units and actual output is 450, efficiency = (450 ÷ 500) × 100 = <b>90%</b>. Investigate the shortfall: machine failure, material shortages, power interruptions, setup delays or staffing constraints may contribute. This simple target comparison is not the same as Overall Equipment Effectiveness (OEE).</p>
-<h3>3. Equipment reliability: MTBF and MTTR</h3><p><b>Mean Time Between Failures (MTBF) = Total operating time ÷ Number of failures.</b> If a machine operates for 200 hours and has 4 failures, MTBF = <b>50 operating hours</b>.</p><p><b>Mean Time To Repair (MTTR) = Total repair time ÷ Number of repairs.</b> If 4 repairs take 12 hours in total, MTTR = <b>3 hours</b>. A higher MTBF generally indicates longer operating periods between failures; a lower MTTR generally indicates faster restoration. Interpret both using consistent failure and operating-time definitions.</p>
-<h3>4. Overall Equipment Effectiveness (OEE)</h3><p>OEE combines availability, performance and quality: <b>OEE = Availability × Performance × Quality</b>. Express each factor as a decimal before multiplying.</p><p>Example: planned production time = 8 hours; operating time = 7 hours; actual output = 630 units; expected output during operating time = 700 units; good units = 600.</p><ul><li>Availability = 7 ÷ 8 = 87.5%.</li><li>Performance = 630 ÷ 700 = 90%.</li><li>Quality = 600 ÷ 630 = approximately 95.24%.</li></ul><p>OEE = 0.875 × 0.90 × 0.9524 = approximately <b>75%</b>. The factors help identify losses from downtime, reduced speed and defective output.</p>
-<h3>5. Project performance monitoring</h3><p>In earned value management, <b>Schedule Variance (SV) = Earned Value (EV) − Planned Value (PV)</b>. Earned Value is the budgeted value of work completed; Planned Value is the budgeted value of work scheduled. If EV is GH¢35,000 and PV is GH¢40,000, SV = <b>−GH¢5,000</b>. The negative result indicates less work has been completed than planned, measured in budgeted value; it is not a direct number of days delayed.</p>
-<h3>6. Engineering reports and records</h3><p>Production reports record output and downtime. Maintenance reports record equipment condition, failures and repairs. Quality reports record inspection results and defects. Safety reports record hazards, incidents and actions. Project reports record completed work, outstanding activities, schedule and cost status. A useful report states the period, planned result, actual result, variance, evidence, causes, corrective action, owner and deadline.</p>
-<h3>7. Root-cause analysis: Five Whys</h3><p>The Five Whys technique asks why a problem occurred repeatedly to move beyond symptoms. Example: a drive belt fails; it is excessively worn; it is misaligned; alignment checks are inconsistent; the maintenance procedure does not assign responsibility. A possible action is to revise the procedure, assign ownership and verify alignment. Use measurements and further engineering analysis where the problem is complex; the Five Whys alone does not prove causation.</p>
-<h3>8. Continuous improvement: PDCA</h3><p><b>Plan:</b> define the problem, evidence and intended change. <b>Do:</b> implement the change, preferably on a controlled scale where suitable. <b>Check:</b> compare measured results with the baseline. <b>Act:</b> standardise an effective change or revise the plan. For example, test a revised metal-cutting layout, measure material waste and standardise it if the results are consistently better.</p>
-<h3>9. Lean engineering and waste reduction</h3><p>Lean focuses on delivering value while reducing waste. Common waste includes overproduction, waiting, unnecessary transportation, excess inventory, unnecessary motion, overprocessing, defects and underused employee skills. Improvements may include better workflow, material handling, production planning, maintenance and employee involvement.</p><p>Performance data should lead to action. Confirm data quality, investigate causes, assess operational impact, assign corrective actions and monitor results. Digital tools such as spreadsheets, Computerised Maintenance Management Systems (CMMS), Enterprise Resource Planning (ERP) systems, project software, sensors and dashboards can support this work when their data is accurate and controlled.</p>`,
+<h3>1. Performance monitoring and KPIs</h3><p>Performance monitoring compares actual results with targets or baselines. A Key Performance Indicator (KPI) is a measurable value used to assess progress towards an objective. Define each KPI clearly, including its calculation, data source, reporting frequency and responsible person.</p>
+<h3>2. Equipment reliability: MTBF and MTTR</h3><p><b>Mean Time Between Failures (MTBF) = Total operating time ÷ Number of failures.</b> If a machine operates for 200 hours and has 4 failures, MTBF = <b>50 operating hours</b>.</p><p><b>Mean Time To Repair (MTTR) = Total repair time ÷ Number of repairs.</b> If 4 repairs take 12 hours in total, MTTR = <b>3 hours</b>. A higher MTBF generally indicates longer operating periods between failures; a lower MTTR generally indicates faster restoration.</p>
+<h3>3. Overall Equipment Effectiveness (OEE)</h3><p>OEE combines availability, performance and quality: <b>OEE = Availability × Performance × Quality</b>. Express each factor as a decimal before multiplying.</p>
+<h3>4. Root-cause analysis: Five Whys</h3><p>The Five Whys technique asks why a problem occurred repeatedly to move beyond symptoms. Example: a drive belt fails; it is excessively worn; it is misaligned; alignment checks are inconsistent; the maintenance procedure does not assign responsibility. A possible action is to revise the procedure, assign ownership and verify alignment.</p>
+<h3>5. Continuous improvement: PDCA</h3><p><b>Plan:</b> define the problem, evidence and intended change. <b>Do:</b> implement the change, preferably on a controlled scale where suitable. <b>Check:</b> compare measured results with the baseline. <b>Act:</b> standardise an effective change or revise the plan.</p>
+`,
         quiz: [
             { q: "A factory reports 18 defective units out of 600 inspected. What is the defect rate?", opts: ["3%", "18%", "6%", "30%"], answer: 0, explanation: "18 ÷ 600 × 100 = 3%." },
             { q: "A KPI shows that equipment availability has fallen. What does this result tell the manager?", opts: ["It proves the operator is responsible", "It means production targets should be deleted", "It identifies a performance gap that requires investigation", "It automatically identifies the root cause"], answer: 2, explanation: "A KPI indicates a gap; further evidence is needed to establish the cause." },
@@ -736,120 +405,79 @@ const COURSE = {
   ]
 };
 
-function uid() { return 'id-' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
 function fmtDate(d) { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
 function nowISO() { return new Date().toISOString(); }
 function esc(s) { return typeof s !== 'string' ? s : s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 let currentSessionUser = null;
 
-function syncLocalUser(authUser) {
-  if (!authUser) { currentSessionUser = null; return null; }
-  const email = (authUser.email || '').toLowerCase();
-  currentSessionUser = {
-    id: authUser.id,
-    username: email,
-    email,
-    fullName: authUser.user_metadata?.full_name || email,
-    role: 'student'
-  };
-  return currentSessionUser;
+function getAuth() {
+  const raw = localStorage.getItem('logi_user');
+  if (!raw) return null;
+  try { return JSON.parse(raw); } catch { return null; }
 }
 
 async function currentUser() {
   if (currentSessionUser) return currentSessionUser;
-  const { data, error } = await supabaseClient.auth.getSession();
-  if (error) return null;
-  return data.session?.user ? syncLocalUser(data.session.user) : null;
+  const user = getAuth();
+  if (user) {
+    currentSessionUser = {
+      id: user.id,
+      username: user.email,
+      email: user.email,
+      fullName: user.fullName || user.email,
+      role: 'student'
+    };
+    return currentSessionUser;
+  }
+  return null;
 }
 
-let studentDataLoadedFor = null;
-let studentDataSyncWarning = '';
+// Progress tracking helpers (stored in memory/localStorage for instant UI, synced to DB)
+const PROGRESS_KEY = 'logi_progress_cache';
+function getProgressCache() {
+  try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch { return {}; }
+}
+function setProgressCache(cache) { localStorage.setItem(PROGRESS_KEY, JSON.stringify(cache)); }
 
 async function loadStudentData(user, force = false) {
   if (!user?.id) return;
-  if (!force && studentDataLoadedFor === user.id) return;
-
-  const email = (user.email || user.username || '').toLowerCase();
-  const localProgress = getProgress(email);
-
-  const [progressResult, enrolmentResult] = await Promise.all([
-    supabaseClient.from('progress').select('module_index,lesson_index,quiz_score,quiz_total,passed,completed').eq('user_id', user.id).eq('course_id', COURSE.id),
-    supabaseClient.from('enrolments').select('course_id').eq('user_id', user.id)
-  ]);
-
-  if (!progressResult.error && Array.isArray(progressResult.data)) {
-    const merged = getProgress(email);
-    progressResult.data.forEach(row => {
-      const key = row.module_index + '-' + row.lesson_index;
-      if (row.completed) merged.lessons[key] = true;
-      if (row.quiz_score !== null && row.quiz_score !== undefined) {
-        merged.quizzes[row.module_index] = { score: row.quiz_score, total: row.quiz_total, passed: !!row.passed };
-      }
+  try {
+    const res = await fetch(`${API_BASE}/my-progress`, {
+      headers: { 'Authorization': `Bearer ${getAuth().token}` }
     });
-    saveProgress(email, merged);
-  }
+    if (!res.ok) return;
+    const data = await res.json();
+    const cache = getProgressCache();
+    
+    // Reset cache for this course before loading fresh data
+    Object.keys(cache).forEach(k => {
+       if (k.startsWith(COURSE.id)) delete cache[k];
+    });
 
-  studentDataLoadedFor = user.id;
-}
-
-async function saveProgressToSupabase(username, moduleIndex, lessonIndex) {
-  const user = currentSessionUser;
-  if (!user?.id) return;
-  const p = getProgress(username);
-  const quiz = p.quizzes[moduleIndex];
-  const row = {
-    user_id: user.id, course_id: COURSE.id, module_index: moduleIndex, lesson_index: lessonIndex,
-    completed: !!p.lessons[moduleIndex + '-' + lessonIndex],
-    quiz_score: quiz ? quiz.score : null, quiz_total: quiz ? quiz.total : null, passed: quiz ? !!quiz.passed : false
-  };
-  await supabaseClient.from('progress').upsert(row, { onConflict: 'user_id,course_id,module_index,lesson_index' });
-}
-
-function getProgress(username) {
-  const all = load(STORE.progress, {});
-  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
-  return all[username][COURSE.id] || { lessons: {}, quizzes: {} };
-}
-function saveProgress(username, p) {
-  const all = load(STORE.progress, {});
-  if (!all[username] || typeof all[username] !== 'object') all[username] = {};
-  all[username][COURSE.id] = p;
-  save(STORE.progress, all);
-}
-function getEnrolments(username) { return load(STORE.enrolments, {})[username] || []; }
-function enrol(username, courseId) {
-  const e = load(STORE.enrolments, {});
-  if (!e[username]) e[username] = [];
-  if (!e[username].includes(courseId)) e[username].push(courseId);
-  save(STORE.enrolments, e);
-}
-function getCerts(username) { return load(STORE.certificates, {})[username] || []; }
-function addCert(username, cert) {
-  const c = load(STORE.certificates, {});
-  if (!c[username]) c[username] = [];
-  c[username].push(cert);
-  save(STORE.certificates, c);
+    // Map DB rows into the cache format used by the UI
+    if (data.progress) {
+      data.progress.forEach(row => {
+        const key = `${COURSE.id}_${row.module_id}_${row.lesson_id}`;
+        cache[key] = { completed: row.completed, score: row.quiz_score, total: row.quiz_total };
+      });
+      setProgressCache(cache);
+    }
+  } catch (e) { console.error('Could not load progress', e); }
 }
 
-function isLessonDone(username, mi, li) { return !!getProgress(username).lessons[mi + '-' + li]; }
-function markLessonDone(username, mi, li) {
-  const p = getProgress(username);
-  p.lessons[mi + '-' + li] = true;
-  saveProgress(username, p);
-  saveProgressToSupabase(username, mi, li);
+function isLessonDone(username, mi, li) {
+  const cache = getProgressCache();
+  return !!cache[`${COURSE.id}_eng-mgmt_${mi+1}_lesson_${li+1}`]?.completed;
 }
-function getQuizResult(username, mi) { return getProgress(username).quizzes[mi] || null; }
-function saveQuizResult(username, mi, score, total) {
-  const p = getProgress(username);
-  p.quizzes[mi] = { score, total, passed: score / total * 100 >= COURSE.passMark };
-  saveProgress(username, p);
-  saveProgressToSupabase(username, mi, 0);
+function getQuizResult(username, mi) {
+  const cache = getProgressCache();
+  return cache[`${COURSE.id}_eng-mgmt_${mi+1}_quiz_1`] || null;
 }
 function isModuleLocked(username, mi) {
   if (mi === 0) return false;
   const prev = getQuizResult(username, mi - 1);
-  return !prev || !prev.passed;
+  return !prev || !prev.completed;
 }
 function courseProgressPct(username) {
   let total = 0, done = 0;
@@ -863,7 +491,7 @@ function courseProgressPct(username) {
 }
 function courseCompleted(username) {
   for (let mi = 0; mi < COURSE.modules.length; mi++) {
-    if (!getQuizResult(username, mi)?.passed) return false;
+    if (!getQuizResult(username, mi)?.completed) return false;
     for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
       if (!isLessonDone(username, mi, li)) return false;
     }
@@ -876,36 +504,11 @@ function nextIncompleteLesson(username) {
     for (let li = 0; li < COURSE.modules[mi].lessons.length; li++) {
       if (!isLessonDone(username, mi, li)) return { mi, li };
     }
-    if (!getQuizResult(username, mi)?.passed) return { mi, li: 0 };
+    if (!getQuizResult(username, mi)?.completed) return { mi, li: 0 };
   }
   return { mi: 0, li: 0 };
 }
 
-function generateCertificate(username) {
-  if (!username) return null;
-  const certs = getCerts(username);
-  let cert = certs.find(c => c.courseId === COURSE.id);
-  if (cert) return cert;
-  
-  const hash = Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('');
-  let studentName = currentSessionUser?.fullName || username;
-
-  cert = {
-    id: 'LOGI-' + COURSE.id.toUpperCase() + '-' + Date.now().toString(36).toUpperCase(),
-    hash: hash,
-    courseId: COURSE.id,
-    courseTitle: COURSE.title,
-    studentName: studentName,
-    date: nowISO(),
-    issuedBy: 'Living Oracles Global Institute'
-  };
-  addCert(username, cert);
-  return cert;
-}
-
-/* ============================================================
-   APP ROUTER
-   ============================================================ */
 const App = (() => {
   let state = {
     screen: 'landing',
@@ -952,13 +555,13 @@ const App = (() => {
       if (toggleBtn) toggleBtn.style.display = 'inline-flex';
       el.innerHTML = `
         <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
-        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <a href="https://www.logi.education/dashboard" class="btn-outline btn-sm">Main Portal</a>
         <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
       `;
     } else {
       if (toggleBtn) toggleBtn.style.display = 'none';
       el.innerHTML = `
-        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <a href="https://www.logi.education/dashboard" class="btn-outline btn-sm">Main Portal</a>
         <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
       `;
     }
@@ -1043,13 +646,21 @@ const App = (() => {
     if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
     err.textContent = 'Signing in...';
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) { err.textContent = error.message; return; }
-
-    syncLocalUser(data.user);
-    enrol(email, COURSE.id);
-    await loadStudentData(currentSessionUser, true);
-    await showDashboard();
+    try {
+      const res = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      
+      localStorage.setItem('logi_user', JSON.stringify(data));
+      currentSessionUser = null; // force reload
+      await showDashboard();
+    } catch (e) {
+      err.textContent = e.message;
+    }
   }
 
   function showRegister() {
@@ -1085,31 +696,27 @@ const App = (() => {
     if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
 
     err.textContent = 'Creating account...';
-    const { data, error } = await supabaseClient.auth.signUp({ email, password, options: { data: { full_name: name } } });
-
-    if (error && /already registered|already exists|user already/i.test(error.message)) {
-      err.textContent = 'Account exists. Signing you in...';
-      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
-      if (signInError) { err.textContent = 'Account exists. Please log in with your password.'; return; }
-      syncLocalUser(signInData.user);
-      enrol(email, COURSE.id);
-      await loadStudentData(currentSessionUser, true);
-      await showDashboard();
-      return;
-    }
     
-    if (error) { err.textContent = error.message; return; }
-    if (data.session && data.user) {
-      syncLocalUser(data.user);
-      enrol(email, COURSE.id);
-      await loadStudentData(currentSessionUser, true);
+    try {
+      const res = await fetch(`${API_BASE}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName: name, email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      localStorage.setItem('logi_user', JSON.stringify(data));
+      currentSessionUser = null;
       await showDashboard();
+    } catch (e) {
+      err.textContent = e.message;
     }
   }
 
   async function logout() {
     closeMobileMenu();
-    await supabaseClient.auth.signOut();
+    localStorage.removeItem('logi_user');
     currentSessionUser = null;
     showLanding();
   }
@@ -1229,7 +836,7 @@ const App = (() => {
               ${COURSE.modules.map((m, i) => {
                 const locked = isModuleLocked(username, i);
                 const isOpen = (i === mi);
-                const modPassed = getQuizResult(username, i)?.passed;
+                const modPassed = getQuizResult(username, i)?.completed;
                 return `
                   <div class="mod-section ${isOpen ? 'open' : ''}">
                     <button class="mod-header ${locked ? 'locked' : ''}"
@@ -1283,9 +890,7 @@ const App = (() => {
   function toggleAccordion(i) {
     if (state.activeCourseModule === i && !state.activeAssessment) {
       const modSections = document.querySelectorAll('.mod-section');
-      if (modSections[i]) {
-        modSections[i].classList.toggle('open');
-      }
+      if (modSections[i]) modSections[i].classList.toggle('open');
       return;
     }
     state.activeCourseModule = i;
@@ -1304,19 +909,18 @@ const App = (() => {
   async function renderAssessmentScreen() {
     const u = await currentUser();
     if (!u) return;
-    state.user = u; // ensure fresh state
+    state.user = u;
 
     const mi = state.activeCourseModule;
     const mod = COURSE.modules[mi];
     const quiz = mod.lessons[0].quiz || [];
     const username = u.username;
     const result = getQuizResult(username, mi);
-    const passed = !!result?.passed;
+    const passed = !!result?.completed;
     const pct = courseProgressPct(username);
     const isLastModule = (mi + 1 >= COURSE.modules.length);
     const allDone = courseCompleted(username);
 
-    // Dynamic next-button label
     let nextLabel = 'Next Module →';
     if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
 
@@ -1381,7 +985,6 @@ const App = (() => {
   }
 
   function renderQuizUI(mi, quiz) {
-    // use fresh user from state, fall back to session
     const u = state.user;
     const result = u ? getQuizResult(u.username, mi) : null;
     return `
@@ -1448,19 +1051,30 @@ const App = (() => {
       return;
     }
 
-    saveQuizResult(u.username, mi, score, quiz.length);
     const passed = (score / quiz.length * 100) >= COURSE.passMark;
 
-    if (passed) {
-      markLessonDone(u.username, mi, 0);
-      if (courseCompleted(u.username)) generateCertificate(u.username);
+    // Save to Cloudflare D1
+    try {
+      await fetch(`${API_BASE}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+        body: JSON.stringify({
+          moduleId: `eng-mgmt_${mi+1}`,
+          lessonId: `quiz_1`,
+          completed: passed ? 1 : 0,
+          quizScore: score,
+          quizTotal: quiz.length
+        })
+      });
+      await loadStudentData(u, true); // Reload cache
+    } catch (e) { console.error(e); }
 
+    if (passed) {
       if (resultEl) {
         resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
         resultEl.style.color = 'var(--success)';
       }
 
-      // Enable the "Next" button in place WITHOUT re-rendering the quiz
       const nextBtn = document.getElementById('nextBtn_' + mi);
       if (nextBtn) {
         nextBtn.disabled = false;
@@ -1500,7 +1114,22 @@ const App = (() => {
   async function markCurrentLesson() {
     const u = await currentUser();
     if (!u) return;
-    markLessonDone(u.username, state.activeCourseModule, state.activeCourseLesson);
+    
+    try {
+      await fetch(`${API_BASE}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+        body: JSON.stringify({
+          moduleId: `eng-mgmt_${state.activeCourseModule+1}`,
+          lessonId: `lesson_${state.activeCourseLesson+1}`,
+          completed: 1,
+          quizScore: 0,
+          quizTotal: 0
+        })
+      });
+      await loadStudentData(u, true);
+    } catch (e) { console.error(e); }
+    
     renderCourse();
   }
 
@@ -1522,8 +1151,23 @@ const App = (() => {
     state.user = u;
     state.screen = 'certificate';
     const completed = courseCompleted(u.username);
-    let cert = getCerts(u.username).find(c => c.courseId === COURSE.id);
-    if (completed && !cert) cert = generateCertificate(u.username);
+    
+    let cert = null;
+    if (completed) {
+      try {
+        const res = await fetch(`${API_BASE}/certificates`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+          body: JSON.stringify({
+            courseId: COURSE.id,
+            courseTitle: COURSE.title,
+            studentName: u.fullName || u.email
+          })
+        });
+        const data = await res.json();
+        if (data.success) cert = data.certificate;
+      } catch (e) { console.error(e); }
+    }
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1698,10 +1342,9 @@ const App = (() => {
   }
 
   async function init() {
-    const { data } = await supabaseClient.auth.getSession();
-    if (data?.session?.user) {
-      syncLocalUser(data.session.user);
-      await loadStudentData(currentSessionUser, true);
+    const u = await currentUser();
+    if (u) {
+      await loadStudentData(u, true);
       await showDashboard();
     } else {
       showLanding();
