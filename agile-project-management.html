@@ -96,6 +96,12 @@
     .diagram svg { max-width: 100%; height: auto; }
     .diagram-cap { font-size: 12px; color: var(--muted); margin-top: 8px; font-style: italic; }
 
+    /* NEW: Media Styling */
+    .lesson-media { margin-bottom: 24px; }
+    .lesson-image { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
     .q { border-top: 1px solid var(--line); padding: 14px 0; }
     .q label { display: block; border: 1px solid var(--line); padding: 8px 12px; margin: 6px 0; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background 0.1s; }
     .q label:hover { background: #fafafa; }
@@ -236,7 +242,15 @@ const COURSE = {
       lessons: [{
         title: "Understanding Agile Values and Principles",
         duration: "45 minutes",
-        html: `<p>Agile is a mindset and a set of values, not a methodology. The <b>Agile Manifesto</b>, written in 2001 by seventeen practitioners, articulated a set of values that prioritised individuals, working software, customer collaboration and responsiveness to change over rigid processes, documentation, contracts and plans.</p>
+        // ADDED: Real Image and YouTube Video
+        html: `
+<div class="lesson-media">
+  <img class="lesson-image" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="Agile Team Collaboration">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/Z9QbYZh1YXY" title="Agile Methodology Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Agile is a mindset and a set of values, not a methodology. The <b>Agile Manifesto</b>, written in 2001 by seventeen practitioners, articulated a set of values that prioritised individuals, working software, customer collaboration and responsiveness to change over rigid processes, documentation, contracts and plans.</p>
 <div class="callout"><b>Core principle:</b> Agile does not reject processes, documentation, contracts or plans. It re-balances their importance when they conflict with delivering value to the customer.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to explain the four Agile values, describe the twelve principles, and recognise how Agile differs from traditional project management.</p>
 <h3>1. The four Agile values</h3>
@@ -307,7 +321,14 @@ const COURSE = {
       lessons: [{
         title: "Short Cycles, Feedback and Continuous Delivery",
         duration: "50 minutes",
-        html: `<p>Agile teams deliver value through short, repeated cycles called <b>iterations</b> or <b>sprints</b>. Each cycle produces a potentially shippable increment that the customer can inspect. This <b>iterative and incremental</b> approach reduces risk, surfaces feedback early and allows course correction before more work is committed.</p>
+        html: `
+<div class="lesson-media">
+  <img class="lesson-image" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80" alt="Iterative Sprints">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/lFqMZ8Y3V0o" title="What is a Sprint?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Agile teams deliver value through short, repeated cycles called <b>iterations</b> or <b>sprints</b>. Each cycle produces a potentially shippable increment that the customer can inspect. This <b>iterative and incremental</b> approach reduces risk, surfaces feedback early and allows course correction before more work is committed.</p>
 <div class="callout"><b>Core principle:</b> Deliver small increments frequently. The earlier feedback arrives, the cheaper it is to act on — and the closer the product stays to what the customer actually needs.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to explain iterative and incremental delivery, describe the role of timeboxes, and recognise the benefits of frequent small releases.</p>
 <h3>1. Iterative vs. incremental</h3>
@@ -315,50 +336,6 @@ const COURSE = {
 <p>Agile is both: each sprint may refine existing features <i>and</i> add new ones. Over time, the product improves and grows.</p>
 <h3>2. Timeboxes</h3>
 <p>A <b>timebox</b> is a fixed duration for a piece of work — typically 2 to 4 weeks for a sprint. Timeboxes create rhythm and discipline: the scope adjusts to fit the time, not the other way round. This constraint forces prioritisation and prevents scope drift.</p>
-<div class="diagram">
-  <svg viewBox="0 0 640 220" role="img" aria-label="Iterative delivery cycles adding increments">
-    <g font-family="Arial" font-size="11">
-      <text x="320" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Iterative delivery — cycles building increments</text>
-      <!-- Sprint blocks -->
-      <g>
-        <rect x="30" y="60" width="130" height="80" rx="8" fill="#ffe0ee" stroke="#e93680" stroke-width="2"/>
-        <text x="95" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Sprint 1</text>
-        <text x="95" y="105" text-anchor="middle" font-size="10" fill="#555">core feature</text>
-        <text x="95" y="125" text-anchor="middle" font-size="10" fill="#555">feedback</text>
-      </g>
-      <g>
-        <rect x="180" y="60" width="130" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
-        <text x="245" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Sprint 2</text>
-        <text x="245" y="105" text-anchor="middle" font-size="10" fill="#555">additional feature</text>
-        <text x="245" y="125" text-anchor="middle" font-size="10" fill="#555">feedback</text>
-      </g>
-      <g>
-        <rect x="330" y="60" width="130" height="80" rx="8" fill="#fff2f7" stroke="#e93680"/>
-        <text x="395" y="85" text-anchor="middle" font-weight="bold" fill="#e93680">Sprint 3</text>
-        <text x="395" y="105" text-anchor="middle" font-size="10" fill="#555">refinement</text>
-        <text x="395" y="125" text-anchor="middle" font-size="10" fill="#555">feedback</text>
-      </g>
-      <g>
-        <rect x="480" y="60" width="130" height="80" rx="8" fill="#dcecff" stroke="#438bd5"/>
-        <text x="545" y="85" text-anchor="middle" font-weight="bold" fill="#2b6cb0">Release</text>
-        <text x="545" y="105" text-anchor="middle" font-size="10" fill="#555">working product</text>
-        <text x="545" y="125" text-anchor="middle" font-size="10" fill="#555">customer value</text>
-      </g>
-      <g stroke="#777" stroke-width="1.5" fill="none" marker-end="url(#ag)">
-        <line x1="162" y1="100" x2="178" y2="100"/>
-        <line x1="312" y1="100" x2="328" y2="100"/>
-        <line x1="462" y1="100" x2="478" y2="100"/>
-      </g>
-      <defs>
-        <marker id="ag" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-          <polygon points="0,0 8,4 0,8" fill="#777"/>
-        </marker>
-      </defs>
-      <text x="320" y="180" text-anchor="middle" font-size="10" fill="#777">Each sprint adds value and generates feedback that shapes the next sprint</text>
-    </g>
-  </svg>
-  <div class="diagram-cap">Iterative delivery produces working increments and feedback each cycle.</div>
-</div>
 <h3>3. Benefits of short cycles</h3>
 <ul>
   <li>Early feedback reduces rework.</li>
@@ -368,16 +345,7 @@ const COURSE = {
   <li>Team learns and adapts continuously.</li>
 </ul>
 <h3>4. What "done" means</h3>
-<p>An increment is only useful if it is <b>done</b>. In Agile, "done" means it meets the agreed <b>Definition of Done</b> — tested, integrated, documented as appropriate, ready for use. Without a clear definition, "done" becomes "code written but not yet tested", and increments accumulate unfinished work.</p>
-<h3>5. Continuous delivery</h3>
-<p>Continuous delivery keeps the product in a releasable state at all times. Even if releases happen less often, the ability to release on demand provides flexibility and reduces risk. It requires automation, testing discipline and a culture of small, reversible changes.</p>
-<h3>6. Common pitfalls</h3>
-<ul>
-  <li>Iterations too long — feedback arrives too late.</li>
-  <li>Iterations too short — overhead consumes capacity.</li>
-  <li>Not delivering incrementally — the cycle becomes a mini-waterfall.</li>
-  <li>Ignoring the Definition of Done.</li>
-</ul>`,
+<p>An increment is only useful if it is <b>done</b>. In Agile, "done" means it meets the agreed <b>Definition of Done</b> — tested, integrated, documented as appropriate, ready for use.</p>`,
         quiz: [
           { q: "What does iterative delivery add?", opts: ["Refinement through cycles", "One final delivery", "Unchanged requirements", "Slower feedback loops"], answer: 0, explanation: "Iterative delivery refines the product through repeated cycles of feedback." },
           { q: "What is a timebox?", opts: ["Fixed duration of work", "Open-ended project scope", "Team's largest task", "Contract's payment term"], answer: 0, explanation: "A timebox is a fixed duration, typically 2–4 weeks, within which scope must fit." },
@@ -392,7 +360,14 @@ const COURSE = {
       lessons: [{
         title: "Scrum Roles and Agile Team Structures",
         duration: "50 minutes",
-        html: `<p>Agile teams are <b>self-organising</b> and <b>cross-functional</b>. In Scrum — the most widely used Agile framework — three roles define responsibilities clearly while leaving the work to the team.</p>
+        html: `
+<div class="lesson-media">
+  <img class="lesson-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Agile Team">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/502ILHjX9EE" title="Scrum Roles Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Agile teams are <b>self-organising</b> and <b>cross-functional</b>. In Scrum — the most widely used Agile framework — three roles define responsibilities clearly while leaving the work to the team.</p>
 <div class="callout"><b>Core principle:</b> Agile teams define <i>how</i> to do the work; the roles define <i>who</i> is responsible for outcomes. This separation creates autonomy without losing accountability.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the three Scrum roles, explain the difference between product owner and scrum master, and recognise how a self-organising team operates.</p>
 <h3>1. The three Scrum roles</h3>
@@ -429,36 +404,11 @@ const COURSE = {
   <div class="diagram-cap">The three Scrum roles: product owner, scrum master and development team.</div>
 </div>
 <h3>2. Product Owner</h3>
-<p>The Product Owner maximises the value the team delivers. They own the <b>product backlog</b>, prioritise its items, and clarify requirements when the team has questions. They represent the customer and stakeholders.</p>
-<ul>
-  <li>Define and prioritise backlog items.</li>
-  <li>Make scope decisions.</li>
-  <li>Accept or reject completed work.</li>
-  <li>Communicate with stakeholders.</li>
-  <li>One person, not a committee.</li>
-</ul>
+<p>The Product Owner maximises the value the team delivers. They own the <b>product backlog</b>, prioritise its items, and clarify requirements when the team has questions.</p>
 <h3>3. Scrum Master</h3>
 <p>The Scrum Master is a servant leader — not a project manager in the traditional sense. They help the team apply Scrum effectively and remove impediments that block progress.</p>
-<ul>
-  <li>Facilitate Scrum events.</li>
-  <li>Coach the team on Scrum practices.</li>
-  <li>Remove blockers raised by the team.</li>
-  <li>Protect the team from disruptions.</li>
-  <li>Promote continuous improvement.</li>
-</ul>
 <h3>4. Development Team</h3>
-<p>The Development Team is self-organising and cross-functional. It collectively owns delivery of the work and has all the skills needed to produce a done increment.</p>
-<ul>
-  <li>Estimate work in the backlog.</li>
-  <li>Commit to sprint work.</li>
-  <li>Decide how to do the work.</li>
-  <li>Deliver a done increment each sprint.</li>
-  <li>Hold each other accountable.</li>
-</ul>
-<h3>5. Self-organising teams</h3>
-<p>Self-organising means the team decides how to accomplish its work. It does not mean the team is leaderless — leadership emerges from within and the scrum master coaches without directing. Self-organising requires trust, maturity and clear goals.</p>
-<h3>6. Common role confusions</h3>
-<table class="compare"><tr><th>Confusion</th><th>Clarification</th></tr><tr><td>Scrum master as project manager</td><td>They coach and facilitate; the team decides how to work</td></tr><tr><td>Product owner as customer</td><td>They represent the customer; they are part of the team</td></tr><tr><td>Team as passive</td><td>Team is self-organising and accountable</td></tr></table>`,
+<p>The Development Team is self-organising and cross-functional. It collectively owns delivery of the work and has all the skills needed to produce a done increment.</p>`,
         quiz: [
           { q: "Who prioritises the backlog?", opts: ["The product owner", "The scrum master", "The development team", "The stakeholder group"], answer: 0, explanation: "The product owner prioritises backlog items to maximise value." },
           { q: "What does scrum master do?", opts: ["Facilitates and coaches", "Directs daily work", "Owns the backlog", "Approves final release"], answer: 0, explanation: "The scrum master facilitates, coaches and removes blockers — they do not direct." },
@@ -473,7 +423,14 @@ const COURSE = {
       lessons: [{
         title: "The Product Backlog, Sprint Planning and Sprint Review",
         duration: "50 minutes",
-        html: `<p>Agile organises work through backlogs and timeboxed events. The <b>product backlog</b> lists all desired work, prioritised by value. The <b>sprint backlog</b> lists the work chosen for the current sprint. Sprints are framed by <b>planning</b>, <b>daily stand-ups</b>, <b>reviews</b> and <b>retrospectives</b>.</p>
+        html: `
+<div class="lesson-media">
+  <img class="lesson-image" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80" alt="Sprint Planning">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/2A4W6Q7u2Q8" title="Sprint Planning Explained" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Agile organises work through backlogs and timeboxed events. The <b>product backlog</b> lists all desired work, prioritised by value. The <b>sprint backlog</b> lists the work chosen for the current sprint. Sprints are framed by <b>planning</b>, <b>daily stand-ups</b>, <b>reviews</b> and <b>retrospectives</b>.</p>
 <div class="callout"><b>Core principle:</b> The backlog is alive — items are added, refined, re-prioritised. A backlog that never changes is a project plan in disguise.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the product and sprint backlogs, explain the four main sprint events, and recognise the purpose of a sprint review.</p>
 <h3>1. The product backlog</h3>
@@ -524,18 +481,10 @@ const COURSE = {
   </svg>
   <div class="diagram-cap">A sprint moves through planning, daily scrum, review and retrospective.</div>
 </div>
-<table class="compare"><tr><th>Event</th><th>Purpose</th><th>Typical duration</th></tr><tr><td>Sprint planning</td><td>Select items; define sprint goal</td><td>2–4 hours</td></tr><tr><td>Daily scrum</td><td>Sync and surface blockers</td><td>15 minutes</td></tr><tr><td>Sprint review</td><td>Inspect increment; gather feedback</td><td>1–2 hours</td></tr><tr><td>Sprint retrospective</td><td>Reflect and improve the process</td><td>1–1.5 hours</td></tr></table>
 <h3>4. The sprint goal</h3>
 <p>Each sprint has a single, clear goal — one sentence describing the value the sprint will deliver. The goal guides decisions during the sprint and helps the team stay aligned when unexpected work emerges.</p>
 <h3>5. User stories</h3>
-<p>A user story is a placeholder for a conversation: "As a [user], I want [feature] so that [benefit]." It is not a full specification. It captures intent, and the team clarifies details together. Good stories follow the <b>INVEST</b> criteria: Independent, Negotiable, Valuable, Estimable, Small, Testable.</p>
-<h3>6. Common backlog pitfalls</h3>
-<ul>
-  <li>A backlog that is never refined.</li>
-  <li>Items too large to complete in a sprint.</li>
-  <li>Prioritisation driven by loudness rather than value.</li>
-  <li>Stories without clear acceptance criteria.</li>
-</ul>`,
+<p>A user story is a placeholder for a conversation: "As a [user], I want [feature] so that [benefit]." It is not a full specification. It captures intent, and the team clarifies details together. Good stories follow the <b>INVEST</b> criteria: Independent, Negotiable, Valuable, Estimable, Small, Testable.</p>`,
         quiz: [
           { q: "What does product backlog contain?", opts: ["All desired work", "Only current sprint", "Only finished work", "Only risk items"], answer: 0, explanation: "The product backlog lists all desired work, prioritised by value." },
           { q: "Who attends daily scrum?", opts: ["The development team", "Only stakeholders", "Only external clients", "Only senior managers"], answer: 0, explanation: "The daily scrum is a 15-minute sync for the development team." },
@@ -550,7 +499,14 @@ const COURSE = {
       lessons: [{
         title: "Retrospectives and the Improvement Mindset",
         duration: "45 minutes",
-        html: `<p>Agile teams improve through continuous reflection. The <b>sprint retrospective</b> is a dedicated event at the end of each sprint where the team examines how it worked and identifies improvements. Beyond the retrospective, feedback flows from sprint reviews, customer input, metrics and the daily scrum.</p>
+        html: `
+<div class="lesson-media">
+  <img class="lesson-image" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="Retrospective Meeting">
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/7FbY9e7p8Y4" title="Sprint Retrospective" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<p>Agile teams improve through continuous reflection. The <b>sprint retrospective</b> is a dedicated event at the end of each sprint where the team examines how it worked and identifies improvements. Beyond the retrospective, feedback flows from sprint reviews, customer input, metrics and the daily scrum.</p>
 <div class="callout"><b>Core principle:</b> Improvement is a behaviour, not an event. Retrospectives create the habit of asking "how can we do better?" — and the discipline to act on the answer.</div>
 <h3>Learning outcomes</h3><p>By the end of this lesson, you should be able to describe the purpose and structure of a retrospective, explain how the team converts insight into action, and recognise the feedback sources that support continuous improvement.</p>
 <h3>1. The retrospective</h3>
@@ -613,13 +569,6 @@ const COURSE = {
   <li>Leadership support — improvement actions are resourced.</li>
   <li>Visible progress — improvement actions are tracked.</li>
   <li>Celebrate learning — failures become lessons, not blame.</li>
-</ul>
-<h3>6. Common retrospective failures</h3>
-<ul>
-  <li>Same issues raised every sprint with no action.</li>
-  <li>Too many actions chosen — none completed.</li>
-  <li>No follow-up on actions.</li>
-  <li>Retrospectives skipped due to time pressure.</li>
 </ul>`,
         quiz: [
           { q: "What does retrospective focus on?", opts: ["Improving how team works", "Only final delivery", "External contracts", "Hiring new staff"], answer: 0, explanation: "The retrospective inspects how the team worked and identifies improvements." },
@@ -783,13 +732,13 @@ const App = (() => {
       if (toggleBtn) toggleBtn.style.display = 'inline-flex';
       el.innerHTML = `
         <span style="font-size:13px;color:var(--muted);margin-right:8px;" class="user-greeting">Signed in as <b style="color:var(--pd)">${esc(u.fullName)}</b></span>
-        <button class="btn-outline btn-sm" onclick="App.showDashboard()">Dashboard</button>
+        <a href="https://www.logi.education/dashboard" class="btn-outline btn-sm">Main Portal</a>
         <button class="btn-secondary btn-sm" onclick="App.logout()">Log out</button>
       `;
     } else {
       if (toggleBtn) toggleBtn.style.display = 'none';
       el.innerHTML = `
-        <button class="btn-outline btn-sm" onclick="App.showLogin()">Log in</button>
+        <a href="https://www.logi.education/dashboard" class="btn-outline btn-sm">Main Portal</a>
         <button class="btn btn-sm" onclick="App.showRegister()">Register</button>
       `;
     }
@@ -1288,7 +1237,7 @@ const App = (() => {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
         body: JSON.stringify({
           moduleId: `agile_module_${mi+1}`,
-          lessonId: `agile_quiz_1`, // <--- THIS IS THE FIX
+          lessonId: `agile_quiz_1`,
           completed: passed ? 1 : 0,
           quizScore: score,
           quizTotal: quiz.length
