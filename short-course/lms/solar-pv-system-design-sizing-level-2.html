@@ -42,7 +42,7 @@
     .btn { background: var(--p); color: white; border: 0; border-radius: 24px; padding: 10px 18px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; display: inline-flex; align-items: center; gap: 6px; }
     .btn:hover { background: var(--pd); }
     .btn-outline { background: transparent; color: var(--pd); border: 1.5px solid var(--p); border-radius: 24px; padding: 9px 16px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; }
-    .btn-outline:hover { background: #fff0f6; }
+    .btn-outline:hover { background: #f7eded; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
     .btn-secondary { background: #f0edf3; color: var(--ink); border: 0; border-radius: 24px; padding: 9px 15px; font-weight: 600; cursor: pointer; font-size: 14px; }
     .btn-secondary:hover { background: #e5e1ea; }
@@ -65,8 +65,8 @@
     .sidebar .user-badge strong { display: block; font-size: 14px; }
     .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
     .sidebar a, .sidebar button.nav-link { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 6px; background: transparent; border: 0; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; transition: background 0.1s; }
-    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
-    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #f7eded; color: var(--pd); }
+    .sidebar .nav-link.active { background: #f7eded; color: var(--pd); }
     .sidebar .spacer { flex: 1; }
 
     .main-panel { padding: 28px 32px 48px; overflow-y: auto; max-height: calc(100vh - 66px); background: #fbfafc; }
@@ -92,7 +92,7 @@
     .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 14px 17px; margin: 18px 0; border-radius: 0 6px 6px 0; }
     .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
     .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
-    .compare th { background: #fff3f8; }
+    .compare th { background: #f7eded; }
 
     .diagram { margin: 20px 0; padding: 16px; background: #fafafd; border: 1px solid var(--line); border-radius: 8px; text-align: center; }
     .diagram svg { max-width: 100%; height: auto; }
@@ -101,7 +101,7 @@
     .q { border-top: 1px solid var(--line); padding: 14px 0; }
     .q label { display: block; border: 1px solid var(--line); padding: 8px 12px; margin: 6px 0; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background 0.1s; }
     .q label:hover { background: #fafafa; }
-    .q label.selected { background: #fff0f6; border-color: var(--p); }
+    .q label.selected { background: #f7eded; border-color: var(--p); }
     .feedback { font-size: 13px; margin-top: 6px; }
     .actions { display: flex; justify-content: space-between; gap: 9px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 24px; }
 
@@ -116,7 +116,7 @@
     .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
     .mod-section:last-child { border-bottom: none; }
     .mod-header { width: 100%; text-align: left; background: white; border: 0; padding: 12px 10px; border-radius: 6px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 13px; display: flex; justify-content: space-between; align-items: center; transition: background 0.1s; }
-    .mod-header:hover { background: #fff3f8; color: var(--pd); }
+    .mod-header:hover { background: #f7eded; color: var(--pd); }
     .mod-header.locked { color: #aaa; cursor: not-allowed; }
 
     .mod-lessons-list { padding: 4px 0 8px 10px; display: none; }
@@ -124,7 +124,7 @@
 
     .lesson-item-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: white; border: 0; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #555; cursor: pointer; transition: background 0.1s; }
     .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
-    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
+    .lesson-item-btn.active { color: var(--pd); background: #f7eded; font-weight: 700; }
     .lesson-item-btn.done { color: var(--success); }
 
     .drawer-overlay, .module-overlay { display: none; position: fixed; top: 66px; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 35; }
@@ -132,7 +132,37 @@
     .module-overlay { z-index: 45; }
 
     .mobile-module-toggle { display: none; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--p); color: var(--pd); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
-    .mobile-module-toggle:hover { background: #fff0f6; }
+    .mobile-module-toggle:hover { background: #f7eded; }
+
+    .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
+    .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
+    .cert-wrapper { background: #fafafa; width: 1000px; height: 707px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: grid; grid-template-columns: 1fr 220px; position: relative; overflow: hidden; color: var(--ink); }
+    .cert-watermark { position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); width: 550px; opacity: 0.04; pointer-events: none; z-index: 0; }
+    .cert-main { padding: 40px 60px 30px 60px; display: flex; flex-direction: column; position: relative; z-index: 2; }
+    .cert-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; }
+    .cert-header-logo { height: 45px; width: auto; object-fit: contain; }
+    .cert-logo-sub { font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; line-height: 1.2; font-weight: 600; }
+    .cert-date { font-size: 15px; color: var(--muted); margin-bottom: 25px; font-weight: 500; }
+    .cert-name { font-size: 36px; font-weight: 700; color: #222; margin-bottom: 12px; }
+    .cert-completion { font-size: 16px; color: #555; margin-bottom: 20px; }
+    .cert-course-title { font-size: 32px; font-weight: 800; color: #333; margin-bottom: 25px; line-height: 1.2; }
+    .cert-description { font-size: 14px; color: #666; line-height: 1.7; max-width: 560px; margin-bottom: 40px; letter-spacing: 0.2px; word-spacing: 1px; }
+    .cert-signature-area { display: flex; flex-direction: column; max-width: 300px; margin-top: auto; }
+    .cert-signature-img { height: 55px; width: auto; object-fit: contain; align-self: flex-start; margin-bottom: 15px; }
+    .cert-signer-name { font-size: 16px; font-weight: 700; color: #333; text-decoration: underline; text-underline-offset: 3px; margin-bottom: 6px; }
+    .cert-signer-title { font-size: 12px; color: var(--muted); }
+    .cert-footer-info { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px; border-top: 1px solid #e0e0e0; padding-top: 15px; font-size: 10px; color: #777; line-height: 1.5; }
+    .cert-footer-box { display: flex; align-items: center; gap: 10px; max-width: 48%; }
+    .cert-footer-logo { font-weight: 800; font-size: 16px; color: var(--p); }
+    .cert-sidebar { background-color: var(--pd); position: relative; display: flex; flex-direction: column; }
+    .cert-partner-box { background: white; padding: 25px 15px; text-align: center; font-size: 42px; font-weight: 900; color: #000; letter-spacing: 3px; border-bottom: 1px solid #eee; }
+    .cert-sidebar-pattern { flex: 1; position: relative; background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%, transparent), linear-gradient(45deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 20px 20px, 100% 100%; background-position: 0 0, 10px 10px; }
+    .cert-verify-area { padding: 25px 20px; text-align: center; background: white; }
+    .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
+    .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
+    .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
+    .cert-bottom-block { height: 40px; background: #5a2f2f; }
+    .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
 
     @media (max-width: 900px) {
       .mobile-nav-toggle { display: inline-flex; }
@@ -155,6 +185,17 @@
       .nav-actions { gap: 6px; }
       .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
     }
+
+    @media print {
+      @page { size: landscape; margin: 0; }
+      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      .dash-layout { display: block; }
+      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      .cert-display-area { padding: 0; overflow: visible; }
+      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+    }
   </style>
 </head>
 <body>
@@ -175,225 +216,742 @@
 <div id="app"></div>
 
 <footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
-  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
+  <strong style="color: #b98a8a;">Living Oracles Global Institute</strong><br>
   Faith. Excellence. Impact.
 </footer>
 
 <script>
 /* ============================================================
-   LOGI LMS — Solar PV System Design and Sizing (Rewritten)
+   LOGI LMS — Solar PV System Design and Sizing
    ============================================================ */
 
 const API_BASE = 'https://logi-lms-api.livingoraclesglobalinstitute.workers.dev';
 
 const COURSE = {
-  "id": "solar-pv-design-201",
-  "title": "Solar PV System Design and Sizing",
-  "desc": "A professional-level course in solar photovoltaic system assessment, sizing, component selection, electrical design checks, and preliminary residential PV design.",
-  "passMark": 50,
-  "modules": [
+  id: 'solar-pv-design-201',
+  title: 'Solar PV System Design and Sizing',
+  desc: 'A professional-level course in solar photovoltaic system assessment, sizing, component selection, electrical design checks, and preliminary residential PV design.',
+  passMark: 50,
+  modules: [
     {
-      "title": "Module 1: System Types & Load Analysis",
-      "lessons": [
-        {
-          "title": "System Architecture & Design Workflow",
-          "duration": "25 minutes",
-          "html": "<div class=\"callout\"><b>Design Basis:</b> Every design starts with the system topology. Grid-tied systems export surplus power; off-grid systems rely entirely on battery storage; hybrid systems do both.</div>\n<p>Before selecting a single solar panel, you must define the system architecture. The architecture dictates the inverter type, battery requirements, and safety disconnects.</p>\n<div class=\"diagram\"><svg viewBox=\"0 0 900 400\" role=\"img\" aria-label=\"Solar PV system architecture\"><defs><marker id=\"arr\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0 0 L8 4 L0 8Z\" fill=\"#555\"/></marker><linearGradient id=\"sky\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0%\" stop-color=\"#fff4d6\"/><stop offset=\"100%\" stop-color=\"#ffffff\"/></linearGradient></defs><rect width=\"900\" height=\"400\" fill=\"url(#sky)\" rx=\"8\"/><g transform=\"translate(780,40)\"><circle cx=\"0\" cy=\"0\" r=\"30\" fill=\"#ffd54f\"/><g stroke=\"#ffb300\" stroke-width=\"4\"><line x1=\"0\" y1=\"-45\" x2=\"0\" y2=\"-60\"/><line x1=\"0\" y1=\"45\" x2=\"0\" y2=\"60\"/><line x1=\"-45\" y1=\"0\" x2=\"-60\" y2=\"0\"/><line x1=\"45\" y1=\"0\" x2=\"60\" y2=\"0\"/><line x1=\"-30\" y1=\"-30\" x2=\"-42\" y2=\"-42\"/><line x1=\"30\" y1=\"30\" x2=\"42\" y2=\"42\"/><line x1=\"-30\" y1=\"30\" x2=\"-42\" y2=\"42\"/><line x1=\"30\" y1=\"-30\" x2=\"42\" y2=\"-42\"/></g></g><g stroke=\"#ffb300\" stroke-width=\"3\" stroke-dasharray=\"6 4\"><line x1=\"740\" y1=\"80\" x2=\"400\" y2=\"160\"/><line x1=\"750\" y1=\"90\" x2=\"420\" y2=\"170\"/><line x1=\"760\" y1=\"100\" x2=\"440\" y2=\"180\"/></g><path d=\"M100 120 L380 120 L440 180 L160 180 Z\" fill=\"#2b4c7e\" stroke=\"#1a365d\" stroke-width=\"2\"/><g stroke=\"#8db5d9\" stroke-width=\"1\"><line x1=\"135\" y1=\"120\" x2=\"185\" y2=\"180\"/><line x1=\"170\" y1=\"120\" x2=\"220\" y2=\"180\"/><line x1=\"205\" y1=\"120\" x2=\"255\" y2=\"180\"/><line x1=\"240\" y1=\"120\" x2=\"290\" y2=\"180\"/><line x1=\"275\" y1=\"120\" x2=\"325\" y2=\"180\"/><line x1=\"310\" y1=\"120\" x2=\"360\" y2=\"180\"/><line x1=\"345\" y1=\"120\" x2=\"395\" y2=\"180\"/></g><text x=\"270\" y=\"105\" font-family=\"Arial\" font-size=\"12\" font-weight=\"bold\" fill=\"#1a365d\" text-anchor=\"middle\">PV ARRAY (DC)</text><path d=\"M240 180 L440 180 L440 280 L240 280 Z\" fill=\"#f4eafa\" stroke=\"#9862b5\" stroke-width=\"2\"/><text x=\"340\" y=\"235\" font-family=\"Arial\" font-size=\"14\" font-weight=\"bold\" fill=\"#70418b\" text-anchor=\"middle\">HYBRID INVERTER</text><text x=\"340\" y=\"255\" font-family=\"Arial\" font-size=\"11\" fill=\"#70418b\" text-anchor=\"middle\">11.0kW / 48V</text><rect x=\"240\" y=\"320\" width=\"200\" height=\"60\" rx=\"6\" fill=\"#e8f5e9\" stroke=\"#388e3c\" stroke-width=\"2\"/><text x=\"340\" y=\"345\" font-family=\"Arial\" font-size=\"13\" font-weight=\"bold\" fill=\"#256b2a\" text-anchor=\"middle\">BATTERY BANK</text><text x=\"340\" y=\"365\" font-family=\"Arial\" font-size=\"11\" fill=\"#256b2a\" text-anchor=\"middle\">51.2V / 200Ah / 15kWh</text><path d=\"M440 230 H560\" stroke=\"#e53e3e\" stroke-width=\"3\" marker-end=\"url(#arr)\"/><path d=\"M560 230 H580 V130 H600\" stroke=\"#e53e3e\" stroke-width=\"3\" fill=\"none\" marker-end=\"url(#arr)\"/><path d=\"M560 230 H580 V330 H600\" stroke=\"#e53e3e\" stroke-width=\"3\" fill=\"none\" marker-end=\"url(#arr)\"/><rect x=\"600\" y=\"100\" width=\"180\" height=\"60\" rx=\"6\" fill=\"#fff4d6\" stroke=\"#d69a25\" stroke-width=\"2\"/><text x=\"690\" y=\"125\" font-family=\"Arial\" font-size=\"13\" font-weight=\"bold\" fill=\"#76500b\" text-anchor=\"middle\">AC LOADS</text><text x=\"690\" y=\"145\" font-family=\"Arial\" font-size=\"11\" fill=\"#76500b\" text-anchor=\"middle\">Lighting, Fridge, TV</text><rect x=\"600\" y=\"300\" width=\"180\" height=\"60\" rx=\"6\" fill=\"#e8efff\" stroke=\"#4777c8\" stroke-width=\"2\"/><text x=\"690\" y=\"325\" font-family=\"Arial\" font-size=\"13\" font-weight=\"bold\" fill=\"#244d91\" text-anchor=\"middle\">UTILITY GRID</text><text x=\"690\" y=\"345\" font-family=\"Arial\" font-size=\"11\" fill=\"#244d91\" text-anchor=\"middle\">230V AC / 50Hz</text><g stroke=\"#777\" stroke-width=\"2\" fill=\"none\"><path d=\"M340 180 V280\" marker-end=\"url(#arr)\"/><path d=\"M340 280 V320\" marker-end=\"url(#arr)\"/></g></svg><div class=\"diagram-cap\">Figure 1: A typical Hybrid System Architecture. Note the dual-direction flow between the inverter and the grid.</div></div>\n<h3>The Design Workflow</h3><p>1. <b>Load Assessment:</b> Calculate daily energy (kWh) and peak demand (kW).</p><p>2. <b>Array Sizing:</b> Determine kWp based on irradiance and system losses.</p><p>3. <b>Battery Sizing:</b> Calculate Ah capacity based on autonomy and Depth of Discharge (DoD).</p><p>4. <b>Inverter Selection:</b> Match continuous AC output and DC input limits.</p><p>5. <b>Electrical Checks:</b> Verify string voltages, currents, and cable voltage drop.</p>\n<h3>Activity: Architecture Selection</h3><p>A client wants a system for a remote cabin with no utility connection. They need to run a refrigerator, lights, and a laptop. Based on this, which topology is required? Document your reasoning.</p><div class=\"callout\"><b>Safety note:</b> Hybrid inverters can back-feed into the grid. Ensure anti-islanding protection is active and approved by the local utility.</div>",
-          "quiz": [
-            {"q":"Which system normally exports surplus power to the utility grid?","opts":["Grid-connected","Standalone off-grid","Portable lantern","DC-only system"],"answer":0,"explanation":"Grid-connected systems operate in parallel with the utility subject to approved interconnection requirements."},
-            {"q":"What is a design brief?","opts":["A record of client needs and constraints","A list of advertisements","A module quiz","A panel warranty only"],"answer":0,"explanation":"The brief captures objectives, loads, autonomy, budget and site constraints."},
-            {"q":"Why document assumptions?","opts":["To make calculations traceable","To avoid checking datasheets","To guarantee output","To replace site surveys"],"answer":0,"explanation":"Documented assumptions make preliminary calculations reviewable and reproducible."},
-            {"q":"Which is a key design objective?","opts":["Safe, reliable service for defined loads","Maximum panel count regardless of limits","Ignoring seasonal conditions","Using identical equipment in every project"],"answer":0,"explanation":"A sound design balances safety, reliability, performance and cost."},
-            {"q":"Which item should be established before selecting PV equipment?","opts":["The design load and site conditions","The panel brand only","The certificate template","The roof paint colour"],"answer":0,"explanation":"A design basis starts with load requirements, site conditions and constraints."}
-          ]
-        },
-        {
-          "title": "Appliance Inventory & Load Schedule",
-          "duration": "25 minutes",
-          "html": "<p>Accurate load assessment is the foundation of system sizing. If you underestimate the load, the battery will deplete prematurely; if you overestimate, the client wastes money.</p>\n<div class=\"compare\"><tr><th>Appliance</th><th>Power (W)</th><th>Qty</th><th>Hours/Day</th><th>Daily Energy (Wh)</th></tr><tr><td>LED Lights</td><td>10</td><td>10</td><td>5</td><td>500</td></tr><tr><td>Refrigerator</td><td>150</td><td>1</td><td>24 (Duty 50%)</td><td>1800</td></tr><tr><td>Television</td><td>100</td><td>1</td><td>4</td><td>400</td></tr><tr><td>Ceiling Fan</td><td>60</td><td>2</td><td>8</td><td>960</td></tr><tr><th colspan=\"4\">Total Daily Energy</th><th>3,660 Wh (3.66 kWh)</th></tr></table>\n<h3>Peak Demand vs. Daily Energy</h3><p>Daily energy (kWh) tells you how big the solar array and battery need to be. Peak demand (kW) tells you how big the <b>inverter</b> needs to be. If a client runs a 3kW kettle and a 2kW microwave at the same time, your inverter must handle at least 5kW, even if their daily energy is low.</p>\n<div class=\"callout\"><b>Surge Loads:</b> Motors (fridges, pumps, AC units) draw 3–5 times their running current during startup. Always check the inverter's surge rating against the largest motor's starting wattage.</div>\n<h3>Activity</h3><p>Create a load schedule for your own home. Note the power rating of 5 essential appliances and estimate their daily operating hours.</p>",
-          "quiz": [
-            {"q":"Daily energy is commonly calculated as:","opts":["Power × operating time","Voltage ÷ current","Current × resistance only","Panel area × roof height"],"answer":0,"explanation":"Energy in Wh is power in W multiplied by operating hours."},
-            {"q":"A 100 W appliance used for 4 hours consumes:","opts":["400 Wh","25 Wh","100 kWh","4 W"],"answer":0,"explanation":"100 W × 4 h = 400 Wh."},
-            {"q":"Peak demand differs from daily energy because it represents:","opts":["Power required at a particular time","Total energy over a month","Battery nominal voltage","Solar irradiation"],"answer":0,"explanation":"Peak demand is an instantaneous or short-interval power requirement."},
-            {"q":"Why identify motor starting loads?","opts":["Starting current may exceed running current","Motors use no energy","It sets panel tilt","It eliminates surge ratings"],"answer":0,"explanation":"Motor starting can impose a surge that affects inverter selection."},
-            {"q":"Which load schedule field is useful?","opts":["Quantity and daily operating hours","Learner password","Website theme","Certificate serial"],"answer":0,"explanation":"A useful schedule records appliance quantity, power, use hours and criticality."}
-          ]
-        }
-      ]
+      title: "System Types, Architecture & Design Workflow",
+      lessons: [{
+        title: "System Topologies, the Design Workflow and the Design Brief",
+        duration: "50 minutes",
+        html: `<p><b>Solar PV design</b> is a sequence of engineering decisions, not a shopping list. Every design starts by choosing the <b>system topology</b> — the fundamental architecture that dictates inverter type, storage requirement, protection philosophy and metering arrangement. Get the topology wrong and everything downstream is compromised.</p>
+<div class="callout"><b>Core principle:</b> A design is only as good as its stated assumptions. Document the load, the site, the client's objective and the constraints before selecting a single component.</div>
+
+<h3>Learning outcomes</h3>
+<p>By the end of this lesson you should be able to: distinguish the three main PV topologies; describe the six-step design workflow; explain why a design brief and assumptions register are mandatory; and identify the design objective that governs component selection.</p>
+
+<h3>1. The three main system topologies</h3>
+<table class="compare">
+<tr><th>Topology</th><th>Energy flow</th><th>Storage</th><th>Typical use</th></tr>
+<tr><td><b>Grid-tied (grid-connected)</b></td><td>PV → inverter → grid & loads. No battery by default.</td><td>None (or optional retrofit)</td><td>Urban homes and businesses with a reliable utility supply and net-metering or feed-in tariff.</td></tr>
+<tr><td><b>Off-grid (standalone)</b></td><td>PV → charge controller → battery → inverter → loads. No utility connection.</td><td>Mandatory, sized for autonomy</td><td>Remote cabins, telecom sites, rural clinics, water pumping.</td></tr>
+<tr><td><b>Hybrid (grid-interactive with storage)</b></td><td>PV, battery and grid all meet at a hybrid inverter that arbitrates between them.</td><td>Mandatory, sized for backup or self-consumption</td><td>Homes wanting backup during outages, time-of-use tariff optimisation, or areas with unreliable grid.</td></tr>
+</table>
+
+<div class="diagram">
+  <svg viewBox="0 0 900 400" role="img" aria-label="Solar PV hybrid system architecture">
+    <defs>
+      <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#555"/></marker>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff4d6"/><stop offset="100%" stop-color="#ffffff"/></linearGradient>
+    </defs>
+    <rect width="900" height="400" fill="url(#sky)" rx="8"/>
+    <g transform="translate(780,40)">
+      <circle cx="0" cy="0" r="30" fill="#ffd54f"/>
+      <g stroke="#ffb300" stroke-width="4">
+        <line x1="0" y1="-45" x2="0" y2="-60"/><line x1="0" y1="45" x2="0" y2="60"/>
+        <line x1="-45" y1="0" x2="-60" y2="0"/><line x1="45" y1="0" x2="60" y2="0"/>
+        <line x1="-30" y1="-30" x2="-42" y2="-42"/><line x1="30" y1="30" x2="42" y2="42"/>
+        <line x1="-30" y1="30" x2="-42" y2="42"/><line x1="30" y1="-30" x2="42" y2="-42"/>
+      </g>
+    </g>
+    <g stroke="#ffb300" stroke-width="3" stroke-dasharray="6 4">
+      <line x1="740" y1="80" x2="400" y2="160"/><line x1="750" y1="90" x2="420" y2="170"/><line x1="760" y1="100" x2="440" y2="180"/>
+    </g>
+    <path d="M100 120 L380 120 L440 180 L160 180 Z" fill="#2b4c7e" stroke="#1a365d" stroke-width="2"/>
+    <g stroke="#8db5d9" stroke-width="1">
+      <line x1="135" y1="120" x2="185" y2="180"/><line x1="170" y1="120" x2="220" y2="180"/>
+      <line x1="205" y1="120" x2="255" y2="180"/><line x1="240" y1="120" x2="290" y2="180"/>
+      <line x1="275" y1="120" x2="325" y2="180"/><line x1="310" y1="120" x2="360" y2="180"/>
+      <line x1="345" y1="120" x2="395" y2="180"/>
+    </g>
+    <text x="270" y="105" font-family="Arial" font-size="12" font-weight="bold" fill="#1a365d" text-anchor="middle">PV ARRAY (DC)</text>
+    <path d="M240 180 L440 180 L440 280 L240 280 Z" fill="#f4eafa" stroke="#9862b5" stroke-width="2"/>
+    <text x="340" y="235" font-family="Arial" font-size="14" font-weight="bold" fill="#70418b" text-anchor="middle">HYBRID INVERTER</text>
+    <text x="340" y="255" font-family="Arial" font-size="11" fill="#70418b" text-anchor="middle">11.0 kW / 48 V</text>
+    <rect x="240" y="320" width="200" height="60" rx="6" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+    <text x="340" y="345" font-family="Arial" font-size="13" font-weight="bold" fill="#256b2a" text-anchor="middle">BATTERY BANK</text>
+    <text x="340" y="365" font-family="Arial" font-size="11" fill="#256b2a" text-anchor="middle">51.2 V / 200 Ah / 15 kWh</text>
+    <path d="M440 230 H560" stroke="#e53e3e" stroke-width="3" marker-end="url(#arr)"/>
+    <path d="M560 230 H580 V130 H600" stroke="#e53e3e" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+    <path d="M560 230 H580 V330 H600" stroke="#e53e3e" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+    <rect x="600" y="100" width="180" height="60" rx="6" fill="#fff4d6" stroke="#d69a25" stroke-width="2"/>
+    <text x="690" y="125" font-family="Arial" font-size="13" font-weight="bold" fill="#76500b" text-anchor="middle">AC LOADS</text>
+    <text x="690" y="145" font-family="Arial" font-size="11" fill="#76500b" text-anchor="middle">Lighting, Fridge, TV</text>
+    <rect x="600" y="300" width="180" height="60" rx="6" fill="#e8efff" stroke="#4777c8" stroke-width="2"/>
+    <text x="690" y="325" font-family="Arial" font-size="13" font-weight="bold" fill="#244d91" text-anchor="middle">UTILITY GRID</text>
+    <text x="690" y="345" font-family="Arial" font-size="11" fill="#244d91" text-anchor="middle">230 V AC / 50 Hz</text>
+    <g stroke="#777" stroke-width="2" fill="none">
+      <path d="M340 180 V280" marker-end="url(#arr)"/><path d="M340 280 V320" marker-end="url(#arr)"/>
+    </g>
+  </svg>
+  <div class="diagram-cap">Figure 1: Hybrid architecture — the inverter arbitrates between PV, battery and grid. Note the bi-directional grid path.</div>
+</div>
+
+<h3>2. The six-step design workflow</h3>
+<ol>
+  <li><b>Load assessment</b> — build an appliance inventory; calculate daily energy (kWh) and peak demand (kW), including motor surge.</li>
+  <li><b>Site and resource assessment</b> — orientation, tilt, shading, structural capacity, and location-specific solar resource (peak sun hours).</li>
+  <li><b>Array sizing</b> — kWp required = daily energy ÷ (PSH × system efficiency); then select module count and string configuration.</li>
+  <li><b>Battery sizing</b> — kWh capacity = (daily energy × autonomy days) ÷ (DoD × inverter efficiency).</li>
+  <li><b>Inverter and component selection</b> — continuous AC rating ≥ peak demand; surge rating ≥ largest motor start; DC input voltage window compatible with the cold Voc and hot Vmp of the strings; battery charge current within the battery's C-rate.</li>
+  <li><b>Electrical checks and documentation</b> — string voltage at record low temperature, MPPT window at record high temperature, cable ampacity and voltage drop, protection coordination, earthing, and a single-line diagram.</li>
+</ol>
+
+<div class="callout"><b>Why the order matters:</b> You cannot size the array before you know the load. You cannot select the inverter before you know the peak demand <i>and</i> the string voltage. You cannot finalise cables before you know the currents and the run lengths. Each step depends on the one before it — skipping ahead produces a design that fails on paper or on site.</div>
+
+<h3>3. The design brief and assumptions register</h3>
+<p>A defensible design is accompanied by two documents:</p>
+<ul>
+  <li><b>Design brief</b> — what the client needs, the site constraints, the budget, the expected autonomy, and any utility or regulatory requirements (net-metering approval, grid-tie permission, structural sign-off).</li>
+  <li><b>Assumptions register</b> — every number assumed but not measured: peak sun hours source and month, system efficiency, record low and record high ambient temperatures, roof pitch, cable run lengths, and future load growth allowance.</li>
+</ul>
+<p>Documented assumptions make the design traceable. Six months later, when a client asks "why did you pick an 8 kW array?", the answer is in the register, not in someone's memory.</p>
+
+<h3>4. Worked example — choosing the topology</h3>
+<p>A client has a remote cabin with no utility connection. Essential loads: a 150 W refrigerator (duty 50%), ten 10 W LED lamps for 5 h, and a 60 W laptop charger for 4 h.</p>
+<ul>
+  <li>Daily energy = (150 × 0.5 × 24) + (10 × 10 × 5) + (60 × 4) = 1,800 + 500 + 240 = <b>2,540 Wh = 2.54 kWh</b>.</li>
+  <li>Peak demand is dominated by the refrigerator compressor surge: 150 W × 3 ≈ 450 W, plus concurrent lighting ≈ 550 W.</li>
+  <li>No grid available ⇒ <b>off-grid</b> topology, mandatory battery, and the inverter must handle the 450 W compressor surge.</li>
+</ul>
+<p>Contrast this with a suburban home on a reliable grid with no backup requirement: grid-tied, no battery, and the inverter sizing driven by peak demand rather than autonomy.</p>
+
+<div class="callout"><b>Safety note:</b> Hybrid and grid-tied inverters can back-feed into the utility network. Anti-islanding protection must be active and the interconnection must be approved by the local utility. Never energise a grid-tie inverter without documented permission to connect.</div>
+
+<h3>Summary</h3>
+<ul>
+  <li>Three topologies: grid-tied, off-grid, hybrid — the choice is dictated by grid availability and backup need.</li>
+  <li>The six-step workflow runs load → site → array → battery → components → electrical checks.</li>
+  <li>Every design needs a brief and an assumptions register to be traceable and reviewable.</li>
+</ul>`,
+        quiz: [
+          { q: "Which topology relies entirely on battery storage because no utility connection exists?", opts: ["Grid-tied", "Off-grid (standalone)", "Hybrid with net-metering", "Grid-interactive"], answer: 1, explanation: "Off-grid systems have no utility supply and therefore must store all energy in a battery bank sized for the required autonomy." },
+          { q: "In the six-step design workflow, which step comes immediately before array sizing?", opts: ["Electrical checks", "Battery sizing", "Site and resource assessment", "Inverter selection"], answer: 2, explanation: "You must know the site's orientation, shading and peak sun hours before you can size the array; the load assessment and site assessment precede array sizing." },
+          { q: "Why must an assumptions register accompany a design?", opts: ["It replaces the need for a site survey", "It makes the design traceable and reviewable", "It guarantees the system output", "It is required by the inverter manufacturer"], answer: 1, explanation: "Recording every assumed value — PSH source, temperatures, efficiencies, run lengths — lets others review and reproduce the design." },
+          { q: "A hybrid inverter differs from a plain grid-tied inverter because it:", opts: ["Cannot connect to the grid", "Arbitrates between PV, battery and grid", "Only works off-grid", "Has no MPPT"], answer: 1, explanation: "A hybrid inverter manages three energy paths — PV, battery and grid — deciding when to charge, discharge, export or import." },
+          { q: "Which is a mandatory design brief item for a grid-tied system?", opts: ["The panel frame colour", "The utility interconnection approval", "The client's preferred quiz score", "The inverter display language"], answer: 1, explanation: "Grid connection requires documented utility approval; energising a grid-tie inverter without permission is unsafe and non-compliant." }
+        ]
+      }]
     },
     {
-      "title": "Module 2: Site Assessment & Solar Resource",
-      "lessons": [
-        {
-          "title": "Solar Irradiance & Peak Sun Hours",
-          "duration": "25 minutes",
-          "html": "<p>Solar panels are rated at Standard Test Conditions (STC): 1,000 W/m² irradiance and 25°C cell temperature. However, the sun does not shine at 1,000 W/m² all day. We use <b>Peak Sun Hours (PSH)</b> to calculate daily energy yield.</p>\n<h3>What are Peak Sun Hours?</h3><p>1 PSH = 1 kWh/m² of solar energy received. If a location receives 5 kWh/m²/day, it has 5 Peak Sun Hours. To find your daily energy production: <b>Array Size (kW) × Peak Sun Hours × System Efficiency = Daily kWh</b>.</p>\n<div class=\"diagram\"><svg viewBox=\"0 0 800 200\" role=\"img\" aria-label=\"Peak sun hours vs actual irradiance\"><defs><marker id=\"arr2\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><path d=\"M0 0 L8 4 L0 8Z\" fill=\"#333\"/></marker></defs><g font-family=\"Arial\" font-size=\"11\"><line x1=\"50\" y1=\"150\" x2=\"750\" y2=\"150\" stroke=\"#333\" stroke-width=\"2\" marker-end=\"url(#arr2)\"/><line x1=\"50\" y1=\"150\" x2=\"50\" y2=\"30\" stroke=\"#333\" stroke-width=\"2\" marker-end=\"url(#arr2)\"/><text x=\"400\" y=\"180\" text-anchor=\"middle\">Time of Day (6am to 6pm)</text><text x=\"20\" y=\"100\" transform=\"rotate(-90 20,100)\" text-anchor=\"middle\">Irradiance (W/m²)</text><path d=\"M50 150 Q200 150 400 50 Q600 150 750 150\" fill=\"none\" stroke=\"#ffb300\" stroke-width=\"3\"/><rect x=\"50\" y=\"50\" width=\"700\" height=\"100\" fill=\"#ffb300\" opacity=\"0.1\"/><line x1=\"50\" y1=\"50\" x2=\"750\" y2=\"50\" stroke=\"#ffb300\" stroke-width=\"2\" stroke-dasharray=\"5 5\"/><text x=\"400\" y=\"40\" text-anchor=\"middle\" fill=\"#d69a25\" font-weight=\"bold\">1,000 W/m² (STC)</text><circle cx=\"400\" cy=\"50\" r=\"5\" fill=\"#e53e3e\"/><text x=\"410\" y=\"45\" fill=\"#e53e3e\">Peak Sun Hour (1,000 W/m²)</text></g></svg><div class=\"diagram-cap\">Figure 2: The area under the curve represents total daily irradiation. Peak Sun Hours are the equivalent number of hours at 1,000 W/m².</div></div>\n<p>If your 5kW array receives 4.5 PSH, the theoretical yield is 22.5 kWh. After accounting for temperature and wiring losses (approx. 15%), the actual yield is ~19.1 kWh.</p>\n<h3>Activity</h3><p>Look up the average Peak Sun Hours for your city in December and June. Why is there a difference?</p>",
-          "quiz": [
-            {"q":"What is a shading survey used for?","opts":["Identifying obstructions and shading periods","Measuring battery capacity","Testing inverter firmware","Choosing a certificate number"],"answer":0,"explanation":"Shading can reduce array output and create mismatch; the survey records its extent and timing."},
-            {"q":"Peak sun hours express:","opts":["Daily solar irradiation as equivalent hours at 1 kW/m²","Hours the inverter is switched on","Battery backup duration","Daylight length exactly"],"answer":0,"explanation":"Peak sun hours convert daily irradiation into equivalent hours at 1 kW/m²."},
-            {"q":"Which factor changes solar resource through the year?","opts":["Seasonal sun angle and weather","Battery brand","Cable colour","Quiz score"],"answer":0,"explanation":"Solar resource varies with season, cloudiness and solar geometry."},
-            {"q":"Why assess roof orientation and tilt?","opts":["They affect plane-of-array irradiation","They set battery chemistry","They determine AC frequency","They replace structural checks"],"answer":0,"explanation":"Orientation and tilt influence incident solar energy and annual yield."},
-            {"q":"What should be used for a site-specific resource estimate?","opts":["A credible location-based solar dataset","A guess from a nearby country","The module nameplate alone","The inverter display colour"],"answer":0,"explanation":"Use reliable location-specific resource data and document its source and period."}
-          ]
-        },
-        {
-          "title": "Site Survey & Shading Analysis",
-          "duration": "25 minutes",
-          "html": "<p>A solar array is a 25-year investment. If a tree grows and shades one panel, the entire string can be crippled due to mismatch. A site survey is non-negotiable.</p>\n<h3>What to Check on Site:</h3><ul><li><b>Roof Area:</b> Are there skylights, vents, or chimneys? (Keep a 0.5m fire setback).</li><li><b>Orientation:</b> True North/South. Use a compass (remember magnetic declination).</li><li><b>Tilt:</b> Is the roof pitched? What is the angle in degrees?</li><li><b>Shading:</b> Use a Solar Pathfinder or a phone app (like Sun Surveyor) to track the sun's path across the horizon.</li><li><b>Structural Integrity:</b> Can the roof support the extra 15–20 kg/m² of the array?</li></ul>\n<div class=\"callout\"><b>Mismatch Loss:</b> If one panel in a series string is shaded, its current drops, which acts like a bottleneck for the entire string. Bypass diodes mitigate this, but strategic string design (e.g., using microinverters or optimizers) is required for heavily shaded sites.</div>\n<h3>Activity</h3><p>Walk around your property. Identify the best roof plane for solar. Note any obstructions (trees, buildings) that might cast shadows between 9am and 3pm.</p>",
-          "quiz": [
-            {"q":"Why check roof orientation and tilt?","opts":["They affect plane-of-array irradiation","They set battery chemistry","They determine AC frequency","They replace structural checks"],"answer":0,"explanation":"Orientation and tilt influence incident solar energy and annual yield."},
-            {"q":"What is a shading survey used for?","opts":["Identifying obstructions and shading periods","Measuring battery capacity","Testing inverter firmware","Choosing a certificate number"],"answer":0,"explanation":"Shading can reduce array output and create mismatch; the survey records its extent and timing."},
-            {"q":"Which factor changes solar resource through the year?","opts":["Seasonal sun angle and weather","Battery brand","Cable colour","Quiz score"],"answer":0,"explanation":"Solar resource varies with season, cloudiness and solar geometry."},
-            {"q":"What should be used for a site-specific resource estimate?","opts":["A credible location-based solar dataset","A guess from a nearby country","The module nameplate alone","The inverter display colour"],"answer":0,"explanation":"Use reliable location-specific resource data and document its source and period."},
-            {"q":"Peak sun hours express:","opts":["Daily solar irradiation as equivalent hours at 1 kW/m²","Hours the inverter is switched on","Battery backup duration","Daylight length exactly"],"answer":0,"explanation":"Peak sun hours convert daily irradiation into equivalent hours at 1 kW/m²."}
-          ]
-        }
-      ]
+      title: "Load Analysis & Appliance Inventory",
+      lessons: [{
+        title: "Building a Load Schedule: Daily Energy, Peak Demand and Surge",
+        duration: "55 minutes",
+        html: `<p>Accurate load assessment is the foundation of every sizing decision. Underestimate the load and the battery depletes prematurely and the client loses confidence. Overestimate and the client pays for capacity they never use. The load schedule is the single most important spreadsheet in PV design.</p>
+<div class="callout"><b>Core principle:</b> Daily energy (kWh) sizes the array and battery. Peak demand (kW) sizes the inverter. Surge (kVA) sizes the inverter's short-term capability. Three different numbers, three different purposes.</div>
+
+<h3>Learning outcomes</h3>
+<p>By the end of this lesson you should be able to: build a load schedule; distinguish energy from power and demand; apply the duty-cycle concept to cyclic loads; calculate motor starting surge; and recognise why a low-energy home can still need a large inverter.</p>
+
+<h3>1. Energy versus power — the distinction that drives everything</h3>
+<table class="compare">
+<tr><th>Quantity</th><th>Symbol / unit</th><th>Meaning</th><th>Sizes</th></tr>
+<tr><td>Power</td><td>P (W or kW)</td><td>Rate of energy use at an instant</td><td>Inverter continuous rating (with diversity)</td></tr>
+<tr><td>Energy</td><td>E (Wh or kWh)</td><td>Power × time</td><td>Array and battery</td></tr>
+<tr><td>Peak demand</td><td>kW</td><td>Maximum simultaneous power draw</td><td>Inverter continuous rating</td></tr>
+<tr><td>Surge</td><td>kVA</td><td>Short-duration starting power</td><td>Inverter surge rating</td></tr>
+</table>
+
+<h3>2. The load schedule</h3>
+<p>For every appliance record: quantity, rated power (W), daily operating hours, and any duty cycle. Multiply across and sum.</p>
+<table class="compare">
+<tr><th>Appliance</th><th>Power (W)</th><th>Qty</th><th>Hours/day</th><th>Duty</th><th>Daily energy (Wh)</th></tr>
+<tr><td>LED lamps</td><td>10</td><td>10</td><td>5</td><td>100%</td><td>500</td></tr>
+<tr><td>Refrigerator</td><td>150</td><td>1</td><td>24</td><td>50%</td><td>1,800</td></tr>
+<tr><td>Television</td><td>100</td><td>1</td><td>4</td><td>100%</td><td>400</td></tr>
+<tr><td>Ceiling fans</td><td>60</td><td>2</td><td>8</td><td>100%</td><td>960</td></tr>
+<tr><td>Laptop charger</td><td>65</td><td>1</td><td>4</td><td>100%</td><td>260</td></tr>
+<tr><th colspan="5">Total daily energy</th><th>3,920 Wh = 3.92 kWh</th></tr>
+</table>
+
+<p>The <b>duty cycle</b> is essential for thermostatically controlled loads. A refrigerator's compressor does not run 24 hours — it cycles on and off, typically 40–60% of the time depending on ambient temperature and insulation. Recording "24 h at 50% duty" is more honest than "12 h", because it captures the overnight operation that drives autonomy sizing.</p>
+
+<h3>3. Peak demand and diversity</h3>
+<p>Peak demand is <i>not</i> the sum of every appliance's rated power. It is the maximum that will run <b>simultaneously</b>. Apply a <b>diversity factor</b>:</p>
+<ul>
+  <li>Lighting and small electronics: high diversity (rarely all on at once).</li>
+  <li>Kitchen appliances (kettle, microwave, toaster): low diversity — a client may well run two at once.</li>
+  <li>HVAC and water heating: often the dominant continuous load.</li>
+</ul>
+<p><b>Worked example:</b> A home has a 3 kW kettle, a 2 kW microwave, a 1.5 kW water heater, and 0.5 kW of lighting and electronics. If the kettle and microwave run together while the water heater is on, peak demand = 3 + 2 + 1.5 + 0.5 = <b>7 kW</b>. The inverter must be rated for at least 7 kW continuous, even though the daily energy might only be 12 kWh.</p>
+
+<h3>4. Motor starting surge</h3>
+<p>Induction motors — refrigerator and freezer compressors, water pumps, air-conditioning compressors, washing machines — draw a <b>starting current</b> of roughly 3–7 times their running current for a fraction of a second to a few seconds. This is a power surge, not an energy event, but it can trip an undersized inverter.</p>
+<div class="callout"><b>Rule of thumb:</b> Size the inverter's surge rating to at least the largest motor's starting wattage plus the running wattage of everything else that is on at the same time. If the inverter's datasheet quotes "2× continuous for 5 s", a 5 kW inverter can deliver 10 kVA briefly.</div>
+
+<div class="diagram">
+  <svg viewBox="0 0 800 220" role="img" aria-label="Motor starting surge versus running power">
+    <g font-family="Arial" font-size="11">
+      <line x1="60" y1="180" x2="760" y2="180" stroke="#333" stroke-width="2"/>
+      <line x1="60" y1="180" x2="60" y2="30" stroke="#333" stroke-width="2"/>
+      <text x="410" y="205" text-anchor="middle">Time</text>
+      <text x="20" y="110" transform="rotate(-90 20,110)" text-anchor="middle">Power (W)</text>
+      <path d="M60 170 L250 170 L260 60 L290 60 L300 140 L760 140" fill="none" stroke="#e53e3e" stroke-width="3"/>
+      <line x1="60" y1="140" x2="760" y2="140" stroke="#388e3c" stroke-width="1" stroke-dasharray="5 5"/>
+      <text x="400" y="132" text-anchor="middle" fill="#388e3c" font-weight="bold">Running power (e.g. 150 W)</text>
+      <text x="270" y="50" text-anchor="middle" fill="#e53e3e" font-weight="bold">Surge (≈ 3–7× running)</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Figure 2: Motor starting surge — brief, high power, then settle to running power. The inverter must ride through the surge.</div>
+</div>
+
+<h3>5. Worked example — a small off-grid home</h3>
+<p>Loads: 12 × 9 W LED (5 h), 1 × 180 W fridge (24 h at 45% duty, 4× surge), 1 × 1,200 W pump (2 h, 3× surge), 1 × 80 W TV (4 h).</p>
+<ul>
+  <li>Energy = (12×9×5) + (180×24×0.45) + (1,200×2) + (80×4) = 540 + 1,944 + 2,400 + 320 = <b>5,204 Wh ≈ 5.2 kWh/day</b>.</li>
+  <li>Peak continuous demand (if the pump and fridge compressor coincide) = 1,200 + 180 + 108 + 80 ≈ <b>1.57 kW</b>.</li>
+  <li>Surge = pump start 1,200 × 3 = 3,600 W + concurrent fridge 180 W + lights ≈ <b>3.9 kW</b>. A 2 kW inverter with a 2× surge rating (4 kVA) is marginal; a 3 kW inverter is the safer choice.</li>
+</ul>
+
+<h3>6. Future load growth</h3>
+<p>A design that exactly matches today's load will be undersized in two years. Add a <b>growth allowance</b> — typically 10–20% — to the daily energy before sizing the array and battery. Document the allowance in the assumptions register so the client understands the headroom they are paying for.</p>
+
+<h3>Summary</h3>
+<ul>
+  <li>Daily energy = Σ (power × hours × duty); it sizes the array and battery.</li>
+  <li>Peak demand = maximum simultaneous power; it sizes the inverter's continuous rating.</li>
+  <li>Motor surge = 3–7× running current; it sizes the inverter's surge rating.</li>
+  <li>Duty cycle and diversity factors keep the schedule honest.</li>
+</ul>`,
+        quiz: [
+          { q: "A 200 W appliance runs for 6 hours per day. What is its daily energy consumption?", opts: ["33 Wh", "1,200 Wh", "200 Wh", "6,000 Wh"], answer: 1, explanation: "Energy = power × time = 200 W × 6 h = 1,200 Wh." },
+          { q: "Which quantity determines the inverter's continuous AC rating?", opts: ["Daily energy in kWh", "Peak simultaneous demand in kW", "Battery autonomy in days", "Array area in m²"], answer: 1, explanation: "The inverter's continuous rating must exceed the maximum power drawn by loads running simultaneously — peak demand." },
+          { q: "Why is a duty cycle applied to a refrigerator load?", opts: ["Because the compressor cycles on and off", "Because the fridge runs at zero power", "Because fridges have no surge", "Because duty cycle replaces energy calculation"], answer: 0, explanation: "Thermostatic loads cycle; recording hours at a duty percentage captures the true average energy use, including overnight." },
+          { q: "A pump with a 3× starting surge is rated 1,500 W. What starting power must the inverter tolerate?", opts: ["1,500 W", "500 W", "4,500 W", "3,000 W"], answer: 2, explanation: "Starting power = 1,500 W × 3 = 4,500 W. The inverter's surge rating must accommodate this plus concurrent running loads." },
+          { q: "A home uses only 10 kWh/day but has a 3 kW kettle and 2 kW microwave that run together. Why might its inverter be much larger than a home using 20 kWh/day with only small loads?", opts: ["Because energy and peak demand are different quantities", "Because kettles have poor efficiency", "Because the larger home has no diversity", "Because energy sizing ignores power"], answer: 0, explanation: "Inverter sizing follows peak simultaneous demand, not daily energy. A low-energy home can have a high peak demand." }
+        ]
+      }]
     },
     {
-      "title": "Module 3: PV Module Selection & Array Sizing",
-      "lessons": [
-        {
-          "title": "Array Sizing & Module Selection",
-          "duration": "25 minutes",
-          "html": "<p>To size the solar array, you start with the Daily Energy Requirement (kWh) and the Peak Sun Hours (PSH).</p>\n<h3>The Array Sizing Formula:</h3><p><b>Array Size (kW) = Daily Energy (kWh) / (PSH × System Efficiency)</b></p><p>If your daily energy is 15 kWh, your site gets 4.5 PSH, and the system efficiency is 0.80 (accounting for inverter and wiring losses):</p><p><i>Array Size = 15 / (4.5 × 0.80) = 15 / 3.6 = 4.16 kW</i>.</p><p>You then select commercially available panels. If you use 550W panels: 4160 W / 550 W = 7.56. You must round up to <b>8 panels</b>.</p>\n<div class=\"diagram\"><svg viewBox=\"0 0 800 250\" role=\"img\" aria-label=\"Array sizing calculator\"><g font-family=\"Arial\" font-size=\"14\"><rect x=\"50\" y=\"50\" width=\"200\" height=\"60\" rx=\"8\" fill=\"#e8f5e9\" stroke=\"#388e3c\" stroke-width=\"2\"/><text x=\"150\" y=\"75\" text-anchor=\"middle\" fill=\"#256b2a\" font-weight=\"bold\">Daily Energy</text><text x=\"150\" y=\"95\" text-anchor=\"middle\" fill=\"#256b2a\">15 kWh</text><rect x=\"300\" y=\"50\" width=\"200\" height=\"60\" rx=\"8\" fill=\"#fff4d6\" stroke=\"#d69a25\" stroke-width=\"2\"/><text x=\"400\" y=\"75\" text-anchor=\"middle\" fill=\"#76500b\" font-weight=\"bold\">Peak Sun Hours</text><text x=\"400\" y=\"95\" text-anchor=\"middle\" fill=\"#76500b\">4.5 Hours</text><rect x=\"550\" y=\"50\" width=\"200\" height=\"60\" rx=\"8\" fill=\"#e8efff\" stroke=\"#4777c8\" stroke-width=\"2\"/><text x=\"650\" y=\"75\" text-anchor=\"middle\" fill=\"#244d91\" font-weight=\"bold\">Efficiency</text><text x=\"650\" y=\"95\" text-anchor=\"middle\" fill=\"#244d91\">80% (0.8)</text><g stroke=\"#333\" stroke-width=\"2\" marker-end=\"url(#arr)\"><line x1=\"250\" y1=\"80\" x2=\"290\" y2=\"80\"/><line x1=\"500\" y1=\"80\" x2=\"540\" y2=\"80\"/></g><rect x=\"300\" y=\"160\" width=\"200\" height=\"60\" rx=\"8\" fill=\"#f4eafa\" stroke=\"#9862b5\" stroke-width=\"2\"/><text x=\"400\" y=\"185\" text-anchor=\"middle\" fill=\"#70418b\" font-weight=\"bold\">Array Size Required</text><text x=\"400\" y=\"205\" text-anchor=\"middle\" fill=\"#70418b\">4.16 kW</text><path d=\"M400 110 V150\" stroke=\"#333\" stroke-width=\"2\" marker-end=\"url(#arr)\"/></g></svg><div class=\"diagram-cap\">Figure 3: Calculating the required array size based on energy demand and solar resource.</div></div>\n<h3>Activity</h3><p>If a client needs 20 kWh/day, the site gets 5 PSH, and efficiency is 75%, what is the required array size in kW?</p>",
-          "quiz": [
-            {"q":"STC module power is measured under:","opts":["Standard Test Conditions","Any rooftop weather","Battery charging conditions","Night-time operation"],"answer":0,"explanation":"STC provides a standard basis for comparing module nameplate ratings."},
-            {"q":"Voc means:","opts":["Open-circuit voltage","Operating current","Output capacity","Optical conversion"],"answer":0,"explanation":"Voc is the module voltage when no load current is drawn."},
-            {"q":"A preliminary PV array estimate depends on:","opts":["Daily energy, solar resource and system losses","Only battery colour","Only roof height","The number of course lessons"],"answer":0,"explanation":"Array sizing relates energy demand to resource and expected system performance."},
-            {"q":"Why round module count upward?","opts":["Modules are discrete units and capacity must meet the design estimate","To ignore voltage limits","To increase shading","To avoid checking strings"],"answer":0,"explanation":"The selected quantity must meet the calculated capacity and pass electrical checks."},
-            {"q":"Which source confirms module electrical limits?","opts":["Manufacturer datasheet","Social media comments","Course completion page","Unverified advert"],"answer":0,"explanation":"Datasheets provide ratings and temperature coefficients needed for design."}
-          ]
-        },
-        {
-          "title": "Understanding the Module Datasheet",
-          "duration": "25 minutes",
-          "html": "<p>You cannot design a system based on the nameplate wattage alone. You must read the datasheet.</p>\n<div class=\"compare\"><tr><th>Parameter</th><th>Meaning</th><th>Why it Matters</th></tr><tr><td>Pmax (W)</td><td>Maximum Power at STC</td><td>Used for array sizing</td></tr><tr><td>Voc (V)</td><td>Open Circuit Voltage</td><td>Determines maximum string voltage (cold)</td></tr><tr><td>Vmp (V)</td><td>Voltage at Maximum Power</td><td>Used for MPPT window calculations</td></tr><tr><td>Isc (A)</td><td>Short Circuit Current</td><td>Determines cable and fuse sizing</td></tr><tr><td>Imp (A)</td><td>Current at Maximum Power</td><td>Operating current</td></tr><tr><td>Temp Coeff Voc</td><td>Voltage change per °C</td><td>Critical for cold weather safety</td></tr></table>\n<h3>Temperature Matters</h3><p>As temperature drops, voltage rises. A module with a Voc of 45V at 25°C might hit 50V at -10°C. If you connect too many in series, the cold-weather voltage can exceed the inverter's maximum DC input and destroy it.</p>\n<h3>Activity</h3><p>Look at a real solar panel datasheet online. Find the Temperature Coefficient of Voc (usually written as %/°C or mV/°C). Why is this a negative number?</p>",
-          "quiz": [
-            {"q":"Voc means:","opts":["Open-circuit voltage","Operating current","Output capacity","Optical conversion"],"answer":0,"explanation":"Voc is the module voltage when no load current is drawn."},
-            {"q":"STC module power is measured under:","opts":["Standard Test Conditions","Any rooftop weather","Battery charging conditions","Night-time operation"],"answer":0,"explanation":"STC provides a standard basis for comparing module nameplate ratings."},
-            {"q":"Which source confirms module electrical limits?","opts":["Manufacturer datasheet","Social media comments","Course completion page","Unverified advert"],"answer":0,"explanation":"Datasheets provide ratings and temperature coefficients needed for design."},
-            {"q":"A preliminary PV array estimate depends on:","opts":["Daily energy, solar resource and system losses","Only battery colour","Only roof height","The number of course lessons"],"answer":0,"explanation":"Array sizing relates energy demand to resource and expected system performance."},
-            {"q":"Why round module count upward?","opts":["Modules are discrete units and capacity must meet the design estimate","To ignore voltage limits","To increase shading","To avoid checking strings"],"answer":0,"explanation":"The selected quantity must meet the calculated capacity and pass electrical checks."}
-          ]
-        }
-      ]
+      title: "Site Assessment & Solar Resource",
+      lessons: [{
+        title: "Irradiance, Peak Sun Hours, Orientation, Tilt and Shading Analysis",
+        duration: "55 minutes",
+        html: `<p>The sun does not deliver a constant 1,000 W/m². Solar modules are rated at <b>Standard Test Conditions</b> (STC): 1,000 W/m² irradiance, 25 °C cell temperature, AM 1.5 spectrum. Real sites deliver varying irradiance through the day and year — so we convert the resource into <b>Peak Sun Hours</b> (PSH) to make the energy calculation tractable.</p>
+<div class="callout"><b>Core principle:</b> PSH is the daily irradiation expressed as the equivalent number of hours at 1,000 W/m². It is the bridge between a site's solar resource and a module's nameplate rating.</div>
+
+<h3>Learning outcomes</h3>
+<p>By the end of this lesson you should be able to: define PSH and convert irradiation to PSH; evaluate orientation and tilt; conduct a shading survey; use a location-specific solar dataset; and recognise why the worst month — not the annual average — governs an off-grid design.</p>
+
+<h3>1. Irradiance, irradiation and PSH</h3>
+<table class="compare">
+<tr><th>Term</th><th>Unit</th><th>Meaning</th></tr>
+<tr><td>Irradiance</td><td>W/m²</td><td>Instantaneous power density of sunlight</td></tr>
+<tr><td>Irradiation</td><td>kWh/m²/day (or Wh/m²)</td><td>Energy received over a period — the area under the irradiance curve</td></tr>
+<tr><td>Peak Sun Hours (PSH)</td><td>hours</td><td>Daily irradiation ÷ 1,000 W/m² — numerically equal to kWh/m²/day</td></tr>
+</table>
+
+<p>Because 1 PSH = 1 kWh/m² received, a site with 5 kWh/m²/day has 5 PSH. The daily energy yield of an array is then:</p>
+<p style="text-align:center;font-weight:bold;font-size:16px;">Daily energy (kWh) = Array size (kWp) × PSH × System efficiency</p>
+
+<p><b>Worked example:</b> a 5 kWp array at a site with 4.5 PSH and 80% system efficiency yields 5 × 4.5 × 0.80 = <b>18 kWh/day</b>. The 20% loss accounts for inverter conversion, cabling, soiling, temperature derating and mismatch.</p>
+
+<div class="diagram">
+  <svg viewBox="0 0 800 200" role="img" aria-label="Peak sun hours versus actual irradiance curve">
+    <defs><marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#333"/></marker></defs>
+    <g font-family="Arial" font-size="11">
+      <line x1="50" y1="150" x2="750" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arr2)"/>
+      <line x1="50" y1="150" x2="50" y2="30" stroke="#333" stroke-width="2" marker-end="url(#arr2)"/>
+      <text x="400" y="180" text-anchor="middle">Time of day (06:00 – 18:00)</text>
+      <text x="20" y="100" transform="rotate(-90 20,100)" text-anchor="middle">Irradiance (W/m²)</text>
+      <path d="M50 150 Q200 150 400 50 Q600 150 750 150" fill="none" stroke="#ffb300" stroke-width="3"/>
+      <rect x="50" y="50" width="700" height="100" fill="#ffb300" opacity="0.1"/>
+      <line x1="50" y1="50" x2="750" y2="50" stroke="#ffb300" stroke-width="2" stroke-dasharray="5 5"/>
+      <text x="400" y="40" text-anchor="middle" fill="#b8860b" font-weight="bold">1,000 W/m² (STC)</text>
+      <circle cx="400" cy="50" r="5" fill="#e53e3e"/>
+      <text x="420" y="45" fill="#e53e3e">Peak Sun Hour equivalent</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Figure 3: The area under the irradiance curve is the daily irradiation; PSH is that area expressed as hours at 1,000 W/m².</div>
+</div>
+
+<h3>2. Orientation and tilt</h3>
+<p>In the northern hemisphere, the array faces <b>true south</b>; in the southern hemisphere, <b>true north</b>. A compass reads magnetic north, so apply the local <b>magnetic declination</b> to find true south/north.</p>
+<ul>
+  <li><b>Azimuth deviation</b> of up to ±30° from due south typically costs only a few percent of annual yield; beyond that the loss grows steeply.</li>
+  <li><b>Tilt</b> near the latitude generally maximises annual yield. Steeper tilts favour winter production; shallower tilts favour summer.</li>
+  <li>For an <b>off-grid</b> system, tilt is often optimised for the <b>worst month</b> (winter), not the annual average, because that is when autonomy is hardest to achieve.</li>
+</ul>
+
+<h3>3. Shading analysis</h3>
+<p>Shading is disproportionately damaging. A single shaded cell in a series string can reduce that string's current to the shaded cell's current — the classic <b>bottleneck</b> effect. Bypass diodes mitigate but do not eliminate the loss, and partial shading can also create hot spots that degrade modules.</p>
+<p>What to survey:</p>
+<ul>
+  <li><b>Obstructions</b> — trees (including growth over 25 years), buildings, chimneys, vents, parapets, and the array itself on multi-row roofs.</li>
+  <li><b>Timing</b> — record shadows across the critical window, typically 09:00–15:00 solar time, when most energy is collected.</li>
+  <li><b>Tools</b> — a Solar Pathfinder, a smartphone sun-path app (e.g. Sun Surveyor), or a fisheye horizon photo with an overlay.</li>
+</ul>
+<div class="callout"><b>Mitigation options:</b> relocate the array; reduce string length in the shaded zone; use module-level power electronics (optimisers or microinverters) to decouple shaded modules; or remove/trim the obstruction. For heavily shaded sites, optimisers are often the only practical solution.</div>
+
+<h3>4. Roof and structural checks</h3>
+<ul>
+  <li><b>Usable area</b> — subtract skylights, vents, chimneys and required fire setbacks (often 0.5 m).</li>
+  <li><b>Structural capacity</b> — a PV array adds roughly 15–25 kg/m² including mounting; the roof structure must be checked by a competent person.</li>
+  <li><b>Roof condition</b> — replacing a roof under an array is far more expensive than replacing it first.</li>
+  <li><b>Access and cable routes</b> — plan the DC run length; long runs increase voltage drop and cable cost.</li>
+</ul>
+
+<h3>5. Using a location-specific dataset</h3>
+<p>Never guess the solar resource. Use a credible dataset — a national meteorological service, a satellite-derived irradiance database, or a recognised solar atlas — and record in the assumptions register:</p>
+<ul>
+  <li>The dataset name and version.</li>
+  <li>The coordinates used.</li>
+  <li>The period of record.</li>
+  <li>The month or season used for sizing (worst month for off-grid; annual average for grid-tied yield estimates).</li>
+</ul>
+
+<h3>6. Why the worst month governs off-grid sizing</h3>
+<p>An off-grid system sized on the annual average will fail in the worst month. If December delivers 2.5 PSH while the annual average is 5 PSH, an array sized on 5 PSH will produce half the required energy in December. Off-grid designs therefore size the array on the <b>worst-month PSH</b>, accepting that the array is oversized for the rest of the year — the price of reliability without a grid.</p>
+
+<h3>Summary</h3>
+<ul>
+  <li>PSH = daily irradiation ÷ 1,000 W/m² — the bridge from resource to energy.</li>
+  <li>Daily energy = kWp × PSH × system efficiency.</li>
+  <li>True south/north, not magnetic, with latitude-appropriate tilt.</li>
+  <li>Shading is disproportionately damaging — survey it, don't assume it away.</li>
+  <li>Off-grid designs size on the worst month; grid-tied on the annual average.</li>
+</ul>`,
+        quiz: [
+          { q: "A site receives 4.5 kWh/m²/day of irradiation. How many Peak Sun Hours does this represent?", opts: ["45 PSH", "0.45 PSH", "4.5 PSH", "1,000 PSH"], answer: 2, explanation: "PSH is numerically equal to daily irradiation in kWh/m²/day, so 4.5 kWh/m²/day = 4.5 PSH." },
+          { q: "Why is a shading survey disproportionately important compared with its physical area?", opts: ["Shading has no effect on output", "A shaded cell can bottleneck an entire series string", "Shading only affects the frame", "Shading increases module voltage"], answer: 1, explanation: "In a series string, current is limited by the lowest-current cell, so a small shaded area can drag down the whole string." },
+          { q: "An off-grid system should be sized on which solar resource value?", opts: ["The annual average PSH", "The best-month PSH", "The worst-month PSH", "The manufacturer's nameplate"], answer: 2, explanation: "Sizing on the worst month ensures the system meets demand when the resource is lowest; using the annual average would cause winter shortfalls." },
+          { q: "For a site in the northern hemisphere, the array should face:", opts: ["True north", "True south", "Magnetic south without correction", "Due east"], answer: 1, explanation: "In the northern hemisphere the array faces true south; magnetic readings must be corrected for declination." },
+          { q: "Which factor is NOT part of the 20% system efficiency loss typically applied?", opts: ["Inverter conversion losses", "Cable voltage drop", "Soiling and temperature derating", "The client's tariff rate"], answer: 3, explanation: "Tariff is a financial variable, not a system efficiency loss. The 20% covers inverter, cabling, soiling, temperature and mismatch." }
+        ]
+      }]
     },
     {
-      "title": "Module 4: String Design & Electrical Limits",
-      "lessons": [
-        {
-          "title": "Series & Parallel Configuration",
-          "duration": "25 minutes",
-          "html": "<p>Modules are wired in <b>series</b> to increase voltage, and in <b>parallel</b> to increase current.</p>\n<div class=\"diagram\"><svg viewBox=\"0 0 800 300\" role=\"img\" aria-label=\"Solar PV string and array configuration\"><g font-family=\"Arial\" font-size=\"12\" text-anchor=\"middle\"><rect x=\"50\" y=\"50\" width=\"70\" height=\"50\" rx=\"4\" fill=\"#1a365d\" stroke=\"#2b6cb0\" stroke-width=\"2\"/><text x=\"85\" y=\"75\" fill=\"#fff\" font-weight=\"bold\">Module</text><text x=\"85\" y=\"90\" fill=\"#cbd5e0\">Voc 45V</text><rect x=\"150\" y=\"50\" width=\"70\" height=\"50\" rx=\"4\" fill=\"#1a365d\" stroke=\"#2b6cb0\" stroke-width=\"2\"/><text x=\"185\" y=\"75\" fill=\"#fff\" font-weight=\"bold\">Module</text><text x=\"185\" y=\"90\" fill=\"#cbd5e0\">Voc 45V</text><rect x=\"250\" y=\"50\" width=\"70\" height=\"50\" rx=\"4\" fill=\"#1a365d\" stroke=\"#2b6cb0\" stroke-width=\"2\"/><text x=\"285\" y=\"75\" fill=\"#fff\" font-weight=\"bold\">Module</text><text x=\"285\" y=\"90\" fill=\"#cbd5e0\">Voc 45V</text><g stroke=\"#e53e3e\" stroke-width=\"2\"><line x1=\"120\" y1=\"75\" x2=\"150\" y2=\"75\"/><line x1=\"220\" y1=\"75\" x2=\"250\" y2=\"75\"/></g><text x=\"185\" y=\"125\" font-size=\"11\" fill=\"#e53e3e\" font-weight=\"bold\">String Voltage = 45 + 45 + 45 = 135V</text><rect x=\"50\" y=\"180\" width=\"70\" height=\"50\" rx=\"4\" fill=\"#1a365d\" stroke=\"#2b6cb0\" stroke-width=\"2\"/><text x=\"85\" y=\"205\" fill=\"#fff\" font-weight=\"bold\">Module</text><text x=\"85\" y=\"220\" fill=\"#cbd5e0\">Voc 45V</text><rect x=\"150\" y=\"180\" width=\"70\" height=\"50\" rx=\"4\" fill=\"#1a365d\" stroke=\"#2b6cb0\" stroke-width=\"2\"/><text x=\"185\" y=\"205\" fill=\"#fff\" font-weight=\"bold\">Module</text><text x=\"185\" y=\"220\" fill=\"#cbd5e0\">Voc 45V</text><rect x=\"250\" y=\"180\" width=\"70\" height=\"50\" rx=\"4\" fill=\"#1a365d\" stroke=\"#2b6cb0\" stroke-width=\"2\"/><text x=\"285\" y=\"205\" fill=\"#fff\" font-weight=\"bold\">Module</text><text x=\"285\" y=\"220\" fill=\"#cbd5e0\">Voc 45V</text><g stroke=\"#e53e3e\" stroke-width=\"2\"><line x1=\"120\" y1=\"205\" x2=\"150\" y2=\"205\"/><line x1=\"220\" y1=\"205\" x2=\"250\" y2=\"205\"/></g><g stroke=\"#3182ce\" stroke-width=\"2\"><line x1=\"85\" y1=\"100\" x2=\"85\" y2=\"180\"/><line x1=\"285\" y1=\"100\" x2=\"285\" y2=\"180\"/></g><text x=\"185\" y=\"255\" font-size=\"11\" fill=\"#3182ce\" font-weight=\"bold\">Parallel Array Current = 2 × Imp</text><rect x=\"400\" y=\"100\" width=\"120\" height=\"80\" rx=\"8\" fill=\"#f4eafa\" stroke=\"#9862b5\" stroke-width=\"2\"/><text x=\"460\" y=\"135\" fill=\"#70418b\" font-weight=\"bold\">Inverter</text><text x=\"460\" y=\"155\" fill=\"#70418b\">MPPT 150V</text><g stroke=\"#777\" stroke-width=\"2\" marker-end=\"url(#arr)\"><path d=\"M320 75 H400 V140\"/><path d=\"M320 205 H400 V140\"/></g></g></svg><div class=\"diagram-cap\">Figure 4: Series wiring adds voltage; parallel branches add current.</div></div>\n<h3>String Sizing Rules</h3><ul><li><b>Maximum String Voltage:</b> The cold-weather Voc of the string must NEVER exceed the inverter's Max DC Input Voltage.</li><li><b>MPPT Window:</b> The hot-weather Vmp of the string must fall within the inverter's MPPT tracking range. If it falls below, the inverter stops producing.</li><li><b>Maximum Current:</b> The parallel Isc of all strings must not exceed the inverter's Max Input Current per MPPT.</li></ul>\n<h3>Activity</h3><p>If an inverter has a Max DC voltage of 500V, and your panels have a cold-weather Voc of 48V, what is the maximum number of panels you can put in a single string? (500 / 48 = 10.4, so max 10 panels).</p>",
-          "quiz": [
-            {"q":"Series-connected module voltages:","opts":["Add while current is common","Add currents only","Always cancel","Become zero"],"answer":0,"explanation":"In series, voltages add and the string current is limited by the string configuration."},
-            {"q":"Parallel strings primarily increase:","opts":["Array current","String voltage","Module temperature coefficient","Battery autonomy"],"answer":0,"explanation":"Parallel branches add current while maintaining branch voltage."},
-            {"q":"Cold conditions generally cause module Voc to:","opts":["Increase","Decrease to zero","Remain exactly constant","Become AC"],"answer":0,"explanation":"PV open-circuit voltage generally rises as cell temperature falls."},
-            {"q":"Why check inverter MPPT range?","opts":["The operating string voltage must fit its tracking window","It determines roof load","It sets battery chemistry","It replaces fuses"],"answer":0,"explanation":"The array's operating voltage must remain within the inverter's MPPT limits."},
-            {"q":"What must never be exceeded?","opts":["Maximum DC input voltage and current ratings","The course duration","The roof's paint colour","The learner count"],"answer":0,"explanation":"Equipment absolute maximum voltage and current limits are safety-critical."}
-          ]
-        },
-        {
-          "title": "Temperature-Corrected Voltage Calculations",
-          "duration": "25 minutes",
-          "html": "<p>Solar panels produce higher voltage on cold, sunny days. You must calculate the extreme cold temperature Voc to ensure you don't fry the inverter.</p>\n<h3>The Formula:</h3><p><b>Voc(cold) = Voc(STC) × [1 + (Temp_Coeff × (T_min - 25))]</b></p>\n<p><i>Example:</i></p><ul><li>Voc(STC) = 45V</li><li>Temp Coeff = -0.30%/°C (or -0.003)</li><li>Record low temp = -5°C</li></ul>\n<p>Voc(cold) = 45 × [1 + (-0.003 × (-5 - 25))]<br>Voc(cold) = 45 × [1 + (-0.003 × -30)]<br>Voc(cold) = 45 × [1 + 0.09]<br>Voc(cold) = 45 × 1.09 = <b>49.05V</b></p>\n<p>If you have 10 panels in series, the string voltage is 490.5V. If your inverter max is 500V, you are safe, but barely.</p>\n<div class=\"callout\"><b>Safety Factor:</b> Always use the record low temperature for your specific location. Do not use the average winter temperature.</div>\n<h3>Activity</h3><p>Calculate the cold Voc for a panel with Voc(STC) = 41.5V, Temp Coeff = -0.29%/°C, at a record low of -10°C.</p>",
-          "quiz": [
-            {"q":"Cold conditions generally cause module Voc to:","opts":["Increase","Decrease to zero","Remain exactly constant","Become AC"],"answer":0,"explanation":"PV open-circuit voltage generally rises as cell temperature falls."},
-            {"q":"Series-connected module voltages:","opts":["Add while current is common","Add currents only","Always cancel","Become zero"],"answer":0,"explanation":"In series, voltages add and the string current is limited by the string configuration."},
-            {"q":"What must never be exceeded?","opts":["Maximum DC input voltage and current ratings","The course duration","The roof's paint colour","The learner count"],"answer":0,"explanation":"Equipment absolute maximum voltage and current limits are safety-critical."},
-            {"q":"Why check inverter MPPT range?","opts":["The operating string voltage must fit its tracking window","It determines roof load","It sets battery chemistry","It replaces fuses"],"answer":0,"explanation":"The array's operating voltage must remain within the inverter's MPPT limits."},
-            {"q":"Parallel strings primarily increase:","opts":["Array current","String voltage","Module temperature coefficient","Battery autonomy"],"answer":0,"explanation":"Parallel branches add current while maintaining branch voltage."}
-          ]
-        }
-      ]
+      title: "PV Module Selection & Array Sizing",
+      lessons: [{
+        title: "Array Sizing, Module Selection and Reading the Datasheet",
+        duration: "55 minutes",
+        html: `<p>Array sizing converts a daily energy requirement into a number of modules. But the module count is only half the story — you must then confirm that the selected modules can be configured into strings that respect the inverter's voltage and current limits, in both the coldest and hottest conditions the site will experience.</p>
+<div class="callout"><b>Core principle:</b> You cannot design from the nameplate wattage alone. The datasheet's Voc, Vmp, Isc, Imp and temperature coefficients are what make the design safe and functional.</div>
+
+<h3>Learning outcomes</h3>
+<p>By the end of this lesson you should be able to: apply the array sizing formula; round up to a practical module count; interpret the key datasheet parameters; explain why temperature coefficients matter; and check that the chosen module count is physically and electrically feasible.</p>
+
+<h3>1. The array sizing formula</h3>
+<p style="text-align:center;font-weight:bold;font-size:16px;">Array size (kWp) = Daily energy (kWh) ÷ (PSH × System efficiency)</p>
+<p><b>Worked example:</b> daily energy 15 kWh, worst-month PSH 4.5, system efficiency 0.80.</p>
+<p>Array = 15 ÷ (4.5 × 0.80) = 15 ÷ 3.6 = <b>4.17 kWp</b>.</p>
+<p>If you select 550 W modules: 4,170 ÷ 550 = 7.58 → round up to <b>8 modules</b>, giving 8 × 550 = <b>4.4 kWp</b>.</p>
+
+<div class="diagram">
+  <svg viewBox="0 0 800 250" role="img" aria-label="Array sizing calculation flow">
+    <defs><marker id="arrA" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#333"/></marker></defs>
+    <g font-family="Arial" font-size="13">
+      <rect x="40" y="50" width="200" height="60" rx="8" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+      <text x="140" y="75" text-anchor="middle" fill="#256b2a" font-weight="bold">Daily energy</text>
+      <text x="140" y="95" text-anchor="middle" fill="#256b2a">15 kWh</text>
+      <rect x="300" y="50" width="200" height="60" rx="8" fill="#fff4d6" stroke="#d69a25" stroke-width="2"/>
+      <text x="400" y="75" text-anchor="middle" fill="#76500b" font-weight="bold">PSH</text>
+      <text x="400" y="95" text-anchor="middle" fill="#76500b">4.5 h</text>
+      <rect x="560" y="50" width="200" height="60" rx="8" fill="#e8efff" stroke="#4777c8" stroke-width="2"/>
+      <text x="660" y="75" text-anchor="middle" fill="#244d91" font-weight="bold">System efficiency</text>
+      <text x="660" y="95" text-anchor="middle" fill="#244d91">80% (0.80)</text>
+      <g stroke="#333" stroke-width="2">
+        <line x1="240" y1="80" x2="290" y2="80" marker-end="url(#arrA)"/>
+        <line x1="500" y1="80" x2="550" y2="80" marker-end="url(#arrA)"/>
+      </g>
+      <rect x="300" y="160" width="200" height="60" rx="8" fill="#f4eafa" stroke="#9862b5" stroke-width="2"/>
+      <text x="400" y="185" text-anchor="middle" fill="#70418b" font-weight="bold">Array required</text>
+      <text x="400" y="205" text-anchor="middle" fill="#70418b">4.17 kWp</text>
+      <line x1="400" y1="110" x2="400" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrA)"/>
+    </g>
+  </svg>
+  <div class="diagram-cap">Figure 4: Array sizing — energy demand divided by resource and efficiency.</div>
+</div>
+
+<h3>2. The datasheet parameters that matter</h3>
+<table class="compare">
+<tr><th>Parameter</th><th>Meaning</th><th>Why it matters</th></tr>
+<tr><td>Pmax (W)</td><td>Maximum power at STC</td><td>Array sizing; number of modules</td></tr>
+<tr><td>Voc (V)</td><td>Open-circuit voltage at STC</td><td>Determines maximum string voltage at record cold</td></tr>
+<tr><td>Vmp (V)</td><td>Voltage at maximum power</td><td>Must stay within MPPT window at record heat</td></tr>
+<tr><td>Isc (A)</td><td>Short-circuit current</td><td>Cable and fuse sizing (× 1.25 safety factor)</td></tr>
+<tr><td>Imp (A)</td><td>Current at maximum power</td><td>Operating current; MPPT current limit</td></tr>
+<tr><td>Temp coeff Voc (%/°C)</td><td>Voltage change per °C</td><td>Critical for cold-weather voltage safety</td></tr>
+<tr><td>Temp coeff Pmax (%/°C)</td><td>Power change per °C</td><td>Explains hot-weather derating (typically −0.35 to −0.40 %/°C)</td></tr>
+<tr><td>NOCT / NMOT (°C)</td><td>Nominal operating cell temperature</td><td>Estimates real-world cell temperature</td></tr>
+</table>
+
+<h3>3. Why temperature coefficients matter</h3>
+<p>Solar cells are semiconductors: as cell temperature falls, open-circuit voltage rises. A module rated Voc 45 V at 25 °C may reach 49–50 V at −10 °C. Multiply by the number of modules in series and you may exceed the inverter's maximum DC input — a destructive failure.</p>
+<p>Conversely, as cell temperature rises (a dark roof in summer can push cell temperature to 60–70 °C), Vmp falls. If the string's hot-weather Vmp drops below the inverter's MPPT minimum, the inverter stops producing.</p>
+<div class="callout"><b>Design rule:</b> Check the string at <b>record low temperature</b> against the inverter's maximum DC input voltage, and at <b>record high cell temperature</b> against the MPPT minimum. Both checks must pass.</div>
+
+<h3>4. Rounding and physical feasibility</h3>
+<p>Rounding up to 8 modules satisfies the energy requirement, but the count must also be feasible:</p>
+<ul>
+  <li><b>Roof area</b> — a 550 W module is roughly 2.3 m²; 8 modules need ~18.4 m² of clear area plus walkways and setbacks.</li>
+  <li><b>String configuration</b> — 8 modules could be one string of 8, two strings of 4, or four strings of 2. The choice depends on the inverter's voltage window and MPPT count.</li>
+  <li><b>Module availability</b> — module wattages change; design should not depend on a single discontinued model.</li>
+</ul>
+
+<h3>5. Worked example — checking the module count</h3>
+<p>Client needs 20 kWh/day, site has 5 PSH, efficiency 75%.</p>
+<p>Array = 20 ÷ (5 × 0.75) = 20 ÷ 3.75 = <b>5.33 kWp</b>. With 550 W modules: 5,330 ÷ 550 = 9.69 → <b>10 modules</b> = 5.5 kWp.</p>
+<p>Check roof area: 10 × 2.3 = 23 m² clear. Check string possibility: 10 modules in series at cold Voc 50 V = 500 V — likely at or above many inverter limits, so plan two strings of 5 (250 V cold) instead.</p>
+
+<h3>Summary</h3>
+<ul>
+  <li>Array size = daily energy ÷ (PSH × efficiency).</li>
+  <li>Round module count <b>up</b>, then verify roof area and string feasibility.</li>
+  <li>Datasheet Voc, Vmp, Isc, Imp and temperature coefficients drive every electrical check.</li>
+  <li>Cold weather raises Voc (voltage safety); heat lowers Vmp (MPPT window).</li>
+</ul>`,
+        quiz: [
+          { q: "Daily energy is 12 kWh, PSH is 4, and system efficiency is 0.75. What array size is required?", opts: ["2.25 kWp", "4.0 kWp", "6.0 kWp", "9.0 kWp"], answer: 1, explanation: "Array = 12 ÷ (4 × 0.75) = 12 ÷ 3 = 4.0 kWp." },
+          { q: "Which datasheet parameter determines the maximum string voltage in cold weather?", opts: ["Imp", "Isc", "Voc and its temperature coefficient", "Pmax"], answer: 2, explanation: "Cold-weather open-circuit voltage (Voc adjusted by its temperature coefficient) sets the maximum string voltage." },
+          { q: "A module has Voc 45 V at 25 °C. Why is it dangerous to assume 45 V is the maximum string voltage per module?", opts: ["Voltage falls in cold weather", "Voltage rises in cold weather", "Voc is irrelevant to strings", "Voc only applies at night"], answer: 1, explanation: "Voc rises as cell temperature falls, so cold-weather Voc can be well above the STC value — the string must be checked against the inverter's DC maximum." },
+          { q: "Hot weather affects the design primarily by:", opts: ["Raising Voc above the inverter maximum", "Lowering Vmp, potentially below the MPPT window", "Increasing Isc beyond cable ratings", "Having no effect on PV output"], answer: 1, explanation: "High cell temperature lowers Vmp; if the string's hot Vmp falls below the inverter's MPPT minimum, production stops." },
+          { q: "After rounding module count up, which additional feasibility checks are required?", opts: ["Roof area and string configuration", "The client's tariff only", "The quiz pass mark", "The certificate template"], answer: 0, explanation: "Rounding up must be verified against available roof area and a feasible string configuration within the inverter's voltage window." }
+        ]
+      }]
     },
     {
-      "title": "Module 5: Battery Storage & Inverters",
-      "lessons": [
-        {
-          "title": "Battery Sizing & Depth of Discharge",
-          "duration": "25 minutes",
-          "html": "<p>If you are designing an off-grid or hybrid system, the battery bank is the most expensive component. Sizing it correctly is critical.</p>\n<h3>The Battery Sizing Formula:</h3><p><b>Battery Capacity (kWh) = (Daily Energy × Days of Autonomy) / (DoD × Inverter Efficiency)</b></p>\n<ul><li><b>Autonomy:</b> How many days the battery must last without sun.</li><li><b>DoD (Depth of Discharge):</b> How much of the battery you can safely use. Lithium (LiFePO4) can usually handle 80-90%. Lead-Acid should not go below 50%.</li></ul>\n<p><i>Example: 10 kWh/day load, 2 days autonomy, 90% DoD, 95% efficiency.</i><br>Capacity = (10 × 2) / (0.90 × 0.95) = 20 / 0.855 = <b>23.4 kWh</b>.</p>\n<div class=\"diagram\"><svg viewBox=\"0 0 800 200\" role=\"img\" aria-label=\"Battery sizing factors\"><g font-family=\"Arial\" font-size=\"13\"><rect x=\"50\" y=\"50\" width=\"160\" height=\"60\" rx=\"8\" fill=\"#e8f5e9\" stroke=\"#388e3c\" stroke-width=\"2\"/><text x=\"130\" y=\"75\" text-anchor=\"middle\" fill=\"#256b2a\" font-weight=\"bold\">Daily Load</text><text x=\"130\" y=\"95\" text-anchor=\"middle\" fill=\"#256b2a\">10 kWh</text><rect x=\"250\" y=\"50\" width=\"160\" height=\"60\" rx=\"8\" fill=\"#fff4d6\" stroke=\"#d69a25\" stroke-width=\"2\"/><text x=\"330\" y=\"75\" text-anchor=\"middle\" fill=\"#76500b\" font-weight=\"bold\">Days Autonomy</text><text x=\"330\" y=\"95\" text-anchor=\"middle\" fill=\"#76500b\">2 Days</text><rect x=\"450\" y=\"50\" width=\"160\" height=\"60\" rx=\"8\" fill=\"#e8efff\" stroke=\"#4777c8\" stroke-width=\"2\"/><text x=\"530\" y=\"75\" text-anchor=\"middle\" fill=\"#244d91\" font-weight=\"bold\">Depth of Discharge</text><text x=\"530\" y=\"95\" text-anchor=\"middle\" fill=\"#244d91\">90%</text><rect x=\"650\" y=\"50\" width=\"120\" height=\"60\" rx=\"8\" fill=\"#f4eafa\" stroke=\"#9862b5\" stroke-width=\"2\"/><text x=\"710\" y=\"75\" text-anchor=\"middle\" fill=\"#70418b\" font-weight=\"bold\">Capacity</text><text x=\"710\" y=\"95\" text-anchor=\"middle\" fill=\"#70418b\">23.4 kWh</text></g></svg><div class=\"diagram-cap\">Figure 5: Factors influencing battery bank capacity.</div></div>\n<h3>Activity</h3><p>Calculate the required battery capacity for a 5 kWh daily load, 3 days autonomy, 50% DoD (lead-acid), and 90% inverter efficiency.</p>",
-          "quiz": [
-            {"q":"Battery DoD describes:","opts":["Fraction of nominal capacity discharged","Solar panel efficiency","Inverter surge time","Cable resistance"],"answer":0,"explanation":"Depth of discharge is the proportion of nominal battery capacity used."},
-            {"q":"Autonomy means:","opts":["How long storage supports loads without expected charging input","Panel warranty period","Cable route length","Time to complete a quiz"],"answer":0,"explanation":"Autonomy is the required period of supply from stored energy."},
-            {"q":"Why account for battery efficiency?","opts":["Not all stored energy is returned to loads","It increases panel voltage","It removes the need for protection","It sets AC frequency"],"answer":0,"explanation":"Charging and discharging incur losses that affect required nominal capacity."},
-            {"q":"Which battery data must be checked?","opts":["Permitted current, voltage, temperature and BMS limits","Only the case colour","Only its price","The course title"],"answer":0,"explanation":"Battery manufacturers specify operating and safety limits that must be respected."},
-            {"q":"Two identical batteries in parallel generally:","opts":["Increase Ah capacity while nominal voltage stays the same","Double nominal voltage","Remove the BMS","Convert DC to AC"],"answer":0,"explanation":"Parallel connection increases capacity/current capability, subject to manufacturer approval."}
-          ]
-        },
-        {
-          "title": "Inverter Selection & Compatibility",
-          "duration": "25 minutes",
-          "html": "<p>The inverter is the brain of the system. It converts DC to AC and manages the battery charging. It must be sized correctly for both the load and the PV array.</p>\n<h3>Key Inverter Specifications:</h3><ul><li><b>Continuous AC Output (kW):</b> Must exceed your peak simultaneous load.</li><li><b>Surge Rating (kVA):</b> Must handle the startup of motors (usually 2x continuous for 5 seconds).</li><li><b>Max DC Input (V):</b> Must be higher than your coldest string Voc.</li><li><b>MPPT Range (V):</b> Must overlap with your hottest string Vmp.</li><li><b>Max Charge Current (A):</b> Must not exceed the battery's recommended charge rate.</li></ul>\n<div class=\"callout\"><b>Battery Compatibility:</b> If using Lithium batteries, ensure the inverter supports the specific BMS communication protocol (e.g., CAN bus, RS485) for that battery brand. Closed-loop communication is highly recommended for safety and longevity.</div>\n<h3>Activity</h3><p>Find a hybrid inverter datasheet online. List its continuous power, max PV input voltage, and MPPT voltage range.</p>",
-          "quiz": [
-            {"q":"Inverter continuous rating should be based on:","opts":["Expected simultaneous AC load","Total roof area","Battery colour","Course pass mark"],"answer":0,"explanation":"The continuous rating must support the expected simultaneous load."},
-            {"q":"Surge rating matters for:","opts":["Loads with high starting demand","LED colour temperature only","Solar irradiance","Module frame thickness"],"answer":0,"explanation":"Motors and compressors can require short-duration starting power."},
-            {"q":"Power factor affects:","opts":["Apparent and real power relationship","Solar panel tilt","Battery autonomy days only","Module serial number"],"answer":0,"explanation":"Power factor influences current and inverter apparent-power requirements."},
-            {"q":"A hybrid inverter may coordinate:","opts":["PV, battery and grid inputs/outputs","Only a paper drawing","Only DC fuses","Only roof structure"],"answer":0,"explanation":"Hybrid equipment can manage multiple energy sources and storage, depending on model."},
-            {"q":"What confirms inverter compatibility?","opts":["Manufacturer voltage/current and battery interface specifications","Product photo alone","A generic online review","Course brochure"],"answer":0,"explanation":"Compatibility must be checked against documented equipment limits and protocols."}
-          ]
-        }
-      ]
+      title: "String Design, Voltage Limits & Temperature Corrections",
+      lessons: [{
+        title: "Series/Parallel Configuration and Temperature-Corrected Voltage Calculations",
+        duration: "60 minutes",
+        html: `<p>String design is where PV systems fail on paper before they fail on site. Series connection adds voltage; parallel connection adds current. The string must satisfy three constraints simultaneously: cold-weather maximum voltage, hot-weather MPPT minimum, and current within the inverter's per-MPPT limit.</p>
+<div class="callout"><b>Core principle:</b> The inverter's absolute maximum DC input voltage must never be exceeded — not at STC, not at record cold. There is no safety margin in an exceeded limit; the inverter is destroyed.</div>
+
+<h3>Learning outcomes</h3>
+<p>By the end of this lesson you should be able to: calculate series and parallel string quantities; apply the temperature-correction formula for cold Voc; calculate hot-weather Vmp; check the MPPT window; and confirm current limits per MPPT.</p>
+
+<h3>1. Series and parallel rules</h3>
+<table class="compare">
+<tr><th>Connection</th><th>Voltage</th><th>Current</th><th>Use</th></tr>
+<tr><td>Series</td><td>Adds (V_string = n × Voc)</td><td>Common (limited by lowest-current module)</td><td>Raise voltage to reach MPPT window</td></tr>
+<tr><td>Parallel</td><td>Common</td><td>Adds (I_array = m × Isc)</td><td>Raise current/capacity without exceeding voltage limit</td></tr>
+</table>
+
+<div class="diagram">
+  <svg viewBox="0 0 800 300" role="img" aria-label="Series and parallel PV configuration">
+    <g font-family="Arial" font-size="12" text-anchor="middle">
+      <rect x="50" y="50" width="70" height="50" rx="4" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+      <text x="85" y="75" fill="#fff" font-weight="bold">Module</text><text x="85" y="90" fill="#cbd5e0">Voc 45 V</text>
+      <rect x="150" y="50" width="70" height="50" rx="4" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+      <text x="185" y="75" fill="#fff" font-weight="bold">Module</text><text x="185" y="90" fill="#cbd5e0">Voc 45 V</text>
+      <rect x="250" y="50" width="70" height="50" rx="4" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+      <text x="285" y="75" fill="#fff" font-weight="bold">Module</text><text x="285" y="90" fill="#cbd5e0">Voc 45 V</text>
+      <g stroke="#e53e3e" stroke-width="2"><line x1="120" y1="75" x2="150" y2="75"/><line x1="220" y1="75" x2="250" y2="75"/></g>
+      <text x="185" y="125" font-size="11" fill="#e53e3e" font-weight="bold">String voltage = 45 + 45 + 45 = 135 V</text>
+      <rect x="50" y="180" width="70" height="50" rx="4" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+      <text x="85" y="205" fill="#fff" font-weight="bold">Module</text><text x="85" y="220" fill="#cbd5e0">Voc 45 V</text>
+      <rect x="150" y="180" width="70" height="50" rx="4" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+      <text x="185" y="205" fill="#fff" font-weight="bold">Module</text><text x="185" y="220" fill="#cbd5e0">Voc 45 V</text>
+      <rect x="250" y="180" width="70" height="50" rx="4" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+      <text x="285" y="205" fill="#fff" font-weight="bold">Module</text><text x="285" y="220" fill="#cbd5e0">Voc 45 V</text>
+      <g stroke="#e53e3e" stroke-width="2"><line x1="120" y1="205" x2="150" y2="205"/><line x1="220" y1="205" x2="250" y2="205"/></g>
+      <g stroke="#3182ce" stroke-width="2"><line x1="85" y1="100" x2="85" y2="180"/><line x1="285" y1="100" x2="285" y2="180"/></g>
+      <text x="185" y="255" font-size="11" fill="#3182ce" font-weight="bold">Parallel array current = 2 × Imp</text>
+      <rect x="420" y="100" width="130" height="80" rx="8" fill="#f4eafa" stroke="#9862b5" stroke-width="2"/>
+      <text x="485" y="135" fill="#70418b" font-weight="bold">Inverter</text><text x="485" y="155" fill="#70418b">MPPT 150 V</text>
+      <g stroke="#777" stroke-width="2" marker-end="url(#arr)">
+        <path d="M320 75 H420 V140"/><path d="M320 205 H420 V140"/>
+      </g>
+    </g>
+  </svg>
+  <div class="diagram-cap">Figure 5: Series adds voltage; parallel adds current.</div>
+</div>
+
+<h3>2. Cold-weather voltage — the formula</h3>
+<p style="text-align:center;font-weight:bold;font-size:16px;">Voc(cold) = Voc(STC) × [1 + (TempCoeff × (T_min − 25))]</p>
+<p><b>Worked example:</b> Voc(STC) = 45 V, TempCoeff = −0.30 %/°C (−0.003), record low T_min = −5 °C.</p>
+<p>Voc(cold) = 45 × [1 + (−0.003 × (−5 − 25))]<br>
+= 45 × [1 + (−0.003 × −30)]<br>
+= 45 × [1 + 0.09]<br>
+= 45 × 1.09 = <b>49.05 V</b></p>
+<p>For a string of 10 modules: 10 × 49.05 = <b>490.5 V</b>. If the inverter's maximum DC input is 500 V, the design is safe — but only just. One more module would exceed it.</p>
+
+<div class="callout"><b>Safety factor:</b> Use the <b>record low ambient temperature</b> for the site, not the average winter minimum. Cell temperature can be at or below ambient at dawn, so ambient is the correct conservative input. Where the site record is unknown, obtain it from the national meteorological service.</div>
+
+<h3>3. Hot-weather Vmp — checking the MPPT window</h3>
+<p style="text-align:center;font-weight:bold;font-size:16px;">Vmp(hot) = Vmp(STC) × [1 + (TempCoeff_Vmp × (T_cell_max − 25))]</p>
+<p>Cell temperature is not ambient — a dark roof in summer can be 25–30 °C above ambient. A reasonable estimate for a roof-mounted array at 35 °C ambient is 60–65 °C cell temperature.</p>
+<p><b>Worked example:</b> Vmp(STC) = 37 V, TempCoeff_Vmp = −0.35 %/°C, T_cell_max = 65 °C.</p>
+<p>Vmp(hot) = 37 × [1 + (−0.0035 × (65 − 25))] = 37 × [1 − 0.14] = <b>31.8 V</b>.</p>
+<p>For a string of 8 modules: 8 × 31.8 = <b>254 V</b>. This must be <b>above</b> the inverter's MPPT minimum. If the MPPT range is 120–500 V, the design passes.</p>
+
+<h3>4. Current limits per MPPT</h3>
+<p>The inverter specifies a maximum input current per MPPT. For <b>m</b> parallel strings on one MPPT:</p>
+<p style="text-align:center;font-weight:bold;font-size:16px;">I_array = m × Isc × 1.25 (safety factor)</p>
+<p>If each string has Isc = 14 A and the inverter's MPPT limit is 30 A, you can fit at most ⌊30 ÷ (14 × 1.25)⌋ = ⌊30 ÷ 17.5⌋ = <b>1 string</b> per MPPT. Two strings would require 35 A — over the limit — so a second MPPT (if available) or a larger inverter is needed.</p>
+
+<h3>5. Putting it together — a full string design check</h3>
+<p><b>Given:</b> 16 × 550 W modules, Voc 49.5 V, Vmp 41.8 V, Isc 14.0 A, Imp 13.2 A, TempCoeff_Voc −0.29 %/°C, TempCoeff_Vmp −0.35 %/°C. Site: record low −5 °C, max cell 65 °C. Inverter: 6 kW, max DC 550 V, MPPT 125–500 V, max input current 26 A per MPPT, 2 MPPTs.</p>
+<ul>
+  <li>Voc(cold) per module = 49.5 × [1 + (−0.0029 × −30)] = 49.5 × 1.087 = <b>53.8 V</b>.</li>
+  <li>Max modules per string = ⌊550 ÷ 53.8⌋ = <b>10</b> modules (10 × 53.8 = 538 V &lt; 550 V ✓).</li>
+  <li>Vmp(hot) per module = 41.8 × [1 + (−0.0035 × 40)] = 41.8 × 0.86 = <b>35.9 V</b>.</li>
+  <li>Min modules per string = ⌈125 ÷ 35.9⌉ = <b>4</b> modules (4 × 35.9 = 143.6 V &gt; 125 V ✓).</li>
+  <li>So a string must be 4–10 modules. 16 modules as 2 strings of 8 fits both MPPTs (8 per MPPT).</li>
+  <li>Current per MPPT: 1 string × 14 × 1.25 = <b>17.5 A</b> &lt; 26 A ✓.</li>
+  <li>Cold string voltage: 8 × 53.8 = <b>430 V</b> &lt; 550 V ✓. Hot string Vmp: 8 × 35.9 = <b>287 V</b> &gt; 125 V ✓.</li>
+</ul>
+<p><b>Design passes.</b> Every limit checked, every assumption documented.</p>
+
+<h3>Summary</h3>
+<ul>
+  <li>Series adds voltage, parallel adds current.</li>
+  <li>Cold-weather Voc must never exceed the inverter's DC maximum.</li>
+  <li>Hot-weather Vmp must stay above the MPPT minimum.</li>
+  <li>Parallel Isc × 1.25 must stay within the per-MPPT current limit.</li>
+</ul>`,
+        quiz: [
+          { q: "Three modules with Voc 45 V are connected in series. What is the string voltage?", opts: ["45 V", "90 V", "135 V", "15 V"], answer: 2, explanation: "Series connection adds voltage: 45 + 45 + 45 = 135 V." },
+          { q: "Which condition produces the highest string voltage?", opts: ["Hot sunny midday", "Record-low temperature at dawn", "Nominal 25 °C at STC", "Night-time"], answer: 1, explanation: "Voc rises as cell temperature falls, so the highest voltage occurs at record low temperature." },
+          { q: "A module has Voc(STC) 45 V and a temperature coefficient of −0.003/°C. What is its cold Voc at −5 °C?", opts: ["45.0 V", "49.05 V", "40.95 V", "45.9 V"], answer: 1, explanation: "Voc(cold) = 45 × [1 + (−0.003 × (−5 − 25))] = 45 × 1.09 = 49.05 V." },
+          { q: "Which condition produces the lowest string Vmp?", opts: ["Cold dawn", "High cell temperature", "STC conditions", "Low irradiance at night"], answer: 1, explanation: "Vmp falls as cell temperature rises; the lowest Vmp occurs at maximum cell temperature, which tests the MPPT minimum." },
+          { q: "An inverter MPPT accepts 30 A and each parallel string has Isc = 14 A. Applying a 1.25 safety factor, how many strings fit per MPPT?", opts: ["3", "2", "1", "4"], answer: 2, explanation: "14 × 1.25 = 17.5 A per string; 30 ÷ 17.5 = 1.71, so only 1 string fits within the 30 A limit." }
+        ]
+      }]
     },
     {
-      "title": "Module 6: Cables, Protection & Integration",
-      "lessons": [
-        {
-          "title": "Cable Sizing & Voltage Drop",
-          "duration": "25 minutes",
-          "html": "<p>Undersized cables cause voltage drop, which wastes energy and can cause overheating. Cable sizing is a balance between current-carrying capacity (ampacity) and voltage drop.</p>\n<h3>Voltage Drop Formula (DC):</h3><p><b>V_drop = (2 × L × I × ρ) / A</b></p><ul><li>L = one-way cable length (m)</li><li>I = current (A)</li><li>ρ = resistivity of copper (~0.0175 Ω·mm²/m)</li><li>A = cross-sectional area (mm²)</li></ul>\n<p>For a 48V DC system, voltage drop should be kept below <b>2%</b>. For AC circuits, keep it below <b>3%</b>.</p>\n<h3>Protection Devices</h3><ul><li><b>DC Isolator:</b> Required between PV array and inverter for safe maintenance.</li><li><b>Fuses/MCBs:</b> Sized to protect the cable (e.g., 1.25x the Isc of the string).</li><li><b>Surge Protection (SPD):</b> Essential for both DC and AC sides to protect against lightning surges.</li><li><b>Earthing:</b> Module frames, inverter chassis, and battery racks must be bonded to earth.</li></ul>\n<h3>Activity</h3><p>Calculate the voltage drop for a 10m run of 6mm² cable carrying 20A in a 48V system. Is it below 2%?</p>",
-          "quiz": [
-            {"q":"An MPPT controller:","opts":["Tracks the PV operating point to optimise power transfer","Stores energy itself","Converts AC to sunlight","Replaces all disconnects"],"answer":0,"explanation":"MPPT adjusts operating conditions to harvest available array power."},
-            {"q":"Voltage drop is:","opts":["Reduction in voltage along a conductor under load","Battery capacity","Solar irradiance","Inverter efficiency"],"answer":0,"explanation":"Conductor resistance causes voltage drop as current flows."},
-            {"q":"Cable sizing should consider:","opts":["Current, length, installation method and temperature","Only insulation colour","Only the panel brand","Only course level"],"answer":0,"explanation":"Ampacity and voltage drop both matter, alongside applicable wiring rules."},
-            {"q":"Overcurrent protection helps:","opts":["Protect conductors/equipment against excessive current","Increase solar irradiance","Improve panel orientation","Replace earthing"],"answer":0,"explanation":"Correctly selected protection limits fault and overload current effects."},
-            {"q":"Why use DC-rated isolators?","opts":["DC circuits can sustain arcs and need suitable switching devices","They are decorative","They increase battery capacity","They change DC to AC"],"answer":0,"explanation":"PV DC switching equipment must be rated for the relevant DC voltage and current."}
-          ]
-        },
-        {
-          "title": "Single-Line Diagrams & System Integration",
-          "duration": "25 minutes",
-          "html": "<p>Before installation, a proper Single-Line Diagram (SLD) must be produced. It shows the entire electrical topology on one page.</p>\n<h3>What the SLD Must Show:</h3><ul><li>PV array configuration (strings and parallel branches).</li><li>DC isolators and fuses.</li><li>Inverter model and ratings.</li><li>Battery bank and BMS.</li><li>AC main switch, breakers, and SPDs.</li><li>Utility grid connection point and meter.</li></ul>\n<div class=\"diagram\"><svg viewBox=\"0 0 800 280\" role=\"img\" aria-label=\"Single Line Diagram\"><g font-family=\"Arial\" font-size=\"11\" stroke-width=\"2\"><line x1=\"50\" y1=\"50\" x2=\"750\" y2=\"50\" stroke=\"#333\"/><circle cx=\"50\" cy=\"50\" r=\"4\" fill=\"#333\"/><circle cx=\"750\" cy=\"50\" r=\"4\" fill=\"#333\"/><rect x=\"100\" y=\"35\" width=\"60\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"130\" y=\"53\" text-anchor=\"middle\" stroke=\"none\">PV String</text><rect x=\"200\" y=\"35\" width=\"60\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"230\" y=\"53\" text-anchor=\"middle\" stroke=\"none\">DC Fuse</text><rect x=\"300\" y=\"35\" width=\"60\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"330\" y=\"53\" text-anchor=\"middle\" stroke=\"none\">DC Isolator</text><rect x=\"420\" y=\"35\" width=\"80\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"460\" y=\"53\" text-anchor=\"middle\" stroke=\"none\">Inverter</text><rect x=\"540\" y=\"35\" width=\"60\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"570\" y=\"53\" text-anchor=\"middle\" stroke=\"none\">AC Breaker</text><rect x=\"640\" y=\"35\" width=\"60\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"670\" y=\"53\" text-anchor=\"middle\" stroke=\"none\">Grid</text><line x1=\"460\" y1=\"65\" x2=\"460\" y2=\"110\" stroke=\"#333\"/><rect x=\"410\" y=\"110\" width=\"100\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"460\" y=\"128\" text-anchor=\"middle\" stroke=\"none\">Battery Bank</text><line x1=\"460\" y1=\"140\" x2=\"460\" y2=\"180\" stroke=\"#333\"/><rect x=\"410\" y=\"180\" width=\"100\" height=\"30\" fill=\"#fff\" stroke=\"#333\"/><text x=\"460\" y=\"198\" text-anchor=\"middle\" stroke=\"none\">BMS</text></g></svg><div class=\"diagram-cap\">Figure 6: Simplified Single-Line Diagram (SLD) for a hybrid system.</div></div>\n<h3>Activity</h3><p>Sketch a simple SLD for a grid-tied system with no battery. What components are missing compared to the diagram above?</p>",
-          "quiz": [
-            {"q":"A single-line diagram shows:","opts":["Simplified electrical connections and major equipment","A roof photograph only","A learner's timetable","Only the panel warranty"],"answer":0,"explanation":"Single-line diagrams communicate system topology and protective devices."},
-            {"q":"Commissioning should include:","opts":["Inspection and appropriate electrical tests","Only taking a photograph","Skipping polarity checks","Changing the module title"],"answer":0,"explanation":"Commissioning verifies installation condition, polarity, protection and functional operation."},
-            {"q":"Why label PV DC circuits?","opts":["To identify sources, hazards and isolation points","To increase output","To remove need for training","To reduce module count"],"answer":0,"explanation":"Clear labels support safe operation, maintenance and emergency response."},
-            {"q":"Who should perform electrical installation and testing?","opts":["Competent, appropriately qualified personnel","Any untrained observer","Only the building owner","A course quiz system"],"answer":0,"explanation":"Electrical work and testing must be undertaken by personnel with suitable competence and authorisation."},
-            {"q":"What is a handover pack?","opts":["Drawings, settings, test records and operating information","Only a certificate image","A marketing poster","A list of unrelated courses"],"answer":0,"explanation":"A handover pack gives the owner essential design and operating records."}
-          ]
-        }
-      ]
+      title: "Battery Storage & Inverter Selection",
+      lessons: [{
+        title: "Battery Sizing, DoD, Chemistry and Inverter Compatibility",
+        duration: "60 minutes",
+        html: `<p>In off-grid and hybrid systems the battery is the most expensive component and the most commonly mis-sized. Too small and the client runs out of power; too large and the capital cost is wasted. Battery sizing is a formula, but the inputs — autonomy, depth of discharge, efficiency, temperature — must be chosen carefully.</p>
+<div class="callout"><b>Core principle:</b> Battery capacity is not the same as usable capacity. Depth of discharge (DoD) and round-trip efficiency determine how much of the nominal capacity you can actually rely on.</div>
+
+<h3>Learning outcomes</h3>
+<p>By the end of this lesson you should be able to: apply the battery sizing formula; compare lithium and lead-acid chemistry; explain C-rate and its effect on usable capacity; and match an inverter to both the load and the battery's charging limits.</p>
+
+<h3>1. The battery sizing formula</h3>
+<p style="text-align:center;font-weight:bold;font-size:16px;">Capacity (kWh) = (Daily energy × Days of autonomy) ÷ (DoD × Inverter efficiency)</p>
+<p><b>Worked example:</b> 10 kWh/day, 2 days autonomy, 90% DoD (LiFePO₄), 95% inverter efficiency.</p>
+<p>Capacity = (10 × 2) ÷ (0.90 × 0.95) = 20 ÷ 0.855 = <b>23.4 kWh</b>.</p>
+<p>For a 51.2 V battery: capacity in Ah = 23,400 ÷ 51.2 = <b>457 Ah</b>. With 100 Ah modules, 5 modules gives 500 Ah ≈ 25.6 kWh — sufficient.</p>
+
+<div class="diagram">
+  <svg viewBox="0 0 800 200" role="img" aria-label="Battery sizing factors">
+    <g font-family="Arial" font-size="13">
+      <rect x="30" y="50" width="160" height="60" rx="8" fill="#e8f5e9" stroke="#388e3c" stroke-width="2"/>
+      <text x="110" y="75" text-anchor="middle" fill="#256b2a" font-weight="bold">Daily load</text>
+      <text x="110" y="95" text-anchor="middle" fill="#256b2a">10 kWh</text>
+      <rect x="210" y="50" width="160" height="60" rx="8" fill="#fff4d6" stroke="#d69a25" stroke-width="2"/>
+      <text x="290" y="75" text-anchor="middle" fill="#76500b" font-weight="bold">Autonomy</text>
+      <text x="290" y="95" text-anchor="middle" fill="#76500b">2 days</text>
+      <rect x="390" y="50" width="160" height="60" rx="8" fill="#e8efff" stroke="#4777c8" stroke-width="2"/>
+      <text x="470" y="75" text-anchor="middle" fill="#244d91" font-weight="bold">DoD</text>
+      <text x="470" y="95" text-anchor="middle" fill="#244d91">90%</text>
+      <rect x="570" y="50" width="200" height="60" rx="8" fill="#f4eafa" stroke="#9862b5" stroke-width="2"/>
+      <text x="670" y="75" text-anchor="middle" fill="#70418b" font-weight="bold">Capacity</text>
+      <text x="670" y="95" text-anchor="middle" fill="#70418b">23.4 kWh</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Figure 6: Battery sizing inputs — load, autonomy, depth of discharge.</div>
+</div>
+
+<h3>2. Autonomy — how much backup?</h3>
+<table class="compare">
+<tr><th>Application</th><th>Typical autonomy</th><th>Reasoning</th></tr>
+<tr><td>Grid-tied with backup (short outages)</td><td>0.5–1 day</td><td>Grid restores quickly; battery is for outage ride-through.</td></tr>
+<tr><td>Off-grid home, temperate climate</td><td>2–3 days</td><td>Covers consecutive cloudy days.</td></tr>
+<tr><td>Off-grid, critical loads (clinic, telecom)</td><td>3–7 days</td><td>Reliability outweighs cost.</td></tr>
+<tr><td>Seasonal remote site</td><td>Up to 14 days</td><td>Worst-month resource may be very low.</td></tr>
+</table>
+<p>Autonomy is a <b>client decision</b> driven by acceptable risk. Document it in the design brief: "the client has accepted a 2-day autonomy, which means a statistically significant chance of shortfall during an extended cloudy period in winter."</p>
+
+<h3>3. Battery chemistry comparison</h3>
+<table class="compare">
+<tr><th>Property</th><th>LiFePO₄ (lithium iron phosphate)</th><th>Lead-acid (AGM/GEL/flooded)</th></tr>
+<tr><td>Usable DoD</td><td>80–95%</td><td>50% (flooded); 60% (AGM/GEL)</td></tr>
+<tr><td>Round-trip efficiency</td><td>92–96%</td><td>75–85%</td></tr>
+<tr><td>Cycle life</td><td>3,000–6,000 cycles</td><td>300–1,200 cycles</td></tr>
+<tr><td>Temperature tolerance</td><td>Good; BMS protects</td><td>Capacity falls sharply below 10 °C</td></tr>
+<tr><td>Maintenance</td><td>Essentially none</td><td>Flooded requires watering and equalisation</td></tr>
+<tr><td>Capital cost per kWh</td><td>Higher</td><td>Lower</td></tr>
+<tr><td>Lifecycle cost per kWh</td><td>Usually lower</td><td>Usually higher</td></tr>
+</table>
+
+<h3>4. C-rate — the hidden constraint</h3>
+<p>The <b>C-rate</b> describes the current relative to capacity. 1C means the battery charges or discharges in one hour; 0.5C in two hours. A 200 Ah battery at 0.5C can accept 100 A.</p>
+<p>Lead-acid batteries dislike high charge and discharge rates — exceeding them shortens life. Lithium batteries tolerate higher C-rates but are limited by their BMS. If the inverter's maximum charge current exceeds the battery's recommended C-rate, the system is misconfigured — the inverter must be limited in firmware or a larger battery bank installed.</p>
+<div class="callout"><b>Check:</b> Max inverter charge current (A) ≤ number of parallel batteries × battery C-rate × battery Ah. If violated, the BMS will throttle or disconnect, causing nuisance faults.</div>
+
+<h3>5. Inverter selection and compatibility</h3>
+<table class="compare">
+<tr><th>Inverter spec</th><th>Must satisfy</th></tr>
+<tr><td>Continuous AC output</td><td>≥ peak simultaneous load (with diversity)</td></tr>
+<tr><td>Surge rating</td><td>≥ largest motor start + concurrent running loads</td></tr>
+<tr><td>Max DC input voltage</td><td>&gt; cold-weather string Voc</td></tr>
+<tr><td>MPPT voltage range</td><td>overlaps hot Vmp and cold Vmp of the string</td></tr>
+<tr><td>Max input current per MPPT</td><td>≥ parallel Isc × 1.25</td></tr>
+<tr><td>Max charge current</td><td>≤ battery C-rate × capacity</td></tr>
+<tr><td>Battery interface</td><td>compatible BMS protocol (CAN/RS485) for closed-loop communication</td></tr>
+</table>
+
+<p><b>Battery compatibility</b> is more than a voltage match. Modern lithium batteries use a BMS that communicates with the inverter to report state of charge, temperature and limits. Without closed-loop communication, the inverter must guess and may either under-charge (lost capacity) or over-charge (safety risk). Always confirm the inverter's supported battery list before specifying.</p>
+
+<h3>6. Worked example — off-grid battery and inverter</h3>
+<p><b>Given:</b> 5 kWh/day, 3 days autonomy, lead-acid at 50% DoD, 90% inverter efficiency, 48 V nominal bank.</p>
+<p>Capacity = (5 × 3) ÷ (0.50 × 0.90) = 15 ÷ 0.45 = <b>33.3 kWh</b>. In Ah at 48 V: 33,300 ÷ 48 = <b>694 Ah</b>. A 48 V 700 Ah flooded bank = 33.6 kWh. Note how the lead-acid DoD and efficiency increase capacity compared with a lithium design.</p>
+
+<h3>Summary</h3>
+<ul>
+  <li>Capacity = (energy × autonomy) ÷ (DoD × efficiency).</li>
+  <li>Autonomy is a client risk decision — document it.</li>
+  <li>Chemistry determines DoD, efficiency, cycle life and maintenance.</li>
+  <li>C-rate limits charge/discharge current independently of capacity.</li>
+  <li>Inverter must be compatible with the battery's BMS, not just its voltage.</li>
+</ul>`,
+        quiz: [
+          { q: "A 10 kWh/day load needs 2 days autonomy at 90% DoD and 95% efficiency. What battery capacity is required?", opts: ["11.7 kWh", "23.4 kWh", "20.0 kWh", "10.5 kWh"], answer: 1, explanation: "Capacity = (10 × 2) ÷ (0.90 × 0.95) = 20 ÷ 0.855 = 23.4 kWh." },
+          { q: "Why does a lead-acid battery require a larger nominal capacity than LiFePO₄ for the same usable energy?", opts: ["Lead-acid has a lower permitted DoD and lower efficiency", "Lead-acid has higher voltage", "Lead-acid charges faster", "Lead-acid has no losses"], answer: 0, explanation: "Lead-acid is typically limited to 50% DoD and has lower round-trip efficiency, so the nominal capacity must be larger for the same usable energy." },
+          { q: "A 0.5C charge rate on a 200 Ah battery corresponds to a maximum charge current of:", opts: ["50 A", "100 A", "200 A", "400 A"], answer: 1, explanation: "0.5C × 200 Ah = 100 A." },
+          { q: "Why is closed-loop BMS communication between inverter and battery important?", opts: ["It replaces the need for a fuse", "It lets the inverter respect the battery's real limits and state of charge", "It doubles the array output", "It eliminates cable voltage drop"], answer: 1, explanation: "Closed-loop communication lets the inverter charge and discharge within the battery's live limits, improving safety and longevity." },
+          { q: "Autonomy in battery sizing should be decided by:", opts: ["The inverter manufacturer", "The client's acceptable risk of shortfall", "The module wattage", "The roof pitch"], answer: 1, explanation: "Autonomy reflects how many days the client wants the system to ride through without sun; it is a risk/cost trade-off documented in the brief." }
+        ]
+      }]
     },
     {
-      "title": "Module 7: Economics & Capstone",
-      "lessons": [
-        {
-          "title": "Energy Yield & Lifecycle Economics",
-          "duration": "25 minutes",
-          "html": "<p>A solar system is an investment. You must be able to calculate the return on investment (ROI) and payback period.</p>\n<h3>Key Metrics:</h3><ul><li><b>Performance Ratio (PR):</b> The ratio of actual energy produced to theoretical energy. A good PR is 75–85%.</li><li><b>Levelized Cost of Energy (LCOE):</b> The average cost per kWh over the system's lifetime. This allows you to compare solar to grid prices.</li><li><b>Payback Period:</b> Total System Cost / Annual Savings.</li></ul>\n<p><i>Example:</i> A system costs $8,000. It produces 6,000 kWh/year. The grid tariff is $0.20/kWh. Annual savings = 6,000 × $0.20 = $1,200. Payback = 8,000 / 1,200 = <b>6.6 years</b>.</p>\n<h3>Degradation</h3><p>Solar panels degrade slowly over time. Assume a 0.5% per year degradation rate. In year 25, the panels will still produce ~88% of their original capacity. Account for this in your financial models.</p>\n<h3>Activity</h3><p>Calculate the payback period for a $15,000 system producing 10,000 kWh/year with a grid tariff of $0.15/kWh.</p>",
-          "quiz": [
-            {"q":"Performance ratio helps assess:","opts":["Actual system performance relative to a reference yield","Learner attendance only","Battery paint quality","Roof construction cost only"],"answer":0,"explanation":"Performance ratio relates measured output to the expected reference yield."},
-            {"q":"Shading can cause:","opts":["Energy loss and module/string mismatch effects","Higher guaranteed output","No effect on PV","AC frequency increase"],"answer":0,"explanation":"Shading reduces irradiance and can affect string performance."},
-            {"q":"A lifecycle evaluation considers:","opts":["Costs and performance over the system life","Only purchase price","Only module weight","Only one sunny afternoon"],"answer":0,"explanation":"Lifecycle thinking includes capital, operation, maintenance, replacement and energy value."},
-            {"q":"A good capstone report includes:","opts":["Assumptions, calculations, equipment schedule and diagram","Only a product logo","Only the final certificate","No units or sources"],"answer":0,"explanation":"A technical report should be transparent and traceable."},
-            {"q":"A preliminary design should be:","opts":["Reviewed against site data, standards and manufacturer limits","Installed without checks","Treated as a construction approval","Used to bypass permits"],"answer":0,"explanation":"Preliminary sizing is not a substitute for detailed design review and required approvals."}
-          ]
-        },
-        {
-          "title": "Residential Solar PV Design Capstone",
-          "duration": "25 minutes",
-          "html": "<p>You have reached the final capstone. You must now combine all the skills you have learned to produce a comprehensive preliminary design.</p>\n<h3>Capstone Requirements:</h3><ol><li><b>Load Schedule:</b> Estimate the daily energy (kWh) and peak demand (kW) for a 3-bedroom home.</li><li><b>Array Sizing:</b> Calculate the required array size based on 4.5 PSH and 80% efficiency.</li><li><b>Battery Sizing:</b> Calculate the required battery capacity for 1 day of autonomy and 80% DoD.</li><li><b>Inverter Selection:</b> Select an inverter from a datasheet that matches your peak load and array voltage.</li><li><b>SLD:</b> Draw a basic diagram showing the connection between the PV, Inverter, Battery, and AC loads.</li></ol>\n<div class=\"callout\"><b>Submission:</b> In a real professional setting, this document would be submitted for peer review and sign-off by a licensed engineer before any equipment is purchased or installed.</div>\n<p>Review your calculations carefully. Ensure all units are correct and all assumptions are explicitly stated.</p>",
-          "quiz": [
-            {"q":"A lifecycle evaluation considers:","opts":["Costs and performance over the system life","Only purchase price","Only module weight","Only one sunny afternoon"],"answer":0,"explanation":"Lifecycle thinking includes capital, operation, maintenance, replacement and energy value."},
-            {"q":"A good capstone report includes:","opts":["Assumptions, calculations, equipment schedule and diagram","Only a product logo","Only the final certificate","No units or sources"],"answer":0,"explanation":"A technical report should be transparent and traceable."},
-            {"q":"A preliminary design should be:","opts":["Reviewed against site data, standards and manufacturer limits","Installed without checks","Treated as a construction approval","Used to bypass permits"],"answer":0,"explanation":"Preliminary sizing is not a substitute for detailed design review and required approvals."},
-            {"q":"Performance ratio helps assess:","opts":["Actual system performance relative to a reference yield","Learner attendance only","Battery paint quality","Roof construction cost only"],"answer":0,"explanation":"Performance ratio relates measured output to the expected reference yield."},
-            {"q":"Shading can cause:","opts":["Energy loss and module/string mismatch effects","Higher guaranteed output","No effect on PV","AC frequency increase"],"answer":0,"explanation":"Shading reduces irradiance and can affect string performance."}
-          ]
-        }
-      ]
+      title: "Cables, Protection, Integration & Economics",
+      lessons: [{
+        title: "Cable Sizing, Protection, Single-Line Diagrams and Lifecycle Economics",
+        duration: "65 minutes",
+        html: `<p>The final design phase turns the selected equipment into an installable, safe, documented system. Cable sizing, protection coordination, earthing, single-line diagrams and economics all converge here — and this is where most non-compliant installations fail inspection.</p>
+<div class="callout"><b>Core principle:</b> A system that works on the bench but fails inspection is not a design. Compliance, documentation and lifecycle cost are part of the engineering.</div>
+
+<h3>Learning outcomes</h3>
+<p>By the end of this lesson you should be able to: calculate DC voltage drop; size protection against the string Isc; describe what a single-line diagram must contain; list commissioning checks; and calculate payback and LCOE.</p>
+
+<h3>1. Cable sizing — ampacity and voltage drop</h3>
+<p>Two independent checks apply:</p>
+<ul>
+  <li><b>Ampacity</b> — the cable's current-carrying capacity after derating for installation method and ambient temperature must exceed the design current.</li>
+  <li><b>Voltage drop</b> — the loss along the run must stay within limits: typically <b>≤ 2% on DC</b> and <b>≤ 3% on AC</b>.</li>
+</ul>
+<p style="text-align:center;font-weight:bold;font-size:16px;">V_drop = (2 × L × I × ρ) ÷ A</p>
+<p>where L = one-way length (m), I = current (A), ρ = copper resistivity ≈ 0.0175 Ω·mm²/m, A = cross-sectional area (mm²). The factor 2 accounts for the return path.</p>
+
+<p><b>Worked example:</b> 10 m one-way run, 6 mm² copper, 20 A, 48 V system.</p>
+<p>V_drop = (2 × 10 × 20 × 0.0175) ÷ 6 = 7.0 ÷ 6 = <b>1.17 V</b>.</p>
+<p>Percentage = 1.17 ÷ 48 × 100 = <b>2.4%</b> — above the 2% DC limit. Increase to 10 mm²: V_drop = 7.0 ÷ 10 = 0.70 V = 1.46% ✓.</p>
+
+<h3>2. Protection coordination</h3>
+<table class="compare">
+<tr><th>Device</th><th>Purpose</th><th>Sizing basis</th></tr>
+<tr><td>String fuse / DC MCB</td><td>Protect the cable and module against reverse current and faults</td><td>≥ 1.25 × Isc, ≤ cable ampacity</td></tr>
+<tr><td>DC isolator</td><td>Safe isolation of the array for maintenance</td><td>DC-rated for full string Voc and Isc</td></tr>
+<tr><td>AC breaker</td><td>Protect AC circuit; isolate inverter</td><td>≥ inverter output current; AC-rated</td></tr>
+<tr><td>RCD / RCBO</td><td>Earth-leakage protection on AC side</td><td>Type and rating per local code</td></tr>
+<tr><td>SPD (DC and AC)</td><td>Surge protection, especially lightning-prone sites</td><td>Voltage rating ≥ system voltage; Type 2 typical</td></tr>
+<tr><td>Earthing / bonding</td><td>Module frames, inverter chassis, battery rack</td><td>Per local code; tested resistance</td></tr>
+</table>
+
+<div class="callout"><b>DC-rated devices only:</b> A PV DC circuit can sustain an arc when interrupted. AC breakers and switches must never be used on the DC side. DC isolators and fuses must be rated for the full DC voltage (often 600 V or 1,000 V DC) and the prospective current.</div>
+
+<h3>3. Single-line diagram (SLD)</h3>
+<p>The SLD is the single document that shows the entire electrical topology. A compliant SLD includes:</p>
+<ul>
+  <li>PV array configuration — number of strings and modules per string.</li>
+  <li>DC isolators, fuses/MCBs and SPDs.</li>
+  <li>Inverter make/model/ratings, MPPT configuration.</li>
+  <li>Battery bank, BMS and DC breaker.</li>
+  <li>AC isolator, main breaker, RCD and SPD.</li>
+  <li>Utility connection point, meter and export limitation (if any).</li>
+  <li>Earthing arrangement.</li>
+  <li>Labels — DC warnings, isolation points, dual supply warning.</li>
+</ul>
+
+<div class="diagram">
+  <svg viewBox="0 0 800 280" role="img" aria-label="Simplified single-line diagram">
+    <g font-family="Arial" font-size="11" stroke-width="2">
+      <line x1="50" y1="50" x2="750" y2="50" stroke="#333"/>
+      <circle cx="50" cy="50" r="4" fill="#333"/><circle cx="750" cy="50" r="4" fill="#333"/>
+      <rect x="100" y="35" width="60" height="30" fill="#fff" stroke="#333"/>
+      <text x="130" y="53" text-anchor="middle" stroke="none">PV string</text>
+      <rect x="200" y="35" width="60" height="30" fill="#fff" stroke="#333"/>
+      <text x="230" y="53" text-anchor="middle" stroke="none">DC fuse</text>
+      <rect x="300" y="35" width="70" height="30" fill="#fff" stroke="#333"/>
+      <text x="335" y="53" text-anchor="middle" stroke="none">DC isolator</text>
+      <rect x="420" y="35" width="80" height="30" fill="#fff" stroke="#333"/>
+      <text x="460" y="53" text-anchor="middle" stroke="none">Inverter</text>
+      <rect x="540" y="35" width="70" height="30" fill="#fff" stroke="#333"/>
+      <text x="575" y="53" text-anchor="middle" stroke="none">AC breaker</text>
+      <rect x="640" y="35" width="60" height="30" fill="#fff" stroke="#333"/>
+      <text x="670" y="53" text-anchor="middle" stroke="none">Grid</text>
+      <line x1="460" y1="65" x2="460" y2="110" stroke="#333"/>
+      <rect x="410" y="110" width="100" height="30" fill="#fff" stroke="#333"/>
+      <text x="460" y="128" text-anchor="middle" stroke="none">Battery bank</text>
+      <line x1="460" y1="140" x2="460" y2="180" stroke="#333"/>
+      <rect x="410" y="180" width="100" height="30" fill="#fff" stroke="#333"/>
+      <text x="460" y="198" text-anchor="middle" stroke="none">BMS</text>
+    </g>
+  </svg>
+  <div class="diagram-cap">Figure 7: Simplified SLD for a hybrid system. A compliant SLD also includes SPDs, earthing and labels.</div>
+</div>
+
+<h3>4. Commissioning checks</h3>
+<ul>
+  <li>Visual inspection — mounting, torque, cable routing, labelling.</li>
+  <li>Polarity of every string before connection.</li>
+  <li>Open-circuit voltage and short-circuit current per string, compared with expected values.</li>
+  <li>Insulation resistance test on DC and AC circuits.</li>
+  <li>Earth continuity and earth resistance test.</li>
+  <li>Inverter firmware, grid code and battery settings; functional test of anti-islanding.</li>
+  <li>Documentation — as-built SLD, test records, datasheets, settings, warranty.</li>
+</ul>
+<p>Electrical installation and testing must be carried out by <b>competent, appropriately qualified personnel</b>. A design document is not a construction approval; installation requires the relevant permits and sign-offs.</p>
+
+<h3>5. Lifecycle economics</h3>
+<p style="text-align:center;font-weight:bold;font-size:15px;">Payback (years) = Total system cost ÷ Annual savings</p>
+<p><b>Worked example:</b> system cost $8,000, annual yield 6,000 kWh, grid tariff $0.20/kWh.</p>
+<p>Annual savings = 6,000 × 0.20 = $1,200. Payback = 8,000 ÷ 1,200 = <b>6.7 years</b>.</p>
+
+<p style="text-align:center;font-weight:bold;font-size:15px;">LCOE = (Total lifecycle cost) ÷ (Total lifetime energy)</p>
+<p>Lifecycle cost includes capital, maintenance, inverter replacement (typically at year 10–15) and battery replacement (off-grid/hybrid, every 8–15 years depending on chemistry). Lifetime energy must account for <b>module degradation</b> — typically 0.5% per year, so year-25 output is ~88% of year-1.</p>
+
+<p><b>Performance Ratio (PR)</b> = actual energy ÷ theoretical energy. A well-designed system achieves 75–85%. A PR below 70% suggests shading, soiling, mismatch or inverter issues.</p>
+
+<h3>6. Capstone design brief</h3>
+<p>Produce a preliminary design for a 3-bedroom home with these deliverables:</p>
+<ol>
+  <li>Load schedule with daily energy and peak demand, including motor surge.</li>
+  <li>Array sizing at 4.5 PSH worst-month and 80% efficiency; module count and string configuration.</li>
+  <li>Battery sizing for 1 day autonomy at 80% DoD.</li>
+  <li>Inverter selection with all compatibility checks (voltage, current, charge rate, BMS).</li>
+  <li>Single-line diagram.</li>
+  <li>Cable sizing with voltage-drop calculations for the longest DC and AC runs.</li>
+  <li>Payback and LCOE with stated assumptions.</li>
+</ol>
+<div class="callout"><b>Professional note:</b> In practice this document would be peer-reviewed and signed off by a licensed engineer before any equipment is purchased or installed. Preliminary sizing is not a substitute for detailed design review and required approvals.</div>
+
+<h3>Summary</h3>
+<ul>
+  <li>Cable sizing: ampacity AND voltage drop (≤ 2% DC, ≤ 3% AC).</li>
+  <li>Protection must be DC-rated on the DC side; fuses sized ≥ 1.25 × Isc and ≤ cable ampacity.</li>
+  <li>The SLD and commissioning records are part of the deliverable.</li>
+  <li>Payback = cost ÷ annual savings; LCOE accounts for lifetime cost and degradation.</li>
+</ul>`,
+        quiz: [
+          { q: "For a 10 m one-way DC run carrying 20 A in 6 mm² copper (ρ = 0.0175 Ω·mm²/m), what is the voltage drop?", opts: ["0.58 V", "1.17 V", "2.34 V", "3.50 V"], answer: 1, explanation: "V_drop = (2 × 10 × 20 × 0.0175) ÷ 6 = 7.0 ÷ 6 = 1.17 V." },
+          { q: "What is the maximum recommended DC voltage drop?", opts: ["2%", "5%", "10%", "No limit"], answer: 0, explanation: "DC voltage drop should typically be kept to 2% or less; AC to 3% or less." },
+          { q: "Why must DC-side protection be DC-rated rather than AC-rated?", opts: ["DC arcs are harder to extinguish and DC devices are designed for it", "AC devices are cheaper", "DC circuits never fault", "DC and AC breakers are identical"], answer: 0, explanation: "A PV DC circuit can sustain an arc; only DC-rated devices are designed to interrupt it safely." },
+          { q: "A system costs $9,000 and saves $1,500 per year. What is the simple payback?", opts: ["4 years", "6 years", "9 years", "13.5 years"], answer: 1, explanation: "Payback = 9,000 ÷ 1,500 = 6 years." },
+          { q: "A single-line diagram must include which of the following?", opts: ["Only the module brand", "String configuration, protection, inverter, battery, earthing and labels", "Only the client's name", "Only the quiz results"], answer: 1, explanation: "A compliant SLD documents the full electrical topology — strings, protection, inverter, storage, earthing and safety labels." }
+        ]
+      }]
     }
   ]
 };
@@ -425,7 +983,6 @@ async function currentUser() {
   return null;
 }
 
-// Progress tracking helpers (stored in memory/localStorage for instant UI, synced to DB)
 const PROGRESS_KEY = 'logi_progress_cache';
 function getProgressCache() {
   try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch { return {}; }
@@ -441,13 +998,9 @@ async function loadStudentData(user, force = false) {
     if (!res.ok) return;
     const data = await res.json();
     const cache = getProgressCache();
-    
-    // Reset cache for this course before loading fresh data
     Object.keys(cache).forEach(k => {
        if (k.startsWith(COURSE.id)) delete cache[k];
     });
-
-    // Map DB rows into the cache format used by the UI
     if (data.progress) {
       data.progress.forEach(row => {
         const key = `${COURSE.id}_${row.module_id}_${row.lesson_id}`;
@@ -516,21 +1069,18 @@ const App = (() => {
     if (sidebar) sidebar.classList.toggle('open');
     if (overlay) overlay.classList.toggle('open');
   }
-
   function closeMobileMenu() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.getElementById('drawerOverlay');
     if (sidebar) sidebar.classList.remove('open');
     if (overlay) overlay.classList.remove('open');
   }
-
   function toggleModuleMenu() {
     const modSide = document.querySelector('.module-side');
     const overlay = document.getElementById('moduleOverlay');
     if (modSide) modSide.classList.toggle('open');
     if (overlay) overlay.classList.toggle('open');
   }
-
   function closeModuleMenu() {
     const modSide = document.querySelector('.module-side');
     const overlay = document.getElementById('moduleOverlay');
@@ -542,7 +1092,6 @@ const App = (() => {
     const el = document.getElementById('navActions');
     const toggleBtn = document.getElementById('menuToggleBtn');
     const u = await currentUser();
-
     if (u) {
       if (toggleBtn) toggleBtn.style.display = 'inline-flex';
       el.innerHTML = `
@@ -594,7 +1143,7 @@ const App = (() => {
 
     const el = document.getElementById('app');
     el.innerHTML = `
-      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
+      <section style="padding:52px 0;background:linear-gradient(120deg,#f7eded,#f3f0fa);">
         <div class="inner">
           <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Solar PV System Design and Sizing</div>
           <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Professional level · 8–10 hours</div>
@@ -602,7 +1151,7 @@ const App = (() => {
           <p style="max-width:720px;color:#666;">${esc(COURSE.desc)}</p>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:720px;margin-top:18px;">
             <div class="stat-box"><div class="num">7</div><div class="lbl">Modules</div></div>
-            <div class="stat-box"><div class="num">14</div><div class="lbl">Lessons</div></div>
+            <div class="stat-box"><div class="num">7</div><div class="lbl">Lessons</div></div>
             <div class="stat-box"><div class="num">Free</div><div class="lbl">Enrolment</div></div>
           </div>
           <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1500&q=85" alt="Solar photovoltaic panels under sunlight" style="width:100%;max-height:340px;object-fit:cover;border-radius:14px;margin-top:24px;">
@@ -640,10 +1189,8 @@ const App = (() => {
     const email = document.getElementById('loginUser').value.trim().toLowerCase();
     const password = document.getElementById('loginPass').value;
     const err = document.getElementById('loginError');
-
     if (!email || !password) { err.textContent = 'Please enter your email and password.'; return; }
     err.textContent = 'Signing in...';
-
     try {
       const res = await fetch(`${API_BASE}/login`, {
         method: 'POST',
@@ -652,9 +1199,8 @@ const App = (() => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-      
       localStorage.setItem('logi_user', JSON.stringify(data));
-      currentSessionUser = null; // force reload
+      currentSessionUser = null;
       await showDashboard();
     } catch (e) {
       err.textContent = e.message;
@@ -689,12 +1235,9 @@ const App = (() => {
     const password = document.getElementById('regPass').value;
     const password2 = document.getElementById('regPass2').value;
     const err = document.getElementById('regError');
-
     if (!name || !email || !password || !password2) { err.textContent = 'All fields are required.'; return; }
     if (password !== password2) { err.textContent = 'Passwords do not match.'; return; }
-
     err.textContent = 'Creating account...';
-    
     try {
       const res = await fetch(`${API_BASE}/register`, {
         method: 'POST',
@@ -703,7 +1246,6 @@ const App = (() => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
-
       localStorage.setItem('logi_user', JSON.stringify(data));
       currentSessionUser = null;
       await showDashboard();
@@ -722,7 +1264,6 @@ const App = (() => {
   async function showDashboard() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
-
     await loadStudentData(u);
     state.user = u;
     state.screen = 'dashboard';
@@ -746,9 +1287,9 @@ const App = (() => {
           <div class="card">
             <h2>Solar PV System Design and Sizing</h2>
             <div class="progress-bar" style="margin:14px 0 8px;"><span style="width:${pct}%;"></span></div>
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px;">
-              <p style="margin:0;color:var(--muted);font-size:13px;">Next up: Module ${next.mi+1} · Lesson ${next.li+1}</p>
-              <button class="btn" onclick="App.openCourse(${next.mi}, ${next.li})">Continue learning →</button>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:12px;">
+              <span style="font-size:13px;color:var(--muted);">${pct}% complete</span>
+              <button class="btn" onclick="App.openCourse(${next.mi},${next.li})">${pct===0?'Start course':'Continue learning'}</button>
             </div>
           </div>
         </main>
@@ -757,7 +1298,31 @@ const App = (() => {
     renderNav();
   }
 
-  async function openCourse(mi = 0, li = 0) {
+  async function showCatalogue() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'catalogue';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('catalogue')}
+        <main class="main-panel">
+          <h1>Course catalogue</h1>
+          <div class="catalogue-grid" style="margin-top:16px;">
+            <div class="course-tile">
+              <h3>${esc(COURSE.title)}</h3>
+              <p class="desc">${esc(COURSE.desc)}</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Open course</button>
+            </div>
+          </div>
+        </main>
+      </div>
+    `;
+    renderNav();
+  }
+
+  async function openCourse(mi, li) {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     state.user = u;
@@ -765,255 +1330,573 @@ const App = (() => {
     state.activeCourseModule = mi;
     state.activeCourseLesson = li;
     state.activeAssessment = false;
+    closeModuleMenu();
+    renderCourse();
+  }
 
-    const lesson = COURSE.modules[mi].lessons[li];
-    const pct = courseProgressPct(u.username);
+  async function renderCourse() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+
+    const username = u.username;
+    const mi = state.activeCourseModule;
+    const li = state.activeCourseLesson;
+    const mod = COURSE.modules[mi];
+    if (!mod) { showDashboard(); return; }
+
+    if (isModuleLocked(username, mi)) {
+      alert('This module is locked. Pass the previous module assessment to unlock it.');
+      openCourse(Math.max(0, mi-1), 0);
+      return;
+    }
+    const lesson = mod.lessons[li];
+    if (state.activeAssessment) { renderAssessmentScreen(); return; }
+
+    const pct = courseProgressPct(username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div style="font-size:12px;color:var(--muted);">${pct}% completed</div>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" class="mobile-module-toggle" style="display:none;padding:2px 8px;font-size:14px;border:0;" id="closeModBtn">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m, i) => {
+                const locked = isModuleLocked(username, i);
+                const isOpen = (i === mi);
+                const modPassed = getQuizResult(username, i)?.completed;
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked ? 'locked' : ''}"
+                      onclick="${locked ? `App.alertLocked(${i})` : `App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l, j) => {
+                        const done = isLessonDone(username, i, j);
+                        const isCurrent = (i === mi && j === li && !state.activeAssessment);
+                        return `
+                          <button class="lesson-item-btn ${isCurrent ? 'active' : ''} ${done ? 'done' : ''}"
+                            onclick="App.openCourse(${i}, ${j})">
+                            <span>${done ? '✓' : '📖'}</span>
+                            <span style="flex:1;">${esc(l.title)}</span>
+                          </button>
+                        `;
+                      }).join('')}
+                      <button class="lesson-item-btn ${i === mi && state.activeAssessment ? 'active' : ''}"
+                        onclick="${locked ? `App.alertLocked(${i})` : `App.openAssessment(${i})`}">
+                        <span>${modPassed ? '✅' : '📝'}</span>
+                        <span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <div style="font-size:12px;color:var(--muted);text-transform:uppercase;">Module ${mi+1} · ${esc(lesson.duration)}</div>
+              <h1 style="font-size:24px;line-height:1.2;margin:6px 0 18px;">${esc(lesson.title)}</h1>
+              <div>${lesson.html}</div>
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.prevLesson()">← Previous</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button class="btn" onclick="App.markCurrentLesson()">${isLessonDone(username, mi, li) ? 'Completed ✓' : 'Mark complete'}</button>
+                  <button class="btn-secondary" onclick="App.nextLesson()">Next →</button>
+                </div>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function toggleAccordion(i) {
+    if (state.activeCourseModule === i && !state.activeAssessment) {
+      const modSections = document.querySelectorAll('.mod-section');
+      if (modSections[i]) modSections[i].classList.toggle('open');
+      return;
+    }
+    state.activeCourseModule = i;
+    state.activeCourseLesson = 0;
+    state.activeAssessment = false;
+    renderCourse();
+  }
+
+  function openAssessment(i) {
+    state.activeCourseModule = i;
+    state.activeAssessment = true;
+    closeModuleMenu();
+    renderAssessmentScreen();
+  }
+
+  async function renderAssessmentScreen() {
+    const u = await currentUser();
+    if (!u) return;
+    state.user = u;
+
+    const mi = state.activeCourseModule;
+    const mod = COURSE.modules[mi];
+    const quiz = mod.lessons[0].quiz || [];
+    const username = u.username;
+    const result = getQuizResult(username, mi);
+    const passed = !!result?.completed;
+    const pct = courseProgressPct(username);
+    const isLastModule = (mi + 1 >= COURSE.modules.length);
+    const allDone = courseCompleted(username);
+
+    let nextLabel = 'Next Module →';
+    if (isLastModule) nextLabel = allDone ? 'View Certificate →' : 'Finish →';
+
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="inner" style="padding:16px 0 48px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">
+            📚 Course Content (${pct}%)
+          </button>
+        </div>
+        <div class="course-layout">
+          <aside class="module-side">
+            <div class="sidehead" style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div>
+                <h2>Course content</h2>
+                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
+              </div>
+              <button onclick="App.closeModuleMenu()" style="background:none;border:0;font-size:18px;cursor:pointer;">✕</button>
+            </div>
+            <div class="modules">
+              ${COURSE.modules.map((m,i)=>{
+                const locked=isModuleLocked(username,i);
+                const isOpen = (i === mi);
+                return `
+                  <div class="mod-section ${isOpen ? 'open' : ''}">
+                    <button class="mod-header ${locked?'locked':''}" onclick="${locked?`App.alertLocked(${i})`:`App.toggleAccordion(${i})`}">
+                      <span>Module ${i+1}: ${esc(m.title)}</span>
+                      <span>${locked ? '🔒' : (isOpen ? '▲' : '▼')}</span>
+                    </button>
+                    <div class="mod-lessons-list">
+                      ${m.lessons.map((l,j)=>`
+                        <button class="lesson-item-btn" onclick="App.openCourse(${i},${j})">
+                          <span>📖</span><span style="flex:1;">${esc(l.title)}</span>
+                        </button>
+                      `).join('')}
+                      <button class="lesson-item-btn active" onclick="App.openAssessment(${i})">
+                        <span>📝</span><span style="flex:1;">Module ${i+1} Assessment</span>
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </aside>
+          <section class="content">
+            <article class="card lesson-card">
+              <h2>Module ${mi+1} Assessment</h2>
+              ${renderQuizUI(mi, quiz)}
+              <div class="actions">
+                <button class="btn-secondary" onclick="App.previousFromAssessment()">← Back to lesson</button>
+                <button id="nextBtn_${mi}" class="btn ${passed ? '' : 'btn-secondary'}"
+                  ${passed ? '' : 'disabled'} style="${passed ? '' : 'opacity:.5;'}"
+                  onclick="App.continueAfterAssessment()">${nextLabel}</button>
+              </div>
+            </article>
+          </section>
+        </div>
+      </div>
+    `;
+    renderNav();
+  }
+
+  function renderQuizUI(mi, quiz) {
+    const u = state.user;
+    const result = u ? getQuizResult(u.username, mi) : null;
+    return `
+      <div style="margin-top:16px;">
+        ${result ? `<div class="callout">Previous attempt score: ${result.score}/${result.total}</div>` : ''}
+        ${quiz.map((q, qi) => `
+          <div class="q" data-qindex="${qi}">
+            <b>${qi+1}. ${esc(q.q)}</b>
+            ${q.opts.map((opt, oi) => `
+              <label data-opt="${oi}" onclick="App.selectOption(${qi},${oi})">
+                <input type="radio" name="q${mi}_${qi}" value="${oi}"> ${esc(opt)}
+              </label>
+            `).join('')}
+            <div class="feedback" id="fb_${mi}_${qi}"></div>
+          </div>
+        `).join('')}
+        <button class="btn" style="margin-top:14px;" onclick="App.submitQuiz(${mi})">Submit Answers</button>
+        <p id="quizResult_${mi}" style="font-weight:700;margin-top:8px;"></p>
+      </div>
+    `;
+  }
+
+  function selectOption(qi, oi) {
+    const wrap = document.querySelector(`.q[data-qindex="${qi}"]`);
+    if (!wrap) return;
+    wrap.querySelectorAll('label').forEach(l => l.classList.remove('selected'));
+    const lbl = wrap.querySelector(`label[data-opt="${oi}"]`);
+    if (lbl) {
+      lbl.classList.add('selected');
+      const radio = lbl.querySelector('input');
+      if (radio) radio.checked = true;
+    }
+  }
+
+  async function submitQuiz(mi) {
+    const u = await currentUser();
+    if (!u) return;
+    const quiz = COURSE.modules[mi].lessons[0].quiz;
+    let score = 0;
+    let answeredAll = true;
+
+    quiz.forEach((q, qi) => {
+      const sel = document.querySelector(`input[name="q${mi}_${qi}"]:checked`);
+      const fb = document.getElementById(`fb_${mi}_${qi}`);
+      if (!sel) {
+        answeredAll = false;
+        if (fb) { fb.textContent = 'Please select an answer.'; fb.style.color = 'var(--error)'; }
+        return;
+      }
+      if (parseInt(sel.value) === q.answer) {
+        score++;
+        if (fb) { fb.textContent = 'Correct!'; fb.style.color = 'var(--success)'; }
+      } else {
+        if (fb) { fb.textContent = 'Incorrect.'; fb.style.color = 'var(--error)'; }
+      }
+    });
+
+    const resultEl = document.getElementById('quizResult_' + mi);
+    if (!answeredAll) {
+      if (resultEl) {
+        resultEl.textContent = 'Please answer all questions before submitting.';
+        resultEl.style.color = 'var(--error)';
+      }
+      return;
+    }
+
+    const passed = (score / quiz.length * 100) >= COURSE.passMark;
+
+    try {
+      await fetch(`${API_BASE}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+        body: JSON.stringify({
+          moduleId: `solar_${mi+1}`,
+          lessonId: `quiz_1`,
+          completed: passed ? 1 : 0,
+          quizScore: score,
+          quizTotal: quiz.length
+        })
+      });
+      await loadStudentData(u, true);
+    } catch (e) { console.error(e); }
+
+    if (passed) {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
+        resultEl.style.color = 'var(--success)';
+      }
+      const nextBtn = document.getElementById('nextBtn_' + mi);
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('btn-secondary');
+        nextBtn.classList.add('btn');
+        nextBtn.style.opacity = '1';
+        const isLast = (mi + 1 >= COURSE.modules.length);
+        nextBtn.textContent = isLast
+          ? (courseCompleted(u.username) ? 'View Certificate →' : 'Finish →')
+          : 'Next Module →';
+      }
+    } else {
+      if (resultEl) {
+        resultEl.textContent = `Scored ${score}/${quiz.length}. Try again.`;
+        resultEl.style.color = 'var(--error)';
+      }
+    }
+  }
+
+  function alertLocked(i) { alert('Module ' + (i+1) + ' is locked until you pass the previous assessment.'); }
+  function previousFromAssessment() { state.activeAssessment = false; renderCourse(); }
+
+  function continueAfterAssessment() {
+    const mi = state.activeCourseModule;
+    const username = state.user?.username;
+    if (!username) return;
+    if (mi + 1 < COURSE.modules.length) {
+      openCourse(mi + 1, 0);
+    } else if (courseCompleted(username)) {
+      showCertificate();
+    } else {
+      showDashboard();
+    }
+  }
+
+  async function markCurrentLesson() {
+    const u = await currentUser();
+    if (!u) return;
+    try {
+      await fetch(`${API_BASE}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+        body: JSON.stringify({
+          moduleId: `solar_${state.activeCourseModule+1}`,
+          lessonId: `lesson_${state.activeCourseLesson+1}`,
+          completed: 1,
+          quizScore: 0,
+          quizTotal: 0
+        })
+      });
+      await loadStudentData(u, true);
+    } catch (e) { console.error(e); }
+    renderCourse();
+  }
+
+  async function prevLesson() {
+    let mi = state.activeCourseModule, li = state.activeCourseLesson - 1;
+    if (li < 0) { mi--; li = 0; }
+    if (mi >= 0) openCourse(mi, li);
+  }
+
+  async function nextLesson() {
+    const mi = state.activeCourseModule, li = state.activeCourseLesson + 1;
+    if (li < COURSE.modules[mi].lessons.length) openCourse(mi, li);
+    else { state.activeAssessment = true; renderCourse(); }
+  }
+
+  async function showCertificate() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'certificate';
+    const completed = courseCompleted(u.username);
+
+    let cert = null;
+    if (completed) {
+      try {
+        const res = await fetch(`${API_BASE}/certificates`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getAuth().token}` },
+          body: JSON.stringify({
+            courseId: COURSE.id,
+            courseTitle: COURSE.title,
+            studentName: u.fullName || u.email
+          })
+        });
+        const data = await res.json();
+        if (data.success) cert = data.certificate;
+      } catch (e) { console.error(e); }
+    }
 
     const el = document.getElementById('app');
     el.innerHTML = `
       <div class="dash-layout">
-        ${renderSidebarHTML('course')}
-        <main class="main-panel">
-          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">☰ Course outline</button>
-          
-          <div class="course-layout">
-            <div class="module-side">
-              <div class="sidehead">
-                <h2>${esc(COURSE.title)}</h2>
-                <div class="progress-bar"><span style="width:${pct}%;"></span></div>
-                <div style="font-size:12px;color:var(--muted);margin-top:6px;">${pct}% complete</div>
-              </div>
-              <div class="modules">
-                ${COURSE.modules.map((m, mIdx) => {
-                  const locked = isModuleLocked(u.username, mIdx);
-                  const isOpen = mIdx === mi;
-                  return `
-                    <div class="mod-section ${isOpen ? 'open' : ''}">
-                      <button class="mod-header ${locked ? 'locked' : ''}" onclick="App.toggleModuleSection(this, ${mIdx}, ${locked})">
-                        <span>${esc(m.title)}</span>
-                        <span>${locked ? '🔒' : (isOpen ? '▼' : '▶')}</span>
-                      </button>
-                      <div class="mod-lessons-list">
-                        ${m.lessons.map((l, lIdx) => {
-                          const done = isLessonDone(u.username, mIdx, lIdx);
-                          const active = mIdx === mi && lIdx === li;
-                          return `
-                            <button class="lesson-item-btn ${active ? 'active' : ''} ${done ? 'done' : ''}" onclick="App.openCourse(${mIdx}, ${lIdx})">
-                              <span>${done ? '✅' : '○'}</span>
-                              <span>${esc(l.title)}</span>
-                            </button>
-                          `;
-                        }).join('')}
+        ${renderSidebarHTML('certificate')}
+        <main class="main-panel" style="background: #fbfafc;">
+          <h1>My certificate</h1>
+          <p class="subtitle">Your certificate becomes available once you complete all lessons and pass all module assessments.</p>
+
+          ${cert ? `
+            <div class="cert-controls">
+              <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+              <button class="btn" onclick="App.downloadCertificateImage()">📥 Download as PNG</button>
+            </div>
+            <div class="cert-display-area">
+              <div class="cert-scaler" id="certScaler">
+                <div class="cert-wrapper" id="printableCert">
+                  <img class="cert-watermark" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="Watermark" crossorigin="anonymous">
+                  <div class="cert-main">
+                    <div class="cert-header">
+                      <img class="cert-header-logo" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/logo.png" alt="LOGI Logo" crossorigin="anonymous" onerror="this.style.display='none'">
+                      <div class="cert-logo-sub">Living Oracles<br>Global Institute</div>
+                    </div>
+                    <div class="cert-date">${fmtDate(cert.date)}</div>
+                    <div class="cert-name">${esc(cert.studentName)}</div>
+                    <div class="cert-completion">has successfully completed</div>
+                    <div class="cert-course-title">${esc(cert.courseTitle)}</div>
+                    <div class="cert-description">
+                      This course has been developed and delivered by Living Oracles Global Institute, covering system architecture and the design workflow, load analysis, site assessment and solar resource, module selection and array sizing, string design and temperature-corrected voltage limits, battery storage and inverter selection, and cables, protection, integration and lifecycle economics.
+                    </div>
+                    <div class="cert-signature-area">
+                      <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
+                      <div class="cert-signer-name">Prophet Ing Stephen Adusei</div>
+                      <div class="cert-signer-title">Program Director | Living Oracles Global Institute</div>
+                    </div>
+                    <div class="cert-footer-info">
+                      <div class="cert-footer-box">
+                        <div class="cert-footer-logo">LOGI</div>
+                        <div>Living Oracles Global Institute is committed to delivering excellence in education and professional development.</div>
+                      </div>
+                      <div class="cert-footer-box" style="border-left: 1px solid #ccc; padding-left: 15px;">
+                        <div>This is a digitally generated certificate. Authenticity can be verified by scanning the QR code.</div>
                       </div>
                     </div>
-                  `;
-                }).join('')}
+                  </div>
+                  <div class="cert-sidebar">
+                    <div class="cert-partner-box">LOGI</div>
+                    <div class="cert-sidebar-pattern"></div>
+                    <div class="cert-verify-area">
+                      <div class="cert-verify-text">Scan to verify<br>this certificate</div>
+                      <img class="cert-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(cert.id)}" alt="QR Code" crossorigin="anonymous">
+                      <div class="cert-blockchain">Blockchain ID:<br>${esc(cert.hash)}</div>
+                    </div>
+                    <div class="cert-bottom-block"></div>
+                  </div>
+                </div>
               </div>
             </div>
+          ` : `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">🔒</div>
+              <h2>Certificate not yet available</h2>
+              <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
+              <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
+            </div>
+          `}
+        </main>
+      </div>
+    `;
+    renderNav();
+    if (cert) {
+      scaleCertificate();
+      window.addEventListener('resize', scaleCertificate);
+    }
+  }
 
-            <div class="lesson-card card">
-              <div class="crumb" style="font-size:12px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;font-weight:bold;letter-spacing:0.5px;">Module ${mi+1} · Lesson ${li+1}</div>
-              <h1>${esc(lesson.title)}</h1>
-              <div style="margin-top:20px;">
-                ${lesson.html}
-              </div>
-              <div class="actions">
-                <div>
-                  ${mi > 0 || li > 0 ? `<button class="btn-outline" onclick="App.goPrev(${mi}, ${li})">← Previous</button>` : ''}
-                </div>
-                <div>
-                  <button class="btn" onclick="App.startAssessment(${mi}, ${li})">Go to Assessment →</button>
-                </div>
-              </div>
-            </div>
-          </div>
+  function scaleCertificate() {
+    const scaler = document.getElementById('certScaler');
+    if (!scaler) return;
+    const container = scaler.parentElement;
+    const containerWidth = container.clientWidth;
+    const certWidth = 1000;
+    if (containerWidth < certWidth) {
+      const scale = containerWidth / certWidth;
+      scaler.style.transform = `scale(${scale})`;
+      scaler.style.marginBottom = `-${(707 * (1 - scale))}px`;
+    } else {
+      scaler.style.transform = 'none';
+      scaler.style.marginBottom = '0';
+    }
+  }
+
+  function downloadCertificateImage() {
+    const cert = document.getElementById('printableCert');
+    const scaler = document.getElementById('certScaler');
+    if (!cert || !scaler) return;
+    const btn = document.querySelector('button[onclick="App.downloadCertificateImage()"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating...';
+    btn.disabled = true;
+    const originalTransform = scaler.style.transform;
+    const originalMargin = scaler.style.marginBottom;
+    scaler.style.transform = 'none';
+    scaler.style.marginBottom = '0';
+    html2canvas(cert, {
+      scale: 2, useCORS: true, backgroundColor: '#fafafa',
+      width: 1000, height: 707, windowWidth: 1000, windowHeight: 707,
+      onclone: (clonedDoc) => {
+        const desc = clonedDoc.querySelector('.cert-description');
+        if (desc) { desc.style.wordSpacing = 'normal'; desc.style.letterSpacing = 'normal'; }
+      }
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'LOGI_Certificate_Solar_PV_Design.png';
+      link.href = imgData;
+      link.click();
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      alert('Failed to generate image. Please ensure you are connected to the internet so the external signature and QR code can load.');
+      scaler.style.transform = originalTransform;
+      scaler.style.marginBottom = originalMargin;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  async function showDiscussion() {
+    const u = await currentUser();
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'discussion';
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('discussion')}
+        <main class="main-panel">
+          <h1>Discussion Forum</h1>
+          <p class="subtitle">Ask questions and share ideas.</p>
         </main>
       </div>
     `;
     renderNav();
   }
 
-  function toggleModuleSection(btn, mIdx, locked) {
-    if (locked) return;
-    const section = btn.parentElement;
-    section.classList.toggle('open');
-    const icon = btn.querySelector('span:last-child');
-    if (icon) icon.textContent = section.classList.contains('open') ? '▼' : '▶';
-  }
-
-  function goPrev(mi, li) {
-    if (li > 0) openCourse(mi, li - 1);
-    else if (mi > 0) openCourse(mi - 1, COURSE.modules[mi - 1].lessons.length - 1);
-  }
-
-  async function startAssessment(mi, li) {
+  async function showAnnouncements() {
     const u = await currentUser();
-    if (!u) return;
-    state.activeAssessment = true;
-
-    const lesson = COURSE.modules[mi].lessons[li];
-    const quiz = lesson.quiz || [];
-    const cache = getProgressCache();
-    const key = `${COURSE.id}_solar_${mi+1}_lesson_${li+1}`;
-    const existing = cache[key];
-
-    const el = document.querySelector('.lesson-card');
-    if (!el) return;
-
+    if (!u) { showLogin(); return; }
+    state.user = u;
+    state.screen = 'announcements';
+    const el = document.getElementById('app');
     el.innerHTML = `
-      <div class="crumb" style="font-size:12px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;font-weight:bold;letter-spacing:0.5px;">Assessment</div>
-      <h1>${esc(lesson.title)} Quiz</h1>
-      <p style="color:var(--muted);margin-bottom:20px;">Answer all questions to complete this lesson.</p>
-      
-      <div id="quizContainer">
-        ${quiz.map((q, i) => `
-          <div class="q" id="q${i}">
-            <div style="font-weight:600;font-size:15px;margin-bottom:10px;">${i+1}. ${esc(q.q)}</div>
-            <div class="opts">
-              ${q.opts.map((opt, j) => `
-                <label id="opt${i}_${j}" onclick="App.selectOpt(${i}, ${j})">
-                  <input type="radio" name="q${i}" value="${j}" style="margin-right:8px;" onclick="event.stopPropagation(); App.selectOpt(${i}, ${j});">
-                  ${esc(opt)}
-                </label>
-              `).join('')}
-            </div>
-            <div class="feedback" id="fb${i}"></div>
-          </div>
-        `).join('')}
-      </div>
-
-      <div class="actions">
-        <button class="btn-outline" onclick="App.openCourse(${mi}, ${li})">← Back to Lesson</button>
-        <button class="btn" id="submitBtn" onclick="App.submitQuiz(${mi}, ${li})">Submit Answers</button>
+      <div class="dash-layout">
+        ${renderSidebarHTML('announcements')}
+        <main class="main-panel">
+          <h1>Announcements</h1>
+          <p class="subtitle">Important updates from your instructor.</p>
+        </main>
       </div>
     `;
-
-    if (existing && existing.completed) {
-       const fb = document.createElement('div');
-       fb.className = 'callout';
-       fb.style.background = '#e8f5e9';
-       fb.style.borderColor = '#388e3c';
-       fb.innerHTML = `<b>Already Completed:</b> You scored ${existing.score}/${existing.total} on this assessment. You can retake it below to improve your score.`;
-       el.querySelector('#quizContainer').prepend(fb);
-    }
+    renderNav();
   }
 
-  function selectOpt(qIdx, oIdx) {
-    const labels = document.querySelectorAll(`#q${qIdx} .opts label`);
-    labels.forEach((l, i) => {
-      if (i === oIdx) l.classList.add('selected');
-      else l.classList.remove('selected');
-    });
-    const radio = document.querySelector(`input[name="q${qIdx}"][value="${oIdx}"]`);
-    if (radio) radio.checked = true;
+  function goHome() {
+    closeMobileMenu();
+    if (currentSessionUser) showDashboard();
+    else showLanding();
   }
 
-  async function submitQuiz(mi, li) {
+  async function init() {
     const u = await currentUser();
-    if (!u) return;
-
-    const lesson = COURSE.modules[mi].lessons[li];
-    const quiz = lesson.quiz || [];
-    let score = 0;
-    let allAnswered = true;
-
-    quiz.forEach((q, i) => {
-      const selected = document.querySelector(`input[name="q${i}"]:checked`);
-      const fb = document.getElementById(`fb${i}`);
-      
-      if (!selected) { allAnswered = false; return; }
-
-      const ans = parseInt(selected.value);
-      if (ans === q.answer) {
-        score++;
-        fb.innerHTML = `<span style="color:var(--success);font-weight:bold;">✓ Correct.</span> ${esc(q.explanation)}`;
-      } else {
-        fb.innerHTML = `<span style="color:var(--error);font-weight:bold;">✗ Incorrect.</span> The correct answer is <b>${esc(q.opts[q.answer])}</b>. ${esc(q.explanation)}`;
-      }
-    });
-
-    if (!allAnswered) {
-      alert("Please answer all questions before submitting.");
-      return;
-    }
-
-    const total = quiz.length;
-    const pass = (score / total) >= 0.5;
-
-    const cache = getProgressCache();
-    const key = `${COURSE.id}_solar_${mi+1}_lesson_${li+1}`;
-    cache[key] = { completed: pass, score: score, total: total };
-    setProgressCache(cache);
-
-    if (pass) {
-      try {
-        await fetch(`${API_BASE}/progress`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getAuth().token}`
-          },
-          body: JSON.stringify({
-            courseId: COURSE.id,
-            moduleId: `solar_${mi+1}`,
-            lessonId: `lesson_${li+1}`,
-            completed: true,
-            score: score,
-            total: total
-          })
-        });
-      } catch(e) { console.error(e); }
-    }
-
-    const submitBtn = document.getElementById('submitBtn');
-    if (submitBtn) {
-      submitBtn.textContent = pass ? `Passed! (${score}/${total})` : `Failed (${score}/${total}). Retry?`;
-      submitBtn.style.background = pass ? 'var(--success)' : 'var(--error)';
-      submitBtn.onclick = () => {
-        if (pass) {
-          let nextMi = mi, nextLi = li + 1;
-          if (nextLi >= COURSE.modules[mi].lessons.length) {
-            nextMi++;
-            nextLi = 0;
-          }
-          if (nextMi < COURSE.modules.length) {
-            openCourse(nextMi, nextLi);
-          } else {
-            showDashboard();
-          }
-        } else {
-          startAssessment(mi, li);
-        }
-      };
-      submitBtn.textContent = pass ? `Next Lesson →` : `Retry Quiz`;
+    if (u) {
+      await loadStudentData(u, true);
+      await showDashboard();
+    } else {
+      showLanding();
     }
   }
 
   return {
-    toggleMobileMenu,
-    closeMobileMenu,
-    toggleModuleMenu,
-    closeModuleMenu,
-    navigate,
-    showLanding,
-    showLogin,
-    doLogin,
-    showRegister,
-    doRegister,
-    logout,
-    showDashboard,
-    openCourse,
-    toggleModuleSection,
-    goPrev,
-    startAssessment,
-    selectOpt,
-    submitQuiz,
-    goHome: showLanding
+    init, showLanding, showLogin, showRegister, doLogin, doRegister, logout,
+    showDashboard, showCatalogue, showCertificate, showDiscussion, showAnnouncements,
+    openCourse, prevLesson, nextLesson, markCurrentLesson, submitQuiz, selectOption,
+    alertLocked, previousFromAssessment, continueAfterAssessment, goHome,
+    toggleAccordion, openAssessment, toggleMobileMenu, closeMobileMenu,
+    toggleModuleMenu, closeModuleMenu, navigate, downloadCertificateImage
   };
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-  App.showLanding();
+  App.init();
 });
 </script>
 
