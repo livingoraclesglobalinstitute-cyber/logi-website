@@ -12,8 +12,8 @@
 
   <style>
     :root {
-      --p: #8B5353;
-      --pd: #704040;
+      --p: #ff4b93;
+      --pd: #e93680;
       --ink: #34343b;
       --muted: #777780;
       --line: #e9e8ef;
@@ -42,7 +42,7 @@
     .btn { background: var(--p); color: white; border: 0; border-radius: 24px; padding: 10px 18px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; display: inline-flex; align-items: center; gap: 6px; }
     .btn:hover { background: var(--pd); }
     .btn-outline { background: transparent; color: var(--pd); border: 1.5px solid var(--p); border-radius: 24px; padding: 9px 16px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.15s; }
-    .btn-outline:hover { background: #f7eded; }
+    .btn-outline:hover { background: #fff0f6; }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
     .btn-secondary { background: #f0edf3; color: var(--ink); border: 0; border-radius: 24px; padding: 9px 15px; font-weight: 600; cursor: pointer; font-size: 14px; }
     .btn-secondary:hover { background: #e5e1ea; }
@@ -65,8 +65,8 @@
     .sidebar .user-badge strong { display: block; font-size: 14px; }
     .sidebar .user-badge span { color: var(--muted); font-size: 12px; word-break: break-all; }
     .sidebar a, .sidebar button.nav-link { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 6px; background: transparent; border: 0; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; transition: background 0.1s; }
-    .sidebar a:hover, .sidebar button.nav-link:hover { background: #f7eded; color: var(--pd); }
-    .sidebar .nav-link.active { background: #f7eded; color: var(--pd); }
+    .sidebar a:hover, .sidebar button.nav-link:hover { background: #fff3f8; color: var(--pd); }
+    .sidebar .nav-link.active { background: #fff0f6; color: var(--pd); }
     .sidebar .spacer { flex: 1; }
 
     .main-panel { padding: 28px 32px 48px; overflow-y: auto; max-height: calc(100vh - 66px); background: #fbfafc; }
@@ -92,7 +92,7 @@
     .callout { background: var(--warn); border-left: 4px solid #438bd5; padding: 14px 17px; margin: 18px 0; border-radius: 0 6px 6px 0; }
     .compare { width: 100%; border-collapse: collapse; margin: 12px 0; }
     .compare td, .compare th { border: 1px solid var(--line); padding: 10px; text-align: left; font-size: 14px; }
-    .compare th { background: #f7eded; }
+    .compare th { background: #fff3f8; }
 
     .diagram { margin: 20px 0; padding: 16px; background: #fafafd; border: 1px solid var(--line); border-radius: 8px; text-align: center; }
     .diagram svg { max-width: 100%; height: auto; }
@@ -101,7 +101,7 @@
     .q { border-top: 1px solid var(--line); padding: 14px 0; }
     .q label { display: block; border: 1px solid var(--line); padding: 8px 12px; margin: 6px 0; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background 0.1s; }
     .q label:hover { background: #fafafa; }
-    .q label.selected { background: #f7eded; border-color: var(--p); }
+    .q label.selected { background: #fff0f6; border-color: var(--p); }
     .feedback { font-size: 13px; margin-top: 6px; }
     .actions { display: flex; justify-content: space-between; gap: 9px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 24px; }
 
@@ -116,7 +116,7 @@
     .mod-section { border-bottom: 1px solid var(--line); margin-bottom: 4px; }
     .mod-section:last-child { border-bottom: none; }
     .mod-header { width: 100%; text-align: left; background: white; border: 0; padding: 12px 10px; border-radius: 6px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 13px; display: flex; justify-content: space-between; align-items: center; transition: background 0.1s; }
-    .mod-header:hover { background: #f7eded; color: var(--pd); }
+    .mod-header:hover { background: #fff3f8; color: var(--pd); }
     .mod-header.locked { color: #aaa; cursor: not-allowed; }
 
     .mod-lessons-list { padding: 4px 0 8px 10px; display: none; }
@@ -124,7 +124,7 @@
 
     .lesson-item-btn { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: white; border: 0; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #555; cursor: pointer; transition: background 0.1s; }
     .lesson-item-btn:hover { background: #fafafa; color: var(--pd); }
-    .lesson-item-btn.active { color: var(--pd); background: #f7eded; font-weight: 700; }
+    .lesson-item-btn.active { color: var(--pd); background: #fff0f6; font-weight: 700; }
     .lesson-item-btn.done { color: var(--success); }
 
     .drawer-overlay, .module-overlay { display: none; position: fixed; top: 66px; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 35; }
@@ -132,7 +132,7 @@
     .module-overlay { z-index: 45; }
 
     .mobile-module-toggle { display: none; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--p); color: var(--pd); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
-    .mobile-module-toggle:hover { background: #f7eded; }
+    .mobile-module-toggle:hover { background: #fff0f6; }
 
     .cert-display-area { width: 100%; display: flex; justify-content: center; overflow: hidden; padding: 10px 0; }
     .cert-scaler { transform-origin: top center; width: 1000px; height: 707px; }
@@ -161,7 +161,7 @@
     .cert-verify-text { font-size: 9px; color: #555; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4; }
     .cert-qr { width: 100px; height: 100px; margin: 0 auto 15px; display: block; }
     .cert-blockchain { font-size: 9px; color: #888; font-family: monospace; word-break: break-all; line-height: 1.4; }
-    .cert-bottom-block { height: 40px; background: #5a2f2f; }
+    .cert-bottom-block { height: 40px; background: #c2185b; }
     .cert-controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
 
     @media (max-width: 900px) {
@@ -216,7 +216,7 @@
 <div id="app"></div>
 
 <footer class="foot" style="background: #292832; color: white; text-align: center; padding: 22px; font-size: 13px;">
-  <strong style="color: #b98a8a;">Living Oracles Global Institute</strong><br>
+  <strong style="color: #ff8cba;">Living Oracles Global Institute</strong><br>
   Faith. Excellence. Impact.
 </footer>
 
@@ -1143,7 +1143,7 @@ const App = (() => {
 
     const el = document.getElementById('app');
     el.innerHTML = `
-      <section style="padding:52px 0;background:linear-gradient(120deg,#f7eded,#f3f0fa);">
+      <section style="padding:52px 0;background:linear-gradient(120deg,#fff2f7,#f3f0fa);">
         <div class="inner">
           <div class="crumb" style="color:var(--muted);font-size:13px;">Home / Short Courses / Solar PV System Design and Sizing</div>
           <div class="eyebrow" style="color:var(--pd);font-weight:bold;letter-spacing:1.3px;font-size:12px;text-transform:uppercase;">Free online short course · Professional level · 8–10 hours</div>
@@ -1154,7 +1154,7 @@ const App = (() => {
             <div class="stat-box"><div class="num">7</div><div class="lbl">Lessons</div></div>
             <div class="stat-box"><div class="num">Free</div><div class="lbl">Enrolment</div></div>
           </div>
-          <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1500&q=85" alt="Solar photovoltaic panels under sunlight" style="width:100%;max-height:340px;object-fit:cover;border-radius:14px;margin-top:24px;">
+          <img src="https://github.com/livingoraclesglobalinstitute-cyber/logi-website/blob/main/images/solar-pv.jpg?auto=format&fit=crop&w=1500&q=85" alt="Solar photovoltaic panels under sunlight" style="width:100%;max-height:340px;object-fit:cover;border-radius:14px;margin-top:24px;">
           <div style="margin-top:26px;">
             <button class="btn" onclick="App.showRegister()" style="margin-right:10px;">Get started — Register free</button>
             <button class="btn-outline" onclick="App.showLogin()">I already have an account</button>
@@ -1612,6 +1612,7 @@ const App = (() => {
         resultEl.textContent = `Scored ${score}/${quiz.length}. Passed! ✅`;
         resultEl.style.color = 'var(--success)';
       }
+
       const nextBtn = document.getElementById('nextBtn_' + mi);
       if (nextBtn) {
         nextBtn.disabled = false;
@@ -1638,6 +1639,7 @@ const App = (() => {
     const mi = state.activeCourseModule;
     const username = state.user?.username;
     if (!username) return;
+
     if (mi + 1 < COURSE.modules.length) {
       openCourse(mi + 1, 0);
     } else if (courseCompleted(username)) {
@@ -1650,6 +1652,7 @@ const App = (() => {
   async function markCurrentLesson() {
     const u = await currentUser();
     if (!u) return;
+
     try {
       await fetch(`${API_BASE}/progress`, {
         method: 'POST',
@@ -1664,6 +1667,7 @@ const App = (() => {
       });
       await loadStudentData(u, true);
     } catch (e) { console.error(e); }
+
     renderCourse();
   }
 
@@ -1730,7 +1734,7 @@ const App = (() => {
                     <div class="cert-completion">has successfully completed</div>
                     <div class="cert-course-title">${esc(cert.courseTitle)}</div>
                     <div class="cert-description">
-                      This course has been developed and delivered by Living Oracles Global Institute, covering system architecture and the design workflow, load analysis, site assessment and solar resource, module selection and array sizing, string design and temperature-corrected voltage limits, battery storage and inverter selection, and cables, protection, integration and lifecycle economics.
+                      This course has been developed and delivered by Living Oracles Global Institute, covering solar PV topologies, load analysis, site and resource assessment, array sizing, string design with temperature corrections, battery and inverter selection, cable and protection design, and lifecycle economics.
                     </div>
                     <div class="cert-signature-area">
                       <img class="cert-signature-img" src="https://raw.githubusercontent.com/livingoraclesglobalinstitute-cyber/logi-website/main/images/president-signature.svg" alt="Prophet Ing Stephen Adusei Signature" crossorigin="anonymous">
@@ -1899,6 +1903,5 @@ document.addEventListener('DOMContentLoaded', () => {
   App.init();
 });
 </script>
-
 </body>
 </html>
