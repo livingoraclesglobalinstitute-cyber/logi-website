@@ -189,7 +189,12 @@
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      
+      /* Added .review-card-print-hide here */
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice, .review-card-print-hide { 
+        display: none !important; 
+      }
+      
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
       .cert-display-area { padding: 0; overflow: visible; }
@@ -1543,7 +1548,7 @@ const App = (() => {
           `}
 
           ${showReviewCard ? `
-            <div class="card" style="text-align:center;padding:26px 20px;margin-top:24px;background:white;">
+            <div class="card review-card-print-hide" style="text-align:center;padding:26px 20px;margin-top:24px;background:white;">
               <div style="font-size:32px;margin-bottom:6px;">⭐⭐⭐⭐⭐</div>
               <h2 style="margin:0 0 8px;">Enjoying the course?</h2>
               <p style="margin:0 0 16px;color:#666;">Your honest review on Google helps other learners find us. It only takes 30 seconds.</p>
