@@ -182,31 +182,42 @@
       .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
     }
 
-        @media print {
-      @page { size: landscape; margin: 0; }
-      body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            @media print {
+      @page { 
+        size: landscape; 
+        margin: 0; 
+      }
+      body { 
+        background: white !important; 
+        padding: 0 !important; 
+        margin: 0 !important; 
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact; 
+      }
       
-      /* Hide all UI elements */
+      /* 1. Completely hide everything that isn't the certificate */
       .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice, .review-card-print-hide { 
         display: none !important; 
       }
       
-      .dash-layout { display: block; }
-      .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
+      /* 2. Strip away all layout padding */
+      .dash-layout, .main-panel, .cert-display-area { 
+        display: block !important; 
+        padding: 0 !important; 
+        margin: 0 !important; 
+        background: white !important;
+        min-height: 0 !important;
+        height: auto !important;
+      }
       
-      /* Reset the display area */
-      .cert-display-area { padding: 0; margin: 0; overflow: hidden; display: block; }
-      
-      /* Bulletproof scaling to force it onto one page */
+      /* 3. Force the certificate to fit perfectly */
       .cert-scaler { 
-        transform: scale(0.88) !important; 
+        transform: scale(0.95) !important; 
         transform-origin: top left !important; 
         width: 1000px !important; 
         height: 707px !important; 
-        margin: 0 !important; 
+        margin: 2vh 0 0 2vw !important; /* slight offset so it doesn't touch the edge */
         padding: 0 !important;
-        margin-left: 5% !important; /* Centers it nicely */
-        margin-top: 5% !important;
       }
       
       .cert-wrapper { 
