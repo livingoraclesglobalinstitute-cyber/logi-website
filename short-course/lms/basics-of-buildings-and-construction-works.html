@@ -1440,13 +1440,17 @@ const App = (() => {
     else { state.activeAssessment = true; renderCourse(); }
   }
 
-  async function showCertificate() {
+    async function showCertificate() {
     const u = await currentUser();
     if (!u) { showLogin(); return; }
     state.user = u;
     state.screen = 'certificate';
     const completed = courseCompleted(u.username);
-    
+
+    // Check if the review link has already been clicked
+    const reviewClicked = JSON.parse(localStorage.getItem('logi_review_clicked') || '{}');
+    const showReviewCard = completed && !reviewClicked[u.username];
+
     let cert = null;
     if (completed) {
       try {
@@ -1529,6 +1533,19 @@ const App = (() => {
               <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
             </div>
           `}
+
+          ${showReviewCard ? `
+            <div class="card" style="text-align:center;padding:26px 20px;margin-top:24px;background:white;">
+              <div style="font-size:32px;margin-bottom:6px;">⭐⭐⭐⭐⭐</div>
+              <h2 style="margin:0 0 8px;">Enjoying the course?</h2>
+              <p style="margin:0 0 16px;color:#666;">Your honest review on Google helps other learners find us. It only takes 30 seconds.</p>
+              <a class="btn" href="https://g.page/r/CVymILKivi5SEAE/review"
+                 target="_blank" rel="noopener"
+                 onclick="App.markReviewClicked()">
+                ⭐ Leave a Google Review
+              </a>
+            </div>
+          ` : ''}
         </main>
       </div>
     `;
