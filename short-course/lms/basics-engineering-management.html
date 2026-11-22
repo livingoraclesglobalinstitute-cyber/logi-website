@@ -185,12 +185,20 @@
     @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      
+      /* Hide everything except the certificate */
       .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
+      
+      /* NEW: Hide the review card when printing */
+      .review-card-print-hide { display: none !important; }
+      
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
-      .cert-display-area { padding: 0; overflow: visible; }
-      .cert-scaler { transform: none !important; width: 1000px !important; height: 707px !important; margin-bottom: 0 !important; }
-      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; margin: 0 auto; background: #fafafa !important; }
+      .cert-display-area { padding: 0; overflow: visible; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+      
+      /* NEW: Scale the certificate to 95% so it fits perfectly on one page without cutting off the sidebar */
+      .cert-scaler { transform: scale(0.95) !important; transform-origin: center center !important; width: 1000px !important; height: 707px !important; margin: 0 !important; }
+      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; background: #fafafa !important; }
     }
   </style>
 </head>
@@ -1196,7 +1204,7 @@ const App = (() => {
               </div>
             </div>
           ` : `
-            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+                        <div class="card review-card-print-hide" style="text-align:center;padding:26px 20px;margin-top:24px;background:white;">
               <div style="font-size:48px;margin-bottom:12px;">🔒</div>
               <h2>Certificate not yet available</h2>
               <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
