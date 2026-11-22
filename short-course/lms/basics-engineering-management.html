@@ -182,7 +182,7 @@
       .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
     }
 
-                    @media print {
+                        @media print {
       @page { size: landscape; margin: 0; }
       
       body, html { 
@@ -190,17 +190,17 @@
         margin: 0 !important; 
         padding: 0 !important; 
         height: 100vh !important;
-        overflow: hidden !important; /* Prevents any scrolling/multiple pages */
+        overflow: hidden !important;
         -webkit-print-color-adjust: exact; 
         print-color-adjust: exact; 
       }
       
-      /* 1. Hide ALL standard UI and text */
-      header, footer, aside, nav, h1, h2, h3, p, .btn, .cert-controls, .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .notice { 
+      /* Hide all UI */
+      header, footer, aside, nav, h1, h2, h3, p, .btn, .cert-controls, .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .notice, .card, .review-card-print-hide { 
         display: none !important; 
       }
 
-      /* 2. Obliterate the layout */
+      /* Remove layout constraints */
       .dash-layout, .main-panel, .cert-display-area { 
         display: block !important; 
         padding: 0 !important; 
@@ -211,12 +211,6 @@
         background: white !important;
       }
 
-      /* 3. Brutally hide anything that isn't the certificate */
-      .card, .review-card-print-hide {
-        display: none !important;
-      }
-
-      /* 4. Pin the certificate to the page */
       .cert-scaler { 
         transform: none !important;
         width: 1000px !important;
@@ -225,25 +219,23 @@
         padding: 0 !important;
       }
 
+      /* Center the certificate perfectly */
       .cert-wrapper { 
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
+        position: fixed !important; /* Fixed positions it relative to the paper */
+        top: 50% !important;
+        left: 50% !important;
         box-shadow: none !important; 
         border: none !important; 
         margin: 0 !important;
-        transform: scale(0.95) !important; 
-        transform-origin: top left !important; 
+        /* Shift it back by half its scaled size, and shrink it slightly */
+        transform: translate(-50%, -50%) scale(0.95) !important; 
+        transform-origin: center center !important; 
         background: #fafafa !important; 
       }
 
-      /* 5. Ensure the certificate's internal text and images STILL show */
-      .cert-wrapper * {
-        display: revert !important;
-      }
-      .cert-wrapper img {
-        display: block !important;
-      }
+      /* Ensure internal text shows */
+      .cert-wrapper * { display: revert !important; }
+      .cert-wrapper img { display: block !important; }
     }
   </style>
 </head>
