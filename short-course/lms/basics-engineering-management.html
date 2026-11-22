@@ -182,47 +182,49 @@
       .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
     }
 
-            @media print {
-      @page { 
-        size: landscape; 
-        margin: 0; 
-      }
+                @media print {
+      @page { size: landscape; margin: 0; }
       body { 
         background: white !important; 
-        padding: 0 !important; 
         margin: 0 !important; 
+        padding: 0 !important; 
         -webkit-print-color-adjust: exact; 
         print-color-adjust: exact; 
       }
       
-      /* 1. Completely hide everything that isn't the certificate */
-      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice, .review-card-print-hide { 
+      /* Hide absolutely everything that is not the certificate wrapper */
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice, .review-card-print-hide, .card { 
         display: none !important; 
       }
       
-      /* 2. Strip away all layout padding */
+      /* Hide the main layout padding but keep the certificate wrapper visible */
       .dash-layout, .main-panel, .cert-display-area { 
         display: block !important; 
         padding: 0 !important; 
         margin: 0 !important; 
-        background: white !important;
         min-height: 0 !important;
-        height: auto !important;
+        background: white !important;
       }
       
-      /* 3. Force the certificate to fit perfectly */
+      /* Remove the scaler's transform so it prints at 100% */
       .cert-scaler { 
-        transform: scale(0.95) !important; 
-        transform-origin: top left !important; 
-        width: 1000px !important; 
-        height: 707px !important; 
-        margin: 2vh 0 0 2vw !important; /* slight offset so it doesn't touch the edge */
+        transform: none !important;
+        width: 1000px !important;
+        height: 707px !important;
+        margin: 0 !important;
         padding: 0 !important;
       }
-      
+
+      /* Force the certificate to fit the page perfectly */
       .cert-wrapper { 
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
         box-shadow: none !important; 
         border: none !important; 
+        margin: 0 !important;
+        transform: scale(0.92) !important; 
+        transform-origin: top left !important; 
         background: #fafafa !important; 
       }
     }
@@ -1239,7 +1241,7 @@ const App = (() => {
           `}
 
           ${showReviewCard ? `
-            <div class="card" style="text-align:center;padding:26px 20px;margin-top:24px;background:white;">
+            <div class="card review-card-print-hide" style="text-align:center;padding:26px 20px;margin-top:24px;background:white;">
               <div style="font-size:32px;margin-bottom:6px;">⭐⭐⭐⭐⭐</div>
               <h2 style="margin:0 0 8px;">Enjoying the course?</h2>
               <p style="margin:0 0 16px;color:#666;">Your honest review on Google helps other learners find us. It only takes 30 seconds.</p>
