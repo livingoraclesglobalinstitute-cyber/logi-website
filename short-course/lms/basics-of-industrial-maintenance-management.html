@@ -1424,7 +1424,7 @@ const App = (() => {
     state.user = u;
     state.screen = 'certificate';
     const completed = courseCompleted(u.username);
-    
+
     let cert = null;
     if (completed) {
       try {
@@ -1441,6 +1441,10 @@ const App = (() => {
         if (data.success) cert = data.certificate;
       } catch (e) { console.error(e); }
     }
+
+    // Check if the review link has already been clicked (gated on cert existing)
+    const reviewClicked = JSON.parse(localStorage.getItem('logi_review_clicked') || '{}');
+    const showReviewCard = !!cert && !reviewClicked[u.username];
 
     const el = document.getElementById('app');
     el.innerHTML = `
@@ -1499,6 +1503,13 @@ const App = (() => {
                 </div>
               </div>
             </div>
+          ` : (completed ? `
+            <div class="card" style="text-align:center;padding:40px 20px; background:white;">
+              <div style="font-size:48px;margin-bottom:12px;">⏳</div>
+              <h2>Preparing your certificate</h2>
+              <p>You've completed the course. Your certificate is being generated — please refresh in a moment.</p>
+              <button class="btn" onclick="showCertificate()">Retry</button>
+            </div>
           ` : `
             <div class="card" style="text-align:center;padding:40px 20px; background:white;">
               <div style="font-size:48px;margin-bottom:12px;">🔒</div>
@@ -1506,7 +1517,20 @@ const App = (() => {
               <p>You need to complete all lessons and pass every module assessment to unlock your certificate.</p>
               <button class="btn" onclick="App.openCourse(0,0)">Continue learning</button>
             </div>
-          `}
+          `)}
+
+          ${showReviewCard ? `
+            <div class="card review-card-print-hide" style="text-align:center;padding:26px 20px;margin-top:24px;background:white;">
+              <div style="font-size:32px;margin-bottom:6px;">⭐⭐⭐⭐⭐</div>
+              <h2 style="margin:0 0 8px;">Enjoying the course?</h2>
+              <p style="margin:0 0 16px;color:#666;">Your honest review on Google helps other learners find us. It only takes 30 seconds.</p>
+              <a class="btn" href="https://g.page/r/CVymILKivi5SEAE/review"
+                 target="_blank" rel="noopener"
+                 onclick="App.markReviewClicked()">
+                ⭐ Leave a Google Review
+              </a>
+            </div>
+          ` : ''}
         </main>
       </div>
     `;
