@@ -188,55 +188,59 @@
         margin: 0; 
       }
       
-      /* 1. Lock the body to exactly the size of the certificate */
       body, html { 
         background: white !important; 
         margin: 0 !important; 
         padding: 0 !important; 
         width: 1000px !important;
         height: 707px !important;
-        overflow: hidden !important;
+        overflow: hidden !important; /* Stops page 2 */
         -webkit-print-color-adjust: exact; 
         print-color-adjust: exact; 
       }
       
-      /* 2. Hide all UI and the review card */
+      /* Hide all UI and the review card */
       header, footer, aside, nav, h1, h2, h3, p, .btn, .cert-controls, .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .notice, .card, .review-card-print-hide { 
         display: none !important; 
       }
 
-      /* 3. Remove layout constraints */
+      /* Force layout containers to stay on page 1 */
       .dash-layout, .main-panel, .cert-display-area { 
         display: block !important; 
         padding: 0 !important; 
         margin: 0 !important; 
-        width: 100% !important;
-        height: 100% !important;
-        background: white !important;
+        width: 1000px !important;
+        height: 707px !important;
+        min-height: 0 !important;
+        max-height: 707px !important;
+        overflow: hidden !important; /* Clips any overflow */
+        page-break-after: avoid !important; /* Stops page 2 */
+        page-break-inside: avoid !important;
+        background: transparent !important; /* Makes background white, not repeating */
       }
 
-      /* 4. Reset the scaler */
       .cert-scaler { 
         transform: none !important;
         width: 1000px !important;
         height: 707px !important;
-        margin: 0 auto !important; /* Centers horizontally */
+        margin: 0 auto !important;
         padding: 0 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        page-break-after: avoid !important;
       }
 
-      /* 5. Center the certificate wrapper */
       .cert-wrapper { 
         position: relative !important; 
         box-shadow: none !important; 
         border: none !important; 
-        margin: auto !important; 
+        margin: 0 !important; 
         background: #fafafa !important; 
+        page-break-inside: avoid !important;
       }
 
-      /* 6. Ensure internal content shows */
+      /* Ensure internal content shows */
       .cert-wrapper * { display: revert !important; }
       .cert-wrapper img { display: block !important; }
     }
