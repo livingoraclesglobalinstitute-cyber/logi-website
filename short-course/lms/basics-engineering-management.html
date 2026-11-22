@@ -182,23 +182,38 @@
       .btn, .btn-outline, .btn-secondary { font-size: 12px; padding: 7px 12px; }
     }
 
-    @media print {
+        @media print {
       @page { size: landscape; margin: 0; }
       body { background: white; padding: 0; margin: 0; display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       
-      /* Hide everything except the certificate */
-      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice { display: none !important; }
-      
-      /* NEW: Hide the review card when printing */
-      .review-card-print-hide { display: none !important; }
+      /* Hide all UI elements */
+      .top, .sidebar, .mobile-nav-toggle, .drawer-overlay, .main-panel h1, .subtitle, .cert-controls, footer, .notice, .review-card-print-hide { 
+        display: none !important; 
+      }
       
       .dash-layout { display: block; }
       .main-panel { padding: 0; margin: 0; max-height: none; background: white; }
-      .cert-display-area { padding: 0; overflow: visible; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
       
-      /* NEW: Scale the certificate to 95% so it fits perfectly on one page without cutting off the sidebar */
-      .cert-scaler { transform: scale(0.95) !important; transform-origin: center center !important; width: 1000px !important; height: 707px !important; margin: 0 !important; }
-      .cert-wrapper { box-shadow: none; width: 1000px !important; height: 707px !important; border: none; background: #fafafa !important; }
+      /* Reset the display area */
+      .cert-display-area { padding: 0; margin: 0; overflow: hidden; display: block; }
+      
+      /* Bulletproof scaling to force it onto one page */
+      .cert-scaler { 
+        transform: scale(0.88) !important; 
+        transform-origin: top left !important; 
+        width: 1000px !important; 
+        height: 707px !important; 
+        margin: 0 !important; 
+        padding: 0 !important;
+        margin-left: 5% !important; /* Centers it nicely */
+        margin-top: 5% !important;
+      }
+      
+      .cert-wrapper { 
+        box-shadow: none !important; 
+        border: none !important; 
+        background: #fafafa !important; 
+      }
     }
   </style>
 </head>
