@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ff4b93">
-  <title>Intern Dashboard | Living Oracles Global Institute</title>
-  
+  <meta name="description" content="Intern Dashboard for Living Oracles Global Institute.">
+  <title>Intern Portal | Living Oracles Global Institute</title>
+
   <link rel="icon" type="image/png" href="https://i.imgur.com/kkE49KM.png">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
@@ -44,6 +46,18 @@
     /* Layout */
     .wrap { max-width: 1180px; margin: 0 auto; padding: 34px 5% 60px; }
 
+    /* ---------- Login Screen ---------- */
+    .login-shell { min-height: calc(100vh - 64px); display: grid; place-items: center; padding: 28px; background: linear-gradient(110deg, #f8f2fb 0%, #fff 56%, #ffe9f1 100%); }
+    .login-card { width: min(100%, 430px); background: #fff; border: 1px solid var(--line); border-radius: 5px; padding: 30px; box-shadow: 0 12px 35px rgba(255,75,147,.08); }
+    .login-card h1 { margin: 0 0 8px; font-size: 26px; }
+    .login-card p { color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .field { margin: 18px 0; }
+    .field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 7px; }
+    .field input { width: 100%; padding: 12px; border: 1px solid #e9e8ef; border-radius: 4px; outline: none; }
+    .field input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,75,147,.15); }
+    .login-card .btn { width: 100%; padding: 13px; }
+    .error-msg { color: red; font-size: 13px; margin-bottom: 10px; display: none; background: #fff5f8; padding: 10px; border-radius: 4px; border: 1px solid #f6c7da; }
+
     /* Dashboard Styles */
     .dashboard-header { margin-bottom: 20px; }
     .dashboard-header h1 { margin: 0 0 5px 0; color: var(--ink); font-size: 28px; }
@@ -56,9 +70,9 @@
 
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 30px; }
     .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    
+
     .staff-card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: var(--shadow); border: 1px solid var(--line); display: flex; flex-direction: column; }
-    
+
     .staff-card.border-pink { border-top: 5px solid var(--pink); }
     .staff-card.border-dark { border-top: 5px solid #34343b; }
     .staff-card.border-green { border-top: 5px solid #28a745; }
@@ -73,7 +87,7 @@
     .bg-purple { background: #f3e8ff; color: #6f42c1; }
 
     .staff-card h3 { margin: 0 0 10px 0; color: var(--ink); font-size: 17px; font-family: monospace; }
-    .staff-card p { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin-bottom: 20px; flex-grow: 1;}
+    .staff-card p { color: var(--muted); font-size: 13.5px; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
 
     .section-title { font-size: 18px; font-weight: 800; color: var(--ink); margin: 40px 0 20px 0; border-bottom: 2px solid var(--line); padding-bottom: 8px; }
 
@@ -95,7 +109,7 @@
 
     /* Deadline Highlight */
     .deadline-alert { display: inline-block; background: #ffe9f1; color: #e93680; font-weight: 800; font-size: 12.5px; padding: 6px 12px; border-radius: 4px; margin-bottom: 15px; border: 1px dashed #ff4b93; }
-    
+
     .alert-box { background: #fff3cd; border: 1px solid #ffeeba; border-left: 5px solid #ffc107; padding: 20px; border-radius: 6px; margin-top: 30px; }
     .alert-box h4 { margin: 0 0 10px 0; color: #856404; font-size: 16px; }
     .alert-box p { margin: 0; color: #856404; font-size: 13.5px; }
@@ -112,184 +126,260 @@
       <span class="brand-sub">| Interns & Volunteers</span>
     </div>
     <div class="top-actions">
-      <span class="user-email">michaelyawotchere@gmail.com</span>
+      <span class="user-email" id="userEmail"></span>
+      <button class="btn secondary" id="logoutBtn" style="display:none" onclick="logout()">Log out</button>
     </div>
   </header>
 
-  <main id="app">
-    <div class="wrap">
-      
-      <div class="dashboard-header">
-        <div>
-          <h1>Business & Administration Dashboard</h1>
-          <p>Data Entry & Reporting Track</p>
-        </div>
-      </div>
-
-      <!-- Welcome Box -->
-      <div class="welcome-box">
-        <h2>Welcome to LOGI, Michael!</h2>
-        <p>Your primary focus here is <strong>data entry, records management, and reporting</strong>. You will support LOGI in organizing reliable administrative information and turning records into useful reports, applying your analytics training in a real institutional setting.</p>
-      </div>
-      
-      <!-- 4 Database Sheets -->
-      <div class="grid grid-4">
-        <div class="staff-card border-pink">
-          <div class="card-icon bg-pink">👥</div>
-          <h3>users</h3>
-          <p>Enter and update approved student and applicant records using LOGI templates.</p>
-          <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn">Open Sheet</a>
-        </div>
-
-        <div class="staff-card border-blue">
-          <div class="card-icon bg-blue">📝</div>
-          <h3>enrolments</h3>
-          <p>Track which programme or department each student is officially enrolled in.</p>
-          <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn" style="background:#4285F4;">Open Sheet</a>
-        </div>
-
-        <div class="staff-card border-dark">
-          <div class="card-icon bg-dark">📈</div>
-          <h3>progress</h3>
-          <p>Review activity and maintain clear data dictionaries and simple SOPs.</p>
-          <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn" style="background:#34343b;">Open Sheet</a>
-        </div>
-
-        <div class="staff-card border-green">
-          <div class="card-icon bg-green">🏆</div>
-          <h3>certificates</h3>
-          <p>Verify completed requirements and prepare summaries for management review.</p>
-          <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn" style="background:#28a745;">Open Sheet</a>
-        </div>
-      </div>
-
-      <!-- Duties Section -->
-      <h3 class="section-title">Your Core Duties</h3>
-      <div class="grid">
-        <div class="staff-card">
-          <ul class="duty-list">
-            <li><strong>Data Cleaning & Validation:</strong> Check records for missing fields, inconsistent formats, duplicates, and obvious errors. Flag issues for supervisor review.</li>
-            <li><strong>Spreadsheet Organisation:</strong> Standardise headings, formats, and identify duplicate or incomplete entries.</li>
-          </ul>
-        </div>
-        <div class="staff-card">
-          <ul class="duty-list">
-            <li><strong>Routine Reporting:</strong> Prepare weekly counts and summaries by application status, programme, and other approved categories.</li>
-            <li><strong>Visual Reporting:</strong> Develop simple Power BI dashboards once the underlying data has been checked and approved.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Skill Application Guide -->
-      <h3 class="section-title">Skill Application Guide</h3>
-      <p style="color:var(--muted); font-size:14px; margin-top:-10px; margin-bottom:20px;">Click each skill below to see exactly how to apply your Blossom Academy training to your weekly tasks at LOGI.</p>
-      
-      <div class="skill-guide">
-        <div class="skill-header" onclick="toggleSkill(this)">
-          <div><span class="icon">📊</span> Excel: Data Cleaning & Organisation</div>
-          <span>▼</span>
-        </div>
-        <div class="skill-content">
-          <p>Since your role involves data entry and validation, use these Excel techniques from your training:</p>
-          <ul>
-            <li><strong>Data Validation:</strong> Set up dropdowns for "Programme" and "Status" columns in the master sheet to prevent spelling errors.</li>
-            <li><strong>Remove Duplicates:</strong> Use <em>Data > Remove Duplicates</em> on the applicant list before every Friday report.</li>
-            <li><strong>Text Cleaning:</strong> Use the <code>TRIM()</code> and <code>PROPER()</code> functions to fix messy names and extra spaces.</li>
-            <li><strong>Lookups:</strong> Use <code>VLOOKUP</code> or <code>XLOOKUP</code> to pull student details from the `users` sheet into the `enrolments` sheet.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="skill-guide">
-        <div class="skill-header" onclick="toggleSkill(this)">
-          <div><span class="icon">🔍</span> SQL: Querying & Managing Records</div>
-          <span>▼</span>
-        </div>
-        <div class="skill-content">
-          <p>If LOGI moves the database from Google Sheets to a SQL server, or if you need to extract data:</p>
-          <ul>
-            <li><strong>Joins:</strong> Use <code>INNER JOIN</code> to combine the `users` table and the `enrolments` table so you can see which students are active.</li>
-            <li><strong>Filtering:</strong> Write <code>WHERE</code> clauses to find specific groups (e.g., all students enrolled in a specific programme).</li>
-            <li><strong>Aggregation:</strong> Use <code>COUNT()</code> and <code>GROUP BY</code> to find the total number of applicants per department.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="skill-guide">
-        <div class="skill-header" onclick="toggleSkill(this)">
-          <div><span class="icon">📈</span> Power BI: Visual Reporting & Dashboards</div>
-          <span>▼</span>
-        </div>
-        <div class="skill-content">
-          <p>You are expected to "Develop simple Power BI dashboards." Here is how:</p>
-          <ul>
-            <li><strong>Connect Data:</strong> Import the cleaned Google Sheet/Excel file into Power BI.</li>
-            <li><strong>Visuals:</strong> Create a bar chart for "Students per Programme" and a pie chart for "Gender Distribution."</li>
-            <li><strong>Slicers:</strong> Add a date slicer so Stephen can filter the dashboard to see applications from a specific month.</li>
-            <li><strong>Refresh:</strong> Every Friday, click "Refresh" in Power BI, save the dashboard as a PDF, and attach it to your weekly report.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="skill-guide">
-        <div class="skill-header" onclick="toggleSkill(this)">
-          <div><span class="icon">🐍</span> Python: Automation & Data Analysis</div>
-          <span>▼</span>
-        </div>
-        <div class="skill-content">
-          <p>Use Python to save hours of manual work if the data gets large:</p>
-          <ul>
-            <li><strong>Pandas:</strong> Write a script using <code>pandas.read_excel()</code> to automatically clean missing values (e.g., dropping rows with no email).</li>
-            <li><strong>Automation:</strong> Write a script that takes the raw CSV data, cleans it, and outputs a ready-to-use Excel file for the Friday report.</li>
-            <li><strong>Matplotlib:</strong> Generate quick trend charts (e.g., weekly application volume) directly from Python.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Submit Report & Supervisor -->
-      <h3 class="section-title">Weekly Workflow</h3>
-      <div class="grid">
-        
-        <div class="staff-card border-purple">
-          <div class="card-icon bg-purple">📄</div>
-          <h3 style="font-family: inherit;">Submit Weekly Report</h3>
-          
-          <!-- Highlighted Deadline -->
-          <div class="deadline-alert">⚠️ DEADLINE: Every Friday at 12:00 PM</div>
-          
-          <p>Share a brief summary of what you learned, completed tasks, questions, and your next actions for supervisor review.</p>
-          <a href="https://docs.google.com/document/d/1irAJXtdwdbLxbalV6gUfjiohJksgXsSjYC1ss17Wgws/edit?usp=drivesdk" target="_blank" class="btn" style="background:#6f42c1; margin-top: auto;">Open Report Document</a>
-        </div>
-
-        <div class="staff-card" style="border-top: 5px solid var(--ink);">
-          <div class="card-icon" style="background: #e0e0e0; color: var(--ink);">👤</div>
-          <h3 style="font-family: inherit;">Your Supervisor</h3>
-          <p style="margin-bottom: 5px;"><strong>Name:</strong> Stephen</p>
-          <p style="margin-bottom: 20px;"><strong>Email:</strong> <a href="mailto:stephen.adusei@logi.education" style="color: var(--pink); text-decoration: underline;">stephen.adusei@logi.education</a></p>
-          <div>
-             <a href="mailto:stephen.adusei@logi.education" class="btn secondary" style="width: 100%; margin-top: auto;">Email Supervisor</a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Confidentiality Alert -->
-      <div class="alert-box">
-        <h4>⚠️ Essential Standard: Confidentiality & Responsible Data Handling</h4>
-        <p><strong>Access only what you need.</strong> Do not disclose, forward, or copy personal data outside approved LOGI channels. <strong>Do not make unapproved changes</strong>—flag uncertain records to Stephen. Save work only in LOGI-approved locations. Report any accidental sharing or data-quality concerns immediately.</p>
-      </div>
-
-    </div>
-  </main>
+  <main id="app"></main>
 
   <div class="footer">Living Oracles Global Institute · <strong>Faith. Excellence. Impact.</strong></div>
 
 <script>
+  // --- CONFIGURATION (same as portal.html) ---
+  const SUPABASE_URL = 'https://dnmkflwwanltkdnnycml.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_cSrAH2lTK6jfP9BdHPNZng_AJqpsjvt';
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+  // --- INTERN ALLOWLIST ---
+  const INTERN_EMAILS = ['michaelyawotchere@gmail.com'];
+
+  const app = document.getElementById('app');
+
+  // --- LOGIN SCREEN ---
+  function showLogin(message = '') {
+    document.getElementById('logoutBtn').style.display = 'none';
+    document.getElementById('userEmail').textContent = '';
+
+    app.innerHTML = `
+      <div class="login-shell">
+        <form class="login-card" id="loginForm">
+          <div class="eyebrow">Living Oracles Global Institute</div>
+          <h1>Intern sign in</h1>
+          <p>Enter your credentials to access the intern dashboard.</p>
+
+          <div class="error-msg" id="errorMsg" style="${message ? 'display:block' : 'display:none'}">${message}</div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="btn" type="submit" id="loginBtn">Sign in</button>
+        </form>
+      </div>`;
+
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const errorMsg = document.getElementById('errorMsg');
+
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+      errorMsg.style.display = 'none';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
+        return;
+      }
+
+      routeUser(email);
+    });
+  }
+
+  // --- ROUTING LOGIC ---
+  function routeUser(email) {
+    document.getElementById('logoutBtn').style.display = 'inline-flex';
+    document.getElementById('userEmail').textContent = email;
+
+    if (INTERN_EMAILS.includes(email.toLowerCase())) {
+      loadInternDashboard(email);
+    } else {
+      supabaseClient.auth.signOut().then(() => {
+        showLogin('This account is not authorised for the intern portal.');
+      });
+    }
+  }
+
+  // --- INTERN DASHBOARD ---
+  function loadInternDashboard(email) {
+    const firstName = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+    app.innerHTML = `
+      <div class="wrap">
+        <div class="dashboard-header">
+          <div>
+            <h1>Business & Administration Dashboard</h1>
+            <p>Data Entry & Reporting Track</p>
+          </div>
+        </div>
+
+        <div class="welcome-box">
+          <h2>Welcome to LOGI, ${firstName}!</h2>
+          <p>Your primary focus here is <strong>data entry, records management, and reporting</strong>. You will support LOGI in organizing reliable administrative information and turning records into useful reports, applying your analytics training in a real institutional setting.</p>
+        </div>
+
+        <!-- 4 Database Sheets -->
+        <div class="grid grid-4">
+          <div class="staff-card border-pink">
+            <div class="card-icon bg-pink">👥</div>
+            <h3>users</h3>
+            <p>Enter and update approved student and applicant records using LOGI templates.</p>
+            <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn">Open Sheet</a>
+          </div>
+
+          <div class="staff-card border-blue">
+            <div class="card-icon bg-blue">📝</div>
+            <h3>enrolments</h3>
+            <p>Track which programme or department each student is officially enrolled in.</p>
+            <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn" style="background:#4285F4;">Open Sheet</a>
+          </div>
+
+          <div class="staff-card border-dark">
+            <div class="card-icon bg-dark">📈</div>
+            <h3>progress</h3>
+            <p>Review activity and maintain clear data dictionaries and simple SOPs.</p>
+            <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn" style="background:#34343b;">Open Sheet</a>
+          </div>
+
+          <div class="staff-card border-green">
+            <div class="card-icon bg-green">🏆</div>
+            <h3>certificates</h3>
+            <p>Verify completed requirements and prepare summaries for management review.</p>
+            <a href="https://docs.google.com/spreadsheets/d/1w3oq8v7-xIRKeshgUCUQNhlbYdHut8VsZUb-wg40GMc/edit?usp=drivesdk" target="_blank" class="btn" style="background:#28a745;">Open Sheet</a>
+          </div>
+        </div>
+
+        <!-- Duties Section -->
+        <h3 class="section-title">Your Core Duties</h3>
+        <div class="grid">
+          <div class="staff-card">
+            <ul class="duty-list">
+              <li><strong>Data Cleaning & Validation:</strong> Check records for missing fields, inconsistent formats, duplicates, and obvious errors. Flag issues for supervisor review.</li>
+              <li><strong>Spreadsheet Organisation:</strong> Standardise headings, formats, and identify duplicate or incomplete entries.</li>
+            </ul>
+          </div>
+          <div class="staff-card">
+            <ul class="duty-list">
+              <li><strong>Routine Reporting:</strong> Prepare weekly counts and summaries by application status, programme, and other approved categories.</li>
+              <li><strong>Visual Reporting:</strong> Develop simple Power BI dashboards once the underlying data has been checked and approved.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Skill Application Guide -->
+        <h3 class="section-title">Skill Application Guide</h3>
+        <p style="color:var(--muted); font-size:14px; margin-top:-10px; margin-bottom:20px;">Click each skill below to see exactly how to apply your Blossom Academy training to your weekly tasks at LOGI.</p>
+
+        <div class="skill-guide">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <div><span class="icon">📊</span> Excel: Data Cleaning & Organisation</div>
+            <span>▼</span>
+          </div>
+          <div class="skill-content">
+            <p>Since your role involves data entry and validation, use these Excel techniques from your training:</p>
+            <ul>
+              <li><strong>Data Validation:</strong> Set up dropdowns for "Programme" and "Status" columns in the master sheet to prevent spelling errors.</li>
+              <li><strong>Remove Duplicates:</strong> Use <em>Data > Remove Duplicates</em> on the applicant list before every Friday report.</li>
+              <li><strong>Text Cleaning:</strong> Use the <code>TRIM()</code> and <code>PROPER()</code> functions to fix messy names and extra spaces.</li>
+              <li><strong>Lookups:</strong> Use <code>VLOOKUP</code> or <code>XLOOKUP</code> to pull student details from the \`users\` sheet into the \`enrolments\` sheet.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-guide">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <div><span class="icon">🔍</span> SQL: Querying & Managing Records</div>
+            <span>▼</span>
+          </div>
+          <div class="skill-content">
+            <p>If LOGI moves the database from Google Sheets to a SQL server, or if you need to extract data:</p>
+            <ul>
+              <li><strong>Joins:</strong> Use <code>INNER JOIN</code> to combine the \`users\` table and the \`enrolments\` table so you can see which students are active.</li>
+              <li><strong>Filtering:</strong> Write <code>WHERE</code> clauses to find specific groups (e.g., all students enrolled in a specific programme).</li>
+              <li><strong>Aggregation:</strong> Use <code>COUNT()</code> and <code>GROUP BY</code> to find the total number of applicants per department.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-guide">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <div><span class="icon">📈</span> Power BI: Visual Reporting & Dashboards</div>
+            <span>▼</span>
+          </div>
+          <div class="skill-content">
+            <p>You are expected to "Develop simple Power BI dashboards." Here is how:</p>
+            <ul>
+              <li><strong>Connect Data:</strong> Import the cleaned Google Sheet/Excel file into Power BI.</li>
+              <li><strong>Visuals:</strong> Create a bar chart for "Students per Programme" and a pie chart for "Gender Distribution."</li>
+              <li><strong>Slicers:</strong> Add a date slicer so Stephen can filter the dashboard to see applications from a specific month.</li>
+              <li><strong>Refresh:</strong> Every Friday, click "Refresh" in Power BI, save the dashboard as a PDF, and attach it to your weekly report.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="skill-guide">
+          <div class="skill-header" onclick="toggleSkill(this)">
+            <div><span class="icon">🐍</span> Python: Automation & Data Analysis</div>
+            <span>▼</span>
+          </div>
+          <div class="skill-content">
+            <p>Use Python to save hours of manual work if the data gets large:</p>
+            <ul>
+              <li><strong>Pandas:</strong> Write a script using <code>pandas.read_excel()</code> to automatically clean missing values (e.g., dropping rows with no email).</li>
+              <li><strong>Automation:</strong> Write a script that takes the raw CSV data, cleans it, and outputs a ready-to-use Excel file for the Friday report.</li>
+              <li><strong>Matplotlib:</strong> Generate quick trend charts (e.g., weekly application volume) directly from Python.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Submit Report & Supervisor -->
+        <h3 class="section-title">Weekly Workflow</h3>
+        <div class="grid">
+          <div class="staff-card border-purple">
+            <div class="card-icon bg-purple">📄</div>
+            <h3 style="font-family: inherit;">Submit Weekly Report</h3>
+            <div class="deadline-alert">⚠️ DEADLINE: Every Friday at 12:00 PM</div>
+            <p>Share a brief summary of what you learned, completed tasks, questions, and your next actions for supervisor review.</p>
+            <a href="https://docs.google.com/document/d/1irAJXtdwdbLxbalV6gUfjiohJksgXsSjYC1ss17Wgws/edit?usp=drivesdk" target="_blank" class="btn" style="background:#6f42c1; margin-top: auto;">Open Report Document</a>
+          </div>
+
+          <div class="staff-card" style="border-top: 5px solid var(--ink);">
+            <div class="card-icon" style="background: #e0e0e0; color: var(--ink);">👤</div>
+            <h3 style="font-family: inherit;">Your Supervisor</h3>
+            <p style="margin-bottom: 5px;"><strong>Name:</strong> Stephen</p>
+            <p style="margin-bottom: 20px;"><strong>Email:</strong> <a href="mailto:stephen.adusei@logi.education" style="color: var(--pink); text-decoration: underline;">stephen.adusei@logi.education</a></p>
+            <div>
+              <a href="mailto:stephen.adusei@logi.education" class="btn secondary" style="width: 100%; margin-top: auto;">Email Supervisor</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Confidentiality Alert -->
+        <div class="alert-box">
+          <h4>⚠️ Essential Standard: Confidentiality & Responsible Data Handling</h4>
+          <p><strong>Access only what you need.</strong> Do not disclose, forward, or copy personal data outside approved LOGI channels. <strong>Do not make unapproved changes</strong>—flag uncertain records to Stephen. Save work only in LOGI-approved locations. Report any accidental sharing or data-quality concerns immediately.</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // --- HELPERS ---
   window.toggleSkill = function(element) {
     const content = element.nextElementSibling;
     const isShowing = content.classList.contains('show');
-    
-    // Close all other open guides
+
     document.querySelectorAll('.skill-content').forEach(el => el.classList.remove('show'));
     document.querySelectorAll('.skill-header').forEach(el => {
       el.classList.remove('active');
@@ -303,7 +393,27 @@
       const arrow = element.querySelector('span:last-child');
       if (arrow) arrow.textContent = '▲';
     }
+  };
+
+  async function logout() {
+    await supabaseClient.auth.signOut();
+    showLogin('You have been signed out.');
   }
+
+  // --- INITIALIZATION ---
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT') showLogin();
+    if (event === 'SIGNED_IN' && session) routeUser(session.user.email);
+  });
+
+  (async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      routeUser(session.user.email);
+    } else {
+      showLogin();
+    }
+  })();
 </script>
 </body>
 </html>
