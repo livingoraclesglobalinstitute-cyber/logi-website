@@ -700,10 +700,6 @@ function getProgressCache() {
 }
 function setProgressCache(cache) { localStorage.setItem(PROGRESS_KEY, JSON.stringify(cache)); }
 
-/* Progress model:
-   key = `${COURSE.id}_heat_${mi+1}_lesson_${li+1}` -> { completed, quiz_score, quiz_total }
-   The FIRST lesson of each module holds the module quiz result. */
-
 function lessonKey(mi, li) {
   return `${COURSE.id}_heat_${mi + 1}_lesson_${li + 1}`;
 }
@@ -733,7 +729,6 @@ function isLessonDone(username, mi, li) {
   return !!cache[lessonKey(mi, li)]?.completed;
 }
 function getQuizResult(username, mi) {
-  // Quiz score lives on the FIRST lesson (index 0) of each module
   const cache = getProgressCache();
   return cache[lessonKey(mi, 0)] || null;
 }
@@ -772,7 +767,6 @@ function nextIncompleteLesson(username) {
   return { mi: 0, li: 0 };
 }
 
-/* Mark lesson complete locally + fire API (best-effort) */
 async function markLessonComplete(mi, li, quizScore, quizTotal) {
   const cache = getProgressCache();
   const key = lessonKey(mi, li);
@@ -797,20 +791,17 @@ async function markLessonComplete(mi, li, quizScore, quizTotal) {
           quiz_total: quizTotal ?? null
         })
       });
-    } catch (e) { /* offline is fine; local cache is authoritative for UI */ }
+    } catch (e) { }
   }
 }
 
-/* -------- decorate lesson HTML with diagrams + tutorial cards -------- */
 function decorateHeatTransferLesson(hostEl, moduleIndex) {
   if (!hostEl) return;
-  // Insert diagram at top if not present
   if (!hostEl.querySelector('.diagram')) {
     const holder = document.createElement('div');
     holder.innerHTML = HEAT_TRANSFER_DIAGRAMS[moduleIndex] || '';
     if (holder.firstElementChild) hostEl.insertBefore(holder.firstElementChild, hostEl.firstChild);
   }
-  // Wrap each Qn heading + following content into a tutorial card
   const headings = Array.from(hostEl.querySelectorAll('h4'));
   headings.forEach(h => {
     if (!/^Q\s*\d+/i.test(h.textContent.trim())) return;
@@ -826,7 +817,6 @@ function decorateHeatTransferLesson(hostEl, moduleIndex) {
       node = next;
     }
   });
-  // Mark step paragraphs
   hostEl.querySelectorAll('.tutorial-solution-card p').forEach(p => {
     const t = p.textContent.trim();
     if (/^(Step\s*\d+|[1-9]\)|[a-d]\))/i.test(t) && !p.classList.contains('solution-step')) {
@@ -915,8 +905,6 @@ const App = (() => {
     closeMobileMenu();
     if (typeof App[action] === 'function') App[action](...args);
   }
-
-  /* ---------- public screens ---------- */
 
   async function goHome() {
     const u = await currentUser();
@@ -1026,7 +1014,6 @@ const App = (() => {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok && !data.token) {
-        // API may not accept this course registration; fall back to local account
         throw new Error(data.error || 'Registration could not reach the server.');
       }
       const token = data.token || ('local_' + Math.random().toString(36).slice(2));
@@ -1037,7 +1024,6 @@ const App = (() => {
       await renderNav();
       showDashboard();
     } catch (e) {
-      // Graceful local fallback
       const token = 'local_' + Math.random().toString(36).slice(2);
       const user = { id: email, email, fullName, token };
       localStorage.setItem('logi_user', JSON.stringify(user));
@@ -1186,7 +1172,6 @@ const App = (() => {
     li = Math.max(0, Math.min(li, lessons.length - 1));
 
     if (isModuleLocked(u.username, mi)) {
-      // redirect to previous module's last lesson
       const prev = mi - 1;
       const prevLessons = COURSE.modules[prev].lessons.length;
       return openCourse(prev, prevLessons - 1);
@@ -1228,15 +1213,88 @@ const App = (() => {
 
     renderModuleNav(u, mi, li);
     attachLessonHandlers(mi, li);
-    // Decorate the actual content body (skip title block)
-    const contentBody = document.querySelector('#lesson-host .lesson-card > div:nth-of-type(2)');
-    decorateHeatTransferLesson(contentBody, mi);
+    
+    // Decorate only if it's NOT the assessment page (we handle assessment separately)
+    if (!state.isAssessment) {
+      const contentBody = document.querySelector('#lesson-host .lesson-card > div:nth-of-type(2)');
+      decorateHeatTransferLesson(contentBody, mi);
+    }
+  }
+
+  /* New function to open the Assessment page */
+  function openAssessment(mi) {
+    state.isAssessment = true;
+    state.activeCourseModule = mi;
+    
+    // Render the base course layout with an empty lesson host
+    const u = state.user;
+    const pct = courseProgressPct(u.username);
+    const el = document.getElementById('app');
+    el.innerHTML = `
+      <div class="dash-layout">
+        ${renderSidebarHTML('course')}
+        <div class="main-panel">
+          <button class="mobile-module-toggle" onclick="App.toggleModuleMenu()">☰ Modules</button>
+          <div class="course-layout">
+            <aside class="module-side">
+              <div class="sidehead">
+                <h2>Course modules</h2>
+                <div class="progress-bar"><span style="width:${pct}%"></span></div>
+                <div style="font-size:12px;color:var(--muted);margin-top:6px;">${pct}% complete</div>
+              </div>
+              <div class="modules" id="module-nav"></div>
+            </aside>
+            <div class="content" id="lesson-host">
+              <!-- Assessment content injected below -->
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    renderModuleNav(u, mi, -1);
+    
+    // Inject the quiz
+    const lesson = COURSE.modules[mi].lessons[0];
+    const quiz = lesson.quiz;
+    
+    const host = document.getElementById('lesson-host');
+    host.innerHTML = `
+      <div class="lesson-card">
+        <div class="lesson-hero" style="background:linear-gradient(120deg,#e93680 0%,#c92d70 100%);">
+          <div>
+            <div class="eyebrow">Module ${mi + 1} · Assessment</div>
+            <h2>${esc(COURSE.modules[mi].title)}</h2>
+            <p>Answer all questions · Pass mark ${COURSE.passMark}%</p>
+          </div>
+          <div class="hero-mark">📝</div>
+        </div>
+        <div>
+          <form onsubmit="App.submitQuiz(event, ${mi})">
+            ${quiz.map((q, qi) => `
+              <div class="q" data-q="${qi}">
+                <p><b>Q${qi + 1}.</b> ${esc(q.q)}</p>
+                ${q.opts.map((opt, oi) => `<label data-opt="${oi}"><input type="radio" name="q${qi}" value="${oi}" onchange="App.selectOption(this)"> ${esc(opt)}</label>`).join('')}
+              </div>
+            `).join('')}
+            <div id="quiz-feedback-${mi}" class="feedback"></div>
+            <div class="actions">
+              <button type="button" class="btn-secondary btn-sm" onclick="App.openCourse(${mi}, 0)">← Back to Lesson</button>
+              <button class="btn btn-sm" type="submit">Submit Assessment</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
   }
 
   function renderLessonHTML(mi, li) {
     const module = COURSE.modules[mi];
     const lesson = module.lessons[li];
-    const firstLessonOfModule = li === 0;
+    
+    // If this is the Answer Key lesson, we can show a quick link to the assessment
+    const isAnswerKey = lesson.answerKey;
+    
     const lessonTitleBlock = `
       <div class="lesson-hero">
         <div>
@@ -1244,7 +1302,7 @@ const App = (() => {
           <h2>${esc(module.title)}</h2>
           <p>${esc(lesson.title)} · ${esc(lesson.duration || '')}</p>
         </div>
-        <div class="hero-mark">${firstLessonOfModule ? '📖' : '📝'}</div>
+        <div class="hero-mark">${isAnswerKey ? '📝' : '📖'}</div>
       </div>
     `;
     const lessonBody = `
@@ -1253,7 +1311,7 @@ const App = (() => {
         <div>${lesson.html || '<p>No content.</p>'}</div>
         <div class="actions">
           <button class="btn-secondary btn-sm" onclick="App.coursePrev(${mi}, ${li})" ${(mi === 0 && li === 0) ? 'disabled style="opacity:.4;cursor:not-allowed;"' : ''}>← Previous</button>
-          ${firstLessonOfModule ? `<button class="btn btn-sm" onclick="App.markDone(${mi}, ${li})">Mark lesson complete</button>` : `<button class="btn btn-sm" onclick="App.markDone(${mi}, ${li})">Mark lesson complete</button>`}
+          ${li === 0 ? `<button class="btn btn-sm" onclick="App.openAssessment(${mi})">Take Assessment</button>` : `<button class="btn btn-sm" onclick="App.markDone(${mi}, ${li})">Mark lesson complete</button>`}
           <button class="btn-outline btn-sm" onclick="App.courseNext(${mi}, ${li})" ${(mi === COURSE.modules.length - 1 && li === module.lessons.length - 1) ? 'disabled style="opacity:.4;cursor:not-allowed;"' : ''}>Next →</button>
         </div>
       </div>
@@ -1267,9 +1325,16 @@ const App = (() => {
     host.innerHTML = '';
     COURSE.modules.forEach((m, mi) => {
       const locked = isModuleLocked(user.username, mi);
+      const quizDone = getQuizResult(user.username, mi)?.completed;
       const open = (mi === activeMi) || (!locked && mi <= activeMi);
       const sec = document.createElement('div');
       sec.className = 'mod-section' + (open ? ' open' : '');
+      
+      // Add assessment button if the quiz isn't done
+      const assessmentBtn = !quizDone && !locked 
+        ? `<button class="lesson-item-btn" onclick="App.openAssessment(${mi})" style="color:#b42b68;font-weight:600;">📝 Module ${mi + 1} Assessment</button>` 
+        : "";
+
       sec.innerHTML = `
         <button class="mod-header ${locked ? 'locked' : ''}" ${locked ? 'disabled' : ''}>
           <span>Module ${mi + 1}: ${esc(m.title)}</span>
@@ -1278,9 +1343,15 @@ const App = (() => {
         <div class="mod-lessons-list">
           ${m.lessons.map((l, li) => {
             const done = isLessonDone(user.username, mi, li);
-            const active = mi === activeMi && li === activeLi;
-            return `<button class="lesson-item-btn ${active ? 'active' : ''} ${done ? 'done' : ''}" ${locked ? 'disabled style="opacity:.4;cursor:not-allowed;"' : `onclick="App.openCourse(${mi}, ${li})"`}>${done ? '✓ ' : ''}${esc(l.title)}</button>`;
+            // If this is the answer key, lock it until the quiz is passed
+            const isAnswerKeyLocked = l.answerKey && !quizDone;
+            const active = mi === activeMi && li === activeLi && !state.isAssessment;
+            return `<button class="lesson-item-btn ${active ? 'active' : ''} ${done ? 'done' : ''}" 
+              ${locked || isAnswerKeyLocked ? 'disabled style="opacity:.4;cursor:not-allowed;"' : `onclick="App.openCourse(${mi}, ${li})"`}>
+              ${done ? '✓ ' : ''}${isAnswerKeyLocked ? '🔒 ' : ''}${esc(l.title)}
+            </button>`;
           }).join('')}
+          ${assessmentBtn}
         </div>
       `;
       const header = sec.querySelector('.mod-header');
@@ -1293,33 +1364,8 @@ const App = (() => {
   }
 
   function attachLessonHandlers(mi, li) {
-    // Quiz behaviour for first lesson of each module (module assessment)
-    const lesson = COURSE.modules[mi].lessons[li];
-    if (!lesson || !lesson.quiz) return;
-    const host = document.getElementById('lesson-host');
-    if (!host) return;
-    const body = host.querySelector('.lesson-card > div:nth-of-type(2)');
-    if (!body) return;
-
-    const quizHTML = `
-      <div class="card" style="margin-top:22px;">
-        <h3 style="margin-top:0;">Module ${mi + 1} Assessment</h3>
-        <p style="font-size:13px;color:var(--muted);">Answer all questions. Pass mark: ${COURSE.passMark}%.</p>
-        <form onsubmit="App.submitQuiz(event, ${mi})">
-          ${lesson.quiz.map((q, qi) => `
-            <div class="q" data-q="${qi}">
-              <p><b>Q${qi + 1}.</b> ${esc(q.q)}</p>
-              ${q.opts.map((opt, oi) => `<label data-opt="${oi}"><input type="radio" name="q${qi}" value="${oi}" onchange="App.selectOption(this)"> ${esc(opt)}</label>`).join('')}
-            </div>
-          `).join('')}
-          <div id="quiz-feedback-${mi}" class="feedback"></div>
-          <div class="actions">
-            <button class="btn btn-sm" type="submit">Submit assessment</button>
-          </div>
-        </form>
-      </div>
-    `;
-    body.insertAdjacentHTML('beforeend', quizHTML);
+    // Since we separate the quiz out, we only need to make sure `state.isAssessment` is false
+    state.isAssessment = false;
   }
 
   function selectOption(radio) {
@@ -1349,7 +1395,6 @@ const App = (() => {
     const pct = Math.round((correct / quiz.length) * 100);
     const passed = pct >= COURSE.passMark;
 
-    // record on first lesson of module
     const u = state.user;
     if (u) {
       const cache = getProgressCache();
@@ -1358,7 +1403,6 @@ const App = (() => {
       const bestScore = Math.max(prev?.score || 0, correct);
       cache[key] = { completed: passed, score: bestScore, total: quiz.length };
       setProgressCache(cache);
-      // best-effort API
       try {
         const auth = getAuth();
         if (auth?.token) {
@@ -1383,7 +1427,7 @@ const App = (() => {
       : `<span style="color:var(--error);font-weight:700;">Score ${correct}/${quiz.length} (${pct}%). Below pass mark. Review and try again.</span>`;
 
     if (passed) {
-      renderModuleNav(state.user, mi, 0);
+      setTimeout(() => App.openCourse(mi, 1), 1500); // Send them to the Answer Key once passed
     }
   }
 
@@ -1392,9 +1436,7 @@ const App = (() => {
     if (!u) return;
     await markLessonComplete(mi, li);
     const fb = document.getElementById('lesson-host');
-    // Refresh sidebar module state
     renderModuleNav(u, mi, li);
-    // Gently acknowledge
     const btn = fb?.querySelector('.lesson-card .actions .btn');
     if (btn) { btn.textContent = '✓ Completed'; btn.classList.add('btn-done'); }
   }
@@ -1411,8 +1453,6 @@ const App = (() => {
     if (li < module.lessons.length - 1) return openCourse(mi, li + 1);
     if (mi < COURSE.modules.length - 1) return openCourse(mi + 1, 0);
   }
-
-  /* ---------- certificate ---------- */
 
   async function showCertificate() {
     state.screen = 'certificate';
@@ -1447,7 +1487,6 @@ const App = (() => {
     `;
 
     if (completed) {
-      // inject QR
       setTimeout(() => {
         const qr = document.getElementById('cert-qr');
         if (qr && typeof QRCode !== 'undefined') {
@@ -1520,7 +1559,6 @@ const App = (() => {
       alert('Certificate image library not loaded. Use Print instead.');
       return;
     }
-    // Un-scale for capture
     const scaler = node.parentElement;
     const oldTransform = scaler.style.transform;
     scaler.style.transform = 'none';
@@ -1537,8 +1575,6 @@ const App = (() => {
       scaler.style.transform = oldTransform;
     }
   }
-
-  /* ---------- discussion & announcements (light) ---------- */
 
   function showDiscussion() {
     state.screen = 'discussion';
@@ -1619,7 +1655,6 @@ const App = (() => {
     `;
   }
 
-  /* ---------- init ---------- */
   async function init() {
     state.user = await currentUser();
     await renderNav();
@@ -1632,19 +1667,11 @@ const App = (() => {
   }
 
   return {
-    // nav / sidebar
     toggleMobileMenu, closeMobileMenu, toggleModuleMenu, closeModuleMenu, navigate, goHome,
-    // auth
     showLanding, showLogin, showRegister, handleLogin, handleRegister, logout,
-    // app screens
     showDashboard, showCatalogue, openCourse, showCertificate, showDiscussion, showAnnouncements,
-    // course actions
-    selectOption, submitQuiz, markDone, coursePrev, courseNext,
-    // certificate
-    downloadCertificate,
-    // discussion
-    postThread,
-    // expose state for debugging
+    selectOption, submitQuiz, markDone, coursePrev, courseNext, openAssessment,
+    downloadCertificate, postThread,
     get state() { return state; },
     init
   };
